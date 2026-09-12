@@ -2,6 +2,8 @@
 
 ## SDLC-003 — Manual workflow acceptance
 
+- Positional-message regression: invoke `E2E_BROWSER=chrome pnpm sdlc "sdlc script"`. After successful gates, a nonempty commit uses that exact message and E2E discovers the full suite; the message must not appear as a Playwright file filter. Repeat with `-- --project=api` to verify intentional filtering. Authored; pending execution.
+
 - In a disposable development checkout with the app/databases ready, invoke `E2E_BROWSER=chrome pnpm sdlc --message "Workflow acceptance" -- --project=api`. Formatting and checks must precede the local commit, followed by the chosen E2E project and saved evidence. Nothing pushes.
 - With a clean tree and formatting already applied, invoke again: no empty commit, but tests still run.
 - With a deliberately introduced lint error, invoke: no commit or E2E after the failing check. Restore the edit manually.

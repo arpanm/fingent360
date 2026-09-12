@@ -3,6 +3,26 @@ import { fileURLToPath } from 'node:url';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
 
+export function parseArguments(input) {
+  const args = [...input];
+  let message = 'chore: validated local changes';
+  if (args[0] === '--message') {
+    args.shift();
+    message = args.shift();
+    if (!message?.trim() || message.startsWith('--')) {
+      throw new Error('--message requires a nonempty commit message.');
+    }
+  } else if (args.length && !args[0].startsWith('-')) {
+    message = args.shift();
+    if (!message.trim()) throw new Error('Commit message must not be empty.');
+  }
+  if (args[0] === '--') args.shift();
+  else if (args.some((arg) => !arg.startsWith('-'))) {
+    throw new Error('Place Playwright filters after --, e.g. pnpm sdlc "Fix" -- --grep E2E-API-001.');
+  }
+  return { message, filters: args };
+}
+
 export function workflow(message, filters = [], execute = executeCommand) {
   const step = (command, args) => {
     const status = execute(command, args);
@@ -37,22 +57,14 @@ function executeCommand(command, args) {
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   try {
-    const args = process.argv.slice(2);
-    let message = 'chore: validated local changes';
-    if (args[0] === '--message') {
-      args.shift();
-      message = args.shift();
-      if (!message?.trim())
-        throw new Error('--message requires a nonempty commit message.');
-    }
-    if (args[0] === '--') args.shift();
+    const { message, filters } = parseArguments(process.argv.slice(2));
     console.log(
       'Format → check → stage all non-ignored changes → local commit → E2E. No push.',
     );
     console.log(
       'App/databases and migrations must already be ready. E2E failure retains the commit.',
     );
-    workflow(message, args);
+    workflow(message, filters);
     console.log('Workflow completed. Test evidence: artifacts/e2e/latest.md');
   } catch (error) {
     console.error(error.message);

@@ -2,6 +2,8 @@
 
 ## SDLC-003 — One manual format/check/commit/E2E command
 
+- **Argument parsing follow-up:** User output confirms format/check passed and local commit f116f1f succeeded; E2E run 2026-09-12T15-35-48-873Z-56736 failed discovery because the positional message "sdlc script" became a file filter. Added positional-message support alongside --message, explicit -- filter separation and regression cases. Prompt: preserve gate order, consume the quoted message before forwarding E2E filters, reject ambiguous arguments before execution, update docs/cases. Fix authored; not executed. Manually rerun E2E_BROWSER=chrome pnpm sdlc "sdlc script" with services ready.
+
 - **Implementation:** Implemented; verification not run.
 - **Delivery:** scripts/sdlc.mjs, pnpm sdlc, isolated workflow regression tests and manual acceptance in the E2E coverage plan. User next action: with services/migrations ready, run E2E_BROWSER=chrome pnpm sdlc --message "Describe the change". No checks or E2E executed by Codex.
 - **Request:** Provide a script that runs pnpm format, pnpm check, a local commit, then E2E tests in sequence.

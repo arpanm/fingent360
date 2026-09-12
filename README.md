@@ -6,6 +6,8 @@ A goal-aware market intelligence and portfolio platform for Indian investors. Th
 
 ### One-command manual workflow (SDLC-003)
 
+Both `pnpm sdlc "Describe the change"` and `pnpm sdlc --message "Describe the change"` accept a commit message. Put Playwright filters after `--`, for example `pnpm sdlc "Fix" -- --project=api`. The quoted message is never passed to Playwright as a file filter.
+
 With the app, databases and migrations already ready, run:
 
 ```bash

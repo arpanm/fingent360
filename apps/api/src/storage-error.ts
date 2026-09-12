@@ -1,7 +1,9 @@
 // Never expose driver messages, SQL, connection strings or parameter values.
 export function storageErrorMessage(error: unknown): string {
-  const code = typeof error === 'object' && error !== null && 'code' in error
-    ? error.code : undefined;
+  const code =
+    typeof error === 'object' && error !== null && 'code' in error
+      ? error.code
+      : undefined;
   switch (code) {
     case '42P01':
     case '42703':

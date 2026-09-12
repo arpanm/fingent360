@@ -19,8 +19,8 @@ Each task prompt below is combined with this contract (also reference it when co
 
 | ID        | Task                                                                 | Implementation | Verification    |
 | --------- | -------------------------------------------------------------------- | -------------- | --------------- |
-| SLICE-001 | [Working educational portfolio journey](#slice-001) | Implemented | Awaiting user |
-| BUG-003 | Workspace creation diagnostics | Implemented | Awaiting user |
+| SLICE-001 | [Working educational portfolio journey](#slice-001)                  | Implemented    | Awaiting user   |
+| BUG-003   | Workspace creation diagnostics                                       | Implemented    | Awaiting user   |
 | BUG-002   | [JSON API not-found responses](#bug-002)                             | Implemented    | Awaiting user   |
 | BUG-001   | [Duplicate startup / browser download recovery](#bug-001)            | Implemented    | Awaiting user   |
 | SETUP-001 | [Local development foundation](#setup-001)                           | Implemented    | Historical only |
@@ -1144,7 +1144,6 @@ DEV-014 is the legacy umbrella for later connectivity/channels/assets. DEV-022�
 
 - 2026-09-12 user report: `pnpm format`, `pnpm check` and all tests passed; user committed and pushed. No run ID or individual case list supplied; this does not establish completion of the separate outage/runner acceptance scenarios. DEV-001 documents and DOC-001–DOC-015 authored afterward; manual review pending.
 
-
 <a id="slice-001"></a>
 
 ## SLICE-001 — Working educational portfolio journey
@@ -1160,7 +1159,6 @@ DEV-014 is the legacy umbrella for later connectivity/channels/assets. DEV-022�
 - **Files:** packages/contracts/src/journey.ts; apps/api/src/journey*.ts; infra/migrations/001_virtual_journey.sql; apps/web/src/Journey.tsx; tests/e2e/cases/{api,browser}/journey.spec.ts.
 - **Cases:** E2E-API-010–013, E2E-WEB-010–012 plus domain golden/negative tests. Existing foundation browser case updated to the working landing page.
 - **Manual next actions:** Follow [working journey](docs/development/working-journey.md): db:up → format → check → db:migrate → dev; launch Chrome E2E UI and run @SLICE-001 in API/desktop/mobile. Report failures by case/project/trace. No dependency changes. No commands/tests/services executed by Codex; no push.
-
 
 ## BUG-003 — Workspace creation returns an undiagnosed 503
 

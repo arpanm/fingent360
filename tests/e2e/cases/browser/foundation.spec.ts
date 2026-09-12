@@ -11,10 +11,9 @@ test.describe('Foundation browser @SETUP-001 @SDLC-001 @smoke', () => {
     });
     await test.step('Show the honest synthetic workspace scope', async () => {
       await expect(
-        page.getByText(
-          'no live market data or investment recommendations.',
-          { exact: false },
-        ),
+        page.getByText('no live market data or investment recommendations.', {
+          exact: false,
+        }),
       ).toBeVisible();
       await expect(
         page

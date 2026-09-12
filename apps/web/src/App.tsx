@@ -45,7 +45,9 @@ export function App() {
           A clearer way to understand what changed, why it matters, and how it
           relates to your investments.
         </p>
-        <p role="status" className="connection">{status}</p>
+        <p role="status" className="connection">
+          {status}
+        </p>
         <Journey />
       </main>
       <footer>

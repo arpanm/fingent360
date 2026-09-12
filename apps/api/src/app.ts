@@ -45,7 +45,10 @@ export async function createApp(
     {
       module: AppModule,
       controllers: [HealthController, JourneyController],
-      providers: [{ provide: DEPENDENCY_PROBE, useValue: probe }, journeyProvider(config)],
+      providers: [
+        { provide: DEPENDENCY_PROBE, useValue: probe },
+        journeyProvider(config),
+      ],
     },
     { logger: ['error', 'warn', 'log'] },
   );
@@ -53,11 +56,17 @@ export async function createApp(
   app.setGlobalPrefix('/api/v1');
   app.enableCors({ origin: config.WEB_ORIGIN });
   // Workspace capabilities and private responses must never enter shared caches.
-  app.use((_request: unknown, response: { setHeader: (name: string, value: string) => void }, next: () => void) => {
-    response.setHeader('Cache-Control', 'no-store');
-    response.setHeader('X-Content-Type-Options', 'nosniff');
-    next();
-  });
+  app.use(
+    (
+      _request: unknown,
+      response: { setHeader: (name: string, value: string) => void },
+      next: () => void,
+    ) => {
+      response.setHeader('Cache-Control', 'no-store');
+      response.setHeader('X-Content-Type-Options', 'nosniff');
+      next();
+    },
+  );
   app.enableShutdownHooks();
   return app;
 }

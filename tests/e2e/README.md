@@ -98,6 +98,6 @@ Open http://127.0.0.1:9323 yourself and click Run for selected cases. Installed-
 E2E_BROWSER=chrome pnpm e2e:run --project=desktop
 ```
 
-The default remains managed Chromium. If retrying its installer, use Node 24 LTS and `DEBUG=pw:install pnpm e2e:install` to expose transfer/extraction details. No specific root cause of the download stall has been confirmed. Do not delete browser caches or stop unrelated applications as a workaround.
+The default is installed Google Chrome on macOS and managed Chromium elsewhere. Explicit E2E_BROWSER in the shell, then .env, overrides this default. If retrying the managed browser installer, use Node 24 LTS and `DEBUG=pw:install pnpm e2e:install` to expose transfer/extraction details. No specific root cause of the download stall has been confirmed. Do not delete browser caches or stop unrelated applications as a workaround.
 
 BUG-001: implementation authored, manual verification pending. Codex did not stop processes, install browsers or run startup/tests/checks.

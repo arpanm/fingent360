@@ -2,6 +2,8 @@
 
 ## SDLC-003 — Manual workflow acceptance
 
+- Browser-default regression: on macOS with Google Chrome installed and no E2E_BROWSER override, run `pnpm sdlc "Browser default"`. Desktop/mobile cases must launch Chrome without requiring the managed Chromium cache. Verify explicit shell and .env browser choices override the platform default; other platforms retain Chromium. Existing E2E-WEB-001 on desktop/mobile covers launch and real API connectivity. Authored; not executed.
+
 - Positional-message regression: invoke `E2E_BROWSER=chrome pnpm sdlc "sdlc script"`. After successful gates, a nonempty commit uses that exact message and E2E discovers the full suite; the message must not appear as a Playwright file filter. Repeat with `-- --project=api` to verify intentional filtering. Authored; pending execution.
 
 - In a disposable development checkout with the app/databases ready, invoke `E2E_BROWSER=chrome pnpm sdlc --message "Workflow acceptance" -- --project=api`. Formatting and checks must precede the local commit, followed by the chosen E2E project and saved evidence. Nothing pushes.

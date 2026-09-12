@@ -2,6 +2,8 @@
 
 ## SDLC-003 — One manual format/check/commit/E2E command
 
+- **Browser follow-up:** User run 2026-09-12T15-37-55-136Z-57318 reached 33 E2E attempts; all 20 browser cases failed to launch because managed chromium_headless_shell-1208 is absent. Plain pnpm sdlc omitted the previous Chrome override. Prompt: default to installed Chrome on macOS, retain managed Chromium elsewhere and explicit environment/.env overrides, and document manual regression acceptance. Implemented in Playwright configuration; new verification pending. No browser installation or test execution by Codex.
+
 - **Argument parsing follow-up:** User output confirms format/check passed and local commit f116f1f succeeded; E2E run 2026-09-12T15-35-48-873Z-56736 failed discovery because the positional message "sdlc script" became a file filter. Added positional-message support alongside --message, explicit -- filter separation and regression cases. Prompt: preserve gate order, consume the quoted message before forwarding E2E filters, reject ambiguous arguments before execution, update docs/cases. Fix authored; not executed. Manually rerun E2E_BROWSER=chrome pnpm sdlc "sdlc script" with services ready.
 
 - **Implementation:** Implemented; verification not run.

@@ -39,7 +39,10 @@ process.env.E2E_WEB_URL = web;
 const runId = process.env.E2E_RUN_ID ?? `manual-${Date.now()}`;
 if (!/^[a-zA-Z0-9-]+$/.test(runId)) throw new Error('Invalid E2E_RUN_ID');
 const output = path.join(root, 'artifacts/e2e', runId);
-const browserChoice = process.env.E2E_BROWSER ?? 'chromium';
+const browserChoice =
+  process.env.E2E_BROWSER ??
+  local.E2E_BROWSER ??
+  (process.platform === 'darwin' ? 'chrome' : 'chromium');
 if (!['chromium', 'chrome'].includes(browserChoice)) {
   throw new Error(
     'E2E_BROWSER must be chromium (managed) or chrome (installed Google Chrome).',

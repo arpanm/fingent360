@@ -6,6 +6,8 @@ A goal-aware market intelligence and portfolio platform for Indian investors. Th
 
 ### One-command manual workflow (SDLC-003)
 
+On macOS, installed Google Chrome is now the default, so `pnpm sdlc "Describe the change"` needs no browser prefix. Other platforms default to managed Chromium. Set `E2E_BROWSER=chromium` or `E2E_BROWSER=chrome` in `.env` to persist a preference; an explicit shell environment value takes precedence. Browser installation remains manual.
+
 Both `pnpm sdlc "Describe the change"` and `pnpm sdlc --message "Describe the change"` accept a commit message. Put Playwright filters after `--`, for example `pnpm sdlc "Fix" -- --project=api`. The quoted message is never passed to Playwright as a file filter.
 
 With the app, databases and migrations already ready, run:

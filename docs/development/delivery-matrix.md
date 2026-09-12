@@ -1,5 +1,7 @@
 # Roadmap delivery audit — UX-001
 
+Current experience direction is UX-002: the user rejected mobile usability after the historical implementation below. Root TODO UX-002A–G and docs/product/mobile-experience-plan.md add the complete reader/feed/library/personalization/media/form experience with corresponding backend/data/jobs/acceptance. They overlay DEV-001/006–009/011/012/015–019/021 and relevant source tasks; they do not close those parents. Existing runtime controls remain unchanged during planning.
+
 Source inspection on 2026-09-12: runtime modules in apps/api/src, apps/web/src, packages/contracts/src and migrations001–009. This is a scope audit, not runtime verification. Root TODO owns task status and exact verification. A bounded child does not complete its broader parent. Historical passes apply only to their original run/version.
 
 ## Development parents

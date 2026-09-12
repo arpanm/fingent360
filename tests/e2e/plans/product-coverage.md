@@ -1,5 +1,9 @@
 # Planned end-to-end coverage
 
+## UX-002 mobile product direction
+
+[Mobile experience acceptance](mobile-experience-acceptance.md) maps UX-002A–G to 6 planning reviews and 28 implementation acceptance scenarios covering operator separation, reader/navigation/evidence, actual sources, interest gestures, library/reminders, ranking/privacy, guided financial forms, grounded AI, media/learning, migrations and real-device acceptance. These are planned, not executable/pass placeholders. Source review found current macro tests can pass without visible result navigation or key-clear confirmation; current user-reported problems remain open. The prior UX-001 runtime evidence below remains historical.
+
 ## UX-001 complete workflow correction
 
 API110 verifies the real account overview read model, exact amounts, isolation and reflected changes. WEB110 walks registration → goal → holding → overview with persisted data. WEB111 covers desktop/mobile navigation, skip link, focus and route recovery. WEB112 covers outage/retry without false empty state. WEB062/092 distinguish sign-in from storage failure and protect unsaved edits; WEB033 covers safe return destinations. Existing cases retain provider refresh, consent, ownership, import conflicts, privacy export and learning-lab regression coverage. See [experience specification and visual review](../../../docs/product/experience.md) and [delivery audit](../../../docs/development/delivery-matrix.md). No placeholder cases imply finished roadmap items.

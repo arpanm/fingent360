@@ -1,5 +1,7 @@
 # End-to-end case catalogue
 
+**UX-002 planning:** [mobile experience acceptance](plans/mobile-experience-acceptance.md) defines UX-PLAN-001–006 document reviews and UX-ACC-001–028 future implementation scenarios. They are not runnable cases or passes. The user has rejected mobile usability; historical UX-001 results do not close current operator/history/source issues. Extend real API/browser cases with visible results, focus/return, actual device gestures and complete data/job paths when implementing UX-002A–G.
+
 Case definitions describe coverage; current execution evidence is recorded at the top of TODO and in artifacts/e2e/latest.md. Historical notes below apply to their original change only. Task status and manual verification live in [TODO.md](../../TODO.md). Stable IDs appear in the UI, errors and reports. Browser cases run separately under desktop and mobile projects.
 
 | ID          | Task                         | Project / scenario   | Prerequisites                                                    | Expected outcome                                      | Kind                                   |

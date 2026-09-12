@@ -1,6 +1,10 @@
 # Current implementation and verification status
 
-## UX-001 — current correction
+## UX-002 — proposed mobile product replacement
+
+Plan authored after the user's rejection of current mobile usability and report of operator/history/source CTA problems. Read docs/product/mobile-experience-plan.md and root TODO UX-002A–G for the new target experience, full-stack dependencies and complete delivery prompts. The source audit identifies distant appended results, absent credential-clear feedback and global scroll reset; runtime failures were not reproduced in this planning turn. Tests below remain historical coverage, not user acceptance. Current app/data/schema are unchanged; proposed feed, personalized library/reminders, media and suggestions are not implemented. New manual/implementation acceptance scenarios are authored under tests/e2e/plans/mobile-experience-acceptance.md. Planning-turn deterministic gates and tests were not run; local commit awaits the user's manual format/check gates.
+
+## UX-001 — historical implemented baseline
 
 Implemented and verified for the existing account workflows. The new authenticated overview read model joins saved goals, holdings, watchlist and inbox under one repeatable-read transaction. Responsive navigation and guided forms connect overview, account, holdings, goals, research/inbox and privacy. Runtime schema validation, exact money, ownership and provenance remain enforced. Migrations001–009 are reused; no dependency installation or new migration was required. Documentation specifies all delivery layers and audits every DEV/SRC parent's remaining scope.
 

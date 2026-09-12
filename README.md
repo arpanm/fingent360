@@ -2,7 +2,11 @@
 
 A market research and personal record-keeping application for Indian investors. It stores real World Bank annual macro observations and user-entered account, holdings and goal data. Holdings cost basis is not market value; contribution-only planning assumes no investment return. A separately labelled virtual learning exercise uses fictional companies and prices. Personalised regulated advice and trade execution remain disabled.
 
-## Current development — UX-001
+## Current direction — UX-002
+
+**Current direction: UX-002 mobile product redesign.** Subsequent user feedback rejects the mobile experience and reports operator/history/source control problems. The [new product plan](docs/product/mobile-experience-plan.md) defines Today/Explore/My money/Saved/More, typographic Scan/Stories, contextual reading/evidence, private save/remind/personalization, grounded suggestions and learning/media, with complete API/data/automation requirements. [UX-002A–G in TODO](TODO.md) and the [acceptance plan](tests/e2e/plans/mobile-experience-acceptance.md) sequence implementation. This is a planning deliverable; current runtime behavior is unchanged and the reported issues remain open. UX-001's historical passes below do not establish design acceptance.
+
+## Implemented baseline — UX-001
 
 The implemented correction joins overview → account → holdings → goals → research/inbox → privacy with a responsive workspace, guided editing and recovery. An authenticated overview API reads actual saved goals, holdings, watchlists and inbox state in one consistent database transaction. The roadmap now requires specification, UI, UX, API, functionality, database, real data, automation, tests and documentation for every feature. **Integrated verification passed: 68 E2E passes, zero failures, one deliberate-outage skip; 40 unit tests passed.** See [experience acceptance](docs/product/experience.md), [roadmap audit](docs/development/delivery-matrix.md), [current status](docs/development/status.md) and [TODO](TODO.md).
 

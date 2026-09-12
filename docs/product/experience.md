@@ -1,5 +1,7 @@
 # Connected product experience — UX-001
 
+The user subsequently rejected this mobile experience. [UX-002 mobile product plan](mobile-experience-plan.md) now defines the target navigation, reader, discovery and complete feature flows. This document records the implemented UX-001 scope and historical acceptance criteria; it does not establish user acceptance or completion of UX-002. Existing persistence/provenance guarantees remain applicable.
+
 ## Purpose and honest boundaries
 
 Help an Indian beginner understand their saved information and reported economic evidence, then choose a concrete next step. The product currently supports education, manual record keeping and contribution-only planning. Cost basis is what the user entered, not market value; macro observations are annual reported history, not real-time prices. A source registry entry records review metadata, not a functioning adapter. No recommendation or trade follows automatically from a macro change.

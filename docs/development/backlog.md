@@ -1,5 +1,7 @@
 # Development backlog navigation
 
+The current planning priority is [UX-002 mobile product redesign](../product/mobile-experience-plan.md), with complete implementation packages UX-002A–G in root TODO. The user has reopened acceptance of UX-001. Establish the new screen/CTA contracts and real reader/operator boundary first; parallel data/library work follows those shared contracts. Existing valuation/allocation/event parent scope is integrated with this plan rather than treated as a separate UI patch list.
+
 [Root TODO](../../TODO.md) is the single task/status tracker. It contains stable request IDs, detailed prompts, acceptance and historical evidence for DEV-001–030 and SRC-001–027 plus bounded implementation children. Do not maintain competing status here.
 
 [Delivery matrix](delivery-matrix.md) audits all parent items against actual modules and separates missing engineering from external/product gates. [Experience](../product/experience.md) defines connected workflow and per-layer UX acceptance. [SDLC](sdlc.md) defines user-manual execution by default and commit only after format/check pass. [Current status](status.md) distinguishes current work from historical verified runs.

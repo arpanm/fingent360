@@ -19,6 +19,7 @@ Each task prompt below is combined with this contract (also reference it when co
 
 | ID | Task | Implementation | Verification |
 | --- | --- | --- | --- |
+| BUG-001 | [Duplicate startup / browser download recovery](#bug-001) | Implemented | Awaiting user |
 | SETUP-001 | [Local development foundation](#setup-001) | Implemented | Historical only |
 | SDLC-001 | [Manual SDLC and reusable API/browser test dashboard](#sdlc-001) | Implemented | Awaiting user |
 | SDLC-002 | [User acceptance of the SDLC tool](#sdlc-002) | Awaiting user | Awaiting user |
@@ -1109,3 +1110,16 @@ DEV-014 is the legacy umbrella for later connectivity/channels/assets. DEV-022�
 ## Change log
 
 - 2026-09-12: migrated SETUP-001 and DEV-001–DEV-014 from the legacy backlog; added SDLC tasks, detailed product workstreams and all 27 source onboarding tasks. SDLC-001 source implementation completed; manual verification remains pending. No tests or environment commands executed for this change. Removed the authorized duplicate root plan, preserving the README blueprint and reference copy.
+
+<a id="bug-001"></a>
+
+### BUG-001 — Duplicate development session and stalled browser installation
+
+- **Implementation:** Implemented
+- **Verification:** User-reported startup/install failure; fix not run.
+- **Context:** A prior Fingent360 dev process still owns 5173 and 4100; the second web process exits and concurrently terminates its sibling processes. Managed Chromium installation remains active after its progress reaches 100%.
+- **Scope:** Add a pre-build port check that reports existing listeners without killing them. Allow explicitly selecting installed Google Chrome for browser E2E, without requiring managed Chromium or FFmpeg downloads. Keep default managed Chromium supported.
+- **Acceptance:** Duplicate startup gives an actionable error before building; a normal startup remains unchanged. Installed-Chrome mode uses isolated Playwright contexts and does not touch the user's browser profile. No service/process is stopped by Codex.
+- **E2E coverage:** tests/e2e/CATALOG.md BUG-001 manual acceptance; existing E2E-WEB-001–004 under both browser choices.
+- **Codex prompt:** Read AGENTS.md, README.md and BUG-001. Inspect existing listeners and launcher/config source only. Add an explicit pre-build duplicate-port error without killing/reusing unknown services. Add E2E_BROWSER=chrome using Playwright's installed browser channel and disable video in that mode to avoid FFmpeg download requirements. Document cancelling the old installer and reusing or manually stopping the old dev session. Add manual acceptance cases, update TODO/README and commit locally. Do not install, start/stop services, run checks/tests or push.
+- **Manual next actions:** User cancels pending install; reuses existing app or stops its old dev session and restarts. Launch E2E_BROWSER=chrome pnpm e2e:ui and run selected cases. Report actual results.

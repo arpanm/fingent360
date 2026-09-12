@@ -17,6 +17,11 @@ const web = localTarget(process.env.E2E_WEB_URL ?? 'http://127.0.0.1:5173');
 const runId = process.env.E2E_RUN_ID ?? `manual-${Date.now()}`;
 if (!/^[a-zA-Z0-9-]+$/.test(runId)) throw new Error('Invalid E2E_RUN_ID');
 const output = path.join(root, 'artifacts/e2e', runId);
+const browserChoice = process.env.E2E_BROWSER ?? 'chromium';
+if (!['chromium', 'chrome'].includes(browserChoice)) {
+  throw new Error('E2E_BROWSER must be chromium (managed) or chrome (installed Google Chrome).');
+}
+const browserOptions = browserChoice === 'chrome' ? { channel: 'chrome' as const } : {};
 
 export default defineConfig({
   testDir: './tests/e2e/cases',
@@ -32,19 +37,19 @@ export default defineConfig({
     ['html', { outputFolder: path.join(output, 'report'), open: 'never' }],
     ['json', { outputFile: path.join(output, 'results.json') }],
   ],
-  metadata: { apiTarget: api, webTarget: web, runId },
+  metadata: { apiTarget: api, webTarget: web, browserChoice, runId },
   use: {
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
-    video: 'retain-on-failure',
+    video: browserChoice === 'chrome' ? 'off' : 'retain-on-failure',
     actionTimeout: 10_000,
     navigationTimeout: 15_000,
     serviceWorkers: 'block',
   },
   projects: [
     { name: 'api', testMatch: '**/api/**/*.spec.ts', use: { baseURL: api } },
-    { name: 'desktop', testMatch: '**/browser/**/*.spec.ts', use: { ...devices['Desktop Chrome'], baseURL: web } },
-    { name: 'mobile', testMatch: '**/browser/**/*.spec.ts', use: { ...devices['Desktop Chrome'], viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, baseURL: web } },
+    { name: 'desktop', testMatch: '**/browser/**/*.spec.ts', use: { ...devices['Desktop Chrome'], ...browserOptions, baseURL: web } },
+    { name: 'mobile', testMatch: '**/browser/**/*.spec.ts', use: { ...devices['Desktop Chrome'], ...browserOptions, viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, baseURL: web } },
   ],
   // No webServer, globalSetup, scheduler or auto-run hooks. The user starts
   // the application/databases and explicitly runs selected cases in the UI.

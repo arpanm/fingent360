@@ -25,3 +25,11 @@ All cases below are **authored, not executed** in this SDLC change. No pass/fail
 ## Planned feature coverage
 
 [plans/product-coverage.md](plans/product-coverage.md) maps each future task to required acceptance scenarios. Planned scenarios are not runnable passing placeholders. When implementing a task, create concrete `.spec.ts` cases, replace its planned entries with executable IDs and link both directions to TODO.
+
+## BUG-001 regression acceptance — manual user steps
+
+- With an existing dev session using 5173/4100, invoke a second `pnpm dev`: expect a named occupied-port error before build output, and the original app remains running.
+- Stop only the original dev session via Ctrl-C, then invoke `pnpm dev`: expect normal startup on the documented ports. Never terminate an unrelated listener.
+- Cancel a stalled browser installer. With Google Chrome installed, launch `E2E_BROWSER=chrome pnpm e2e:ui`; select desktop and E2E-WEB-001–004, then click Run. Expect execution without managed Chromium/FFmpeg installation. Repeat with mobile. Screenshot/trace evidence remains available; video is intentionally disabled.
+- If managed Chromium is installed, launch without E2E_BROWSER and confirm those same cases still select managed Chromium.
+- These definitions were not executed by Codex. Report run IDs and failures before recording a pass.

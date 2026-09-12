@@ -41,3 +41,7 @@ All nine available turns of “Market Analysis Review” and the revised bluepri
 SDLC-001 implementation is written: TODO with task prompts, case catalogue and planned coverage, reusable manual Playwright API/browser dashboard launcher, pinned dependency/lockfile entries, manual-only CI and updated repository instructions. The duplicate root plan is removed and the user's appended README blueprint is preserved.
 
 SDLC-002 remains awaiting user acceptance. No dependency/browser installation, formatting, lint/typecheck/build, test execution or UI verification was performed for this change. The dependency graph was authored using registry metadata; the user's frozen installation validates it. No automated pass is claimed for the new cases. Follow tests/e2e/README.md for manual commands and CATALOG.md for runner acceptance.
+
+## BUG-001 recovery
+
+User reported duplicate development startup failure and browser download stalling at 100%. Read-only inspection found an earlier Fingent360 session still bound to 5173/4100 and an active Playwright downloader. Added a pre-build port-conflict message and optional E2E_BROWSER=chrome mode (video disabled to avoid FFmpeg). The download stall's exact cause remains unconfirmed. No processes were stopped or checks executed; manual acceptance is in tests/e2e/CATALOG.md.

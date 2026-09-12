@@ -74,6 +74,27 @@ Command-line runs save separate HTML/JSON/failure artifacts under ignored `artif
 
 **Current change status:** SDLC-001 implemented; SDLC-002 manual acceptance pending. API/browser cases are authored but not run. Installation, formatting, lint, builds and test execution were intentionally left to the user. Earlier foundation verification below/in status docs does not validate this change. GitHub CI is now manually triggered only.
 
+
+## Startup conflict and browser download recovery
+
+`pnpm dev` now checks web/API ports before building. A second session must not silently move to another port because E2E targets and the API proxy expect fixed ports. If an earlier Fingent360 session is running, reuse http://localhost:5173 or press Ctrl-C in that session's terminal before restarting. The guard reports the conflict and never kills an existing process. SIGTERM messages after a web failure are sibling cleanup; inspect the earlier web error for the original cause.
+
+For a browser installer stuck after 100%, press Ctrl-C in its terminal. That progress measures transferred bytes, not completed extraction/installation. Google Chrome is already installed on this Mac, so managed Chromium is optional:
+
+```bash
+E2E_BROWSER=chrome pnpm e2e:ui
+```
+
+Open http://127.0.0.1:9323 yourself and click Run for selected cases. Installed-Chrome mode uses fresh isolated browser contexts, not your personal Chrome profile, and disables video so it does not require Playwright's FFmpeg download. Screenshots/traces remain available on failures. To save a run manually:
+
+```bash
+E2E_BROWSER=chrome pnpm e2e:run --project=desktop
+```
+
+The default remains managed Chromium. If retrying its installer, use Node 24 LTS and `DEBUG=pw:install pnpm e2e:install` to expose transfer/extraction details. No specific root cause of the download stall has been confirmed. Do not delete browser caches or stop unrelated applications as a workaround.
+
+BUG-001: implementation authored, manual verification pending. Codex did not stop processes, install browsers or run startup/tests/checks.
+
 ## Repository map
 
 The SDLC adds `TODO.md`, `tests/e2e/`, `playwright.config.ts` and `scripts/e2e.mjs`.

@@ -79,3 +79,23 @@ Do not run the normal readiness case during that deliberate outage. No test stop
 For documentation-only tasks, add explicit manual acceptance scenarios to the coverage plan rather than fake runnable tests. See [CATALOG.md](CATALOG.md) and [template](templates/case.spec.ts.example).
 
 References: [Playwright UI mode](https://playwright.dev/docs/test-ui-mode), [API testing](https://playwright.dev/docs/api-testing), [configuration](https://playwright.dev/docs/test-configuration).
+
+## Startup conflict and browser download recovery
+
+`pnpm dev` now checks web/API ports before building. A second session must not silently move to another port because E2E targets and the API proxy expect fixed ports. If an earlier Fingent360 session is running, reuse http://localhost:5173 or press Ctrl-C in that session's terminal before restarting. The guard reports the conflict and never kills an existing process. SIGTERM messages after a web failure are sibling cleanup; inspect the earlier web error for the original cause.
+
+For a browser installer stuck after 100%, press Ctrl-C in its terminal. That progress measures transferred bytes, not completed extraction/installation. Google Chrome is already installed on this Mac, so managed Chromium is optional:
+
+```bash
+E2E_BROWSER=chrome pnpm e2e:ui
+```
+
+Open http://127.0.0.1:9323 yourself and click Run for selected cases. Installed-Chrome mode uses fresh isolated browser contexts, not your personal Chrome profile, and disables video so it does not require Playwright's FFmpeg download. Screenshots/traces remain available on failures. To save a run manually:
+
+```bash
+E2E_BROWSER=chrome pnpm e2e:run --project=desktop
+```
+
+The default remains managed Chromium. If retrying its installer, use Node 24 LTS and `DEBUG=pw:install pnpm e2e:install` to expose transfer/extraction details. No specific root cause of the download stall has been confirmed. Do not delete browser caches or stop unrelated applications as a workaround.
+
+BUG-001: implementation authored, manual verification pending. Codex did not stop processes, install browsers or run startup/tests/checks.

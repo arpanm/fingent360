@@ -16,7 +16,7 @@ let cli;
 try {
   cli = require.resolve('@playwright/test/cli');
 } catch {
-  console.error('Test runner is not installed. Run pnpm install --frozen-lockfile, then pnpm e2e:install.');
+  console.error('Test runner is not installed. Run pnpm install --frozen-lockfile. Then use E2E_BROWSER=chrome with installed Google Chrome, or run pnpm e2e:install for managed Chromium.');
   process.exit(2);
 }
 const runId = new Date().toISOString().replaceAll(':', '-').replaceAll('.', '-') + '-' + process.pid;

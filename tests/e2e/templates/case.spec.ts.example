@@ -1,0 +1,16 @@
+import { test, expect } from '@playwright/test';
+
+// Replace every placeholder, add prerequisites/coverage to CATALOG.md,
+// and move into cases/api or cases/browser only when executable.
+// No requests, filesystem writes or browser actions at module scope.
+test('E2E-AREA-NNN acceptance behavior @DEV-NNN', async ({ page }) => {
+  await test.step('Arrange synthetic data using an approved isolated fixture', async () => {
+    // Document fixture ownership, provenance and cleanup.
+  });
+  await test.step('Perform the requested behavior', async () => {
+    await page.goto('/documented-route');
+  });
+  await test.step('Assert the independently specified user-visible outcome', async () => {
+    await expect(page.getByRole('heading', { name: 'Expected heading' })).toBeVisible();
+  });
+});

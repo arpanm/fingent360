@@ -9,3 +9,6 @@ coverage/
 *.tsbuildinfo
 .pnpm-store/
 artifacts/
+playwright-report/
+test-results/
+playwright/.cache/

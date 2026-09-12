@@ -12,7 +12,7 @@ As of 2026-09-12. The local development foundation is complete and verified.
 - CI workflow definition with real-database smoke check.
 - Codex instructions, accepted conversation decisions, blueprint, architecture decision and capability backlog.
 
-## Verification on this Mac
+## Historical foundation verification on this Mac — before SDLC change
 
 | Check                                           | Result                                                              |
 | ----------------------------------------------- | ------------------------------------------------------------------- |
@@ -34,4 +34,10 @@ Live market sources, authentication/tenancy, domain migrations, portfolios/impor
 
 ## Provenance
 
-All nine available turns of “Market Analysis Review” and the revised blueprint were reviewed. The earlier runner's claimed commit `814fe0a063e2f52e04ea99cee5f085b2e3ff4119` was not imported because Chrome blocked the bundle download. This repository contains a fresh implementation of the agreed foundation. Historical chat market claims were not used as verified data. The original root plan is preserved; edit the canonical `docs/product/market-intelligence-platform-plan.md` going forward.
+All nine available turns of “Market Analysis Review” and the revised blueprint were reviewed. The earlier runner's claimed commit `814fe0a063e2f52e04ea99cee5f085b2e3ff4119` was not imported because Chrome blocked the bundle download. This repository contains a fresh implementation of the agreed foundation. Historical chat market claims were not used as verified data. The original root duplicate was later removed at the user’s request after its content was incorporated into README.md. README is the current product document; the docs/product copy is historical reference.
+
+## SDLC change — 2026-09-12
+
+SDLC-001 implementation is written: TODO with task prompts, case catalogue and planned coverage, reusable manual Playwright API/browser dashboard launcher, pinned dependency/lockfile entries, manual-only CI and updated repository instructions. The duplicate root plan is removed and the user's appended README blueprint is preserved.
+
+SDLC-002 remains awaiting user acceptance. No dependency/browser installation, formatting, lint/typecheck/build, test execution or UI verification was performed for this change. The dependency graph was authored using registry metadata; the user's frozen installation validates it. No automated pass is claimed for the new cases. Follow tests/e2e/README.md for manual commands and CATALOG.md for runner acceptance.

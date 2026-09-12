@@ -3,5 +3,5 @@ node_modules
 dist
 coverage
 .env
-Market_Intelligence_and_Portfolio_Action_Platform_Plan.md
 docs/product/market-intelligence-platform-plan.md
+artifacts/

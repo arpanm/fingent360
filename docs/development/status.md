@@ -1,6 +1,6 @@
 # Current implementation status
 
-As of 2026-09-12. The local development foundation is complete and verified.
+As of 2026-09-12. Foundation verification is historical below. SLICE-001 now implements the virtual browser/API/PostgreSQL journey; new source and test cases await manual execution. See [working journey](working-journey.md).
 
 ## Implemented
 
@@ -55,3 +55,9 @@ User reported E2E-API-003 receiving HTML for an unknown API route. Source inspec
 Screen-level requirements, canonical field definitions and glossary are authored in docs/product/first-slice-prd.md and docs/data-dictionary/. DOC-001–DOC-015 in tests/e2e/plans/dev-001-acceptance.md cover manual acceptance. No runtime features, migrations or integrations were added; Gate 0 remains incomplete. Next: DEV-002 policy/threat model, then DEV-003 contracts/fixtures. No checks, tests or services executed by Codex.
 
 Before this work, the user reported `pnpm format`, `pnpm check` and all tests passed, and a manual commit/push. This is user-reported baseline evidence, without run IDs or individual case results; separate outage/runner acceptance is not inferred. DEV-001 review remains pending.
+
+## SLICE-001 — working source implementation, awaiting user execution
+
+Implemented strict synthetic contracts; exact monetary valuation; additive manual PostgreSQL migration; isolated capability workspaces; CSV staging/reconciliation/idempotent confirmation; goal allocation; immutable educational review history; browser navigation/forms/error states and saved-data reload. Added domain tests plus E2E-API-010–013 and E2E-WEB-010–012. No test/build/format/install/migration/service/browser actions performed by Codex.
+
+The earlier “not implemented” list describes the foundation at that time. Virtual portions now exist; real identity, live feeds, broker/XLSX parsers, full domain migrations and production gates remain open. MongoDB is still used only by readiness because this slice's public evidence is a source-code fixture. No source rights/approval or live market claim is implied.

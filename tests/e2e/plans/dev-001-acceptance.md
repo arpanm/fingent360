@@ -1,6 +1,6 @@
 # DEV-001 manual requirements review
 
-Status: authored, not executed. This is a document review pack; no new runnable browser/API placeholders are added. Review alongside docs/product/first-slice-prd.md and docs/data-dictionary/canonical-model.md. Convert each applicable case to executable tests when its linked delivery tasks implement the behavior.
+Status: manual document-review pack. The application journey is now implemented by SLICE-001; runnable cases are in ../cases/api/journey.spec.ts and ../cases/browser/journey.spec.ts. Those tests await the user’s manual Run action. This is a document review pack; no new runnable browser/API placeholders are added. Review alongside docs/product/first-slice-prd.md and docs/data-dictionary/canonical-model.md. Convert each applicable case to executable tests when its linked delivery tasks implement the behavior.
 
 | ID | Preconditions / review action | Expected requirement | Trace |
 | --- | --- | --- | --- |

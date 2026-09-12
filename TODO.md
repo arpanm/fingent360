@@ -19,21 +19,22 @@ Each task prompt below is combined with this contract (also reference it when co
 
 | ID        | Task                                                                 | Implementation | Verification    |
 | --------- | -------------------------------------------------------------------- | -------------- | --------------- |
+| SLICE-001 | [Working educational portfolio journey](#slice-001) | Implemented | Awaiting user |
 | BUG-002   | [JSON API not-found responses](#bug-002)                             | Implemented    | Awaiting user   |
 | BUG-001   | [Duplicate startup / browser download recovery](#bug-001)            | Implemented    | Awaiting user   |
 | SETUP-001 | [Local development foundation](#setup-001)                           | Implemented    | Historical only |
 | SDLC-001  | [Manual SDLC and reusable API/browser test dashboard](#sdlc-001)     | Implemented    | Awaiting user   |
 | SDLC-002  | [User acceptance of the SDLC tool](#sdlc-002)                        | Awaiting user  | Awaiting user   |
 | DEV-001   | [Screen-level PRD, glossary and canonical data dictionary](#dev-001) | Implemented    | Awaiting user   |
-| DEV-002   | [Research/advice policy and threat model](#dev-002)                  | Planned        | Not run         |
-| DEV-003   | [Versioned domain contracts and golden fixtures](#dev-003)           | Planned        | Not run         |
-| DEV-004   | [PostgreSQL migrations and MongoDB indexes](#dev-004)                | Planned        | Not run         |
+| DEV-002   | [Research/advice policy and threat model](#dev-002)                  | In progress    | Not run         |
+| DEV-003   | [Versioned domain contracts and golden fixtures](#dev-003)           | In progress    | Not run         |
+| DEV-004   | [PostgreSQL migrations and MongoDB indexes](#dev-004)                | In progress    | Not run         |
 | DEV-005   | [P0 source registry and initial adapters](#dev-005)                  | Planned        | Not run         |
-| DEV-006   | [Public intelligence slice](#dev-006)                                | Planned        | Not run         |
-| DEV-007   | [Identity/consent and manual/virtual portfolios](#dev-007)           | Planned        | Not run         |
-| DEV-008   | [CSV/XLSX imports and help](#dev-008)                                | Planned        | Not run         |
-| DEV-009   | [Multiple goals and portfolio linkage](#dev-009)                     | Planned        | Not run         |
-| DEV-010   | [Oil-shock educational end-to-end slice](#dev-010)                   | Planned        | Not run         |
+| DEV-006   | [Public intelligence slice](#dev-006)                                | In progress    | Not run         |
+| DEV-007   | [Identity/consent and manual/virtual portfolios](#dev-007)           | In progress    | Not run         |
+| DEV-008   | [CSV/XLSX imports and help](#dev-008)                                | In progress    | Not run         |
+| DEV-009   | [Multiple goals and portfolio linkage](#dev-009)                     | In progress    | Not run         |
+| DEV-010   | [Oil-shock educational end-to-end slice](#dev-010)                   | In progress    | Not run         |
 | DEV-011   | [Daily/weekly reports and durable workers](#dev-011)                 | Planned        | Not run         |
 | DEV-012   | [Responsive PWA and accessible UI](#dev-012)                         | Planned        | Not run         |
 | DEV-013   | [Regulated personalised advice](#dev-013)                            | Gated          | Not run         |
@@ -156,13 +157,13 @@ Each task prompt below is combined with this contract (also reference it when co
 
 ### DEV-002 — Research/advice policy and threat model
 
-- **Implementation:** Planned
+- **Implementation:** In progress
 - **Verification:** Not run
 - **Dependencies:** DEV-001
 - **Context:** README.md sections 19–25; docs/product/decisions.md
 - **Scope and acceptance:** Explicit allowed vocabulary and activation gates; document injection, uploaded PII, tenant access, consent and deletion design
 - **E2E cases:** Planned scenarios in tests/e2e/plans/product-coverage.md#dev-002; add stable executable IDs when implemented
-- **Evidence / blockers:** No implementation or verification evidence yet; dependencies and required product/source approvals remain open.
+- **Evidence / blockers:** SLICE-001 implements the bounded synthetic journey portion; see docs/development/working-journey.md and docs/product/educational-slice-policy.md. Full task acceptance and production dependencies remain open; no tests executed.
 - **Manual next actions:** After implementation, user runs relevant checks and selected E2E cases listed in the handoff; attach evidence before marking verified.
 
 **Codex prompt**
@@ -173,13 +174,13 @@ Each task prompt below is combined with this contract (also reference it when co
 
 ### DEV-003 — Versioned domain contracts and golden fixtures
 
-- **Implementation:** Planned
+- **Implementation:** In progress
 - **Verification:** Not run
 - **Dependencies:** DEV-001, DEV-002
 - **Context:** README.md sections 19–25; docs/product/decisions.md
 - **Scope and acceptance:** Instrument, evidence, observation, event/edge, portfolio/lot, goal/profile and policy-result schemas; strict rejection and decimal/reconciliation rules
 - **E2E cases:** Planned scenarios in tests/e2e/plans/product-coverage.md#dev-003; add stable executable IDs when implemented
-- **Evidence / blockers:** No implementation or verification evidence yet; dependencies and required product/source approvals remain open.
+- **Evidence / blockers:** SLICE-001 implements the bounded synthetic journey portion; see docs/development/working-journey.md and docs/product/educational-slice-policy.md. Full task acceptance and production dependencies remain open; no tests executed.
 - **Manual next actions:** After implementation, user runs relevant checks and selected E2E cases listed in the handoff; attach evidence before marking verified.
 
 **Codex prompt**
@@ -190,13 +191,13 @@ Each task prompt below is combined with this contract (also reference it when co
 
 ### DEV-004 — PostgreSQL migrations and MongoDB indexes
 
-- **Implementation:** Planned
+- **Implementation:** In progress
 - **Verification:** Not run
 - **Dependencies:** DEV-003
 - **Context:** README.md sections 19–25; docs/product/decisions.md
 - **Scope and acceptance:** Repeatable migrations, tenant boundaries and least-privilege application access; versioned observations; transaction-safe jobs/outbox schema
 - **E2E cases:** Planned scenarios in tests/e2e/plans/product-coverage.md#dev-004; add stable executable IDs when implemented
-- **Evidence / blockers:** No implementation or verification evidence yet; dependencies and required product/source approvals remain open.
+- **Evidence / blockers:** SLICE-001 implements the bounded synthetic journey portion; see docs/development/working-journey.md and docs/product/educational-slice-policy.md. Full task acceptance and production dependencies remain open; no tests executed.
 - **Manual next actions:** After implementation, user runs relevant checks and selected E2E cases listed in the handoff; attach evidence before marking verified.
 
 **Codex prompt**
@@ -224,13 +225,13 @@ Each task prompt below is combined with this contract (also reference it when co
 
 ### DEV-006 — Public intelligence slice
 
-- **Implementation:** Planned
+- **Implementation:** In progress
 - **Verification:** Not run
 - **Dependencies:** DEV-005
 - **Context:** README.md sections 19–25; docs/product/decisions.md
 - **Scope and acceptance:** Five/six verified points; event, sector and company details; supporting sources, corrections, stale/unavailable states
 - **E2E cases:** Planned scenarios in tests/e2e/plans/product-coverage.md#dev-006; add stable executable IDs when implemented
-- **Evidence / blockers:** No implementation or verification evidence yet; dependencies and required product/source approvals remain open.
+- **Evidence / blockers:** SLICE-001 implements the bounded synthetic journey portion; see docs/development/working-journey.md and docs/product/educational-slice-policy.md. Full task acceptance and production dependencies remain open; no tests executed.
 - **Manual next actions:** After implementation, user runs relevant checks and selected E2E cases listed in the handoff; attach evidence before marking verified.
 
 **Codex prompt**
@@ -241,13 +242,13 @@ Each task prompt below is combined with this contract (also reference it when co
 
 ### DEV-007 — Identity/consent and manual/virtual portfolios
 
-- **Implementation:** Planned
+- **Implementation:** In progress
 - **Verification:** Not run
 - **Dependencies:** DEV-002, DEV-004
 - **Context:** README.md sections 19–25; docs/product/decisions.md
 - **Scope and acceptance:** Authenticated ownership, consent, exact quantities/amounts, synthetic demo clearly distinguished
 - **E2E cases:** Planned scenarios in tests/e2e/plans/product-coverage.md#dev-007; add stable executable IDs when implemented
-- **Evidence / blockers:** No implementation or verification evidence yet; dependencies and required product/source approvals remain open.
+- **Evidence / blockers:** SLICE-001 implements the bounded synthetic journey portion; see docs/development/working-journey.md and docs/product/educational-slice-policy.md. Full task acceptance and production dependencies remain open; no tests executed.
 - **Manual next actions:** After implementation, user runs relevant checks and selected E2E cases listed in the handoff; attach evidence before marking verified.
 
 **Codex prompt**
@@ -258,13 +259,13 @@ Each task prompt below is combined with this contract (also reference it when co
 
 ### DEV-008 — CSV/XLSX imports and help
 
-- **Implementation:** Planned
+- **Implementation:** In progress
 - **Verification:** Not run
 - **Dependencies:** DEV-007
 - **Context:** README.md sections 19–25; docs/product/decisions.md
 - **Scope and acceptance:** Platform-specific formats and fixtures; preview/corrections; duplicate detection and source-total reconciliation; private upload handling
 - **E2E cases:** Planned scenarios in tests/e2e/plans/product-coverage.md#dev-008; add stable executable IDs when implemented
-- **Evidence / blockers:** No implementation or verification evidence yet; dependencies and required product/source approvals remain open.
+- **Evidence / blockers:** SLICE-001 implements the bounded synthetic journey portion; see docs/development/working-journey.md and docs/product/educational-slice-policy.md. Full task acceptance and production dependencies remain open; no tests executed.
 - **Manual next actions:** After implementation, user runs relevant checks and selected E2E cases listed in the handoff; attach evidence before marking verified.
 
 **Codex prompt**
@@ -275,13 +276,13 @@ Each task prompt below is combined with this contract (also reference it when co
 
 ### DEV-009 — Multiple goals and portfolio linkage
 
-- **Implementation:** Planned
+- **Implementation:** In progress
 - **Verification:** Not run
 - **Dependencies:** DEV-003, DEV-007
 - **Context:** README.md sections 19–25; docs/product/decisions.md
 - **Scope and acceptance:** Repeat goal types, visible editable assumptions; contribution/horizon/risk feasibility; no guaranteed return
 - **E2E cases:** Planned scenarios in tests/e2e/plans/product-coverage.md#dev-009; add stable executable IDs when implemented
-- **Evidence / blockers:** No implementation or verification evidence yet; dependencies and required product/source approvals remain open.
+- **Evidence / blockers:** SLICE-001 implements the bounded synthetic journey portion; see docs/development/working-journey.md and docs/product/educational-slice-policy.md. Full task acceptance and production dependencies remain open; no tests executed.
 - **Manual next actions:** After implementation, user runs relevant checks and selected E2E cases listed in the handoff; attach evidence before marking verified.
 
 **Codex prompt**
@@ -292,13 +293,13 @@ Each task prompt below is combined with this contract (also reference it when co
 
 ### DEV-010 — Oil-shock educational end-to-end slice
 
-- **Implementation:** Planned
+- **Implementation:** In progress
 - **Verification:** Not run
 - **Dependencies:** DEV-006, DEV-008, DEV-009
 - **Context:** README.md sections 19–25; docs/product/decisions.md
 - **Scope and acceptance:** Evidence → factor → sector → company → holding → goal traceable; no-action comparator; stale/conflicting inputs cannot generate confident action
 - **E2E cases:** Planned scenarios in tests/e2e/plans/product-coverage.md#dev-010; add stable executable IDs when implemented
-- **Evidence / blockers:** No implementation or verification evidence yet; dependencies and required product/source approvals remain open.
+- **Evidence / blockers:** SLICE-001 implements the bounded synthetic journey portion; see docs/development/working-journey.md and docs/product/educational-slice-policy.md. Full task acceptance and production dependencies remain open; no tests executed.
 - **Manual next actions:** After implementation, user runs relevant checks and selected E2E cases listed in the handoff; attach evidence before marking verified.
 
 **Codex prompt**
@@ -1141,3 +1142,20 @@ DEV-014 is the legacy umbrella for later connectivity/channels/assets. DEV-022�
 ## Latest user verification report
 
 - 2026-09-12 user report: `pnpm format`, `pnpm check` and all tests passed; user committed and pushed. No run ID or individual case list supplied; this does not establish completion of the separate outage/runner acceptance scenarios. DEV-001 documents and DOC-001–DOC-015 authored afterward; manual review pending.
+
+
+<a id="slice-001"></a>
+
+## SLICE-001 — Working educational portfolio journey
+
+- **Implementation:** Implemented
+- **Verification:** Awaiting user verification; source and executable cases written, not run.
+- **Request:** User clarified that document-only delivery is insufficient and requested end-to-end development.
+- **Dependencies:** DEV-001; implement the necessary bounded portions of DEV-002–DEV-010 together without marking their broader production scope complete.
+- **Scope:** Synthetic public event/evidence/company details; isolated persisted virtual workspace; strict contracts and exact decimal valuation; manual holdings and standard CSV preview/reconciliation/idempotent confirmation; multiple goals and allocations; deterministic educational review with saved input revision and history; responsive UI; real API/browser E2E cases. No live-source approval, broker formats, XLSX, real-account authentication or regulated advice is implied.
+- **Acceptance:** Complete the journey in browser; reload preserves saved data; malformed/duplicate/unreconciled imports never mutate holdings; stale/conflicting inputs block assessment; allocations cannot exceed available capital; another workspace cannot read records; replayed commits do not duplicate; failures render actionable messages.
+- **Codex prompt:** Read AGENTS.md, README, DEV-001 artifacts and SLICE-001. Implement a working synthetic educational first slice across contracts, PostgreSQL migration, deterministic domain services, Nest API and responsive React UI. Keep fictional evidence explicit. Use exact integer/decimal arithmetic, validate all boundaries, persist immutable revisions and scope every private query to the workspace capability. Add substantive API/browser cases, document the manual migration/check/test commands, update affected task progress honestly, and commit locally with hooks disabled. Do not execute deterministic checks/services or push.
+
+- **Files:** packages/contracts/src/journey.ts; apps/api/src/journey*.ts; infra/migrations/001_virtual_journey.sql; apps/web/src/Journey.tsx; tests/e2e/cases/{api,browser}/journey.spec.ts.
+- **Cases:** E2E-API-010–013, E2E-WEB-010–012 plus domain golden/negative tests. Existing foundation browser case updated to the working landing page.
+- **Manual next actions:** Follow [working journey](docs/development/working-journey.md): db:up → format → check → db:migrate → dev; launch Chrome E2E UI and run @SLICE-001 in API/desktop/mobile. Report failures by case/project/trace. No dependency changes. No commands/tests/services executed by Codex; no push.

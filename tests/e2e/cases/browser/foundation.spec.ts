@@ -9,16 +9,16 @@ test.describe('Foundation browser @SETUP-001 @SDLC-001 @smoke', () => {
       );
       await expect(page.getByRole('status')).toHaveText('API connected');
     });
-    await test.step('Show the honest foundation scope', async () => {
+    await test.step('Show the honest synthetic workspace scope', async () => {
       await expect(
         page.getByText(
-          'This starter displays no live market data or investment recommendations.',
+          'no live market data or investment recommendations.',
           { exact: false },
         ),
       ).toBeVisible();
       await expect(
         page
-          .getByRole('region', { name: 'Planned experience' })
+          .getByRole('region', { name: 'Learning journey' })
           .getByRole('article'),
       ).toHaveCount(3);
     });

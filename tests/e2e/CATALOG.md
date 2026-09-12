@@ -41,3 +41,19 @@ BUG-002: user reported E2E-API-003 returning HTML after a successful 404 asserti
 [DOC-001–DOC-015](plans/dev-001-acceptance.md) are authored manual review cases for screen flows, data semantics and failure states. Review pending; no runnable placeholders or passing results added. Services are not required. Convert scenarios to executable cases as their features are delivered.
 
 Latest user report: formatting/checks and all tests passed before DEV-001; no run IDs or individual case details supplied. Earlier failure notes above remain historical; this report does not establish separate outage/runner acceptance.
+
+## SLICE-001 executable journey cases
+
+Prerequisites: current build, manual `pnpm db:migrate`, PostgreSQL/MongoDB and API/web running. Filter `@SLICE-001`. All cases are implemented; execution is pending the user's Run action, not blocked on more case authoring.
+
+| ID | Project | Expected behavior |
+| --- | --- | --- |
+| E2E-API-010 | api | Synthetic catalog has explicit scenario/source provenance |
+| E2E-API-011 | api | Persist/reload exact values; replay stable; competing writes reject; old reviews preserve input |
+| E2E-API-012 | api | Invalid CSV/mismatch cannot mutate; valid preview confirms once |
+| E2E-API-013 | api | Unauthorized/cross-workspace access rejects; invalid financial inputs reject; deletion revokes access |
+| E2E-WEB-010 | desktop/mobile | Event/company → CSV → repeat-type goals → review/stale → persisted reload; no overflow |
+| E2E-WEB-011 | desktop/mobile | Mismatch blocks confirmation; over-allocation displays correction |
+| E2E-WEB-012 | desktop/mobile | Simulated failed save preserves edits, then real save succeeds |
+
+Tests create/delete isolated virtual workspaces. No user workspace is reused. See [manual walkthrough](../../docs/development/working-journey.md). Foundation browser assertions now describe the working synthetic landing page.

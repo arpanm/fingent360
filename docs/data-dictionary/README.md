@@ -8,3 +8,5 @@ DEV-001 deliverables:
 - [Manual acceptance matrix](../../tests/e2e/plans/dev-001-acceptance.md): document review scenarios.
 
 These are authored specifications awaiting user review, not implemented financial contracts or database tables. Only health/readiness schemas currently execute. DEV-002 specifies policy and threat boundaries next; DEV-003 implements versioned domain runtime schemas and golden fixtures; DEV-004 then adds migrations.
+
+The bounded virtual journey now has runtime contracts in packages/contracts/src/journey.ts. See [slice decisions](../product/educational-slice-policy.md) for differences from the full canonical design (synthetic IDs, uniform portfolio allocation and minor-unit rounding). Full canonical schemas remain DEV-003.

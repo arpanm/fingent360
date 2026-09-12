@@ -11,6 +11,7 @@ import { HealthSchema, ReadinessSchema } from '@fingent360/contracts';
 import { DatabaseProbe, DEPENDENCY_PROBE } from './readiness.js';
 import type { DependencyProbe } from './readiness.js';
 import type { AppConfig } from './config.js';
+import { JourneyController, journeyProvider } from './journey.js';
 
 @Controller()
 class HealthController {
@@ -43,14 +44,20 @@ export async function createApp(
   const app = await NestFactory.create(
     {
       module: AppModule,
-      controllers: [HealthController],
-      providers: [{ provide: DEPENDENCY_PROBE, useValue: probe }],
+      controllers: [HealthController, JourneyController],
+      providers: [{ provide: DEPENDENCY_PROBE, useValue: probe }, journeyProvider(config)],
     },
     { logger: ['error', 'warn', 'log'] },
   );
   // The Express adapter mounts its not-found router with this exact prefix.
   app.setGlobalPrefix('/api/v1');
   app.enableCors({ origin: config.WEB_ORIGIN });
+  // Workspace capabilities and private responses must never enter shared caches.
+  app.use((_request: unknown, response: { setHeader: (name: string, value: string) => void }, next: () => void) => {
+    response.setHeader('Cache-Control', 'no-store');
+    response.setHeader('X-Content-Type-Options', 'nosniff');
+    next();
+  });
   app.enableShutdownHooks();
   return app;
 }

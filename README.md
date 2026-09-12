@@ -1,6 +1,6 @@
 # Fingent360
 
-A goal-aware market intelligence and portfolio platform for Indian investors. The development foundation is implemented; financial features and market feeds are still to be built.
+A goal-aware market intelligence and portfolio platform for Indian investors. The first virtual portfolio journey is implemented across the browser, API and PostgreSQL. It uses explicitly fictional companies and fixed exercise prices; live market feeds and real-account features remain future work.
 
 ## Start locally
 
@@ -33,13 +33,27 @@ Follow [AGENTS.md](AGENTS.md), [TODO.md](TODO.md) and [the SDLC](docs/developmen
 
 For every development request, Codex adds/updates a TODO task with a detailed prompt and acceptance criteria, implements it, adds/updates E2E cases, updates TODO and README, then commits locally. **Codex does not execute deterministic checks or environment actions and never pushes automatically.** Tests, installation, formatting, lint/builds, service startup and Git push are manual user actions. Implementation and verification status are separate.
 
-Next product task: **DEV-002 — research/advice policy and threat model**, followed by DEV-003 domain contracts. The active backlog is TODO; the former development backlog points there.
+### Working end-to-end slice (SLICE-001)
 
-### DEV-001 development progress
+You can now explore a fictional oil event and its company/source details, save virtual holdings, preview and confirm a reconciled CSV import, add multiple goals, and create educational reviews with preserved history. PostgreSQL persists the workspace across reloads. Invalid imports, competing edits and stale/conflicting review inputs have explicit handling.
 
-Authored the [first-slice screen requirements](docs/product/first-slice-prd.md), [canonical data model](docs/data-dictionary/canonical-model.md) and [glossary](docs/data-dictionary/glossary.md). These define future public/personal, event/company, portfolio/import, goal and review flows, including missing/stale/conflicting data and exact monetary semantics. Financial features are not implemented yet.
+**Source implementation complete; manual verification pending.** The earlier DEV-001 status referred to document review. Executable API/browser cases now exist for this working flow. Follow the [setup and test walkthrough](docs/development/working-journey.md):
 
-Manual next action: review [DOC-001–DOC-015](tests/e2e/plans/dev-001-acceptance.md) and report omissions by case ID. No services or dependency changes are needed; `pnpm format` is optional. Codex ran no checks for this documentation change. Your earlier report that formatting/checks and all tests passed is recorded separately from this pending document review.
+```bash
+pnpm db:up
+pnpm format
+pnpm check
+pnpm db:migrate
+pnpm dev
+# Separate terminal; run selected cases manually:
+E2E_BROWSER=chrome pnpm e2e:ui
+```
+
+No dependency changes. `pnpm check` builds the migration command; `pnpm db:migrate` creates the additive virtual-workspace tables without clearing data. Reuse or stop an existing dev terminal before starting another. Open http://localhost:5173 and follow the sample import → goals → review flow. In the test UI, select `@SLICE-001` across API/desktop/mobile and run manually; also rerun foundation browser cases.
+
+This is a synthetic local learning workspace, not real account authentication or live financial research. Its browser access key protects only fictional exercise data. [Policy and implementation decisions](docs/product/educational-slice-policy.md) explain the exact monetary rules, review gates and remaining roadmap. DEV-002–DEV-010 retain their broader production scope in TODO; they are not marked complete by this slice.
+
+DEV-001 reference artifacts remain the [screen requirements](docs/product/first-slice-prd.md), [canonical model](docs/data-dictionary/canonical-model.md), [glossary](docs/data-dictionary/glossary.md) and [manual requirements-review pack](tests/e2e/plans/dev-001-acceptance.md).
 
 ## Manual test dashboard
 

@@ -16,5 +16,7 @@ export const ReadinessSchema = z.strictObject({
 });
 export type Readiness = z.infer<typeof ReadinessSchema>;
 
-// Financial domain contracts are the next delivery gate. Do not infer them
-// from UI mockups or expose provider payloads as canonical domain records.
+// The journey contracts describe the bounded synthetic slice; live provider
+// and full canonical domain contracts remain separate delivery tasks.
+
+export * from './journey.js';

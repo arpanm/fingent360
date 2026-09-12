@@ -629,3 +629,7 @@ These are scenario requirements, not executed tests. Link each case to TODO. Imp
 - Failure coverage: reject missing/invalid inputs, unavailable dependencies and unauthorized/cross-user access where applicable; do not silently treat incomplete/stale/conflicting evidence as valid. For documentation tasks, review completeness, source traceability and unresolved decisions instead of issuing requests.
 - Expected evidence: named assertions/steps with expected versus actual values and task/case IDs; use synthetic fixtures. No execution or passing result yet.
 - On implementation: author concrete API/browser cases and add them to CATALOG.md; preserve the manual-only execution rule.
+
+## SLICE-001 implemented executable coverage
+
+The core synthetic versions of DEV-003/004/006–010 are now covered by E2E-API-010–013 and E2E-WEB-010–012, with domain golden calculations in apps/api/test/journey.test.mjs. The executable cases are in cases/api/journey.spec.ts and cases/browser/journey.spec.ts. They require manual execution. DOC-002/004/006–011/014 now have partial executable counterparts; full canonical/live-source, per-position allocation, authentication and production controls remain their original task scope.

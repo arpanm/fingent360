@@ -25,7 +25,8 @@
     "e2e:ui": "node scripts/e2e.mjs ui",
     "e2e:run": "node scripts/e2e.mjs run",
     "e2e:report": "node scripts/e2e.mjs report",
-    "e2e:typecheck": "tsc -p tests/e2e/tsconfig.json --noEmit"
+    "e2e:typecheck": "tsc -p tests/e2e/tsconfig.json --noEmit",
+    "db:migrate": "pnpm --filter @fingent360/api db:migrate"
   },
   "devDependencies": {
     "typescript": "5.9.3",

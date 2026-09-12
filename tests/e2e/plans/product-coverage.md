@@ -1,5 +1,7 @@
 # Planned end-to-end coverage
 
+SDLC-002: [manual test evidence and commit handoffs](sdlc-002-acceptance.md) covers UI/CLI reports, failure sharing, partial runs, history, skipped/interrupted outcomes and SDLC audit. Authored; verification pending.
+
 These are scenario requirements, not executed tests. Link each case to TODO. Implement runnable cases when the matching behavior exists; do not create skipped placeholders that make coverage appear complete. For document-only work, the user reviews the listed acceptance artifacts.
 
 <a id="dev-001"></a>

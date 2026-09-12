@@ -23,9 +23,17 @@ function localTarget(value: string): string {
   return url.origin;
 }
 const envFile = path.join(root, '.env');
-const local = existsSync(envFile) ? parseEnv(readFileSync(envFile, 'utf8')) : {};
-const api = localTarget(process.env.E2E_API_URL ?? `http://127.0.0.1:${local.API_PORT || 4100}`);
-const web = localTarget(process.env.E2E_WEB_URL ?? local.WEB_ORIGIN ?? `http://127.0.0.1:${local.WEB_PORT || 5173}`);
+const local = existsSync(envFile)
+  ? parseEnv(readFileSync(envFile, 'utf8'))
+  : {};
+const api = localTarget(
+  process.env.E2E_API_URL ?? `http://127.0.0.1:${local.API_PORT || 4100}`,
+);
+const web = localTarget(
+  process.env.E2E_WEB_URL ??
+    local.WEB_ORIGIN ??
+    `http://127.0.0.1:${local.WEB_PORT || 5173}`,
+);
 process.env.E2E_API_URL = api;
 process.env.E2E_WEB_URL = web;
 const runId = process.env.E2E_RUN_ID ?? `manual-${Date.now()}`;
@@ -50,6 +58,7 @@ export default defineConfig({
   timeout: 30_000,
   expect: { timeout: 10_000 },
   reporter: [
+    ['./tests/e2e/reporters/handoff.mjs', { directory: path.join(root, 'artifacts/e2e') }],
     ['list'],
     ['html', { outputFolder: path.join(output, 'report'), open: 'never' }],
     ['json', { outputFile: path.join(output, 'results.json') }],

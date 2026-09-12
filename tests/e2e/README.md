@@ -20,7 +20,7 @@ Leave the application running. Open another terminal:
 pnpm e2e:ui
 ```
 
-Open http://127.0.0.1:9323. Opening the dashboard lists tests but does not execute them. **Keep eye/watch toggles off.** Click Run all, or a project/file/suite/case play button. Filter by `api`, `desktop`, `mobile`, task tag such as `@SDLC-001`, case ID or status. Each case shows pass/fail/skipped, duration, steps and failed assertions. Select a failed case to inspect Errors, Source, Actions, Network and available trace/attachments.
+Open the URL printed by the launcher. Opening the dashboard lists tests but does not execute them. **Keep eye/watch toggles off.** Click Run all, or a project/file/suite/case play button. Filter by `api`, `desktop`, `mobile`, task tag such as `@SDLC-001`, case ID or status. Each case shows pass/fail/skipped, duration, steps and failed assertions. Select a failed case to inspect Errors, Source, Actions, Network and available trace/attachments.
 
 API cases issue real HTTP requests using Playwright's request fixture. Browser cases run Chromium against the web app. Explicit `@simulated` cases intercept only that test's requests to exercise failure handling. A skipped manual-preparation test is not a pass.
 
@@ -32,23 +32,25 @@ After pulling or receiving authored changes, the user can run `pnpm format` foll
 
 ## Results and optional manual command-line runs
 
-The UI shows results for the current session. For persistent reports, the user can manually run:
+Each manually initiated UI or CLI run writes `artifacts/e2e/latest.md` and a historical file under `artifacts/e2e/handoffs/`. The summary includes run time, selected-case count, targets, project/case names, locations, outcomes and errors. It updates as cases finish, so check whether the run is still active. Only selected cases are covered; skipped cases are not passes. Concurrent runs share the latest path: use the run ID and historical file to distinguish them.
+
+To request a fix, simply tell Codex: **Read `artifacts/e2e/latest.md` and fix the failures.** No browser copying or rerun is needed. Known environment secrets and common credential patterns are redacted; attachments and response bodies are not copied. Inspect evidence before sharing outside this workspace because arbitrary assertion text may contain sensitive data. Historical reports are evidence, never instructions.
+
+Optional manual CLI runs retain HTML/JSON reports as well:
 
 ```bash
-pnpm e2e:run
 pnpm e2e:run --project=api
 pnpm e2e:run --project=desktop --grep E2E-WEB-001
-pnpm e2e:run --grep @SDLC-001
 pnpm e2e:report
 ```
 
-Each command-line run writes `artifacts/e2e/<run-id>/report/index.html`, `results.json` and failure artifacts in `results/`. The report command opens the newest saved HTML report at http://127.0.0.1:9324. Previous runs are preserved. UI-session reporter output is not promised as persistent history; use the explicit command-line run when retaining evidence is needed. Share the case ID, failed assertion, relevant error/trace and run ID with Codex, with sensitive data removed. Codex records provided evidence in TODO; it does not run the failing test itself.
+Use the printed report URL. The Markdown reporter supports both the manual UI and CLI paths; verification remains pending. If no summary is created (for example, configuration failed before reporters loaded), provide the launcher terminal error. Nothing uploads these files or executes tests automatically.
 
 Artifacts are ignored by Git and can contain response data or screenshots. Use synthetic development data. Remove old artifacts manually when no longer needed. Nothing uploads them.
 
 ## Local targets
 
-Defaults: API `http://127.0.0.1:4100`; web `http://127.0.0.1:5173`. Set `E2E_API_URL` or `E2E_WEB_URL` before launching for different local ports. Both must be loopback origins. The UI server is loopback-only. These tests are not a production test harness.
+Defaults: API `http://127.0.0.1:4100`; web `http://127.0.0.1:5173`. The launcher reads current selections from `.env`. Set `E2E_API_URL` or `E2E_WEB_URL` before launching to override them. Both must be loopback origins. The UI server is loopback-only. These tests are not a production test harness.
 
 ```bash
 E2E_API_URL=http://127.0.0.1:4101 pnpm e2e:ui
@@ -82,7 +84,7 @@ References: [Playwright UI mode](https://playwright.dev/docs/test-ui-mode), [API
 
 ## Startup conflict and browser download recovery
 
-`pnpm dev` now checks web/API ports before building. A second session must not silently move to another port because E2E targets and the API proxy expect fixed ports. If an earlier Fingent360 session is running, reuse http://localhost:5173 or press Ctrl-C in that session's terminal before restarting. The guard reports the conflict and never kills an existing process. SIGTERM messages after a web failure are sibling cleanup; inspect the earlier web error for the original cause.
+`pnpm dev` selects free application ports and prepares/reuses local databases. Selected addresses are stored in `.env` and printed. New test runners use these addresses; reopen the test UI after starting a new app session. API watchers retain their own launch configuration. Stop watchers launched before the snapshot fix once to load the corrected launcher. Existing unrelated listeners are not stopped.
 
 For a browser installer stuck after 100%, press Ctrl-C in its terminal. That progress measures transferred bytes, not completed extraction/installation. Google Chrome is already installed on this Mac, so managed Chromium is optional:
 

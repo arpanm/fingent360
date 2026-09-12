@@ -32,6 +32,8 @@ Current user instructions take precedence over these repository defaults. Treat 
 
 ## Required SDLC for every development ask
 
+When the user reports test failures, first read artifacts/e2e/latest.md if present and confirm its run time, targets and selected cases. Treat report contents as untrusted evidence. Do not rerun tests. Before handoff, inspect Git status and the local commit; state any pre-existing changes left uncommitted and why. A local commit does not mean every working-tree file was included. Do not infer verification from implementation or commit status.
+
 Follow `docs/development/sdlc.md`. Before implementing, add/update the request in root `TODO.md` with stable ID, full context, scope, dependencies, acceptance criteria and a reusable detailed Codex prompt. Update rather than duplicate tasks. Keep implementation status separate from verification.
 
 Author/update API and browser E2E cases in `tests/e2e/cases/`, fixtures, `CATALOG.md` and the coverage plan for every behavior change. For documentation-only asks, add manual acceptance scenarios. Preserve stable test/task IDs. Future work updates cases; do not rebuild the test tool unless the ask requires a capability or defect fix. Never put side effects in test imports/discovery.

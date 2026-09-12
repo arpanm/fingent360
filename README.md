@@ -2,6 +2,12 @@
 
 A goal-aware market intelligence and portfolio platform for Indian investors. The first virtual portfolio journey is implemented across the browser, API and PostgreSQL. It uses explicitly fictional companies and fixed exercise prices; live market feeds and real-account features remain future work.
 
+## Change handoffs and test failures (SDLC-002)
+
+Every development request updates TODO with scope, acceptance criteria and a reusable prompt, adds or updates appropriate tests, updates documentation and receives a local commit. Verification remains manual and is tracked separately. No automatic push. Handoffs identify pre-existing edits that were left uncommitted.
+
+After manually running tests in the Playwright UI, tell Codex **“Read artifacts/e2e/latest.md and fix the failures.”** The new local reporter saves selected cases, outcomes, locations, targets and errors there; historical runs live under `artifacts/e2e/handoffs/`. Reopen the UI once to load the reporter. Reports remain local and ignored by Git. Known secrets are redacted, but inspect arbitrary assertion text before external sharing. A report marked running is incomplete; only the selected cases are covered. No new dependencies. Reporter tests and [manual acceptance cases](tests/e2e/plans/sdlc-002-acceptance.md) are authored, not executed.
+
 ## Real economic data (DATA-001)
 
 The default page now reads persisted India GDP growth and CPI inflation from a real World Bank adapter. An operator refresh calls the provider, saves source JSON in MongoDB and promotes exact decimal observations to PostgreSQL. Inspect annual history, revisions, attribution and raw evidence in the UI. Empty or failed sources never receive sample values. [Setup and test walkthrough](docs/development/real-data.md).

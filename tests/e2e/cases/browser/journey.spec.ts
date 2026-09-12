@@ -3,7 +3,7 @@ test.describe('Working virtual journey @SLICE-001', () => {
   test('E2E-WEB-010 event → import → goals → review → reload', async ({
     page,
   }) => {
-    await page.goto('/');
+    await page.goto('/#brief');
     await page.getByRole('link', { name: 'Explore the mechanism' }).click();
     await page.getByRole('link', { name: 'Alpha Air', exact: true }).click();
     await expect(

@@ -2,6 +2,23 @@
 
 A goal-aware market intelligence and portfolio platform for Indian investors. The first virtual portfolio journey is implemented across the browser, API and PostgreSQL. It uses explicitly fictional companies and fixed exercise prices; live market feeds and real-account features remain future work.
 
+## Real economic data (DATA-001)
+
+The default page now reads persisted India GDP growth and CPI inflation from a real World Bank adapter. An operator refresh calls the provider, saves source JSON in MongoDB and promotes exact decimal observations to PostgreSQL. Inspect annual history, revisions, attribution and raw evidence in the UI. Empty or failed sources never receive sample values. [Setup and test walkthrough](docs/development/real-data.md).
+
+```bash
+pnpm research:setup
+pnpm db:up
+pnpm format
+pnpm check
+pnpm db:migrate
+pnpm dev
+```
+
+Restart the existing dev terminal to load the generated operator key; avoid duplicate dev sessions. At http://localhost:5173/#macro, expand Source refresh controls and use the local `.env` RESEARCH_ADMIN_TOKEN. Never share that key. No dependencies changed. In the existing E2E UI, manually run `@DATA-001` across api/desktop/mobile; those cases call the real provider and databases. Their credential-bearing traces are disabled. The prior virtual portfolio exercise remains under its own navigation link.
+
+Implementation is written, not runtime-verified by Codex. Real-account authentication, real equity valuation and broader provider integrations remain unfinished backlog items.
+
 ## Start locally
 
 Prerequisites: Node.js 24 LTS (Node 26 also supported locally), pnpm 11.23.0 and Docker with Compose.

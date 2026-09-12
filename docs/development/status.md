@@ -61,3 +61,7 @@ Before this work, the user reported `pnpm format`, `pnpm check` and all tests pa
 Implemented strict synthetic contracts; exact monetary valuation; additive manual PostgreSQL migration; isolated capability workspaces; CSV staging/reconciliation/idempotent confirmation; goal allocation; immutable educational review history; browser navigation/forms/error states and saved-data reload. Added domain tests plus E2E-API-010–013 and E2E-WEB-010–012. No test/build/format/install/migration/service/browser actions performed by Codex.
 
 The earlier “not implemented” list describes the foundation at that time. Virtual portions now exist; real identity, live feeds, broker/XLSX parsers, full domain migrations and production gates remain open. MongoDB is still used only by readiness because this slice's public evidence is a source-code fixture. No source rights/approval or live market claim is implied.
+
+## DATA-001 — real-source implementation
+
+Real World Bank India GDP growth/CPI inflation ingestion, original response storage in MongoDB, exact numeric PostgreSQL revisions, operator-controlled refresh and default public UI are written. New unit/E2E cases await user execution. Official indicator licensing/attribution was read during implementation; no live ingestion run or acceptance pass is claimed. See real-data.md. Real accounts, equity prices and other sources remain open.

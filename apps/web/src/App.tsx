@@ -1,8 +1,15 @@
 import { useEffect, useState } from 'react';
 import { HealthSchema } from '@fingent360/contracts';
 import { Journey } from './Journey';
+import { Macro } from './Macro';
 
 export function App() {
+  const [hash, setHash] = useState(window.location.hash);
+  useEffect(() => {
+    const changed = () => setHash(window.location.hash);
+    window.addEventListener('hashchange', changed);
+    return () => window.removeEventListener('hashchange', changed);
+  }, []);
   const [status, setStatus] = useState('Checking connection…');
   useEffect(() => {
     const controller = new AbortController();
@@ -48,7 +55,11 @@ export function App() {
         <p role="status" className="connection">
           {status}
         </p>
-        <Journey />
+        <nav className="product-nav" aria-label="Product areas">
+          <a href="#macro">Real economic data</a>
+          <a href="#brief">Virtual portfolio exercise</a>
+        </nav>
+        {!hash || hash === '#macro' ? <Macro /> : <Journey />}
       </main>
       <footer>
         <span>Research and education first.</span>

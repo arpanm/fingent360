@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test.describe('Foundation browser @SETUP-001 @SDLC-001 @smoke', () => {
   test('E2E-WEB-001 web connects to the real API', async ({ page }) => {
     await test.step('Load the starter and observe its real API result', async () => {
-      await page.goto('/');
+      await page.goto('/#brief');
       await expect(page.getByRole('heading', { level: 1 })).toContainText(
         'Understand the market.',
       );
@@ -32,7 +32,7 @@ test.describe('Foundation browser @SETUP-001 @SDLC-001 @smoke', () => {
           body: '{"status":"unavailable"}',
         }),
       );
-      await page.goto('/');
+      await page.goto('/#brief');
       await expect(page.getByRole('status')).toHaveText('API unavailable');
     });
   });
@@ -47,14 +47,14 @@ test.describe('Foundation browser @SETUP-001 @SDLC-001 @smoke', () => {
         body: '{"status":"ok","service":"fingent360-api","timestamp":"invalid"}',
       }),
     );
-    await page.goto('/');
+    await page.goto('/#brief');
     await expect(page.getByRole('status')).toHaveText('API unavailable');
   });
 
   test('E2E-WEB-004 layout fits and brand works by keyboard', async ({
     page,
   }) => {
-    await page.goto('/');
+    await page.goto('/#brief');
     await test.step('No horizontal page overflow at the selected project viewport', async () => {
       const dimensions = await page.evaluate(() => ({
         content: document.documentElement.scrollWidth,

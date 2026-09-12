@@ -12,17 +12,11 @@ try {
   client = await pool.connect();
   await client.query('BEGIN');
   await client.query('SELECT pg_advisory_xact_lock(360001)');
-  await client.query(
-    await readFile(
-      new URL(
-        '../../../infra/migrations/001_virtual_journey.sql',
-        import.meta.url,
-      ),
-      'utf8',
-    ),
-  );
+  for (const filename of ['001_virtual_journey.sql', '002_macro.sql']) {
+    await client.query(await readFile(new URL(`../../../infra/migrations/${filename}`, import.meta.url), 'utf8'));
+  }
   await client.query('COMMIT');
-  console.log('Virtual journey schema is ready. Existing data preserved.');
+  console.log('Virtual journey and macro schemas are ready. Existing data preserved.');
 } catch (error) {
   if (client) await client.query('ROLLBACK').catch(() => {});
   console.error(`Migration failed: ${storageErrorMessage(error)}`);

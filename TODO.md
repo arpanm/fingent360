@@ -19,6 +19,7 @@ Each task prompt below is combined with this contract (also reference it when co
 
 | ID        | Task                                                                 | Implementation | Verification    |
 | --------- | -------------------------------------------------------------------- | -------------- | --------------- |
+| DATA-001 | Real India macro ingestion and evidence UI | Implemented | Awaiting user |
 | SLICE-001 | [Working educational portfolio journey](#slice-001)                  | Implemented    | Awaiting user   |
 | BUG-003   | Workspace creation diagnostics                                       | Implemented    | Awaiting user   |
 | BUG-002   | [JSON API not-found responses](#bug-002)                             | Implemented    | Awaiting user   |
@@ -209,13 +210,13 @@ Each task prompt below is combined with this contract (also reference it when co
 
 ### DEV-005 — P0 source registry and initial adapters
 
-- **Implementation:** Planned
+- **Implementation:** In progress
 - **Verification:** Not run
 - **Dependencies:** DEV-003, DEV-004
 - **Context:** README.md sections 19–25; docs/product/decisions.md
 - **Scope and acceptance:** Terms and freshness recorded; provenance tests, fixtures, quarantine, retries, reconciliation; source status updated honestly
 - **E2E cases:** Planned scenarios in tests/e2e/plans/product-coverage.md#dev-005; add stable executable IDs when implemented
-- **Evidence / blockers:** No implementation or verification evidence yet; dependencies and required product/source approvals remain open.
+- **Evidence / blockers:** DATA-001 delivers a real World Bank India annual GDP/CPI adapter with source evidence, canonical revisions, refresh UI and executable tests. Remaining source families and production acceptance are still open. Runtime not executed by Codex.
 - **Manual next actions:** After implementation, user runs relevant checks and selected E2E cases listed in the handoff; attach evidence before marking verified.
 
 **Codex prompt**
@@ -753,13 +754,13 @@ Each task prompt below is combined with this contract (also reference it when co
 
 ### SRC-007 — India macro source onboarding (P0)
 
-- **Implementation:** Planned
+- **Implementation:** In progress
 - **Verification:** Not run
 - **Dependencies:** DEV-003, DEV-004, DEV-005; Yes
 - **Context:** README.md sections 10.6–10.10, source order 7, P0
 - **Scope and acceptance:** Onboard India macro. Starting public candidates: MoSPI + RBI/DBIE. Paid upgrade candidates: CEIC/Macrobond/CMIE. Next action from the accepted plan: Create release calendar, vintage model and initial series registry. Document actual access/usage rights, effective/retrieval times, units, revisions, fixtures, quarantine and reconciliation. Source register currently says Not started; never mark production without user-provided approval and validation evidence.
 - **E2E cases:** Planned scenarios in tests/e2e/plans/product-coverage.md#src-007; add stable executable IDs when implemented
-- **Evidence / blockers:** No implementation or verification evidence yet; dependencies and required product/source approvals remain open.
+- **Evidence / blockers:** DATA-001 delivers a real World Bank India annual GDP/CPI adapter with source evidence, canonical revisions, refresh UI and executable tests. Remaining source families and production acceptance are still open. Runtime not executed by Codex.
 - **Manual next actions:** After implementation, user runs relevant checks and selected E2E cases listed in the handoff; attach evidence before marking verified.
 
 **Codex prompt**
@@ -1169,3 +1170,16 @@ DEV-014 is the legacy umbrella for later connectivity/channels/assets. DEV-022�
 
 - **Cases/evidence:** storage-error.test.mjs covers classification, redaction and transaction rollback; E2E-API-011–013 now display the failed workspace response. No checks/tests/migrations executed.
 - **Manual next actions:** format → check → db:migrate; report migration result, then rerun the three API cases after API reload. Do not mark the original failure resolved without a successful rerun.
+
+
+## DATA-001 — Real India macro ingestion, evidence and public screen
+
+- **Implementation:** Implemented
+- **Verification:** Awaiting user execution. User reported manually committing/pushing prior work; no new case-specific pass evidence inferred.
+- **Request:** Continue all backlog tasks as end-to-end features, not documents or mocked UI. This increment implements the real-data portion of DEV-003/004/005/006/015/016 and SRC-007 before further dependent financial features.
+- **Scope:** World Bank India annual GDP growth and CPI inflation, official allowlisted server fetch, strict provider validation with original decimal lexemes, source rights/attribution, Mongo raw snapshots, PostgreSQL canonical revisions and sync records, operator-protected manual refresh, public values/history/source details, responsive UI and executable API/browser tests. No fabricated defaults if upstream or storage fails.
+- **Acceptance:** User can refresh real provider data in UI, inspect years/units/source timestamps, reload persisted values, inspect revisions and source status; failed/invalid ingestion never replaces accepted data; repeated refresh deduplicates values; unauthorized refresh rejects; upstream error and stale-cache states are explicit.
+- **Codex prompt:** Read AGENTS/README/TODO and implement DATA-001 contracts first through real adapter, additive migration, persistence, API, React screen and meaningful unit/API/browser cases. Preserve decimal tokens, nulls, revisions and raw-source hashes. Use a configured local operator key for writes; never expose credentials or permit arbitrary fetch URLs. No synthetic application data, automatic background refresh or automatic tests/migrations. Update all task/source progress honestly, commit locally with hooks disabled, never push. Continue dependent feature work without seeking routine reconfirmation; leave actual provider/production gates explicit.
+
+- **Delivery:** packages/contracts/src/macro.ts; World Bank adapter, macro service/controller, additive 002 migration, Mongo source snapshots, Macro.tsx and local research-key setup tool. E2E-API-020/021 and E2E-WEB-020 plus parser precision/quarantine tests authored. See docs/development/real-data.md for manual setup and expected outcomes.
+- **Scope remaining:** Other sources, real equity holdings, regulated advice and real user accounts are not delivered by this macro feature. No startup sync, automatic execution or push performed.

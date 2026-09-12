@@ -61,3 +61,15 @@ Tests create/delete isolated virtual workspaces. No user workspace is reused. Se
 ## BUG-003 — shared workspace setup failure
 
 User reported E2E-API-011–013 returning 503 during session creation. Those scenarios remain user-reported failed. The common assertion now includes the failed response text (never the successful access key). Unit regressions cover cause classification, redaction and rollback. User must apply the migration successfully and rerun these API cases; cause and recovery are not yet verified.
+
+## DATA-001 real-source cases
+
+Prerequisites: research:setup, rebuilt/restarted API, db:migrate, both databases, web and external World Bank access. Run @DATA-001 manually. No mock provider in these cases; no hardcoded current values. Traces/video/screenshots disabled to avoid recording the operator key. Cases keep accepted real macro data for subsequent UI use.
+
+| ID | Projects | Expected result |
+| --- | --- | --- |
+| E2E-API-020 | api | Real refresh persists observations and hash-verifiable Mongo evidence; history/repeated refresh retain revision IDs |
+| E2E-API-021 | api | Missing/wrong operator key rejects; arbitrary source/URL fields reject; unknown evidence is 404 |
+| E2E-WEB-020 | desktop/mobile | User refreshes real GDP, views history/source, reloads persisted values without overflow |
+
+The source parser's unit cases exercise exact decimals, null, identity, unit, pagination and schema failures using explicitly synthetic wire fixtures only. No fixtures are served in the application.

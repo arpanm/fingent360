@@ -20,3 +20,4 @@ export type Readiness = z.infer<typeof ReadinessSchema>;
 // and full canonical domain contracts remain separate delivery tasks.
 
 export * from './journey.js';
+export * from './macro.js';

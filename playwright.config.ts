@@ -58,7 +58,10 @@ export default defineConfig({
   timeout: 30_000,
   expect: { timeout: 10_000 },
   reporter: [
-    ['./tests/e2e/reporters/handoff.mjs', { directory: path.join(root, 'artifacts/e2e') }],
+    [
+      './tests/e2e/reporters/handoff.mjs',
+      { directory: path.join(root, 'artifacts/e2e') },
+    ],
     ['list'],
     ['html', { outputFolder: path.join(output, 'report'), open: 'never' }],
     ['json', { outputFile: path.join(output, 'results.json') }],

@@ -11,7 +11,10 @@ export function redact(value, secrets = []) {
   return text
     .replace(/\b(Bearer\s+)\S+/gi, '$1[REDACTED]')
     .replace(/(\w+:\/\/)[^\s/@]+:[^\s/@]+@/g, '$1[REDACTED]@')
-    .replace(/((?:password|token|secret|cookie|authorization)["']?\s*[:=]\s*)[^\n,}]+/gi, '$1[REDACTED]')
+    .replace(
+      /((?:password|token|secret|cookie|authorization)["']?\s*[:=]\s*)[^\n,}]+/gi,
+      '$1[REDACTED]',
+    )
     .slice(0, 16000);
 }
 
@@ -19,7 +22,9 @@ export default class HandoffReporter {
   constructor(options = {}) {
     this.directory = options.directory ?? path.resolve('artifacts/e2e');
     this.secrets = Object.entries(process.env)
-      .filter(([key]) => /TOKEN|SECRET|PASSWORD|DATABASE_URL|MONGODB_URI/i.test(key))
+      .filter(([key]) =>
+        /TOKEN|SECRET|PASSWORD|DATABASE_URL|MONGODB_URI/i.test(key),
+      )
       .map(([, value]) => value);
     this.cases = [];
     this.errors = [];
@@ -86,7 +91,9 @@ export default class HandoffReporter {
     const content = redact(lines.join('\n'), this.secrets) + '\n';
     const history = path.join(this.directory, 'handoffs');
     mkdirSync(history, { recursive: true });
-    writeFileSync(path.join(history, `${this.id}.md`), content, { mode: 0o600 });
+    writeFileSync(path.join(history, `${this.id}.md`), content, {
+      mode: 0o600,
+    });
     const temporary = path.join(this.directory, `latest-${this.id}.tmp`);
     writeFileSync(temporary, content, { mode: 0o600 });
     renameSync(temporary, path.join(this.directory, 'latest.md'));

@@ -11,21 +11,31 @@ test('manual run evidence includes failures and replaces latest on the next run'
     const reporter = new HandoffReporter({ directory });
     assert.deepEqual(readdirSync(directory), []);
     const suite = { allTests: () => [1, 2] };
-    reporter.onBegin({ metadata: { apiTarget: 'http://127.0.0.1:4102' } }, suite);
+    reporter.onBegin(
+      { metadata: { apiTarget: 'http://127.0.0.1:4102' } },
+      suite,
+    );
     const example = {
       titlePath: () => ['api', 'E2E-API-002'],
       location: { file: 'foundation.spec.ts', line: 31 },
       expectedStatus: 'passed',
     };
     reporter.onTestEnd(example, {
-      status: 'failed', retry: 0,
+      status: 'failed',
+      retry: 0,
       errors: [{ message: 'Expected 200; received 503' }],
     });
-    reporter.onTestEnd({ ...example, titlePath: () => ['api', 'E2E-API-004'] }, {
-      status: 'skipped', retry: 0, errors: [],
-    });
+    reporter.onTestEnd(
+      { ...example, titlePath: () => ['api', 'E2E-API-004'] },
+      {
+        status: 'skipped',
+        retry: 0,
+        errors: [],
+      },
+    );
     reporter.onEnd({ status: 'failed' });
-    const latest = () => readFileSync(path.join(directory, 'latest.md'), 'utf8');
+    const latest = () =>
+      readFileSync(path.join(directory, 'latest.md'), 'utf8');
     assert.match(latest(), /Expected 200; received 503/);
     assert.match(latest(), /foundation.spec.ts:31/);
     assert.match(latest(), /skipped: api > E2E-API-004/);
@@ -45,7 +55,10 @@ test('manual run evidence includes failures and replaces latest on the next run'
 });
 
 test('handoff redacts known secrets and common credential formats', () => {
-  const result = redact('private-value Bearer abc123 password=unsafe\npostgres://user:pass@localhost/db', ['private-value']);
+  const result = redact(
+    'private-value Bearer abc123 password=unsafe\npostgres://user:pass@localhost/db',
+    ['private-value'],
+  );
   for (const secret of ['private-value', 'abc123', 'unsafe', 'user:pass']) {
     assert.ok(!result.includes(secret));
   }

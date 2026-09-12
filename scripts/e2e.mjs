@@ -67,7 +67,9 @@ if (mode === 'report') {
 } else {
   args = ['test', '--config=playwright.config.ts', ...filters];
   if (mode === 'ui') {
-    console.log('After a manual run, ask Codex to read artifacts/e2e/latest.md for failures.');
+    console.log(
+      'After a manual run, ask Codex to read artifacts/e2e/latest.md for failures.',
+    );
     args.push('--ui', '--ui-host=127.0.0.1', `--ui-port=${uiPort}`);
     console.log(
       `Open http://127.0.0.1:${uiPort}. Tests target ${targets.E2E_WEB_URL} and ${targets.E2E_API_URL}. Select cases and click Run; watch mode stays off.`,

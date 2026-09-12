@@ -16,23 +16,34 @@ const targets = [
 ];
 let failed = false;
 for (const target of targets) {
-  const error = await new Promise(resolve => {
+  const error = await new Promise((resolve) => {
     const server = net.createServer();
     server.once('error', resolve);
-    server.listen({ host: target.host, port: target.port, exclusive: true }, () => {
-      server.close(() => resolve(null));
-    });
+    server.listen(
+      { host: target.host, port: target.port, exclusive: true },
+      () => {
+        server.close(() => resolve(null));
+      },
+    );
   });
   if (!error) continue;
   failed = true;
   if (error.code === 'EADDRINUSE') {
-    console.error(`${target.name} port ${target.port} is already occupied. An earlier pnpm dev session may still be running.`);
-    console.error(`Reuse that app, or press Ctrl-C in its terminal before starting a second session. Inspect with: lsof -nP -iTCP:${target.port} -sTCP:LISTEN`);
+    console.error(
+      `${target.name} port ${target.port} is already occupied. An earlier pnpm dev session may still be running.`,
+    );
+    console.error(
+      `Reuse that app, or press Ctrl-C in its terminal before starting a second session. Inspect with: lsof -nP -iTCP:${target.port} -sTCP:LISTEN`,
+    );
   } else {
-    console.error(`Cannot bind ${target.name} to ${target.host}:${target.port}: ${error.message}`);
+    console.error(
+      `Cannot bind ${target.name} to ${target.host}:${target.port}: ${error.message}`,
+    );
   }
 }
 if (failed) {
-  console.error('Development startup cancelled before building. No existing processes were stopped.');
+  console.error(
+    'Development startup cancelled before building. No existing processes were stopped.',
+  );
   process.exit(1);
 }

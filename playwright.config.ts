@@ -5,10 +5,18 @@ import { fileURLToPath } from 'node:url';
 const root = fileURLToPath(new URL('.', import.meta.url));
 function localTarget(value: string): string {
   const url = new URL(value);
-  if (!['localhost', '127.0.0.1', '[::1]'].includes(url.hostname) ||
-      !['http:', 'https:'].includes(url.protocol) || url.username || url.password ||
-      url.pathname !== '/' || url.search || url.hash) {
-    throw new Error('E2E targets must be loopback origins without credentials, paths, queries or fragments.');
+  if (
+    !['localhost', '127.0.0.1', '[::1]'].includes(url.hostname) ||
+    !['http:', 'https:'].includes(url.protocol) ||
+    url.username ||
+    url.password ||
+    url.pathname !== '/' ||
+    url.search ||
+    url.hash
+  ) {
+    throw new Error(
+      'E2E targets must be loopback origins without credentials, paths, queries or fragments.',
+    );
   }
   return url.origin;
 }
@@ -19,9 +27,12 @@ if (!/^[a-zA-Z0-9-]+$/.test(runId)) throw new Error('Invalid E2E_RUN_ID');
 const output = path.join(root, 'artifacts/e2e', runId);
 const browserChoice = process.env.E2E_BROWSER ?? 'chromium';
 if (!['chromium', 'chrome'].includes(browserChoice)) {
-  throw new Error('E2E_BROWSER must be chromium (managed) or chrome (installed Google Chrome).');
+  throw new Error(
+    'E2E_BROWSER must be chromium (managed) or chrome (installed Google Chrome).',
+  );
 }
-const browserOptions = browserChoice === 'chrome' ? { channel: 'chrome' as const } : {};
+const browserOptions =
+  browserChoice === 'chrome' ? { channel: 'chrome' as const } : {};
 
 export default defineConfig({
   testDir: './tests/e2e/cases',
@@ -48,8 +59,23 @@ export default defineConfig({
   },
   projects: [
     { name: 'api', testMatch: '**/api/**/*.spec.ts', use: { baseURL: api } },
-    { name: 'desktop', testMatch: '**/browser/**/*.spec.ts', use: { ...devices['Desktop Chrome'], ...browserOptions, baseURL: web } },
-    { name: 'mobile', testMatch: '**/browser/**/*.spec.ts', use: { ...devices['Desktop Chrome'], ...browserOptions, viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, baseURL: web } },
+    {
+      name: 'desktop',
+      testMatch: '**/browser/**/*.spec.ts',
+      use: { ...devices['Desktop Chrome'], ...browserOptions, baseURL: web },
+    },
+    {
+      name: 'mobile',
+      testMatch: '**/browser/**/*.spec.ts',
+      use: {
+        ...devices['Desktop Chrome'],
+        ...browserOptions,
+        viewport: { width: 390, height: 844 },
+        isMobile: true,
+        hasTouch: true,
+        baseURL: web,
+      },
+    },
   ],
   // No webServer, globalSetup, scheduler or auto-run hooks. The user starts
   // the application/databases and explicitly runs selected cases in the UI.

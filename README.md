@@ -74,7 +74,6 @@ Command-line runs save separate HTML/JSON/failure artifacts under ignored `artif
 
 **Current change status:** SDLC-001 implemented; SDLC-002 manual acceptance pending. API/browser cases are authored but not run. Installation, formatting, lint, builds and test execution were intentionally left to the user. Earlier foundation verification below/in status docs does not validate this change. GitHub CI is now manually triggered only.
 
-
 ## Startup conflict and browser download recovery
 
 `pnpm dev` now checks web/API ports before building. A second session must not silently move to another port because E2E targets and the API proxy expect fixed ports. If an earlier Fingent360 session is running, reuse http://localhost:5173 or press Ctrl-C in that session's terminal before restarting. The guard reports the conflict and never kills an existing process. SIGTERM messages after a web failure are sibling cleanup; inspect the earlier web error for the original cause.
@@ -118,7 +117,7 @@ The SDLC adds `TODO.md`, `tests/e2e/`, `playwright.config.ts` and `scripts/e2e.m
 | `docs/policies`        | Product safety boundary and source trust requirements                      |
 | `docs/data-dictionary` | Entry point for future domain contracts                                    |
 | `docs/evaluations`     | First vertical-slice acceptance/scenario plan                              |
-| `.github/workflows` | Manually triggered checks and real-database API smoke test |
+| `.github/workflows`    | Manually triggered checks and real-database API smoke test                 |
 
 ## Verification commands — user runs manually
 
@@ -247,16 +246,16 @@ An Indian retail investor who:
 
 ### 3.3 Progressive asset-class expansion
 
-| Stage | Instruments | New capabilities required |
-|---|---|---|
-| 1 | Indian listed equities, cash | Company master, EOD prices, corporate filings, portfolio lots, equity risk model |
-| 2 | Indian mutual funds, government/corporate bonds | Scheme/security master, NAV/yield curves, duration/credit risk, XIRR, goal allocation |
-| 3 | Gold, ETFs, REITs, InvITs, commodities | Asset-specific pricing, tracking error, commodity/macroeconomic factor models |
-| 4 | Derivatives | Suitability gates, payoff/risk engine, margin and expiry handling; not for beginner recommendations by default |
-| 5 | International mutual funds | Currency, country, tax and fund look-through exposure |
-| 6 | International equities | Corporate and market data licensing, FX, local-market calendars, tax handling |
-| 7 | Other international assets | Country-specific rules, custody and pricing sources |
-| 8 | Crypto | Separate suitability, custody, tax, volatility and regulatory controls |
+| Stage | Instruments                                     | New capabilities required                                                                                      |
+| ----- | ----------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| 1     | Indian listed equities, cash                    | Company master, EOD prices, corporate filings, portfolio lots, equity risk model                               |
+| 2     | Indian mutual funds, government/corporate bonds | Scheme/security master, NAV/yield curves, duration/credit risk, XIRR, goal allocation                          |
+| 3     | Gold, ETFs, REITs, InvITs, commodities          | Asset-specific pricing, tracking error, commodity/macroeconomic factor models                                  |
+| 4     | Derivatives                                     | Suitability gates, payoff/risk engine, margin and expiry handling; not for beginner recommendations by default |
+| 5     | International mutual funds                      | Currency, country, tax and fund look-through exposure                                                          |
+| 6     | International equities                          | Corporate and market data licensing, FX, local-market calendars, tax handling                                  |
+| 7     | Other international assets                      | Country-specific rules, custody and pricing sources                                                            |
+| 8     | Crypto                                          | Separate suitability, custody, tax, volatility and regulatory controls                                         |
 
 ---
 
@@ -757,113 +756,113 @@ Every data provider implements a versioned adapter contract. Domain objects do n
 
 #### A. Common foundation and Indian equities
 
-| Data needed | Free/public starting sources | Paid/licensed upgrade candidates | Initial use and caveats |
-|---|---|---|---|
-| Indian security master, ISIN, symbol, series, listing status | NSE/BSE security files; SEBI; NSDL/CDSL references | NSE Data & Analytics; BSE Market Data; Refinitiv/LSEG; Bloomberg; FactSet; Capitaline; ACE Equity | P0 canonical identity. Merge by ISIN and retain symbol history; exchange terms must be validated. |
-| Indian EOD equity prices, volume and deliverables | NSE/BSE bhavcopy and EOD reports | NSE/BSE licensed EOD/historical feeds; LSEG; Bloomberg; FactSet; Capitaline; ACE Equity | P0. EOD is sufficient for initial daily/weekly product. Adjusted prices are calculated only after corporate-action reconciliation. |
-| Indian intraday/real-time prices and order book | Exchange website snapshots for manual verification only | NSE/BSE licensed L1/L2/L3 feeds through exchange or authorised vendor | Deferred. Do not build production ingestion on undocumented exchange webpage endpoints. |
-| Index levels, constituents, weights, valuation and methodology | NSE Indices/BSE Indices public factsheets and reports | NSE Indices/BSE licensed feeds; Bloomberg; LSEG; FactSet | P0 for Nifty/Sensex/sector attribution. Constituent history and redistribution rights require checking. |
-| Corporate announcements and filings | NSE/BSE corporate filing portals; issuer investor-relations sites; SEBI | NSE/BSE corporate-data feeds; Bloomberg; LSEG; FactSet; S&P Capital IQ; AlphaSense | P0. Exchange filing is authoritative; media interpretation remains secondary. |
-| Financial statements and reported fundamentals | XBRL/exchange filings, annual reports, result PDFs and issuer presentations | Capitaline; ACE Equity; CMIE Prowess; S&P Capital IQ; FactSet; Bloomberg; LSEG | P0. Initially calculate canonical metrics from reported statements; PDF extraction must be reconciled against totals. |
-| Corporate actions: split, bonus, dividend, rights, merger | NSE/BSE corporate-action reports; issuer filings; depository notices | NSE/BSE licensed corporate data; LSEG; Bloomberg; FactSet; Capitaline; ACE Equity | P0. Needed before return, cost-basis and lot calculations can be trusted. |
-| Shareholding, promoter pledge and institutional ownership | Exchange shareholding-pattern filings; NSE/BSE pledge disclosures; NSDL/CDSL reports | Capitaline; ACE Equity; Prime Database; Bloomberg; LSEG; FactSet | P0/P1. Preserve filing period and restatements. |
-| Company classification, sectors and business segments | NSE industry classification; annual reports; exchange filings | Capitaline; ACE Equity; CMIE; FactSet RBICS; S&P Capital IQ; Bloomberg BICS | P0. Maintain internal taxonomy and provider crosswalks rather than adopting one provider identifier everywhere. |
-| Historical financial ratios and peer comparisons | Calculated internally from filings; limited public exchange/company history | Capitaline; ACE Equity; CMIE Prowess; Morningstar; FactSet; S&P Capital IQ; Bloomberg | P0 calculated subset; upgrade when breadth and restatement effort become material. |
-| Analyst consensus, target prices and earnings revisions | Limited company guidance and manually sourced broker publications; no dependable comprehensive free source | LSEG I/B/E/S; Bloomberg; FactSet Estimates; S&P Capital IQ; Visible Alpha | P1. Do not approximate consensus from news articles. Show provider, analyst count and observation date. |
-| India corporate credit ratings | CRISIL/ICRA/CARE/India Ratings issuer releases and exchange filings | CRISIL Market Intelligence; rating-agency feeds; Bloomberg; LSEG | P1 for debt and balance-sheet risk. Rating action and analyst rationale are separate fields. |
-| IPO, issue and offer documents | SEBI, NSE/BSE and issuer DRHP/RHP filings | Prime Database; Capitaline; ACE Equity; Bloomberg; LSEG | P2 unless IPO coverage is an initial editorial feature. |
+| Data needed                                                    | Free/public starting sources                                                                               | Paid/licensed upgrade candidates                                                                  | Initial use and caveats                                                                                                            |
+| -------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| Indian security master, ISIN, symbol, series, listing status   | NSE/BSE security files; SEBI; NSDL/CDSL references                                                         | NSE Data & Analytics; BSE Market Data; Refinitiv/LSEG; Bloomberg; FactSet; Capitaline; ACE Equity | P0 canonical identity. Merge by ISIN and retain symbol history; exchange terms must be validated.                                  |
+| Indian EOD equity prices, volume and deliverables              | NSE/BSE bhavcopy and EOD reports                                                                           | NSE/BSE licensed EOD/historical feeds; LSEG; Bloomberg; FactSet; Capitaline; ACE Equity           | P0. EOD is sufficient for initial daily/weekly product. Adjusted prices are calculated only after corporate-action reconciliation. |
+| Indian intraday/real-time prices and order book                | Exchange website snapshots for manual verification only                                                    | NSE/BSE licensed L1/L2/L3 feeds through exchange or authorised vendor                             | Deferred. Do not build production ingestion on undocumented exchange webpage endpoints.                                            |
+| Index levels, constituents, weights, valuation and methodology | NSE Indices/BSE Indices public factsheets and reports                                                      | NSE Indices/BSE licensed feeds; Bloomberg; LSEG; FactSet                                          | P0 for Nifty/Sensex/sector attribution. Constituent history and redistribution rights require checking.                            |
+| Corporate announcements and filings                            | NSE/BSE corporate filing portals; issuer investor-relations sites; SEBI                                    | NSE/BSE corporate-data feeds; Bloomberg; LSEG; FactSet; S&P Capital IQ; AlphaSense                | P0. Exchange filing is authoritative; media interpretation remains secondary.                                                      |
+| Financial statements and reported fundamentals                 | XBRL/exchange filings, annual reports, result PDFs and issuer presentations                                | Capitaline; ACE Equity; CMIE Prowess; S&P Capital IQ; FactSet; Bloomberg; LSEG                    | P0. Initially calculate canonical metrics from reported statements; PDF extraction must be reconciled against totals.              |
+| Corporate actions: split, bonus, dividend, rights, merger      | NSE/BSE corporate-action reports; issuer filings; depository notices                                       | NSE/BSE licensed corporate data; LSEG; Bloomberg; FactSet; Capitaline; ACE Equity                 | P0. Needed before return, cost-basis and lot calculations can be trusted.                                                          |
+| Shareholding, promoter pledge and institutional ownership      | Exchange shareholding-pattern filings; NSE/BSE pledge disclosures; NSDL/CDSL reports                       | Capitaline; ACE Equity; Prime Database; Bloomberg; LSEG; FactSet                                  | P0/P1. Preserve filing period and restatements.                                                                                    |
+| Company classification, sectors and business segments          | NSE industry classification; annual reports; exchange filings                                              | Capitaline; ACE Equity; CMIE; FactSet RBICS; S&P Capital IQ; Bloomberg BICS                       | P0. Maintain internal taxonomy and provider crosswalks rather than adopting one provider identifier everywhere.                    |
+| Historical financial ratios and peer comparisons               | Calculated internally from filings; limited public exchange/company history                                | Capitaline; ACE Equity; CMIE Prowess; Morningstar; FactSet; S&P Capital IQ; Bloomberg             | P0 calculated subset; upgrade when breadth and restatement effort become material.                                                 |
+| Analyst consensus, target prices and earnings revisions        | Limited company guidance and manually sourced broker publications; no dependable comprehensive free source | LSEG I/B/E/S; Bloomberg; FactSet Estimates; S&P Capital IQ; Visible Alpha                         | P1. Do not approximate consensus from news articles. Show provider, analyst count and observation date.                            |
+| India corporate credit ratings                                 | CRISIL/ICRA/CARE/India Ratings issuer releases and exchange filings                                        | CRISIL Market Intelligence; rating-agency feeds; Bloomberg; LSEG                                  | P1 for debt and balance-sheet risk. Rating action and analyst rationale are separate fields.                                       |
+| IPO, issue and offer documents                                 | SEBI, NSE/BSE and issuer DRHP/RHP filings                                                                  | Prime Database; Capitaline; ACE Equity; Bloomberg; LSEG                                           | P2 unless IPO coverage is an initial editorial feature.                                                                            |
 
 #### B. Market state, flows, positioning and risk
 
-| Data needed | Free/public starting sources | Paid/licensed upgrade candidates | Initial use and caveats |
-|---|---|---|---|
-| FII/DII provisional cash activity | NSE/BSE institutional activity reports | NSE/BSE licensed feeds; Bloomberg; LSEG; institutional datasets | P0. Label provisional and distinguish exchange cash activity from total FPI flows. |
-| FPI total and sectoral investment | NSDL FPI reports; CDSL reports | NSDL/CDSL commercial data where offered; EPFR; Bloomberg; LSEG | P0. Separate secondary-market, primary/other, equity and debt flows. |
-| FII/DII/F&O participant positioning | NSE participant-wise OI/volume reports and derivatives bhavcopy | NSE licensed derivatives/analytics feeds; Bloomberg; LSEG; specialised derivatives vendors | P0/P1. Use with cash flows; do not infer bullishness from one cash number. |
-| Mutual-fund/SIP industry flows | AMFI monthly data and releases | AMFI/commercial datasets where available; Morningstar; CRISIL MI&A; LSEG Lipper | P1. Monthly flows are not a real-time market signal. |
-| Market breadth, advances/declines, highs/lows | Calculated from NSE/BSE EOD universe | Licensed exchange analytics; Bloomberg; LSEG; FactSet | P0 and internally calculated. Define eligible universe to avoid suspended/illiquid distortions. |
-| Volatility, beta, drawdown, correlations | Calculated from licensed/permitted price history; India VIX from NSE | NSE analytics; Bloomberg; LSEG; FactSet; MSCI Barra/Axioma for institutional risk | P0 basic calculations; P2 advanced factor risk. Method/version must be visible. |
-| Valuation and equity risk premium | Internally calculated index/company multiples; RBI/FRED rates | Bloomberg; LSEG; FactSet; S&P Capital IQ; MSCI; Damodaran datasets as research reference | P0 basic. Avoid mixing trailing and forward multiples. |
-| Short interest, securities lending and block/bulk deals | NSE/BSE SLB and block/bulk deal reports | Licensed exchange feeds; Bloomberg; LSEG; FactSet | P1. Useful for interpreting flows, not a standalone recommendation. |
-| Options chain, implied volatility and Greeks | NSE public option-chain/manual checks; derivatives bhavcopy | NSE licensed real-time data and analytics; Bloomberg; LSEG; authorised options vendors | P2/P3. Delayed/EOD educational analytics first; beginner suitability gate mandatory. |
+| Data needed                                             | Free/public starting sources                                         | Paid/licensed upgrade candidates                                                           | Initial use and caveats                                                                         |
+| ------------------------------------------------------- | -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------- |
+| FII/DII provisional cash activity                       | NSE/BSE institutional activity reports                               | NSE/BSE licensed feeds; Bloomberg; LSEG; institutional datasets                            | P0. Label provisional and distinguish exchange cash activity from total FPI flows.              |
+| FPI total and sectoral investment                       | NSDL FPI reports; CDSL reports                                       | NSDL/CDSL commercial data where offered; EPFR; Bloomberg; LSEG                             | P0. Separate secondary-market, primary/other, equity and debt flows.                            |
+| FII/DII/F&O participant positioning                     | NSE participant-wise OI/volume reports and derivatives bhavcopy      | NSE licensed derivatives/analytics feeds; Bloomberg; LSEG; specialised derivatives vendors | P0/P1. Use with cash flows; do not infer bullishness from one cash number.                      |
+| Mutual-fund/SIP industry flows                          | AMFI monthly data and releases                                       | AMFI/commercial datasets where available; Morningstar; CRISIL MI&A; LSEG Lipper            | P1. Monthly flows are not a real-time market signal.                                            |
+| Market breadth, advances/declines, highs/lows           | Calculated from NSE/BSE EOD universe                                 | Licensed exchange analytics; Bloomberg; LSEG; FactSet                                      | P0 and internally calculated. Define eligible universe to avoid suspended/illiquid distortions. |
+| Volatility, beta, drawdown, correlations                | Calculated from licensed/permitted price history; India VIX from NSE | NSE analytics; Bloomberg; LSEG; FactSet; MSCI Barra/Axioma for institutional risk          | P0 basic calculations; P2 advanced factor risk. Method/version must be visible.                 |
+| Valuation and equity risk premium                       | Internally calculated index/company multiples; RBI/FRED rates        | Bloomberg; LSEG; FactSet; S&P Capital IQ; MSCI; Damodaran datasets as research reference   | P0 basic. Avoid mixing trailing and forward multiples.                                          |
+| Short interest, securities lending and block/bulk deals | NSE/BSE SLB and block/bulk deal reports                              | Licensed exchange feeds; Bloomberg; LSEG; FactSet                                          | P1. Useful for interpreting flows, not a standalone recommendation.                             |
+| Options chain, implied volatility and Greeks            | NSE public option-chain/manual checks; derivatives bhavcopy          | NSE licensed real-time data and analytics; Bloomberg; LSEG; authorised options vendors     | P2/P3. Delayed/EOD educational analytics first; beginner suitability gate mandatory.            |
 
 #### C. India macroeconomy, policy, rates and currency
 
-| Data needed | Free/public starting sources | Paid/licensed upgrade candidates | Initial use and caveats |
-|---|---|---|---|
-| GDP, GVA, consumption, investment, CPI and IIP | MoSPI/eSankhyiki and official release PDFs | CEIC; CMIE Economic Outlook; Macrobond; Haver; Bloomberg; LSEG | P0. Store vintage, base year, preliminary/revised/final state and release calendar. |
-| Repo rate, RBI policy, liquidity and banking indicators | RBI website and DBIE | CEIC; CMIE; Macrobond; Haver; Bloomberg; LSEG | P0. Policy text and numerical series are separate evidence objects. |
-| Government securities yield curve and money-market rates | RBI DBIE; FBIL benchmark publications; CCIL public reports where available | CCIL data products; Bloomberg; LSEG; CRISIL MI&A; FIMMDA data products | P0 for benchmark rates; P1 for detailed bond analytics. Validate benchmark usage rights. |
-| INR reference rates and forex reserves | RBI; FBIL; RBI Weekly Statistical Supplement | Bloomberg; LSEG; ICE Data Services | P0. Distinguish reference, onshore close and live tradable rates. |
-| Trade/current account and balance of payments | Commerce Ministry; RBI; DGFT; MoSPI | CEIC; CMIE; Macrobond; Haver; Bloomberg; LSEG | P0/P1. Use consistent merchandise/services and calendar/fiscal periods. |
-| Fiscal deficit, government borrowing and expenditure | Controller General of Accounts; Union Budget; RBI borrowing calendar | CMIE; CEIC; Macrobond; Bloomberg; LSEG | P1. Map announcement, budget estimate, revised estimate and actual. |
-| GST, tax and policy announcements | GST Council/GST portal; Finance Ministry; PIB; Income Tax Department; SEBI | Tax databases such as Taxmann; Bloomberg Tax; LSEG news/regulatory products | P1. Editorial/legal review required before user-specific tax explanation. |
-| Employment, monsoon, agriculture and high-frequency activity | Labour Ministry/PLFS; IMD; Agriculture Ministry; RBI; government dashboards | CMIE Consumer Pyramids/Economic Outlook; CEIC; Macrobond; Bloomberg | P1. Coverage/definitions vary; never combine incompatible labour series silently. |
-| PMI and private economic surveys | S&P Global/HSBC public press releases with limited values; provider summaries | S&P Global PMI subscription; CEIC; Macrobond; Bloomberg; LSEG | P0 headline where publicly licensed; paid for history/components. Do not copy values from secondary newsletters without verification. |
+| Data needed                                                  | Free/public starting sources                                                  | Paid/licensed upgrade candidates                                            | Initial use and caveats                                                                                                               |
+| ------------------------------------------------------------ | ----------------------------------------------------------------------------- | --------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| GDP, GVA, consumption, investment, CPI and IIP               | MoSPI/eSankhyiki and official release PDFs                                    | CEIC; CMIE Economic Outlook; Macrobond; Haver; Bloomberg; LSEG              | P0. Store vintage, base year, preliminary/revised/final state and release calendar.                                                   |
+| Repo rate, RBI policy, liquidity and banking indicators      | RBI website and DBIE                                                          | CEIC; CMIE; Macrobond; Haver; Bloomberg; LSEG                               | P0. Policy text and numerical series are separate evidence objects.                                                                   |
+| Government securities yield curve and money-market rates     | RBI DBIE; FBIL benchmark publications; CCIL public reports where available    | CCIL data products; Bloomberg; LSEG; CRISIL MI&A; FIMMDA data products      | P0 for benchmark rates; P1 for detailed bond analytics. Validate benchmark usage rights.                                              |
+| INR reference rates and forex reserves                       | RBI; FBIL; RBI Weekly Statistical Supplement                                  | Bloomberg; LSEG; ICE Data Services                                          | P0. Distinguish reference, onshore close and live tradable rates.                                                                     |
+| Trade/current account and balance of payments                | Commerce Ministry; RBI; DGFT; MoSPI                                           | CEIC; CMIE; Macrobond; Haver; Bloomberg; LSEG                               | P0/P1. Use consistent merchandise/services and calendar/fiscal periods.                                                               |
+| Fiscal deficit, government borrowing and expenditure         | Controller General of Accounts; Union Budget; RBI borrowing calendar          | CMIE; CEIC; Macrobond; Bloomberg; LSEG                                      | P1. Map announcement, budget estimate, revised estimate and actual.                                                                   |
+| GST, tax and policy announcements                            | GST Council/GST portal; Finance Ministry; PIB; Income Tax Department; SEBI    | Tax databases such as Taxmann; Bloomberg Tax; LSEG news/regulatory products | P1. Editorial/legal review required before user-specific tax explanation.                                                             |
+| Employment, monsoon, agriculture and high-frequency activity | Labour Ministry/PLFS; IMD; Agriculture Ministry; RBI; government dashboards   | CMIE Consumer Pyramids/Economic Outlook; CEIC; Macrobond; Bloomberg         | P1. Coverage/definitions vary; never combine incompatible labour series silently.                                                     |
+| PMI and private economic surveys                             | S&P Global/HSBC public press releases with limited values; provider summaries | S&P Global PMI subscription; CEIC; Macrobond; Bloomberg; LSEG               | P0 headline where publicly licensed; paid for history/components. Do not copy values from secondary newsletters without verification. |
 
 #### D. Mutual funds, bonds and other Indian assets
 
-| Data needed | Free/public starting sources | Paid/licensed upgrade candidates | Initial use and caveats |
-|---|---|---|---|
-| Mutual-fund scheme master and daily NAV | AMFI NAV files; AMC factsheets; SEBI disclosures | Morningstar Data; CRISIL MI&A; LSEG Lipper; Value Research commercial feeds | P1. Map scheme-code history, mergers, direct/regular and growth/IDCW variants. |
-| Fund holdings, sector allocation, duration and portfolio disclosure | AMC monthly portfolio disclosures/factsheets; AMFI/SEBI disclosures | Morningstar; CRISIL MI&A; LSEG Lipper; Value Research; Bloomberg | P1. Disclosure lags must be shown; look-through exposure is not current-day exposure. |
-| Fund returns, risk, benchmark and peer categories | Internally calculated from AMFI NAV plus official benchmark; SEBI category rules | Morningstar; CRISIL MI&A; LSEG Lipper; Value Research | P1. Survivorship, scheme mergers and benchmark changes must be handled. |
-| Indian government bonds/T-bills | RBI Retail Direct information; RBI/CCIL public market/yield reports; NSE/BSE debt data | CCIL; Bloomberg; LSEG; CRISIL MI&A | P1. Price, yield, accrued interest and duration need dedicated calculation rules. |
-| Corporate bonds and debentures | NSE/BSE debt listings/trades; SEBI; issuer/rating disclosures | CRISIL MI&A; Bloomberg; LSEG; India bond-data vendors | P1. Liquidity and stale valuation are critical; last traded price may not be fair value. |
-| Deposits and small-savings rates | Bank/issuer official sites; Finance Ministry small-savings notifications | Rate aggregators/commercial banking datasets | P1 for goal alternatives. Product terms and premature-withdrawal rules must be versioned. |
-| Indian ETFs | NSE/BSE/AMFI/AMC data, NAV/iNAV and factsheets | Morningstar; CRISIL MI&A; Bloomberg; LSEG | P2. Track NAV premium/discount, liquidity, spread, tracking error and underlying exposure. |
-| Gold/silver | RBI/FRED/World Gold Council public research; LBMA reference data subject to terms; MCX public reports | LBMA/ICE; MCX licensed feeds; Bloomberg; LSEG; Metals Focus | P2. Domestic price also depends on INR, duty and local basis. |
-| Commodities | Ministry/EIA/World Bank commodity data; MCX EOD/public reports subject to terms | MCX licensed data; CME/ICE/LME; Bloomberg; LSEG; Fastmarkets/Argus/Platts by commodity | P2. Select sources per commodity rather than one generic feed. |
+| Data needed                                                         | Free/public starting sources                                                                          | Paid/licensed upgrade candidates                                                       | Initial use and caveats                                                                    |
+| ------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| Mutual-fund scheme master and daily NAV                             | AMFI NAV files; AMC factsheets; SEBI disclosures                                                      | Morningstar Data; CRISIL MI&A; LSEG Lipper; Value Research commercial feeds            | P1. Map scheme-code history, mergers, direct/regular and growth/IDCW variants.             |
+| Fund holdings, sector allocation, duration and portfolio disclosure | AMC monthly portfolio disclosures/factsheets; AMFI/SEBI disclosures                                   | Morningstar; CRISIL MI&A; LSEG Lipper; Value Research; Bloomberg                       | P1. Disclosure lags must be shown; look-through exposure is not current-day exposure.      |
+| Fund returns, risk, benchmark and peer categories                   | Internally calculated from AMFI NAV plus official benchmark; SEBI category rules                      | Morningstar; CRISIL MI&A; LSEG Lipper; Value Research                                  | P1. Survivorship, scheme mergers and benchmark changes must be handled.                    |
+| Indian government bonds/T-bills                                     | RBI Retail Direct information; RBI/CCIL public market/yield reports; NSE/BSE debt data                | CCIL; Bloomberg; LSEG; CRISIL MI&A                                                     | P1. Price, yield, accrued interest and duration need dedicated calculation rules.          |
+| Corporate bonds and debentures                                      | NSE/BSE debt listings/trades; SEBI; issuer/rating disclosures                                         | CRISIL MI&A; Bloomberg; LSEG; India bond-data vendors                                  | P1. Liquidity and stale valuation are critical; last traded price may not be fair value.   |
+| Deposits and small-savings rates                                    | Bank/issuer official sites; Finance Ministry small-savings notifications                              | Rate aggregators/commercial banking datasets                                           | P1 for goal alternatives. Product terms and premature-withdrawal rules must be versioned.  |
+| Indian ETFs                                                         | NSE/BSE/AMFI/AMC data, NAV/iNAV and factsheets                                                        | Morningstar; CRISIL MI&A; Bloomberg; LSEG                                              | P2. Track NAV premium/discount, liquidity, spread, tracking error and underlying exposure. |
+| Gold/silver                                                         | RBI/FRED/World Gold Council public research; LBMA reference data subject to terms; MCX public reports | LBMA/ICE; MCX licensed feeds; Bloomberg; LSEG; Metals Focus                            | P2. Domestic price also depends on INR, duty and local basis.                              |
+| Commodities                                                         | Ministry/EIA/World Bank commodity data; MCX EOD/public reports subject to terms                       | MCX licensed data; CME/ICE/LME; Bloomberg; LSEG; Fastmarkets/Argus/Platts by commodity | P2. Select sources per commodity rather than one generic feed.                             |
 
 #### E. News, events, transcripts and qualitative intelligence
 
-| Data needed | Free/public starting sources | Paid/licensed upgrade candidates | Initial use and caveats |
-|---|---|---|---|
-| Company-specific news | Exchange filings and issuer releases first; reputable publisher pages/RSS where permitted; Google News only as discovery | Reuters/LSEG News; Bloomberg News; Dow Jones/Factiva; FactSet; AlphaSense; LexisNexis | P0. Search/discovery licences do not necessarily permit full-text storage or display. |
-| Global market and geopolitical news | Government/central-bank releases; AP/public publisher pages where permitted; GDELT as discovery/metadata | Reuters; Bloomberg; Dow Jones Newswires/Factiva; AFP; LexisNexis; FiscalNote | P0. High-impact geopolitical claims require corroboration. GDELT is a lead source, not truth. |
-| Earnings-call transcripts | Issuer transcripts/recordings and exchange submissions where available | AlphaSense; S&P Capital IQ; FactSet; LSEG; Bloomberg; Quartr enterprise products | P1. Clearly distinguish company-prepared from third-party transcript and audio-derived text. |
-| Broker/research reports | User-licensed documents and publicly released reports with permission | Bloomberg research distribution; LSEG; AlphaSense; S&P Capital IQ; FactSet; authorised broker feeds | P1/P2. Copyright and entitlements must be enforced per user/organisation. |
-| Sentiment and narrative indicators | Internally derived only from entitled corpus; Google Trends as contextual public signal | RavenPack; MarketPsych; Bloomberg/LSEG analytics; alternative-data vendors | P2. Sentiment never directly produces a Buy/Sell action. |
+| Data needed                         | Free/public starting sources                                                                                             | Paid/licensed upgrade candidates                                                                    | Initial use and caveats                                                                       |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| Company-specific news               | Exchange filings and issuer releases first; reputable publisher pages/RSS where permitted; Google News only as discovery | Reuters/LSEG News; Bloomberg News; Dow Jones/Factiva; FactSet; AlphaSense; LexisNexis               | P0. Search/discovery licences do not necessarily permit full-text storage or display.         |
+| Global market and geopolitical news | Government/central-bank releases; AP/public publisher pages where permitted; GDELT as discovery/metadata                 | Reuters; Bloomberg; Dow Jones Newswires/Factiva; AFP; LexisNexis; FiscalNote                        | P0. High-impact geopolitical claims require corroboration. GDELT is a lead source, not truth. |
+| Earnings-call transcripts           | Issuer transcripts/recordings and exchange submissions where available                                                   | AlphaSense; S&P Capital IQ; FactSet; LSEG; Bloomberg; Quartr enterprise products                    | P1. Clearly distinguish company-prepared from third-party transcript and audio-derived text.  |
+| Broker/research reports             | User-licensed documents and publicly released reports with permission                                                    | Bloomberg research distribution; LSEG; AlphaSense; S&P Capital IQ; FactSet; authorised broker feeds | P1/P2. Copyright and entitlements must be enforced per user/organisation.                     |
+| Sentiment and narrative indicators  | Internally derived only from entitled corpus; Google Trends as contextual public signal                                  | RavenPack; MarketPsych; Bloomberg/LSEG analytics; alternative-data vendors                          | P2. Sentiment never directly produces a Buy/Sell action.                                      |
 
 #### F. International markets and assets
 
-| Data needed | Free/public starting sources | Paid/licensed upgrade candidates | Initial use and caveats |
-|---|---|---|---|
-| Global macro, rates and release calendars | FRED; US BLS/BEA/Treasury; Federal Reserve; ECB; BoE; BoJ; IMF; World Bank; OECD; national statistics offices | Macrobond; Haver; CEIC; Bloomberg; LSEG | P0 for global factors affecting India; broader country coverage at P3+. |
-| US company filings and fundamentals | SEC EDGAR/XBRL; issuer investor-relations sites | S&P Capital IQ; FactSet; Bloomberg; LSEG; Morningstar; Intrinio; Financial Modeling Prep | P4. Free filing ingestion is feasible; security master, normalisation and estimates remain substantial work. |
+| Data needed                                        | Free/public starting sources                                                                                    | Paid/licensed upgrade candidates                                                                                               | Initial use and caveats                                                                                          |
+| -------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------- |
+| Global macro, rates and release calendars          | FRED; US BLS/BEA/Treasury; Federal Reserve; ECB; BoE; BoJ; IMF; World Bank; OECD; national statistics offices   | Macrobond; Haver; CEIC; Bloomberg; LSEG                                                                                        | P0 for global factors affecting India; broader country coverage at P3+.                                          |
+| US company filings and fundamentals                | SEC EDGAR/XBRL; issuer investor-relations sites                                                                 | S&P Capital IQ; FactSet; Bloomberg; LSEG; Morningstar; Intrinio; Financial Modeling Prep                                       | P4. Free filing ingestion is feasible; security master, normalisation and estimates remain substantial work.     |
 | International equity/ETF prices and reference data | Exchange/issuer pages for verification; Stooq/Nasdaq Data Link/Alpha Vantage or similar only after terms review | ICE Data Services; Nasdaq/NYSE/direct exchange licences; Bloomberg; LSEG; FactSet; Morningstar; Twelve Data; Intrinio; Massive | P4. Free API tiers are usually insufficient for commercial redistribution and complete corporate-action history. |
-| International mutual funds/UCITS | Fund issuer factsheets, regulator filings and public NAV disclosures | Morningstar; LSEG Lipper; Bloomberg; FactSet | P3. Country/share-class/currency/distribution variants must be canonicalised. |
-| Global bonds and credit | US Treasury/FRED/central banks/regulator and issuer filings | Bloomberg; LSEG; ICE Data Services; S&P Global; Moody's; Fitch; MarketAxess data products | P5. Evaluated pricing and liquidity are commonly paid. |
-| Global commodities and energy | EIA; World Bank Pink Sheet; USDA; IEA limited public releases; exchange public pages subject to terms | CME; ICE; LME; S&P Global Commodity Insights; Argus; Fastmarkets; Bloomberg; LSEG | P2 for India-impact benchmarks; P5 for investible global products. |
-| Global FX | Central-bank reference rates; FRED; ECB reference rates | LSEG; Bloomberg; ICE; CME; institutional FX vendors | P0 major macro pairs/reference; P4/P5 investible/live use. |
-| Crypto prices and reference data | Exchange public APIs and CoinGecko subject to commercial terms | Kaiko; Coin Metrics; CCData; Amberdata; Bloomberg/LSEG crypto data | P6. Exchange fragmentation, manipulation, custody and tax data require separate controls. |
-| Crypto fundamentals/on-chain | Public blockchains/explorers and project disclosures | Glassnode; Coin Metrics; CryptoQuant; Nansen; Kaiko | P6. On-chain activity does not substitute for suitability or valuation. |
+| International mutual funds/UCITS                   | Fund issuer factsheets, regulator filings and public NAV disclosures                                            | Morningstar; LSEG Lipper; Bloomberg; FactSet                                                                                   | P3. Country/share-class/currency/distribution variants must be canonicalised.                                    |
+| Global bonds and credit                            | US Treasury/FRED/central banks/regulator and issuer filings                                                     | Bloomberg; LSEG; ICE Data Services; S&P Global; Moody's; Fitch; MarketAxess data products                                      | P5. Evaluated pricing and liquidity are commonly paid.                                                           |
+| Global commodities and energy                      | EIA; World Bank Pink Sheet; USDA; IEA limited public releases; exchange public pages subject to terms           | CME; ICE; LME; S&P Global Commodity Insights; Argus; Fastmarkets; Bloomberg; LSEG                                              | P2 for India-impact benchmarks; P5 for investible global products.                                               |
+| Global FX                                          | Central-bank reference rates; FRED; ECB reference rates                                                         | LSEG; Bloomberg; ICE; CME; institutional FX vendors                                                                            | P0 major macro pairs/reference; P4/P5 investible/live use.                                                       |
+| Crypto prices and reference data                   | Exchange public APIs and CoinGecko subject to commercial terms                                                  | Kaiko; Coin Metrics; CCData; Amberdata; Bloomberg/LSEG crypto data                                                             | P6. Exchange fragmentation, manipulation, custody and tax data require separate controls.                        |
+| Crypto fundamentals/on-chain                       | Public blockchains/explorers and project disclosures                                                            | Glassnode; Coin Metrics; CryptoQuant; Nansen; Kaiko                                                                            | P6. On-chain activity does not substitute for suitability or valuation.                                          |
 
 #### G. Portfolio, goals, tax and user data
 
-| Data needed | Free/public starting sources | Paid/licensed/partner upgrade candidates | Initial use and caveats |
-|---|---|---|---|
-| Manual/virtual portfolio | User entry and platform-calculated prices | None required | P0. Show that suggestions are hypothetical when there is no verified holding. |
-| Broker holdings and transactions | User-downloaded CSV/XLSX; official broker APIs where available, such as Kite Connect/Upstox | Broker partnerships; aggregation providers; custodian/wealth-platform feeds | P0 upload; P2 integrations. OAuth/token consent only—never request password or OTP. |
-| Consolidated demat/MF holdings | User-uploaded NSDL/CDSL CAS; MF Central/CAMS/KFintech statements subject to access and terms | Depository/RTA partnerships; authorised aggregation provider | P1. PDF/email ingestion requires secure handling and reconciliation. |
-| Bank balances, deposits, loans and cash flows | Manual entry and statement upload | Account Aggregator through an eligible FIU/TSP/regulated partner; bank partnerships | P1/P2. AA access is consent- and eligibility-dependent, not an unrestricted public API. |
-| Goal assumptions and risk profile | User responses; published regulator/industry guidance as policy inputs | Licensed financial-planning engines or regulated-adviser partner | P0. Defaults are versioned and disclosed; desired return does not override suitability. |
-| Tax rules and calculations | Income Tax Department, CBDT, Finance Act, SEBI and product documents | Taxmann; commercial tax engines; CA/tax partner | P1. Keep an effective-dated rules engine and route complex cases to a professional. |
-| Product suitability and regulatory rules | SEBI/RBI/PFRDA/IRDAI/foreign regulator publications | Legal databases; compliance consultant; registered IA/RA partner | P0. Counsel validation is a launch gate for personalised recommendations. |
+| Data needed                                   | Free/public starting sources                                                                 | Paid/licensed/partner upgrade candidates                                            | Initial use and caveats                                                                 |
+| --------------------------------------------- | -------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| Manual/virtual portfolio                      | User entry and platform-calculated prices                                                    | None required                                                                       | P0. Show that suggestions are hypothetical when there is no verified holding.           |
+| Broker holdings and transactions              | User-downloaded CSV/XLSX; official broker APIs where available, such as Kite Connect/Upstox  | Broker partnerships; aggregation providers; custodian/wealth-platform feeds         | P0 upload; P2 integrations. OAuth/token consent only—never request password or OTP.     |
+| Consolidated demat/MF holdings                | User-uploaded NSDL/CDSL CAS; MF Central/CAMS/KFintech statements subject to access and terms | Depository/RTA partnerships; authorised aggregation provider                        | P1. PDF/email ingestion requires secure handling and reconciliation.                    |
+| Bank balances, deposits, loans and cash flows | Manual entry and statement upload                                                            | Account Aggregator through an eligible FIU/TSP/regulated partner; bank partnerships | P1/P2. AA access is consent- and eligibility-dependent, not an unrestricted public API. |
+| Goal assumptions and risk profile             | User responses; published regulator/industry guidance as policy inputs                       | Licensed financial-planning engines or regulated-adviser partner                    | P0. Defaults are versioned and disclosed; desired return does not override suitability. |
+| Tax rules and calculations                    | Income Tax Department, CBDT, Finance Act, SEBI and product documents                         | Taxmann; commercial tax engines; CA/tax partner                                     | P1. Keep an effective-dated rules engine and route complex cases to a professional.     |
+| Product suitability and regulatory rules      | SEBI/RBI/PFRDA/IRDAI/foreign regulator publications                                          | Legal databases; compliance consultant; registered IA/RA partner                    | P0. Counsel validation is a launch gate for personalised recommendations.               |
 
 ### 10.7 Source priority model
 
 Priority follows the requested asset sequence and distinguishes **product priority** from **provider quality**.
 
-| Priority | Product/data scope | Release meaning |
-|---|---|---|
-| P0 | Shared platform foundation, Indian equities, global factors directly affecting Indian equities, user goals and spreadsheet/virtual portfolios | Required before the first credible public beta |
-| P1 | Indian mutual funds, government/corporate bonds, deposits, tax-aware goal allocation and CAS imports | Next complete asset-allocation layer |
-| P2 | Indian ETFs, gold, commodities, deeper derivatives/positioning data and automated broker connectivity | Add one instrument family at a time after suitability and data checks |
-| P3 | International mutual funds | First international investible product layer |
-| P4 | International listed stocks and ETFs | Requires international security master, corporate actions, FX and tax support |
-| P5 | Other international assets, bonds, commodities and derivatives | Expand country/asset-specific controls one at a time |
-| P6 | Crypto | Last planned layer with separate risk, custody, tax and regulatory model |
+| Priority | Product/data scope                                                                                                                            | Release meaning                                                               |
+| -------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| P0       | Shared platform foundation, Indian equities, global factors directly affecting Indian equities, user goals and spreadsheet/virtual portfolios | Required before the first credible public beta                                |
+| P1       | Indian mutual funds, government/corporate bonds, deposits, tax-aware goal allocation and CAS imports                                          | Next complete asset-allocation layer                                          |
+| P2       | Indian ETFs, gold, commodities, deeper derivatives/positioning data and automated broker connectivity                                         | Add one instrument family at a time after suitability and data checks         |
+| P3       | International mutual funds                                                                                                                    | First international investible product layer                                  |
+| P4       | International listed stocks and ETFs                                                                                                          | Requires international security master, corporate actions, FX and tax support |
+| P5       | Other international assets, bonds, commodities and derivatives                                                                                | Expand country/asset-specific controls one at a time                          |
+| P6       | Crypto                                                                                                                                        | Last planned layer with separate risk, custody, tax and regulatory model      |
 
 ### 10.8 Source onboarding tracker
 
@@ -878,52 +877,52 @@ Priority follows the requested asset sequence and distinguishes **product priori
 
 The tracker is deliberately initialised honestly; no source is marked production before access, terms, validation and monitoring are complete.
 
-| Order | ID | Priority | Data domain | Preferred free/public starting source | First paid candidate set | Current status | Next decision/action | Launch gate |
-|---:|---|---|---|---|---|---|---|---|
-| 1 | SRC-001 | P0 | Instrument/security master | NSE + BSE + ISIN crosswalk | NSE/BSE licensed data; Capitaline/ACE | Not started | Obtain files, document terms, define canonical ISIN/symbol schema | Yes |
-| 2 | SRC-002 | P0 | Indian EOD prices/volume | NSE/BSE EOD reports | NSE/BSE licensed EOD feed | Not started | Confirm automated-use rights; build dual-source reconciliation | Yes |
-| 3 | SRC-003 | P0 | Corporate actions | NSE/BSE + issuer filings | Exchange corporate-data feed; LSEG/FactSet | Not started | Build action taxonomy and adjusted-price golden tests | Yes |
-| 4 | SRC-004 | P0 | Corporate filings/results | NSE/BSE + issuer IR | Exchange corporate feed; AlphaSense/Capital IQ | Not started | Build filing registry, hash/version and entitlement policy | Yes |
-| 5 | SRC-005 | P0 | Reported fundamentals | Filing/XBRL extraction | Capitaline/ACE/CMIE | Not started | Select initial financial schema and 25-company validation set | Yes |
-| 6 | SRC-006 | P0 | Index/sector data | NSE Indices/BSE Indices | Licensed index feed | Not started | Validate constituent/history rights and create classification crosswalk | Yes |
-| 7 | SRC-007 | P0 | India macro | MoSPI + RBI/DBIE | CEIC/Macrobond/CMIE | Not started | Create release calendar, vintage model and initial series registry | Yes |
-| 8 | SRC-008 | P0 | Global macro/rates | FRED, BLS, BEA, Treasury, Fed, ECB | Macrobond/Haver/Bloomberg/LSEG | Not started | Identify minimum India-impact series and official API limits | Yes |
-| 9 | SRC-009 | P0 | Oil/commodity/FX benchmarks | EIA, World Bank, RBI/FBIL, official releases | ICE/CME/LSEG/Bloomberg | Not started | Define permissible EOD benchmarks and currency conversion rules | Yes |
-| 10 | SRC-010 | P0 | FII/DII/FPI flows | NSE + NSDL/CDSL | Exchange/depository feed; EPFR | Not started | Separate provisional cash, total FPI and derivatives measures | Yes |
-| 11 | SRC-011 | P0 | F&O participant positioning | NSE participant OI and bhavcopy | NSE analytics feed | Not started | Create positioning metrics and block misleading single-number narratives | Yes |
-| 12 | SRC-012 | P0 | Market/company news | Primary filings/releases + permitted reputable links | Reuters/LSEG or Dow Jones/Factiva | Not started | Define link-only/full-text rights and two-source verification policy | Yes |
-| 13 | SRC-013 | P0 | Portfolio spreadsheet imports | User CSV/XLSX exports | Aggregation/broker partners later | Not started | Collect sample exports from initial five Indian platforms and build versioned parsers | Yes |
-| 14 | SRC-014 | P0 | Regulatory/tax source registry | SEBI, RBI, Income Tax, Finance Ministry | Taxmann + counsel/compliance partner | Not started | Counsel review; effective-dated policy schema | Yes |
-| 15 | SRC-015 | P1 | MF scheme master/NAV | AMFI | Morningstar/CRISIL/Lipper | Not started | Validate AMFI use terms; map scheme variants and history | P1 gate |
-| 16 | SRC-016 | P1 | MF holdings/factsheets | AMC/SEBI disclosures | Morningstar/CRISIL/Lipper | Not started | Choose top AMCs and test portfolio-disclosure parsers | P1 gate |
-| 17 | SRC-017 | P1 | India G-sec/yield curve | RBI/FBIL/CCIL public reports | CCIL/Bloomberg/LSEG | Not started | Validate benchmark rights and bond calculator inputs | P1 gate |
-| 18 | SRC-018 | P1 | Corporate bonds/ratings | NSE/BSE + rating releases | CRISIL MI&A/Bloomberg/LSEG | Not started | Define liquidity, evaluated-price and credit-event policy | P1 gate |
-| 19 | SRC-019 | P1 | CAS/MF statement import | User-uploaded CDSL/NSDL/RTA statements | Depository/RTA partner | Not started | Gather formats; security/privacy review; reconciliation tests | P1 gate |
-| 20 | SRC-020 | P1 | Consensus/earnings revisions | Company guidance only | LSEG I/B/E/S/FactSet/Capital IQ | Not started | Commercial comparison; feature remains unavailable until reliable | No for P0 |
-| 21 | SRC-021 | P2 | Broker API connectivity | Official broker APIs | Broker/aggregator partnership | Not started | Prioritise brokers by target-user coverage; OAuth/consent design | P2 gate |
-| 22 | SRC-022 | P2 | Indian ETFs/gold/commodities | Exchange/AMC/AMFI/EIA/World Bank | MCX/ICE/CME/Morningstar | Not started | Add asset families separately with tracking/liquidity models | P2 gate |
-| 23 | SRC-023 | P2 | Options/derivatives analytics | NSE EOD reports | NSE licensed analytics | Not started | Suitability and educational-only boundary before implementation | P2/P3 gate |
-| 24 | SRC-024 | P3 | International mutual funds | Issuer/regulator factsheets | Morningstar/Lipper | Not started | Select first jurisdictions and canonical share-class schema | P3 gate |
-| 25 | SRC-025 | P4 | International equities/ETFs | SEC/issuer filings plus approved EOD source | LSEG/Bloomberg/FactSet/ICE/vendor | Not started | Choose first market, license prices/reference/corporate actions | P4 gate |
-| 26 | SRC-026 | P5 | International bonds/commodities | Official issuers/central banks/reference sources | Bloomberg/LSEG/ICE/CME/S&P Global | Not started | Add one asset and jurisdiction per policy/evaluation pack | P5 gate |
-| 27 | SRC-027 | P6 | Crypto market/on-chain | Approved exchange/public blockchain sources | Kaiko/Coin Metrics/CCData | Not started | Regulatory, custody, tax and manipulation-risk design first | P6 gate |
+| Order | ID      | Priority | Data domain                     | Preferred free/public starting source                | First paid candidate set                       | Current status | Next decision/action                                                                  | Launch gate |
+| ----: | ------- | -------- | ------------------------------- | ---------------------------------------------------- | ---------------------------------------------- | -------------- | ------------------------------------------------------------------------------------- | ----------- |
+|     1 | SRC-001 | P0       | Instrument/security master      | NSE + BSE + ISIN crosswalk                           | NSE/BSE licensed data; Capitaline/ACE          | Not started    | Obtain files, document terms, define canonical ISIN/symbol schema                     | Yes         |
+|     2 | SRC-002 | P0       | Indian EOD prices/volume        | NSE/BSE EOD reports                                  | NSE/BSE licensed EOD feed                      | Not started    | Confirm automated-use rights; build dual-source reconciliation                        | Yes         |
+|     3 | SRC-003 | P0       | Corporate actions               | NSE/BSE + issuer filings                             | Exchange corporate-data feed; LSEG/FactSet     | Not started    | Build action taxonomy and adjusted-price golden tests                                 | Yes         |
+|     4 | SRC-004 | P0       | Corporate filings/results       | NSE/BSE + issuer IR                                  | Exchange corporate feed; AlphaSense/Capital IQ | Not started    | Build filing registry, hash/version and entitlement policy                            | Yes         |
+|     5 | SRC-005 | P0       | Reported fundamentals           | Filing/XBRL extraction                               | Capitaline/ACE/CMIE                            | Not started    | Select initial financial schema and 25-company validation set                         | Yes         |
+|     6 | SRC-006 | P0       | Index/sector data               | NSE Indices/BSE Indices                              | Licensed index feed                            | Not started    | Validate constituent/history rights and create classification crosswalk               | Yes         |
+|     7 | SRC-007 | P0       | India macro                     | MoSPI + RBI/DBIE                                     | CEIC/Macrobond/CMIE                            | Not started    | Create release calendar, vintage model and initial series registry                    | Yes         |
+|     8 | SRC-008 | P0       | Global macro/rates              | FRED, BLS, BEA, Treasury, Fed, ECB                   | Macrobond/Haver/Bloomberg/LSEG                 | Not started    | Identify minimum India-impact series and official API limits                          | Yes         |
+|     9 | SRC-009 | P0       | Oil/commodity/FX benchmarks     | EIA, World Bank, RBI/FBIL, official releases         | ICE/CME/LSEG/Bloomberg                         | Not started    | Define permissible EOD benchmarks and currency conversion rules                       | Yes         |
+|    10 | SRC-010 | P0       | FII/DII/FPI flows               | NSE + NSDL/CDSL                                      | Exchange/depository feed; EPFR                 | Not started    | Separate provisional cash, total FPI and derivatives measures                         | Yes         |
+|    11 | SRC-011 | P0       | F&O participant positioning     | NSE participant OI and bhavcopy                      | NSE analytics feed                             | Not started    | Create positioning metrics and block misleading single-number narratives              | Yes         |
+|    12 | SRC-012 | P0       | Market/company news             | Primary filings/releases + permitted reputable links | Reuters/LSEG or Dow Jones/Factiva              | Not started    | Define link-only/full-text rights and two-source verification policy                  | Yes         |
+|    13 | SRC-013 | P0       | Portfolio spreadsheet imports   | User CSV/XLSX exports                                | Aggregation/broker partners later              | Not started    | Collect sample exports from initial five Indian platforms and build versioned parsers | Yes         |
+|    14 | SRC-014 | P0       | Regulatory/tax source registry  | SEBI, RBI, Income Tax, Finance Ministry              | Taxmann + counsel/compliance partner           | Not started    | Counsel review; effective-dated policy schema                                         | Yes         |
+|    15 | SRC-015 | P1       | MF scheme master/NAV            | AMFI                                                 | Morningstar/CRISIL/Lipper                      | Not started    | Validate AMFI use terms; map scheme variants and history                              | P1 gate     |
+|    16 | SRC-016 | P1       | MF holdings/factsheets          | AMC/SEBI disclosures                                 | Morningstar/CRISIL/Lipper                      | Not started    | Choose top AMCs and test portfolio-disclosure parsers                                 | P1 gate     |
+|    17 | SRC-017 | P1       | India G-sec/yield curve         | RBI/FBIL/CCIL public reports                         | CCIL/Bloomberg/LSEG                            | Not started    | Validate benchmark rights and bond calculator inputs                                  | P1 gate     |
+|    18 | SRC-018 | P1       | Corporate bonds/ratings         | NSE/BSE + rating releases                            | CRISIL MI&A/Bloomberg/LSEG                     | Not started    | Define liquidity, evaluated-price and credit-event policy                             | P1 gate     |
+|    19 | SRC-019 | P1       | CAS/MF statement import         | User-uploaded CDSL/NSDL/RTA statements               | Depository/RTA partner                         | Not started    | Gather formats; security/privacy review; reconciliation tests                         | P1 gate     |
+|    20 | SRC-020 | P1       | Consensus/earnings revisions    | Company guidance only                                | LSEG I/B/E/S/FactSet/Capital IQ                | Not started    | Commercial comparison; feature remains unavailable until reliable                     | No for P0   |
+|    21 | SRC-021 | P2       | Broker API connectivity         | Official broker APIs                                 | Broker/aggregator partnership                  | Not started    | Prioritise brokers by target-user coverage; OAuth/consent design                      | P2 gate     |
+|    22 | SRC-022 | P2       | Indian ETFs/gold/commodities    | Exchange/AMC/AMFI/EIA/World Bank                     | MCX/ICE/CME/Morningstar                        | Not started    | Add asset families separately with tracking/liquidity models                          | P2 gate     |
+|    23 | SRC-023 | P2       | Options/derivatives analytics   | NSE EOD reports                                      | NSE licensed analytics                         | Not started    | Suitability and educational-only boundary before implementation                       | P2/P3 gate  |
+|    24 | SRC-024 | P3       | International mutual funds      | Issuer/regulator factsheets                          | Morningstar/Lipper                             | Not started    | Select first jurisdictions and canonical share-class schema                           | P3 gate     |
+|    25 | SRC-025 | P4       | International equities/ETFs     | SEC/issuer filings plus approved EOD source          | LSEG/Bloomberg/FactSet/ICE/vendor              | Not started    | Choose first market, license prices/reference/corporate actions                       | P4 gate     |
+|    26 | SRC-026 | P5       | International bonds/commodities | Official issuers/central banks/reference sources     | Bloomberg/LSEG/ICE/CME/S&P Global              | Not started    | Add one asset and jurisdiction per policy/evaluation pack                             | P5 gate     |
+|    27 | SRC-027 | P6       | Crypto market/on-chain          | Approved exchange/public blockchain sources          | Kaiko/Coin Metrics/CCData                      | Not started    | Regulatory, custody, tax and manipulation-risk design first                           | P6 gate     |
 
 ### 10.9 Source-selection scorecard
 
 Score every candidate before onboarding. A cheap source that cannot legally support the product is scored as unusable, not “best value.”
 
-| Criterion | Weight | Minimum rule |
-|---|---:|---|
-| Authority and accuracy | 20% | Primary or independently validated source for action-driving facts |
-| Commercial usage and redistribution rights | 20% | Written terms compatible with storage, derivation and intended display |
-| Coverage and history | 12% | Meets defined instrument/series universe and back-test period |
-| Timeliness and revision handling | 10% | Meets report SLA and exposes correction/revision behaviour |
-| Identifiers and metadata quality | 10% | Stable IDs, currency, units, calendars and corporate-action support |
-| API/file reliability | 8% | Documented delivery, limits and operational support |
-| Reconciliation and explainability | 8% | Can be cross-checked and traced to an observation/source document |
-| Cost and scaling model | 7% | Sustainable at expected users, requests and display channels |
-| Support/SLA | 3% | Escalation path for production incidents |
-| Exit portability | 2% | Data model and derived records can migrate without provider lock-in |
+| Criterion                                  | Weight | Minimum rule                                                           |
+| ------------------------------------------ | -----: | ---------------------------------------------------------------------- |
+| Authority and accuracy                     |    20% | Primary or independently validated source for action-driving facts     |
+| Commercial usage and redistribution rights |    20% | Written terms compatible with storage, derivation and intended display |
+| Coverage and history                       |    12% | Meets defined instrument/series universe and back-test period          |
+| Timeliness and revision handling           |    10% | Meets report SLA and exposes correction/revision behaviour             |
+| Identifiers and metadata quality           |    10% | Stable IDs, currency, units, calendars and corporate-action support    |
+| API/file reliability                       |     8% | Documented delivery, limits and operational support                    |
+| Reconciliation and explainability          |     8% | Can be cross-checked and traced to an observation/source document      |
+| Cost and scaling model                     |     7% | Sustainable at expected users, requests and display channels           |
+| Support/SLA                                |     3% | Escalation path for production incidents                               |
+| Exit portability                           |     2% | Data model and derived records can migrate without provider lock-in    |
 
 ### 10.10 Tracker governance
 
@@ -1004,14 +1003,14 @@ Use a **modular application with database-backed workers**, not premature micros
 
 Add infrastructure only after a defined trigger is observed:
 
-| Addition | Introduce when |
-|---|---|
-| Redis | Repeated database/cache pressure, distributed rate limiting, session scale or sub-second hot-read requirements cannot be met safely by the initial design |
-| Kafka | Sustained event volume, multiple independent consumers, replay requirements and producer/consumer decoupling exceed the PostgreSQL outbox/worker model |
-| Elasticsearch | Full-text corpus size, multilingual search, faceting or relevance requirements exceed PostgreSQL/MongoDB search capabilities |
-| Dedicated time-series store | Price/history volume and analytical workloads materially affect PostgreSQL operational workloads |
-| Graph database | Multi-hop impact/exposure queries become too complex or slow in the relational edge model |
-| Service decomposition | Independent scaling, release ownership, fault isolation or regulatory boundaries justify extracting a module |
+| Addition                    | Introduce when                                                                                                                                            |
+| --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Redis                       | Repeated database/cache pressure, distributed rate limiting, session scale or sub-second hot-read requirements cannot be met safely by the initial design |
+| Kafka                       | Sustained event volume, multiple independent consumers, replay requirements and producer/consumer decoupling exceed the PostgreSQL outbox/worker model    |
+| Elasticsearch               | Full-text corpus size, multilingual search, faceting or relevance requirements exceed PostgreSQL/MongoDB search capabilities                              |
+| Dedicated time-series store | Price/history volume and analytical workloads materially affect PostgreSQL operational workloads                                                          |
+| Graph database              | Multi-hop impact/exposure queries become too complex or slow in the relational edge model                                                                 |
+| Service decomposition       | Independent scaling, release ownership, fault isolation or regulatory boundaries justify extracting a module                                              |
 
 ### 12.2 Bounded modules
 
@@ -1585,4 +1584,3 @@ The platform succeeds when a non-expert user can open it and, within one minute,
 - If yes, exactly what should I review or change—and what evidence would make that advice wrong?
 
 If the product merely produces a longer and more attractive market newsletter, it has failed.
-

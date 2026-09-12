@@ -52,10 +52,17 @@ test('ready is 200 only when both dependencies are up; down returns 503', async 
   assert.equal((await fetch(`${base}/api/v1/health`)).status, 200);
 });
 test('unknown API endpoints return JSON 404 responses', async () => {
-  for (const route of ['recommendations', '__e2e_missing_route__', 'missing/nested']) {
+  for (const route of [
+    'recommendations',
+    '__e2e_missing_route__',
+    'missing/nested',
+  ]) {
     const response = await fetch(`${base}/api/v1/${route}`);
     assert.equal(response.status, 404);
-    assert.match(response.headers.get('content-type') ?? '', /application\/json/);
+    assert.match(
+      response.headers.get('content-type') ?? '',
+      /application\/json/,
+    );
     const body = await response.json();
     assert.equal(body.statusCode, 404);
     assert.equal(body.error, 'Not Found');

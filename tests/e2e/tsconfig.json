@@ -4,16 +4,8 @@
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "noEmit": true,
-    "types": [
-      "node"
-    ],
-    "lib": [
-      "ES2022",
-      "DOM"
-    ]
+    "types": ["node"],
+    "lib": ["ES2022", "DOM"]
   },
-  "include": [
-    "cases/**/*.ts",
-    "../../playwright.config.ts"
-  ]
+  "include": ["cases/**/*.ts", "../../playwright.config.ts"]
 }

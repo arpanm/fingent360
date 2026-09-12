@@ -25,6 +25,7 @@ The reusable tool is scripts/e2e.mjs + playwright.config.ts + Playwright UI mode
 
 ```markdown
 ### TASK-ID — outcome
+
 - Request/context:
 - Implementation: Planned / In progress / Implemented / Blocked
 - Verification: Not run / Awaiting user / User-reported passed / failed

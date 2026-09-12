@@ -2,16 +2,16 @@
 
 All cases below are **authored, not executed** in this SDLC change. No pass/fail is claimed. Task status and manual verification live in [TODO.md](../../TODO.md). Stable IDs appear in the UI, errors and reports. Browser cases run separately under desktop and mobile projects.
 
-| ID | Task | Project / scenario | Prerequisites | Expected outcome | Kind |
-| --- | --- | --- | --- | --- | --- |
-| E2E-API-001 | SETUP-001, SDLC-001 | API liveness | Local API started | HTTP 200, strict shared schema, recent timestamp | Real API |
-| E2E-API-002 | SETUP-001, SDLC-001 | Database readiness | API and both dedicated databases up | HTTP 200; PostgreSQL and MongoDB up | Real integration |
-| E2E-API-003 | SETUP-001, SDLC-001, BUG-002 | Unknown route | API started | HTTP 404, application/json and JSON statusCode/error | Real API |
-| E2E-API-004 | SETUP-001, SDLC-001 | Deliberate DB outage | User stops one dedicated container; opts in with E2E_EXPECT_DOWN | Ready 503 and selected DB down; live 200 | Manual preparation; skipped by default |
-| E2E-WEB-001 | SETUP-001, SDLC-001 | Home → actual API | Web/API up | API connected; honest scope; three planned areas | Real integration |
-| E2E-WEB-002 | SETUP-001, SDLC-001 | Unavailable API | Web up | API unavailable shown after 503 | Simulated network failure |
-| E2E-WEB-003 | SETUP-001, SDLC-001 | Invalid API contract | Web up | Invalid timestamp cannot display API connected | Simulated invalid payload |
-| E2E-WEB-004 | SETUP-001, SDLC-001 | Responsive/keyboard | Web up | No horizontal overflow; home link keyboard accessible | Real browser |
+| ID          | Task                         | Project / scenario   | Prerequisites                                                    | Expected outcome                                      | Kind                                   |
+| ----------- | ---------------------------- | -------------------- | ---------------------------------------------------------------- | ----------------------------------------------------- | -------------------------------------- |
+| E2E-API-001 | SETUP-001, SDLC-001          | API liveness         | Local API started                                                | HTTP 200, strict shared schema, recent timestamp      | Real API                               |
+| E2E-API-002 | SETUP-001, SDLC-001          | Database readiness   | API and both dedicated databases up                              | HTTP 200; PostgreSQL and MongoDB up                   | Real integration                       |
+| E2E-API-003 | SETUP-001, SDLC-001, BUG-002 | Unknown route        | API started                                                      | HTTP 404, application/json and JSON statusCode/error  | Real API                               |
+| E2E-API-004 | SETUP-001, SDLC-001          | Deliberate DB outage | User stops one dedicated container; opts in with E2E_EXPECT_DOWN | Ready 503 and selected DB down; live 200              | Manual preparation; skipped by default |
+| E2E-WEB-001 | SETUP-001, SDLC-001          | Home → actual API    | Web/API up                                                       | API connected; honest scope; three planned areas      | Real integration                       |
+| E2E-WEB-002 | SETUP-001, SDLC-001          | Unavailable API      | Web up                                                           | API unavailable shown after 503                       | Simulated network failure              |
+| E2E-WEB-003 | SETUP-001, SDLC-001          | Invalid API contract | Web up                                                           | Invalid timestamp cannot display API connected        | Simulated invalid payload              |
+| E2E-WEB-004 | SETUP-001, SDLC-001          | Responsive/keyboard  | Web up                                                           | No horizontal overflow; home link keyboard accessible | Real browser                           |
 
 ## Runner acceptance — user performs these once
 

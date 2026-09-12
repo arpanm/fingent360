@@ -12,7 +12,7 @@ try {
   client = await pool.connect();
   await client.query('BEGIN');
   await client.query('SELECT pg_advisory_xact_lock(360001)');
-  for (const filename of ['001_virtual_journey.sql', '002_macro.sql', '003_accounts.sql']) {
+  for (const filename of ['001_virtual_journey.sql', '002_macro.sql', '003_accounts.sql', '004_inbox.sql']) {
     await client.query(await readFile(new URL(`../../../infra/migrations/${filename}`, import.meta.url), 'utf8'));
   }
   await client.query('COMMIT');

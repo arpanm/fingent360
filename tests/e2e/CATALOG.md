@@ -85,3 +85,12 @@ Prerequisites: updated app, PostgreSQL, additive migration; account tests do not
 | E2E-WEB-030 | desktop/mobile | User registers, selects real indicator, saves/reloads/signs in again, then deletes account; no overflow |
 
 Password hashing, cookie parsing, Origin enforcement and bounded rate-limit unit regressions are in apps/api/test/account-security.test.mjs. Execution pending user Run.
+
+## ALERT-001 personal inbox
+
+Run @ALERT-001 manually after latest migration, research:setup and API restart. Provider access required; cases use real GDP observations and temporary accounts. Credentials are excluded from traces/video/screenshots.
+
+- E2E-API-040: source ingestion → followed observation → acknowledgment → reload, independent account read state, foreign Origin/non-followed observation rejected.
+- E2E-WEB-040 (desktop/mobile): register → follow GDP → acknowledge actual source observation → reload retains acknowledgment.
+
+Cases are authored, not executed. Read receipts bind to immutable observation IDs; no external message is sent.

@@ -22,3 +22,9 @@ In the existing Playwright UI, run `@ACCOUNT-001` across api/desktop/mobile. E2E
 All under /api/v1/account: GET current user, POST register/login/logout, GET/PUT watchlist, DELETE account (current password required). Mutating requests require the configured web Origin and cookies; direct API clients must supply that Origin explicitly. No production launch or suitability/advice gate is completed by this feature.
 
 Implementation and tests are authored; Codex did not execute the checks, migration, app or cases.
+
+## ALERT-001 observation inbox
+
+Followed indicators now show their latest non-null reported observation in a personal inbox. This is historical data context, not a claim that a new market event just occurred. Corrections carry their revision label. Acknowledgments reference the exact immutable observation ID; new revisions/years have independent read state. Receipt rows cascade on account deletion and remain private. Source age/failed refresh context is shown in the saved-indicator cards above the inbox. An initial null latest-year value falls back to an earlier reported year with its year shown. A revised value withdrawn to null is retained as a correction and shown unavailable, never hidden as a previously acknowledged value. No zero is fabricated.
+
+Apply migration 004 via the normal db:migrate command. E2E-API-040 and E2E-WEB-040 (`@ALERT-001`) fetch real GDP through the operator API, then verify account-specific acknowledgments and reload persistence. Tests need the local operator key and external source access; no mock observation is inserted. Traces/video/screenshots are disabled. No checks executed by Codex. Email/push delivery, materiality thresholds and durable delivery workers remain future tasks.

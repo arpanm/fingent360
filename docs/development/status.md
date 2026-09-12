@@ -69,3 +69,7 @@ Real World Bank India GDP growth/CPI inflation ingestion, original response stor
 ## ACCOUNT-001 — authenticated watchlists
 
 Account registration/login/logout/deletion, explicit storage consent, scrypt password hashes, hashed expiring cookie sessions, ownership checks and private real-indicator watchlists are implemented through DB/API/UI. API/browser and security unit cases authored; no execution performed. Full production identity, real holdings, active alerts and account recovery remain open. See accounts.md.
+
+## ALERT-001 — personal observation inbox
+
+Latest real followed observations/corrections now surface in the account UI with persisted per-user, per-revision acknowledgments. Migration 004 and API/browser cases are written; execution pending. External notifications/materiality policies remain open.

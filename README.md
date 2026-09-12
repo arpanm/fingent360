@@ -25,6 +25,10 @@ Use **My watchlist / sign in** to create an account, save the real economic indi
 
 After `pnpm format` and `pnpm check`, apply `pnpm db:migrate` and load the updated app at http://localhost:5173/#account. In the E2E UI manually run `@ACCOUNT-001` across api/desktop/mobile. [Account behavior, limitations and manual walkthrough](docs/development/accounts.md). New cases remain unexecuted by Codex.
 
+## Personal observation inbox (ALERT-001)
+
+The signed-in watchlist now includes an inbox of latest reported observations for followed indicators. Acknowledgments persist per account and exact observation revision; later corrections are not silently treated as read. Use the source/history link to inspect evidence. This is an in-app data-review feature, not email/push or a trade signal. Apply the latest `pnpm db:migrate` and manually run `@ALERT-001` (real provider access required).
+
 ## Start locally
 
 Prerequisites: Node.js 24 LTS (Node 26 also supported locally), pnpm 11.23.0 and Docker with Compose.

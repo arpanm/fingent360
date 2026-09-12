@@ -19,6 +19,7 @@ Each task prompt below is combined with this contract (also reference it when co
 
 | ID        | Task                                                                 | Implementation | Verification    |
 | --------- | -------------------------------------------------------------------- | -------------- | --------------- |
+| ALERT-001 | Personal observation inbox | Implemented | Awaiting user |
 | ACCOUNT-001 | Authenticated accounts and real-data watchlists | Implemented | Awaiting user |
 | DATA-001 | Real India macro ingestion and evidence UI | Implemented | Awaiting user |
 | SLICE-001 | [Working educational portfolio journey](#slice-001)                  | Implemented    | Awaiting user   |
@@ -1202,3 +1203,13 @@ DEV-014 is the legacy umbrella for later connectivity/channels/assets. DEV-022�
 
 - **Delivery:** Strict account schemas; 003 migration; scrypt/Origin/session/rate-limit service and account API; account/watchlist UI; E2E-API-030/031 and E2E-WEB-030; password/origin/session unit cases. Follow docs/development/accounts.md for manual verification.
 - **Remaining:** Production account recovery/MFA/households, real equity portfolios and active alert delivery remain open in parent tasks. Authored end-to-end implementation is not a test-pass claim.
+
+## ALERT-001 — Personal observation inbox and revision acknowledgments
+
+- **Implementation:** Implemented
+- **Verification:** Not run.
+- **Scope:** An authenticated user's followed real indicators produce an in-app latest-observation inbox. Read receipts bind to exact observation IDs; a later revision remains unread. No email/push, invented materiality threshold or investment action.
+- **Acceptance:** Real source values flow into personal inbox, acknowledgment persists across reload/login, another account retains independent read state, non-followed observations cannot be acknowledged, stale-source state and corrections are explicit.
+- **Codex prompt:** Extend ACCOUNT-001/DATA-001 with strict inbox contracts, additive read-receipt storage, ownership-scoped GET and Origin-protected acknowledgment API, actionable React inbox and real-data API/browser cases. Do not fabricate events or run tests/services/migrations. Update TODO/README and commit locally, never push.
+
+- **Delivery:** 004 inbox migration, strict shared contracts, session-owned inbox and acknowledgment endpoints, account UI and E2E-API-040/E2E-WEB-040. Source values come from DATA-001, not fixtures. No tests, migrations or service actions executed. Manual: format → check → db:migrate, then run @ALERT-001 in API/desktop/mobile with provider access.

@@ -324,3 +324,4 @@ th, td { text-align: left; padding: 12px 8px; border-bottom: 1px solid #ccd6c7; 
 .account label { display: flex; flex-direction: column; gap: 8px; margin: 18px 0; max-width: 540px; }
 .account .check-label { flex-direction: row; align-items: flex-start; line-height: 1.5; }
 .account input[type="checkbox"] { flex: 0 0 auto; margin-top: 5px; }
+.account .card p { overflow-wrap: anywhere; }

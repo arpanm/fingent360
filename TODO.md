@@ -1229,8 +1229,9 @@ DEV-014 is the legacy umbrella for later connectivity/channels/assets. DEV-022â€
 - **Codex prompt:** Restore the missing method delimiter, preserve user formatting changes, record the failure and recovery in TODO/README/catalogue, commit only the scoped fix. Do not run format/check/build/tests/services or push. Existing compilation and account/inbox E2E cases provide regression coverage; do not add a test that merely counts braces.
 - **Manual next actions:** Stop the existing dev terminal, run pnpm format and pnpm check successfully, then pnpm db:migrate and pnpm dev. The migration executed before this successful build may have used old dist output; rerun it after compilation. Run account/inbox cases in the manual UI; report the first failing step if any.
 
-
 ## DEV-PORTS-001 â€” Automatic local port selection and dependency propagation
+
+- **Lint follow-up:** User reports formatting passed but ESLint rejected two side-effect ternaries in local-ports.mjs. Replaced them with explicit if/else branches, preserving process signaling and exit handling. Reusable prompt: fix the two no-unused-expressions violations without changing launcher behavior or weakening lint rules; update documentation and commit locally. Verification remains pending; manually rerun pnpm format and pnpm check.
 
 - **Implementation:** Implemented; manual verification pending
 - **Request:** User wants occupied ports resolved automatically for services and dependents informed, instead of manually killing listeners.

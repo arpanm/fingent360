@@ -31,6 +31,8 @@ The signed-in watchlist now includes an inbox of latest reported observations fo
 
 ## Automatic local ports (DEV-PORTS-001)
 
+The reported launcher lint errors have been corrected using explicit conditionals for process signaling and exit handling. Rerun `pnpm format` and `pnpm check`; verification of this correction remains pending.
+
 `pnpm dev` now brings up/reuses this repo's local databases, builds, selects free API/web ports and prints their actual URLs. Occupied ports no longer require killing another app. Selections are saved atomically in `.env`: API_PORT, WEB_PORT, WEB_ORIGIN, POSTGRES_PORT/MONGO_PORT and both database connection URLs. Vite's proxy, account Origin checks, migrations, smoke checks and newly opened E2E runners use the selected configuration. Existing unrelated processes are never killed.
 
 `pnpm db:up` reuses running ports reported by Fingent360's Compose services. If a stopped database's preferred port is occupied, it selects another binding while retaining the named volume. `pnpm preview` starts a coordinated API/static-web preview with the same port selection. Test UI and report commands also select free ports starting at 9323/9324 and print the addresses.

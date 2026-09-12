@@ -45,3 +45,7 @@ SDLC-002 remains awaiting user acceptance. No dependency/browser installation, f
 ## BUG-001 recovery
 
 User reported duplicate development startup failure and browser download stalling at 100%. Read-only inspection found an earlier Fingent360 session still bound to 5173/4100 and an active Playwright downloader. Added a pre-build port-conflict message and optional E2E_BROWSER=chrome mode (video disabled to avoid FFmpeg). The download stall's exact cause remains unconfirmed. No processes were stopped or checks executed; manual acceptance is in tests/e2e/CATALOG.md.
+
+## BUG-002 — pending manual verification
+
+User reported E2E-API-003 receiving HTML for an unknown API route. Source inspection found that the installed Express adapter mounts fallback handlers using the unnormalized global prefix. Updated the prefix to /api/v1 and authored JSON-content-type/error-body regression assertions. No checks or tests run by Codex. User also confirmed development startup succeeded after stopping the old session.

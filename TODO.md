@@ -19,6 +19,7 @@ Each task prompt below is combined with this contract (also reference it when co
 
 | ID | Task | Implementation | Verification |
 | --- | --- | --- | --- |
+| BUG-002 | [JSON API not-found responses](#bug-002) | Implemented | Awaiting user |
 | BUG-001 | [Duplicate startup / browser download recovery](#bug-001) | Implemented | Awaiting user |
 | SETUP-001 | [Local development foundation](#setup-001) | Implemented | Historical only |
 | SDLC-001 | [Manual SDLC and reusable API/browser test dashboard](#sdlc-001) | Implemented | Awaiting user |
@@ -1123,3 +1124,16 @@ DEV-014 is the legacy umbrella for later connectivity/channels/assets. DEV-022�
 - **E2E coverage:** tests/e2e/CATALOG.md BUG-001 manual acceptance; existing E2E-WEB-001–004 under both browser choices.
 - **Codex prompt:** Read AGENTS.md, README.md and BUG-001. Inspect existing listeners and launcher/config source only. Add an explicit pre-build duplicate-port error without killing/reusing unknown services. Add E2E_BROWSER=chrome using Playwright's installed browser channel and disable video in that mode to avoid FFmpeg download requirements. Document cancelling the old installer and reusing or manually stopping the old dev session. Add manual acceptance cases, update TODO/README and commit locally. Do not install, start/stop services, run checks/tests or push.
 - **Manual next actions:** User cancels pending install; reuses existing app or stops its old dev session and restarts. Launch E2E_BROWSER=chrome pnpm e2e:ui and run selected cases. Report actual results.
+
+<a id="bug-002"></a>
+
+### BUG-002 — Unknown API route returns HTML instead of JSON
+
+- **Implementation:** Implemented
+- **Verification:** User-reported E2E-API-003 failed parsing HTML after the HTTP 404 assertion passed; fix not run.
+- **Context:** Installed NestJS 12 Express adapter mounts its not-found router with the supplied global prefix. The app supplied api/v1 without a leading slash, while normal controller routes are normalized separately.
+- **Scope and acceptance:** Use /api/v1 consistently for controller and fallback mounting. Unknown nested API routes must return HTTP 404 with JSON statusCode 404. Keep health/readiness behavior unchanged. Check content type before parsing so regressions identify the response format clearly.
+- **Dependencies:** SETUP-001, SDLC-001.
+- **Cases:** E2E-API-003 plus API regression tests for JSON not-found responses.
+- **Codex prompt:** Read AGENTS.md, README.md and BUG-002. Inspect the installed NestJS router/adapter without executing it. Correct global-prefix mounting, preserve existing health/readiness routes, and add content-type plus JSON assertions to the unknown-route regression cases. Do not weaken the test to accept HTML. Update TODO/README and commit locally. Do not start services, execute checks/tests or push. Give the user exact manual rerun instructions.
+- **Manual next actions:** User runs formatting/checks, reloads the development API, then reruns E2E-API-003 and API smoke cases; provide results before marking verified.

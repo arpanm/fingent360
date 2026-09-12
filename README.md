@@ -95,6 +95,12 @@ The default remains managed Chromium. If retrying its installer, use Node 24 LTS
 
 BUG-001: implementation authored, manual verification pending. Codex did not stop processes, install browsers or run startup/tests/checks.
 
+## JSON error-response correction (BUG-002)
+
+Unknown nested API routes are expected to return JSON HTTP 404 errors. The API global prefix now includes the leading slash required by the installed Express adapter's fallback-router mount. E2E-API-003 checks content type before JSON parsing, and the API regression tests cover multiple missing paths. This fix is authored, not verified; the user reported the previous HTML-response failure.
+
+Manual next actions: run `pnpm format` and `pnpm check`; ensure the development API has reloaded (or restart `pnpm dev` after stopping its existing session). In the E2E dashboard rerun E2E-API-003, then E2E-API-001 and E2E-API-002 to check health/readiness remain intact. No changes to browser installation or database setup are needed.
+
 ## Repository map
 
 The SDLC adds `TODO.md`, `tests/e2e/`, `playwright.config.ts` and `scripts/e2e.mjs`.

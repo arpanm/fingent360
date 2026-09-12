@@ -48,7 +48,8 @@ export async function createApp(
     },
     { logger: ['error', 'warn', 'log'] },
   );
-  app.setGlobalPrefix('api/v1');
+  // The Express adapter mounts its not-found router with this exact prefix.
+  app.setGlobalPrefix('/api/v1');
   app.enableCors({ origin: config.WEB_ORIGIN });
   app.enableShutdownHooks();
   return app;

@@ -6,7 +6,7 @@ All cases below are **authored, not executed** in this SDLC change. No pass/fail
 | --- | --- | --- | --- | --- | --- |
 | E2E-API-001 | SETUP-001, SDLC-001 | API liveness | Local API started | HTTP 200, strict shared schema, recent timestamp | Real API |
 | E2E-API-002 | SETUP-001, SDLC-001 | Database readiness | API and both dedicated databases up | HTTP 200; PostgreSQL and MongoDB up | Real integration |
-| E2E-API-003 | SETUP-001, SDLC-001 | Unknown route | API started | HTTP 404 with error status | Real API |
+| E2E-API-003 | SETUP-001, SDLC-001, BUG-002 | Unknown route | API started | HTTP 404, application/json and JSON statusCode/error | Real API |
 | E2E-API-004 | SETUP-001, SDLC-001 | Deliberate DB outage | User stops one dedicated container; opts in with E2E_EXPECT_DOWN | Ready 503 and selected DB down; live 200 | Manual preparation; skipped by default |
 | E2E-WEB-001 | SETUP-001, SDLC-001 | Home → actual API | Web/API up | API connected; honest scope; three planned areas | Real integration |
 | E2E-WEB-002 | SETUP-001, SDLC-001 | Unavailable API | Web up | API unavailable shown after 503 | Simulated network failure |
@@ -33,3 +33,5 @@ All cases below are **authored, not executed** in this SDLC change. No pass/fail
 - Cancel a stalled browser installer. With Google Chrome installed, launch `E2E_BROWSER=chrome pnpm e2e:ui`; select desktop and E2E-WEB-001–004, then click Run. Expect execution without managed Chromium/FFmpeg installation. Repeat with mobile. Screenshot/trace evidence remains available; video is intentionally disabled.
 - If managed Chromium is installed, launch without E2E_BROWSER and confirm those same cases still select managed Chromium.
 - These definitions were not executed by Codex. Report run IDs and failures before recording a pass.
+
+BUG-002: user reported E2E-API-003 returning HTML after a successful 404 assertion. Corrected prefix mounting and added explicit format assertions; rerun pending, not marked passed.

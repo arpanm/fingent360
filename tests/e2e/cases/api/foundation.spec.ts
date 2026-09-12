@@ -22,9 +22,14 @@ test.describe('Foundation API @SETUP-001 @SDLC-001 @smoke', () => {
     });
   });
 
-  test('E2E-API-003 unknown routes are not successful responses', async ({ request }) => {
+  test('E2E-API-003 unknown routes return JSON errors @BUG-002', async ({ request }) => {
     const response = await request.get('/api/v1/__e2e_missing_route__');
     expect(response.status()).toBe(404);
-    expect((await response.json()).statusCode).toBe(404);
+    await test.step('The API fallback returns JSON, not an HTML error page', async () => {
+      expect(response.headers()['content-type'], 'Unknown API routes must return application/json').toContain('application/json');
+      const body = await response.json();
+      expect(body.statusCode).toBe(404);
+      expect(body.error).toBe('Not Found');
+    });
   });
 });

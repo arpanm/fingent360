@@ -29,6 +29,16 @@ After `pnpm format` and `pnpm check`, apply `pnpm db:migrate` and load the updat
 
 The signed-in watchlist now includes an inbox of latest reported observations for followed indicators. Acknowledgments persist per account and exact observation revision; later corrections are not silently treated as read. Use the source/history link to inspect evidence. This is an in-app data-review feature, not email/push or a trade signal. Apply the latest `pnpm db:migrate` and manually run `@ALERT-001` (real provider access required).
 
+## Automatic local ports (DEV-PORTS-001)
+
+`pnpm dev` now brings up/reuses this repo's local databases, builds, selects free API/web ports and prints their actual URLs. Occupied ports no longer require killing another app. Selections are saved atomically in `.env`: API_PORT, WEB_PORT, WEB_ORIGIN, POSTGRES_PORT/MONGO_PORT and both database connection URLs. Vite's proxy, account Origin checks, migrations, smoke checks and newly opened E2E runners use the selected configuration. Existing unrelated processes are never killed.
+
+`pnpm db:up` reuses running ports reported by Fingent360's Compose services. If a stopped database's preferred port is occupied, it selects another binding while retaining the named volume. `pnpm preview` starts a coordinated API/static-web preview with the same port selection. Test UI and report commands also select free ports starting at 9323/9324 and print the addresses.
+
+Use the printed links rather than assuming 5173/4100/9323. Reopen the test UI after launching a new app session so it targets that session. Existing apps/browser tabs/test runners retain their launch addresses; they are not silently redirected. Schema migrations remain an explicit manual action (`pnpm db:migrate`). Docker must be available. A port taken in the small interval between selection and bind can still require retrying startup; the launcher does not terminate the competing process.
+
+Manual verification: run `pnpm format` and `pnpm check`, then start `pnpm dev` while the previous app is still running. The new app should use different ports, connect to the existing databases, and allow account actions. Open `E2E_BROWSER=chrome pnpm e2e:ui`; verify its printed targets match the new app and run foundation/account cases. Start a second test UI to verify its listener moves too. Codex did not execute any of these steps.
+
 ## Start locally
 
 Prerequisites: Node.js 24 LTS (Node 26 also supported locally), pnpm 11.23.0 and Docker with Compose.
@@ -52,7 +62,7 @@ If pnpm is missing or differs, install the pinned version with `npm install --gl
 
 The database ports intentionally avoid existing services on 5432/27017. Containers have a separate `fingent360` Compose project and persistent named volumes. Credentials in `.env.example` are local development defaults. Bindings are loopback-only. There is no production deployment configuration yet.
 
-`pnpm dev` first builds the workspace, then watches contracts/API/web. Stop with Ctrl-C. `pnpm db:down` stops databases and preserves their data. If you change credentials after first startup, existing database users do not change automatically: migrate credentials rather than deleting volumes. If changing database ports/passwords, update the matching connection URI in `.env` as well.
+`pnpm dev` now prepares local database bindings, builds the workspace, selects available app ports, then watches contracts/API/web. Stop with Ctrl-C. `pnpm db:down` stops databases and preserves their data. If you change credentials after first startup, existing database users do not change automatically: migrate credentials rather than deleting volumes. If changing database ports/passwords, update the matching connection URI in `.env` as well.
 
 ## Working with Codex
 
@@ -1641,7 +1651,6 @@ If the product merely produces a longer and more attractive market newsletter, i
 ### E2E discovery correction (BUG-004)
 
 Account/macro/inbox specs now declare worker-scoped capture settings at file scope. Nesting these settings inside a describe group caused Playwright collection errors. Credential recording stays disabled. Close the previous E2E UI terminal and reopen with `E2E_BROWSER=chrome pnpm e2e:ui`; clear search/status filters and select all projects. Tests should list before any Run action. No tests were executed by Codex.
-
 
 ### API syntax correction (BUG-005)
 

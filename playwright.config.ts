@@ -1,5 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 import path from 'node:path';
+import { existsSync, readFileSync } from 'node:fs';
+import { parseEnv } from 'node:util';
 import { fileURLToPath } from 'node:url';
 
 const root = fileURLToPath(new URL('.', import.meta.url));
@@ -20,8 +22,12 @@ function localTarget(value: string): string {
   }
   return url.origin;
 }
-const api = localTarget(process.env.E2E_API_URL ?? 'http://127.0.0.1:4100');
-const web = localTarget(process.env.E2E_WEB_URL ?? 'http://127.0.0.1:5173');
+const envFile = path.join(root, '.env');
+const local = existsSync(envFile) ? parseEnv(readFileSync(envFile, 'utf8')) : {};
+const api = localTarget(process.env.E2E_API_URL ?? `http://127.0.0.1:${local.API_PORT || 4100}`);
+const web = localTarget(process.env.E2E_WEB_URL ?? local.WEB_ORIGIN ?? `http://127.0.0.1:${local.WEB_PORT || 5173}`);
+process.env.E2E_API_URL = api;
+process.env.E2E_WEB_URL = web;
 const runId = process.env.E2E_RUN_ID ?? `manual-${Date.now()}`;
 if (!/^[a-zA-Z0-9-]+$/.test(runId)) throw new Error('Invalid E2E_RUN_ID');
 const output = path.join(root, 'artifacts/e2e', runId);

@@ -4,6 +4,13 @@ import { createRequire } from 'node:module';
 import { existsSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
+import { availablePort, readLocalEnv, localOrigin } from './local-ports.mjs';
+const local = await readLocalEnv();
+const targets = { E2E_API_URL: process.env.E2E_API_URL || `http://127.0.0.1:${local.API_PORT || 4100}`, E2E_WEB_URL: process.env.E2E_WEB_URL || local.WEB_ORIGIN || `http://127.0.0.1:${local.WEB_PORT || 5173}` };
+targets.E2E_API_URL = localOrigin(targets.E2E_API_URL);
+targets.E2E_WEB_URL = localOrigin(targets.E2E_WEB_URL);
+const uiPort = await availablePort(process.env.E2E_UI_PORT || 9323);
+const reportPort = await availablePort(process.env.E2E_REPORT_PORT || 9324);
 
 const root = fileURLToPath(new URL('..', import.meta.url));
 const require = createRequire(import.meta.url);
@@ -48,14 +55,14 @@ if (mode === 'report') {
     'show-report',
     path.join(runs, latest, 'report'),
     '--host=127.0.0.1',
-    '--port=9324',
+    `--port=${reportPort}`,
   ];
 } else {
   args = ['test', '--config=playwright.config.ts', ...filters];
   if (mode === 'ui') {
-    args.push('--ui', '--ui-host=127.0.0.1', '--ui-port=9323');
+    args.push('--ui', '--ui-host=127.0.0.1', `--ui-port=${uiPort}`);
     console.log(
-      'Open http://127.0.0.1:9323. Select cases and click Run. Leave watch/eye toggles off.',
+      `Open http://127.0.0.1:${uiPort}. Tests target ${targets.E2E_WEB_URL} and ${targets.E2E_API_URL}. Select cases and click Run; watch mode stays off.`,
     );
   } else {
     console.log(
@@ -66,7 +73,7 @@ if (mode === 'report') {
 const child = spawn(process.execPath, [cli, ...args], {
   cwd: root,
   stdio: 'inherit',
-  env: { ...process.env, E2E_RUN_ID: runId },
+  env: { ...process.env, ...targets, E2E_RUN_ID: runId },
   shell: false,
 });
 for (const signal of ['SIGINT', 'SIGTERM']) {

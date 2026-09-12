@@ -102,3 +102,7 @@ Open the E2E UI with empty search/status filters and all projects selected. Foun
 ## BUG-005 compilation regression
 
 The missing AccountStore method brace is corrected. Existing pnpm check compilation catches this regression before runtime; no brace-counting test added. After successful checks/build and migration, manually run E2E-API-030/031/040 and E2E-WEB-030/040. These exercise account deletion and observation acknowledgment on the rebuilt API. No execution claimed.
+
+## DEV-PORTS-001 dynamic-port acceptance
+
+Start a second root pnpm dev while the previous session runs. Open the newly printed web URL and a newly launched E2E UI; its target URLs must match. Run E2E-API-001/002/030 and E2E-WEB-001/030 to verify connectivity and account Origin handling. A second E2E UI/report listener must choose another free port without stopping the first. For database-port conflicts, use a disposable local setup and confirm selected Compose bindings match .env connection URLs and retained data; never remove volumes. Automated unit definitions cover allocator/env mapping and run under pnpm check. All execution remains manual.

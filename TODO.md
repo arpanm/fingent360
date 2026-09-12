@@ -1222,10 +1222,20 @@ DEV-014 is the legacy umbrella for later connectivity/channels/assets. DEV-022�
 
 - **Manual next actions:** Reopen E2E UI, clear filters, verify all case groups list. Run selected cases manually. No dependency, database or app changes required. No checks run or push performed.
 
-
 ## BUG-005 — Missing method brace prevents API compilation
 
 - **Implementation:** Implemented; manual verification pending.
 - **Evidence:** User's pasted output shows Prettier syntax error at accounts.ts:99 before remove(). Source inspection confirms acknowledge() lacked its closing brace. Operator setup and both databases succeeded; dev startup was separately blocked by existing listeners.
 - **Codex prompt:** Restore the missing method delimiter, preserve user formatting changes, record the failure and recovery in TODO/README/catalogue, commit only the scoped fix. Do not run format/check/build/tests/services or push. Existing compilation and account/inbox E2E cases provide regression coverage; do not add a test that merely counts braces.
 - **Manual next actions:** Stop the existing dev terminal, run pnpm format and pnpm check successfully, then pnpm db:migrate and pnpm dev. The migration executed before this successful build may have used old dist output; rerun it after compilation. Run account/inbox cases in the manual UI; report the first failing step if any.
+
+
+## DEV-PORTS-001 — Automatic local port selection and dependency propagation
+
+- **Implementation:** Implemented; manual verification pending
+- **Request:** User wants occupied ports resolved automatically for services and dependents informed, instead of manually killing listeners.
+- **Scope:** Root dev launcher selects free API/web ports; local Compose wrapper reuses owned running DB mappings or selects available bindings and updates database URLs. Persist selections in .env; Vite proxy/API Origin checks/migrations/smoke/test targets consume these settings. E2E UI/report choose available listener ports. Never terminate unrelated listeners. Existing app/test sessions retain their launch configuration; new sessions use the latest selection.
+- **Codex prompt:** Implement reusable bounded loopback port selection, process-group cleanup of spawned processes, managed Compose mapping detection, selective env updates preserving secrets, and dynamic test/config consumers. Author meaningful port/env regression cases and manual end-to-end acceptance; do not execute services, tests, migrations or port probes as Codex. Preserve existing user edits. Update README/TODO and commit locally without hooks or push.
+- **Manual acceptance:** With the existing app running, pnpm dev must start on free app ports and reuse existing DB containers; new E2E UI targets those ports. A second E2E UI uses a different UI port. Auth registration remains valid on shifted web ports. Occupied non-project DB ports must cause different local bindings with corresponding URI changes. No volumes deleted or unrelated listeners stopped.
+
+- **Cases:** tests/unit/local-ports.test.mjs covers occupied-port selection without stopping listeners, distinct assignments, URI preservation and env updates. Existing API/browser account/foundation cases verify dependency propagation on the chosen ports. No tests/format/build/port probes/container actions executed by Codex.

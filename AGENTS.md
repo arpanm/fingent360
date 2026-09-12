@@ -63,6 +63,6 @@ pnpm e2e:run --project=api
 pnpm e2e:report
 ```
 
-Node 24 LTS is the CI baseline; Node 26 is allowed locally. pnpm is pinned. The test UI is http://127.0.0.1:9323. See `tests/e2e/README.md` for usage and prerequisites. `pnpm db:down` preserves named volumes; no volume removal/database reset without explicit data-loss authorization.
+Node 24 LTS is the CI baseline; Node 26 is allowed locally. pnpm is pinned. The test UI starts at port 9323 and selects a free alternative; use the URL printed by the launcher. Root pnpm dev/db:up select ports and propagate them through .env when the user invokes those commands. See `tests/e2e/README.md` for usage and prerequisites. `pnpm db:down` preserves named volumes; no volume removal/database reset without explicit data-loss authorization.
 
 Use `codex/` branch names when creating branches. Inspect Git status first; preserve unrelated changes. Historical instructions in product/reference documents to run gates do not override this SDLC execution boundary. A working skeleton does not complete a product gate.

@@ -3,7 +3,9 @@ import {
   HealthSchema,
   ReadinessSchema,
 } from '../packages/contracts/dist/index.js';
-const base = `http://127.0.0.1:${process.env.API_PORT || 4100}/api/v1`;
+import { readLocalEnv } from './local-ports.mjs';
+const local = await readLocalEnv();
+const base = `http://127.0.0.1:${local.API_PORT || 4100}/api/v1`;
 for (const [path, schema] of [
   ['health', HealthSchema],
   ['ready', ReadinessSchema],

@@ -4,8 +4,11 @@ import { InboxSchema } from '../../../../packages/contracts/src/index';
 import { operatorKey } from '../../helpers/operator';
 const headers = { Origin:'http://localhost:5173' };
 const password = 'E2E-only-private-passphrase-2026';
+// Capture options are worker-scoped and must be declared at file scope.
+// Keep credentials out of trace, video and screenshot artifacts.
+test.use({ trace: 'off', video: 'off', screenshot: 'off' });
+
 test.describe('Real observation inbox @ALERT-001 @external', () => {
-  test.use({trace:'off',video:'off',screenshot:'off'});
   test('E2E-API-040 real observation acknowledgment is persistent and private', async ({request,playwright,baseURL}) => {
     test.setTimeout(90000);
     const refreshed = await request.post('/api/v1/macro/refresh',{headers:{Authorization:`Bearer ${await operatorKey()}`},data:{indicator:'NY.GDP.MKTP.KD.ZG'},timeout:45000});

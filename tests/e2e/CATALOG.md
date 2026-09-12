@@ -94,3 +94,7 @@ Run @ALERT-001 manually after latest migration, research:setup and API restart. 
 - E2E-WEB-040 (desktop/mobile): register → follow GDP → acknowledge actual source observation → reload retains acknowledgment.
 
 Cases are authored, not executed. Read receipts bind to immutable observation IDs; no external message is sent.
+
+## BUG-004 discovery regression — manual acceptance
+
+Open the E2E UI with empty search/status filters and all projects selected. Foundation, journey, macro, account and inbox cases must be listed without collection errors. Capture-disabled specs retain file-scope test.use configuration; no test runs on open. Then manually run the desired cases. If discovery still fails, share the terminal or UI Errors message. No execution claimed.

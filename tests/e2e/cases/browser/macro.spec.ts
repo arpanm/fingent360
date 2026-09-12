@@ -1,7 +1,10 @@
 import { test, expect } from '@playwright/test';
 import { operatorKey } from '../../helpers/operator';
+// Capture options are worker-scoped and must be declared at file scope.
+// Keep credentials out of trace, video and screenshot artifacts.
+test.use({ trace: 'off', video: 'off', screenshot: 'off' });
+
 test.describe('Real macro browser @DATA-001 @external', () => {
-  test.use({ trace: 'off', video: 'off', screenshot: 'off' });
   test('E2E-WEB-020 refresh real data, inspect evidence and reload', async ({ page }) => {
     test.setTimeout(120000);
     await page.goto('/');

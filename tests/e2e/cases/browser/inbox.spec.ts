@@ -1,8 +1,11 @@
 import { randomUUID } from 'node:crypto';
 import { test, expect } from '@playwright/test';
 import { operatorKey } from '../../helpers/operator';
+// Capture options are worker-scoped and must be declared at file scope.
+// Keep credentials out of trace, video and screenshot artifacts.
+test.use({ trace: 'off', video: 'off', screenshot: 'off' });
+
 test.describe('Observation inbox browser @ALERT-001 @external', () => {
-  test.use({trace:'off',video:'off',screenshot:'off'});
   test('E2E-WEB-040 follow and acknowledge a real observation', async ({page,playwright}) => {
     test.setTimeout(90000);
     const api = await playwright.request.newContext({baseURL:process.env.E2E_API_URL ?? 'http://127.0.0.1:4100'});

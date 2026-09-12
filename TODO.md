@@ -1213,3 +1213,13 @@ DEV-014 is the legacy umbrella for later connectivity/channels/assets. DEV-022�
 - **Codex prompt:** Extend ACCOUNT-001/DATA-001 with strict inbox contracts, additive read-receipt storage, ownership-scoped GET and Origin-protected acknowledgment API, actionable React inbox and real-data API/browser cases. Do not fabricate events or run tests/services/migrations. Update TODO/README and commit locally, never push.
 
 - **Delivery:** 004 inbox migration, strict shared contracts, session-owned inbox and acknowledgment endpoints, account UI and E2E-API-040/E2E-WEB-040. Source values come from DATA-001, not fixtures. No tests, migrations or service actions executed. Manual: format → check → db:migrate, then run @ALERT-001 in API/desktop/mobile with provider access.
+
+
+## BUG-004 — New E2E files fail discovery
+
+- **Implementation:** Implemented; awaiting user verification
+- **Verification:** User reports no tests in UI; no runner executed by Codex.
+- **Cause:** Six account/macro/inbox spec files set worker-scoped trace/video/screenshot options inside test.describe. Installed Playwright fixtures.js explicitly rejects this during collection.
+- **Codex prompt:** Move the capture-disable test.use declarations to file scope in all six affected specs. Preserve credential protection and test assertions. Update README/catalogue, inspect source, commit locally without hooks or push. User manually reopens the UI and verifies discovery and selected execution.
+
+- **Manual next actions:** Reopen E2E UI, clear filters, verify all case groups list. Run selected cases manually. No dependency, database or app changes required. No checks run or push performed.

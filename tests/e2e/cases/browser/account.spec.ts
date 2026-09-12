@@ -1,7 +1,10 @@
 import { randomUUID } from 'node:crypto';
 import { test, expect } from '@playwright/test';
+// Capture options are worker-scoped and must be declared at file scope.
+// Keep credentials out of trace, video and screenshot artifacts.
+test.use({ trace: 'off', video: 'off', screenshot: 'off' });
+
 test.describe('Account browser @ACCOUNT-001', () => {
-  test.use({ trace: 'off',video:'off',screenshot:'off' });
   test('E2E-WEB-030 create account and persist real-data watchlist across sessions', async ({ page }) => {
     test.setTimeout(60000);
     const username = `e2e_${randomUUID().slice(0,16)}`;

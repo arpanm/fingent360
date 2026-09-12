@@ -3,9 +3,12 @@ import { test, expect } from '@playwright/test';
 import { MacroDashboardSchema, MacroEvidenceSchema, MacroHistorySchema, MacroRunSchema } from '../../../../packages/contracts/src/index';
 import { operatorKey } from '../../helpers/operator';
 
+// Capture options are worker-scoped and must be declared at file scope.
+// Keep credentials out of trace, video and screenshot artifacts.
+test.use({ trace: 'off', video: 'off', screenshot: 'off' });
+
 test.describe('Real macro source ingestion @DATA-001 @external', () => {
   // Operator credentials must not be recorded in traces or video artifacts.
-  test.use({ trace: 'off', video: 'off', screenshot: 'off' });
   test('E2E-API-020 real provider → raw evidence → revisions → persisted API', async ({ request }) => {
     test.setTimeout(120000);
     const token = await operatorKey();

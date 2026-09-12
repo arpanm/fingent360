@@ -1637,3 +1637,8 @@ The platform succeeds when a non-expert user can open it and, within one minute,
 - If yes, exactly what should I review or change—and what evidence would make that advice wrong?
 
 If the product merely produces a longer and more attractive market newsletter, it has failed.
+
+
+### E2E discovery correction (BUG-004)
+
+Account/macro/inbox specs now declare worker-scoped capture settings at file scope. Nesting these settings inside a describe group caused Playwright collection errors. Credential recording stays disabled. Close the previous E2E UI terminal and reopen with `E2E_BROWSER=chrome pnpm e2e:ui`; clear search/status filters and select all projects. Tests should list before any Run action. No tests were executed by Codex.

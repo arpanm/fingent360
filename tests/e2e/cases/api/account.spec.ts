@@ -3,8 +3,11 @@ import { test, expect } from '@playwright/test';
 import { CurrentAccountSchema, WatchlistSchema } from '../../../../packages/contracts/src/index';
 const headers = { Origin: 'http://localhost:5173' };
 const password = 'E2E-only-private-passphrase-2026';
+// Capture options are worker-scoped and must be declared at file scope.
+// Keep credentials out of trace, video and screenshot artifacts.
+test.use({ trace: 'off', video: 'off', screenshot: 'off' });
+
 test.describe('Account ownership and watchlists @ACCOUNT-001', () => {
-  test.use({ trace: 'off', video: 'off', screenshot: 'off' });
   test('E2E-API-030 register, save, isolate, login and delete', async ({ request, playwright, baseURL }) => {
     test.setTimeout(60000);
     const username = `e2e_${randomUUID().slice(0,16)}`;

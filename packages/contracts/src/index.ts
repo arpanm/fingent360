@@ -22,3 +22,8 @@ export type Readiness = z.infer<typeof ReadinessSchema>;
 export * from './journey.js';
 export * from './macro.js';
 export * from './account.js';
+export * from './goals.js';
+export * from './privacy.js';
+export * from './sources.js';
+export * from './alert-preferences.js';
+export * from './holdings.js';

@@ -1,0 +1,20 @@
+{
+  "id": "/",
+  "name": "Fingent360",
+  "short_name": "Fingent360",
+  "description": "Research and education with source evidence. An internet connection is required for account and market data.",
+  "lang": "en-IN",
+  "start_url": "/#brief",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f7faf8",
+  "theme_color": "#103d35",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

@@ -105,6 +105,8 @@ The missing AccountStore method brace is corrected. Existing pnpm check compilat
 
 ## DEV-PORTS-001 dynamic-port acceptance
 
+TEAM-001 additions: API/WEB-050 privacy export and sessions; API-060/061 and WEB-060 saved goals; API/WEB-070 source registry; API/WEB-080 inbox preferences; API-090/091 and WEB-090 holdings/CSV. See the feature docs and test names for prerequisites and coverage. These use real database/API paths; registry acceptance records are explicitly synthetic and unpublished after testing.
+
 BUG-006: E2E-WEB-020 now asserts viewport containment while the provenance table is expanded, followed by normal History/Source clicks. Verified desktop/mobile in full run 2026-09-12T15-42-10-408Z-58293 (32 passed, E2E-API-004 intentionally skipped).
 
 SDLC-003: manual format/check/commit/E2E workflow acceptance is recorded in plans/product-coverage.md; isolated orchestration regression cases are in tests/unit/sdlc.test.mjs. Existing API/browser cases are run by the wrapper without modification. Verification pending.
@@ -116,3 +118,5 @@ Restart regression: after stopping pre-fix dev watchers, launch two dev sessions
 Lint follow-up: manually rerun `pnpm format` and `pnpm check` before the scenarios below. The two reported `no-unused-expressions` violations were replaced with equivalent conditionals; existing ESLint coverage checks this correction. No runtime behavior change or additional E2E case is needed. Verification pending.
 
 Start a second root pnpm dev while the previous session runs. Open the newly printed web URL and a newly launched E2E UI; its target URLs must match. Run E2E-API-001/002/030 and E2E-WEB-001/030 to verify connectivity and account Origin handling. A second E2E UI/report listener must choose another free port without stopping the first. For database-port conflicts, use a disposable local setup and confirm selected Compose bindings match .env connection URLs and retained data; never remove volumes. Automated unit definitions cover allocator/env mapping and run under pnpm check. All execution remains manual.
+
+TEAM-001 verified integration: `2026-09-12T16-09-40-894Z-64656` — 51 passed, zero failed, E2E-API-004 intentionally skipped. Includes new API/WEB050, API060/061+WEB060, API/WEB070, API/WEB080, API090/091+WEB090 and WEB100 desktop/mobile.

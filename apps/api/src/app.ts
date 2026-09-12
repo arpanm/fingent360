@@ -14,6 +14,11 @@ import type { AppConfig } from './config.js';
 import { JourneyController, journeyProvider } from './journey.js';
 import { MacroController, macroProvider } from './macro.js';
 import { AccountController, accountProvider } from './accounts.js';
+import { GoalsController } from './goals.js';
+import { PrivacyController } from './privacy.js';
+import { SourcesController, sourcesProvider } from './sources.js';
+import { AlertPreferencesController } from './alert-preferences.js';
+import { HoldingsController } from './holdings.js';
 
 @Controller()
 class HealthController {
@@ -51,12 +56,18 @@ export async function createApp(
         JourneyController,
         MacroController,
         AccountController,
+        GoalsController,
+        PrivacyController,
+        SourcesController,
+        AlertPreferencesController,
+        HoldingsController,
       ],
       providers: [
         { provide: DEPENDENCY_PROBE, useValue: probe },
         journeyProvider(config),
         macroProvider(config),
         accountProvider(config),
+        sourcesProvider(config),
       ],
     },
     { logger: ['error', 'warn', 'log'] },

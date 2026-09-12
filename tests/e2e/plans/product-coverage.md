@@ -1,5 +1,14 @@
 # Planned end-to-end coverage
 
+## TEAM-001 account and operations acceptance
+
+- GOALS-001: account isolation, repeated goal types, exact amount conversions, create/edit/history/remove, stale-version conflicts and mobile layout (API060/061, WEB060).
+- PRIVACY-001: own-data download with no credential material, goal/preference/holdings coverage where available, session revocation and foreign-account/Origin rejection (API/WEB050).
+- SOURCES-001: private drafts, authorization, evidence-required publication, optimistic conflicts, immutable history and withdrawal (API/WEB070).
+- ALERT-002: persist mute preferences for followed indicators, suppress actual inbox messages, unmute restores without losing receipts; isolation and invalid/unfollowed rejection (API/WEB080).
+- PORTFOLIO-001: exact user-entered holdings, CSV preview/confirmation, non-mutating validation, version conflict/idempotency, reload and deletion (API090/091, WEB090). No live-source assertion.
+- MIGRATIONS-001: apply additive migrations twice; second pass must preserve records and ledger counts. Unit checks reject altered applied SQL and do not record a failed migration. Existing advisory transaction protects concurrent runners.
+
 BUG-006: expanded mobile macro tables must remain contained and horizontally scrollable without adjacent content intercepting buttons. E2E-WEB-020 checks expanded viewport width and real History/Source actions. Verified full run 2026-09-12T15-42-10-408Z-58293: 32 passed, one intentional outage skip.
 
 ## SDLC-003 — Manual workflow acceptance
@@ -653,3 +662,5 @@ The core synthetic versions of DEV-003/004/006–010 are now covered by E2E-API-
 ## DATA-001 / ACCOUNT-001 delivered runtime coverage
 
 E2E-API-020/021 and E2E-WEB-020 exercise actual provider ingestion, persistence and source/history UI. E2E-API-030/031 and E2E-WEB-030 exercise real account/session/watchlist storage and ownership through API/browser. No application mocks satisfy these features. Parent DEV-003–007/015–018 and SRC-007 still contain additional undelivered requirements; execution is manual and pending.
+
+TEAM-001 acceptance evidence: full run `2026-09-12T16-09-40-894Z-64656` passed 51 cases; only explicit database-outage case skipped. Parent scopes retain their unimplemented requirements as recorded in TODO.

@@ -1,5 +1,23 @@
 # TODO — Fingent360 delivery tracker
 
+## TEAM-001 — Parallel end-to-end backlog delivery
+
+- **Implementation:** Implemented for the seven bounded child tasks listed below. User requests a parallel agent team and end-to-end delivery; prior explicit test authorization retained for integration verification. No push.
+- **Scope:** Independent, ungated account goals, privacy/session controls and operational source registry; shared integration, additive migrations, regression tests and documentation. Broad parent roadmap items remain open when their full scope or external approvals are not delivered.
+- **GOALS-001 (DEV-009):** Persist authenticated account-owned repeatable financial goals, exact amounts, visible/versioned assumptions, CRUD UI and ownership/conflict tests. Prompt: deliver contracts → additive migration 005 → API → responsive Goals UI → API/browser cases and docs. No invented returns or investment recommendations. Implemented.
+- **PRIVACY-001 (DEV-017):** Own-data JSON export and session listing/revocation, with Origin checks and no secrets in exports. Prompt: implement safe session identifiers/additive migration 006, authenticated API and UI, cross-account/session tests and docs. Preserve account deletion and consent history. Implemented.
+- **SOURCES-001 (DEV-005/015/016):** Persist operator-managed source metadata, rights review status and revision history with public approved metadata. Prompt: strict contracts → migration 007 → authorized API → public/operator UI → regression tests and docs. No fetching arbitrary URLs or invented rights approval. Implemented.
+- **Acceptance:** All three slices work through real database/API/UI; no mock-only completion. Integration tests pass, migrations preserve existing records, TODO/README/catalog/status agree, scoped local commit after format/check gates. External provider onboarding and regulated-advice gates remain explicit.
+- **MIGRATIONS-001 (DEV-004):** Track applied SQL filenames and checksums under the existing advisory transaction lock. Prompt: bootstrap the ledger using existing idempotent SQL, skip unchanged migrations, reject edited applied migrations and retain atomic rollback. Add regression tests and verify repeat application preserves records. Implemented.
+- **ALERT-002 (DEV-018):** Persist account-owned indicator mute preferences and integrate actual inbox filtering/unmute restoration without deleting evidence or receipts. Prompt: contracts/migration008/API/UI, ownership and not-followed rejection, real inbox tests and privacy export integration. Implemented.
+- **PORTFOLIO-001 (DEV-007/008):** Account-owned, user-entered Indian-equity holdings with exact quantities/cost basis and strict CSV preview/confirmation, independent of fictional virtual exercise. Prompt: contracts/migration009/API/UI, revision conflicts, validation/isolation/persistence tests and privacy export. No live valuations or verified-source claims. Implemented.
+- **PWA-001 (DEV-012):** Manifest, browser-supported install control and neutral offline fallback. Prompt: never cache API/private app HTML or data; cache only neutral offline assets, test offline navigation and no cached API behavior, document browser-dependent installation. Implemented; verified in the full run below.
+
+- **Verified delivery:** Three parallel agents plus parent integration delivered GOALS-001, PRIVACY-001, SOURCES-001, ALERT-002, PORTFOLIO-001, PWA-001 and MIGRATIONS-001. Full E2E run `2026-09-12T16-09-40-894Z-64656`: 51 passed, zero failed, one explicit outage skip (E2E-API-004); 19 new E2E cases/project executions. Format/check passed with 40 unit tests; final documentation formatting/check gate runs before commit. Migrations001–009 applied twice, ledger contains all nine filenames. No dependencies installed or Git push performed.
+- **Integration fixes:** Safe malformed-money validation (400 instead of 500), feature-scoped status locators, explicit holdings textarea label, and saved goals route #my-goals preserving virtual #goals. Repeated test runs exhausted the unchanged auth rate limit; final full pass used a fresh dev session. Stopped the confirmed legacy repo watcher that reread .env and stole its port; current app http://127.0.0.1:5175, API4103.
+- **Remaining:** These children do not complete all parent scopes. Durable workers/reports, wider market adapters, verified pricing/valuation, real portfolio-goal allocation, XLSX/broker parsers, production hardening and broader accessibility remain unimplemented. Regulated advice/provider rights/broker entitlements have external gates; later assets/channels remain sequenced. No claims of live valuations, approved external integrations or full-backlog completion.
+- **Next actions:** Review the running app through My goals/My holdings/Privacy/Source registry and inbox preferences. Optional repeat: pnpm sdlc "Review parallel delivery"; reopen E2E UI for current ports and keep watch mode off. Evidence is artifacts/e2e/latest.md.
+
 ## BUG-006 — Mobile macro provenance controls overlap
 
 - **Implementation:** Implemented. User explicitly authorizes testing and fixes for this request.
@@ -38,6 +56,8 @@ Each task prompt below is combined with this contract (also reference it when co
 
 ## Task index
 
+TEAM-001 adds GOALS-001, PRIVACY-001, SOURCES-001, ALERT-002, PORTFOLIO-001, PWA-001 and MIGRATIONS-001. Their current implementation/verification evidence is recorded at the top of this file. Parent roadmap rows below retain their broader scope; a completed child does not complete its parent.
+
 | ID          | Task                                                                 | Implementation | Verification    |
 | ----------- | -------------------------------------------------------------------- | -------------- | --------------- |
 | ALERT-001   | Personal observation inbox                                           | Implemented    | Awaiting user   |
@@ -61,7 +81,7 @@ Each task prompt below is combined with this contract (also reference it when co
 | DEV-009     | [Multiple goals and portfolio linkage](#dev-009)                     | In progress    | Not run         |
 | DEV-010     | [Oil-shock educational end-to-end slice](#dev-010)                   | In progress    | Not run         |
 | DEV-011     | [Daily/weekly reports and durable workers](#dev-011)                 | Planned        | Not run         |
-| DEV-012     | [Responsive PWA and accessible UI](#dev-012)                         | Planned        | Not run         |
+| DEV-012     | [Responsive PWA and accessible UI](#dev-012)                         | In progress    | Not run         |
 | DEV-013     | [Regulated personalised advice](#dev-013)                            | Gated          | Not run         |
 | DEV-014     | [Broker connectivity and later channels/assets](#dev-014)            | Planned        | Not run         |
 | DEV-015     | [Admin and research operations](#dev-015)                            | In progress    | Not run         |
@@ -216,6 +236,8 @@ Each task prompt below is combined with this contract (also reference it when co
 
 ### DEV-004 — PostgreSQL migrations and MongoDB indexes
 
+- **TEAM-001 delivery:** MIGRATIONS-001 adds checksum-ledger execution and migrations005–009; least-privilege deployment and durable jobs/outbox remain open.
+
 - **Implementation:** In progress
 - **Verification:** Not run
 - **Dependencies:** DEV-003
@@ -232,6 +254,8 @@ Each task prompt below is combined with this contract (also reference it when co
 <a id="dev-005"></a>
 
 ### DEV-005 — P0 source registry and initial adapters
+
+- **TEAM-001 delivery:** SOURCES-001 adds operator/public registry and immutable reviews; wider source adapters and production rights/freshness acceptance remain open.
 
 - **Implementation:** In progress
 - **Verification:** Not run
@@ -267,6 +291,8 @@ Each task prompt below is combined with this contract (also reference it when co
 
 ### DEV-007 — Identity/consent and manual/virtual portfolios
 
+- **TEAM-001 delivery:** PORTFOLIO-001 adds authenticated user-entered holdings, separate from the virtual exercise; verified identity/master and live valuations remain open.
+
 - **Implementation:** In progress
 - **Verification:** Not run
 - **Dependencies:** DEV-002, DEV-004
@@ -285,6 +311,8 @@ Each task prompt below is combined with this contract (also reference it when co
 
 ### DEV-008 — CSV/XLSX imports and help
 
+- **TEAM-001 delivery:** PORTFOLIO-001 adds strict standard CSV preview/confirmation and export; XLSX/broker-specific parsing and provider reconciliation remain open.
+
 - **Implementation:** In progress
 - **Verification:** Not run
 - **Dependencies:** DEV-007
@@ -301,6 +329,8 @@ Each task prompt below is combined with this contract (also reference it when co
 <a id="dev-009"></a>
 
 ### DEV-009 — Multiple goals and portfolio linkage
+
+- **TEAM-001 delivery:** GOALS-001 adds account-owned repeated goals and revisioned contribution-only plans; real portfolio allocation/suitability/scenario modeling remain open.
 
 - **Implementation:** In progress
 - **Verification:** Not run
@@ -353,7 +383,9 @@ Each task prompt below is combined with this contract (also reference it when co
 
 ### DEV-012 — Responsive PWA and accessible UI
 
-- **Implementation:** Planned
+- **TEAM-001 delivery:** PWA-001 adds manifest/install event handling and private-data-free offline fallback; full accessibility audit, platform installation acceptance and broader PWA gates remain open.
+
+- **Implementation:** In progress
 - **Verification:** Not run
 - **Dependencies:** DEV-006
 - **Context:** README.md sections 19–25; docs/product/decisions.md
@@ -404,6 +436,8 @@ Each task prompt below is combined with this contract (also reference it when co
 
 ### DEV-015 — Admin and research operations
 
+- **TEAM-001 delivery:** SOURCES-001 adds authorized source metadata review operations and history; operational dashboards and worker controls remain open.
+
 - **Implementation:** In progress
 - **Verification:** Not run
 - **Dependencies:** DEV-002, DEV-005, DEV-019
@@ -421,6 +455,8 @@ Each task prompt below is combined with this contract (also reference it when co
 <a id="dev-016"></a>
 
 ### DEV-016 — Evidence, explanations and corrections
+
+- **TEAM-001 delivery:** SOURCES-001 records immutable metadata review evidence/revisions; additional event/source correction propagation remains open.
 
 - **Implementation:** In progress
 - **Verification:** Not run
@@ -440,6 +476,8 @@ Each task prompt below is combined with this contract (also reference it when co
 
 ### DEV-017 — Privacy, security and consent lifecycle
 
+- **TEAM-001 delivery:** PRIVACY-001 adds own-data export and session revocation; encryption/key management, production retention, recovery/MFA and support auditing remain open.
+
 - **Implementation:** In progress
 - **Verification:** Not run
 - **Dependencies:** DEV-002, DEV-004, DEV-007
@@ -457,6 +495,8 @@ Each task prompt below is combined with this contract (also reference it when co
 <a id="dev-018"></a>
 
 ### DEV-018 — Watchlists, material alerts and delivery controls
+
+- **TEAM-001 delivery:** ALERT-002 adds persisted mute/unmute with real inbox suppression/restoration; batching, event materiality/calendar policy and external delivery remain open.
 
 - **Implementation:** In progress
 - **Verification:** Not run

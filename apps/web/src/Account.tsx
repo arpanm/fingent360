@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { AlertPreferences } from './AlertPreferences';
 import {
   InboxSchema,
   type InboxItem,
@@ -182,8 +183,9 @@ export function Account() {
                     onChange={(event) => setConsent(event.target.checked)}
                   />
                   I agree to store my username, password hash, sessions,
-                  watchlist and observation acknowledgments on this server until
-                  I delete my account. Consent version: account-storage-v1.
+                  watchlist, inbox preferences and observation acknowledgments
+                  on this server until I delete my account. Consent version:
+                  account-storage-v1.
                 </label>
               )}
               <button type="submit">
@@ -301,6 +303,12 @@ export function Account() {
                 );
               })}
           </section>
+          <AlertPreferences
+            key={saved.join(',')}
+            onChanged={async () =>
+              setInbox(InboxSchema.parse(await api('/inbox')).items)
+            }
+          />
           <section aria-label="Observation inbox">
             <h3>Observation inbox</h3>
             <p>
@@ -357,9 +365,10 @@ export function Account() {
           <details className="card">
             <summary>Delete your account</summary>
             <p>
-              Deletion removes your account, sessions, watchlist and observation
-              acknowledgments. Public source data and the separate virtual
-              exercise are unaffected.
+              Deletion removes your account, sessions, watchlist, inbox
+              preferences, saved goals, holdings, their revisions and
+              observation acknowledgments. Public source data and the separate
+              virtual exercise are unaffected.
             </p>
             <label>
               Confirm current password

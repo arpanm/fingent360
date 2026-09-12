@@ -1,0 +1,11 @@
+# ALERT-002 — Persisted observation inbox preferences
+
+Signed-in accounts can mute or unmute each followed macro indicator. The account inbox query excludes muted indicators, without deleting observations or acknowledgment receipts. Unmuting restores the current observation with its previous read state. Preferences survive page reload, logout and unfollow/refollow; the preferences UI lists only currently followed indicators. Account deletion cascades preferences. Muting does not stop provider ingestion, alter the public macro dashboard, or deliver external notifications. No materiality assessment is inferred.
+
+The GET/PUT /api/v1/account/alert-preferences API uses the existing HttpOnly account session and mutation Origin validation. PUT accepts only a supported indicator and boolean muted; an unfollowed indicator is rejected. Updates lock the account watchlist, remain account scoped, and return success only after persistence. Defaults are explicitly enabled until a preference is saved. Database migration 008_alert_preferences.sql is additive.
+
+Manual next actions: pnpm format; pnpm check; pnpm db:migrate; ensure the research operator key is configured with pnpm research:setup; start pnpm dev. Open the printed web URL at #account and follow a real macro indicator. In the manually started test UI, run E2E-API-080 and E2E-WEB-080 in API/desktop/mobile projects with watch mode off. These cases fetch real World Bank observations and require external connectivity, PostgreSQL and MongoDB. Expect mute persistence, account isolation, unfollowed-input rejection, inbox suppression, unmute restoration and retained acknowledgments. Test accounts are deleted in cleanup. Send artifacts/e2e/latest.md after a failure. No tests, services or migrations were run during authoring.
+
+## Integration verification
+
+Parent verified this feature in full E2E run `2026-09-12T16-09-40-894Z-64656`: 51 passed, zero failed, one intentional outage skip across the entire suite. Format/check passed, including 40 unit tests. New migrations were applied and repeated successfully. PWA installation prompts remain browser-dependent; the offline/cache behavior was exercised on desktop and mobile. Historical authoring-only statements above describe the agent phase before parent integration testing.

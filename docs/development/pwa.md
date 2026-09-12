@@ -1,0 +1,13 @@
+# PWA-001 — Install metadata and neutral offline fallback
+
+The manifest and original SVG icon provide basic install metadata. A service worker stores only offline.html and icon.svg in the versioned fingent360-offline-v1 cache. It never stores application pages/bundles, API responses, private data or provider data. App navigations use the network with no-store; connection failures show a neutral page explaining that account and market evidence require connectivity. API requests always use the network and fail normally offline rather than returning HTML or cached observations. An already open page displays a connectivity notice when the browser detects an offline connection; navigator.onLine is a browser hint, not proof of backend reachability.
+
+PwaStatus registers the worker only when secure contexts and service workers are supported. An install button appears only after an actual beforeinstallprompt browser event. Browser-specific installation support varies, particularly on iOS; this slice does not promise universal installability or app-store readiness. Reconnection returns the online app through the fallback link. Deployment below a URL subpath is not supported by this root-scoped manifest/worker.
+
+The worker activation removes old caches owned by this offline feature, preserving other caches. Future offline asset changes must increment its version. Do not broaden the cache allowlist to authenticated or financial responses. Existing browser/HTTP caching of upstream providers is outside this worker; the worker never supplies such cached data.
+
+Manual verification: pnpm format and pnpm check, then start pnpm dev and open its printed URL. In a fresh E2E UI select E2E-WEB-100 on desktop and mobile with watch mode off. This case enables service workers explicitly (other browser cases retain their blocking default), waits for activation, checks the precise cache allowlist, confirms offline API failure, loads the neutral fallback and reconnects. Also inspect the actual browser install menu/event on a supported secure origin; no test simulates an install event. HTTPS is required outside localhost. Tests and installation were not executed during authoring.
+
+## Integration verification
+
+Parent verified this feature in full E2E run `2026-09-12T16-09-40-894Z-64656`: 51 passed, zero failed, one intentional outage skip across the entire suite. Format/check passed, including 40 unit tests. New migrations were applied and repeated successfully. PWA installation prompts remain browser-dependent; the offline/cache behavior was exercised on desktop and mobile. Historical authoring-only statements above describe the agent phase before parent integration testing.

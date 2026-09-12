@@ -39,7 +39,7 @@ import {
   sessionHash,
 } from './account-security.js';
 import type { AppConfig } from './config.js';
-const STORE = Symbol('ACCOUNT_STORE');
+export const STORE = Symbol('ACCOUNT_STORE');
 interface UserRow {
   id: string;
   username: string;
@@ -116,7 +116,7 @@ export class AccountStore {
     );
     return result.rows[0] ?? null;
   }
-  private async require(client: pg.PoolClient, cookie?: string) {
+  async require(client: pg.PoolClient, cookie?: string) {
     const found = await this.find(client, cookie);
     if (!found)
       throw new UnauthorizedException('Sign in to access your account.');
@@ -251,7 +251,9 @@ export class AccountStore {
           SELECT id,indicator,year,value::text,revision,retrieved_at,source_url
           FROM (SELECT DISTINCT ON (year) * FROM macro_observations WHERE indicator=followed.indicator ORDER BY year DESC,revision DESC) versions
           WHERE value IS NOT NULL OR revision > 1 ORDER BY year DESC LIMIT 1
-        ) o WHERE w.user_id=$1 ORDER BY o.indicator`,
+        ) o WHERE w.user_id=$1 AND NOT EXISTS (
+          SELECT 1 FROM app_alert_preferences p WHERE p.user_id=w.user_id AND p.indicator=o.indicator AND p.muted
+        ) ORDER BY o.indicator`,
         [account.id],
       );
       return InboxSchema.parse({

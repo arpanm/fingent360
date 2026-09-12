@@ -3,6 +3,11 @@ import { HealthSchema } from '@fingent360/contracts';
 import { Journey } from './Journey';
 import { Macro } from './Macro';
 import { Account } from './Account';
+import { Goals } from './Goals';
+import { Privacy } from './Privacy';
+import { Sources } from './Sources';
+import { PwaStatus } from './PwaStatus';
+import { Holdings } from './Holdings';
 
 export function App() {
   const [hash, setHash] = useState(window.location.hash);
@@ -43,6 +48,7 @@ export function App() {
         <span className="pill">Educational workspace</span>
       </header>
       <main>
+        <PwaStatus />
         <p className="eyebrow">CLARITY BEFORE ACTION</p>
         <h1>
           Understand the market.
@@ -59,12 +65,24 @@ export function App() {
         <nav className="product-nav" aria-label="Product areas">
           <a href="#macro">Real economic data</a>
           <a href="#account">My watchlist / sign in</a>
+          <a href="#my-goals">My goals</a>
+          <a href="#holdings">My holdings</a>
+          <a href="#privacy">Privacy and sessions</a>
+          <a href="#sources">Source registry</a>
           <a href="#brief">Virtual portfolio exercise</a>
         </nav>
         {!hash || hash === '#macro' ? (
           <Macro />
         ) : hash === '#account' ? (
           <Account />
+        ) : hash === '#my-goals' ? (
+          <Goals />
+        ) : hash === '#holdings' ? (
+          <Holdings />
+        ) : hash === '#privacy' ? (
+          <Privacy />
+        ) : hash === '#sources' ? (
+          <Sources />
         ) : (
           <Journey />
         )}

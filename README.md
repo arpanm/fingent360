@@ -1,6 +1,21 @@
 # Fingent360
 
-A goal-aware market intelligence and portfolio platform for Indian investors. The first virtual portfolio journey is implemented across the browser, API and PostgreSQL. It uses explicitly fictional companies and fixed exercise prices; live market feeds and real-account features remain future work.
+A goal-aware market intelligence and portfolio platform for Indian investors. Real World Bank macro data, authenticated accounts and user-entered planning data are stored through the API and databases. The separate virtual portfolio exercise uses explicitly fictional companies and prices; it is not a live investment portfolio.
+
+## Account planning and operations — TEAM-001
+
+Verified full E2E run `2026-09-12T16-09-40-894Z-64656`: **51 passed, zero failed, one intentional database-outage skip**. Format/check passed with 40 unit tests. Migrations005–009 have been applied locally. The current running app is http://127.0.0.1:5175; on later starts use the printed URL.
+
+- **My goals (`#my-goals`):** save repeated goal types, edit amounts and horizon, inspect revisions and contribution-only gaps. Exact INR paise; no assumed investment returns. The virtual exercise retains `#goals`. [Details](docs/development/goals.md).
+- **Privacy and sessions (`#privacy`):** download your own data, inspect active sessions and revoke other sessions. Credentials never appear in exports. [Details](docs/development/privacy.md).
+- **Source registry (`#sources`):** operators record rights reviews, evidence and constraints with immutable revisions; only explicitly approved/published metadata is public. This does not activate a data adapter. [Details](docs/development/sources.md).
+- **Inbox preferences (`#account`):** mute/unmute followed indicators without deleting observations or acknowledgment history. [Details](docs/development/alert-preferences.md).
+- **My holdings (`#holdings`):** user-entered ISIN holdings and cost basis, strict CSV preview/confirmation and version history. No live pricing, verified security-master lookup or recommendation is implied. [Details](docs/development/holdings.md).
+- **Offline fallback:** a neutral offline page and browser-supported installation control; only neutral offline assets are cached, never API responses or account pages. [Details](docs/development/pwa.md).
+
+New additive migrations 005–009 preserve existing data. `pnpm db:migrate` now records SQL checksums in a migration ledger, skips unchanged applied files and rejects changes to applied migrations; add a new SQL migration instead of rewriting history. No new dependencies.
+
+After updating, run `pnpm check`, `pnpm db:migrate` and restart `pnpm dev` to load the new API routes. Use its printed URL. Existing manual `pnpm sdlc "Describe changes"` remains format → check → commit → E2E; it does not apply migrations. Verification results for this batch are recorded in TODO under TEAM-001.
 
 ## Change handoffs and test failures (SDLC-002)
 

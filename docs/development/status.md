@@ -1,5 +1,13 @@
 # Current implementation status
 
+## TEAM-001 current delivery (2026-09-12)
+
+Verified run `2026-09-12T16-09-40-894Z-64656`: 51 passed / 0 failed / 1 manual-outage skip. Format/check passed with 40 unit tests. Migrations001–009 recorded in checksum ledger; repeat application succeeded. PWA offline/cache containment also passed desktop/mobile tests. No push.
+
+Parallel implementation adds authenticated saved goals, own-data export/session revocation, operator source review registry, persisted inbox mute preferences and user-entered holdings/CSV confirmation. Additive migrations 005–009 and a checksum ledger support repeatable deployment. These are complete bounded slices, not completion of every parent roadmap gate. Integration verification is tracked in root TODO TEAM-001; older sections below are historical snapshots.
+
+Remaining major capabilities include verified Indian security master/live prices/corporate actions, real portfolio valuation and allocations, wider provider adapters, durable reporting workers, installable PWA, production account recovery/security hardening and externally gated advice/broker integrations. User-entered holdings are unverified input; source-registry approval does not itself implement ingestion.
+
 As of 2026-09-12. Foundation verification is historical below. SLICE-001 now implements the virtual browser/API/PostgreSQL journey; new source and test cases await manual execution. See [working journey](working-journey.md).
 
 ## Implemented

@@ -1,0 +1,7 @@
+packages:
+  - apps/*
+  - packages/*
+# Review lifecycle scripts before adding an entry; never approve all packages.
+allowBuilds:
+  '@nestjs/core': false
+  esbuild: true

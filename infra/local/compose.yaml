@@ -1,0 +1,39 @@
+name: fingent360
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:?Run pnpm bootstrap}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Run pnpm bootstrap}
+      POSTGRES_DB: ${POSTGRES_DB:?Run pnpm bootstrap}
+    ports:
+      - '127.0.0.1:${POSTGRES_PORT:-55432}:5432'
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB']
+      interval: 5s
+      timeout: 3s
+      retries: 20
+  mongodb:
+    image: mongo:7
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER:?Run pnpm bootstrap}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD:?Run pnpm bootstrap}
+    ports:
+      - '127.0.0.1:${MONGO_PORT:-57017}:27017'
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - >-
+          mongosh --quiet --username "$$MONGO_INITDB_ROOT_USERNAME"
+          --password "$$MONGO_INITDB_ROOT_PASSWORD" --authenticationDatabase admin
+          --eval "quit(db.adminCommand({ping:1}).ok ? 0 : 1)"
+      interval: 5s
+      timeout: 5s
+      retries: 20
+volumes:
+  postgres-data:
+  mongo-data:

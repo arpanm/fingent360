@@ -1,0 +1,35 @@
+{
+  "name": "fingent360",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.23.0",
+  "engines": {
+    "node": ">=24 <27"
+  },
+  "scripts": {
+    "build": "pnpm -r build",
+    "dev": "pnpm build && concurrently --kill-others -n contracts,api,web \"pnpm --filter @fingent360/contracts dev\" \"pnpm --filter @fingent360/api dev\" \"pnpm --filter @fingent360/web dev\"",
+    "lint": "eslint .",
+    "typecheck": "pnpm --filter @fingent360/contracts build && pnpm -r typecheck",
+    "test": "pnpm build && pnpm -r --if-present test",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test",
+    "db:up": "docker compose --env-file .env -f infra/local/compose.yaml up -d --wait",
+    "db:down": "docker compose --env-file .env -f infra/local/compose.yaml down",
+    "db:status": "docker compose --env-file .env -f infra/local/compose.yaml ps",
+    "smoke": "node --env-file=.env scripts/smoke.mjs",
+    "bootstrap": "node scripts/setup.mjs"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3",
+    "eslint": "10.9.1",
+    "@eslint/js": "10.0.1",
+    "typescript-eslint": "8.70.0",
+    "prettier": "3.9.6",
+    "concurrently": "10.0.5",
+    "@types/node": "24.13.4",
+    "globals": "17.4.0"
+  }
+}

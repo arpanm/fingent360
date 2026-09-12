@@ -1,0 +1,156 @@
+:root {
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  color: #193d35;
+  background: #f8f8f1;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+a {
+  color: inherit;
+}
+.shell {
+  max-width: 1160px;
+  margin: auto;
+  padding: 0 40px;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 32px 0;
+  border-bottom: 1px solid #dce1d8;
+}
+.brand {
+  font-size: 26px;
+  font-weight: 750;
+  letter-spacing: -1px;
+  text-decoration: none;
+}
+.brand span {
+  color: #779144;
+}
+.pill {
+  border: 1px solid #cfd9c4;
+  border-radius: 20px;
+  padding: 7px 12px;
+  font-size: 12px;
+}
+main {
+  padding: 70px 0 60px;
+}
+.eyebrow {
+  font-size: 12px;
+  letter-spacing: 2px;
+  font-weight: 700;
+}
+h1 {
+  font-size: clamp(36px, 5vw, 60px);
+  line-height: 1.12;
+  letter-spacing: -2px;
+  font-weight: 550;
+  margin: 24px 0;
+}
+h1 span {
+  color: #74826e;
+}
+.intro {
+  max-width: 560px;
+  font-size: 18px;
+  line-height: 1.65;
+  color: #58665c;
+}
+.notice {
+  display: flex;
+  gap: 16px;
+  background: #eaf0e3;
+  border: 1px solid #dce4d1;
+  padding: 24px;
+  border-radius: 14px;
+  margin: 36px 0 48px;
+  max-width: 780px;
+}
+h2 {
+  font-size: 19px;
+  font-weight: 600;
+  margin: 0 0 10px;
+}
+.notice p {
+  font-size: 14px;
+  line-height: 1.65;
+  margin: 0;
+  color: #4a5b4b;
+}
+.notice .connection {
+  margin-top: 12px;
+  font-weight: 650;
+}
+.dot {
+  width: 9px;
+  height: 9px;
+  background: #769353;
+  border-radius: 50%;
+  margin-top: 8px;
+  flex: 0 0 auto;
+}
+.features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+.features article {
+  border-top: 1px solid #cfd8ca;
+  padding-top: 22px;
+}
+.features span {
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: #74826e;
+}
+.features h2 {
+  margin-top: 20px;
+  font-size: 22px;
+}
+.features p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #58665c;
+}
+footer {
+  border-top: 1px solid #dce1d8;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 24px 0;
+  color: #65745f;
+  font-size: 12px;
+}
+@media (max-width: 680px) {
+  .shell {
+    padding: 0 22px;
+  }
+  header {
+    gap: 16px;
+  }
+  .pill {
+    font-size: 10px;
+  }
+  main {
+    padding-top: 45px;
+  }
+  .features {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  footer {
+    flex-direction: column;
+  }
+  h1 {
+    letter-spacing: -1px;
+  }
+}

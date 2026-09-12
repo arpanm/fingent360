@@ -1,0 +1,33 @@
+name: CI
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Install pinned package manager
+        run: npm install --global pnpm@11.23.0
+      - run: pnpm bootstrap
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm check
+      - run: pnpm db:up
+      - name: Verify API with real databases
+        run: |
+          pnpm --filter @fingent360/api start > /tmp/fingent360-api.log 2>&1 &
+          API_PID=$!
+          trap 'kill "$API_PID" 2>/dev/null || true' EXIT
+          for attempt in $(seq 1 30); do
+            if curl -fsS http://127.0.0.1:4100/api/v1/health > /dev/null; then break; fi
+            sleep 1
+          done
+          pnpm smoke
+      - name: Stop databases
+        if: always()
+        run: pnpm db:down

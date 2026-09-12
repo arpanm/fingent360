@@ -66,11 +66,11 @@ User reported E2E-API-011–013 returning 503 during session creation. Those sce
 
 Prerequisites: research:setup, rebuilt/restarted API, db:migrate, both databases, web and external World Bank access. Run @DATA-001 manually. No mock provider in these cases; no hardcoded current values. Traces/video/screenshots disabled to avoid recording the operator key. Cases keep accepted real macro data for subsequent UI use.
 
-| ID | Projects | Expected result |
-| --- | --- | --- |
-| E2E-API-020 | api | Real refresh persists observations and hash-verifiable Mongo evidence; history/repeated refresh retain revision IDs |
-| E2E-API-021 | api | Missing/wrong operator key rejects; arbitrary source/URL fields reject; unknown evidence is 404 |
-| E2E-WEB-020 | desktop/mobile | User refreshes real GDP, views history/source, reloads persisted values without overflow |
+| ID          | Projects       | Expected result                                                                                                     |
+| ----------- | -------------- | ------------------------------------------------------------------------------------------------------------------- |
+| E2E-API-020 | api            | Real refresh persists observations and hash-verifiable Mongo evidence; history/repeated refresh retain revision IDs |
+| E2E-API-021 | api            | Missing/wrong operator key rejects; arbitrary source/URL fields reject; unknown evidence is 404                     |
+| E2E-WEB-020 | desktop/mobile | User refreshes real GDP, views history/source, reloads persisted values without overflow                            |
 
 The source parser's unit cases exercise exact decimals, null, identity, unit, pagination and schema failures using explicitly synthetic wire fixtures only. No fixtures are served in the application.
 
@@ -78,11 +78,11 @@ The source parser's unit cases exercise exact decimals, null, identity, unit, pa
 
 Prerequisites: updated app, PostgreSQL, additive migration; account tests do not require an external fetch. Filter @ACCOUNT-001. Temporary accounts are removed on completion. Credential-bearing traces/video/screenshots are disabled.
 
-| ID | Projects | Expected result |
-| --- | --- | --- |
-| E2E-API-030 | api | Register/save/reload; other account isolated; logout denies private access; login restores list; deletion revokes access |
-| E2E-API-031 | api | Missing/foreign Origin and absent consent reject; HttpOnly cookie; wrong password and duplicate inputs reject |
-| E2E-WEB-030 | desktop/mobile | User registers, selects real indicator, saves/reloads/signs in again, then deletes account; no overflow |
+| ID          | Projects       | Expected result                                                                                                          |
+| ----------- | -------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| E2E-API-030 | api            | Register/save/reload; other account isolated; logout denies private access; login restores list; deletion revokes access |
+| E2E-API-031 | api            | Missing/foreign Origin and absent consent reject; HttpOnly cookie; wrong password and duplicate inputs reject            |
+| E2E-WEB-030 | desktop/mobile | User registers, selects real indicator, saves/reloads/signs in again, then deletes account; no overflow                  |
 
 Password hashing, cookie parsing, Origin enforcement and bounded rate-limit unit regressions are in apps/api/test/account-security.test.mjs. Execution pending user Run.
 
@@ -98,3 +98,7 @@ Cases are authored, not executed. Read receipts bind to immutable observation ID
 ## BUG-004 discovery regression — manual acceptance
 
 Open the E2E UI with empty search/status filters and all projects selected. Foundation, journey, macro, account and inbox cases must be listed without collection errors. Capture-disabled specs retain file-scope test.use configuration; no test runs on open. Then manually run the desired cases. If discovery still fails, share the terminal or UI Errors message. No execution claimed.
+
+## BUG-005 compilation regression
+
+The missing AccountStore method brace is corrected. Existing pnpm check compilation catches this regression before runtime; no brace-counting test added. After successful checks/build and migration, manually run E2E-API-030/031/040 and E2E-WEB-030/040. These exercise account deletion and observation acknowledgment on the rebuilt API. No execution claimed.

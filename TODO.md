@@ -17,75 +17,75 @@ Each task prompt below is combined with this contract (also reference it when co
 
 ## Task index
 
-| ID        | Task                                                                 | Implementation | Verification    |
-| --------- | -------------------------------------------------------------------- | -------------- | --------------- |
-| ALERT-001 | Personal observation inbox | Implemented | Awaiting user |
-| ACCOUNT-001 | Authenticated accounts and real-data watchlists | Implemented | Awaiting user |
-| DATA-001 | Real India macro ingestion and evidence UI | Implemented | Awaiting user |
-| SLICE-001 | [Working educational portfolio journey](#slice-001)                  | Implemented    | Awaiting user   |
-| BUG-003   | Workspace creation diagnostics                                       | Implemented    | Awaiting user   |
-| BUG-002   | [JSON API not-found responses](#bug-002)                             | Implemented    | Awaiting user   |
-| BUG-001   | [Duplicate startup / browser download recovery](#bug-001)            | Implemented    | Awaiting user   |
-| SETUP-001 | [Local development foundation](#setup-001)                           | Implemented    | Historical only |
-| SDLC-001  | [Manual SDLC and reusable API/browser test dashboard](#sdlc-001)     | Implemented    | Awaiting user   |
-| SDLC-002  | [User acceptance of the SDLC tool](#sdlc-002)                        | Awaiting user  | Awaiting user   |
-| DEV-001   | [Screen-level PRD, glossary and canonical data dictionary](#dev-001) | Implemented    | Awaiting user   |
-| DEV-002   | [Research/advice policy and threat model](#dev-002)                  | In progress    | Not run         |
-| DEV-003   | [Versioned domain contracts and golden fixtures](#dev-003)           | In progress    | Not run         |
-| DEV-004   | [PostgreSQL migrations and MongoDB indexes](#dev-004)                | In progress    | Not run         |
-| DEV-005   | [P0 source registry and initial adapters](#dev-005)                  | In progress    | Not run         |
-| DEV-006   | [Public intelligence slice](#dev-006)                                | In progress    | Not run         |
-| DEV-007   | [Identity/consent and manual/virtual portfolios](#dev-007)           | In progress    | Not run         |
-| DEV-008   | [CSV/XLSX imports and help](#dev-008)                                | In progress    | Not run         |
-| DEV-009   | [Multiple goals and portfolio linkage](#dev-009)                     | In progress    | Not run         |
-| DEV-010   | [Oil-shock educational end-to-end slice](#dev-010)                   | In progress    | Not run         |
-| DEV-011   | [Daily/weekly reports and durable workers](#dev-011)                 | Planned        | Not run         |
-| DEV-012   | [Responsive PWA and accessible UI](#dev-012)                         | Planned        | Not run         |
-| DEV-013   | [Regulated personalised advice](#dev-013)                            | Gated          | Not run         |
-| DEV-014   | [Broker connectivity and later channels/assets](#dev-014)            | Planned        | Not run         |
-| DEV-015   | [Admin and research operations](#dev-015)                            | In progress    | Not run         |
-| DEV-016   | [Evidence, explanations and corrections](#dev-016)                   | In progress    | Not run         |
-| DEV-017   | [Privacy, security and consent lifecycle](#dev-017)                  | In progress    | Not run         |
-| DEV-018   | [Watchlists, material alerts and delivery controls](#dev-018)        | In progress    | Not run         |
-| DEV-019   | [Deterministic research policy and action centre](#dev-019)          | Planned        | Not run         |
-| DEV-020   | [Additional verified event slices](#dev-020)                         | Planned        | Not run         |
-| DEV-021   | [Operational quality, observability and release controls](#dev-021)  | Planned        | Not run         |
-| DEV-022   | [Indian mutual funds and bonds](#dev-022)                            | Planned        | Not run         |
-| DEV-023   | [Other Indian assets and derivatives](#dev-023)                      | Deferred       | Not run         |
-| DEV-024   | [International mutual funds](#dev-024)                               | Deferred       | Not run         |
-| DEV-025   | [International equities and ETFs](#dev-025)                          | Deferred       | Not run         |
-| DEV-026   | [Other international assets](#dev-026)                               | Deferred       | Not run         |
-| DEV-027   | [Crypto last-stage capability](#dev-027)                             | Deferred       | Not run         |
-| DEV-028   | [Broker and account connectivity](#dev-028)                          | Planned        | Not run         |
-| DEV-029   | [WhatsApp and mobile application shells](#dev-029)                   | Deferred       | Not run         |
-| DEV-030   | [Monetisation decision and commercial conflict controls](#dev-030)   | Deferred       | Not run         |
-| SRC-001   | [Instrument/security master source onboarding (P0)](#src-001)        | Planned        | Not run         |
-| SRC-002   | [Indian EOD prices/volume source onboarding (P0)](#src-002)          | Planned        | Not run         |
-| SRC-003   | [Corporate actions source onboarding (P0)](#src-003)                 | Planned        | Not run         |
-| SRC-004   | [Corporate filings/results source onboarding (P0)](#src-004)         | Planned        | Not run         |
-| SRC-005   | [Reported fundamentals source onboarding (P0)](#src-005)             | Planned        | Not run         |
-| SRC-006   | [Index/sector data source onboarding (P0)](#src-006)                 | Planned        | Not run         |
-| SRC-007   | [India macro source onboarding (P0)](#src-007)                       | In progress    | Not run         |
-| SRC-008   | [Global macro/rates source onboarding (P0)](#src-008)                | Planned        | Not run         |
-| SRC-009   | [Oil/commodity/FX benchmarks source onboarding (P0)](#src-009)       | Planned        | Not run         |
-| SRC-010   | [FII/DII/FPI flows source onboarding (P0)](#src-010)                 | Planned        | Not run         |
-| SRC-011   | [F&O participant positioning source onboarding (P0)](#src-011)       | Planned        | Not run         |
-| SRC-012   | [Market/company news source onboarding (P0)](#src-012)               | Planned        | Not run         |
-| SRC-013   | [Portfolio spreadsheet imports source onboarding (P0)](#src-013)     | Planned        | Not run         |
-| SRC-014   | [Regulatory/tax source registry source onboarding (P0)](#src-014)    | Planned        | Not run         |
-| SRC-015   | [MF scheme master/NAV source onboarding (P1)](#src-015)              | Deferred       | Not run         |
-| SRC-016   | [MF holdings/factsheets source onboarding (P1)](#src-016)            | Deferred       | Not run         |
-| SRC-017   | [India G-sec/yield curve source onboarding (P1)](#src-017)           | Deferred       | Not run         |
-| SRC-018   | [Corporate bonds/ratings source onboarding (P1)](#src-018)           | Deferred       | Not run         |
-| SRC-019   | [CAS/MF statement import source onboarding (P1)](#src-019)           | Deferred       | Not run         |
-| SRC-020   | [Consensus/earnings revisions source onboarding (P1)](#src-020)      | Deferred       | Not run         |
-| SRC-021   | [Broker API connectivity source onboarding (P2)](#src-021)           | Deferred       | Not run         |
-| SRC-022   | [Indian ETFs/gold/commodities source onboarding (P2)](#src-022)      | Deferred       | Not run         |
-| SRC-023   | [Options/derivatives analytics source onboarding (P2)](#src-023)     | Deferred       | Not run         |
-| SRC-024   | [International mutual funds source onboarding (P3)](#src-024)        | Deferred       | Not run         |
-| SRC-025   | [International equities/ETFs source onboarding (P4)](#src-025)       | Deferred       | Not run         |
-| SRC-026   | [International bonds/commodities source onboarding (P5)](#src-026)   | Deferred       | Not run         |
-| SRC-027   | [Crypto market/on-chain source onboarding (P6)](#src-027)            | Deferred       | Not run         |
+| ID          | Task                                                                 | Implementation | Verification    |
+| ----------- | -------------------------------------------------------------------- | -------------- | --------------- |
+| ALERT-001   | Personal observation inbox                                           | Implemented    | Awaiting user   |
+| ACCOUNT-001 | Authenticated accounts and real-data watchlists                      | Implemented    | Awaiting user   |
+| DATA-001    | Real India macro ingestion and evidence UI                           | Implemented    | Awaiting user   |
+| SLICE-001   | [Working educational portfolio journey](#slice-001)                  | Implemented    | Awaiting user   |
+| BUG-003     | Workspace creation diagnostics                                       | Implemented    | Awaiting user   |
+| BUG-002     | [JSON API not-found responses](#bug-002)                             | Implemented    | Awaiting user   |
+| BUG-001     | [Duplicate startup / browser download recovery](#bug-001)            | Implemented    | Awaiting user   |
+| SETUP-001   | [Local development foundation](#setup-001)                           | Implemented    | Historical only |
+| SDLC-001    | [Manual SDLC and reusable API/browser test dashboard](#sdlc-001)     | Implemented    | Awaiting user   |
+| SDLC-002    | [User acceptance of the SDLC tool](#sdlc-002)                        | Awaiting user  | Awaiting user   |
+| DEV-001     | [Screen-level PRD, glossary and canonical data dictionary](#dev-001) | Implemented    | Awaiting user   |
+| DEV-002     | [Research/advice policy and threat model](#dev-002)                  | In progress    | Not run         |
+| DEV-003     | [Versioned domain contracts and golden fixtures](#dev-003)           | In progress    | Not run         |
+| DEV-004     | [PostgreSQL migrations and MongoDB indexes](#dev-004)                | In progress    | Not run         |
+| DEV-005     | [P0 source registry and initial adapters](#dev-005)                  | In progress    | Not run         |
+| DEV-006     | [Public intelligence slice](#dev-006)                                | In progress    | Not run         |
+| DEV-007     | [Identity/consent and manual/virtual portfolios](#dev-007)           | In progress    | Not run         |
+| DEV-008     | [CSV/XLSX imports and help](#dev-008)                                | In progress    | Not run         |
+| DEV-009     | [Multiple goals and portfolio linkage](#dev-009)                     | In progress    | Not run         |
+| DEV-010     | [Oil-shock educational end-to-end slice](#dev-010)                   | In progress    | Not run         |
+| DEV-011     | [Daily/weekly reports and durable workers](#dev-011)                 | Planned        | Not run         |
+| DEV-012     | [Responsive PWA and accessible UI](#dev-012)                         | Planned        | Not run         |
+| DEV-013     | [Regulated personalised advice](#dev-013)                            | Gated          | Not run         |
+| DEV-014     | [Broker connectivity and later channels/assets](#dev-014)            | Planned        | Not run         |
+| DEV-015     | [Admin and research operations](#dev-015)                            | In progress    | Not run         |
+| DEV-016     | [Evidence, explanations and corrections](#dev-016)                   | In progress    | Not run         |
+| DEV-017     | [Privacy, security and consent lifecycle](#dev-017)                  | In progress    | Not run         |
+| DEV-018     | [Watchlists, material alerts and delivery controls](#dev-018)        | In progress    | Not run         |
+| DEV-019     | [Deterministic research policy and action centre](#dev-019)          | Planned        | Not run         |
+| DEV-020     | [Additional verified event slices](#dev-020)                         | Planned        | Not run         |
+| DEV-021     | [Operational quality, observability and release controls](#dev-021)  | Planned        | Not run         |
+| DEV-022     | [Indian mutual funds and bonds](#dev-022)                            | Planned        | Not run         |
+| DEV-023     | [Other Indian assets and derivatives](#dev-023)                      | Deferred       | Not run         |
+| DEV-024     | [International mutual funds](#dev-024)                               | Deferred       | Not run         |
+| DEV-025     | [International equities and ETFs](#dev-025)                          | Deferred       | Not run         |
+| DEV-026     | [Other international assets](#dev-026)                               | Deferred       | Not run         |
+| DEV-027     | [Crypto last-stage capability](#dev-027)                             | Deferred       | Not run         |
+| DEV-028     | [Broker and account connectivity](#dev-028)                          | Planned        | Not run         |
+| DEV-029     | [WhatsApp and mobile application shells](#dev-029)                   | Deferred       | Not run         |
+| DEV-030     | [Monetisation decision and commercial conflict controls](#dev-030)   | Deferred       | Not run         |
+| SRC-001     | [Instrument/security master source onboarding (P0)](#src-001)        | Planned        | Not run         |
+| SRC-002     | [Indian EOD prices/volume source onboarding (P0)](#src-002)          | Planned        | Not run         |
+| SRC-003     | [Corporate actions source onboarding (P0)](#src-003)                 | Planned        | Not run         |
+| SRC-004     | [Corporate filings/results source onboarding (P0)](#src-004)         | Planned        | Not run         |
+| SRC-005     | [Reported fundamentals source onboarding (P0)](#src-005)             | Planned        | Not run         |
+| SRC-006     | [Index/sector data source onboarding (P0)](#src-006)                 | Planned        | Not run         |
+| SRC-007     | [India macro source onboarding (P0)](#src-007)                       | In progress    | Not run         |
+| SRC-008     | [Global macro/rates source onboarding (P0)](#src-008)                | Planned        | Not run         |
+| SRC-009     | [Oil/commodity/FX benchmarks source onboarding (P0)](#src-009)       | Planned        | Not run         |
+| SRC-010     | [FII/DII/FPI flows source onboarding (P0)](#src-010)                 | Planned        | Not run         |
+| SRC-011     | [F&O participant positioning source onboarding (P0)](#src-011)       | Planned        | Not run         |
+| SRC-012     | [Market/company news source onboarding (P0)](#src-012)               | Planned        | Not run         |
+| SRC-013     | [Portfolio spreadsheet imports source onboarding (P0)](#src-013)     | Planned        | Not run         |
+| SRC-014     | [Regulatory/tax source registry source onboarding (P0)](#src-014)    | Planned        | Not run         |
+| SRC-015     | [MF scheme master/NAV source onboarding (P1)](#src-015)              | Deferred       | Not run         |
+| SRC-016     | [MF holdings/factsheets source onboarding (P1)](#src-016)            | Deferred       | Not run         |
+| SRC-017     | [India G-sec/yield curve source onboarding (P1)](#src-017)           | Deferred       | Not run         |
+| SRC-018     | [Corporate bonds/ratings source onboarding (P1)](#src-018)           | Deferred       | Not run         |
+| SRC-019     | [CAS/MF statement import source onboarding (P1)](#src-019)           | Deferred       | Not run         |
+| SRC-020     | [Consensus/earnings revisions source onboarding (P1)](#src-020)      | Deferred       | Not run         |
+| SRC-021     | [Broker API connectivity source onboarding (P2)](#src-021)           | Deferred       | Not run         |
+| SRC-022     | [Indian ETFs/gold/commodities source onboarding (P2)](#src-022)      | Deferred       | Not run         |
+| SRC-023     | [Options/derivatives analytics source onboarding (P2)](#src-023)     | Deferred       | Not run         |
+| SRC-024     | [International mutual funds source onboarding (P3)](#src-024)        | Deferred       | Not run         |
+| SRC-025     | [International equities/ETFs source onboarding (P4)](#src-025)       | Deferred       | Not run         |
+| SRC-026     | [International bonds/commodities source onboarding (P5)](#src-026)   | Deferred       | Not run         |
+| SRC-027     | [Crypto market/on-chain source onboarding (P6)](#src-027)            | Deferred       | Not run         |
 
 ## Detailed tasks and Codex prompts
 
@@ -1178,7 +1178,6 @@ DEV-014 is the legacy umbrella for later connectivity/channels/assets. DEV-022�
 - **Cases/evidence:** storage-error.test.mjs covers classification, redaction and transaction rollback; E2E-API-011–013 now display the failed workspace response. No checks/tests/migrations executed.
 - **Manual next actions:** format → check → db:migrate; report migration result, then rerun the three API cases after API reload. Do not mark the original failure resolved without a successful rerun.
 
-
 ## DATA-001 — Real India macro ingestion, evidence and public screen
 
 - **Implementation:** Implemented
@@ -1214,7 +1213,6 @@ DEV-014 is the legacy umbrella for later connectivity/channels/assets. DEV-022�
 
 - **Delivery:** 004 inbox migration, strict shared contracts, session-owned inbox and acknowledgment endpoints, account UI and E2E-API-040/E2E-WEB-040. Source values come from DATA-001, not fixtures. No tests, migrations or service actions executed. Manual: format → check → db:migrate, then run @ALERT-001 in API/desktop/mobile with provider access.
 
-
 ## BUG-004 — New E2E files fail discovery
 
 - **Implementation:** Implemented; awaiting user verification
@@ -1223,3 +1221,11 @@ DEV-014 is the legacy umbrella for later connectivity/channels/assets. DEV-022�
 - **Codex prompt:** Move the capture-disable test.use declarations to file scope in all six affected specs. Preserve credential protection and test assertions. Update README/catalogue, inspect source, commit locally without hooks or push. User manually reopens the UI and verifies discovery and selected execution.
 
 - **Manual next actions:** Reopen E2E UI, clear filters, verify all case groups list. Run selected cases manually. No dependency, database or app changes required. No checks run or push performed.
+
+
+## BUG-005 — Missing method brace prevents API compilation
+
+- **Implementation:** Implemented; manual verification pending.
+- **Evidence:** User's pasted output shows Prettier syntax error at accounts.ts:99 before remove(). Source inspection confirms acknowledge() lacked its closing brace. Operator setup and both databases succeeded; dev startup was separately blocked by existing listeners.
+- **Codex prompt:** Restore the missing method delimiter, preserve user formatting changes, record the failure and recovery in TODO/README/catalogue, commit only the scoped fix. Do not run format/check/build/tests/services or push. Existing compilation and account/inbox E2E cases provide regression coverage; do not add a test that merely counts braces.
+- **Manual next actions:** Stop the existing dev terminal, run pnpm format and pnpm check successfully, then pnpm db:migrate and pnpm dev. The migration executed before this successful build may have used old dist output; rerun it after compilation. Run account/inbox cases in the manual UI; report the first failing step if any.

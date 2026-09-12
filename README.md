@@ -1638,7 +1638,11 @@ The platform succeeds when a non-expert user can open it and, within one minute,
 
 If the product merely produces a longer and more attractive market newsletter, it has failed.
 
-
 ### E2E discovery correction (BUG-004)
 
 Account/macro/inbox specs now declare worker-scoped capture settings at file scope. Nesting these settings inside a describe group caused Playwright collection errors. Credential recording stays disabled. Close the previous E2E UI terminal and reopen with `E2E_BROWSER=chrome pnpm e2e:ui`; clear search/status filters and select all projects. Tests should list before any Run action. No tests were executed by Codex.
+
+
+### API syntax correction (BUG-005)
+
+Restored a missing closing brace in AccountStore. If formatting/checks previously failed at accounts.ts before remove(), stop the existing dev terminal and rerun `pnpm format`, then `pnpm check`. Only after those succeed, run `pnpm db:migrate` and `pnpm dev` so the migration uses the rebuilt output. Existing containers and data are preserved. Manual verification is pending; Codex did not execute these commands.

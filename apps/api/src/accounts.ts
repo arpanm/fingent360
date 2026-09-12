@@ -96,6 +96,8 @@ export class AccountStore {
       await c.query('INSERT INTO app_observation_receipts(user_id,observation_id) VALUES ($1,$2) ON CONFLICT DO NOTHING',[account.id,input.observationId]);
       return { ok: true as const };
     });
+  }
+
   async remove(body: unknown, cookie: string | undefined, ip: string) {
     this.limits.consume(ip);
     const input = parse(DeleteAccountSchema,body);

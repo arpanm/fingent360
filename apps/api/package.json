@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "dev": "concurrently --kill-others \"tsc -p tsconfig.json --watch\" \"node --env-file=../../.env --watch dist/main.js\"",
+    "dev": "node ../../scripts/api-dev.mjs",
     "start": "node --env-file=../../.env dist/main.js",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "node --test test/*.test.mjs",

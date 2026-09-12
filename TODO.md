@@ -1231,6 +1231,8 @@ DEV-014 is the legacy umbrella for later connectivity/channels/assets. DEV-022â€
 
 ## DEV-PORTS-001 â€” Automatic local port selection and dependency propagation
 
+- **Restart follow-up:** User reports EADDRINUSE on 4101 after node watch restarts. The old API dev command reloads the shared env file, allowing a legacy session to adopt another session's selected port. Implementation: API dev wrapper snapshots env before watch starts and preserves root-selected environment values across restarts. Prompt: isolate each API watch session from subsequent .env changes without changing production start or migrations; preserve free-port selection and dependent configuration, document legacy-watcher restart, and commit locally. Verification pending; no services or checks executed. Stop pre-fix dev watchers once, then manually verify two new sessions retain distinct ports after a source edit.
+
 - **Lint follow-up:** User reports formatting passed but ESLint rejected two side-effect ternaries in local-ports.mjs. Replaced them with explicit if/else branches, preserving process signaling and exit handling. Reusable prompt: fix the two no-unused-expressions violations without changing launcher behavior or weakening lint rules; update documentation and commit locally. Verification remains pending; manually rerun pnpm format and pnpm check.
 
 - **Implementation:** Implemented; manual verification pending

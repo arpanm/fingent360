@@ -105,6 +105,8 @@ The missing AccountStore method brace is corrected. Existing pnpm check compilat
 
 ## DEV-PORTS-001 dynamic-port acceptance
 
+Restart regression: after stopping pre-fix dev watchers, launch two dev sessions sequentially and record both printed API/web pairs. Make a harmless source edit to trigger API recompilation/restart. Both sessions must retain their own ports without EADDRINUSE. Launch the test UI for the latest session and manually run E2E-API-001/002/030 and E2E-WEB-001/030; also open the first session's printed web URL and confirm it remains usable. This manual scenario specifically covers watcher configuration lifetime; verification pending.
+
 Lint follow-up: manually rerun `pnpm format` and `pnpm check` before the scenarios below. The two reported `no-unused-expressions` violations were replaced with equivalent conditionals; existing ESLint coverage checks this correction. No runtime behavior change or additional E2E case is needed. Verification pending.
 
 Start a second root pnpm dev while the previous session runs. Open the newly printed web URL and a newly launched E2E UI; its target URLs must match. Run E2E-API-001/002/030 and E2E-WEB-001/030 to verify connectivity and account Origin handling. A second E2E UI/report listener must choose another free port without stopping the first. For database-port conflicts, use a disposable local setup and confirm selected Compose bindings match .env connection URLs and retained data; never remove volumes. Automated unit definitions cover allocator/env mapping and run under pnpm check. All execution remains manual.

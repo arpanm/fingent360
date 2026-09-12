@@ -31,6 +31,8 @@ The signed-in watchlist now includes an inbox of latest reported observations fo
 
 ## Automatic local ports (DEV-PORTS-001)
 
+API watch mode now snapshots configuration once at launch, so a restart does not load another session's ports from `.env`. Stop dev sessions launched before this correction once with Ctrl-C, then launch again. Existing watcher processes cannot acquire the new launcher code automatically. New sessions retain their own selected API port and web origin across source changes.
+
 The reported launcher lint errors have been corrected using explicit conditionals for process signaling and exit handling. Rerun `pnpm format` and `pnpm check`; verification of this correction remains pending.
 
 `pnpm dev` now brings up/reuses this repo's local databases, builds, selects free API/web ports and prints their actual URLs. Occupied ports no longer require killing another app. Selections are saved atomically in `.env`: API_PORT, WEB_PORT, WEB_ORIGIN, POSTGRES_PORT/MONGO_PORT and both database connection URLs. Vite's proxy, account Origin checks, migrations, smoke checks and newly opened E2E runners use the selected configuration. Existing unrelated processes are never killed.

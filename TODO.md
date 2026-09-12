@@ -20,6 +20,7 @@ Each task prompt below is combined with this contract (also reference it when co
 | ID        | Task                                                                 | Implementation | Verification    |
 | --------- | -------------------------------------------------------------------- | -------------- | --------------- |
 | SLICE-001 | [Working educational portfolio journey](#slice-001) | Implemented | Awaiting user |
+| BUG-003 | Workspace creation diagnostics | Implemented | Awaiting user |
 | BUG-002   | [JSON API not-found responses](#bug-002)                             | Implemented    | Awaiting user   |
 | BUG-001   | [Duplicate startup / browser download recovery](#bug-001)            | Implemented    | Awaiting user   |
 | SETUP-001 | [Local development foundation](#setup-001)                           | Implemented    | Historical only |
@@ -1159,3 +1160,14 @@ DEV-014 is the legacy umbrella for later connectivity/channels/assets. DEV-022�
 - **Files:** packages/contracts/src/journey.ts; apps/api/src/journey*.ts; infra/migrations/001_virtual_journey.sql; apps/web/src/Journey.tsx; tests/e2e/cases/{api,browser}/journey.spec.ts.
 - **Cases:** E2E-API-010–013, E2E-WEB-010–012 plus domain golden/negative tests. Existing foundation browser case updated to the working landing page.
 - **Manual next actions:** Follow [working journey](docs/development/working-journey.md): db:up → format → check → db:migrate → dev; launch Chrome E2E UI and run @SLICE-001 in API/desktop/mobile. Report failures by case/project/trace. No dependency changes. No commands/tests/services executed by Codex; no push.
+
+
+## BUG-003 — Workspace creation returns an undiagnosed 503
+
+- **Implementation:** Diagnostic improvement implemented; underlying reported failure awaiting diagnosis
+- **Verification:** User reported E2E-API-011/012/013 failing at workspace creation (expected 201, received 503); underlying database cause not yet confirmed.
+- **Scope:** Replace the generic storage/migration message with safe cause-specific diagnostics; make E2E failure report the response error. Preserve failure status and all assertions. No automatic migrations, services or test execution.
+- **Codex prompt:** Inspect the common workspace creation and migration paths. Distinguish schema/authentication/permission/connectivity failures without exposing driver text, SQL or secrets. Update regression cases and README, record that the underlying environment cause remains unconfirmed, commit locally without hooks or push. Ask for the user's migration output and provide manual recovery steps.
+
+- **Cases/evidence:** storage-error.test.mjs covers classification, redaction and transaction rollback; E2E-API-011–013 now display the failed workspace response. No checks/tests/migrations executed.
+- **Manual next actions:** format → check → db:migrate; report migration result, then rerun the three API cases after API reload. Do not mark the original failure resolved without a successful rerun.

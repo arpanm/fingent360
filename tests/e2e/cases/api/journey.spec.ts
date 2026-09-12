@@ -4,7 +4,9 @@ import { CatalogSchema, PreviewSchema, ReviewSchema, WorkspaceSchema, SessionSch
 const base = '/api/v1/journey';
 async function session(request: APIRequestContext) {
   const response = await request.post(`${base}/workspaces`, { data: {} });
-  expect(response.status(), 'Apply pnpm db:migrate before these cases').toBe(201);
+  // Read failure details only: successful responses contain a private access key.
+  const detail = response.status() === 201 ? '' : await response.text();
+  expect(response.status(), `Workspace creation failed: ${detail}`).toBe(201);
   const { token } = SessionSchema.parse(await response.json());
   return { Authorization: `Bearer ${token}` };
 }

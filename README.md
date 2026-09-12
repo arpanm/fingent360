@@ -55,6 +55,12 @@ This is a synthetic local learning workspace, not real account authentication or
 
 DEV-001 reference artifacts remain the [screen requirements](docs/product/first-slice-prd.md), [canonical model](docs/data-dictionary/canonical-model.md), [glossary](docs/data-dictionary/glossary.md) and [manual requirements-review pack](tests/e2e/plans/dev-001-acceptance.md).
 
+### Workspace creation returns 503 (BUG-003)
+
+If E2E-API-011–013 all fail while creating a workspace, the shared storage operation failed before those scenarios ran. This does not by itself prove that migration was skipped. The API now distinguishes missing schema, authentication, permissions and connectivity errors without exposing credentials; the test assertion includes the failure response.
+
+Manually run `pnpm format`, `pnpm check`, then `pnpm db:migrate`. Migration must print “Virtual journey schema is ready. Existing data preserved.” Both migration and API must use the same database configuration. If migration fails, share its safe error text. Once it succeeds, ensure the running API has loaded the rebuilt code and rerun E2E-API-011–013 in the existing test UI. No reset or data deletion is needed. If they still fail, share the new response message; the underlying cause remains unconfirmed until that evidence is available.
+
 ## Manual test dashboard
 
 The reusable local tool uses Playwright UI mode for API and browser test selection and result inspection. It makes no LLM calls. Once dependencies are installed, new feature requests normally require only case/fixture/catalogue updates.

@@ -57,3 +57,7 @@ Prerequisites: current build, manual `pnpm db:migrate`, PostgreSQL/MongoDB and A
 | E2E-WEB-012 | desktop/mobile | Simulated failed save preserves edits, then real save succeeds |
 
 Tests create/delete isolated virtual workspaces. No user workspace is reused. See [manual walkthrough](../../docs/development/working-journey.md). Foundation browser assertions now describe the working synthetic landing page.
+
+## BUG-003 — shared workspace setup failure
+
+User reported E2E-API-011–013 returning 503 during session creation. Those scenarios remain user-reported failed. The common assertion now includes the failed response text (never the successful access key). Unit regressions cover cause classification, redaction and rollback. User must apply the migration successfully and rerun these API cases; cause and recovery are not yet verified.

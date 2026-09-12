@@ -12,6 +12,7 @@ import {
 } from '@fingent360/contracts';
 import { catalog, createReview, emptyPortfolio, parseCsv, valuePortfolio } from './journey-domain.js';
 import type { AppConfig } from './config.js';
+import { storageErrorMessage } from './storage-error.js';
 
 const STORE = Symbol('JOURNEY_STORE');
 const hash = (value: string) => createHash('sha256').update(value).digest('hex');
@@ -45,7 +46,7 @@ export class JourneyStore {
     } catch (error) {
       if (client) await client.query('ROLLBACK').catch(() => {});
       if (error instanceof BadRequestException || error instanceof ConflictException || error instanceof UnauthorizedException || error instanceof NotFoundException) throw error;
-      throw new ServiceUnavailableException('Workspace storage unavailable. Start PostgreSQL and apply pnpm db:migrate, then retry.');
+      throw new ServiceUnavailableException(storageErrorMessage(error));
     } finally { client?.release(); }
   }
   async locked(client: pg.PoolClient, key: string) {

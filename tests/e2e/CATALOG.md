@@ -73,3 +73,15 @@ Prerequisites: research:setup, rebuilt/restarted API, db:migrate, both databases
 | E2E-WEB-020 | desktop/mobile | User refreshes real GDP, views history/source, reloads persisted values without overflow |
 
 The source parser's unit cases exercise exact decimals, null, identity, unit, pagination and schema failures using explicitly synthetic wire fixtures only. No fixtures are served in the application.
+
+## ACCOUNT-001 account and watchlist cases
+
+Prerequisites: updated app, PostgreSQL, additive migration; account tests do not require an external fetch. Filter @ACCOUNT-001. Temporary accounts are removed on completion. Credential-bearing traces/video/screenshots are disabled.
+
+| ID | Projects | Expected result |
+| --- | --- | --- |
+| E2E-API-030 | api | Register/save/reload; other account isolated; logout denies private access; login restores list; deletion revokes access |
+| E2E-API-031 | api | Missing/foreign Origin and absent consent reject; HttpOnly cookie; wrong password and duplicate inputs reject |
+| E2E-WEB-030 | desktop/mobile | User registers, selects real indicator, saves/reloads/signs in again, then deletes account; no overflow |
+
+Password hashing, cookie parsing, Origin enforcement and bounded rate-limit unit regressions are in apps/api/test/account-security.test.mjs. Execution pending user Run.

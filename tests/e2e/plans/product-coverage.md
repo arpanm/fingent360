@@ -633,3 +633,7 @@ These are scenario requirements, not executed tests. Link each case to TODO. Imp
 ## SLICE-001 implemented executable coverage
 
 The core synthetic versions of DEV-003/004/006–010 are now covered by E2E-API-010–013 and E2E-WEB-010–012, with domain golden calculations in apps/api/test/journey.test.mjs. The executable cases are in cases/api/journey.spec.ts and cases/browser/journey.spec.ts. They require manual execution. DOC-002/004/006–011/014 now have partial executable counterparts; full canonical/live-source, per-position allocation, authentication and production controls remain their original task scope.
+
+## DATA-001 / ACCOUNT-001 delivered runtime coverage
+
+E2E-API-020/021 and E2E-WEB-020 exercise actual provider ingestion, persistence and source/history UI. E2E-API-030/031 and E2E-WEB-030 exercise real account/session/watchlist storage and ownership through API/browser. No application mocks satisfy these features. Parent DEV-003–007/015–018 and SRC-007 still contain additional undelivered requirements; execution is manual and pending.

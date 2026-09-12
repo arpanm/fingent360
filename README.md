@@ -19,6 +19,12 @@ Restart the existing dev terminal to load the generated operator key; avoid dupl
 
 Implementation is written, not runtime-verified by Codex. Real-account authentication, real equity valuation and broader provider integrations remain unfinished backlog items.
 
+## Accounts and saved watchlists (ACCOUNT-001)
+
+Use **My watchlist / sign in** to create an account, save the real economic indicators you follow, sign out/in and recover your selections. Server sessions use HttpOnly cookies; private watchlists are stored in PostgreSQL. Account deletion requires the current password. This is separate from the earlier virtual exercise.
+
+After `pnpm format` and `pnpm check`, apply `pnpm db:migrate` and load the updated app at http://localhost:5173/#account. In the E2E UI manually run `@ACCOUNT-001` across api/desktop/mobile. [Account behavior, limitations and manual walkthrough](docs/development/accounts.md). New cases remain unexecuted by Codex.
+
 ## Start locally
 
 Prerequisites: Node.js 24 LTS (Node 26 also supported locally), pnpm 11.23.0 and Docker with Compose.

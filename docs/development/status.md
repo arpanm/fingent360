@@ -65,3 +65,7 @@ The earlier “not implemented” list describes the foundation at that time. Vi
 ## DATA-001 — real-source implementation
 
 Real World Bank India GDP growth/CPI inflation ingestion, original response storage in MongoDB, exact numeric PostgreSQL revisions, operator-controlled refresh and default public UI are written. New unit/E2E cases await user execution. Official indicator licensing/attribution was read during implementation; no live ingestion run or acceptance pass is claimed. See real-data.md. Real accounts, equity prices and other sources remain open.
+
+## ACCOUNT-001 — authenticated watchlists
+
+Account registration/login/logout/deletion, explicit storage consent, scrypt password hashes, hashed expiring cookie sessions, ownership checks and private real-indicator watchlists are implemented through DB/API/UI. API/browser and security unit cases authored; no execution performed. Full production identity, real holdings, active alerts and account recovery remain open. See accounts.md.

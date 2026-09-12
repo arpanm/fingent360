@@ -19,6 +19,7 @@ Each task prompt below is combined with this contract (also reference it when co
 
 | ID        | Task                                                                 | Implementation | Verification    |
 | --------- | -------------------------------------------------------------------- | -------------- | --------------- |
+| ACCOUNT-001 | Authenticated accounts and real-data watchlists | Implemented | Awaiting user |
 | DATA-001 | Real India macro ingestion and evidence UI | Implemented | Awaiting user |
 | SLICE-001 | [Working educational portfolio journey](#slice-001)                  | Implemented    | Awaiting user   |
 | BUG-003   | Workspace creation diagnostics                                       | Implemented    | Awaiting user   |
@@ -31,7 +32,7 @@ Each task prompt below is combined with this contract (also reference it when co
 | DEV-002   | [Research/advice policy and threat model](#dev-002)                  | In progress    | Not run         |
 | DEV-003   | [Versioned domain contracts and golden fixtures](#dev-003)           | In progress    | Not run         |
 | DEV-004   | [PostgreSQL migrations and MongoDB indexes](#dev-004)                | In progress    | Not run         |
-| DEV-005   | [P0 source registry and initial adapters](#dev-005)                  | Planned        | Not run         |
+| DEV-005   | [P0 source registry and initial adapters](#dev-005)                  | In progress    | Not run         |
 | DEV-006   | [Public intelligence slice](#dev-006)                                | In progress    | Not run         |
 | DEV-007   | [Identity/consent and manual/virtual portfolios](#dev-007)           | In progress    | Not run         |
 | DEV-008   | [CSV/XLSX imports and help](#dev-008)                                | In progress    | Not run         |
@@ -41,10 +42,10 @@ Each task prompt below is combined with this contract (also reference it when co
 | DEV-012   | [Responsive PWA and accessible UI](#dev-012)                         | Planned        | Not run         |
 | DEV-013   | [Regulated personalised advice](#dev-013)                            | Gated          | Not run         |
 | DEV-014   | [Broker connectivity and later channels/assets](#dev-014)            | Planned        | Not run         |
-| DEV-015   | [Admin and research operations](#dev-015)                            | Planned        | Not run         |
-| DEV-016   | [Evidence, explanations and corrections](#dev-016)                   | Planned        | Not run         |
-| DEV-017   | [Privacy, security and consent lifecycle](#dev-017)                  | Planned        | Not run         |
-| DEV-018   | [Watchlists, material alerts and delivery controls](#dev-018)        | Planned        | Not run         |
+| DEV-015   | [Admin and research operations](#dev-015)                            | In progress    | Not run         |
+| DEV-016   | [Evidence, explanations and corrections](#dev-016)                   | In progress    | Not run         |
+| DEV-017   | [Privacy, security and consent lifecycle](#dev-017)                  | In progress    | Not run         |
+| DEV-018   | [Watchlists, material alerts and delivery controls](#dev-018)        | In progress    | Not run         |
 | DEV-019   | [Deterministic research policy and action centre](#dev-019)          | Planned        | Not run         |
 | DEV-020   | [Additional verified event slices](#dev-020)                         | Planned        | Not run         |
 | DEV-021   | [Operational quality, observability and release controls](#dev-021)  | Planned        | Not run         |
@@ -63,7 +64,7 @@ Each task prompt below is combined with this contract (also reference it when co
 | SRC-004   | [Corporate filings/results source onboarding (P0)](#src-004)         | Planned        | Not run         |
 | SRC-005   | [Reported fundamentals source onboarding (P0)](#src-005)             | Planned        | Not run         |
 | SRC-006   | [Index/sector data source onboarding (P0)](#src-006)                 | Planned        | Not run         |
-| SRC-007   | [India macro source onboarding (P0)](#src-007)                       | Planned        | Not run         |
+| SRC-007   | [India macro source onboarding (P0)](#src-007)                       | In progress    | Not run         |
 | SRC-008   | [Global macro/rates source onboarding (P0)](#src-008)                | Planned        | Not run         |
 | SRC-009   | [Oil/commodity/FX benchmarks source onboarding (P0)](#src-009)       | Planned        | Not run         |
 | SRC-010   | [FII/DII/FPI flows source onboarding (P0)](#src-010)                 | Planned        | Not run         |
@@ -249,6 +250,7 @@ Each task prompt below is combined with this contract (also reference it when co
 - **Dependencies:** DEV-002, DEV-004
 - **Context:** README.md sections 19–25; docs/product/decisions.md
 - **Scope and acceptance:** Authenticated ownership, consent, exact quantities/amounts, synthetic demo clearly distinguished
+- **Current delivery:** ACCOUNT-001 now provides persisted authenticated accounts and passive real-data watchlists; broader parent acceptance remains open.
 - **E2E cases:** Planned scenarios in tests/e2e/plans/product-coverage.md#dev-007; add stable executable IDs when implemented
 - **Evidence / blockers:** SLICE-001 implements the bounded synthetic journey portion; see docs/development/working-journey.md and docs/product/educational-slice-policy.md. Full task acceptance and production dependencies remain open; no tests executed.
 - **Manual next actions:** After implementation, user runs relevant checks and selected E2E cases listed in the handoff; attach evidence before marking verified.
@@ -380,11 +382,12 @@ Each task prompt below is combined with this contract (also reference it when co
 
 ### DEV-015 — Admin and research operations
 
-- **Implementation:** Planned
+- **Implementation:** In progress
 - **Verification:** Not run
 - **Dependencies:** DEV-002, DEV-005, DEV-019
 - **Context:** README.md section 15
 - **Scope and acceptance:** Source registry, job health, data quarantine/entity-resolution review, event merge/split/corrections, causal-edge approvals, policy simulations/releases, complaints and audit search. Add role-controlled review queues and four-eyes approval for material policy/content changes.
+- **Current delivery:** DATA-001 provides operator refresh controls and immutable real-source observation/evidence history. Broader research publishing and correction flows remain open.
 - **E2E cases:** Planned scenarios in tests/e2e/plans/product-coverage.md#dev-015; add stable executable IDs when implemented
 - **Evidence / blockers:** No implementation or verification evidence yet; dependencies and required product/source approvals remain open.
 - **Manual next actions:** After implementation, user runs relevant checks and selected E2E cases listed in the handoff; attach evidence before marking verified.
@@ -397,11 +400,12 @@ Each task prompt below is combined with this contract (also reference it when co
 
 ### DEV-016 — Evidence, explanations and corrections
 
-- **Implementation:** Planned
+- **Implementation:** In progress
 - **Verification:** Not run
 - **Dependencies:** DEV-003, DEV-005
 - **Context:** README.md sections 4, 7, 8, 11, 13
 - **Scope and acceptance:** Implement progressive one-line/beginner/portfolio/analytical/source layers; distinguish facts, expectations, scenarios and inference. Every material claim links to entailed source sections/timestamps and exposes freshness, conflicts and revisions. English first with a controlled glossary; no invented citations.
+- **Current delivery:** DATA-001 provides operator refresh controls and immutable real-source observation/evidence history. Broader research publishing and correction flows remain open.
 - **E2E cases:** Planned scenarios in tests/e2e/plans/product-coverage.md#dev-016; add stable executable IDs when implemented
 - **Evidence / blockers:** No implementation or verification evidence yet; dependencies and required product/source approvals remain open.
 - **Manual next actions:** After implementation, user runs relevant checks and selected E2E cases listed in the handoff; attach evidence before marking verified.
@@ -414,11 +418,12 @@ Each task prompt below is combined with this contract (also reference it when co
 
 ### DEV-017 — Privacy, security and consent lifecycle
 
-- **Implementation:** Planned
+- **Implementation:** In progress
 - **Verification:** Not run
 - **Dependencies:** DEV-002, DEV-004, DEV-007
 - **Context:** README.md section 16
 - **Scope and acceptance:** Tenant isolation; granular consent expiry/revocation; PII encryption/retention/export/deletion; broker token vault and least privilege; isolated document parsing; untrusted-document injection tests; audit support access. Never use real private holdings as test fixtures.
+- **Current delivery:** ACCOUNT-001 now provides persisted authenticated accounts and passive real-data watchlists; broader parent acceptance remains open.
 - **E2E cases:** Planned scenarios in tests/e2e/plans/product-coverage.md#dev-017; add stable executable IDs when implemented
 - **Evidence / blockers:** No implementation or verification evidence yet; dependencies and required product/source approvals remain open.
 - **Manual next actions:** After implementation, user runs relevant checks and selected E2E cases listed in the handoff; attach evidence before marking verified.
@@ -431,11 +436,12 @@ Each task prompt below is combined with this contract (also reference it when co
 
 ### DEV-018 — Watchlists, material alerts and delivery controls
 
-- **Implementation:** Planned
+- **Implementation:** In progress
 - **Verification:** Not run
 - **Dependencies:** DEV-006, DEV-011
 - **Context:** README.md sections 4, 9, 14
 - **Scope and acceptance:** Watchlist management, calendar-based context, batching, mute preferences and material-event thresholds. Separate data/account alerts from investment actions; test unchanged/non-material inputs do not cause urgency or repeated notifications.
+- **Current delivery:** ACCOUNT-001 now provides persisted authenticated accounts and passive real-data watchlists; broader parent acceptance remains open.
 - **E2E cases:** Planned scenarios in tests/e2e/plans/product-coverage.md#dev-018; add stable executable IDs when implemented
 - **Evidence / blockers:** No implementation or verification evidence yet; dependencies and required product/source approvals remain open.
 - **Manual next actions:** After implementation, user runs relevant checks and selected E2E cases listed in the handoff; attach evidence before marking verified.
@@ -1183,3 +1189,16 @@ DEV-014 is the legacy umbrella for later connectivity/channels/assets. DEV-022�
 
 - **Delivery:** packages/contracts/src/macro.ts; World Bank adapter, macro service/controller, additive 002 migration, Mongo source snapshots, Macro.tsx and local research-key setup tool. E2E-API-020/021 and E2E-WEB-020 plus parser precision/quarantine tests authored. See docs/development/real-data.md for manual setup and expected outcomes.
 - **Scope remaining:** Other sources, real equity holdings, regulated advice and real user accounts are not delivered by this macro feature. No startup sync, automatic execution or push performed.
+
+## ACCOUNT-001 — Authenticated accounts and real-data watchlists
+
+- **Implementation:** Implemented
+- **Verification:** Not run; manual execution remains required.
+- **Dependencies:** DATA-001, bounded DEV-007/017/018 implementation.
+- **Request:** Continue end-to-end backlog development beyond synthetic data.
+- **Scope:** Username/password registration and login, explicit storage consent, server-side expiring sessions with HttpOnly cookie, origin checks and rate limiting, persisted per-user macro watchlists, personal real-data view, logout and password-confirmed account deletion. No email/broker identity claim or production deployment.
+- **Acceptance:** Register, choose real indicator subscriptions, reload, logout/login and retain choices; independent accounts cannot see each other's choices; bad login/origin/body rejects; deletion revokes sessions and removes private rows; no keys in browser storage.
+- **Codex prompt:** Implement shared strict schemas, additive auth/watchlist migration, password/session/ownership services, API and React account flow with real macro data. Use asynchronous salted scrypt and hashed random sessions, bounded work, origin/CSRF checks, cookie-only private access and explicit account deletion. Author API/browser acceptance for positive/negative paths; do not run tests/migrations/services. Update README/TODO and commit locally, never push. Do not mark broader production auth or financial advice complete.
+
+- **Delivery:** Strict account schemas; 003 migration; scrypt/Origin/session/rate-limit service and account API; account/watchlist UI; E2E-API-030/031 and E2E-WEB-030; password/origin/session unit cases. Follow docs/development/accounts.md for manual verification.
+- **Remaining:** Production account recovery/MFA/households, real equity portfolios and active alert delivery remain open in parent tasks. Authored end-to-end implementation is not a test-pass claim.

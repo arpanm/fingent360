@@ -13,6 +13,7 @@ import type { DependencyProbe } from './readiness.js';
 import type { AppConfig } from './config.js';
 import { JourneyController, journeyProvider } from './journey.js';
 import { MacroController, macroProvider } from './macro.js';
+import { AccountController, accountProvider } from './accounts.js';
 
 @Controller()
 class HealthController {
@@ -45,11 +46,12 @@ export async function createApp(
   const app = await NestFactory.create(
     {
       module: AppModule,
-      controllers: [HealthController, JourneyController, MacroController],
+      controllers: [HealthController, JourneyController, MacroController, AccountController],
       providers: [
         { provide: DEPENDENCY_PROBE, useValue: probe },
         journeyProvider(config),
         macroProvider(config),
+        accountProvider(config),
       ],
     },
     { logger: ['error', 'warn', 'log'] },

@@ -318,3 +318,9 @@ table { width: 100%; border-collapse: collapse; font-size: 14px; }
 th, td { text-align: left; padding: 12px 8px; border-bottom: 1px solid #ccd6c7; }
 .hash { overflow-wrap: anywhere; font-size: 13px; }
 @media(max-width: 850px) { .macro-grid { grid-template-columns: 1fr; } }
+
+.account h2 { margin-top: 30px; font-size: 30px; }
+.account p { line-height: 1.65; }
+.account label { display: flex; flex-direction: column; gap: 8px; margin: 18px 0; max-width: 540px; }
+.account .check-label { flex-direction: row; align-items: flex-start; line-height: 1.5; }
+.account input[type="checkbox"] { flex: 0 0 auto; margin-top: 5px; }

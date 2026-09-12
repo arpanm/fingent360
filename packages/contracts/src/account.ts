@@ -1,0 +1,12 @@
+import { z } from 'zod';
+import { MacroIndicatorSchema } from './macro.js';
+export const UsernameSchema = z.string().trim().toLowerCase().regex(/^[a-z][a-z0-9_-]{2,31}$/);
+export const PasswordSchema = z.string().min(12).max(128);
+export const CredentialsSchema = z.strictObject({ username: UsernameSchema, password: PasswordSchema });
+export const RegistrationSchema = z.strictObject({ username: UsernameSchema, password: PasswordSchema, consent: z.literal(true) });
+export const AccountSchema = z.strictObject({ id: z.uuid(), username: UsernameSchema, consentVersion: z.literal('account-storage-v1'), createdAt: z.iso.datetime() });
+export const CurrentAccountSchema = z.strictObject({ user: AccountSchema.nullable() });
+export const WatchlistSchema = z.strictObject({ indicators: z.array(MacroIndicatorSchema).max(2).refine((v) => new Set(v).size === v.length, 'Duplicate indicators are not allowed') });
+export const DeleteAccountSchema = z.strictObject({ password: PasswordSchema });
+export const AccountActionSchema = z.strictObject({ ok: z.literal(true) });
+export type Account = z.infer<typeof AccountSchema>;

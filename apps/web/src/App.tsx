@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { HealthSchema } from '@fingent360/contracts';
 import { Journey } from './Journey';
 import { Macro } from './Macro';
+import { Account } from './Account';
 
 export function App() {
   const [hash, setHash] = useState(window.location.hash);
@@ -57,9 +58,10 @@ export function App() {
         </p>
         <nav className="product-nav" aria-label="Product areas">
           <a href="#macro">Real economic data</a>
+          <a href="#account">My watchlist / sign in</a>
           <a href="#brief">Virtual portfolio exercise</a>
         </nav>
-        {!hash || hash === '#macro' ? <Macro /> : <Journey />}
+        {!hash || hash === '#macro' ? <Macro /> : hash === '#account' ? <Account /> : <Journey />}
       </main>
       <footer>
         <span>Research and education first.</span>

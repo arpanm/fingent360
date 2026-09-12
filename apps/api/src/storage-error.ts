@@ -26,7 +26,7 @@ export function storageErrorMessage(error: unknown): string {
     case '57014':
       return 'The database operation timed out. Retry after checking database availability and locks.';
     case 'ENOENT':
-      return 'The migration SQL file could not be found. Restore infra/migrations/001_virtual_journey.sql and rebuild the API.';
+      return 'The migration SQL file could not be found. Restore the SQL files under infra/migrations and rebuild the API.';
     default:
       return 'Workspace storage operation failed. Confirm the database is reachable and pnpm db:migrate succeeded for the API database. The cause has not been identified.';
   }

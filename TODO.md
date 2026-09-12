@@ -24,7 +24,7 @@ Each task prompt below is combined with this contract (also reference it when co
 | SETUP-001 | [Local development foundation](#setup-001)                           | Implemented    | Historical only |
 | SDLC-001  | [Manual SDLC and reusable API/browser test dashboard](#sdlc-001)     | Implemented    | Awaiting user   |
 | SDLC-002  | [User acceptance of the SDLC tool](#sdlc-002)                        | Awaiting user  | Awaiting user   |
-| DEV-001   | [Screen-level PRD, glossary and canonical data dictionary](#dev-001) | Planned        | Not run         |
+| DEV-001   | [Screen-level PRD, glossary and canonical data dictionary](#dev-001) | Implemented    | Awaiting user   |
 | DEV-002   | [Research/advice policy and threat model](#dev-002)                  | Planned        | Not run         |
 | DEV-003   | [Versioned domain contracts and golden fixtures](#dev-003)           | Planned        | Not run         |
 | DEV-004   | [PostgreSQL migrations and MongoDB indexes](#dev-004)                | Planned        | Not run         |
@@ -139,14 +139,14 @@ Each task prompt below is combined with this contract (also reference it when co
 
 ### DEV-001 — Screen-level PRD, glossary and canonical data dictionary
 
-- **Implementation:** Planned
-- **Verification:** Not run
+- **Implementation:** Implemented
+- **Verification:** Awaiting user verification (manual document review)
 - **Dependencies:** SETUP-001
-- **Context:** README.md sections 19–25; docs/product/decisions.md
+- **Context:** User requested starting development after reporting format/check and tests passed and a manual commit/push. Begin the dependency-ordered backlog with screen requirements and domain definitions. README.md sections 3–13, 19–25; docs/product/decisions.md
 - **Scope and acceptance:** Public/personal home, event/company, portfolio/goal and action flows; empty/error/stale/conflict states; field units, currency, times and identifiers
-- **E2E cases:** Planned scenarios in tests/e2e/plans/product-coverage.md#dev-001; add stable executable IDs when implemented
-- **Evidence / blockers:** No implementation or verification evidence yet; dependencies and required product/source approvals remain open.
-- **Manual next actions:** After implementation, user runs relevant checks and selected E2E cases listed in the handoff; attach evidence before marking verified.
+- **E2E cases:** DOC-001–DOC-015 in [manual acceptance pack](tests/e2e/plans/dev-001-acceptance.md); convert applicable scenarios to API/browser cases with feature delivery.
+- **Evidence / blockers:** Authored [screen PRD](docs/product/first-slice-prd.md), [canonical model](docs/data-dictionary/canonical-model.md) and [glossary](docs/data-dictionary/glossary.md). Requirements are proposed, not working financial features. Policy, source rights and authentication decisions remain downstream dependencies; Gate 0 remains incomplete. No checks executed.
+- **Manual next actions:** Review DOC-001–DOC-015 and report omissions by ID. No services, dependency changes or browser runs needed for this documentation task. Optionally run `pnpm format`. Next development task: DEV-002, then DEV-003.
 
 **Codex prompt**
 
@@ -1137,3 +1137,7 @@ DEV-014 is the legacy umbrella for later connectivity/channels/assets. DEV-022�
 - **Cases:** E2E-API-003 plus API regression tests for JSON not-found responses.
 - **Codex prompt:** Read AGENTS.md, README.md and BUG-002. Inspect the installed NestJS router/adapter without executing it. Correct global-prefix mounting, preserve existing health/readiness routes, and add content-type plus JSON assertions to the unknown-route regression cases. Do not weaken the test to accept HTML. Update TODO/README and commit locally. Do not start services, execute checks/tests or push. Give the user exact manual rerun instructions.
 - **Manual next actions:** User runs formatting/checks, reloads the development API, then reruns E2E-API-003 and API smoke cases; provide results before marking verified.
+
+## Latest user verification report
+
+- 2026-09-12 user report: `pnpm format`, `pnpm check` and all tests passed; user committed and pushed. No run ID or individual case list supplied; this does not establish completion of the separate outage/runner acceptance scenarios. DEV-001 documents and DOC-001–DOC-015 authored afterward; manual review pending.

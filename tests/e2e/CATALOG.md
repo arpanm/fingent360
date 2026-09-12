@@ -35,3 +35,9 @@ All cases below are **authored, not executed** in this SDLC change. No pass/fail
 - These definitions were not executed by Codex. Report run IDs and failures before recording a pass.
 
 BUG-002: user reported E2E-API-003 returning HTML after a successful 404 assertion. Corrected prefix mounting and added explicit format assertions; rerun pending, not marked passed.
+
+## DEV-001 document acceptance
+
+[DOC-001–DOC-015](plans/dev-001-acceptance.md) are authored manual review cases for screen flows, data semantics and failure states. Review pending; no runnable placeholders or passing results added. Services are not required. Convert scenarios to executable cases as their features are delivered.
+
+Latest user report: formatting/checks and all tests passed before DEV-001; no run IDs or individual case details supplied. Earlier failure notes above remain historical; this report does not establish separate outage/runner acceptance.

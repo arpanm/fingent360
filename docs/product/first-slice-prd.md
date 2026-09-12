@@ -1,0 +1,82 @@
+# DEV-001: First-slice product requirements
+
+Status: authored for implementation planning; user review pending. This document specifies future behavior, not features already running. Source: README sections 3–13, 19 and 23–25, plus docs/product/decisions.md. Schema definitions below are deliberate design proposals to implement in DEV-003 after DEV-002; they are not descriptions of existing endpoints.
+
+## Outcome and boundaries
+
+An Indian beginner or affluent investor can understand an oil-related development, follow its evidence and causal effects, see which uploaded holdings and goals are exposed, and decide whether further review is needed. The first slice supports Indian listed equities and INR cash, English, responsive web, manual/virtual holdings and a standard spreadsheet import. No live provider is assumed approved.
+
+The initial outcome is educational monitoring: **No review trigger**, **Review**, or **Unable to assess**. “No review trigger” describes only the evaluated policy and inputs, not an instruction to hold securities or a guarantee of safety. A data-quality block must never become a no-action conclusion. Personalised buy/sell/rebalance amounts and trade execution remain unavailable. DEV-002 defines policy language and activation controls; this document does not grant regulatory approval.
+
+No deadline estimates, billing choice, paid provider, broker connection, mobile shell or extra infrastructure is introduced here. Later assets and channels remain in TODO. Administrative review and secure identity are dependencies before public/private data publishing respectively.
+
+## Personas and journey
+
+| Persona | Starting point | Intended flow | Boundary |
+| --- | --- | --- | --- |
+| Anonymous reader | No account or holdings | Public brief → event → sector/company → sources | Generic examples labelled hypothetical; never imply personal exposure |
+| Portfolio owner | Imported or manually entered holdings | Personal brief → affected positions → goals → review detail | Verify ownership, consent and data quality before calculations |
+| Research reviewer | Candidate source/event | Resolve conflicts → approve evidence/edges → publish revision | Approval is audited; unreviewed extraction cannot publish itself |
+
+First end-to-end path: public event → evidence → economic factors → sectors → companies → confirmed portfolio snapshot → allocated goals → educational review record with uncertainty and invalidation. Authentication is required before persisting private data; signing in does not change the factual content of public events.
+
+## Screen contracts
+
+Routes are proposed navigation paths, not implemented URLs or API contracts. IDs are stable opaque IDs from the dictionary. All screens follow the shared state rules below.
+
+| ID / route | Visible content and actions | Acceptance criteria | Delivery tasks |
+| --- | --- | --- | --- |
+| SCR-01 `/` | Up to six ranked verified developments, fact/meaning, freshness, source count, event links and “Other developments” | PRD-01: show only eligible published events, never pad to six with invented or stale news. If fewer exist, show the actual count. Generic/hypothetical context is explicit. Ranking records its policy version and uses deterministic tie-breaking. | DEV-005, DEV-006 |
+| SCR-02 `/app` | Personal brief, affected exposure, portfolio date, goal summary, next known event and calm review state | PRD-02: no portfolio means setup guidance, not zero exposure. No goals means goal context unavailable, not assumed suitability. Missing inputs prevent numerical personal claims. | DEV-006–DEV-010 |
+| SCR-03 `/developments` | Category/date/geography filters and linked canonical events | PRD-03: filters survive navigation; empty results offer reset. Pagination has a stable sort and no duplicate events; query failure retains explicit retry state. | DEV-006 |
+| SCR-04 `/events/:eventId` | Plain explanation; claim type; actual/previous/consensus when supported; release/effective times; evidence, contradictions, causal graph, affected sectors/companies and invalidation | PRD-04: every material claim links to a supporting source locator. Missing consensus means unavailable, not zero surprise. Scenario and hypothesis edges cannot appear as verified facts. Expanding a company explains its mechanism, horizon and evidence. | DEV-006, DEV-016 |
+| SCR-05 `/companies/:instrumentId` | Company identity/listing, source-dated prices and fundamentals, filings/news, related events and user-owned holdings context | PRD-05: show currency, period and source for each metric; absent consensus/history is unavailable. Same company may have multiple listings without double-counting ownership. No unsupported valuation or recommendation fills missing data. | DEV-003, DEV-005, DEV-006 |
+| SCR-06 `/app/portfolios` and `/:portfolioId` | Account/position list, source-reported versus calculated totals, concentration, quality, last valuation and goal allocation | PRD-06: reconcile totals and show unpriced/unresolved positions separately; missing cost does not become zero profit. Virtual and real portfolios remain visibly distinct. Only owner-authorized portfolios are accessible. | DEV-007, DEV-008 |
+| SCR-07 `/app/imports/new` and `/:importId` | Choose supported platform/template; last-verified download guidance; upload; format detection; row preview/errors; corrections; confirm; reconciliation report | PRD-07: unsupported files fail without partial portfolio mutation. Preview is not committed data. Unresolved identity, duplicate lot/row or a totals mismatch blocks confirmation until resolved. Repeating a confirm request cannot duplicate positions. A missing source total is explicitly unverified, not reconciled. | DEV-008, DEV-017 |
+| SCR-08 `/app/goals` and `/:goalId` | Multiple named goals including repeat types, target/date, amount basis, priority, contribution plan, editable assumptions, eligible assets, allocation and funded ratio | PRD-08: two education goals have distinct IDs and allocations. Defaults show their origin/version and require confirmation. Invalid dates/amounts are rejected. High return targets cannot silently increase risk. Unmodelled success probability stays unavailable. | DEV-009 |
+| SCR-09 `/app/reviews` and `/:reviewId` | Assessment status, relevant goal/positions, evidence path, input dates/quality, policy version, uncertainty, alternative/no-review comparator and invalidation | PRD-09: stale/conflicting/unresolved required inputs yield Unable to assess with reasons. Reviewed data may yield Review or No review trigger. No personalised trade sizing/order controls exist. Revisions preserve the originally issued record. | DEV-010, DEV-019 |
+| SCR-10 `/app/profile` | Risk capacity, tolerance, experience, horizon, constraints, consent and disclosed defaults | PRD-10: unanswered is distinct from low risk; consent is purpose-specific and revocable. Show why an input is needed; no broker password or OTP fields. Sensitive profile fields are never public. | DEV-007, DEV-009, DEV-017 |
+
+Company fundamentals eventually include the full README list. This slice may display only supported reported metrics; it must label the remainder unavailable rather than invent definitions or provider access. The glossary and dictionary define their units and provenance requirements; DEV-003 adds individual metric definitions before ingestion.
+
+## Shared screen states and interactions
+
+| State | Required behavior |
+| --- | --- |
+| Loading | Bounded loading indicator; no fabricated prices, zeros or status conclusions |
+| Empty | Distinguish no records, filtered-out records, no portfolio and no goals; offer the relevant setup/reset action |
+| Error/unavailable | Plain error, retry action and preserved form input where safe; never report success when persistence failed |
+| Stale | Display observed time and provider freshness rule. Preserve historical viewing, but block dependent assessment when freshness requirements fail |
+| Conflicting | Show competing observations/revisions and review state; never silently choose the more favourable result |
+| Partial | Show coverage (priced versus missing positions) and reason. Partial totals are labelled partial; no full-portfolio percentages from incomplete valuation |
+| Forbidden/not found | Reveal no other user's account, goal, portfolio or filenames; consistent access-denied/not-found product response |
+| Revised | Show revision banner, original/new timestamps and correction reason; issued review remains reproducible |
+
+PRD-11: keyboard navigation, labelled controls, visible focus, semantic headings, accessible status updates and non-colour-only labels are required. Layout must work at 390px and desktop widths without horizontal page overflow; wide data tables may have a labelled scroll region. Detail disclosure must work by keyboard and retain context on Back.
+
+PRD-12: all required calculations and loading/error states come from typed API contracts. Private pages are not cached offline. User uploads have a documented validation/retention policy before the upload feature is enabled. Source links open the supporting artifact, not an unrelated homepage.
+
+## First-slice acceptance fixture (synthetic only)
+
+FIX-OIL-001 will be authored in DEV-003. Names and numbers below are fictional arithmetic examples, not market data or financial advice.
+
+- Two synthetic sources support an oil supply event; a conflicting-source variant is also defined. A reviewed hypothetical mechanism maps oil cost sensitivity to fictional company Alpha Air. No quantitative return prediction is claimed.
+- Portfolio P contains 10 Alpha Air units at INR 100.00 and INR 1,000.00 cash. Exact total: INR 2,000.00; direct equity exposure: INR 1,000.00 or 50% of fully priced portfolio value.
+- Goal G1 is an essential near-term purchase; G2 is long-term education. Allocate 40% and 60% of the same equity position respectively, with no unallocated remainder. Direct attributed exposure is INR 400.00 and INR 600.00; it is not an expected loss. Cash remains explicitly unallocated until the user allocates it.
+- User must see distinct horizons/priority context; policy thresholds and the resulting review label are defined/versioned by DEV-002/DEV-019, not hardcoded from a headline. Missing goals do not inherit G1/G2.
+- For a stale price, conflicting event or unresolved position variant, result is Unable to assess with the specific blocker. For an unchanged valid policy input, no-review comparison is available without encouraging a transaction.
+
+PRD-13: expanding the review must reconstruct the exact snapshot, goal allocations, evidence revisions and policy version used. PRD-14: reimporting the identical confirmed file is idempotent; a changed source snapshot requires an explicit new import/reconciliation rather than overwriting historical input. PRD-15: exposure paths that converge on the same holding must not sum that holding more than once for total affected exposure.
+
+## Dependencies and decisions
+
+| Decision | Current treatment | Owner/task |
+| --- | --- | --- |
+| Screen routes and dictionary field design | Proposed here; amend through a recorded decision if implementation reveals a conflict | DEV-001/DEV-003 |
+| Legal operating model, jurisdiction vocabulary and review thresholds | No regulated advice activation; no launch approval assumed | DEV-002/DEV-013 |
+| First data sources and automated/display rights | Candidate only; no production source approved | DEV-005 and SRC tasks |
+| Auth provider, secure upload size/format policy and retention | Must be selected before private-data/import release; no vendor assumed | DEV-007/DEV-008/DEV-017 |
+| Freshness thresholds, source-total tolerances and risk bands | Versioned per domain; missing approval/config blocks dependent behavior | DEV-003/DEV-005/DEV-019 |
+| Probability-of-success, tax and advanced return models | Unavailable until separately specified/evaluated; not improvised in UI | DEV-009/DEV-019/DEV-022 |
+
+DEV-001 is complete when this specification, glossary, dictionary and manual review matrix exist and cross-reference the acceptance criteria. It does not complete Gate 0 or any application feature. Next: DEV-002 policy/threat model, then DEV-003 runtime domain contracts and synthetic golden fixtures.

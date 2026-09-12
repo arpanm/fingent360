@@ -30,7 +30,7 @@ CI targets Node 24 LTS; the GitHub workflow itself has not run yet. Local checks
 
 ## Not implemented
 
-Live market sources, authentication/tenancy, domain migrations, portfolios/imports, goal calculations, event graph, recommendation engine, workers/outbox, PWA service worker/installability, production deployment and regulated advice remain future work. No source has been onboarded. The full product's Gate 0 is still incomplete. Start with DEV-001 in the backlog.
+Live market sources, authentication/tenancy, domain migrations, portfolios/imports, goal calculations, event graph, recommendation engine, workers/outbox, PWA service worker/installability, production deployment and regulated advice remain future work. No source has been onboarded. The full product's Gate 0 is still incomplete. Continue with DEV-002 in the backlog, then DEV-003.
 
 ## Provenance
 
@@ -49,3 +49,9 @@ User reported duplicate development startup failure and browser download stallin
 ## BUG-002 — pending manual verification
 
 User reported E2E-API-003 receiving HTML for an unknown API route. Source inspection found that the installed Express adapter mounts fallback handlers using the unnormalized global prefix. Updated the prefix to /api/v1 and authored JSON-content-type/error-body regression assertions. No checks or tests run by Codex. User also confirmed development startup succeeded after stopping the old session.
+
+## DEV-001 — authored, awaiting manual review
+
+Screen-level requirements, canonical field definitions and glossary are authored in docs/product/first-slice-prd.md and docs/data-dictionary/. DOC-001–DOC-015 in tests/e2e/plans/dev-001-acceptance.md cover manual acceptance. No runtime features, migrations or integrations were added; Gate 0 remains incomplete. Next: DEV-002 policy/threat model, then DEV-003 contracts/fixtures. No checks, tests or services executed by Codex.
+
+Before this work, the user reported `pnpm format`, `pnpm check` and all tests passed, and a manual commit/push. This is user-reported baseline evidence, without run IDs or individual case results; separate outage/runner acceptance is not inferred. DEV-001 review remains pending.

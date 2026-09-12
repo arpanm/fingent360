@@ -1,0 +1,94 @@
+# Canonical model v0.1 — DEV-001
+
+Status: proposed design for DEV-003, not implemented database tables/API endpoints. Domain schemas follow DEV-002 policy work. Only health/readiness runtime contracts currently exist. Reject unknown boundary fields; schema version changes must be explicit. Below, “required” applies to the canonical published/confirmed object; incomplete raw inputs remain in staging with validation issues.
+
+## Common value types
+
+| Type | Representation | Invariant |
+| --- | --- | --- |
+| ID | Opaque UUID string | Stable internal identity; never a company name/symbol or goal type |
+| Instant | ISO-8601 UTC string with Z | Persist actual instant; render IST by default with timezone label; do not substitute retrieval time for release time |
+| LocalDate | YYYY-MM-DD | Goal/trade dates without an invented midnight UTC instant; calendar/timezone accompanies market interpretation |
+| Decimal | Base-10 string; no exponent, commas, NaN or Infinity | Never convert to JS number for monetary/quantity arithmetic; canonical decimal library chosen in DEV-003 |
+| Money | `{ amount: Decimal, currency: string }` | Currency is an approved ISO currency code; initial currency INR. Settled INR amounts have two decimals; per-unit prices may retain source precision |
+| Quantity | Decimal, non-negative for first-slice long positions | Preserve precision; unsupported shorts/derivatives are rejected, not converted to zero |
+| Ratio | Decimal from 0 through 1 | `0.05` means 5%; separate metric unit required for percentage-point changes |
+| Metric value | Decimal + metricId + unit + currency where applicable | Registry defines frequency, period, aggregation and whether stock/flow/index; incompatible units cannot be compared |
+| Missing value | Explicit state and reason, no numerical value | Never encode missing as zero. Optional fields may be absent; nullable only if the concrete schema allows it |
+| Quality | verified / user_confirmed / incomplete / estimated / conflicting / unusable | Verification describes provenance/reconciliation; freshness is separate and can become stale after verification |
+| Freshness | current / stale / unknown + evaluatedAt + ruleVersion | Derived for a specific evaluation time; source vintage/retrievedAt cannot prove currentness alone |
+| Claim kind | fact / expectation / scenario / inference | Publication/review approval does not turn a scenario into an observed fact |
+
+All versioned records contain id, schemaVersion, revisionId, createdAt and (when revised) supersedesRevisionId and revisionReason. Private records also carry ownerId/householdId; ownership is resolved server-side from authentication, not trusted from request payloads. Soft-deletion/retention rules are defined in DEV-017; immutable audit references do not override privacy policy automatically.
+
+## Identity and evidence
+
+| Entity | Required fields | Optional or conditional fields | Relationships and rules |
+| --- | --- | --- | --- |
+| Issuer | id, legalName, country | sectorId, industryId | One issuer may have several instruments; issuer is not a listing |
+| Instrument | id, issuerId for equity, assetClass, name, currency | ISIN, activeFrom/To | Initial listed equity requires verified ISIN before public activation; unresolved imports stage separately. Cash is a different asset class, not a fake equity ISIN |
+| Listing | id, instrumentId, exchangeCode, symbol, validFrom, timezone, calendarId | validTo | Unique exchange/symbol validity interval; aliases and historical symbol changes map to the same instrument when appropriate |
+| Source | id (SRC registry crosswalk), name, sourceType, rightsStatus | termsLocator, reviewedAt, permittedUses, freshnessRuleId | Pending rights cannot activate an adapter; storage/display permissions distinguished |
+| SourceDocument | id, sourceId, retrievedAt, contentHash, mediaType, originLocator, entitlementClass | publishedAt, storageRef, revisionOf | Raw snapshots in MongoDB or protected storage. A URL is not proof of supporting content; do not expose signed/private storage URLs |
+| Evidence | id, documentId, locator, supportingClaimId, relation | excerptRef, reviewerId, reviewedAt | Locator is page/table/section/paragraph; relation supports/contradicts. Retain hash/version of cited document |
+| Observation | id, subjectId, metricId, value, unit, effectivePeriod, retrievedAt, sourceDocumentId, releaseState | currency, publishedAt, knownAt, supersedesRevisionId | Release state preliminary/revised/final; retain vintage. A new revision never overwrites old values used in an issued calculation |
+| MetricDefinition | id, name, unit, aggregation, periodKind, version | currencyRequired, denominatorDefinition, calculationVersion | Defines prices, revenue, ratio/breadth/flow metrics before ingestion; do not mix trailing/forward or nominal/real values |
+
+`effectivePeriod` contains start/end local dates for period metrics, or an effective instant for point observations; exactly one shape is valid. `knownAt` is the time the system has evidence that a fact was available to the market; unknown is retained as unknown. Backtesting must not use a revision before its availability time.
+
+## Events and causal relationships
+
+| Entity | Required fields | Optional or conditional fields | Relationships and rules |
+| --- | --- | --- | --- |
+| MarketEvent | id, title, family, geography, claimKind, evidenceIds, publicationState, eventTimeState | announcedAt, effectiveAt, observationIds, relatedEventIds, correctionReason | Publication state candidate/reviewed/published/withdrawn; unknown announcement time is explicit; only eligible published events reach public brief |
+| CausalEdge | id, fromNode, toNode, direction, mechanism, horizon, evidenceIds, reviewState, modelVersion | prerequisites, invalidation, sensitivity | Nodes typed event/factor/sector/instrument. Direction positive/negative/mixed/unknown. Numerical sensitivity requires independently defined unit/model; never derive a multiplier from prose |
+| ExposureResult | id, portfolioSnapshotId, eventRevisionId, positionIds, valuedExposure, denominator, coverage, calculationVersion, evaluatedAt | goalExposureBreakdown, unavailableReasons | Count each position once in total affected exposure; multiple paths are explanations, not repeated monetary contributions. Exposure is not forecast profit/loss |
+| Brief | id, period, eventRevisionIds, rankingVersion, generatedAt, mode | ownerId for personal, inputSnapshotIds | Up to six eligible items; fewer is valid. Personal rank cannot fabricate facts or hide known material contradictions |
+
+Confidence is initially a reviewed category (low/medium/high/unknown) with rationale, not an invented probability. `horizon` must specify a range or named period with definition. Causal strength and confidence are separate concepts.
+
+## Ownership, portfolio and import records
+
+| Entity | Required fields | Optional or conditional fields | Relationships and rules |
+| --- | --- | --- | --- |
+| Household | id, authorizedMemberIds | name | Membership/role grants access; no cross-household joins without explicit authorization |
+| Account | id, ownerId, householdId, accountType, displayName | providerId, maskedExternalRef | No raw broker password/OTP; broker credentials live in a token vault, not this record |
+| Portfolio | id, ownerId, householdId, name, mode, baseCurrency | accountIds | mode real/virtual; virtual examples never appear as verified user holdings |
+| PortfolioSnapshot | id, portfolioId, asOf, positionIds, quality, sourceType | importId, sourceTotal, calculatedTotal, coverage, reconciliationId | Append snapshots. Missing prices or identity block complete valuation; a displayed partial total is explicitly partial |
+| Position | id, snapshotId, accountId, instrumentId, quantity | sourceValue, priceObservationId, calculatedValue, costBasis, lotIds | Missing cost stays missing. Cash positions use Money; public symbol aliases do not substitute for resolved identity |
+| TaxLot | id, positionId, acquiredDate, quantity, costBasis, provenanceRef | corporateActionRefs | Missing acquisition/cost stages as incomplete, not a fabricated lot; exact tracking required before tax-aware actions |
+| Transaction | id, accountId, instrumentId, type, effectiveDate, quantity, provenanceRef | amount, fees, taxes, currency | Type determines signs and required fields; never infer fees/taxes as zero without an explicit source assumption |
+| ImportBatch | id, ownerId, fileHash, parserVersion, platform, createdAt, state | sourceAsOf, rowIssues, previewSnapshotRef, confirmedSnapshotId | uploaded/validating/needs_review/ready/confirmed/rejected. Content-based dedup scoped to owner/account; changed parser or explicit corrected import needs versioned handling |
+| Reconciliation | id, importId, ruleVersion, state, comparedAt | sourceTotal, calculatedTotal, difference, tolerance | not_available/mismatch/matched/user_confirmed; missing source total cannot become matched; preserve units/currency of each total |
+
+Confirmation requires authorized ownership, resolved required identity and reconciled/explicitly reviewed completeness under policy. It runs transactionally with an idempotency key. Replaying the same confirmed request returns the same snapshot. A changed payload under the same key is rejected. Duplicate detection must distinguish repeated export rows from legitimate separate lots/accounts.
+
+## Goals, profile and review records
+
+| Entity | Required fields | Optional or conditional fields | Relationships and rules |
+| --- | --- | --- | --- |
+| Goal | id, ownerId, name, goalType, priority, targetDate, amountBasis, state | targetAmount, targetBaseDate, contributionPlan, assumptions, allowedAssets, liquiditySchedule | Monetary goals require targetAmount; learning/monitoring goals may be non-monetary and have no fabricated funded ratio. Repeat goal types are allowed |
+| GoalAllocation | id, goalId, positionId or cashBucketId, allocationRatio, effectiveAt | supersedesRevisionId | Exactly one funding target; allocations across goals for one position sum to at most 1. Unallocated remainder explicit; no double pledge of capital |
+| Assumption | id, field, value, unit, origin, version, confirmed | sourceRef, userOverrideAt | origin user/default/model. Default must be shown before confirmation; changing it creates a new version |
+| InvestorProfile | id, ownerId, completenessState | riskCapacity, riskTolerance, experienceByAsset, incomeStability, liabilities, horizon, taxResidency, constraints | Capacity/tolerance remain separate. Missing is not low risk. Only collect fields justified by the feature/purpose |
+| Consent | id, ownerId, purpose, scope, grantedAt, state | expiresAt, revokedAt, providerRef | active/expired/revoked; effective authorization checked at access/import, not only at first login |
+| ReviewResult | id, ownerId for personal, mode, status, reasons, inputRevisionIds, policyVersion, issuedAt, evidenceIds | goalIds, exposureResultIds, comparator, invalidation, supersedesRevisionId | mode educational; status review/no_review_trigger/unable_to_assess. User-facing issuance requires appropriate policy/data gates. No trade orders or personalised amount recommendation in this version |
+
+A goal can reference several funding positions, and a position can fund several goals through allocation records. Profile risk information does not automatically authorize personalised securities advice. Invalid/unsupported policy or missing requisite inputs returns an explicit inability to assess, never a fallback action.
+
+## Calculation and validation invariants
+
+1. Multiply price by quantity using exact decimal arithmetic. Keep intermediate precision; quantize displayed INR totals to two decimals with half-even rounding. Preserve original source values and the calculation version. A different legal/provider rounding convention must be an explicit versioned rule.
+2. Compute total portfolio value only when every included position has an eligible compatible valuation. Otherwise return partial totals and coverage; do not claim full weights. Zero fully-valued denominator yields unavailable ratios, not infinity or zero allocation.
+3. Portfolio weight = valued position / complete portfolio total; display percent from Ratio. Sum unrounded values, then round display. A displayed percentage sum may differ due to rounding and must not silently adjust holdings.
+4. No cross-currency sum without an approved effective-dated FX observation and conversion policy. First slice accepts INR only; other currency imports are unsupported, not converted at 1:1.
+5. Goal funded amount uses allocation-weighted position/cash values. Sum allocated and unallocated amounts to the original corpus before rounding; allocation ratios must not exceed 1. Missing target/valuation yields unavailable funded ratio.
+6. For today's-money targets, inflation conversion uses the explicit rate/horizon convention and disclosed assumption version; no default inflation/return value is fixed by this document. Future-money targets must not be inflated a second time.
+7. Import source-total tolerance is a required versioned setting based on precision/rounding policy. No arbitrary tolerance hides an error. Missing policy blocks automatic reconciliation; a human confirmation is distinct from numerical match.
+8. Invalid decimals, negative long quantities, unknown fields, duplicate identity intervals, end-before-start periods and broken references are rejected. Preserve validation errors for user correction without committing partial canonical objects.
+9. Money, percentages and percentage points are separate units. XIRR, probability-of-success, taxes and derivative valuation stay unavailable until a separate calculation specification and fixtures exist.
+10. Public evidence IDs cannot authorize private content disclosure. Private joins must enforce ownership. Store provenance without returning protected account data or full raw uploaded files to unrelated screens.
+
+## Mapping to implementation
+
+PostgreSQL owns canonical numeric/domain/ownership/audit records; MongoDB owns entitled raw documents and extracted working material. Canonical facts promoted from documents require validation and retain evidence linkage. All financial calculations occur in domain libraries, not React or LLM prose. DEV-003 adds concrete runtime schemas and golden fixtures; DEV-004 adds migrations/indexes after those contracts stabilize. IDs and field designs above may evolve through recorded decisions; do not create speculative endpoints solely to match a proposed route.

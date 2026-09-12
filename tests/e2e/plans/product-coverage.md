@@ -8,6 +8,7 @@ These are scenario requirements, not executed tests. Link each case to TODO. Imp
 
 - Task: [TODO DEV-001](../../../TODO.md#dev-001)
 - Prerequisites: SETUP-001.
+- Authored manual cases: [DOC-001–DOC-015](dev-001-acceptance.md), linked to the screen PRD and canonical dictionary. Awaiting user document review.
 - Acceptance coverage: Public/personal home, event/company, portfolio/goal and action flows; empty/error/stale/conflict states; field units, currency, times and identifiers
 - Failure coverage: reject missing/invalid inputs, unavailable dependencies and unauthorized/cross-user access where applicable; do not silently treat incomplete/stale/conflicting evidence as valid. For documentation tasks, review completeness, source traceability and unresolved decisions instead of issuing requests.
 - Expected evidence: named assertions/steps with expected versus actual values and task/case IDs; use synthetic fixtures. No execution or passing result yet.

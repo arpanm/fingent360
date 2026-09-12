@@ -33,7 +33,13 @@ Follow [AGENTS.md](AGENTS.md), [TODO.md](TODO.md) and [the SDLC](docs/developmen
 
 For every development request, Codex adds/updates a TODO task with a detailed prompt and acceptance criteria, implements it, adds/updates E2E cases, updates TODO and README, then commits locally. **Codex does not execute deterministic checks or environment actions and never pushes automatically.** Tests, installation, formatting, lint/builds, service startup and Git push are manual user actions. Implementation and verification status are separate.
 
-Next product task: ask Codex to implement **DEV-001 from TODO.md**, following that task's full prompt. The active backlog is TODO; the former development backlog points there.
+Next product task: **DEV-002 — research/advice policy and threat model**, followed by DEV-003 domain contracts. The active backlog is TODO; the former development backlog points there.
+
+### DEV-001 development progress
+
+Authored the [first-slice screen requirements](docs/product/first-slice-prd.md), [canonical data model](docs/data-dictionary/canonical-model.md) and [glossary](docs/data-dictionary/glossary.md). These define future public/personal, event/company, portfolio/import, goal and review flows, including missing/stale/conflicting data and exact monetary semantics. Financial features are not implemented yet.
+
+Manual next action: review [DOC-001–DOC-015](tests/e2e/plans/dev-001-acceptance.md) and report omissions by case ID. No services or dependency changes are needed; `pnpm format` is optional. Codex ran no checks for this documentation change. Your earlier report that formatting/checks and all tests passed is recorded separately from this pending document review.
 
 ## Manual test dashboard
 

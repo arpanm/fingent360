@@ -83,56 +83,24 @@ export function Sources() {
   }
   return (
     <section className="macro" aria-labelledby="sources-title">
-      <h2 id="sources-title">Source registry</h2>
-      <p>
-        Published metadata describes operator-reviewed source rights and
-        constraints. Approval here does not activate an adapter or establish
-        production readiness. No provider data is fetched by this registry.
+      <div className="page-header">
+        <div>
+          <p className="page-kicker">EVIDENCE & ACCOUNTABILITY</p>
+          <h1 id="sources-title">Source registry</h1>
+          <p className="page-description">
+            Know where information comes from and the conditions for using it.
+          </p>
+        </div>
+        <a className="button secondary" href="#macro">
+          Explore market context
+        </a>
+      </div>
+      <p className="data-note">
+        Published entries show operator-reviewed rights and constraints. A
+        registry entry does not activate data collection or establish production
+        readiness.
       </p>
-      <details className="card">
-        <summary>Source registry operator controls</summary>
-        <label>
-          Registry operator key
-          <input
-            type="password"
-            autoComplete="off"
-            value={key}
-            onChange={(event) => setKey(event.target.value)}
-          />
-        </label>
-        <button
-          disabled={busy || !key}
-          onClick={() =>
-            void action(async () => {
-              await reload(true);
-              setOperator(true);
-            })
-          }
-        >
-          Load operator registry
-        </button>
-        <button
-          disabled={busy}
-          className="secondary"
-          onClick={() =>
-            void action(async () => {
-              setKey('');
-              setOperator(false);
-              setEditing(null);
-              setHistory([]);
-              setForm(empty);
-              setSources([]);
-              await reload(false);
-            })
-          }
-        >
-          Forget registry key
-        </button>
-        <p>
-          The key stays in page memory. Review evidence must contain no secrets
-          or personal data; approved published metadata is public.
-        </p>
-      </details>
+
       {error && <p role="alert">{error}</p>}
       <p role="status">{busy ? 'Working…' : notice}</p>
       <button
@@ -142,121 +110,6 @@ export function Sources() {
       >
         Reload registry
       </button>
-      {operator && (
-        <form
-          className="card"
-          onSubmit={(event) => {
-            event.preventDefault();
-            void action(async () => {
-              const parsed = SourceInputSchema.safeParse(form);
-              if (!parsed.success)
-                throw new Error(
-                  parsed.error.issues.map((issue) => issue.message).join(' '),
-                );
-              const saved = SourceRecordSchema.parse(
-                await request(
-                  editing ? `/${editing.id}` : '',
-                  key,
-                  editing
-                    ? { expectedRevision: editing.revision, data: parsed.data }
-                    : parsed.data,
-                  editing ? 'PUT' : 'POST',
-                ),
-              );
-              setEditing(saved);
-              setForm(saved.data);
-              await reload(true);
-              setNotice(`Saved source revision ${saved.revision}.`);
-            });
-          }}
-        >
-          <h3>
-            {editing
-              ? `Edit source revision ${editing.revision}`
-              : 'Add source metadata'}
-          </h3>
-          {(
-            [
-              'name',
-              'category',
-              'sourceUrl',
-              'termsUrl',
-              'constraints',
-              'reviewEvidence',
-            ] as const
-          ).map((field) => (
-            <label key={field}>
-              {
-                {
-                  name: 'Source name',
-                  category: 'Source category',
-                  sourceUrl: 'Source URL',
-                  termsUrl: 'Terms URL',
-                  constraints: 'Usage constraints',
-                  reviewEvidence: 'Review evidence',
-                }[field]
-              }
-              <textarea
-                required={field !== 'reviewEvidence'}
-                value={form[field]}
-                onChange={(event) =>
-                  setForm({ ...form, [field]: event.target.value })
-                }
-              />
-            </label>
-          ))}
-          <label>
-            Rights status
-            <select
-              value={form.rightsStatus}
-              onChange={(event) =>
-                setForm({
-                  ...form,
-                  rightsStatus: event.target
-                    .value as SourceInput['rightsStatus'],
-                })
-              }
-            >
-              <option value="unreviewed">Unreviewed</option>
-              <option value="restricted">Restricted</option>
-              <option value="approved">Approved</option>
-            </select>
-          </label>
-          <label>
-            Review time (UTC ISO)
-            <input
-              placeholder="2026-09-12T12:00:00.000Z"
-              value={form.reviewedAt ?? ''}
-              onChange={(event) =>
-                setForm({ ...form, reviewedAt: event.target.value || null })
-              }
-            />
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              checked={form.published}
-              onChange={(event) =>
-                setForm({ ...form, published: event.target.checked })
-              }
-            />
-            Publish approved metadata
-          </label>
-          <button disabled={busy}>Save source metadata</button>
-          <button
-            type="button"
-            className="secondary"
-            disabled={busy}
-            onClick={() => {
-              setEditing(null);
-              setForm(empty);
-              setHistory([]);
-            }}
-          >
-            New source
-          </button>
-        </form>
-      )}
       {sources.length === 0 && (
         <p>No {operator ? 'registered' : 'approved published'} sources yet.</p>
       )}
@@ -343,6 +196,168 @@ export function Sources() {
           ))}
         </section>
       )}
+      <details className="card">
+        <summary>Source registry operator controls</summary>
+        <label>
+          Registry operator key
+          <input
+            type="password"
+            autoComplete="off"
+            value={key}
+            onChange={(event) => setKey(event.target.value)}
+          />
+        </label>
+        <button
+          disabled={busy || !key}
+          onClick={() =>
+            void action(async () => {
+              await reload(true);
+              setOperator(true);
+            })
+          }
+        >
+          Load operator registry
+        </button>
+        <button
+          disabled={busy}
+          className="secondary"
+          onClick={() =>
+            void action(async () => {
+              setKey('');
+              setOperator(false);
+              setEditing(null);
+              setHistory([]);
+              setForm(empty);
+              setSources([]);
+              await reload(false);
+            })
+          }
+        >
+          Forget registry key
+        </button>
+        <p>
+          The key stays in page memory. Review evidence must contain no secrets
+          or personal data; approved published metadata is public.
+        </p>
+        {operator && (
+          <form
+            className="card"
+            onSubmit={(event) => {
+              event.preventDefault();
+              void action(async () => {
+                const parsed = SourceInputSchema.safeParse(form);
+                if (!parsed.success)
+                  throw new Error(
+                    parsed.error.issues.map((issue) => issue.message).join(' '),
+                  );
+                const saved = SourceRecordSchema.parse(
+                  await request(
+                    editing ? `/${editing.id}` : '',
+                    key,
+                    editing
+                      ? {
+                          expectedRevision: editing.revision,
+                          data: parsed.data,
+                        }
+                      : parsed.data,
+                    editing ? 'PUT' : 'POST',
+                  ),
+                );
+                setEditing(saved);
+                setForm(saved.data);
+                await reload(true);
+                setNotice(`Saved source revision ${saved.revision}.`);
+              });
+            }}
+          >
+            <h3>
+              {editing
+                ? `Edit source revision ${editing.revision}`
+                : 'Add source metadata'}
+            </h3>
+            {(
+              [
+                'name',
+                'category',
+                'sourceUrl',
+                'termsUrl',
+                'constraints',
+                'reviewEvidence',
+              ] as const
+            ).map((field) => (
+              <label key={field}>
+                {
+                  {
+                    name: 'Source name',
+                    category: 'Source category',
+                    sourceUrl: 'Source URL',
+                    termsUrl: 'Terms URL',
+                    constraints: 'Usage constraints',
+                    reviewEvidence: 'Review evidence',
+                  }[field]
+                }
+                <textarea
+                  required={field !== 'reviewEvidence'}
+                  value={form[field]}
+                  onChange={(event) =>
+                    setForm({ ...form, [field]: event.target.value })
+                  }
+                />
+              </label>
+            ))}
+            <label>
+              Rights status
+              <select
+                value={form.rightsStatus}
+                onChange={(event) =>
+                  setForm({
+                    ...form,
+                    rightsStatus: event.target
+                      .value as SourceInput['rightsStatus'],
+                  })
+                }
+              >
+                <option value="unreviewed">Unreviewed</option>
+                <option value="restricted">Restricted</option>
+                <option value="approved">Approved</option>
+              </select>
+            </label>
+            <label>
+              Review time (UTC ISO)
+              <input
+                placeholder="2026-09-12T12:00:00.000Z"
+                value={form.reviewedAt ?? ''}
+                onChange={(event) =>
+                  setForm({ ...form, reviewedAt: event.target.value || null })
+                }
+              />
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                checked={form.published}
+                onChange={(event) =>
+                  setForm({ ...form, published: event.target.checked })
+                }
+              />
+              Publish approved metadata
+            </label>
+            <button disabled={busy}>Save source metadata</button>
+            <button
+              type="button"
+              className="secondary"
+              disabled={busy}
+              onClick={() => {
+                setEditing(null);
+                setForm(empty);
+                setHistory([]);
+              }}
+            >
+              New source
+            </button>
+          </form>
+        )}
+      </details>
     </section>
   );
 }

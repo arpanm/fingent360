@@ -1,6 +1,6 @@
 # End-to-end case catalogue
 
-All cases below are **authored, not executed** in this SDLC change. No pass/fail is claimed. Task status and manual verification live in [TODO.md](../../TODO.md). Stable IDs appear in the UI, errors and reports. Browser cases run separately under desktop and mobile projects.
+Case definitions describe coverage; current execution evidence is recorded at the top of TODO and in artifacts/e2e/latest.md. Historical notes below apply to their original change only. Task status and manual verification live in [TODO.md](../../TODO.md). Stable IDs appear in the UI, errors and reports. Browser cases run separately under desktop and mobile projects.
 
 | ID          | Task                         | Project / scenario   | Prerequisites                                                    | Expected outcome                                      | Kind                                   |
 | ----------- | ---------------------------- | -------------------- | ---------------------------------------------------------------- | ----------------------------------------------------- | -------------------------------------- |
@@ -12,6 +12,22 @@ All cases below are **authored, not executed** in this SDLC change. No pass/fail
 | E2E-WEB-002 | SETUP-001, SDLC-001          | Unavailable API      | Web up                                                           | API unavailable shown after 503                       | Simulated network failure              |
 | E2E-WEB-003 | SETUP-001, SDLC-001          | Invalid API contract | Web up                                                           | Invalid timestamp cannot display API connected        | Simulated invalid payload              |
 | E2E-WEB-004 | SETUP-001, SDLC-001          | Responsive/keyboard  | Web up                                                           | No horizontal overflow; home link keyboard accessible | Real browser                           |
+
+## UX-001 connected experience
+
+Current results are recorded in TODO and the saved run reports. Cases use real owned database records; temporary account inputs are explicitly synthetic test data, never fallback product data. Existing regression cases still apply.
+
+| ID                | Projects       | Expected behavior                                                                                                                           |
+| ----------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| E2E-API-110       | api            | Anonymous denial, exact large costs, consistent owned overview, session persistence, isolation, goal removal and inbox preference agreement |
+| E2E-WEB-033       | desktop/mobile | Sign-in returns to an allowlisted private page; external redirect parameters are ignored                                                    |
+| E2E-WEB-110       | desktop/mobile | Overview → registration → saved goal → manual holding → persisted overview totals and setup progress                                        |
+| E2E-WEB-111       | desktop/mobile | Active navigation, mobile menu/Escape, skip link, route focus, no overflow and unknown-route recovery                                       |
+| E2E-WEB-112       | desktop/mobile | Simulated overview storage outage offers retry without inventing an empty account; recovery uses the real API                               |
+| E2E-WEB-062 / 092 | desktop/mobile | Goals/holdings distinguish401 sign-in from503 outage and preserve drafts when discard is cancelled                                          |
+| E2E-WEB-063 / 093 | desktop/mobile | A held initial real API response cannot overwrite a newly saved goal or an entered holdings draft                                           |
+
+WEB060/090 cover guided goal editing and manual holdings/CSV review/confirmation. WEB020 covers actual provider refresh, chart/provenance, and secondary operator controls. [UX-DOC-001–005](../../docs/product/experience.md) define visual and cross-layer review criteria. No new dependencies or migration are required: `/account/overview` reads existing records in one authenticated repeatable-read transaction. Full run `2026-09-12T17-03-42-614Z-70343` passed 68 executions, zero failed, with E2E-API-004 intentionally skipped; all cases above passed under their listed projects.
 
 ## Runner acceptance — user performs these once
 
@@ -26,7 +42,7 @@ All cases below are **authored, not executed** in this SDLC change. No pass/fail
 
 [plans/product-coverage.md](plans/product-coverage.md) maps each future task to required acceptance scenarios. Planned scenarios are not runnable passing placeholders. When implementing a task, create concrete `.spec.ts` cases, replace its planned entries with executable IDs and link both directions to TODO.
 
-## BUG-001 regression acceptance — manual user steps
+## BUG-001 historical regression acceptance — superseded by DEV-PORTS-001
 
 - With an existing dev session using 5173/4100, invoke a second `pnpm dev`: expect a named occupied-port error before build output, and the original app remains running.
 - Stop only the original dev session via Ctrl-C, then invoke `pnpm dev`: expect normal startup on the documented ports. Never terminate an unrelated listener.

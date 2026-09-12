@@ -19,6 +19,7 @@ import { PrivacyController } from './privacy.js';
 import { SourcesController, sourcesProvider } from './sources.js';
 import { AlertPreferencesController } from './alert-preferences.js';
 import { HoldingsController } from './holdings.js';
+import { OverviewController } from './overview.js';
 
 @Controller()
 class HealthController {
@@ -61,6 +62,7 @@ export async function createApp(
         SourcesController,
         AlertPreferencesController,
         HoldingsController,
+        OverviewController,
       ],
       providers: [
         { provide: DEPENDENCY_PROBE, useValue: probe },

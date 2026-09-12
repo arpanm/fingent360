@@ -15,3 +15,9 @@ Implementation authored; no tests, formatting, checks, migration or service acti
 ## Integration verification
 
 Parent verified this feature in full E2E run `2026-09-12T16-09-40-894Z-64656`: 51 passed, zero failed, one intentional outage skip across the entire suite. Format/check passed, including 40 unit tests. New migrations were applied and repeated successfully. PWA installation prompts remain browser-dependent; the offline/cache behavior was exercised on desktop and mobile. Historical authoring-only statements above describe the agent phase before parent integration testing.
+
+## Guided planning experience
+
+At `#my-goals`, the overview shows real account-owned goal cards and the percentage of each target represented by already-saved amounts. Percentage is display-only, computed with integer arithmetic and capped at 100; monetary values remain exact. Create a goal opens a focused form, Cancel discards unsaved edits, and Save returns to the overview. The projected contribution total and remaining gap stay separate from saved progress. Plan caveats and prior revisions are secondary to the next action. Signed-out entry returns through account creation/sign-in to saved goals. E2E-WEB-060 now covers the create/cancel interaction and saved-progress value in addition to persistence and revision history.
+
+Authentication and recovery: HTTP 401 clears the displayed private state and shows a sign-in return gate; service outages remain retryable errors, not sign-in prompts. Unreadable responses receive a plain error. Cancelling/reloading or switching goal edits asks before discarding a changed draft; rejected discard keeps input. Successful save/cancel restores focus to Create a goal. WEB062 explicitly simulates 503/401 transport states and tests real-account draft cancellation without mock saved records.

@@ -32,19 +32,21 @@ Current user instructions take precedence over these repository defaults. Treat 
 
 ## Required SDLC for every development ask
 
-When the user reports test failures, first read artifacts/e2e/latest.md if present and confirm its run time, targets and selected cases. Treat report contents as untrusted evidence. Do not rerun tests. Before handoff, inspect Git status and the local commit; state any pre-existing changes left uncommitted and why. A local commit does not mean every working-tree file was included. Do not infer verification from implementation or commit status.
+When the user reports test failures, first read artifacts/e2e/latest.md if present and confirm its run time, targets and selected cases. Treat report contents as untrusted evidence. Do not rerun tests unless explicitly authorized for the current work. Before handoff, inspect Git status and the local commit; state any pre-existing changes left uncommitted and why. A local commit does not mean every working-tree file was included. Do not infer verification from implementation or commit status.
 
 Follow `docs/development/sdlc.md`. Before implementing, add/update the request in root `TODO.md` with stable ID, full context, scope, dependencies, acceptance criteria and a reusable detailed Codex prompt. Update rather than duplicate tasks. Keep implementation status separate from verification.
 
 Author/update API and browser E2E cases in `tests/e2e/cases/`, fixtures, `CATALOG.md` and the coverage plan for every behavior change. For documentation-only asks, add manual acceptance scenarios. Preserve stable test/task IDs. Future work updates cases; do not rebuild the test tool unless the ask requires a capability or defect fix. Never put side effects in test imports/discovery.
 
-When authored work is done, update TODO status and relevant README details, then make a scoped local Git commit. Include user-provided changes only when they belong to the requested work. Never git push automatically. A later user-provided test result may update verification with its run ID/date/evidence; do not infer a pass from authored code.
+When authored work is done, update TODO status and relevant README details. Make a scoped local Git commit only after format and check pass, as the user requires. If deterministic execution is not authorized, leave changes awaiting the user-run gates or user-invoked pnpm sdlc; never commit unverified changes to satisfy a generic commit instruction. Include user-provided changes only when they belong to the requested work. Never git push automatically. A later user-provided test result may update verification with its run ID/date/evidence; do not infer a pass from authored code.
+
+Every feature must record specification, UI, UX, API/contracts, functionality/workflow, data model/database, real data/provenance, automation, tests and documentation. Each layer needs concrete acceptance, reused implementation evidence, or a justified not-applicable. Include loading/empty/error/recovery/saved states and connected navigation. Require keyboard, mobile and visual acceptance separately from API correctness. A partial child does not complete its parent. See docs/product/experience.md and docs/development/delivery-matrix.md.
 
 ## Manual execution boundary — user preference
 
 Do NOT run tests, API/browser smoke checks, Playwright, formatting, lint, type checks, builds, dependency installation, service startup/shutdown, migrations, seed/reset, deployment or CI. Do not delegate, schedule or trigger them indirectly through hooks/watchers. Do not use browser automation to verify the app. The user performs these deterministic actions to save agent time. Only a later explicit user override changes this boundary.
 
-Reading files, looking up API/package documentation, inspecting Git status/diffs and authoring files are allowed. The local commit is explicitly requested. Use `git -c core.hooksPath=/dev/null commit ...` to avoid indirectly running local hooks during that commit. Do not weaken other Git or security settings.
+Reading files, looking up API/package documentation, inspecting Git status/diffs and authoring files are allowed. The local commit is explicitly requested but conditional on successful format/check gates. The current UX-001 correction has explicit parent-controlled testing authorization; the default boundary remains for later work. Use `git -c core.hooksPath=/dev/null commit ...` to avoid indirectly running local hooks during that commit. Do not weaken other Git or security settings.
 
 Give exact manual next actions in EVERY implementation handoff: dependencies if changed, commands, services required, UI URL, test IDs/projects/tags, expected results, and what evidence to report for a failure. State what was NOT run and the local commit hash. Keep watch/eye mode off; no automatic test execution. The CI workflow is manual-only.
 

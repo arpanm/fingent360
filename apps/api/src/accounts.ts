@@ -233,17 +233,21 @@ export class AccountStore {
   async inbox(cookie?: string) {
     return this.transaction(async (c) => {
       const account = await this.require(c, cookie);
-      const result = await c.query<{
-        indicator: string;
-        id: string;
-        year: number;
-        value: string | null;
-        revision: number;
-        retrieved_at: Date;
-        source_url: string;
-        read: boolean;
-      }>(
-        `
+      return this.inboxFor(c, account.id);
+    });
+  }
+  async inboxFor(c: pg.PoolClient, userId: string) {
+    const result = await c.query<{
+      indicator: string;
+      id: string;
+      year: number;
+      value: string | null;
+      revision: number;
+      retrieved_at: Date;
+      source_url: string;
+      read: boolean;
+    }>(
+      `
         SELECT o.*, EXISTS(SELECT 1 FROM app_observation_receipts r WHERE r.user_id=$1 AND r.observation_id=o.id) AS read
         FROM app_watchlists w
         CROSS JOIN LATERAL unnest(w.indicators) AS followed(indicator)
@@ -254,21 +258,20 @@ export class AccountStore {
         ) o WHERE w.user_id=$1 AND NOT EXISTS (
           SELECT 1 FROM app_alert_preferences p WHERE p.user_id=w.user_id AND p.indicator=o.indicator AND p.muted
         ) ORDER BY o.indicator`,
-        [account.id],
-      );
-      return InboxSchema.parse({
-        items: result.rows.map((row) => ({
-          indicator: row.indicator,
-          observationId: row.id,
-          year: row.year,
-          value: row.value,
-          revision: row.revision,
-          retrievedAt: row.retrieved_at.toISOString(),
-          kind: row.revision > 1 ? 'correction' : 'observation',
-          read: row.read,
-          sourceUrl: row.source_url,
-        })),
-      });
+      [userId],
+    );
+    return InboxSchema.parse({
+      items: result.rows.map((row) => ({
+        indicator: row.indicator,
+        observationId: row.id,
+        year: row.year,
+        value: row.value,
+        revision: row.revision,
+        retrievedAt: row.retrieved_at.toISOString(),
+        kind: row.revision > 1 ? 'correction' : 'observation',
+        read: row.read,
+        sourceUrl: row.source_url,
+      })),
     });
   }
   async acknowledge(body: unknown, cookie?: string) {

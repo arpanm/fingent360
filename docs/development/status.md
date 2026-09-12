@@ -1,83 +1,27 @@
-# Current implementation status
+# Current implementation and verification status
 
-## TEAM-001 current delivery (2026-09-12)
+## UX-001 — current correction
 
-Verified run `2026-09-12T16-09-40-894Z-64656`: 51 passed / 0 failed / 1 manual-outage skip. Format/check passed with 40 unit tests. Migrations001–009 recorded in checksum ledger; repeat application succeeded. PWA offline/cache containment also passed desktop/mobile tests. No push.
+Implemented and verified for the existing account workflows. The new authenticated overview read model joins saved goals, holdings, watchlist and inbox under one repeatable-read transaction. Responsive navigation and guided forms connect overview, account, holdings, goals, research/inbox and privacy. Runtime schema validation, exact money, ownership and provenance remain enforced. Migrations001–009 are reused; no dependency installation or new migration was required. Documentation specifies all delivery layers and audits every DEV/SRC parent's remaining scope.
 
-Parallel implementation adds authenticated saved goals, own-data export/session revocation, operator source review registry, persisted inbox mute preferences and user-entered holdings/CSV confirmation. Additive migrations 005–009 and a checksum ledger support repeatable deployment. These are complete bounded slices, not completion of every parent roadmap gate. Integration verification is tracked in root TODO TEAM-001; older sections below are historical snapshots.
+`pnpm format` and `pnpm check` passed, including 40 unit tests, lint, type checks and builds. Full `pnpm e2e:run` artifact ID `2026-09-12T17-03-42-614Z-70343` (handoff ID `1789232623309-12af3cff-d986-401e-b6ae-5361b97a0c11`, started 2026-09-12T17:03:43Z): 69 selected/completed executions, 68 passed, zero failed, one intentional E2E-API-004 outage skip. Projects: API, desktop and mobile. Targets: web http://127.0.0.1:5175, API http://127.0.0.1:4103. Reports remain under artifacts/e2e; latest.md is overwritten by future runs. No hosted CI or deliberate database outage was run for UX-001.
 
-Remaining major capabilities include verified Indian security master/live prices/corporate actions, real portfolio valuation and allocations, wider provider adapters, durable reporting workers, installable PWA, production account recovery/security hardening and externally gated advice/broker integrations. User-entered holdings are unverified input; source-registry approval does not itself implement ingestion.
+Browser inspection covered guest/populated overview, goal cards/editor, holdings, macro context and account at desktop and narrow mobile widths. WEB111 verifies keyboard/menu/skip-link/route-focus/header clearance and viewport containment. Integration testing found and corrected stale initial-load overwrites and delayed goal autofocus; WEB063/093 hold real API responses to test those races. WEB110 verifies real registration → goal → holdings → saved overview. These checks establish the tested behavior, not full WCAG certification or user design acceptance. Broader roadmap work remains explicitly open.
 
-As of 2026-09-12. Foundation verification is historical below. SLICE-001 now implements the virtual browser/API/PostgreSQL journey; new source and test cases await manual execution. See [working journey](working-journey.md).
+## Implemented baseline before UX-001
 
-## Implemented
+Source modules provide NestJS/React contracts and persistence for accounts/watchlists, real World Bank annual India GDP/CPI observations and raw evidence, inbox receipts/mutes, user-entered holdings/CSV, saved contribution-only goals, privacy exports/sessions, source registry revisions and a neutral offline fallback. Migrations001–009 and a checksum ledger support their relational data. The separate synthetic journey remains explicitly fictional. API health/readiness and user-invoked SDLC/E2E tools exist.
 
-- React/Vite responsive starter, with runtime-validated API connectivity.
-- NestJS `/api/v1/health` liveness and `/api/v1/ready` database readiness endpoints.
-- Shared Zod response contracts, validated environment configuration and secret-safe errors.
-- Separate PostgreSQL 16 and MongoDB 7 containers, loopback ports and persistent volumes.
-- Reproducible pnpm workspace/lockfile; formatting, lint, strict type checks, builds and tests.
-- CI workflow definition with real-database smoke check.
-- Codex instructions, accepted conversation decisions, blueprint, architecture decision and capability backlog.
+Historical TEAM-001 run `2026-09-12T16-09-40-894Z-64656`: 51 passed, zero failed, one intentional manual database-outage skip; format/check passed with 40 unit tests. Migrations001–009 and repeat ledger application were verified in that batch. This evidence predates current UX edits and cannot verify them. Historical BUG-006 run `2026-09-12T15-42-10-408Z-58293`: 32 passed, zero failed, one outage skip, covering the earlier responsive macro-table correction. Source/task history in TODO retains earlier authored and user-reported states; those entries are not current runtime assertions.
 
-## Historical foundation verification on this Mac — before SDLC change
+## Remaining scope
 
-| Check                                           | Result                                                              |
-| ----------------------------------------------- | ------------------------------------------------------------------- |
-| `pnpm install --frozen-lockfile`                | Passed                                                              |
-| `pnpm bootstrap` with existing `.env`           | Preserved the existing file                                         |
-| `pnpm check` on Node 26.7.0 / pnpm 11.23.0      | Passed: formatting, ESLint, strict TypeScript, builds and six tests |
-| `pnpm db:up`                                    | Both dedicated containers healthy                                   |
-| `pnpm smoke` against running API                | Passed: liveness 200; readiness 200, PostgreSQL and MongoDB up      |
-| `pnpm dev`                                      | Web on 5173; API on 4100; watchers active                           |
-| Desktop and 390px mobile browser inspection     | API connected; no horizontal overflow; no console warnings/errors   |
-| Original root plan versus canonical copied plan | Byte-identical at setup                                             |
-| `.env` exclusion                                | Confirmed ignored by Git                                            |
+See [full delivery audit](delivery-matrix.md) for all DEV-001–030 and SRC-001–027 parents. Main gaps: verified Indian security master/prices/actions, real portfolio valuation, broader sources and event/company intelligence, durable jobs/reports, complete educational policy and operational/identity hardening. Full PWA/accessibility acceptance remains broader than the minimal offline worker. Advice requires legal/operating-model approval; brokers require actual provider entitlement/consent; later assets/channels and monetization have explicit gates. Many engineering tasks remain implementable independently and must not all be described as externally blocked.
 
-CI targets Node 24 LTS; the GitHub workflow itself has not run yet. Local checks above ran on Node 26.7.0. Database image downloads initially stalled, so setup uses the PostgreSQL 16/MongoDB 7 images already cached on this Mac, in new isolated containers and volumes. Existing databases were not modified. The API moved to port 4100 because another local app occupies 4000.
+## Verification rules
 
-## Not implemented
+A committed change is not proof of tests or user acceptance. Format/check must pass before commit. Default command execution is manual; current UX-001 has explicit parent testing authorization. Handoffs state exactly what ran and did not run, run IDs/cases/targets, migration impact, commit scope and remaining uncommitted work. Do not carry old localhost ports forward: use current launcher output. No automatic push.
 
-Live market sources, authentication/tenancy, domain migrations, portfolios/imports, goal calculations, event graph, recommendation engine, workers/outbox, PWA service worker/installability, production deployment and regulated advice remain future work. No source has been onboarded. The full product's Gate 0 is still incomplete. Continue with DEV-002 in the backlog, then DEV-003.
+## Historical foundation context
 
-## Provenance
-
-All nine available turns of “Market Analysis Review” and the revised blueprint were reviewed. The earlier runner's claimed commit `814fe0a063e2f52e04ea99cee5f085b2e3ff4119` was not imported because Chrome blocked the bundle download. This repository contains a fresh implementation of the agreed foundation. Historical chat market claims were not used as verified data. The original root duplicate was later removed at the user’s request after its content was incorporated into README.md. README is the current product document; the docs/product copy is historical reference.
-
-## SDLC change — 2026-09-12
-
-SDLC-001 implementation is written: TODO with task prompts, case catalogue and planned coverage, reusable manual Playwright API/browser dashboard launcher, pinned dependency/lockfile entries, manual-only CI and updated repository instructions. The duplicate root plan is removed and the user's appended README blueprint is preserved.
-
-SDLC-002 remains awaiting user acceptance. No dependency/browser installation, formatting, lint/typecheck/build, test execution or UI verification was performed for this change. The dependency graph was authored using registry metadata; the user's frozen installation validates it. No automated pass is claimed for the new cases. Follow tests/e2e/README.md for manual commands and CATALOG.md for runner acceptance.
-
-## BUG-001 recovery
-
-User reported duplicate development startup failure and browser download stalling at 100%. Read-only inspection found an earlier Fingent360 session still bound to 5173/4100 and an active Playwright downloader. Added a pre-build port-conflict message and optional E2E_BROWSER=chrome mode (video disabled to avoid FFmpeg). The download stall's exact cause remains unconfirmed. No processes were stopped or checks executed; manual acceptance is in tests/e2e/CATALOG.md.
-
-## BUG-002 — pending manual verification
-
-User reported E2E-API-003 receiving HTML for an unknown API route. Source inspection found that the installed Express adapter mounts fallback handlers using the unnormalized global prefix. Updated the prefix to /api/v1 and authored JSON-content-type/error-body regression assertions. No checks or tests run by Codex. User also confirmed development startup succeeded after stopping the old session.
-
-## DEV-001 — authored, awaiting manual review
-
-Screen-level requirements, canonical field definitions and glossary are authored in docs/product/first-slice-prd.md and docs/data-dictionary/. DOC-001–DOC-015 in tests/e2e/plans/dev-001-acceptance.md cover manual acceptance. No runtime features, migrations or integrations were added; Gate 0 remains incomplete. Next: DEV-002 policy/threat model, then DEV-003 contracts/fixtures. No checks, tests or services executed by Codex.
-
-Before this work, the user reported `pnpm format`, `pnpm check` and all tests passed, and a manual commit/push. This is user-reported baseline evidence, without run IDs or individual case results; separate outage/runner acceptance is not inferred. DEV-001 review remains pending.
-
-## SLICE-001 — working source implementation, awaiting user execution
-
-Implemented strict synthetic contracts; exact monetary valuation; additive manual PostgreSQL migration; isolated capability workspaces; CSV staging/reconciliation/idempotent confirmation; goal allocation; immutable educational review history; browser navigation/forms/error states and saved-data reload. Added domain tests plus E2E-API-010–013 and E2E-WEB-010–012. No test/build/format/install/migration/service/browser actions performed by Codex.
-
-The earlier “not implemented” list describes the foundation at that time. Virtual portions now exist; real identity, live feeds, broker/XLSX parsers, full domain migrations and production gates remain open. MongoDB is still used only by readiness because this slice's public evidence is a source-code fixture. No source rights/approval or live market claim is implied.
-
-## DATA-001 — real-source implementation
-
-Real World Bank India GDP growth/CPI inflation ingestion, original response storage in MongoDB, exact numeric PostgreSQL revisions, operator-controlled refresh and default public UI are written. New unit/E2E cases await user execution. Official indicator licensing/attribution was read during implementation; no live ingestion run or acceptance pass is claimed. See real-data.md. Real accounts, equity prices and other sources remain open.
-
-## ACCOUNT-001 — authenticated watchlists
-
-Account registration/login/logout/deletion, explicit storage consent, scrypt password hashes, hashed expiring cookie sessions, ownership checks and private real-indicator watchlists are implemented through DB/API/UI. API/browser and security unit cases authored; no execution performed. Full production identity, real holdings, active alerts and account recovery remain open. See accounts.md.
-
-## ALERT-001 — personal observation inbox
-
-Latest real followed observations/corrections now surface in the account UI with persisted per-user, per-revision acknowledgments. Migration 004 and API/browser cases are written; execution pending. External notifications/materiality policies remain open.
+The initial foundation was tested locally on Node26.7.0/pnpm11.23.0 before later SDLC changes. That included bootstrap preservation, health/readiness and basic desktop/mobile connectivity; it was not evidence for current feature completeness. CI's Node24 baseline and workflow definition are not proof of a hosted CI run. The repository was created from reviewed requirements rather than importing the earlier chat's blocked bundle. Historical market figures were never accepted as live facts.

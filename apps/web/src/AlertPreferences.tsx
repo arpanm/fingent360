@@ -18,7 +18,7 @@ export function AlertPreferences({
     });
     if (!response.ok)
       throw new Error(
-        'Inbox settings unavailable. Sign in and check database migrations.',
+        'Inbox settings are temporarily unavailable. Try again shortly.',
       );
     setData(AlertPreferencesSchema.parse(await response.json()));
   }
@@ -57,11 +57,26 @@ export function AlertPreferences({
     <section className="card" aria-label="Inbox preferences">
       <h3>Inbox preferences</h3>
       <p>
-        Mute hides an indicator from your inbox without deleting observations or
-        read receipts. Unmuting restores it with its previous read status. These
-        settings do not send external notifications.
+        Choose which updates appear in your inbox. Muting keeps your watchlist
+        and reading history; unmute whenever you want to see updates again.
       </p>
-      {error && <p role="alert">{error}</p>}
+      {error && (
+        <div role="alert">
+          <p>{error}</p>
+          <button
+            disabled={busy}
+            onClick={() => {
+              setError('');
+              void reload().catch(() =>
+                setError('Inbox settings unavailable.'),
+              );
+            }}
+          >
+            Retry inbox settings
+          </button>
+        </div>
+      )}
+      {!data && !error && <p>Loading inbox preferences…</p>}
       {data?.preferences.length === 0 && (
         <p>Follow an indicator to configure its inbox setting.</p>
       )}
@@ -71,7 +86,7 @@ export function AlertPreferences({
             ? 'GDP growth'
             : 'Consumer inflation';
         return (
-          <div key={item.indicator}>
+          <div className="section-heading" key={item.indicator}>
             <p>
               {name}: {item.muted ? 'Muted' : 'Enabled'}
             </p>

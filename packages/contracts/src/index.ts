@@ -27,3 +27,5 @@ export * from './privacy.js';
 export * from './sources.js';
 export * from './alert-preferences.js';
 export * from './holdings.js';
+
+export * from './overview.js';

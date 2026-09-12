@@ -1,5 +1,7 @@
-# Development backlog
+# Development backlog navigation
 
-The active task tracker has moved to [TODO.md](../../TODO.md). It retains SETUP-001 and DEV-001–DEV-014 and expands the remaining product/source work into detailed tasks with Codex prompts, acceptance criteria and E2E links.
+[Root TODO](../../TODO.md) is the single task/status tracker. It contains stable request IDs, detailed prompts, acceptance and historical evidence for DEV-001–030 and SRC-001–027 plus bounded implementation children. Do not maintain competing status here.
 
-Do not maintain a second status table here. Product/source documentation lives in README.md; operational source status remains in its section 10.8. Follow [the SDLC](sdlc.md). Codex authors changes and test cases; the user performs deterministic checks and test execution.
+[Delivery matrix](delivery-matrix.md) audits all parent items against actual modules and separates missing engineering from external/product gates. [Experience](../product/experience.md) defines connected workflow and per-layer UX acceptance. [SDLC](sdlc.md) defines user-manual execution by default and commit only after format/check pass. [Current status](status.md) distinguishes current work from historical verified runs.
+
+UX-001's existing account workflow is implemented and verified. Follow TODO's “Next complete product workflows”: verified Indian-equity identity/valuation and reconciliation; connected goal allocations; verified event-to-portfolio research; durable reviews and release readiness. Build workers/policy/operations alongside the journeys they enable. Each includes real sources/storage, API, UI/UX, failure recovery, tests and docs. Broader production rights, advice approval, provider credentials/consent, later assets/channels and business-model decisions remain explicit gates. Do not infer all engineering is blocked by those gates or mark a parent complete from one bounded child.

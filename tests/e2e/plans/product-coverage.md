@@ -1,6 +1,12 @@
 # Planned end-to-end coverage
 
+## UX-001 complete workflow correction
+
+API110 verifies the real account overview read model, exact amounts, isolation and reflected changes. WEB110 walks registration → goal → holding → overview with persisted data. WEB111 covers desktop/mobile navigation, skip link, focus and route recovery. WEB112 covers outage/retry without false empty state. WEB062/092 distinguish sign-in from storage failure and protect unsaved edits; WEB033 covers safe return destinations. Existing cases retain provider refresh, consent, ownership, import conflicts, privacy export and learning-lab regression coverage. See [experience specification and visual review](../../../docs/product/experience.md) and [delivery audit](../../../docs/development/delivery-matrix.md). No placeholder cases imply finished roadmap items.
+
 ## TEAM-001 account and operations acceptance
+
+UX-001 additional regression: WEB063/093 hold superseded real initial reads, then verify saved goals and holdings drafts survive their late completion. Full run `2026-09-12T17-03-42-614Z-70343`: 68 passed, zero failed, one explicit outage skip across API/desktop/mobile. The complete workflow packages in root TODO define future identity/valuation, goal-allocation, event-relevance and durable-review acceptance; those future scenarios remain planned, not executable placeholders.
 
 - GOALS-001: account isolation, repeated goal types, exact amount conversions, create/edit/history/remove, stale-version conflicts and mobile layout (API060/061, WEB060).
 - PRIVACY-001: own-data download with no credential material, goal/preference/holdings coverage where available, session revocation and foreign-account/Origin rejection (API/WEB050).

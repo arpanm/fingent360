@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { Trend } from './Overview';
+import { shortDate } from './ui';
 import {
   MacroDashboardSchema,
   MacroEvidenceSchema,
@@ -26,6 +28,7 @@ export function Macro() {
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
   const [key, setKey] = useState('');
+  const [operatorOpen, setOperatorOpen] = useState(false);
   const [busy, setBusy] = useState(false);
   const [history, setHistory] = useState<MacroObservation[] | null>(null);
   const [evidence, setEvidence] = useState<{
@@ -102,13 +105,22 @@ export function Macro() {
   }
   return (
     <section className="macro" aria-labelledby="macro-title">
-      <p className="eyebrow">REPORTED DATA · INDIA · ANNUAL SERIES</p>
-      <h2 id="macro-title">India macro dashboard</h2>
-      <p>
-        Real observations fetched from the World Bank when an operator refreshes
-        a source. These are annual economic indicators, not live quotes,
-        forecasts or investment recommendations. No sample values fill an empty
-        database.
+      <div className="page-header">
+        <div>
+          <p className="page-kicker">REPORTED DATA · INDIA</p>
+          <h1 id="macro-title">India macro dashboard</h1>
+          <p className="page-description">
+            A longer view of growth and inflation. Explore the numbers, then
+            follow the evidence.
+          </p>
+        </div>
+        <a className="button secondary" href="#account">
+          Manage your watchlist
+        </a>
+      </div>
+      <p className="data-note">
+        Annual World Bank observations provide economic context, not live
+        quotes, forecasts or investment recommendations.
       </p>
       <button
         className="secondary"
@@ -128,32 +140,6 @@ export function Macro() {
       {!data && !error && <p>Loading saved observations…</p>}
       {data && (
         <>
-          <details className="card">
-            <summary>Source refresh controls</summary>
-            <p>
-              Refreshes call the real provider and save source evidence. The
-              local operator key is held only in this page’s memory and is never
-              included in public data.
-            </p>
-            {!data.operatorConfigured && (
-              <p>
-                Source refresh is disabled. Run pnpm research:setup locally and
-                restart the API, then reload this page.
-              </p>
-            )}
-            <label>
-              Operator key
-              <input
-                type="password"
-                autoComplete="off"
-                value={key}
-                onChange={(event) => setKey(event.target.value)}
-              />
-            </label>
-            <button className="secondary" onClick={() => setKey('')}>
-              Forget operator key
-            </button>
-          </details>
           <div className="macro-grid">
             {data.sources.map((source) => {
               const latest = source.observations.find((o) => o.value !== null);
@@ -167,7 +153,9 @@ export function Macro() {
                   <p>{source.explanation}</p>
                   {latest ? (
                     <>
-                      <p className="big-number">{latest.value}%</p>
+                      <p className="big-number">
+                        {Number(latest.value).toFixed(2)}%
+                      </p>
                       <p>
                         Observation year: <strong>{latest.year}</strong> ·
                         reported annual percentage
@@ -175,12 +163,13 @@ export function Macro() {
                     </>
                   ) : (
                     <p>
-                      No reported values stored yet. Refresh this source to
-                      fetch real observations.
+                      No reported values stored yet. An operator can fetch the
+                      latest available history using the source controls below.
                     </p>
                   )}
+                  <Trend observations={source.observations} />
                   <p>
-                    Source checked: {source.lastSuccessAt ?? 'Never'}.{' '}
+                    Source checked: {shortDate(source.lastSuccessAt)}.{' '}
                     {source.freshness === 'refresh_due'
                       ? 'Refresh due — last successful check is over 7 days old.'
                       : source.freshness === 'recently_checked'
@@ -193,16 +182,20 @@ export function Macro() {
                       {source.latestRun.message}
                     </p>
                   )}
-                  <button
-                    disabled={
-                      busy ||
-                      !data.operatorConfigured ||
-                      !/^[a-f0-9]{64}$/.test(key)
-                    }
-                    onClick={() => void action(() => refresh(source.indicator))}
-                  >
-                    Refresh {source.title}
-                  </button>
+                  {operatorOpen && /^[a-f0-9]{64}$/.test(key) && (
+                    <button
+                      disabled={
+                        busy ||
+                        !data.operatorConfigured ||
+                        !/^[a-f0-9]{64}$/.test(key)
+                      }
+                      onClick={() =>
+                        void action(() => refresh(source.indicator))
+                      }
+                    >
+                      Refresh {source.title}
+                    </button>
+                  )}
                   <p>
                     <a href={source.sourceUrl} target="_blank" rel="noreferrer">
                       Official indicator and licensing
@@ -290,6 +283,35 @@ export function Macro() {
               );
             })}
           </div>
+          <details
+            className="card"
+            onToggle={(event) => setOperatorOpen(event.currentTarget.open)}
+          >
+            <summary>Source refresh controls</summary>
+            <p>
+              Refreshes call the real provider and save source evidence. The
+              local operator key is held only in this page’s memory and is never
+              included in public data.
+            </p>
+            {!data.operatorConfigured && (
+              <p>
+                Source refresh is disabled. Run pnpm research:setup locally and
+                restart the API, then reload this page.
+              </p>
+            )}
+            <label>
+              Operator key
+              <input
+                type="password"
+                autoComplete="off"
+                value={key}
+                onChange={(event) => setKey(event.target.value)}
+              />
+            </label>
+            <button className="secondary" onClick={() => setKey('')}>
+              Forget operator key
+            </button>
+          </details>
         </>
       )}
       {history && (

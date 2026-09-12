@@ -65,10 +65,15 @@ test.describe('Foundation browser @SETUP-001 @SDLC-001 @smoke', () => {
     await test.step('Keyboard users can reach and activate the home link', async () => {
       await page.keyboard.press('Tab');
       await expect(
-        page.getByRole('link', { name: 'fingent360' }),
+        page.getByRole('link', { name: 'Skip to content', exact: true }),
       ).toBeFocused();
       await page.keyboard.press('Enter');
-      await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
+      await expect(page.getByRole('main')).toBeFocused();
+      const menu = page.getByRole('button', { name: 'Open navigation' });
+      if (await menu.isVisible()) await menu.click();
+      await page.getByRole('link', { name: 'fingent360', exact: true }).focus();
+      await page.keyboard.press('Enter');
+      await expect(page).toHaveURL(/#overview$/);
     });
   });
 });

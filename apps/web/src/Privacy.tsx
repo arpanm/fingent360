@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { AccountGate } from './AccountGate';
 import {
   CurrentAccountSchema,
   PrivacyExportSchema,
@@ -34,18 +35,21 @@ export function Privacy() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
-  async function load() {
+  async function load(active: () => boolean = () => true) {
     const account = CurrentAccountSchema.parse(await api(''));
+    if (!active()) return;
+    const currentSessions = account.user
+      ? SessionsSchema.parse(await api('/privacy/sessions')).sessions
+      : [];
+    if (!active()) return;
     setSignedIn(Boolean(account.user));
-    setSessions(
-      account.user
-        ? SessionsSchema.parse(await api('/privacy/sessions')).sessions
-        : [],
-    );
+    setSessions(currentSessions);
     setLoaded(true);
   }
   useEffect(() => {
-    void load().catch((error: unknown) => {
+    let active = true;
+    void load(() => active).catch((error: unknown) => {
+      if (!active) return;
       setError(
         error instanceof Error
           ? error.message
@@ -53,6 +57,9 @@ export function Privacy() {
       );
       setLoaded(true);
     });
+    return () => {
+      active = false;
+    };
   }, []);
   async function action(work: () => Promise<void>) {
     if (busy) return;
@@ -71,17 +78,26 @@ export function Privacy() {
   }
   return (
     <section className="account" aria-labelledby="privacy-title">
-      <h2 id="privacy-title">Privacy and sessions</h2>
-      <p>
-        Download your saved account data and end access from other sessions.
-      </p>
+      <header className="page-header">
+        <p className="page-kicker">Account settings</p>
+        <h1 id="privacy-title">Privacy and sessions</h1>
+        <p className="page-description">
+          Your information, under your control. Download a copy or manage where
+          you are signed in.
+        </p>
+        <div className="page-actions">
+          <a href="#account">Back to your account</a>
+        </div>
+      </header>
       {error && <div role="alert">{error}</div>}
       <p role="status">{busy ? 'Working…' : message}</p>
       {!loaded && <p>Checking your session…</p>}
       {loaded && !signedIn && (
-        <p>
-          <a href="#account">Sign in to manage your privacy</a>
-        </p>
+        <AccountGate
+          next="privacy"
+          title="Manage your information"
+          description="Sign in to download your saved data and review your active sessions."
+        />
       )}
       <button
         disabled={busy}
@@ -95,11 +111,8 @@ export function Privacy() {
           <section className="card" aria-label="Account export">
             <h3>Download your account data</h3>
             <p>
-              The JSON file includes your account, watchlist, acknowledgment
-              history, alert preferences, goals, holdings history/import
-              previews and safe session details. It excludes passwords, session
-              credentials and the separate virtual exercise. Keep downloaded
-              personal data somewhere private.
+              Save a copy of your account, watchlist, goals, holdings and
+              preferences. Keep the downloaded file somewhere private.
             </p>
             <button
               disabled={busy}
@@ -131,8 +144,8 @@ export function Privacy() {
           <section className="card" aria-label="Active sessions">
             <h3>Active sessions</h3>
             <p>
-              Sessions expire after seven days. Identifiers below are not
-              sign-in credentials. Device names and location are not collected.
+              See where your account is signed in. End any other session you no
+              longer need. Your current session stays signed in.
             </p>
             <button
               disabled={busy || !sessions.some((session) => !session.current)}
@@ -149,7 +162,7 @@ export function Privacy() {
               End all other sessions
             </button>
             {sessions.map((session) => (
-              <article key={session.id}>
+              <article className="card" key={session.id}>
                 <h4>
                   {session.current
                     ? 'This session'

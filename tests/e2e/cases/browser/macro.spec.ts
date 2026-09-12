@@ -9,10 +9,16 @@ test.describe('Real macro browser @DATA-001 @external', () => {
     page,
   }) => {
     test.setTimeout(120000);
-    await page.goto('/');
+    await page.goto('/#macro');
     await expect(
       page.getByRole('heading', { name: 'India macro dashboard' }),
     ).toBeVisible();
+    await expect(
+      page.getByRole('button', {
+        name: 'Refresh India GDP growth',
+        exact: true,
+      }),
+    ).toHaveCount(0);
     await page.getByText('Source refresh controls', { exact: true }).click();
     await page
       .getByLabel('Operator key', { exact: true })

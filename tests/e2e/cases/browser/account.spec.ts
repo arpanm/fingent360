@@ -72,3 +72,45 @@ test.describe('Account browser @ACCOUNT-001', () => {
     }
   });
 });
+
+test('E2E-WEB-033 sign-in returns to a known destination and rejects external redirects @ACCOUNT-001', async ({
+  page,
+}) => {
+  test.setTimeout(60000);
+  const username = `e2e_${randomUUID().slice(0, 16)}`;
+  const password = 'E2E-only-private-passphrase-2026';
+  const headers = {
+    Origin: process.env.E2E_WEB_URL || 'http://localhost:5173',
+  };
+  await page.goto('/#account?next=privacy');
+  await page
+    .getByRole('button', { name: 'Create a new account', exact: true })
+    .click();
+  await page.getByLabel('Username', { exact: true }).fill(username);
+  await page.getByLabel('Password', { exact: true }).fill(password);
+  await page.getByRole('checkbox', { name: /I agree to store/ }).check();
+  await page
+    .getByRole('button', { name: 'Create account', exact: true })
+    .click();
+  try {
+    await expect(page).toHaveURL(/#privacy$/);
+    await expect(
+      page.getByRole('heading', { name: 'This session', exact: true }),
+    ).toBeVisible();
+    await page.goto('/#account');
+    await page.getByRole('button', { name: 'Sign out', exact: true }).click();
+    await page.goto('/#account?next=https%3A%2F%2Fevil.example');
+    await page.getByLabel('Username', { exact: true }).fill(username);
+    await page.getByLabel('Password', { exact: true }).fill(password);
+    await page.getByRole('button', { name: 'Sign in', exact: true }).click();
+    await expect(
+      page.getByRole('heading', { name: `Signed in as ${username}` }),
+    ).toBeVisible();
+    await expect(page).toHaveURL(/#account\?next=/);
+  } finally {
+    await page.request.delete('/api/v1/account', {
+      headers,
+      data: { password },
+    });
+  }
+});

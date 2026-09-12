@@ -1,252 +1,83 @@
 # Fingent360
 
-A goal-aware market intelligence and portfolio platform for Indian investors. Real World Bank macro data, authenticated accounts and user-entered planning data are stored through the API and databases. The separate virtual portfolio exercise uses explicitly fictional companies and prices; it is not a live investment portfolio.
+A market research and personal record-keeping application for Indian investors. It stores real World Bank annual macro observations and user-entered account, holdings and goal data. Holdings cost basis is not market value; contribution-only planning assumes no investment return. A separately labelled virtual learning exercise uses fictional companies and prices. Personalised regulated advice and trade execution remain disabled.
 
-## Account planning and operations — TEAM-001
+## Current development — UX-001
 
-Verified full E2E run `2026-09-12T16-09-40-894Z-64656`: **51 passed, zero failed, one intentional database-outage skip**. Format/check passed with 40 unit tests. Migrations005–009 have been applied locally. The current running app is http://127.0.0.1:5175; on later starts use the printed URL.
+The implemented correction joins overview → account → holdings → goals → research/inbox → privacy with a responsive workspace, guided editing and recovery. An authenticated overview API reads actual saved goals, holdings, watchlists and inbox state in one consistent database transaction. The roadmap now requires specification, UI, UX, API, functionality, database, real data, automation, tests and documentation for every feature. **Integrated verification passed: 68 E2E passes, zero failures, one deliberate-outage skip; 40 unit tests passed.** See [experience acceptance](docs/product/experience.md), [roadmap audit](docs/development/delivery-matrix.md), [current status](docs/development/status.md) and [TODO](TODO.md).
 
-- **My goals (`#my-goals`):** save repeated goal types, edit amounts and horizon, inspect revisions and contribution-only gaps. Exact INR paise; no assumed investment returns. The virtual exercise retains `#goals`. [Details](docs/development/goals.md).
-- **Privacy and sessions (`#privacy`):** download your own data, inspect active sessions and revoke other sessions. Credentials never appear in exports. [Details](docs/development/privacy.md).
-- **Source registry (`#sources`):** operators record rights reviews, evidence and constraints with immutable revisions; only explicitly approved/published metadata is public. This does not activate a data adapter. [Details](docs/development/sources.md).
-- **Inbox preferences (`#account`):** mute/unmute followed indicators without deleting observations or acknowledgment history. [Details](docs/development/alert-preferences.md).
-- **My holdings (`#holdings`):** user-entered ISIN holdings and cost basis, strict CSV preview/confirmation and version history. No live pricing, verified security-master lookup or recommendation is implied. [Details](docs/development/holdings.md).
-- **Offline fallback:** a neutral offline page and browser-supported installation control; only neutral offline assets are cached, never API responses or account pages. [Details](docs/development/pwa.md).
+Existing bounded capabilities:
 
-New additive migrations 005–009 preserve existing data. `pnpm db:migrate` now records SQL checksums in a migration ledger, skips unchanged applied files and rejects changes to applied migrations; add a new SQL migration instead of rewriting history. No new dependencies.
+- Real annual India GDP/CPI ingestion with PostgreSQL revisions and original MongoDB source evidence; operator-controlled refresh and source links.
+- Authenticated accounts, persisted watchlists, observation acknowledgments and mute/unmute preferences.
+- User-entered holdings with exact cost basis, strict CSV preview/confirmation and history; versioned saved goals and contribution-only gaps.
+- Own-data export, current-session visibility, revocation of other sessions and account deletion.
+- Operator source-rights registry with immutable history; public approved metadata does not activate ingestion.
+- Browser-dependent installation metadata and a neutral offline fallback; no account/API pages cached by the service worker.
 
-After updating, run `pnpm check`, `pnpm db:migrate` and restart `pnpm dev` to load the new API routes. Use its printed URL. Existing manual `pnpm sdlc "Describe changes"` remains format → check → commit → E2E; it does not apply migrations. Verification results for this batch are recorded in TODO under TEAM-001.
-
-## Change handoffs and test failures (SDLC-002)
-
-### One-command manual workflow (SDLC-003)
-
-On macOS, installed Google Chrome is now the default, so `pnpm sdlc "Describe the change"` needs no browser prefix. Other platforms default to managed Chromium. Set `E2E_BROWSER=chromium` or `E2E_BROWSER=chrome` in `.env` to persist a preference; an explicit shell environment value takes precedence. Browser installation remains manual.
-
-Both `pnpm sdlc "Describe the change"` and `pnpm sdlc --message "Describe the change"` accept a commit message. Put Playwright filters after `--`, for example `pnpm sdlc "Fix" -- --project=api`. The quoted message is never passed to Playwright as a file filter.
-
-With the app, databases and migrations already ready, run:
-
-```bash
-E2E_BROWSER=chrome pnpm sdlc --message "Describe the change"
-# Optional: selected E2E project instead of the whole suite
-E2E_BROWSER=chrome pnpm sdlc --message "Describe the change" -- --project=api
-```
-
-This runs `pnpm format` → `pnpm check` → stages all non-ignored changes → commits locally → `pnpm e2e:run`. It stops at the first failure and skips the commit if nothing changed. Review new files before invoking it because they are included in staging. E2E runs after the commit as requested; a failing E2E run retains that commit. Nothing pushes. Read `artifacts/e2e/latest.md` for test results. The command is user-invoked; Codex does not execute it automatically. No new dependencies; implementation and regression cases are authored, verification pending.
-
-The remaining tracked API, web, contracts, script and test edits have now been included in the local commit follow-up requested by the user. This does not change their verification status; checks remain manual.
-
-Every development request updates TODO with scope, acceptance criteria and a reusable prompt, adds or updates appropriate tests, updates documentation and receives a local commit. Verification remains manual and is tracked separately. No automatic push. Handoffs identify pre-existing edits that were left uncommitted.
-
-After manually running tests in the Playwright UI, tell Codex **“Read artifacts/e2e/latest.md and fix the failures.”** The new local reporter saves selected cases, outcomes, locations, targets and errors there; historical runs live under `artifacts/e2e/handoffs/`. Reopen the UI once to load the reporter. Reports remain local and ignored by Git. Known secrets are redacted, but inspect arbitrary assertion text before external sharing. A report marked running is incomplete; only the selected cases are covered. No new dependencies. Reporter tests and [manual acceptance cases](tests/e2e/plans/sdlc-002-acceptance.md) are authored, not executed.
-
-## Real economic data (DATA-001)
-
-BUG-006: fixed mobile provenance-table overflow by constraining the responsive grid track and card width. History/Source buttons now work with normal clicks. Verified full E2E run `2026-09-12T15-42-10-408Z-58293`: 32 passed, zero failed, one skipped manual database-outage case. The expanded-table layout is now covered by E2E-WEB-020.
-
-The default page now reads persisted India GDP growth and CPI inflation from a real World Bank adapter. An operator refresh calls the provider, saves source JSON in MongoDB and promotes exact decimal observations to PostgreSQL. Inspect annual history, revisions, attribution and raw evidence in the UI. Empty or failed sources never receive sample values. [Setup and test walkthrough](docs/development/real-data.md).
-
-```bash
-pnpm research:setup
-pnpm db:up
-pnpm format
-pnpm check
-pnpm db:migrate
-pnpm dev
-```
-
-Restart the existing dev terminal to load the generated operator key; avoid duplicate dev sessions. At http://localhost:5173/#macro, expand Source refresh controls and use the local `.env` RESEARCH_ADMIN_TOKEN. Never share that key. No dependencies changed. In the existing E2E UI, manually run `@DATA-001` across api/desktop/mobile; those cases call the real provider and databases. Their credential-bearing traces are disabled. The prior virtual portfolio exercise remains under its own navigation link.
-
-Implementation is written, not runtime-verified by Codex. Real-account authentication, real equity valuation and broader provider integrations remain unfinished backlog items.
-
-## Accounts and saved watchlists (ACCOUNT-001)
-
-Use **My watchlist / sign in** to create an account, save the real economic indicators you follow, sign out/in and recover your selections. Server sessions use HttpOnly cookies; private watchlists are stored in PostgreSQL. Account deletion requires the current password. This is separate from the earlier virtual exercise.
-
-After `pnpm format` and `pnpm check`, apply `pnpm db:migrate` and load the updated app at http://localhost:5173/#account. In the E2E UI manually run `@ACCOUNT-001` across api/desktop/mobile. [Account behavior, limitations and manual walkthrough](docs/development/accounts.md). New cases remain unexecuted by Codex.
-
-## Personal observation inbox (ALERT-001)
-
-The signed-in watchlist now includes an inbox of latest reported observations for followed indicators. Acknowledgments persist per account and exact observation revision; later corrections are not silently treated as read. Use the source/history link to inspect evidence. This is an in-app data-review feature, not email/push or a trade signal. Apply the latest `pnpm db:migrate` and manually run `@ALERT-001` (real provider access required).
-
-## Automatic local ports (DEV-PORTS-001)
-
-API watch mode now snapshots configuration once at launch, so a restart does not load another session's ports from `.env`. Stop dev sessions launched before this correction once with Ctrl-C, then launch again. Existing watcher processes cannot acquire the new launcher code automatically. New sessions retain their own selected API port and web origin across source changes.
-
-The reported launcher lint errors have been corrected using explicit conditionals for process signaling and exit handling. Rerun `pnpm format` and `pnpm check`; verification of this correction remains pending.
-
-`pnpm dev` now brings up/reuses this repo's local databases, builds, selects free API/web ports and prints their actual URLs. Occupied ports no longer require killing another app. Selections are saved atomically in `.env`: API_PORT, WEB_PORT, WEB_ORIGIN, POSTGRES_PORT/MONGO_PORT and both database connection URLs. Vite's proxy, account Origin checks, migrations, smoke checks and newly opened E2E runners use the selected configuration. Existing unrelated processes are never killed.
-
-`pnpm db:up` reuses running ports reported by Fingent360's Compose services. If a stopped database's preferred port is occupied, it selects another binding while retaining the named volume. `pnpm preview` starts a coordinated API/static-web preview with the same port selection. Test UI and report commands also select free ports starting at 9323/9324 and print the addresses.
-
-Use the printed links rather than assuming 5173/4100/9323. Reopen the test UI after launching a new app session so it targets that session. Existing apps/browser tabs/test runners retain their launch addresses; they are not silently redirected. Schema migrations remain an explicit manual action (`pnpm db:migrate`). Docker must be available. A port taken in the small interval between selection and bind can still require retrying startup; the launcher does not terminate the competing process.
-
-Manual verification: run `pnpm format` and `pnpm check`, then start `pnpm dev` while the previous app is still running. The new app should use different ports, connect to the existing databases, and allow account actions. Open `E2E_BROWSER=chrome pnpm e2e:ui`; verify its printed targets match the new app and run foundation/account cases. Start a second test UI to verify its listener moves too. Codex did not execute any of these steps.
+See [holdings](docs/development/holdings.md), [goals](docs/development/goals.md), [privacy](docs/development/privacy.md), [sources](docs/development/sources.md), [preferences](docs/development/alert-preferences.md) and [PWA](docs/development/pwa.md). These children do not complete all DEV/SRC parent tasks. Verified security-master/prices/corporate-actions adapters, real equity valuation, broader event intelligence, durable reports/workers and production identity/security remain unfinished. Provider entitlements, regulated advice and later asset/channel gates remain explicit.
 
 ## Start locally
 
-Prerequisites: Node.js 24 LTS (Node 26 also supported locally), pnpm 11.23.0 and Docker with Compose.
+Prerequisites: Node 24 LTS (Node 26 supported locally), pnpm 11.23.0, Docker with Compose. Commands below are user-run by default.
 
 ```bash
-cd /Users/arpanmacmini/code/fingent360
 pnpm bootstrap
 pnpm install --frozen-lockfile
-pnpm db:up
-pnpm format
-pnpm check
-pnpm dev
-```
-
-If pnpm is missing or differs, install the pinned version with `npm install --global pnpm@11.23.0`. `pnpm bootstrap` creates `.env` only when absent; it never overwrites existing settings.
-
-- Web: http://localhost:5173
-- API liveness: http://127.0.0.1:4100/api/v1/health
-- Database readiness: http://127.0.0.1:4100/api/v1/ready
-- PostgreSQL: localhost:55432; MongoDB: localhost:57017
-
-The database ports intentionally avoid existing services on 5432/27017. Containers have a separate `fingent360` Compose project and persistent named volumes. Credentials in `.env.example` are local development defaults. Bindings are loopback-only. There is no production deployment configuration yet.
-
-`pnpm dev` now prepares local database bindings, builds the workspace, selects available app ports, then watches contracts/API/web. Stop with Ctrl-C. `pnpm db:down` stops databases and preserves their data. If you change credentials after first startup, existing database users do not change automatically: migrate credentials rather than deleting volumes. If changing database ports/passwords, update the matching connection URI in `.env` as well.
-
-## Working with Codex
-
-Follow [AGENTS.md](AGENTS.md), [TODO.md](TODO.md) and [the SDLC](docs/development/sdlc.md). This README includes the full product blueprint below, including the free/paid source catalogue and 27-item source register.
-
-For every development request, Codex adds/updates a TODO task with a detailed prompt and acceptance criteria, implements it, adds/updates E2E cases, updates TODO and README, then commits locally. **Codex does not execute deterministic checks or environment actions and never pushes automatically.** Tests, installation, formatting, lint/builds, service startup and Git push are manual user actions. Implementation and verification status are separate.
-
-### Working end-to-end slice (SLICE-001)
-
-You can now explore a fictional oil event and its company/source details, save virtual holdings, preview and confirm a reconciled CSV import, add multiple goals, and create educational reviews with preserved history. PostgreSQL persists the workspace across reloads. Invalid imports, competing edits and stale/conflicting review inputs have explicit handling.
-
-**Source implementation complete; manual verification pending.** The earlier DEV-001 status referred to document review. Executable API/browser cases now exist for this working flow. Follow the [setup and test walkthrough](docs/development/working-journey.md):
-
-```bash
 pnpm db:up
 pnpm format
 pnpm check
 pnpm db:migrate
-pnpm dev
-# Separate terminal; run selected cases manually:
-E2E_BROWSER=chrome pnpm e2e:ui
-```
-
-No dependency changes. `pnpm check` builds the migration command; `pnpm db:migrate` creates the additive virtual-workspace tables without clearing data. Reuse or stop an existing dev terminal before starting another. Open http://localhost:5173 and follow the sample import → goals → review flow. In the test UI, select `@SLICE-001` across API/desktop/mobile and run manually; also rerun foundation browser cases.
-
-This is a synthetic local learning workspace, not real account authentication or live financial research. Its browser access key protects only fictional exercise data. [Policy and implementation decisions](docs/product/educational-slice-policy.md) explain the exact monetary rules, review gates and remaining roadmap. DEV-002–DEV-010 retain their broader production scope in TODO; they are not marked complete by this slice.
-
-DEV-001 reference artifacts remain the [screen requirements](docs/product/first-slice-prd.md), [canonical model](docs/data-dictionary/canonical-model.md), [glossary](docs/data-dictionary/glossary.md) and [manual requirements-review pack](tests/e2e/plans/dev-001-acceptance.md).
-
-### Workspace creation returns 503 (BUG-003)
-
-If E2E-API-011–013 all fail while creating a workspace, the shared storage operation failed before those scenarios ran. This does not by itself prove that migration was skipped. The API now distinguishes missing schema, authentication, permissions and connectivity errors without exposing credentials; the test assertion includes the failure response.
-
-Manually run `pnpm format`, `pnpm check`, then `pnpm db:migrate`. Migration must print “Virtual journey schema is ready. Existing data preserved.” Both migration and API must use the same database configuration. If migration fails, share its safe error text. Once it succeeds, ensure the running API has loaded the rebuilt code and rerun E2E-API-011–013 in the existing test UI. No reset or data deletion is needed. If they still fail, share the new response message; the underlying cause remains unconfirmed until that evidence is available.
-
-## Manual test dashboard
-
-The reusable local tool uses Playwright UI mode for API and browser test selection and result inspection. It makes no LLM calls. Once dependencies are installed, new feature requests normally require only case/fixture/catalogue updates.
-
-**One-time user setup:**
-
-```bash
-pnpm install --frozen-lockfile
-pnpm e2e:install
-```
-
-**User starts the application** (if it is not already running):
-
-```bash
-pnpm bootstrap
-pnpm db:up
+pnpm research:setup
 pnpm dev
 ```
 
-**In another terminal:**
+`bootstrap` creates .env only if absent. `research:setup` configures the local operator key needed for actual provider refresh cases; keep it private. Apply migrations after building/checking so compiled migration code is current. Migration checksums reject edits to already-applied SQL: add a new migration instead. No dependency changes are currently required for UX-001.
+
+Use the **URLs printed by pnpm dev**, not an old fixed port. The launcher chooses free web/API ports, prepares this project's database services and propagates addresses through .env/proxy/origin/test configuration. New test sessions use the latest selected addresses; existing tabs and watchers retain their session settings. Default preferred ports are web 5173, API 4100, PostgreSQL 55432 and MongoDB 57017. Stop your dev launcher with Ctrl-C. No unrelated service is killed. Database down preserves named volumes; never remove volumes to solve a port or credential problem.
+
+## Check, commit and test
+
+With databases, migrations and the app ready:
 
 ```bash
+pnpm sdlc "Describe the change"
+# Or run selected API cases after the same gates:
+pnpm sdlc "Describe the change" -- --project=api
+# Manual selection and diagnosis:
 pnpm e2e:ui
 ```
 
-Open http://127.0.0.1:9323. Select all tests, a project (`api`, `desktop`, `mobile`), a task tag such as `@SDLC-001`, or individual cases and click Run. Opening the UI does not run tests; keep eye/watch toggles off. Results show pass/fail/skipped, steps, errors, source lines and available network/trace details. No service startup, migrations or seed/reset actions are hidden in the runner.
+The SDLC command runs **format → check → stage/commit → E2E**, stops on failure and never pushes. Format and check must pass before any commit. It stages all nonignored changes, so inspect scope first; it does not apply migrations or start the app. E2E failure leaves the earlier gated commit in place. Codex leaves changes awaiting user-run gates when execution is not authorized; the current UX-001 correction has explicit parent-controlled testing authorization.
 
-Optional **user-triggered** saved runs and reports:
+`pnpm format` rewrites formatting. `pnpm check` checks formatting/lint/types, builds and runs unit tests; it type-checks E2E definitions but does not execute browser cases. The test UI starts at the printed available port, initially 9323. Select cases/projects and click Run with watch/eye mode off. macOS defaults to installed Google Chrome; choose E2E_BROWSER=chromium for manually installed managed Chromium or E2E_BROWSER=chrome explicitly. Run pnpm e2e:install only when managed Chromium is needed. Real-source cases require external provider connectivity and the configured research key.
 
-```bash
-pnpm e2e:run --project=api
-pnpm e2e:run --grep @SDLC-001
-pnpm e2e:report
-```
+After failure, ask Codex: **Read artifacts/e2e/latest.md and fix the failures.** It records run time, targets, selected cases and failures; historical reports remain local under artifacts/e2e/handoffs. A running report is incomplete. Inspect assertions before sharing externally. For startup errors before a report exists, provide launcher output. See [test catalogue](tests/e2e/CATALOG.md) and [test usage](tests/e2e/README.md).
 
-Command-line runs save separate HTML/JSON/failure artifacts under ignored `artifacts/e2e/<run-id>/`. `e2e:report` opens the latest saved HTML report at http://127.0.0.1:9324; UI-session results remain visible in the dashboard. See [test instructions](tests/e2e/README.md), [case catalogue](tests/e2e/CATALOG.md) and [planned feature coverage](tests/e2e/plans/product-coverage.md).
+## Delivery and evidence
 
-**Current change status:** SDLC-001 implemented; SDLC-002 manual acceptance pending. API/browser cases are authored but not run. Installation, formatting, lint, builds and test execution were intentionally left to the user. Earlier foundation verification below/in status docs does not validate this change. GitHub CI is now manually triggered only.
+Follow [SDLC](docs/development/sdlc.md): maintain TODO before work; deliver every required layer; add meaningful cases and UX acceptance; record real evidence; update docs; commit only after gates; never push automatically. A screenshot, generated document, mocked UI or passed endpoint alone does not finish a feature. Implementation, verification and acceptance are separate statuses.
 
-## Startup conflict and browser download recovery
-
-`pnpm dev` now checks web/API ports before building. A second session must not silently move to another port because E2E targets and the API proxy expect fixed ports. If an earlier Fingent360 session is running, reuse http://localhost:5173 or press Ctrl-C in that session's terminal before restarting. The guard reports the conflict and never kills an existing process. SIGTERM messages after a web failure are sibling cleanup; inspect the earlier web error for the original cause.
-
-For a browser installer stuck after 100%, press Ctrl-C in its terminal. That progress measures transferred bytes, not completed extraction/installation. Google Chrome is already installed on this Mac, so managed Chromium is optional:
-
-```bash
-E2E_BROWSER=chrome pnpm e2e:ui
-```
-
-Open http://127.0.0.1:9323 yourself and click Run for selected cases. Installed-Chrome mode uses fresh isolated browser contexts, not your personal Chrome profile, and disables video so it does not require Playwright's FFmpeg download. Screenshots/traces remain available on failures. To save a run manually:
-
-```bash
-E2E_BROWSER=chrome pnpm e2e:run --project=desktop
-```
-
-The default remains managed Chromium. If retrying its installer, use Node 24 LTS and `DEBUG=pw:install pnpm e2e:install` to expose transfer/extraction details. No specific root cause of the download stall has been confirmed. Do not delete browser caches or stop unrelated applications as a workaround.
-
-BUG-001: implementation authored, manual verification pending. Codex did not stop processes, install browsers or run startup/tests/checks.
-
-## JSON error-response correction (BUG-002)
-
-Unknown nested API routes are expected to return JSON HTTP 404 errors. The API global prefix now includes the leading slash required by the installed Express adapter's fallback-router mount. E2E-API-003 checks content type before JSON parsing, and the API regression tests cover multiple missing paths. This fix is authored, not verified; the user reported the previous HTML-response failure.
-
-Manual next actions: run `pnpm format` and `pnpm check`; ensure the development API has reloaded (or restart `pnpm dev` after stopping its existing session). In the E2E dashboard rerun E2E-API-003, then E2E-API-001 and E2E-API-002 to check health/readiness remain intact. No changes to browser installation or database setup are needed.
+Current UX-001 run `2026-09-12T17-03-42-614Z-70343`: 68 passed, zero failed, E2E-API-004 intentionally skipped; API/desktop/mobile against web http://127.0.0.1:5175 and API http://127.0.0.1:4103. Format/check and all 40 unit tests passed. In-app browser review covered empty/populated overview, goals, holdings, macro context and account; full accessibility and user design acceptance remain separate. Existing migrations001–009 are reused with no schema change. Historical TEAM-001 evidence is retained in TODO/status. The next complete workflows are verified equity valuation, connected goal allocations, evidence-to-portfolio research, and durable review/release readiness; their detailed scope and dependencies are in TODO.
 
 ## Repository map
 
-The SDLC adds `TODO.md`, `tests/e2e/`, `playwright.config.ts` and `scripts/e2e.mjs`.
+| Path               | Responsibility                                                  |
+| ------------------ | --------------------------------------------------------------- |
+| apps/web           | React workflows, API-boundary validation and responsive UI      |
+| apps/api           | NestJS domain/API behavior, authorization and storage           |
+| packages/contracts | Shared runtime schemas and exact-value boundaries               |
+| infra/migrations   | Additive PostgreSQL migrations with checksum ledger             |
+| infra/local        | Isolated PostgreSQL/MongoDB Compose services                    |
+| scripts            | User-invoked setup, launchers, gates and E2E runner             |
+| tests/e2e          | API/browser cases, fixtures, catalogue and manual acceptance    |
+| docs/product       | Accepted decisions, current experience and historical blueprint |
+| docs/development   | SDLC, implementation/evidence status and delivery audit         |
+| .github/workflows  | Manually triggered verification only                            |
 
-| Path                   | Responsibility                                                             |
-| ---------------------- | -------------------------------------------------------------------------- |
-| `apps/web`             | React/Vite responsive starter; shared-contract API check                   |
-| `apps/api`             | NestJS API, configuration validation, liveness and real database readiness |
-| `packages/contracts`   | Versioned runtime API schemas shared by web and API                        |
-| `infra/local`          | Isolated PostgreSQL and MongoDB Compose services                           |
-| `scripts`              | Non-destructive environment bootstrap and runtime smoke check              |
-| `docs/product`         | Blueprint and accepted conversation decisions                              |
-| `docs/development`     | Backlog, verification status and development conventions                   |
-| `docs/adr`             | Architecture decisions and rejected alternatives                           |
-| `docs/policies`        | Product safety boundary and source trust requirements                      |
-| `docs/data-dictionary` | Entry point for future domain contracts                                    |
-| `docs/evaluations`     | First vertical-slice acceptance/scenario plan                              |
-| `.github/workflows`    | Manually triggered checks and real-database API smoke test                 |
+## Product blueprint and source catalogue
 
-## Verification commands — user runs manually
-
-For this new SDLC change, run `pnpm format` before `pnpm check`; no formatter or checks were run by Codex. `pnpm check` also type-checks E2E definitions without executing them.
-
-```bash
-pnpm check       # format, lint, strict types, production builds, tests
-pnpm db:status
-pnpm smoke       # API must be running; requires both databases
-pnpm format      # apply formatting
-```
-
-`/health` only proves the process is alive. `/ready` returns HTTP 503 when either database is unavailable. Automated API tests exercise both states with a controlled probe; `pnpm smoke` checks real PostgreSQL/MongoDB connections.
-
-The web starter intentionally shows no market statistics or recommendations. Authentication, domain migrations, imports, workers, live providers, PWA install/offline support and recommendation policies are not implemented. See the [current status](docs/development/status.md).
-
-## Source and recovery
-
-Requirements were reviewed against all nine turns of **Market Analysis Review**, including the user's later corrections, and the supplied plan. [Shared conversation](https://chatgpt.com/share/e/6aa4c561-c880-8013-a081-a085a4c1a810).
-
-The earlier runner reported commit `814fe0a063e2f52e04ea99cee5f085b2e3ff4119`. Its bundle download was blocked by Chrome; that commit was not imported. This is a fresh implementation of the agreed foundation, with its own local commit history. The user incorporated the full blueprint below into this README. The duplicate root `Market_Intelligence_and_Portfolio_Action_Platform_Plan.md` has been removed as requested. This README is now the current product document; `docs/product/market-intelligence-platform-plan.md` remains a historical reference copy.
+The full accepted blueprint below is preserved as product scope, including the 27-source tracker. It is not a claim that every screen, adapter or product gate exists. Current implementation evidence is recorded above and in TODO/status. Historical conversation market claims are not live fixtures. The duplicate root plan was removed at the user's request; docs/product/market-intelligence-platform-plan.md remains reference material.
 
 # Market Intelligence and Portfolio Action Platform
 

@@ -61,7 +61,13 @@ export function App() {
           <a href="#account">My watchlist / sign in</a>
           <a href="#brief">Virtual portfolio exercise</a>
         </nav>
-        {!hash || hash === '#macro' ? <Macro /> : hash === '#account' ? <Account /> : <Journey />}
+        {!hash || hash === '#macro' ? (
+          <Macro />
+        ) : hash === '#account' ? (
+          <Account />
+        ) : (
+          <Journey />
+        )}
       </main>
       <footer>
         <span>Research and education first.</span>

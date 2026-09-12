@@ -307,21 +307,84 @@ summary {
   }
 }
 
-.product-nav { display: flex; flex-wrap: wrap; gap: 20px; margin: 24px 0; padding: 20px 0; border-block: 1px solid #ccd6c7; }
-.macro h2 { font-size: 30px; margin-top: 30px; }
-.macro p { line-height: 1.65; }
-.macro label { display: flex; flex-direction: column; gap: 8px; margin: 18px 0; max-width: 540px; }
-.macro-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 20px; }
-.macro-grid .big-number { overflow-wrap: anywhere; }
-.table-scroll { overflow-x: auto; max-width: 100%; }
-table { width: 100%; border-collapse: collapse; font-size: 14px; }
-th, td { text-align: left; padding: 12px 8px; border-bottom: 1px solid #ccd6c7; }
-.hash { overflow-wrap: anywhere; font-size: 13px; }
-@media(max-width: 850px) { .macro-grid { grid-template-columns: 1fr; } }
+.product-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin: 24px 0;
+  padding: 20px 0;
+  border-block: 1px solid #ccd6c7;
+}
+.macro h2 {
+  font-size: 30px;
+  margin-top: 30px;
+}
+.macro p {
+  line-height: 1.65;
+}
+.macro label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 18px 0;
+  max-width: 540px;
+}
+.macro-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+.macro-grid .big-number {
+  overflow-wrap: anywhere;
+}
+.table-scroll {
+  overflow-x: auto;
+  max-width: 100%;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+th,
+td {
+  text-align: left;
+  padding: 12px 8px;
+  border-bottom: 1px solid #ccd6c7;
+}
+.hash {
+  overflow-wrap: anywhere;
+  font-size: 13px;
+}
+@media (max-width: 850px) {
+  .macro-grid {
+    grid-template-columns: 1fr;
+  }
+}
 
-.account h2 { margin-top: 30px; font-size: 30px; }
-.account p { line-height: 1.65; }
-.account label { display: flex; flex-direction: column; gap: 8px; margin: 18px 0; max-width: 540px; }
-.account .check-label { flex-direction: row; align-items: flex-start; line-height: 1.5; }
-.account input[type="checkbox"] { flex: 0 0 auto; margin-top: 5px; }
-.account .card p { overflow-wrap: anywhere; }
+.account h2 {
+  margin-top: 30px;
+  font-size: 30px;
+}
+.account p {
+  line-height: 1.65;
+}
+.account label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 18px 0;
+  max-width: 540px;
+}
+.account .check-label {
+  flex-direction: row;
+  align-items: flex-start;
+  line-height: 1.5;
+}
+.account input[type='checkbox'] {
+  flex: 0 0 auto;
+  margin-top: 5px;
+}
+.account .card p {
+  overflow-wrap: anywhere;
+}

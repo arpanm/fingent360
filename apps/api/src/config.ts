@@ -1,6 +1,9 @@
 import { z } from 'zod';
 const ConfigSchema = z.object({
-  RESEARCH_ADMIN_TOKEN: z.string().regex(/^[a-f0-9]{64}$/).optional(),
+  RESEARCH_ADMIN_TOKEN: z
+    .string()
+    .regex(/^[a-f0-9]{64}$/)
+    .optional(),
   API_PORT: z.coerce.number().int().min(1).max(65535).default(4100),
   API_HOST: z.string().default('127.0.0.1'),
   WEB_ORIGIN: z.url().default('http://localhost:5173'),

@@ -8,8 +8,14 @@ export default defineConfig(({ mode }) => {
       host: '127.0.0.1',
       port: Number(process.env.WEB_PORT || env.WEB_PORT || 5173),
       strictPort: true,
-      proxy: { '/api': `http://127.0.0.1:${process.env.API_PORT || env.API_PORT || '4100'}` },
+      proxy: {
+        '/api': `http://127.0.0.1:${process.env.API_PORT || env.API_PORT || '4100'}`,
+      },
     },
-    preview: { host: '127.0.0.1', port: Number(process.env.PREVIEW_PORT || env.PREVIEW_PORT || 4173), strictPort: true },
+    preview: {
+      host: '127.0.0.1',
+      port: Number(process.env.PREVIEW_PORT || env.PREVIEW_PORT || 4173),
+      strictPort: true,
+    },
   };
 });

@@ -46,7 +46,12 @@ export async function createApp(
   const app = await NestFactory.create(
     {
       module: AppModule,
-      controllers: [HealthController, JourneyController, MacroController, AccountController],
+      controllers: [
+        HealthController,
+        JourneyController,
+        MacroController,
+        AccountController,
+      ],
       providers: [
         { provide: DEPENDENCY_PROBE, useValue: probe },
         journeyProvider(config),

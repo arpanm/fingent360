@@ -1231,6 +1231,8 @@ DEV-014 is the legacy umbrella for later connectivity/channels/assets. DEV-022â€
 
 ## SDLC-002 â€” Complete change handoffs and readable manual test evidence
 
+- **Commit completion follow-up:** User explicitly requests committing the remaining working-tree changes. Reviewed the pending source diff and included the existing API/web/contracts/scripts/test formatting edits in a local commit without running hooks or checks. Prompt: preserve and commit all remaining tracked changes, update this record and README, confirm Git status, and never push. No new runtime behavior or test cases authored for this commit-only request; existing checks and acceptance cases remain pending manual execution.
+
 - **Implementation:** Implemented; manual verification pending.
 - **Request/context:** User reports missing commits/SDLC steps and difficulty copying Playwright UI failures. Existing fixes are committed as 8cb2a1d, 1e6adab and d596552; remaining working-tree edits require review and preservation.
 - **Scope:** Audit local change records; correct stale testing documentation; add a local Markdown reporter for manually initiated UI/CLI test runs, retaining per-run evidence and a latest-result pointer. No automatic tests, uploads, pushes or service actions.

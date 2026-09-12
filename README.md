@@ -4,6 +4,8 @@ A goal-aware market intelligence and portfolio platform for Indian investors. Th
 
 ## Change handoffs and test failures (SDLC-002)
 
+The remaining tracked API, web, contracts, script and test edits have now been included in the local commit follow-up requested by the user. This does not change their verification status; checks remain manual.
+
 Every development request updates TODO with scope, acceptance criteria and a reusable prompt, adds or updates appropriate tests, updates documentation and receives a local commit. Verification remains manual and is tracked separately. No automatic push. Handoffs identify pre-existing edits that were left uncommitted.
 
 After manually running tests in the Playwright UI, tell Codex **“Read artifacts/e2e/latest.md and fix the failures.”** The new local reporter saves selected cases, outcomes, locations, targets and errors there; historical runs live under `artifacts/e2e/handoffs/`. Reopen the UI once to load the reporter. Reports remain local and ignored by Git. Known secrets are redacted, but inspect arbitrary assertion text before external sharing. A report marked running is incomplete; only the selected cases are covered. No new dependencies. Reporter tests and [manual acceptance cases](tests/e2e/plans/sdlc-002-acceptance.md) are authored, not executed.

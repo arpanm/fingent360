@@ -1,5 +1,13 @@
 # TODO — Fingent360 delivery tracker
 
+## BUG-006 — Mobile macro provenance controls overlap
+
+- **Implementation:** Implemented. User explicitly authorizes testing and fixes for this request.
+- **Verification:** Reproduced mobile failure in run 2026-09-12T15-41-39-276Z-58208. After grid containment fix, focused mobile run passed. Full E2E run 2026-09-12T15-42-10-408Z-58293: 32 passed, zero failed, one intentional manual-outage skip (E2E-API-004). Expanded-table viewport assertion added to E2E-WEB-020. Format/check gates run before local commit.
+- **Evidence:** User reports 31 passed, one skipped, and mobile E2E-WEB-020 failing because adjacent table/text intercepts the Source button click.
+- **Prompt/scope:** Reproduce the real mobile failure, correct responsive grid/table containment without forced clicks or mocked data, strengthen the expanded-table regression, execute focused and full checks/E2E, update README/evidence and commit locally after gates pass. Never push.
+- **Acceptance:** Mobile provenance table stays within its card with horizontal scrolling, History and Source work using normal clicks, expanded layout fits viewport. Existing desktop/API journeys stay green.
+
 ## SDLC-003 — One manual format/check/commit/E2E command
 
 - **Browser follow-up:** User run 2026-09-12T15-37-55-136Z-57318 reached 33 E2E attempts; all 20 browser cases failed to launch because managed chromium_headless_shell-1208 is absent. Plain pnpm sdlc omitted the previous Chrome override. Prompt: default to installed Chrome on macOS, retain managed Chromium elsewhere and explicit environment/.env overrides, and document manual regression acceptance. Implemented in Playwright configuration; new verification pending. No browser installation or test execution by Codex.

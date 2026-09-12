@@ -28,6 +28,8 @@ After manually running tests in the Playwright UI, tell Codex **“Read artifact
 
 ## Real economic data (DATA-001)
 
+BUG-006: fixed mobile provenance-table overflow by constraining the responsive grid track and card width. History/Source buttons now work with normal clicks. Verified full E2E run `2026-09-12T15-42-10-408Z-58293`: 32 passed, zero failed, one skipped manual database-outage case. The expanded-table layout is now covered by E2E-WEB-020.
+
 The default page now reads persisted India GDP growth and CPI inflation from a real World Bank adapter. An operator refresh calls the provider, saves source JSON in MongoDB and promotes exact decimal observations to PostgreSQL. Inspect annual history, revisions, attribution and raw evidence in the UI. Empty or failed sources never receive sample values. [Setup and test walkthrough](docs/development/real-data.md).
 
 ```bash

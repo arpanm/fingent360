@@ -1,5 +1,7 @@
 # Planned end-to-end coverage
 
+BUG-006: expanded mobile macro tables must remain contained and horizontally scrollable without adjacent content intercepting buttons. E2E-WEB-020 checks expanded viewport width and real History/Source actions. Verified full run 2026-09-12T15-42-10-408Z-58293: 32 passed, one intentional outage skip.
+
 ## SDLC-003 — Manual workflow acceptance
 
 - Browser-default regression: on macOS with Google Chrome installed and no E2E_BROWSER override, run `pnpm sdlc "Browser default"`. Desktop/mobile cases must launch Chrome without requiring the managed Chromium cache. Verify explicit shell and .env browser choices override the platform default; other platforms retain Chromium. Existing E2E-WEB-001 on desktop/mobile covers launch and real API connectivity. Authored; not executed.

@@ -28,6 +28,12 @@ test.describe('Real macro browser @DATA-001 @external', () => {
       timeout: 60000,
     });
     await card.getByText(/Annual observations and provenance/).click();
+    // Check the expanded table, not only the collapsed dashboard after reload.
+    const expanded = await page.evaluate(() => ({
+      width: document.documentElement.scrollWidth,
+      viewport: document.documentElement.clientWidth,
+    }));
+    expect(expanded.width).toBeLessThanOrEqual(expanded.viewport);
     await card
       .getByRole('button', { name: /^History / })
       .first()

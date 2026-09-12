@@ -337,6 +337,10 @@ summary {
 .macro-grid .big-number {
   overflow-wrap: anywhere;
 }
+.macro-grid > article {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
 .table-scroll {
   overflow-x: auto;
   max-width: 100%;
@@ -358,7 +362,7 @@ td {
 }
 @media (max-width: 850px) {
   .macro-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 

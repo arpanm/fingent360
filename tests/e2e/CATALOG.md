@@ -105,6 +105,8 @@ The missing AccountStore method brace is corrected. Existing pnpm check compilat
 
 ## DEV-PORTS-001 dynamic-port acceptance
 
+BUG-006: E2E-WEB-020 now asserts viewport containment while the provenance table is expanded, followed by normal History/Source clicks. Verified desktop/mobile in full run 2026-09-12T15-42-10-408Z-58293 (32 passed, E2E-API-004 intentionally skipped).
+
 SDLC-003: manual format/check/commit/E2E workflow acceptance is recorded in plans/product-coverage.md; isolated orchestration regression cases are in tests/unit/sdlc.test.mjs. Existing API/browser cases are run by the wrapper without modification. Verification pending.
 
 SDLC-002: [manual report and handoff acceptance](plans/sdlc-002-acceptance.md) covers SDLC-UI-001–005 and SDLC-DOC-001. Reporter regression definitions live in tests/unit/handoff.test.mjs. Execution pending.

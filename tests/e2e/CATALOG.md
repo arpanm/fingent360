@@ -105,6 +105,8 @@ The missing AccountStore method brace is corrected. Existing pnpm check compilat
 
 ## DEV-PORTS-001 dynamic-port acceptance
 
+SDLC-003: manual format/check/commit/E2E workflow acceptance is recorded in plans/product-coverage.md; isolated orchestration regression cases are in tests/unit/sdlc.test.mjs. Existing API/browser cases are run by the wrapper without modification. Verification pending.
+
 SDLC-002: [manual report and handoff acceptance](plans/sdlc-002-acceptance.md) covers SDLC-UI-001–005 and SDLC-DOC-001. Reporter regression definitions live in tests/unit/handoff.test.mjs. Execution pending.
 
 Restart regression: after stopping pre-fix dev watchers, launch two dev sessions sequentially and record both printed API/web pairs. Make a harmless source edit to trigger API recompilation/restart. Both sessions must retain their own ports without EADDRINUSE. Launch the test UI for the latest session and manually run E2E-API-001/002/030 and E2E-WEB-001/030; also open the first session's printed web URL and confirm it remains usable. This manual scenario specifically covers watcher configuration lifetime; verification pending.

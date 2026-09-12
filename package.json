@@ -8,6 +8,7 @@
     "node": ">=24 <27"
   },
   "scripts": {
+    "sdlc": "node scripts/sdlc.mjs",
     "build": "pnpm -r build",
     "dev": "node scripts/dev.mjs",
     "lint": "eslint .",

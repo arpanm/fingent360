@@ -4,6 +4,18 @@ A goal-aware market intelligence and portfolio platform for Indian investors. Th
 
 ## Change handoffs and test failures (SDLC-002)
 
+### One-command manual workflow (SDLC-003)
+
+With the app, databases and migrations already ready, run:
+
+```bash
+E2E_BROWSER=chrome pnpm sdlc --message "Describe the change"
+# Optional: selected E2E project instead of the whole suite
+E2E_BROWSER=chrome pnpm sdlc --message "Describe the change" -- --project=api
+```
+
+This runs `pnpm format` → `pnpm check` → stages all non-ignored changes → commits locally → `pnpm e2e:run`. It stops at the first failure and skips the commit if nothing changed. Review new files before invoking it because they are included in staging. E2E runs after the commit as requested; a failing E2E run retains that commit. Nothing pushes. Read `artifacts/e2e/latest.md` for test results. The command is user-invoked; Codex does not execute it automatically. No new dependencies; implementation and regression cases are authored, verification pending.
+
 The remaining tracked API, web, contracts, script and test edits have now been included in the local commit follow-up requested by the user. This does not change their verification status; checks remain manual.
 
 Every development request updates TODO with scope, acceptance criteria and a reusable prompt, adds or updates appropriate tests, updates documentation and receives a local commit. Verification remains manual and is tracked separately. No automatic push. Handoffs identify pre-existing edits that were left uncommitted.

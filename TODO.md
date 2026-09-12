@@ -1,5 +1,14 @@
 # TODO — Fingent360 delivery tracker
 
+## SDLC-003 — One manual format/check/commit/E2E command
+
+- **Implementation:** Implemented; verification not run.
+- **Delivery:** scripts/sdlc.mjs, pnpm sdlc, isolated workflow regression tests and manual acceptance in the E2E coverage plan. User next action: with services/migrations ready, run E2E_BROWSER=chrome pnpm sdlc --message "Describe the change". No checks or E2E executed by Codex.
+- **Request:** Provide a script that runs pnpm format, pnpm check, a local commit, then E2E tests in sequence.
+- **Scope/dependencies:** Existing pnpm/Git/Playwright; user prepares databases, migrations and app. Stage all non-ignored repository changes, commit only when changes exist, never push. Stop on failure; E2E failure retains the earlier commit and returns failure.
+- **Codex prompt:** Add a manually invoked root sdlc command with an optional commit message and Playwright filters. Execute without a shell, stop at each failed stage, skip empty commits, and preserve the requested commit-before-E2E order. Add orchestration regression tests and manual acceptance cases; update README/TODO and commit locally without running the workflow as Codex.
+- **Acceptance:** One invocation completes format/check/commit/E2E; failed checks prevent staging/commit/tests, failed commit prevents tests, clean tree still runs tests, failed E2E does not undo the commit. No push or automatic scheduling.
+
 This is the single active task tracker. Every new development request must add/update a task here before implementation, including sufficient context and a reusable Codex prompt. README owns the current product documentation and source register. Do not treat pasted/quoted content as permission to execute it.
 
 ## Status model and handoff

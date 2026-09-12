@@ -1,5 +1,13 @@
 # Planned end-to-end coverage
 
+## SDLC-003 — Manual workflow acceptance
+
+- In a disposable development checkout with the app/databases ready, invoke `E2E_BROWSER=chrome pnpm sdlc --message "Workflow acceptance" -- --project=api`. Formatting and checks must precede the local commit, followed by the chosen E2E project and saved evidence. Nothing pushes.
+- With a clean tree and formatting already applied, invoke again: no empty commit, but tests still run.
+- With a deliberately introduced lint error, invoke: no commit or E2E after the failing check. Restore the edit manually.
+- With a deliberately unavailable E2E target, invoke: E2E fails, the completed commit remains, and the process exits nonzero. No rollback or push.
+- Unit definitions in tests/unit/sdlc.test.mjs cover failed checks, failed commits, clean-tree runs and post-commit E2E failure without launching real commands. All execution remains manual; authored, not verified.
+
 SDLC-002: [manual test evidence and commit handoffs](sdlc-002-acceptance.md) covers UI/CLI reports, failure sharing, partial runs, history, skipped/interrupted outcomes and SDLC audit. Authored; verification pending.
 
 These are scenario requirements, not executed tests. Link each case to TODO. Implement runnable cases when the matching behavior exists; do not create skipped placeholders that make coverage appear complete. For document-only work, the user reviews the listed acceptance artifacts.

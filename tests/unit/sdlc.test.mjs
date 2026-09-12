@@ -4,13 +4,16 @@ import { workflow, parseArguments } from '../../scripts/sdlc.mjs';
 
 test('positional commit message never becomes an E2E file filter', () => {
   assert.deepEqual(parseArguments(['sdlc script']), {
-    message: 'sdlc script', filters: [],
+    message: 'sdlc script',
+    filters: [],
   });
   assert.deepEqual(parseArguments(['--message', 'sdlc script']), {
-    message: 'sdlc script', filters: [],
+    message: 'sdlc script',
+    filters: [],
   });
   assert.deepEqual(parseArguments(['Fix', '--', '--grep', 'E2E-API-001']), {
-    message: 'Fix', filters: ['--grep', 'E2E-API-001'],
+    message: 'Fix',
+    filters: ['--grep', 'E2E-API-001'],
   });
   assert.throws(() => parseArguments(['--message']));
   assert.throws(() => parseArguments(['Fix', 'unexpected second message']));

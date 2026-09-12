@@ -18,7 +18,9 @@ export function parseArguments(input) {
   }
   if (args[0] === '--') args.shift();
   else if (args.some((arg) => !arg.startsWith('-'))) {
-    throw new Error('Place Playwright filters after --, e.g. pnpm sdlc "Fix" -- --grep E2E-API-001.');
+    throw new Error(
+      'Place Playwright filters after --, e.g. pnpm sdlc "Fix" -- --grep E2E-API-001.',
+    );
   }
   return { message, filters: args };
 }

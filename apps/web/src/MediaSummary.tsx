@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { saveDownload } from './runtime';
 import { MediaAssetSchema, type MediaAsset } from '@fingent360/contracts';
 export function MediaSummary({ itemId }: { itemId: string }) {
   const [asset, setAsset] = useState<MediaAsset | null>(null),
@@ -159,14 +160,12 @@ export function MediaSummary({ itemId }: { itemId: string }) {
       });
       await stopped;
       if (chunks.length && !canceled.current) {
-        const url = URL.createObjectURL(new Blob(chunks, { type: mime }));
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = `${asset.itemId}-v${asset.itemVersion}.webm`;
-        link.click();
-        window.setTimeout(() => URL.revokeObjectURL(url), 30000);
         setNotice(
-          'Video clip downloaded. It contains source captions without audio.',
+          await saveDownload(
+            new Blob(chunks, { type: mime }),
+            `${asset.itemId}-v${asset.itemVersion}.webm`,
+            'Video clip downloaded. It contains source captions without audio.',
+          ),
         );
       }
     } catch {

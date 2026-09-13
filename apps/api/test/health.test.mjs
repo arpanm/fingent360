@@ -38,6 +38,26 @@ test('versioned health endpoint returns the shared contract', async () => {
     'fingent360-api',
   );
 });
+test('credentialed CDN requests allow only the configured web origin', async () => {
+  for (const origin of ['http://localhost:5173', 'https://untrusted.example']) {
+    const response = await fetch(`${base}/api/v1/health`, {
+      headers: { Origin: origin },
+    });
+    assert.equal(
+      response.headers.get('access-control-allow-origin'),
+      'http://localhost:5173',
+    );
+    assert.equal(
+      response.headers.get('access-control-allow-credentials'),
+      'true',
+    );
+    if (origin !== 'http://localhost:5173')
+      assert.notEqual(
+        response.headers.get('access-control-allow-origin'),
+        origin,
+      );
+  }
+});
 test('ready is 200 only when both dependencies are up; down returns 503', async () => {
   let response = await fetch(`${base}/api/v1/ready`);
   assert.equal(response.status, 200);

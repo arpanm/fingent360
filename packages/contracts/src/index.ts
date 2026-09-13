@@ -35,3 +35,5 @@ export * from './library.js';
 export * from './learning.js';
 export * from './media.js';
 export * from './assistance.js';
+
+export * from './journey-domain.js';

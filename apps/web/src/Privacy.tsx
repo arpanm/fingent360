@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { saveDownload } from './runtime';
 import { AccountGate } from './AccountGate';
 import {
   CurrentAccountSchema,
@@ -121,20 +122,15 @@ export function Privacy() {
                   const exported = PrivacyExportSchema.parse(
                     await api('/privacy/export'),
                   );
-                  const url = URL.createObjectURL(
-                    new Blob([JSON.stringify(exported, null, 2)], {
-                      type: 'application/json',
-                    }),
+                  setMessage(
+                    await saveDownload(
+                      new Blob([JSON.stringify(exported, null, 2)], {
+                        type: 'application/json',
+                      }),
+                      'fingent360-account.json',
+                      'Account export downloaded.',
+                    ),
                   );
-                  const link = document.createElement('a');
-                  link.href = url;
-                  link.download = 'fingent360-account.json';
-                  document.body.append(link);
-                  link.click();
-                  link.remove();
-                  // Delay revocation until the browser has begun consuming the download.
-                  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
-                  setMessage('Account export downloaded.');
                 })
               }
             >

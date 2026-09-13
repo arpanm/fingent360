@@ -103,7 +103,7 @@ export async function createApp(
   );
   // The Express adapter mounts its not-found router with this exact prefix.
   app.setGlobalPrefix('/api/v1');
-  app.enableCors({ origin: config.WEB_ORIGIN });
+  app.enableCors({ origin: config.WEB_ORIGIN, credentials: true });
   // Workspace capabilities and private responses must never enter shared caches.
   app.use(
     (

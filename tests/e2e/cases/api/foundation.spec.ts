@@ -5,6 +5,22 @@ import {
 } from '../../../../packages/contracts/src/index';
 
 test.describe('Foundation API @SETUP-001 @SDLC-001 @smoke', () => {
+  test('E2E-API-006 credentialed CORS is scoped to the configured web origin @ANDROID-001', async ({
+    request,
+  }) => {
+    const origin = process.env.E2E_WEB_URL!;
+    const response = await request.get('/api/v1/health', {
+      headers: { Origin: origin },
+    });
+    expect(response.headers()['access-control-allow-origin']).toBe(origin);
+    expect(response.headers()['access-control-allow-credentials']).toBe('true');
+    const other = await request.get('/api/v1/health', {
+      headers: { Origin: 'https://untrusted.example' },
+    });
+    expect(other.headers()['access-control-allow-origin']).not.toBe(
+      'https://untrusted.example',
+    );
+  });
   test('E2E-API-001 liveness follows the public contract', async ({
     request,
   }) => {

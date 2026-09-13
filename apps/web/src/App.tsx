@@ -21,6 +21,8 @@ import { Saved } from './Saved';
 import { Learning } from './Learning';
 import { Discovery, Reader } from './Discovery';
 import { Icon } from './ui';
+import { AppSettings, DeviceStatus } from './AppSettings';
+import { runtime } from './runtime';
 import {
   canNavigate,
   currentRoute,
@@ -72,6 +74,12 @@ const moreLinks = [
     'shield',
   ],
   ['brief', 'Learning lab', 'A clearly fictional practice portfolio', 'learn'],
+  [
+    'app-settings',
+    'App settings',
+    'Device storage, connection and feedback',
+    'settings',
+  ],
 ];
 const lab = new Set([
   'brief',
@@ -176,6 +184,10 @@ export function App() {
   const [connection, setConnection] = useState('Connecting…');
   useEffect(() => {
     let active = true;
+    if (runtime.mode === 'offline') {
+      setConnection('On this device');
+      return;
+    }
     void fetch('/api/v1/health', { signal: AbortSignal.timeout(5000) })
       .then(async (r) => {
         if (!r.ok) throw Error();
@@ -206,7 +218,7 @@ export function App() {
       ))}
     </nav>
   );
-  if (base === 'ops')
+  if (base === 'ops' && runtime.mode !== 'offline')
     return (
       <Suspense fallback={<p className="loading-panel">Opening operations…</p>}>
         <Operations />
@@ -273,6 +285,7 @@ export function App() {
         </header>
         <main key={sessionEpoch} ref={main} id="main-content" tabIndex={-1}>
           <PwaStatus />
+          <DeviceStatus />
           {base === 'today' ? (
             <Discovery key="today" />
           ) : base === 'explore' ? (
@@ -285,6 +298,9 @@ export function App() {
             <Saved />
           ) : base === 'learning' ? (
             <Learning />
+          ) : base === 'app-settings' ||
+            (base === 'ops' && runtime.mode === 'offline') ? (
+            <AppSettings />
           ) : base === 'account' ? (
             <Account key={route} />
           ) : base === 'privacy' ? (
@@ -318,16 +334,23 @@ export function App() {
               <h1>A place for everything.</h1>
               <p>Reading, plans and the controls that keep them yours.</p>
               <div className="more-links">
-                {moreLinks.map(([href, label, description, icon]) => (
-                  <a href={`#${href}`} key={href}>
-                    <Icon name={icon!} />
-                    <span>
-                      <strong>{label}</strong>
-                      <small>{description}</small>
-                    </span>
-                    <Icon name="arrow" />
-                  </a>
-                ))}
+                {moreLinks
+                  .filter(
+                    ([href]) =>
+                      href !== 'app-settings' ||
+                      runtime.native ||
+                      runtime.mode === 'offline',
+                  )
+                  .map(([href, label, description, icon]) => (
+                    <a href={`#${href}`} key={href}>
+                      <Icon name={icon!} />
+                      <span>
+                        <strong>{label}</strong>
+                        <small>{description}</small>
+                      </span>
+                      <Icon name="arrow" />
+                    </a>
+                  ))}
               </div>
             </section>
           ) : inLab ? (

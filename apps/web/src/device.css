@@ -1,0 +1,99 @@
+.device-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 0;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--line, #d8ded7);
+  font-size: 12px;
+  color: #496057;
+}
+.device-status a {
+  white-space: nowrap;
+  color: #164f40;
+  text-underline-offset: 3px;
+}
+.device-status strong {
+  font-weight: 650;
+}
+.device-notice {
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: #ecf4e4;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+}
+.app-settings {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 8px 0 32px;
+}
+.app-settings > h1 {
+  font-size: clamp(28px, 5vw, 44px);
+  line-height: 1.14;
+  letter-spacing: -0.035em;
+  margin: 12px 0 28px;
+}
+.device-card {
+  background: #fff;
+  border: 1px solid #dbe1d9;
+  border-radius: 18px;
+  padding: 24px;
+  margin: 18px 0;
+}
+.device-card h2 {
+  font-size: 20px;
+  margin: 0 0 12px;
+}
+.device-card p {
+  font-size: 14px;
+  line-height: 1.65;
+  color: #536258;
+}
+.device-card dt {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #657166;
+  margin-top: 16px;
+}
+.device-card dd {
+  margin: 6px 0 0;
+  font-size: 14px;
+}
+.device-card label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 18px 0;
+  font-size: 14px;
+}
+.device-card input,
+.device-card select {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px;
+  border: 1px solid #b9c7bc;
+  border-radius: 8px;
+  background: #fff;
+  color: #193a2e;
+  font-size: 16px;
+}
+.build-details {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-size: 12px;
+}
+@media (max-width: 480px) {
+  .device-status {
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .device-card {
+    padding: 18px;
+  }
+}

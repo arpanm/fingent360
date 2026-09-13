@@ -676,3 +676,7 @@ The core synthetic versions of DEV-003/004/006–010 are now covered by E2E-API-
 E2E-API-020/021 and E2E-WEB-020 exercise actual provider ingestion, persistence and source/history UI. E2E-API-030/031 and E2E-WEB-030 exercise real account/session/watchlist storage and ownership through API/browser. No application mocks satisfy these features. Parent DEV-003–007/015–018 and SRC-007 still contain additional undelivered requirements; execution is manual and pending.
 
 TEAM-001 acceptance evidence: full run `2026-09-12T16-09-40-894Z-64656` passed 51 cases; only explicit database-outage case skipped. Parent scopes retain their unimplemented requirements as recorded in TODO.
+
+## ANDROID-001 — DEV-029 Android evaluation child
+
+The user now explicitly authorizes a native Android feedback build of the current app without a server. Versioned local storage, contract-compatible account/finance/reading/learning/library behavior, shared exact journey calculations, dated real public snapshot, native file/navigation interactions and future isolated CDN/API configuration are implemented. E2E-OFFLINE-010–012/201–204 and E2E-API-006 cover the executable boundaries. [Native acceptance](android-acceptance.md) covers install, airplane-mode cold launch, persistence, native Back, CSV/document export, connection recovery and device accessibility. Keep iOS/WhatsApp, production signing/release, sync and background push as separate remaining DEV-029 acceptance.

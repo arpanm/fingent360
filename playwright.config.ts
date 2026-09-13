@@ -69,7 +69,12 @@ export default defineConfig({
     ['html', { outputFolder: path.join(output, 'report'), open: 'never' }],
     ['json', { outputFile: path.join(output, 'results.json') }],
   ],
-  metadata: { apiTarget: api, webTarget: web, browserChoice, runId },
+  metadata: {
+    apiTarget: process.env.E2E_OFFLINE_URL ? 'none (on-device handlers)' : api,
+    webTarget: web,
+    browserChoice,
+    runId,
+  },
   use: {
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
@@ -79,6 +84,22 @@ export default defineConfig({
     serviceWorkers: 'block',
   },
   projects: [
+    ...(process.env.E2E_OFFLINE_URL
+      ? [
+          {
+            name: 'offline',
+            testMatch: '**/offline/**/*.spec.ts',
+            use: {
+              ...devices['Desktop Chrome'],
+              ...browserOptions,
+              baseURL: localTarget(process.env.E2E_OFFLINE_URL),
+              viewport: { width: 390, height: 844 },
+              isMobile: true,
+              hasTouch: true,
+            },
+          },
+        ]
+      : []),
     { name: 'api', testMatch: '**/api/**/*.spec.ts', use: { baseURL: api } },
     {
       name: 'desktop',

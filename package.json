@@ -8,6 +8,12 @@
     "node": ">=24 <27"
   },
   "scripts": {
+    "android:setup": "node scripts/android-setup.mjs",
+    "android:snapshot": "node scripts/offline-snapshot.mjs",
+    "android:web": "node scripts/android-package.mjs --web-only",
+    "android:build": "node scripts/android-package.mjs",
+    "android:test": "node scripts/offline-tests.mjs",
+    "android:test:ui": "node scripts/offline-tests.mjs --ui",
     "sdlc": "node scripts/sdlc.mjs",
     "build": "pnpm -r build",
     "dev": "node scripts/dev.mjs",

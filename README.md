@@ -2,6 +2,22 @@
 
 A market research and personal record-keeping application for Indian investors. It stores real World Bank annual macro observations and user-entered account, holdings and goal data. Holdings cost basis is not market value; contribution-only planning assumes no investment return. A separately labelled virtual learning exercise uses fictional companies and prices. Personalised regulated advice and trade execution remain disabled.
 
+## Android APK — no server needed
+
+An installable Android feedback build is available at `artifacts/android/fingent360-debug.apk` (Android 8+ and a current Android System WebView). Copy it to your phone, install it, and use **On this device** mode—even in airplane mode. It contains the complete current investor workflows with durable local accounts, goals, holdings/imports, reading/preferences/reminders, learning and export/deletion, plus a dated public research snapshot. Server accounts and secrets are not included. Reminders appear while using/reopening the app; research refreshes and cloud AI need connected operation.
+
+**More → App settings** explains local storage and provides future HTTPS CDN/API configuration. Switching modes keeps local and server accounts separate and never uploads local records. The existing web app still uses PostgreSQL/MongoDB. See [installation, rebuild and connection guide](docs/development/android.md) and [verification](docs/development/status.md). No existing SQL migration is changed; Android uses an additive on-device IndexedDB schema. **Verified:** 7 offline cases, 11 targeted web/API cases, 69 unit tests and Android 35 emulator airplane-mode/persistence/import/export checks passed. Physical-phone feedback remains open.
+
+```bash
+# The APK is already generated; these commands rebuild and test it:
+pnpm android:build
+E2E_BROWSER=chrome pnpm android:test
+# Or select tests and click Run manually:
+E2E_BROWSER=chrome pnpm android:test:ui
+```
+
+For a fresh build machine, first run `pnpm install --frozen-lockfile` and `pnpm android:setup` (pinned isolated macOS Apple Silicon toolchain). Snapshot updates are explicit with `pnpm android:snapshot`; ordinary APK builds use the checked-in public snapshot. Build outputs and signing material are not committed. Keep the same signing key when updating the installed app to preserve its data.
+
 ## Mobile reading and planning experience — UX-002
 
 The app opens on **Today**, a compact reading selection. **Explore** searches the full published collection; **My money** connects real holdings, goals and overview; **Saved** holds reading, reminders and preferences; **More** lists the remaining investor pages. Scan and Stories share the same collection. Readers have contextual Back, version/source details, saved state, explicit interest feedback and Undo. Macro year/history/source actions open a visible reader and restore the original row on return.

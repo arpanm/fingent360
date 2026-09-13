@@ -103,3 +103,7 @@ The default is installed Google Chrome on macOS and managed Chromium elsewhere. 
 BUG-001: implementation authored, manual verification pending. Codex did not stop processes, install browsers or run startup/tests/checks.
 
 UX-002 large-suite reports put failures before passed/skipped cases and retain every case; redaction and size bounds apply per error rather than truncating the complete run. For rapid repeated all-project runs, respect the API's documented account attempt windows if a429 is reported; tests do not bypass authentication limits.
+
+## Android offline build
+
+`pnpm android:build` creates the APK and its dedicated offline web assets. Run `E2E_BROWSER=chrome pnpm android:test:ui` to choose local-domain and mobile-flow cases manually, or `pnpm android:test` for the selected offline project as a saved run. No API or database is started or required. The asset server chooses a free loopback port and closes with the test UI/runner. Watch remains off. Failure handoffs use the existing `artifacts/e2e/latest.md`; include the APK/build SHA256 for phone-specific issues. Native acceptance is separate from browser tests; see [Android guide](../../docs/development/android.md).

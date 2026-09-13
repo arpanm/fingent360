@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { runtime } from './runtime';
 interface InstallEvent extends Event {
   prompt(): Promise<void>;
   userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
@@ -8,6 +9,7 @@ export function PwaStatus() {
   const [offline, setOffline] = useState(!navigator.onLine);
   const [message, setMessage] = useState('');
   useEffect(() => {
+    if (runtime.native || runtime.mode === 'offline') return;
     const capture = (event: Event) => {
       event.preventDefault();
       setInstall(event as InstallEvent);
@@ -58,6 +60,7 @@ export function PwaStatus() {
       );
     }
   }
+  if (runtime.native || runtime.mode === 'offline') return null;
   return (
     <aside aria-label="Connection and installation">
       {offline && (

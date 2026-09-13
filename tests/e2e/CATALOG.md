@@ -159,3 +159,20 @@ TEAM-001 verified integration: `2026-09-12T16-09-40-894Z-64656` — 51 passed, z
 | Case        | Behavior                                                  | Projects        | Tags               | Evidence boundary                                                                                                                                                                      |
 | ----------- | --------------------------------------------------------- | --------------- | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | E2E-WEB-066 | Goal save acknowledgment survives subsequent read failure | desktop, mobile | @GOALS-001 @UX-002 | Real goal POST, simulated later browser GET 503, closed create wizard, preserved confirmed card and exactly one persisted goal. Authored; current-run verification tracked separately. |
+
+## ANDROID-001 — native and offline app
+
+Run `pnpm android:web` then `E2E_BROWSER=chrome pnpm android:test` or `pnpm android:test:ui` (manual selection, watch off). The dedicated offline project has no API/database and uses the exact built assets packaged in the APK. Normal projects exclude these cases unless the offline runner supplies its isolated asset URL.
+
+| Case            | Coverage                                                                                                       |
+| --------------- | -------------------------------------------------------------------------------------------------------------- |
+| E2E-OFFLINE-010 | Exact persisted goals, holdings preview/confirm/history, export, reload/login                                  |
+| E2E-OFFLINE-011 | Local account ownership and deletion isolation                                                                 |
+| E2E-OFFLINE-012 | Session expiry on all private domains and durable login throttle/recovery                                      |
+| E2E-OFFLINE-201 | Dated reading, save/position/preferences, reminder idempotency/catch-up, learning/query fallback               |
+| E2E-OFFLINE-202 | Strict search/cursor filters and truthful unavailable refresh                                                  |
+| E2E-OFFLINE-203 | Shared learning-lab math/parser, workspace persistence/isolation, revisions/import conflicts/immutable reviews |
+| E2E-OFFLINE-204 | Actual mobile reader/save/feedback/preferences/navigation/settings flow, no network API requests               |
+| E2E-API-006     | Credentialed CORS permits only the configured web origin for later CDN deployment                              |
+
+Native install/airplane mode, file pickers, system Back, update persistence, connection recovery and accessibility follow [Android acceptance](plans/android-acceptance.md). Runtime evidence and limitations are in [status](../../docs/development/status.md); authored cases alone are not a pass.

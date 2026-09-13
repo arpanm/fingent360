@@ -12,3 +12,9 @@ artifacts/
 playwright-report/
 test-results/
 playwright/.cache/
+android/.gradle/
+android/**/build/
+android/local.properties
+android/app/src/main/assets/web/
+android/app/src/main/assets/runtime-config.json
+android/app/src/main/assets/build-identity.txt

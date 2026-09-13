@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { saveDownload } from './runtime';
 import { AccountGate } from './AccountGate';
 import { Assist } from './Assist';
 import { useDraftGuard } from './useDraftGuard';
@@ -245,17 +246,14 @@ export function Holdings() {
           </section>
           <button
             disabled={busy}
-            onClick={() => {
-              const blob = new Blob([holdingsCsv(saved.holdings)], {
-                type: 'text/csv;charset=utf-8',
-              });
-              const url = URL.createObjectURL(blob);
-              const link = document.createElement('a');
-              link.href = url;
-              link.download = 'fingent360-holdings.csv';
-              link.click();
-              setTimeout(() => URL.revokeObjectURL(url), 1000);
-            }}
+            onClick={() =>
+              void action(async () => {
+                const blob = new Blob([holdingsCsv(saved.holdings)], {
+                  type: 'text/csv;charset=utf-8',
+                });
+                setMessage(await saveDownload(blob, 'fingent360-holdings.csv'));
+              })
+            }
           >
             Download saved CSV
           </button>

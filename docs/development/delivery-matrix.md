@@ -36,7 +36,7 @@ Source inspection on 2026-09-12: runtime modules in apps/api/src, apps/web/src, 
 | DEV-026 | Deferred                                                                                | Other international assets after DEV-025 and SRC-026.                                                                                      |
 | DEV-027 | Deferred                                                                                | Crypto only after prior asset gates and SRC-027.                                                                                           |
 | DEV-028 | No broker connectivity module found                                                     | Approved provider app/entitlements, OAuth consent/revocation and reconciliation; credentials/partner gates are real external dependencies. |
-| DEV-029 | No WhatsApp/native shell integration found                                              | Channel acceptance, provider setup, session/consent and notification controls; deliberately later scope.                                   |
+| DEV-029 | Android feedback shell and durable offline workflows delivered in ANDROID-001           | Physical-phone/user acceptance, release signing/distribution, connected deployment, iOS/WhatsApp and external push remain open.            |
 | DEV-030 | No billing/entitlement implementation found                                             | Explicit business-model decision; do not invent prices or monetization ranking.                                                            |
 
 ## Source parents

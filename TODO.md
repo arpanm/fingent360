@@ -1,5 +1,15 @@
 # TODO — Fingent360 delivery tracker
 
+## ANDROID-001 — Installable server-free Android feedback build
+
+- **Request / parent:** The user requests an installable APK containing the complete current app, usable without a server for real-phone testing. Prepare configurable CDN web origin and remote API origin for later connected operation. Child of DEV-029, DEV-012/017/018; WhatsApp/iOS and production distribution remain separate.
+- **Implementation:** Completed for the current Android feedback build: native shell, packaged React UI, versioned IndexedDB domain storage, shared contracts/exact calculations, private ownership/revisions/library/learning workflows and native navigation/import/export. The APK bundles only dated public research, starts with empty private records and persists confirmed changes across launches. Query assistance works offline; fresh data and remote AI require connected mode. Broader roadmap/production release and physical-phone acceptance remain separate.
+- **Scope / acceptance:** Installable signed test APK; airplane-mode cold launch; local profile/sign-in, exact goals/holdings/import/review/history, overview, discovery/terms/evidence/media, saved/reactions/preferences/reminders, learning, privacy export/deletion and labelled learning lab. Native Back/dialog/dirty-form behavior, CSV file chooser and actual file exports. App settings clearly distinguish device-only and future HTTPS CDN/API configuration; no automatic private-data sync. Native insets/keyboard support. Unsupported external actions explain their requirement instead of pretending to succeed.
+- **Execution:** Generating the requested APK authorizes the required isolated Android toolchain/dependency setup, builds and validation for this delivery. Keep existing services/data intact. Reuse the previously requested parallel team with explicit file ownership. Format/check must pass before local commit; never push.
+- **Codex prompt:** Read AGENTS/README/decisions/DEV-029 and all current endpoint contracts. Build an Android feedback APK around the actual complete app, not a localhost URL or mock static screen. Introduce an explicit offline/connected transport boundary; preserve shared runtime validation, exact financial calculations, version/conflict/idempotency semantics and user ownership in durable local storage. Package a provenance-labelled public content snapshot and no private records/credentials. Make offline limitations visible, with query suggestions and due reminders supported on device. Implement native navigation, file import/export, configuration and optional local notification integration where supported. Keep future CDN/API URLs HTTPS, scoped and separate from local data; configure credentialed CORS only for the intended web origin. Author API-boundary/browser/native acceptance, execute the required build/gates, inspect the APK and emulator when available, document actual evidence/install instructions and checksum, update README/TODO and commit locally without push.
+- **Verification / delivery:** Generated `artifacts/android/fingent360-debug.apk`, Android 8+ with current System WebView, 2,641,660 bytes, SHA256 `11253f3563798b1087420b34bae4cf77bd80f24d915cb0aebb563bb9ee1edbdf`. Format/check passed with 69 unit tests. Final offline run `1789275930383-42670c82-5394-4c1a-abb8-ce676cba8cdf` passed all 7 cases (010–012, 201–204), no API/database. 11 targeted existing-web/API executions passed, including CORS, shared journey math, layout and actual JSON/CSV/WebM downloads. Android 35 ARM64 emulator verified airplane cold launch, local account/goal/CSV import and persistence, native Back/keyboard, actual JSON save, failed-connected recovery and same-key update retention. Exact evidence/limits: docs/development/status.md. Physical phone, TalkBack and native WebM export remain user acceptance.
+- **Manual next actions:** Transfer/install the APK, open in airplane mode, create a local profile and try reading/save, goals, holdings/CSV and Privacy export. More → App settings shows snapshot/build/connection details. Report screen, steps, expected/actual behavior and screenshots. Source updates/rebuilds/tests follow docs/development/android.md; run `pnpm android:test:ui` for manual case selection, watch off. No server is required for the APK. No Git push or deployment.
+
 ## UX-002 — Mobile discovery and complete reading experience
 
 - **Request:** Build the approved mobile redesign end to end: specification, UI/UX, API, workflows, persisted data, real sources, automation, tests and documentation. The user additionally requires configurable OpenAI, Gemini and Anthropic with query-based suggestions when no provider is available.
@@ -150,75 +160,75 @@ UX-001 reopens full experience acceptance; historical task prompts below remain 
 
 TEAM-001 adds GOALS-001, PRIVACY-001, SOURCES-001, ALERT-002, PORTFOLIO-001, PWA-001 and MIGRATIONS-001. Their current implementation/verification evidence is recorded at the top of this file. Parent roadmap rows below retain their broader scope; a completed child does not complete its parent.
 
-| ID          | Task                                                                 | Implementation | Verification    |
-| ----------- | -------------------------------------------------------------------- | -------------- | --------------- |
-| ALERT-001   | Personal observation inbox                                           | Implemented    | Awaiting user   |
-| ACCOUNT-001 | Authenticated accounts and real-data watchlists                      | Implemented    | Awaiting user   |
-| DATA-001    | Real India macro ingestion and evidence UI                           | Implemented    | Awaiting user   |
-| SLICE-001   | [Working educational portfolio journey](#slice-001)                  | Implemented    | Awaiting user   |
-| BUG-003     | Workspace creation diagnostics                                       | Implemented    | Awaiting user   |
-| BUG-002     | [JSON API not-found responses](#bug-002)                             | Implemented    | Awaiting user   |
-| BUG-001     | [Duplicate startup / browser download recovery](#bug-001)            | Implemented    | Awaiting user   |
-| SETUP-001   | [Local development foundation](#setup-001)                           | Implemented    | Historical only |
-| SDLC-001    | [Manual SDLC and reusable API/browser test dashboard](#sdlc-001)     | Implemented    | Awaiting user   |
-| SDLC-002    | [User acceptance of the SDLC tool](#sdlc-002)                        | Awaiting user  | Awaiting user   |
-| DEV-001     | [Screen-level PRD, glossary and canonical data dictionary](#dev-001) | In progress    | Awaiting user   |
-| DEV-002     | [Research/advice policy and threat model](#dev-002)                  | In progress    | Not run         |
-| DEV-003     | [Versioned domain contracts and golden fixtures](#dev-003)           | In progress    | Not run         |
-| DEV-004     | [PostgreSQL migrations and MongoDB indexes](#dev-004)                | In progress    | Not run         |
-| DEV-005     | [P0 source registry and initial adapters](#dev-005)                  | In progress    | Not run         |
-| DEV-006     | [Public intelligence slice](#dev-006)                                | In progress    | Not run         |
-| DEV-007     | [Identity/consent and manual/virtual portfolios](#dev-007)           | In progress    | Not run         |
-| DEV-008     | [CSV/XLSX imports and help](#dev-008)                                | In progress    | Not run         |
-| DEV-009     | [Multiple goals and portfolio linkage](#dev-009)                     | In progress    | Not run         |
-| DEV-010     | [Oil-shock educational end-to-end slice](#dev-010)                   | In progress    | Not run         |
-| DEV-011     | [Daily/weekly reports and durable workers](#dev-011)                 | Planned        | Not run         |
-| DEV-012     | [Responsive PWA and accessible UI](#dev-012)                         | In progress    | Not run         |
-| DEV-013     | [Regulated personalised advice](#dev-013)                            | Gated          | Not run         |
-| DEV-014     | [Broker connectivity and later channels/assets](#dev-014)            | Planned        | Not run         |
-| DEV-015     | [Admin and research operations](#dev-015)                            | In progress    | Not run         |
-| DEV-016     | [Evidence, explanations and corrections](#dev-016)                   | In progress    | Not run         |
-| DEV-017     | [Privacy, security and consent lifecycle](#dev-017)                  | In progress    | Not run         |
-| DEV-018     | [Watchlists, material alerts and delivery controls](#dev-018)        | In progress    | Not run         |
-| DEV-019     | [Deterministic research policy and action centre](#dev-019)          | Planned        | Not run         |
-| DEV-020     | [Additional verified event slices](#dev-020)                         | Planned        | Not run         |
-| DEV-021     | [Operational quality, observability and release controls](#dev-021)  | Planned        | Not run         |
-| DEV-022     | [Indian mutual funds and bonds](#dev-022)                            | Planned        | Not run         |
-| DEV-023     | [Other Indian assets and derivatives](#dev-023)                      | Deferred       | Not run         |
-| DEV-024     | [International mutual funds](#dev-024)                               | Deferred       | Not run         |
-| DEV-025     | [International equities and ETFs](#dev-025)                          | Deferred       | Not run         |
-| DEV-026     | [Other international assets](#dev-026)                               | Deferred       | Not run         |
-| DEV-027     | [Crypto last-stage capability](#dev-027)                             | Deferred       | Not run         |
-| DEV-028     | [Broker and account connectivity](#dev-028)                          | Planned        | Not run         |
-| DEV-029     | [WhatsApp and mobile application shells](#dev-029)                   | Deferred       | Not run         |
-| DEV-030     | [Monetisation decision and commercial conflict controls](#dev-030)   | Deferred       | Not run         |
-| SRC-001     | [Instrument/security master source onboarding (P0)](#src-001)        | Planned        | Not run         |
-| SRC-002     | [Indian EOD prices/volume source onboarding (P0)](#src-002)          | Planned        | Not run         |
-| SRC-003     | [Corporate actions source onboarding (P0)](#src-003)                 | Planned        | Not run         |
-| SRC-004     | [Corporate filings/results source onboarding (P0)](#src-004)         | Planned        | Not run         |
-| SRC-005     | [Reported fundamentals source onboarding (P0)](#src-005)             | Planned        | Not run         |
-| SRC-006     | [Index/sector data source onboarding (P0)](#src-006)                 | Planned        | Not run         |
-| SRC-007     | [India macro source onboarding (P0)](#src-007)                       | In progress    | Not run         |
-| SRC-008     | [Global macro/rates source onboarding (P0)](#src-008)                | Planned        | Not run         |
-| SRC-009     | [Oil/commodity/FX benchmarks source onboarding (P0)](#src-009)       | Planned        | Not run         |
-| SRC-010     | [FII/DII/FPI flows source onboarding (P0)](#src-010)                 | Planned        | Not run         |
-| SRC-011     | [F&O participant positioning source onboarding (P0)](#src-011)       | Planned        | Not run         |
-| SRC-012     | [Market/company news source onboarding (P0)](#src-012)               | Planned        | Not run         |
-| SRC-013     | [Portfolio spreadsheet imports source onboarding (P0)](#src-013)     | Planned        | Not run         |
-| SRC-014     | [Regulatory/tax source registry source onboarding (P0)](#src-014)    | Planned        | Not run         |
-| SRC-015     | [MF scheme master/NAV source onboarding (P1)](#src-015)              | Deferred       | Not run         |
-| SRC-016     | [MF holdings/factsheets source onboarding (P1)](#src-016)            | Deferred       | Not run         |
-| SRC-017     | [India G-sec/yield curve source onboarding (P1)](#src-017)           | Deferred       | Not run         |
-| SRC-018     | [Corporate bonds/ratings source onboarding (P1)](#src-018)           | Deferred       | Not run         |
-| SRC-019     | [CAS/MF statement import source onboarding (P1)](#src-019)           | Deferred       | Not run         |
-| SRC-020     | [Consensus/earnings revisions source onboarding (P1)](#src-020)      | Deferred       | Not run         |
-| SRC-021     | [Broker API connectivity source onboarding (P2)](#src-021)           | Deferred       | Not run         |
-| SRC-022     | [Indian ETFs/gold/commodities source onboarding (P2)](#src-022)      | Deferred       | Not run         |
-| SRC-023     | [Options/derivatives analytics source onboarding (P2)](#src-023)     | Deferred       | Not run         |
-| SRC-024     | [International mutual funds source onboarding (P3)](#src-024)        | Deferred       | Not run         |
-| SRC-025     | [International equities/ETFs source onboarding (P4)](#src-025)       | Deferred       | Not run         |
-| SRC-026     | [International bonds/commodities source onboarding (P5)](#src-026)   | Deferred       | Not run         |
-| SRC-027     | [Crypto market/on-chain source onboarding (P6)](#src-027)            | Deferred       | Not run         |
+| ID          | Task                                                                 | Implementation         | Verification    |
+| ----------- | -------------------------------------------------------------------- | ---------------------- | --------------- |
+| ALERT-001   | Personal observation inbox                                           | Implemented            | Awaiting user   |
+| ACCOUNT-001 | Authenticated accounts and real-data watchlists                      | Implemented            | Awaiting user   |
+| DATA-001    | Real India macro ingestion and evidence UI                           | Implemented            | Awaiting user   |
+| SLICE-001   | [Working educational portfolio journey](#slice-001)                  | Implemented            | Awaiting user   |
+| BUG-003     | Workspace creation diagnostics                                       | Implemented            | Awaiting user   |
+| BUG-002     | [JSON API not-found responses](#bug-002)                             | Implemented            | Awaiting user   |
+| BUG-001     | [Duplicate startup / browser download recovery](#bug-001)            | Implemented            | Awaiting user   |
+| SETUP-001   | [Local development foundation](#setup-001)                           | Implemented            | Historical only |
+| SDLC-001    | [Manual SDLC and reusable API/browser test dashboard](#sdlc-001)     | Implemented            | Awaiting user   |
+| SDLC-002    | [User acceptance of the SDLC tool](#sdlc-002)                        | Awaiting user          | Awaiting user   |
+| DEV-001     | [Screen-level PRD, glossary and canonical data dictionary](#dev-001) | In progress            | Awaiting user   |
+| DEV-002     | [Research/advice policy and threat model](#dev-002)                  | In progress            | Not run         |
+| DEV-003     | [Versioned domain contracts and golden fixtures](#dev-003)           | In progress            | Not run         |
+| DEV-004     | [PostgreSQL migrations and MongoDB indexes](#dev-004)                | In progress            | Not run         |
+| DEV-005     | [P0 source registry and initial adapters](#dev-005)                  | In progress            | Not run         |
+| DEV-006     | [Public intelligence slice](#dev-006)                                | In progress            | Not run         |
+| DEV-007     | [Identity/consent and manual/virtual portfolios](#dev-007)           | In progress            | Not run         |
+| DEV-008     | [CSV/XLSX imports and help](#dev-008)                                | In progress            | Not run         |
+| DEV-009     | [Multiple goals and portfolio linkage](#dev-009)                     | In progress            | Not run         |
+| DEV-010     | [Oil-shock educational end-to-end slice](#dev-010)                   | In progress            | Not run         |
+| DEV-011     | [Daily/weekly reports and durable workers](#dev-011)                 | Planned                | Not run         |
+| DEV-012     | [Responsive PWA and accessible UI](#dev-012)                         | In progress            | Not run         |
+| DEV-013     | [Regulated personalised advice](#dev-013)                            | Gated                  | Not run         |
+| DEV-014     | [Broker connectivity and later channels/assets](#dev-014)            | Planned                | Not run         |
+| DEV-015     | [Admin and research operations](#dev-015)                            | In progress            | Not run         |
+| DEV-016     | [Evidence, explanations and corrections](#dev-016)                   | In progress            | Not run         |
+| DEV-017     | [Privacy, security and consent lifecycle](#dev-017)                  | In progress            | Not run         |
+| DEV-018     | [Watchlists, material alerts and delivery controls](#dev-018)        | In progress            | Not run         |
+| DEV-019     | [Deterministic research policy and action centre](#dev-019)          | Planned                | Not run         |
+| DEV-020     | [Additional verified event slices](#dev-020)                         | Planned                | Not run         |
+| DEV-021     | [Operational quality, observability and release controls](#dev-021)  | Planned                | Not run         |
+| DEV-022     | [Indian mutual funds and bonds](#dev-022)                            | Planned                | Not run         |
+| DEV-023     | [Other Indian assets and derivatives](#dev-023)                      | Deferred               | Not run         |
+| DEV-024     | [International mutual funds](#dev-024)                               | Deferred               | Not run         |
+| DEV-025     | [International equities and ETFs](#dev-025)                          | Deferred               | Not run         |
+| DEV-026     | [Other international assets](#dev-026)                               | Deferred               | Not run         |
+| DEV-027     | [Crypto last-stage capability](#dev-027)                             | Deferred               | Not run         |
+| DEV-028     | [Broker and account connectivity](#dev-028)                          | Planned                | Not run         |
+| DEV-029     | [WhatsApp and mobile application shells](#dev-029)                   | Partial: Android child | See ANDROID-001 |
+| DEV-030     | [Monetisation decision and commercial conflict controls](#dev-030)   | Deferred               | Not run         |
+| SRC-001     | [Instrument/security master source onboarding (P0)](#src-001)        | Planned                | Not run         |
+| SRC-002     | [Indian EOD prices/volume source onboarding (P0)](#src-002)          | Planned                | Not run         |
+| SRC-003     | [Corporate actions source onboarding (P0)](#src-003)                 | Planned                | Not run         |
+| SRC-004     | [Corporate filings/results source onboarding (P0)](#src-004)         | Planned                | Not run         |
+| SRC-005     | [Reported fundamentals source onboarding (P0)](#src-005)             | Planned                | Not run         |
+| SRC-006     | [Index/sector data source onboarding (P0)](#src-006)                 | Planned                | Not run         |
+| SRC-007     | [India macro source onboarding (P0)](#src-007)                       | In progress            | Not run         |
+| SRC-008     | [Global macro/rates source onboarding (P0)](#src-008)                | Planned                | Not run         |
+| SRC-009     | [Oil/commodity/FX benchmarks source onboarding (P0)](#src-009)       | Planned                | Not run         |
+| SRC-010     | [FII/DII/FPI flows source onboarding (P0)](#src-010)                 | Planned                | Not run         |
+| SRC-011     | [F&O participant positioning source onboarding (P0)](#src-011)       | Planned                | Not run         |
+| SRC-012     | [Market/company news source onboarding (P0)](#src-012)               | Planned                | Not run         |
+| SRC-013     | [Portfolio spreadsheet imports source onboarding (P0)](#src-013)     | Planned                | Not run         |
+| SRC-014     | [Regulatory/tax source registry source onboarding (P0)](#src-014)    | Planned                | Not run         |
+| SRC-015     | [MF scheme master/NAV source onboarding (P1)](#src-015)              | Deferred               | Not run         |
+| SRC-016     | [MF holdings/factsheets source onboarding (P1)](#src-016)            | Deferred               | Not run         |
+| SRC-017     | [India G-sec/yield curve source onboarding (P1)](#src-017)           | Deferred               | Not run         |
+| SRC-018     | [Corporate bonds/ratings source onboarding (P1)](#src-018)           | Deferred               | Not run         |
+| SRC-019     | [CAS/MF statement import source onboarding (P1)](#src-019)           | Deferred               | Not run         |
+| SRC-020     | [Consensus/earnings revisions source onboarding (P1)](#src-020)      | Deferred               | Not run         |
+| SRC-021     | [Broker API connectivity source onboarding (P2)](#src-021)           | Deferred               | Not run         |
+| SRC-022     | [Indian ETFs/gold/commodities source onboarding (P2)](#src-022)      | Deferred               | Not run         |
+| SRC-023     | [Options/derivatives analytics source onboarding (P2)](#src-023)     | Deferred               | Not run         |
+| SRC-024     | [International mutual funds source onboarding (P3)](#src-024)        | Deferred               | Not run         |
+| SRC-025     | [International equities/ETFs source onboarding (P4)](#src-025)       | Deferred               | Not run         |
+| SRC-026     | [International bonds/commodities source onboarding (P5)](#src-026)   | Deferred               | Not run         |
+| SRC-027     | [Crypto market/on-chain source onboarding (P6)](#src-027)            | Deferred               | Not run         |
 
 ## Detailed tasks and Codex prompts
 
@@ -778,13 +788,13 @@ TEAM-001 adds GOALS-001, PRIVACY-001, SOURCES-001, ALERT-002, PORTFOLIO-001, PWA
 
 ### DEV-029 — WhatsApp and mobile application shells
 
-- **Implementation:** Deferred
-- **Verification:** Not run
+- **Implementation:** Android feedback APK implemented in ANDROID-001; iOS/WhatsApp, release distribution and background push remain deferred.
+- **Verification:** See ANDROID-001 and status for exact native/offline evidence; physical-phone feedback and connected deployment acceptance remain open.
 - **Dependencies:** DEV-012, DEV-017, DEV-018
 - **Context:** README.md Gate 7
 - **Scope and acceptance:** Implement WhatsApp summaries/deep links and Android/iOS webview shells only after channel acceptance. Preserve secure session boundaries, notification preferences, evidence links and jurisdiction/consent controls across channels.
-- **E2E cases:** Planned scenarios in tests/e2e/plans/product-coverage.md#dev-029; add stable executable IDs when implemented
-- **Evidence / blockers:** No implementation or verification evidence yet; dependencies and required product/source approvals remain open.
+- **E2E cases:** E2E-OFFLINE-010–012, 201–204; E2E-API-006; native matrix in tests/e2e/plans/android-acceptance.md.
+- **Evidence / blockers:** android/, apps/web/src/offline/, dedicated offline build/tests and android.md implement the user-authorized Android evaluation child. Parent channel/provider acceptance is still required for remaining channels.
 - **Manual next actions:** After implementation, user runs relevant checks and selected E2E cases listed in the handoff; attach evidence before marking verified.
 
 **Codex prompt**

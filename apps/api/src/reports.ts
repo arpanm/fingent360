@@ -119,9 +119,11 @@ export class ReportsStore {
       await c.query('SELECT id FROM app_users WHERE id=$1 FOR UPDATE', [
         user.id,
       ]);
+      await this.account.require(c, cookie);
       await c.query('SELECT pg_advisory_xact_lock(hashtext($1))', [
         parsed.data.requestId,
       ]);
+      await this.account.require(c, cookie);
       const deleted = await c.query(
         'SELECT user_id FROM record_report_deletions WHERE id=$1',
         [parsed.data.requestId],
@@ -204,10 +206,16 @@ export class ReportsStore {
       throw new BadRequestException('Provide the current report version.');
     return this.account.transaction(async (c) => {
       const user = await this.account.require(c, cookie);
+      // Match request/delete ordering and serialize recovery before job waits.
+      await c.query('SELECT id FROM app_users WHERE id=$1 FOR UPDATE', [
+        user.id,
+      ]);
+      await this.account.require(c, cookie);
       const r = await c.query(
         'SELECT * FROM record_report_jobs WHERE id=$1 AND user_id=$2 FOR UPDATE',
         [id, user.id],
       );
+      await this.account.require(c, cookie);
       const row = r.rows[0];
       if (!row) throw new NotFoundException('Report not found.');
       if (row.version !== input.data.expectedVersion)
@@ -242,7 +250,9 @@ export class ReportsStore {
       await c.query('SELECT id FROM app_users WHERE id=$1 FOR UPDATE', [
         user.id,
       ]);
+      await this.account.require(c, cookie);
       await c.query('SELECT pg_advisory_xact_lock(hashtext($1))', [id]);
+      await this.account.require(c, cookie);
       const removed = await c.query(
         'SELECT user_id,deleted_at FROM record_report_deletions WHERE id=$1',
         [id],
@@ -259,6 +269,7 @@ export class ReportsStore {
         'SELECT status,version FROM record_report_jobs WHERE id=$1 AND user_id=$2 FOR UPDATE',
         [id, user.id],
       );
+      await this.account.require(c, cookie);
       const job = found.rows[0];
       if (!job) throw new NotFoundException('Report not found.');
       if (job.version !== input.data.expectedVersion)

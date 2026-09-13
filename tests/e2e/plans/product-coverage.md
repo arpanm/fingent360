@@ -1,5 +1,9 @@
 # Planned end-to-end coverage
 
+## AUTH-WAIT-001 acceptance
+
+Prove that authentication before a blocking query cannot authorize private work after recovery/session expiry. Queue actual recovery ahead of account mutations/replays and private allocation reads; use observed owned-schema locks and assert401 plus unchanged financial/revision/report/receipt/budget digest. Cancel/retry must retain account→job ordering; expiry tests distinguish transaction start from database wall time. Recovered sessions still save normally. API300–309 and WEB300 desktop/mobile use actual APIs, no fabricated successful responses; all blockers/requests drain on failure. Existing local-mode serial execution has no PostgreSQL lock waiter. No schema or financial-model change.
+
 ## RETENTION-001 acceptance
 
 Authenticate operator → count-only fixed-cutoff preview → explicit bounded confirmation → atomic cleanup/results/audit → replay/history/retry. All eight scopes enforce existing expiry and preserve fresh sessions/content, financial histories/evidence and confirmed import receipts. Verify actual per-category caps/moreAvailable, owner schema serialization, response loss, SQL failure and owned-connection interruption rollback. No arbitrary caller table/cutoff/predicate. API250–257, WEB250–254, OFFLINE280–281. API255 only terminates its own identified sleeping database connection; no shared services or app data are cleaned. Mobile/keyboard flow and truthful offline connected requirement are distinct from SQL correctness.

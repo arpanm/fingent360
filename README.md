@@ -1,5 +1,11 @@
 # Fingent360
 
+## Session protection during financial updates — AUTH-WAIT-001
+
+Private financial requests recheck their session after waiting for account and subsequent preview, goal or report locks. If a password reset revoked the session, or it expired during the wait, the request returns to sign-in without changing holdings, goals, allocations or reports. Report cancel/retry follows the same account-before-report lock order. Previously authorized report workers continue independently. Existing saved records and replay receipts remain private and preserved.
+
+This correction reuses the current account/session tables; no migration or dependency is added. On-device storage is already serialized and has no PostgreSQL lock waits. [Ordering and scope](docs/product/account-lock-authorization.md), [verification](docs/development/status.md). Selected authorization/recovery/allocation/report-deletion verification has passing evidence for all32 scenarios across correction runs, including12 new selections. Exact runs and physical-device limits are recorded in status.
+
 ## Expired data cleanup — RETENTION-001
 
 **Operations → Expired data cleanup** previews eight fixed categories under existing expiry rules. An operator reviews the saved cutoff/counts and explicitly confirms a bounded batch, then sees actual results and history. Repeating a completed request returns the saved result; a failed batch rolls back before offering retry. No cleanup timer is installed. Fresh content, financial histories, source evidence and confirmed holdings receipts are preserved. Offline Operations explains that connected access is required and makes no API calls.

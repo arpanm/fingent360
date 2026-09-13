@@ -1,5 +1,23 @@
 # End-to-end case catalogue
 
+## AUTH-WAIT-001 — revoked/expired database waiters
+
+| Case        | Acceptance                                                                                                                                   | Project         |
+| ----------- | -------------------------------------------------------------------------------------------------------------------------------------------- | --------------- |
+| E2E-API-300 | CSV/XLSX preview authorization after reset; reject401 without private mutation, then positive new-session control                            | api             |
+| E2E-API-301 | Fresh confirmation and confirmed receipt replay; reject401 without private mutation, then positive new-session control                       | api             |
+| E2E-API-302 | Goal creation after reset; reject401 without private mutation, then positive new-session control                                             | api             |
+| E2E-API-303 | Goal edit/delete after reset; reject401 without private mutation, then positive new-session control                                          | api             |
+| E2E-API-304 | Allocation private context and revision writes; reject401 without private mutation, then positive new-session control                        | api             |
+| E2E-API-305 | New report and issued request replay; reject401 without private mutation, then positive new-session control                                  | api             |
+| E2E-API-306 | Report deletion and tombstone replay; reject401 without private mutation, then positive new-session control                                  | api             |
+| E2E-API-307 | Report cancellation with ordered account/job blockers; reject401 without private mutation, then positive new-session control                 | api             |
+| E2E-API-308 | Report retry with ordered account/job blockers; reject401 without private mutation, then positive new-session control                        | api             |
+| E2E-API-309 | Real session expiry after transaction start and before lock admission; reject401 without private mutation, then positive new-session control | api             |
+| E2E-WEB-300 | Actual recovery, revoked allocation save, sign-in and successful save with retained history                                                  | desktop, mobile |
+
+Tag @AUTH-WAIT-001. Per-test schemas and actual HTTP requests establish the race using observed locks; trace/video/screenshots are disabled around credentials. No application sessions or data are reset. On-device serialized handlers are outside the PostgreSQL waiter defect; existing offline recovery tests remain. Status records execution separately.
+
 ## RETENTION-001 — bounded operator cleanup
 
 | Case           | Acceptance                                                                                 | Projects        |

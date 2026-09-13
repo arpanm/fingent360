@@ -63,6 +63,7 @@ export class GoalsController {
       await c.query('SELECT id FROM app_users WHERE id=$1 FOR UPDATE', [
         account.id,
       ]);
+      await this.store.require(c, cookie);
       const count = await c.query(
         'SELECT count(*)::integer AS count FROM app_goals WHERE user_id=$1 AND deleted_at IS NULL',
         [account.id],
@@ -125,10 +126,12 @@ export class GoalsController {
       await c.query('SELECT id FROM app_users WHERE id=$1 FOR UPDATE', [
         account.id,
       ]);
+      await this.store.require(c, cookie);
       const rows = await c.query(
         'SELECT * FROM app_goals WHERE id=$1 AND user_id=$2 AND deleted_at IS NULL FOR UPDATE',
         [id, account.id],
       );
+      await this.store.require(c, cookie);
       const row = rows.rows[0];
       if (!row) throw new NotFoundException('Goal not found.');
       if (row.version !== version)

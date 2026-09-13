@@ -101,3 +101,7 @@ Specification, strict contracts, bounded worker parser, templates, exact reconci
 ## RETENTION-001 delivery boundary
 
 Spec/contracts/migration022, actual expiry predicates, owned operator authorization, transactional cleanup/replay/audit, responsive preview/confirmation/results/history and local-mode explanation are implemented. Exact verification is in status. Automation trigger is explicitly the operator's confirm action; no timer is introduced. Confirmed CSV/XLSX import receipts survive draft expiry. Production retention review, operations rollout and physical-device accessibility remain open acceptance gates; this child does not complete DEV017/021.
+
+## AUTH-WAIT-001 boundary
+
+The identified financial database waiters reauthorize after account locks and use current-time expiry; report transitions preserve account→job ordering. Existing screens recover through their401 sign-in states. Actual API/browser cases and unchanged-record checks are authored, with parent evidence in status. This bounded security correction reuses schemas/financial workflows and does not claim production identity/MFA, a complete penetration test, or redesigned logout semantics.

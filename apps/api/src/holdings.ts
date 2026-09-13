@@ -127,6 +127,8 @@ export class HoldingsController {
       await c.query('SELECT id FROM app_users WHERE id=$1 FOR UPDATE', [
         account.id,
       ]);
+      // Recovery may have revoked this session while the account lock waited.
+      await this.store.require(c, cookie);
       const current = await c.query(
         'SELECT version FROM app_holdings WHERE user_id=$1',
         [account.id],
@@ -182,10 +184,12 @@ export class HoldingsController {
       await c.query('SELECT id FROM app_users WHERE id=$1 FOR UPDATE', [
         account.id,
       ]);
+      await this.store.require(c, cookie);
       const previews = await c.query(
         'SELECT * FROM app_holdings_previews WHERE id=$1 AND user_id=$2 FOR UPDATE',
         [input.previewId, account.id],
       );
+      await this.store.require(c, cookie);
       const preview = previews.rows[0];
       if (!preview) throw new NotFoundException('Preview not found.');
       if (preview.expected_version !== input.expectedVersion)
@@ -207,6 +211,7 @@ export class HoldingsController {
         'SELECT version FROM app_holdings WHERE user_id=$1 FOR UPDATE',
         [account.id],
       );
+      await this.store.require(c, cookie);
       if (current.rows[0].version !== input.expectedVersion)
         throw new ConflictException(
           'Holdings changed. Reload and preview again.',

@@ -112,8 +112,9 @@ export class AccountStore {
   private async find(client: pg.PoolClient, cookie?: string) {
     const hash = sessionFromCookie(cookie);
     if (!hash) return null;
+    // Transactions can wait on private record locks; expiry uses current time.
     const result = await client.query<UserRow>(
-      'SELECT u.* FROM app_users u JOIN app_sessions s ON s.user_id=u.id WHERE s.token_hash=$1 AND s.expires_at > now()',
+      'SELECT u.* FROM app_users u JOIN app_sessions s ON s.user_id=u.id WHERE s.token_hash=$1 AND s.expires_at > clock_timestamp()',
       [hash],
     );
     return result.rows[0] ?? null;

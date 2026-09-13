@@ -60,6 +60,7 @@ export class AllocationsController {
       await c.query('SELECT id FROM app_users WHERE id=$1 FOR SHARE', [
         user.id,
       ]);
+      await this.store.require(c, cookie);
       const data = await context(c, user.id);
       return allocationState(data.snapshot, data.holdings, data.goals);
     });
@@ -93,6 +94,7 @@ export class AllocationsController {
       await c.query('SELECT id FROM app_users WHERE id=$1 FOR UPDATE', [
         user.id,
       ]);
+      await this.store.require(c, cookie);
       const data = await context(c, user.id);
       if (
         data.snapshot.version !== input.expectedVersion ||

@@ -36,3 +36,7 @@ Standard XLSX preview/confirmation retains normalized holdings and parser versio
 ### Explicit expiry maintenance
 
 Operations cleanup uses the existing expiry fields and fixed policy; it does not expire financial histories or issued reports. Expired feedback content/attachment bytes are scrubbed, preserving minimal receipt/idempotency/audit metadata. Fresh feedback, active sessions and recovery credentials remain. Preview/result/audit expose counts, not private contents. Account deletion retains its existing owned-data cascade.
+
+### Session revocation during database waits
+
+Recovery revokes server sessions while holding the account row. Private financial waiters recheck the same cookie after acquiring that row; current wall-clock expiry also applies. Old sessions cannot mutate or replay private receipts after a completed reset merely because their requests started earlier. A request admitted first may finish before reset obtains the lock. Session-independent report workers retain their captured authorized job; recovery does not erase reports.

@@ -58,8 +58,22 @@ export const ReportJobSchema = z.strictObject({
   snapshot: ReportSnapshotSchema,
   report: RecordReportSchema.nullable(),
 });
+export const ReportDeletionSchema = z.strictObject({
+  id: z.uuid(),
+  deletedAt: z.iso.datetime(),
+});
+export const ReportDeleteInputSchema = z.strictObject({
+  expectedVersion: z.number().int().positive(),
+  confirm: z.literal(true),
+});
+export const ReportCapacitySchema = z.strictObject({
+  used: z.number().int().min(0).max(100),
+  limit: z.literal(100),
+});
 export const ReportJobsSchema = z.strictObject({
   jobs: z.array(ReportJobSchema).max(100),
+  deletions: z.array(ReportDeletionSchema),
+  capacity: ReportCapacitySchema,
 });
 export const ReportMutationSchema = z.strictObject({
   expectedVersion: z.number().int().positive(),

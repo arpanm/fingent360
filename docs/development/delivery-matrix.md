@@ -1,4 +1,4 @@
-# Roadmap delivery audit — UX-001 through TEAM-002
+# Roadmap delivery audit — UX-001 through TEAM-003
 
 UX-002 implements the current mobile reading/library/planning experience described in the [CTA inventory](ux2-cta-inventory.md). Its new contracts, migrations010–014, real source publication, private reminder worker, three provider adapters/query fallback, learning and reviewed SVG/WebM workflows overlay the parent items below. TEAM-002 adds bounded explicit goal allocations, recovery codes, saved-record report jobs and an OpenFIGI identity directory. These do not close valuation, complete security-master coverage, source breadth or production acceptance dependencies. Runtime evidence lives in [status](status.md).
 
@@ -89,3 +89,7 @@ UX-001's current account workflow is implemented and verified; see root TODO for
 [Feature catalogue](../../tests/e2e/CATALOG.md#team-002--allocations-recovery-record-reports-and-identity) lists every authored TEAM-002 ID; [test setup](../../tests/e2e/README.md#team-002-isolated-application-cases) explains per-case real PostgreSQL/MongoDB/API isolation. Populated report cases explicitly assert saved 10001 + monthly 25002 × 3 = 85007 paise, a 14993 gap against 100000, and separate allocated cost 3333; they do not test only empty shells. Identity success cases use the actual public provider; synthetic malformed responses and deliberate cooldown/read failures are labelled independently.
 
 Execution is owned by the status record: the initial focused batch had 22 passes and 6 fixture/accessibility failures under correction; the accompanying unit run had 94 passes. Those interim numbers do not establish a final feature pass and must not override a later run. Formatting/check, full relevant E2E, visual keyboard/mobile review and physical Android acceptance each require their own evidence. No complete-roadmap or production-ready claim follows from implementing these four bounded slices.
+
+## REPORTS-002 delivery boundary
+
+Individual saved-record report deletion adds migration021, strict terminal/version/owned deletion, permanent metadata-only replay fencing, capacity recovery, a separate new-request budget, responsive confirmation/result and offline/privacy parity. It reuses real saved record reports and leased workers; it adds no source/provider or timer. API224–226, WEB223–225 and OFFLINE263–264 cover the workflow; exact gate/run/Android acceptance belongs to status. This child advances DEV-011/017/021 without completing general retention, backup/restore or production release.

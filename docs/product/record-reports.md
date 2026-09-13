@@ -17,3 +17,7 @@ The API worker polls every two seconds, acquires a 30-second lease with `FOR UPD
 Offline uses the same report schemas and exact calculation policy. Jobs persist under the local account and are prepared on subsequent report reads while the app is open. A closed app does not process queued work. Both modes retain allocation revision, original cost assignments and review reasons; allocations never increase the contribution-only goal estimate. Downloads use the existing browser/Android save-file flow. The reader opens in the accessible dialog with Escape/native Back and focus restoration.
 
 Authored regression coverage: API220 ownership/idempotency/issued download, API221 strict consent/input rejection, WEB220 connected request/open/download/reload and OFFLINE260 durable local equivalent. API222 covers expired leases, exhausted attempts, explicit retry and cancellation without issuance. WEB221 covers mobile width, Escape and focus restoration. OFFLINE261 covers a queued snapshot across reload and later goal creation; execution results belong in `docs/development/status.md`, not inferred from authoring.
+
+## Individual deletion and capacity
+
+[REPORTS-002](report-deletion.md) adds explicit terminal-report deletion, permanent metadata-only replay receipts,100-slot capacity recovery and a100-new-request/hour limit. Account deletion still clears all owned report metadata. No financial report is expired automatically.

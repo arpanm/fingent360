@@ -282,6 +282,8 @@ export async function handleAccounts(
       'localRecovery',
       'localAllocations',
       'localReports',
+      'localReportTombstones',
+      'localReportLimits',
       'localAccounts',
       'localGoals',
       'localHoldings',

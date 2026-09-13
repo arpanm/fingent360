@@ -1,4 +1,6 @@
 import {
+  ReportDeleteInputSchema,
+  ReportDeletionSchema,
   ReportRequestSchema,
   ReportMutationSchema,
   ReportJobsSchema,
@@ -18,8 +20,24 @@ function records(state: LocalState, userId: string): ReportJob[] {
   const all = (state.data.localReports ??= {}) as Record<string, ReportJob[]>;
   return (all[userId] ??= []);
 }
-export function exportOfflineReports(state: LocalState, userId: string) {
-  return ReportJobsSchema.parse({ jobs: records(state, userId) });
+function deletions(state: LocalState, userId: string) {
+  const all = (state.data.localReportTombstones ??= {}) as Record<
+    string,
+    Array<{ id: string; deletedAt: string }>
+  >;
+  return (all[userId] ??= []);
+}
+export function exportOfflineReports(
+  state: LocalState,
+  userId: string,
+  includeDeletions = true,
+) {
+  const jobs = records(state, userId);
+  return ReportJobsSchema.parse({
+    jobs,
+    capacity: { used: jobs.length, limit: 100 },
+    deletions: includeDeletions ? deletions(state, userId) : [],
+  });
 }
 export const reportsHandler: OfflineHandler = (request, state) => {
   if (!/^\/api\/v1\/account\/reports(?:\/|$)/.test(request.path)) return null;
@@ -32,6 +50,27 @@ export const reportsHandler: OfflineHandler = (request, state) => {
   const now = new Date().toISOString();
   if (request.method === 'POST' && !tail.length) {
     const input = parseLocal(ReportRequestSchema, request.body);
+    const foreignJobs = state.data.localReports as Record<string, ReportJob[]>;
+    const foreignDeletes = (state.data.localReportTombstones ?? {}) as Record<
+      string,
+      Array<{ id: string }>
+    >;
+    if (
+      Object.entries(foreignJobs).some(
+        ([owner, rows]) =>
+          owner !== user.id && rows.some((r) => r.id === input.requestId),
+      ) ||
+      Object.entries(foreignDeletes).some(
+        ([owner, rows]) =>
+          owner !== user.id && rows.some((r) => r.id === input.requestId),
+      )
+    )
+      fail(404, 'Report not found.');
+    if (deletions(state, user.id).some((r) => r.id === input.requestId))
+      fail(
+        410,
+        'This report was deleted. Use a new request for a new snapshot.',
+      );
     const old = jobs.find((j) => j.id === input.requestId);
     if (old) {
       if (old.label !== input.label)
@@ -40,6 +79,18 @@ export const reportsHandler: OfflineHandler = (request, state) => {
     }
     if (jobs.length >= 100)
       fail(400, 'Report history has reached its 100-record limit.');
+    const limits = (state.data.localReportLimits ??= {}) as Record<
+      string,
+      { start: number; used: number }
+    >;
+    let limit = limits[user.id];
+    if (!limit || limit.start <= Date.now() - 3600000)
+      limit = { start: Date.now(), used: 0 };
+    if (limit.used >= 100)
+      fail(
+        429,
+        'New report request limit reached. Try again after one hour. Existing reports can still be deleted.',
+      );
     const job = ReportJobSchema.parse({
       id: input.requestId,
       label: input.label,
@@ -59,6 +110,7 @@ export const reportsHandler: OfflineHandler = (request, state) => {
       },
       report: null,
     });
+    limits[user.id] = { ...limit, used: limit.used + 1 };
     jobs.unshift(job);
     return { body: job, status: 201 };
   }
@@ -67,6 +119,25 @@ export const reportsHandler: OfflineHandler = (request, state) => {
     (tail.length === 2 && !['download', 'cancel', 'retry'].includes(tail[1]!))
   )
     fail(404, 'Report route not found.');
+  if (request.method === 'DELETE' && tail.length === 1) {
+    const input = parseLocal(ReportDeleteInputSchema, request.body);
+    const old = deletions(state, user.id).find((r) => r.id === tail[0]);
+    if (old) return { body: old };
+    const index = jobs.findIndex((j) => j.id === tail[0]);
+    const target = jobs[index];
+    if (!target) fail(404, 'Report not found.');
+    if (target.version !== input.expectedVersion)
+      fail(409, 'Report changed. Refresh before deleting.');
+    if (!['succeeded', 'failed', 'cancelled'].includes(target.status))
+      fail(409, 'Cancel preparation before deleting this report.');
+    const receipt = ReportDeletionSchema.parse({
+      id: target.id,
+      deletedAt: now,
+    });
+    deletions(state, user.id).push(receipt);
+    jobs.splice(index, 1);
+    return { body: receipt };
+  }
   const job = tail.length ? jobs.find((j) => j.id === tail[0]) : undefined;
   if (tail.length && !job) fail(404, 'Report not found.');
   if (
@@ -122,7 +193,7 @@ export const reportsHandler: OfflineHandler = (request, state) => {
       if (!job?.report) fail(409, 'Report is not ready to download.');
       return { body: job.report };
     }
-    return { body: job ?? exportOfflineReports(state, user.id) };
+    return { body: job ?? exportOfflineReports(state, user.id, false) };
   }
   return { status: 405, body: { message: 'Method not supported.' } };
 };

@@ -1,5 +1,20 @@
 # End-to-end case catalogue
 
+## REPORTS-002 — individual record-report deletion
+
+| Case            | Contract                                                                                                                                                                                        | Projects        |
+| --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------- |
+| E2E-API-224     | Owned terminal deletion removes stored snapshot/output, preserves financial records, reclaims capacity and blocks original request replay; foreign/stale/Origin checks and metadata-only export | api             |
+| E2E-API-225     | Cancel then concurrent delete fences an actual late worker finish                                                                                                                               | api             |
+| E2E-API-226     | Full capacity and new-request budget recovery preserve replay/deletion availability                                                                                                             | api             |
+| E2E-WEB-223     | Confirmation/cancel/Escape/focus, permanent deletion, visible reclaimed capacity and reload                                                                                                     | desktop, mobile |
+| E2E-WEB-224     | Real deletion from another session and controlled late list response cannot restore the reader/card                                                                                             | desktop, mobile |
+| E2E-WEB-225     | A usable real earlier response is rendered while a newer simulated slow read remains pending                                                                                                    | desktop, mobile |
+| E2E-OFFLINE-263 | Device deletion, replay/privacy/ownership/capacity and persisted result without API traffic                                                                                                     | offline         |
+| E2E-OFFLINE-264 | Device deletion and explicitly simulated late response preserve absence across reload                                                                                                           | offline         |
+
+Tag `@REPORTS-002`; connected cases use the existing isolated actual application fixture. Only controlled concurrency transport is simulated. Authored cases do not imply passes; exact execution evidence is in [status](../../docs/development/status.md).
+
 ## FEEDBACK-TEST-001 — repeatable isolated feedback integration
 
 API190–195 and WEB190–195 now use a fresh temporary schema and actual loopback API per selected test. Existing UI/media/ownership/review/deletion assertions remain; API193's expiry setup uses only the owned schema. Production rate limits and app data are unchanged. Discovery has no fixture side effects. Tests still require the running web app/local databases and compiled API; see [runner setup and lifecycle](README.md#repeatable-feedback-tests).

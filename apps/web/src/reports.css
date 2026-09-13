@@ -44,3 +44,11 @@
 .report-actions + p {
   margin-top: 0.8rem;
 }
+
+button.report-delete-confirm {
+  background: #9e3228;
+  border-color: #9e3228;
+}
+button.report-delete-confirm:hover {
+  background: #7d271f;
+}

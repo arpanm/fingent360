@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import {
+  ReportDeletionSchema,
   ReportJobsSchema,
   ReportJobSchema,
   RecordReportSchema,
@@ -10,14 +11,14 @@ import { Dialog } from './Dialog';
 import { money } from './ui';
 import { saveDownload } from './runtime';
 import './reports.css';
-async function request(path = '', body?: unknown) {
+async function request(path = '', body?: unknown, method = 'POST') {
   const response = await fetch(`/api/v1/account/reports${path}`, {
     credentials: 'include',
     signal: AbortSignal.timeout(15000),
     ...(body === undefined
       ? {}
       : {
-          method: 'POST',
+          method,
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(body),
         }),
@@ -42,46 +43,88 @@ export function Reports() {
   const [consent, setConsent] = useState(false);
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState('');
+  const [deleting, setDeleting] = useState<ReportJob | null>(null);
+  const [deleteError, setDeleteError] = useState('');
+  const sequence = useRef(0);
+  const accepted = useRef(0);
+  // A later pending read must not starve a usable earlier response. Only a
+  // response already applied, or a completed mutation, supersedes older reads.
+  function acceptRead(ticket: number) {
+    if (ticket < accepted.current) return false;
+    accepted.current = ticket;
+    return true;
+  }
+  function invalidateReads() {
+    accepted.current = ++sequence.current;
+  }
+
+  const deleted = useRef(new Set<string>());
   const [selected, setSelected] = useState<string | null>(null);
   const pending = useRef<{ id: string; label: string } | null>(null);
-  function merge(incoming: ReportJob[]) {
+  const historyHeading = useRef<HTMLHeadingElement>(null);
+  function merge(incoming: ReportJob[], authoritative = false) {
+    if (authoritative) {
+      setSelected((current) =>
+        current && incoming.some((j) => j.id === current) ? current : null,
+      );
+      setDeleting((current) =>
+        current && incoming.some((j) => j.id === current.id) ? current : null,
+      );
+    }
     setJobs((old) =>
       incoming
+        .filter((j) => !deleted.current.has(j.id))
         .map((job) => {
           const prior = old.find((j) => j.id === job.id);
           return prior && prior.version > job.version ? prior : job;
         })
-        .concat(old.filter((j) => !incoming.some((i) => i.id === j.id))),
+        .concat(
+          authoritative
+            ? []
+            : old.filter(
+                (j) =>
+                  !deleted.current.has(j.id) &&
+                  !incoming.some((i) => i.id === j.id),
+              ),
+        ),
     );
   }
   async function load() {
     setError('');
+    const ticket = ++sequence.current;
     try {
-      merge(ReportJobsSchema.parse(await request()).jobs);
+      const data = ReportJobsSchema.parse(await request());
+      if (!acceptRead(ticket)) return;
+      data.deletions.forEach((r) => deleted.current.add(r.id));
+      merge(data.jobs, true);
       setGuest(false);
     } catch (error) {
+      if (!acceptRead(ticket)) return;
       const text = (error as Error).message;
       setError(text);
       setGuest(text.startsWith('Sign in'));
     } finally {
-      setLoading(false);
+      if (ticket === accepted.current) setLoading(false);
     }
   }
   useEffect(() => {
     let live = true;
     const refresh = () => {
       if (document.visibilityState === 'hidden') return;
+      const ticket = ++sequence.current;
       void request()
         .then((data) => {
-          if (live) {
-            merge(ReportJobsSchema.parse(data).jobs);
+          if (live && acceptRead(ticket)) {
+            const parsed = ReportJobsSchema.parse(data);
+            parsed.deletions.forEach((r) => deleted.current.add(r.id));
+            merge(parsed.jobs, true);
             setGuest(false);
             setLoading(false);
             setError('');
           }
         })
         .catch((error) => {
-          if (live) {
+          if (live && acceptRead(ticket)) {
             const text = (error as Error).message;
             setError(text);
             setGuest(text.startsWith('Sign in'));
@@ -109,6 +152,7 @@ export function Reports() {
           consent,
         }),
       );
+      invalidateReads();
       pending.current = null;
       merge([job]);
       setMessage(
@@ -130,6 +174,35 @@ export function Reports() {
       );
     } catch (error) {
       setMessage((error as Error).message);
+    } finally {
+      setBusy(false);
+    }
+  }
+  async function remove() {
+    if (!deleting) return;
+    setBusy(true);
+    setDeleteError('');
+    invalidateReads();
+    try {
+      const receipt = ReportDeletionSchema.parse(
+        await request(
+          `/${deleting.id}`,
+          { expectedVersion: deleting.version, confirm: true },
+          'DELETE',
+        ),
+      );
+      deleted.current.add(receipt.id);
+      invalidateReads();
+      setJobs((old) => old.filter((j) => j.id !== receipt.id));
+      setSelected(null);
+      setDeleting(null);
+      setMessage(
+        'Report permanently deleted. Capacity reclaimed; downloaded copies are unchanged.',
+      );
+      await load();
+      historyHeading.current?.focus({ preventScroll: true });
+    } catch (error) {
+      setDeleteError((error as Error).message);
     } finally {
       setBusy(false);
     }
@@ -213,7 +286,13 @@ export function Reports() {
         {message}
       </p>
       <section aria-label="Report history">
-        <h2>Report history</h2>
+        <h2 ref={historyHeading} tabIndex={-1}>
+          Report history
+        </h2>
+        <p aria-label="Report capacity">
+          {jobs.length} of 100 report slots used. Delete completed or cancelled
+          reports to reclaim space.
+        </p>
         {!loading && !error && !jobs.length && (
           <p>
             No reports yet. Save goals or holdings, then capture a review here.
@@ -227,6 +306,17 @@ export function Reports() {
             </p>
             <p>{job.message}</p>
             <div className="report-actions">
+              {['succeeded', 'failed', 'cancelled'].includes(job.status) && (
+                <button
+                  disabled={busy}
+                  onClick={() => {
+                    setDeleteError('');
+                    setDeleting(job);
+                  }}
+                >
+                  Delete report
+                </button>
+              )}
               {job.report && (
                 <>
                   <button onClick={() => setSelected(job.id)}>
@@ -251,6 +341,37 @@ export function Reports() {
           </article>
         ))}
       </section>
+      {deleting && (
+        <Dialog
+          title="Delete this report?"
+          onClose={() => {
+            if (!busy) setDeleting(null);
+          }}
+        >
+          <p>
+            Permanently delete “{deleting.label}” and its private snapshot? Your
+            goals, holdings and allocations remain. Downloaded copies cannot be
+            removed.
+          </p>
+          {deleteError && <p role="alert">{deleteError}</p>}
+          <div className="report-actions">
+            <button
+              className="secondary"
+              disabled={busy}
+              onClick={() => setDeleting(null)}
+            >
+              Keep report
+            </button>
+            <button
+              className="report-delete-confirm"
+              disabled={busy}
+              onClick={() => void remove()}
+            >
+              Permanently delete report
+            </button>
+          </div>
+        </Dialog>
+      )}
       {report && (
         <Dialog title="Issued record report" onClose={() => setSelected(null)}>
           <section className="report-card" aria-label="Issued record report">

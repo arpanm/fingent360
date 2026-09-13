@@ -1,5 +1,8 @@
 import { randomUUID } from 'node:crypto';
 import {
+  Delete,
+  GoneException,
+  HttpException,
   BadRequestException,
   Body,
   ConflictException,
@@ -15,6 +18,8 @@ import {
 import type pg from 'pg';
 import { z } from 'zod';
 import {
+  ReportDeleteInputSchema,
+  ReportDeletionSchema,
   emptyAllocation,
   ReportRequestSchema,
   ReportMutationSchema,
@@ -58,12 +63,29 @@ function mapJob(row: Record<string, unknown>): ReportJob {
 }
 const selection =
   'SELECT j.*,r.payload AS report FROM record_report_jobs j LEFT JOIN record_reports r ON r.job_id=j.id';
-export async function exportRecordReports(c: pg.PoolClient, userId: string) {
+export async function exportRecordReports(
+  c: pg.PoolClient,
+  userId: string,
+  includeDeletions = true,
+) {
   const result = await c.query(
     `${selection} WHERE j.user_id=$1 ORDER BY j.requested_at DESC,j.id DESC`,
     [userId],
   );
-  return ReportJobsSchema.parse({ jobs: result.rows.map(mapJob) });
+  const removed = includeDeletions
+    ? await c.query(
+        'SELECT id,deleted_at FROM record_report_deletions WHERE user_id=$1 ORDER BY deleted_at,id',
+        [userId],
+      )
+    : { rows: [] };
+  return ReportJobsSchema.parse({
+    jobs: result.rows.map(mapJob),
+    capacity: { used: result.rows.length, limit: 100 },
+    deletions: removed.rows.map((r) => ({
+      id: r.id,
+      deletedAt: r.deleted_at.toISOString(),
+    })),
+  });
 }
 @Injectable()
 export class ReportsStore {
@@ -71,7 +93,7 @@ export class ReportsStore {
   async list(cookie?: string) {
     return this.account.transaction(async (c) => {
       const user = await this.account.require(c, cookie);
-      return exportRecordReports(c, user.id);
+      return exportRecordReports(c, user.id, false);
     });
   }
   async get(id: string, cookie?: string) {
@@ -100,6 +122,17 @@ export class ReportsStore {
       await c.query('SELECT pg_advisory_xact_lock(hashtext($1))', [
         parsed.data.requestId,
       ]);
+      const deleted = await c.query(
+        'SELECT user_id FROM record_report_deletions WHERE id=$1',
+        [parsed.data.requestId],
+      );
+      if (deleted.rows[0]) {
+        if (deleted.rows[0].user_id !== user.id)
+          throw new NotFoundException('Report not found.');
+        throw new GoneException(
+          'This report was deleted. Use a new request for a new snapshot.',
+        );
+      }
       const old = await c.query(`${selection} WHERE j.id=$1`, [
         parsed.data.requestId,
       ]);
@@ -119,6 +152,15 @@ export class ReportsStore {
       if (count.rows[0].count >= 100)
         throw new BadRequestException(
           'Report history has reached its 100-record limit.',
+        );
+      const budget = await c.query(
+        "INSERT INTO record_report_request_limits(user_id,window_start,used) VALUES($1,now(),1) ON CONFLICT(user_id) DO UPDATE SET window_start=CASE WHEN record_report_request_limits.window_start<=now()-interval '1 hour' THEN now() ELSE record_report_request_limits.window_start END,used=CASE WHEN record_report_request_limits.window_start<=now()-interval '1 hour' THEN 1 ELSE record_report_request_limits.used+1 END WHERE record_report_request_limits.window_start<=now()-interval '1 hour' OR record_report_request_limits.used<100 RETURNING used",
+        [user.id],
+      );
+      if (!budget.rows[0])
+        throw new HttpException(
+          'New report request limit reached. Try again after one hour. Existing reports can still be deleted.',
+          429,
         );
       const goals = await c.query(
         'SELECT r.payload FROM app_goals g JOIN app_goal_revisions r ON r.goal_id=g.id AND r.version=g.version WHERE g.user_id=$1 AND g.deleted_at IS NULL ORDER BY g.id',
@@ -186,6 +228,54 @@ export class ReportsStore {
         ],
       );
       return mapJob(result.rows[0]);
+    });
+  }
+  async remove(id: string, body: unknown, cookie?: string) {
+    identifier(id);
+    const input = ReportDeleteInputSchema.safeParse(body);
+    if (!input.success)
+      throw new BadRequestException(
+        'Confirm deletion with the current report version.',
+      );
+    return this.account.transaction(async (c) => {
+      const user = await this.account.require(c, cookie);
+      await c.query('SELECT id FROM app_users WHERE id=$1 FOR UPDATE', [
+        user.id,
+      ]);
+      await c.query('SELECT pg_advisory_xact_lock(hashtext($1))', [id]);
+      const removed = await c.query(
+        'SELECT user_id,deleted_at FROM record_report_deletions WHERE id=$1',
+        [id],
+      );
+      if (removed.rows[0]) {
+        if (removed.rows[0].user_id !== user.id)
+          throw new NotFoundException('Report not found.');
+        return ReportDeletionSchema.parse({
+          id,
+          deletedAt: removed.rows[0].deleted_at.toISOString(),
+        });
+      }
+      const found = await c.query(
+        'SELECT status,version FROM record_report_jobs WHERE id=$1 AND user_id=$2 FOR UPDATE',
+        [id, user.id],
+      );
+      const job = found.rows[0];
+      if (!job) throw new NotFoundException('Report not found.');
+      if (job.version !== input.data.expectedVersion)
+        throw new ConflictException('Report changed. Refresh before deleting.');
+      if (!['succeeded', 'failed', 'cancelled'].includes(job.status))
+        throw new ConflictException(
+          'Cancel preparation before deleting this report.',
+        );
+      const receipt = await c.query(
+        'INSERT INTO record_report_deletions(id,user_id) VALUES($1,$2) RETURNING deleted_at',
+        [id, user.id],
+      );
+      await c.query('DELETE FROM record_report_jobs WHERE id=$1', [id]);
+      return ReportDeletionSchema.parse({
+        id,
+        deletedAt: receipt.rows[0].deleted_at.toISOString(),
+      });
     });
   }
   async claim() {
@@ -272,6 +362,15 @@ export class ReportsController {
   ) {
     this.account.origin(origin);
     return this.store.request(body, cookie);
+  }
+  @Delete(':id') remove(
+    @Param('id') id: string,
+    @Body() body: unknown,
+    @Headers('origin') origin: string | undefined,
+    @Headers('cookie') cookie?: string,
+  ) {
+    this.account.origin(origin);
+    return this.store.remove(id, body, cookie);
   }
   @Get(':id') get(@Param('id') id: string, @Headers('cookie') cookie?: string) {
     return this.store.get(id, cookie);

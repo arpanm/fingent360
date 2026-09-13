@@ -1,5 +1,13 @@
 # Fingent360
 
+## Individual record-report deletion — REPORTS-002
+
+Record reports now support **Delete report → review confirmation → permanently delete**, with cancel/Escape and a visible result. Deletion removes the owned private snapshot and issued report, reclaims one of100 report slots and prevents the original request ID from recreating deleted content. Cancel running work before deleting it. Goals, holdings and allocations remain; downloaded copies cannot be recalled.
+
+Migration021 retains only owner/request IDs and deletion time until account deletion. New report requests are limited to100 per account/hour; deletion and existing-request retries remain available at the limit. Normal list polling is bounded; a full privacy export includes metadata-only deletion receipts. The same workflow is implemented in the shared offline app. [Specification](docs/product/report-deletion.md), [verification and current APK availability](docs/development/status.md).
+
+**Verified:** passing evidence for all19 selected connected report scenarios across correction runs,5/5 packaged offline report passes, and94 unit tests with format/check. Migration021 preserved existing user/financial records. The current code5 APK predates this addition; the rebuilt feature-batch APK will be recorded in status.
+
 A market research and personal record-keeping application for Indian investors. It stores real World Bank annual macro observations and user-entered account, holdings and goal data. Holdings cost basis is not market value; contribution-only planning assumes no investment return. A separately labelled virtual learning exercise uses fictional companies and prices. Personalised regulated advice and trade execution remain disabled.
 
 ## Connected planning, recovery and source identities — TEAM-002

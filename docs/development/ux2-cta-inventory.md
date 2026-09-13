@@ -74,3 +74,7 @@ Production release remains gated on all three paid-provider live validations if 
 | Operations → Security identities → refresh/check/retry                         | Explicit1–5 public ISINs, fixed provider endpoint, durable run outcomes, pacing and editions                            | Operator authorization/Origin required; never sends private holdings automatically; old records preserved on failure              | API230–233, WEB231                     |
 
 Shared routes are bundled for offline Android; source refresh requires connected operations. Exact executed evidence and remaining physical/user-design acceptance are in [status](status.md).
+
+## Individual report deletion
+
+Reports → Delete report opens explicit private-content deletion confirmation. Keep report, Escape and Back return focus without a write. Permanently delete uses the owned current version; success closes the reader and removes the card, announces capacity and preserves goals/holdings/allocations. Running work requires cancellation first; errors preserve retry/cancel. Newer authoritative polls replace removed cards, and late responses cannot restore them. The same shared UI runs on device; API224–226/WEB223–225/OFFLINE263–264 cover connected and local storage. Downloaded files remain outside application control.

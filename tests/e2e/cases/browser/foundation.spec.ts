@@ -7,7 +7,9 @@ test.describe('Foundation browser @SETUP-001 @SDLC-001 @smoke', () => {
       await expect(page.getByRole('heading', { level: 1 })).toContainText(
         'Understand the market.',
       );
-      await expect(page.getByRole('status')).toHaveText('Connected');
+      await expect(
+        page.getByRole('contentinfo').getByRole('status'),
+      ).toHaveText('Connected');
     });
     await test.step('Show the honest synthetic workspace scope', async () => {
       await expect(
@@ -33,9 +35,9 @@ test.describe('Foundation browser @SETUP-001 @SDLC-001 @smoke', () => {
         }),
       );
       await page.goto('/#brief');
-      await expect(page.getByRole('status')).toHaveText(
-        'Connection unavailable',
-      );
+      await expect(
+        page.getByRole('contentinfo').getByRole('status'),
+      ).toHaveText('Connection unavailable');
     });
   });
 
@@ -50,7 +52,9 @@ test.describe('Foundation browser @SETUP-001 @SDLC-001 @smoke', () => {
       }),
     );
     await page.goto('/#brief');
-    await expect(page.getByRole('status')).toHaveText('Connection unavailable');
+    await expect(page.getByRole('contentinfo').getByRole('status')).toHaveText(
+      'Connection unavailable',
+    );
   });
 
   test('E2E-WEB-004 layout fits and brand works by keyboard', async ({

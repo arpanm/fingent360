@@ -4,6 +4,7 @@ import { parseEnv } from 'node:util';
 import { readFileSync, existsSync } from 'node:fs';
 import {
   FeedSchema,
+  ResearchCatalogSchema,
   FeedItemSchema,
   MacroDashboardSchema,
   LearningCatalogSchema,
@@ -50,6 +51,7 @@ const bundle = {
   macroHistory: {},
   macroEvidence: {},
   sources: [],
+  researchCatalog: null,
   learningCatalog: null,
   journeyCatalog: null,
   media: {},
@@ -58,7 +60,7 @@ let cursor = null;
 do {
   const page = FeedSchema.parse(
     await get(
-      `/discovery/feed${cursor ? `?cursor=${encodeURIComponent(cursor)}` : ''}`,
+      `/discovery/feed?view=explore${cursor ? `&cursor=${encodeURIComponent(cursor)}` : ''}`,
     ),
   );
   bundle.feed.push(...page.items.filter((item) => item.status === 'published'));
@@ -100,6 +102,9 @@ for (const source of bundle.macro.sources)
       );
   }
 bundle.sources = await get('/sources');
+bundle.researchCatalog = ResearchCatalogSchema.parse(
+  await get('/discovery/catalog'),
+);
 bundle.learningCatalog = LearningCatalogSchema.parse(
   await get('/learning/catalog'),
 );

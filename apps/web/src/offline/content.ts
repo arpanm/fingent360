@@ -1,4 +1,10 @@
+import { learningContentItems } from '@fingent360/contracts';
 import {
+  ResearchFiltersSchema,
+  ResearchCatalogSchema,
+  researchSelection,
+  filterResearchItems,
+  buildResearchContext,
   FeedSchema,
   FeedItemSchema,
   DiscoveryIdSchema,
@@ -18,19 +24,18 @@ export function published(bundle: OfflineBundle): FeedItem[] {
     .map((v) => FeedItemSchema.parse(v))
     .filter((v) => v.status === 'published');
 }
-export function filtered(req: OfflineRequest, items: FeedItem[]) {
-  const q = (req.query.get('q') ?? '').trim().toLocaleLowerCase();
-  const kind = req.query.get('kind');
-  if (q.length > 200 || (kind && !['news', 'term', 'annual'].includes(kind)))
-    fail(400, 'Invalid reading filters.');
-  return items.filter(
-    (v) =>
-      (!kind || v.kind === kind) &&
-      (!q ||
-        `${v.title} ${v.summary} ${v.body} ${v.topics.join(' ')}`
-          .toLocaleLowerCase()
-          .includes(q)),
+export function filtersFor(req: OfflineRequest) {
+  const input = Object.fromEntries(
+    ['q', 'kind', 'source', 'topic', 'region', 'view']
+      .filter((key) => req.query.has(key))
+      .map((key) => [key, req.query.get(key)]),
   );
+  const parsed = ResearchFiltersSchema.safeParse(input);
+  if (!parsed.success) fail(400, 'Invalid reading filters.');
+  return parsed.data;
+}
+export function filtered(req: OfflineRequest, items: FeedItem[]) {
+  return filterResearchItems(items, filtersFor(req));
 }
 export async function page(
   req: OfflineRequest,
@@ -40,8 +45,7 @@ export async function page(
   const bytes = new TextEncoder().encode(
     JSON.stringify([
       binding,
-      req.query.get('q'),
-      req.query.get('kind'),
+      filtersFor(req),
       items.map((v) => [v.id, v.version]),
     ]),
   );
@@ -85,18 +89,24 @@ export async function handleContent(
       body: FeedSchema.parse({
         ...(await page(
           req,
-          filtered(req, published(bundle)).sort(
-            (a, b) =>
-              b.publishedAt.localeCompare(a.publishedAt) ||
-              a.id.localeCompare(b.id),
-          ),
+          researchSelection(published(bundle), filtersFor(req)),
           bundle.generatedAt,
         )),
         evaluatedAt: bundle.generatedAt,
       }),
     };
+  if (p === '/discovery/catalog') {
+    if (!bundle.researchCatalog)
+      fail(
+        503,
+        'This snapshot predates source filters. Install the latest app update.',
+      );
+    return { body: ResearchCatalogSchema.parse(bundle.researchCatalog) };
+  }
   if (p === '/learning/catalog')
-    return { body: LearningCatalogSchema.parse(bundle.learningCatalog) };
+    return {
+      body: LearningCatalogSchema.parse({ items: learningContentItems }),
+    };
   if (p === '/macro') return { body: bundle.macro };
   if (p === '/sources') return { body: bundle.sources };
   const history = p.match(/^\/macro\/([^/]+)\/history\/([^/]+)$/);
@@ -116,7 +126,7 @@ export async function handleContent(
     return { body: value };
   }
   const item = p.match(
-    /^\/discovery\/items\/([^/]+)(?:\/(history|evidence|media))?$/,
+    /^\/discovery\/items\/([^/]+)(?:\/(history|evidence|media|context))?$/,
   );
   if (item) {
     const id = DiscoveryIdSchema.parse(decodeURIComponent(item[1]!));
@@ -128,8 +138,13 @@ export async function handleContent(
     if (!action) return { body: current };
     if (action === 'history')
       return { body: bundle.histories[id] ?? [current] };
-    if (action === 'media' && current.status !== 'published')
+    if (
+      (action === 'media' || action === 'context') &&
+      current.status !== 'published'
+    )
       fail(404, 'Source item was withdrawn.');
+    if (action === 'context')
+      return { body: buildResearchContext(current, published(bundle)) };
     const value = action === 'media' ? bundle.media[id] : bundle.evidence[id];
     if (!value)
       fail(

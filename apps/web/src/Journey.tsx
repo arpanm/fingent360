@@ -1,3 +1,4 @@
+import { ResearchLinks } from './ResearchLinks';
 import { useEffect, useState } from 'react';
 import {
   CatalogSchema,
@@ -213,6 +214,12 @@ export function Journey() {
         prices; no live market data or investment recommendations. Do not enter
         real financial or personal information.
       </p>
+      {route === 'brief' && (
+        <ResearchLinks
+          topic="Investor basics"
+          basis="This lab uses fictional companies and prices. Open separately published research to practise checking sources; it does not update or validate the fictional scenario."
+        />
+      )}
       {error && (
         <div role="alert" className="error">
           <p>{error}</p>

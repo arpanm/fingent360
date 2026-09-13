@@ -7,7 +7,7 @@ export const sourceHash = (url: string, body: string) =>
   createHash('sha256')
     .update(url + '\n' + body)
     .digest('hex');
-function plain(value: string) {
+export function plain(value: string) {
   return value
     .replace(/^<!\[CDATA\[([\s\S]*)\]\]>$/, '$1')
     .replace(/<[^>]*>/g, ' ')
@@ -16,6 +16,20 @@ function plain(value: string) {
         n[0]?.toLowerCase() === 'x' ? parseInt(n.slice(1), 16) : Number(n);
       return point > 0 && point <= 0x10ffff ? String.fromCodePoint(point) : '';
     })
+    .replace(
+      /&(?:nbsp|rsquo|lsquo|rdquo|ldquo|mdash|ndash|hellip);/g,
+      (entity) =>
+        ({
+          '&nbsp;': ' ',
+          '&rsquo;': '’',
+          '&lsquo;': '‘',
+          '&rdquo;': '”',
+          '&ldquo;': '“',
+          '&mdash;': '—',
+          '&ndash;': '–',
+          '&hellip;': '…',
+        })[entity] ?? entity,
+    )
     .replace(/&amp;/g, '&')
     .replace(/&lt;/g, '<')
     .replace(/&gt;/g, '>')
@@ -25,7 +39,19 @@ function plain(value: string) {
     .replace(/\s+/g, ' ')
     .trim();
 }
-export function parseFedRss(xml: string, retrievedAt: string): FeedItem[] {
+export function parseOfficialRss(
+  xml: string,
+  retrievedAt: string,
+  provider = {
+    id: 'fed',
+    name: 'Federal Reserve Board',
+    url: FED_FEED,
+    rights: FED_RIGHTS,
+    host: 'www.federalreserve.gov',
+    path: '/newsevents/pressreleases/',
+    topics: ['Federal Reserve releases'],
+  },
+): FeedItem[] {
   if (
     Buffer.byteLength(xml) > 1000000 ||
     /<!DOCTYPE|<!ENTITY/i.test(xml) ||
@@ -59,13 +85,17 @@ export function parseFedRss(xml: string, retrievedAt: string): FeedItem[] {
     };
     const title = read('title'),
       url = read('link'),
-      summary = read('description'),
+      summary = /<description[\s>]/i.test(match[1]!)
+        ? read('description')
+        : provider.id === 'fed'
+          ? read('description')
+          : title,
       published = read('pubDate');
     const parsed = new URL(url);
     if (
       parsed.protocol !== 'https:' ||
-      parsed.hostname !== 'www.federalreserve.gov' ||
-      !parsed.pathname.startsWith('/newsevents/pressreleases/') ||
+      parsed.hostname !== provider.host ||
+      !parsed.pathname.replace(/\/{2,}/g, '/').startsWith(provider.path) ||
       parsed.username ||
       parsed.password ||
       parsed.port
@@ -80,22 +110,22 @@ export function parseFedRss(xml: string, retrievedAt: string): FeedItem[] {
     )
       throw new Error('Invalid feed content.');
     return {
-      id: `fed-${createHash('sha256').update(url).digest('hex').slice(0, 32)}`,
+      id: `${provider.id}-${createHash('sha256').update(url).digest('hex').slice(0, 32)}`,
       version: 1,
       kind: 'news',
       title,
       summary,
       body: summary,
-      topics: ['Federal Reserve releases'],
+      topics: provider.topics,
       publishedAt,
       effectiveLabel: 'Official press release',
       source: {
-        name: 'Federal Reserve Board',
+        name: provider.name,
         url,
         retrievedAt,
-        rights: FED_RIGHTS,
+        rights: provider.rights,
       },
-      sourceHash: sourceHash(FED_FEED, xml),
+      sourceHash: sourceHash(provider.url, xml),
       importance: 2,
       relatedIds: [],
       status: 'draft',
@@ -103,6 +133,9 @@ export function parseFedRss(xml: string, retrievedAt: string): FeedItem[] {
       reviewedAt: null,
     };
   });
+}
+export function parseFedRss(xml: string, retrievedAt: string) {
+  return parseOfficialRss(xml, retrievedAt);
 }
 export async function fetchFed() {
   const response = await fetch(FED_FEED, {

@@ -19,6 +19,9 @@ import {
 import type pg from 'pg';
 import { z } from 'zod';
 import {
+  ResearchFiltersSchema,
+  filterResearchItems,
+  selectToday,
   FeedRankingSchema,
   FeedItemSchema,
   LibrarySchema,
@@ -213,15 +216,20 @@ export class LibraryController {
     @Query('cursor') cursor?: string,
     @Query('q') query?: string,
     @Query('kind') kind?: string,
+    @Query('source') source?: string,
+    @Query('topic') topic?: string,
+    @Query('region') region?: string,
+    @Query('view') view?: string,
   ) {
     if (cursor !== undefined) decodeLibraryFeedCursor(cursor);
-    const filters = parse(
-      z.strictObject({
-        q: z.string().trim().max(200),
-        kind: z.enum(['news', 'term', 'annual']).optional(),
-      }),
-      { q: query ?? '', ...(kind === undefined ? {} : { kind }) },
-    );
+    const filters = parse(ResearchFiltersSchema, {
+      q: query ?? '',
+      ...(kind === undefined ? {} : { kind }),
+      ...(source === undefined ? {} : { source }),
+      ...(topic === undefined ? {} : { topic }),
+      ...(region === undefined ? {} : { region }),
+      ...(view === undefined ? {} : { view }),
+    });
     return this.store.transaction(async (c) => {
       await c.query(
         'SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY',
@@ -231,23 +239,17 @@ export class LibraryController {
       const rows = await c.query<{ data: unknown }>(
         "SELECT data FROM (SELECT DISTINCT ON(item_id) data FROM discovery_versions WHERE data->>'status'<>'draft' ORDER BY item_id,version DESC) visible WHERE data->>'status'='published'",
       );
-      const items = rows.rows
-        .map((row) => FeedItemSchema.parse(row.data))
-        .filter(
-          (value) =>
-            !value.topics.some((topic) =>
-              library.preferences.mutedTopics.includes(topic),
-            ),
-        )
-        .filter(
-          (value) =>
-            (!filters.kind || value.kind === filters.kind) &&
-            (!filters.q ||
-              [value.title, value.summary, value.body, ...value.topics]
-                .join(' ')
-                .toLocaleLowerCase()
-                .includes(filters.q.toLocaleLowerCase())),
-        );
+      const items = filterResearchItems(
+        rows.rows
+          .map((row) => FeedItemSchema.parse(row.data))
+          .filter(
+            (value) =>
+              !value.topics.some((topic) =>
+                library.preferences.mutedTopics.includes(topic),
+              ),
+          ),
+        filters,
+      );
       const whyShown: Record<string, string> = {};
       const ranked = items
         .map((value) => {
@@ -331,6 +333,14 @@ export class LibraryController {
             }
           }
         }
+      const ordered =
+        filters.view === 'today'
+          ? selectToday(ranked.map((entry) => entry.value))
+          : ranked.map((entry) => entry.value);
+      if (filters.view === 'today')
+        for (const item of ordered)
+          whyShown[item.id] +=
+            ' Selected for Today’s source-balanced digest; Explore contains the full collection.';
       const fingerprint = createHash('sha256')
         .update(
           JSON.stringify({
@@ -343,19 +353,15 @@ export class LibraryController {
               itemId: value.itemId,
               version: value.version,
             })),
-            order: ranked.map((entry) => ({
-              id: entry.value.id,
-              version: entry.value.version,
-              reason: whyShown[entry.value.id],
+            order: ordered.map((entry) => ({
+              id: entry.id,
+              version: entry.version,
+              reason: whyShown[entry.id],
             })),
           }),
         )
         .digest('hex');
-      const page = libraryFeedPage(
-        ranked.map((entry) => entry.value),
-        fingerprint,
-        cursor,
-      );
+      const page = libraryFeedPage(ordered, fingerprint, cursor);
       return FeedRankingSchema.parse({
         items: page.items,
         evaluatedAt: new Date().toISOString(),

@@ -1,5 +1,9 @@
 # Planned end-to-end coverage
 
+## SOURCES-002 free sources and full reading paths
+
+API180–182 and WEB170/180–182 cover the real catalogue, selected authorized refresh/outcomes, strict shared public/private filters/cursors, publication-bound context, source choices → Scan/Stories → reader/evidence/history → related learning/Explore → Back, saved quiz progress, overview and fictional-lab boundaries. Existing WEB130–136/140/160 retain gestures, reactions/Undo, long-press/save/reminders, pagination/recovery, narrow viewport and actual media export coverage. OFFLINE220–222 assert the same source/context/learning routes against bundled public data with no API network traffic and unchanged annual dates across reload. Native acceptance requires rebuilding and reinstalling the same-key APK, airplane-mode navigation and preservation of existing local records. Provider failures keep accepted editions, per-source outcomes remain independent and retry is idempotent; malformed fixtures test strict parsing and exact decimal preservation. Source eligibility and remaining gates are documented in free-sources.md. No automatic source scheduler is introduced.
+
 ## UX-002 mobile product direction
 
 [Mobile experience acceptance](mobile-experience-acceptance.md) defines the full target. Executable API120–123/140–141/150/160 and WEB120–121/130–136/140/150/160 cover real publication, search/pagination, contextual reading, interest/save/reminder persistence, worker correction/withdrawal, grounded query assistance, learning and reviewed SVG/WebM. Existing macro/source/money tests now follow the separate operations and guided investor flows. Provider unit fixtures cover the three optional adapters without paid calls. Current run IDs and failures/passes live in TODO/status; no live paid-provider, physical-device, field-metric or user-research pass is implied.

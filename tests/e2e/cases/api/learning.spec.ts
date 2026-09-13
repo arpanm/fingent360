@@ -21,7 +21,16 @@ test('E2E-API-140 glossary quizzes, poll aggregation, ownership and export @UX-0
     const catalog = LearningCatalogSchema.parse(
       await (await request.get('/api/v1/learning/catalog')).json(),
     );
-    expect(catalog.items).toHaveLength(3);
+    expect(catalog.items.length).toBeGreaterThanOrEqual(3);
+    expect(new Set(catalog.items.map((item) => item.id)).size).toBe(
+      catalog.items.length,
+    );
+    expect(
+      catalog.items.some(
+        (item) => item.kind === 'quiz' && item.id === 'isin-meaning',
+      ),
+    ).toBe(true);
+    expect(catalog.items.some((item) => item.kind === 'poll')).toBe(true);
     expect((await request.get('/api/v1/account/learning/state')).status()).toBe(
       401,
     );

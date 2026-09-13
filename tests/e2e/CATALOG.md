@@ -176,3 +176,20 @@ Run `pnpm android:web` then `E2E_BROWSER=chrome pnpm android:test` or `pnpm andr
 | E2E-API-006     | Credentialed CORS permits only the configured web origin for later CDN deployment                              |
 
 Native install/airplane mode, file pickers, system Back, update persistence, connection recovery and accessibility follow [Android acceptance](plans/android-acceptance.md). Runtime evidence and limitations are in [status](../../docs/development/status.md); authored cases alone are not a pass.
+
+## SOURCES-002 — free sources and connected reading
+
+| Case            | Coverage                                                                                                    | Projects        |
+| --------------- | ----------------------------------------------------------------------------------------------------------- | --------------- |
+| E2E-API-180     | Actual source catalogue, India filtering, Today bound, source-version context and invalid filters           | api             |
+| E2E-API-181     | Protected selected refresh, blocked/unknown/duplicate rejection, durable glossary outcomes                  | api             |
+| E2E-API-182     | Signed-in source/topic/region corpus parity and cross-filter cursor rejection                               | api             |
+| E2E-WEB-170     | Source-backed quiz, saved answer, learning lab and overview reading links                                   | desktop, mobile |
+| E2E-WEB-180     | Filters, Scan/Stories arrows, reader/context/Back, empty/reset, source-directory links                      | desktop, mobile |
+| E2E-WEB-181     | Operations source selection, real glossary refresh and independent outcomes                                 | desktop, mobile |
+| E2E-WEB-182     | PIB source Stories → reader → actual evidence hash/history → linked learning → Back with selection retained | desktop, mobile |
+| E2E-OFFLINE-220 | Source → filtered Stories → reader/context → Back/reload without API requests                               | offline         |
+| E2E-OFFLINE-221 | Shared source-backed quiz rubrics, exact retry and durable progress                                         | offline         |
+| E2E-OFFLINE-222 | Snapshot source/topic filtering, annual edition dates and related context preserved after reload            | offline         |
+
+Use `pnpm e2e:ui`, select @SOURCES-002 and existing discovery/library/media/navigation regressions. Offline uses `pnpm android:test:ui` after building assets. Watch/eye mode remains off. Apply migration015 and refresh/review actual sources first; no source fixtures masquerade as live data. Parser/unit fixtures preserve capture provenance and exercise schema/country/unit/date/URL failures, exact decimals and content-bound cursors. Exact executed evidence lives in status, separately from this catalogue.

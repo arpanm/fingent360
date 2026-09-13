@@ -26,7 +26,7 @@ async function ensureReading(api: APIRequestContext) {
   if (state.items.filter((i) => i.kind === 'term').length < 2) {
     const refreshed = await api.post('/api/v1/ops/discovery/refresh', {
       headers: origin(),
-      data: {},
+      data: { sourceIds: ['glossary'] },
       timeout: 45000,
     });
     expect(refreshed.status(), await refreshed.text()).toBe(201);
@@ -111,7 +111,7 @@ test('E2E-WEB-130 explore actual reading, open history and return to filtered sc
     await page.keyboard.press('Escape');
     await expect(dialog).toHaveCount(0);
     await page.getByRole('button', { name: 'Back', exact: true }).click();
-    await expect(page).toHaveURL(/#explore$/);
+    await expect(page).toHaveURL(/#explore(?:\?|$)/);
     await expect(page.getByLabel('Search topics and reading')).toHaveValue(
       item.title,
     );
@@ -268,7 +268,7 @@ test('E2E-WEB-132 stories controls, view persistence and responsive navigation @
     await nav.getByRole('link', { name: 'Today', exact: true }).click();
     await expect(page).toHaveURL(/#today$/);
     await nav.getByRole('link', { name: 'Explore', exact: true }).click();
-    await expect(page).toHaveURL(/#explore$/);
+    await expect(page).toHaveURL(/#explore\?kind=term&mode=stories$/);
     const size = await page.evaluate(() => ({
       page: document.documentElement.scrollWidth,
       viewport: innerWidth,

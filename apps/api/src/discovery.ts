@@ -30,7 +30,20 @@ import {
 } from '@fingent360/contracts';
 import type { AppConfig } from './config.js';
 import { OPERATOR_STORE, OperatorStore } from './operator.js';
-import { fetchFed, glossaryItems } from './discovery-provider.js';
+import { glossaryItems } from './discovery-provider.js';
+import { fetchResearchSource, researchSources } from './research-providers.js';
+import {
+  enrichResearchItem,
+  researchGlossaryItems,
+  buildResearchContext,
+  ResearchCatalogSchema,
+  ResearchRunsSchema,
+  ResearchRefreshInputSchema,
+  ResearchFiltersSchema,
+  researchSelection,
+  sourceIdFor,
+  type ResearchFilters,
+} from '@fingent360/contracts';
 import { macroSources, normalizeDecimal } from './world-bank.js';
 export const DISCOVERY_STORE = Symbol('DISCOVERY_STORE');
 interface VersionRow {
@@ -83,6 +96,62 @@ export function discoveryFingerprint(item: FeedItem) {
     )
     .digest('hex');
 }
+const DiscoveryCursorSchema = z.strictObject({
+  version: z.literal('research-v1'),
+  fingerprint: z.string().regex(/^[a-f0-9]{64}$/),
+  offset: z.number().int().positive().max(1000000),
+});
+export function discoveryFeedPage(
+  items: FeedItem[],
+  filters: ResearchFilters,
+  cursor?: string,
+) {
+  const fingerprint = createHash('sha256')
+    .update(
+      JSON.stringify({
+        filters: ResearchFiltersSchema.parse(filters),
+        order: items.map((item) => [item.id, item.version]),
+      }),
+    )
+    .digest('hex');
+  let offset = 0;
+  if (cursor !== undefined) {
+    let decoded: z.infer<typeof DiscoveryCursorSchema>;
+    try {
+      if (cursor.length > 256 || !/^[A-Za-z0-9_-]+$/.test(cursor))
+        throw Error();
+      const bytes = Buffer.from(cursor, 'base64url');
+      if (bytes.toString('base64url') !== cursor) throw Error();
+      decoded = DiscoveryCursorSchema.parse(JSON.parse(bytes.toString('utf8')));
+    } catch {
+      throw new BadRequestException(
+        'Invalid feed cursor. Start from the first page.',
+      );
+    }
+    if (decoded.fingerprint !== fingerprint)
+      throw new ConflictException(
+        'Research selection changed. Start from the first page.',
+      );
+    offset = decoded.offset;
+    if (offset % 30 !== 0 || offset >= items.length)
+      throw new BadRequestException(
+        'Invalid feed cursor. Start from the first page.',
+      );
+  }
+  return {
+    items: items.slice(offset, offset + 30),
+    nextCursor:
+      offset + 30 < items.length
+        ? Buffer.from(
+            JSON.stringify({
+              version: 'research-v1',
+              fingerprint,
+              offset: offset + 30,
+            }),
+          ).toString('base64url')
+        : null,
+  };
+}
 export class DiscoveryStore {
   private readonly pool: pg.Pool;
   private readonly mongo: MongoClient;
@@ -120,61 +189,84 @@ export class DiscoveryStore {
       c?.release();
     }
   }
-  async feed(cursor?: string, kind?: string, q?: string) {
-    const filters = z
-      .strictObject({
-        cursor: z.string().max(1500).optional(),
-        kind: z.enum(['news', 'term', 'annual']).optional(),
-        q: z.string().max(200).optional(),
-      })
-      .safeParse({ cursor, kind, q });
-    if (!filters.success)
-      throw new BadRequestException(
-        'Choose a valid content type and a search up to 200 characters.',
-      );
-    const query = (q ?? '').trim().toLowerCase();
-    let after: { date: string; id: string; kind: string; q: string } | null =
-      null;
-    if (cursor) {
-      try {
-        after = z
-          .strictObject({
-            date: z.iso.datetime(),
-            id: DiscoveryIdSchema,
-            kind: z.string(),
-            q: z.string().max(200),
-          })
-          .parse(JSON.parse(Buffer.from(cursor, 'base64url').toString('utf8')));
-        if (after.kind !== (kind ?? '') || after.q !== query)
-          throw new Error('filters changed');
-      } catch {
-        throw new BadRequestException(
-          'Invalid feed cursor. Start from the first page.',
-        );
-      }
-    }
+  async publishedItems() {
     return this.transaction(async (c) => {
       const result = await c.query<VersionRow>(
-        "SELECT v.data FROM discovery_items i JOIN LATERAL (SELECT data FROM discovery_versions WHERE item_id=i.id AND data->>'status'<>'draft' ORDER BY version DESC LIMIT 1) v ON true WHERE v.data->>'status'='published' AND ($1::text IS NULL OR (v.data->>'publishedAt',i.id)<($1,$2)) AND ($3::text IS NULL OR v.data->>'kind'=$3) AND ($4='' OR strpos(lower(concat_ws(' ',v.data->>'title',v.data->>'summary',v.data->>'topics')),$4)>0) ORDER BY v.data->>'publishedAt' DESC,i.id DESC LIMIT 31",
-        [after?.date ?? null, after?.id ?? null, kind ?? null, query],
+        "SELECT v.data FROM discovery_items i JOIN LATERAL (SELECT data FROM discovery_versions WHERE item_id=i.id AND data->>'status'<>'draft' ORDER BY version DESC LIMIT 1) v ON true WHERE v.data->>'status'='published'",
       );
-      const items = result.rows
-        .slice(0, 30)
-        .map((r) => FeedItemSchema.parse(r.data));
-      return FeedSchema.parse({
-        items,
+      return result.rows.map((r) => FeedItemSchema.parse(r.data));
+    });
+  }
+  async feed(
+    cursor?: string,
+    kind?: string,
+    q?: string,
+    extra: ResearchFilters = {},
+  ) {
+    const parsed = ResearchFiltersSchema.safeParse({ ...extra, kind, q });
+    if (!parsed.success)
+      throw new BadRequestException('Invalid research filters.');
+    const filters = parsed.data;
+    const all = researchSelection(await this.publishedItems(), filters),
+      page = discoveryFeedPage(all, filters, cursor);
+    return FeedSchema.parse({ ...page, evaluatedAt: new Date().toISOString() });
+  }
+  async context(id: string) {
+    const item = await this.item(id);
+    if (item.status !== 'published')
+      throw new NotFoundException('Published context unavailable.');
+    return buildResearchContext(item, await this.publishedItems());
+  }
+  async sourceRuns() {
+    return this.transaction(async (c) => {
+      const result = await c.query(
+        'SELECT * FROM discovery_source_runs ORDER BY started_at DESC,id DESC LIMIT 100',
+      );
+      return ResearchRunsSchema.parse({
+        runs: result.rows.map((r) => ({
+          id: r.id,
+          runId: r.run_id,
+          sourceId: r.source_id,
+          startedAt: r.started_at.toISOString(),
+          finishedAt: r.finished_at?.toISOString() ?? null,
+          status: r.status,
+          message: r.message,
+          checked: r.checked,
+          inserted: r.inserted,
+        })),
+      });
+    });
+  }
+  async catalog() {
+    const items = await this.publishedItems();
+    return this.transaction(async (c) => {
+      const records = await c.query(
+        'SELECT DISTINCT ON(source_id) * FROM discovery_source_runs ORDER BY source_id,started_at DESC',
+      );
+      const success = await c.query(
+        "SELECT source_id,max(finished_at) AS at FROM discovery_source_runs WHERE status='succeeded' GROUP BY source_id",
+      );
+      return ResearchCatalogSchema.parse({
+        sources: researchSources.map((source) => {
+          const own = items.filter((item) => sourceIdFor(item) === source.id),
+            latest = records.rows.find((r) => r.source_id === source.id),
+            last = success.rows.find((r) => r.source_id === source.id);
+          return {
+            ...source,
+            publishedCount: own.length,
+            latestPublishedAt:
+              own
+                .map((i) => i.publishedAt)
+                .sort()
+                .at(-1) ?? null,
+            lastCheckedAt: latest?.started_at.toISOString() ?? null,
+            lastSuccessAt: last?.at?.toISOString() ?? null,
+            lastRunStatus: latest?.status ?? null,
+            lastMessage: latest?.message ?? source.accessNote,
+          };
+        }),
+        topics: [...new Set(items.flatMap((i) => i.topics))].sort(),
         evaluatedAt: new Date().toISOString(),
-        nextCursor:
-          result.rows.length > 30
-            ? Buffer.from(
-                JSON.stringify({
-                  date: items.at(-1)!.publishedAt,
-                  id: items.at(-1)!.id,
-                  kind: kind ?? '',
-                  q: query,
-                }),
-              ).toString('base64url')
-            : null,
       });
     });
   }
@@ -211,7 +303,9 @@ export class DiscoveryStore {
     try {
       const raw = await this.mongo
         .db()
-        .collection<Raw>(item.kind === 'annual' ? 'macro_raw' : 'discovery_raw')
+        .collection<Raw>(
+          item.id.startsWith('annual-') ? 'macro_raw' : 'discovery_raw',
+        )
         .findOne({ _id: item.sourceHash });
       if (!raw) throw new NotFoundException('Source document unavailable.');
       return DiscoveryEvidenceSchema.parse({
@@ -306,7 +400,18 @@ export class DiscoveryStore {
       ]);
     return 1;
   }
-  async refresh() {
+  async refresh(sourceIds?: string[]) {
+    const selected =
+      sourceIds ??
+      researchSources.filter((s) => s.access === 'enabled').map((s) => s.id);
+    if (
+      selected.some(
+        (id) =>
+          !researchSources.some((s) => s.id === id && s.access === 'enabled'),
+      ) ||
+      new Set(selected).size !== selected.length
+    )
+      throw new BadRequestException('Choose unique enabled source IDs.');
     let client: pg.PoolClient | undefined;
     let locked = false;
     let id: string | undefined;
@@ -321,88 +426,137 @@ export class DiscoveryStore {
       await client.query(
         "UPDATE discovery_runs SET status='failed',finished_at=now(),message='Previous refresh interrupted; retry is safe.' WHERE status='running'",
       );
+      await client.query(
+        "UPDATE discovery_source_runs SET status='failed',finished_at=now(),message='Previous refresh interrupted; retry is safe.' WHERE status='running'",
+      );
       id = randomUUID();
       await client.query(
         "INSERT INTO discovery_runs(id,status,message) VALUES($1,'running','Fetching official feed and synchronizing accepted macro history.')",
         [id],
       );
-      const raw = await fetchFed();
-      await this.mongo
-        .db()
-        .collection<Raw>('discovery_raw')
-        .updateOne(
-          { _id: raw.hash },
-          {
-            $setOnInsert: {
-              url: raw.url,
-              body: raw.body,
-              retrievedAt: raw.retrievedAt,
-            },
-          },
-          { upsert: true },
+      let inserted = 0,
+        checked = 0,
+        failures = 0;
+      for (const sourceId of selected) {
+        const sourceRunId = randomUUID();
+        await client.query(
+          "INSERT INTO discovery_source_runs(id,run_id,source_id,status) VALUES($1,$2,$3,'running')",
+          [sourceRunId, id, sourceId],
         );
-      const inputs = [...raw.items, ...glossaryItems(raw.retrievedAt)];
-      for (const source of macroSources) {
-        const rows = await client.query<{
-          id: string;
-          year: number;
-          value: string | null;
-          retrieved_at: Date;
-          source_hash: string;
-          source_url: string;
-          revision: number;
-        }>(
-          'SELECT DISTINCT ON(year) id,year,value::text,retrieved_at,source_hash,source_url,revision FROM macro_observations WHERE indicator=$1 ORDER BY year DESC,revision DESC',
-          [source.indicator],
-        );
-        for (const o of rows.rows) {
-          const value =
-            o.value === null ? 'unavailable' : normalizeDecimal(o.value) + '%';
-          inputs.push({
-            id: `annual-${source.indicator === 'NY.GDP.MKTP.KD.ZG' ? 'gdp' : 'cpi'}-${o.year}`,
-            version: 1,
-            kind: 'annual',
-            title: `${source.title}: ${o.year}`,
-            summary: `Reported ${o.year} annual value: ${value}.`,
-            body: `${source.explanation} Exact reported annual value: ${value}. Provider observation revision ${o.revision}.`,
-            topics: ['India', 'Annual data'],
-            publishedAt: `${o.year}-12-31T00:00:00.000Z`,
-            effectiveLabel: `Observation year ${o.year} · period-end ordering, not release date`,
-            source: {
-              name: 'World Bank',
-              url: source.sourceUrl,
-              retrievedAt: o.retrieved_at.toISOString(),
-              rights: `${source.attribution} CC BY 4.0; ${source.termsUrl}`,
-            },
-            sourceHash: o.source_hash,
-            importance: 1,
-            relatedIds: [
-              source.indicator === 'NY.GDP.MKTP.KD.ZG'
-                ? 'term-gdp'
-                : 'term-inflation',
+        let sourceInserted = 0;
+        const inputs: FeedItem[] = [];
+        try {
+          if (sourceId === 'glossary')
+            inputs.push(
+              ...glossaryItems(new Date().toISOString()),
+              ...researchGlossaryItems(new Date().toISOString()),
+            );
+          else {
+            const raws = await fetchResearchSource(sourceId, async (raw) => {
+              await this.mongo
+                .db()
+                .collection<Raw>('discovery_raw')
+                .updateOne(
+                  { _id: raw.hash },
+                  {
+                    $setOnInsert: {
+                      url: raw.url,
+                      body: raw.body,
+                      retrievedAt: raw.retrievedAt,
+                    },
+                  },
+                  { upsert: true },
+                );
+            });
+            for (const raw of raws) inputs.push(...raw.items);
+          }
+          if (sourceId === 'world-bank') {
+            for (const source of macroSources) {
+              const rows = await client.query<{
+                id: string;
+                year: number;
+                value: string | null;
+                retrieved_at: Date;
+                source_hash: string;
+                source_url: string;
+                revision: number;
+              }>(
+                'SELECT DISTINCT ON(year) id,year,value::text,retrieved_at,source_hash,source_url,revision FROM macro_observations WHERE indicator=$1 ORDER BY year DESC,revision DESC',
+                [source.indicator],
+              );
+              for (const o of rows.rows) {
+                const value =
+                  o.value === null
+                    ? 'unavailable'
+                    : normalizeDecimal(o.value) + '%';
+                inputs.push({
+                  id: `annual-${source.indicator === 'NY.GDP.MKTP.KD.ZG' ? 'gdp' : 'cpi'}-${o.year}`,
+                  version: 1,
+                  kind: 'annual',
+                  title: `${source.title}: ${o.year}`,
+                  summary: `Reported ${o.year} annual value: ${value}.`,
+                  body: `${source.explanation} Exact reported annual value: ${value}. Provider observation revision ${o.revision}.`,
+                  topics: ['India', 'Annual data'],
+                  publishedAt: `${o.year}-12-31T00:00:00.000Z`,
+                  effectiveLabel: `Observation year ${o.year} · period-end ordering, not release date`,
+                  source: {
+                    name: 'World Bank',
+                    url: source.sourceUrl,
+                    retrievedAt: o.retrieved_at.toISOString(),
+                    rights: `${source.attribution} CC BY 4.0; ${source.termsUrl}`,
+                  },
+                  sourceHash: o.source_hash,
+                  importance: 1,
+                  relatedIds: [
+                    source.indicator === 'NY.GDP.MKTP.KD.ZG'
+                      ? 'term-gdp'
+                      : 'term-inflation',
+                  ],
+                  status: 'draft',
+                  correctionNote: null,
+                  reviewedAt: null,
+                });
+              }
+            }
+          }
+          await client.query('BEGIN');
+          try {
+            for (const item of inputs)
+              sourceInserted += await this.promoteDraft(
+                client,
+                enrichResearchItem(item),
+              );
+            await client.query('COMMIT');
+          } catch (error) {
+            await client.query('ROLLBACK');
+            throw error;
+          }
+          inserted += sourceInserted;
+          checked += inputs.length;
+          await client.query(
+            "UPDATE discovery_source_runs SET status='succeeded',finished_at=now(),message=$2,checked=$3,inserted=$4 WHERE id=$1",
+            [
+              sourceRunId,
+              `${inputs.length} source items checked; ${sourceInserted} drafts await review.`,
+              inputs.length,
+              sourceInserted,
             ],
-            status: 'draft',
-            correctionNote: null,
-            reviewedAt: null,
-          });
+          );
+        } catch {
+          failures++;
+          await client.query(
+            "UPDATE discovery_source_runs SET status='failed',finished_at=now(),message='Source unavailable, invalid, or storage failed. Existing editions retained; other sources continue.' WHERE id=$1",
+            [sourceRunId],
+          );
         }
       }
-      await client.query('BEGIN');
-      let inserted = 0;
-      try {
-        for (const item of inputs)
-          inserted += await this.promoteDraft(client, item);
-        await client.query('COMMIT');
-      } catch (error) {
-        await client.query('ROLLBACK');
-        throw error;
-      }
       const result = await client.query<RunRow>(
-        "UPDATE discovery_runs SET status='succeeded',finished_at=now(),message=$2,inserted=$3 WHERE id=$1 RETURNING *",
+        'UPDATE discovery_runs SET status=$4,finished_at=now(),message=$2,inserted=$3 WHERE id=$1 RETURNING *',
         [
           id,
-          `${inputs.length} source items checked; ${inserted} draft versions await review.`,
+          `${checked} source items checked; ${inserted} draft versions await review; ${failures} sources failed independently.`,
           inserted,
+          failures === selected.length ? 'failed' : 'succeeded',
         ],
       );
       return run(result.rows[0]!);
@@ -436,8 +590,18 @@ export class DiscoveryController {
     @Query('cursor') cursor?: string,
     @Query('kind') kind?: string,
     @Query('q') q?: string,
+    @Query('source') source?: string,
+    @Query('topic') topic?: string,
+    @Query('region') region?: 'india' | 'global',
+    @Query('view') view?: 'today' | 'explore',
   ) {
-    return this.store.feed(cursor, kind, q);
+    return this.store.feed(cursor, kind, q, { source, topic, region, view });
+  }
+  @Get('items/:id/context') context(@Param('id') id: string) {
+    return this.store.context(id);
+  }
+  @Get('catalog') catalog() {
+    return this.store.catalog();
   }
   @Get('items/:id') item(@Param('id') id: string) {
     return this.store.item(id);
@@ -459,6 +623,10 @@ export class OpsDiscoveryController {
     await this.operator.require(cookie);
     return this.store.operations();
   }
+  @Get('runs') async runs(@Headers('cookie') cookie?: string) {
+    await this.operator.require(cookie);
+    return this.store.sourceRuns();
+  }
   @Post('refresh') async refresh(
     @Body() body: unknown,
     @Headers('cookie') cookie?: string,
@@ -466,7 +634,8 @@ export class OpsDiscoveryController {
   ) {
     this.operator.origin(origin);
     await this.operator.require(cookie);
-    if (!z.strictObject({}).safeParse(body ?? {}).success)
+    const input = ResearchRefreshInputSchema.safeParse(body ?? {});
+    if (!input.success)
       throw new BadRequestException(
         'Refresh accepts no provider URLs or fields.',
       );
@@ -475,7 +644,7 @@ export class OpsDiscoveryController {
       'fixed-provider',
       cookie,
     );
-    return this.store.refresh();
+    return this.store.refresh(input.data.sourceIds);
   }
   @Put('items/:id') async review(
     @Param('id') id: string,

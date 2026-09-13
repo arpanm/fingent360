@@ -35,7 +35,8 @@
     "e2e:typecheck": "tsc -p tests/e2e/tsconfig.json --noEmit",
     "db:migrate": "pnpm --filter @fingent360/api db:migrate",
     "research:setup": "node scripts/research-setup.mjs",
-    "preview": "node scripts/dev.mjs --preview"
+    "preview": "node scripts/dev.mjs --preview",
+    "research:refresh": "node scripts/research-refresh.mjs"
   },
   "devDependencies": {
     "typescript": "5.9.3",

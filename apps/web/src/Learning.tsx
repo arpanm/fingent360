@@ -7,6 +7,8 @@ import {
   type LearningQuestion,
   type LearningState,
 } from '@fingent360/contracts';
+import { ResearchLinks } from './ResearchLinks';
+import { learningReferences } from '@fingent360/contracts';
 import { AccountGate } from './AccountGate';
 async function request(path: string, body?: unknown): Promise<unknown> {
   const response = await fetch(path, {
@@ -37,6 +39,21 @@ async function request(path: string, body?: unknown): Promise<unknown> {
 }
 export function Learning() {
   const requests = useRef<Record<string, string>>({});
+  const [questionLink, setQuestionLink] = useState(() =>
+    new URLSearchParams(window.location.hash.split('?')[1] ?? '').get(
+      'question',
+    ),
+  );
+  useEffect(() => {
+    const changed = () =>
+      setQuestionLink(
+        new URLSearchParams(window.location.hash.split('?')[1] ?? '').get(
+          'question',
+        ),
+      );
+    window.addEventListener('hashchange', changed);
+    return () => window.removeEventListener('hashchange', changed);
+  }, []);
   const [items, setItems] = useState<LearningQuestion[]>([]);
   const [state, setState] = useState<LearningState | null>(null);
   const [guest, setGuest] = useState(false);
@@ -45,6 +62,15 @@ export function Learning() {
   const [choices, setChoices] = useState<Record<string, string>>({});
   const [consent, setConsent] = useState(false);
   const [notice, setNotice] = useState('');
+  useEffect(() => {
+    if (
+      !questionLink ||
+      !items.some((question) => question.id === questionLink)
+    )
+      return;
+    const target = document.getElementById(`learning-${questionLink}`);
+    target?.focus();
+  }, [items, questionLink]);
   async function load() {
     setState(
       LearningStateSchema.parse(
@@ -160,6 +186,7 @@ export function Learning() {
         </label>
       )}
       {items.map((question) => {
+        const reference = learningReferences[question.id];
         const attempt = state?.attempts.find(
           (a) => a.questionId === question.id && a.version === question.version,
         );
@@ -170,6 +197,8 @@ export function Learning() {
         return (
           <article
             className="panel"
+            id={`learning-${question.id}`}
+            tabIndex={-1}
             key={question.id}
             aria-label={question.title}
           >
@@ -258,6 +287,20 @@ export function Learning() {
                 version {question.version}
               </p>
             </details>
+            {reference && (
+              <details open={questionLink === question.id}>
+                <summary>Read the source and related research</summary>
+                <p>{reference.note}</p>
+                <a href={reference.url} target="_blank" rel="noreferrer">
+                  {reference.title}
+                </a>
+                <ResearchLinks
+                  topic={reference.topic}
+                  title={`Reading for ${question.title}`}
+                  basis="Matched by this question’s broad topic. Published source material is separate from the authored quiz; dates describe the source, not a prediction."
+                />
+              </details>
+            )}
           </article>
         );
       })}

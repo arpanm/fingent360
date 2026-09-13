@@ -8,3 +8,6 @@ artifacts/
 android/.gradle/
 android/**/build/
 android/app/src/main/assets/
+
+# Captured provider fixtures preserve evidence bytes, including malformed source HTML.
+apps/api/test/fixtures/research/

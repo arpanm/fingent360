@@ -31,6 +31,7 @@ try {
     '012_learning.sql',
     '013_media.sql',
     '014_media_attempts.sql',
+    '015_source_runs.sql',
   ]) {
     await applyMigration(
       client,

@@ -45,7 +45,7 @@ test('E2E-API-120 real feed review, withdrawal and protected operations @UX-002 
     ).toBe(400);
     const response = await request.post('/api/v1/ops/discovery/refresh', {
       headers,
-      data: {},
+      data: { sourceIds: ['fed', 'glossary'] },
       timeout: 45000,
     });
     expect(response.status(), await response.text()).toBe(201);
@@ -55,7 +55,9 @@ test('E2E-API-120 real feed review, withdrawal and protected operations @UX-002 
     const operations = DiscoveryOperationsSchema.parse(
       await (await request.get('/api/v1/ops/discovery/items')).json(),
     );
-    const item = operations.items.find((i) => i.kind === 'news')!;
+    const item = operations.items.find(
+      (i) => i.kind === 'news' && i.id.startsWith('fed-'),
+    )!;
     expect(item).toBeTruthy();
     expect(item.source.url).toContain(
       'https://www.federalreserve.gov/newsevents/pressreleases/',

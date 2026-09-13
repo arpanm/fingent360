@@ -43,35 +43,35 @@ Source inspection on 2026-09-12: runtime modules in apps/api/src, apps/web/src, 
 
 All rows require real access/usage evidence before production acceptance. A candidate URL, a registry entry or public accessibility does not satisfy that requirement. Rights review and adapter engineering are separate work; absent research is not automatically an external blocker.
 
-| Task    | Source family                   | Current scope and remaining work                                                                                 |
-| ------- | ------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| SRC-001 | Security master                 | No adapter; obtain permitted representative data and implement ISIN/symbol identity reconciliation.              |
-| SRC-002 | Indian EOD prices/volume        | No adapter; rights, timestamps/revisions and price reconciliation required. No live valuation currently claimed. |
-| SRC-003 | Corporate actions               | No adapter; adjusted/unadjusted history and entitlement reconciliation remain.                                   |
-| SRC-004 | Filings/results                 | No adapter; filing provenance, revisions and extraction validation remain.                                       |
-| SRC-005 | Fundamentals                    | No adapter; units, reporting periods and canonical reported facts remain.                                        |
-| SRC-006 | Index/sector                    | No adapter; membership/classification versions and usage rights remain.                                          |
-| SRC-007 | India macro                     | World Bank annual India GDP/CPI works as a bounded child; RBI/MoSPI and broader India releases remain.           |
-| SRC-008 | Global macro/rates              | No adapter; permitted source selection and normalization remain.                                                 |
-| SRC-009 | Oil/commodity/FX                | No real adapter; synthetic oil fixture is not source onboarding.                                                 |
-| SRC-010 | FII/DII/FPI flows               | No adapter; reporting revisions, units and licensed/public usage review remain.                                  |
-| SRC-011 | Participant positioning         | No adapter; explicit research interpretation and data rights remain.                                             |
-| SRC-012 | Company/market news             | No adapter; publication/extraction rights and corrections remain.                                                |
-| SRC-013 | Portfolio spreadsheets          | Limited user-input CSV implemented; representative broker/XLSX parsers and reconciliation remain.                |
-| SRC-014 | Regulatory/tax sources          | Blueprint links exist; monitored/versioned source ingestion and expert-reviewed applicability remain.            |
-| SRC-015 | MF scheme master/NAV            | Later Indian-fund gate; no adapter.                                                                              |
-| SRC-016 | MF holdings/factsheets          | Later Indian-fund gate; no parser/adapter.                                                                       |
-| SRC-017 | G-sec/yield curve               | Later bond gate; no adapter.                                                                                     |
-| SRC-018 | Corporate bonds/ratings         | Later bond gate; no adapter.                                                                                     |
-| SRC-019 | CAS/MF statements               | No parser; permission, sensitive-document handling and representative reconciled formats required.               |
-| SRC-020 | Consensus/revisions             | Outside P0; licensed entitlement and source validation may be necessary.                                         |
-| SRC-021 | Broker APIs                     | No integration; provider application access, OAuth entitlement and consent required.                             |
-| SRC-022 | ETFs/gold/commodities           | Later Indian-assets gate; no adapter.                                                                            |
-| SRC-023 | Derivatives analytics           | Later gate; no adapter or suitability-approved analytics workflow.                                               |
-| SRC-024 | International funds             | Later asset gate; no adapter.                                                                                    |
-| SRC-025 | International equities/ETFs     | Later asset gate; no adapter.                                                                                    |
-| SRC-026 | International bonds/commodities | Later asset gate; no adapter.                                                                                    |
-| SRC-027 | Crypto market/on-chain          | Last-stage gate; no adapter.                                                                                     |
+| Task    | Source family                   | Current scope and remaining work                                                                                                     |
+| ------- | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| SRC-001 | Security master                 | No adapter; obtain permitted representative data and implement ISIN/symbol identity reconciliation.                                  |
+| SRC-002 | Indian EOD prices/volume        | No adapter; rights, timestamps/revisions and price reconciliation required. No live valuation currently claimed.                     |
+| SRC-003 | Corporate actions               | No adapter; adjusted/unadjusted history and entitlement reconciliation remain.                                                       |
+| SRC-004 | Filings/results                 | No adapter; filing provenance, revisions and extraction validation remain.                                                           |
+| SRC-005 | Fundamentals                    | No adapter; units, reporting periods and canonical reported facts remain.                                                            |
+| SRC-006 | Index/sector                    | No adapter; membership/classification versions and usage rights remain.                                                              |
+| SRC-007 | India macro                     | SOURCES-002: five World Bank India annual series and PIB economic releases; RBI permission/MoSPI access and broader calendar remain. |
+| SRC-008 | Global macro/rates              | SOURCES-002: Fed and ECB press/statistics with evidence/review/readers; further global series remain.                                |
+| SRC-009 | Oil/commodity/FX                | No real adapter; synthetic oil fixture is not source onboarding.                                                                     |
+| SRC-010 | FII/DII/FPI flows               | No adapter; reporting revisions, units and licensed/public usage review remain.                                                      |
+| SRC-011 | Participant positioning         | No adapter; explicit research interpretation and data rights remain.                                                                 |
+| SRC-012 | Company/market news             | SOURCES-002: official economic releases implemented with corrections; Indian company-specific news and entity linkage remain.        |
+| SRC-013 | Portfolio spreadsheets          | Limited user-input CSV implemented; representative broker/XLSX parsers and reconciliation remain.                                    |
+| SRC-014 | Regulatory/tax sources          | Blueprint links exist; monitored/versioned source ingestion and expert-reviewed applicability remain.                                |
+| SRC-015 | MF scheme master/NAV            | Later Indian-fund gate; no adapter.                                                                                                  |
+| SRC-016 | MF holdings/factsheets          | Later Indian-fund gate; no parser/adapter.                                                                                           |
+| SRC-017 | G-sec/yield curve               | Later bond gate; no adapter.                                                                                                         |
+| SRC-018 | Corporate bonds/ratings         | Later bond gate; no adapter.                                                                                                         |
+| SRC-019 | CAS/MF statements               | No parser; permission, sensitive-document handling and representative reconciled formats required.                                   |
+| SRC-020 | Consensus/revisions             | Outside P0; licensed entitlement and source validation may be necessary.                                                             |
+| SRC-021 | Broker APIs                     | No integration; provider application access, OAuth entitlement and consent required.                                                 |
+| SRC-022 | ETFs/gold/commodities           | Later Indian-assets gate; no adapter.                                                                                                |
+| SRC-023 | Derivatives analytics           | Later gate; no adapter or suitability-approved analytics workflow.                                                                   |
+| SRC-024 | International funds             | Later asset gate; no adapter.                                                                                                        |
+| SRC-025 | International equities/ETFs     | Later asset gate; no adapter.                                                                                                        |
+| SRC-026 | International bonds/commodities | Later asset gate; no adapter.                                                                                                        |
+| SRC-027 | Crypto market/on-chain          | Last-stage gate; no adapter.                                                                                                         |
 
 ## Sequencing
 

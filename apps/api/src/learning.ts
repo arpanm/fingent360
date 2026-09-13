@@ -18,87 +18,14 @@ import {
   LearningSuggestionsSchema,
   SavedGoalSchema,
   HoldingsSnapshotSchema,
-  type LearningQuestion,
+  learningContentRevision,
+  learningContentItems,
+  learningRubrics,
 } from '@fingent360/contracts';
 import { AccountStore, STORE } from './accounts.js';
-const revision = 'glossary-dev001-v1' as const;
-// Rubrics are authored against the repository glossary, not generated from live prices.
-const items: LearningQuestion[] = LearningCatalogSchema.parse({
-  items: [
-    {
-      id: 'isin-meaning',
-      version: 1,
-      kind: 'quiz',
-      title: 'Know the identifier',
-      prompt: 'What does an ISIN identify?',
-      choices: [
-        { id: 'security', text: 'A security or investment instrument' },
-        { id: 'account', text: 'Your personal brokerage account' },
-        { id: 'price', text: 'The current market price' },
-      ],
-      source: {
-        title: 'Fingent360 product glossary · ISIN',
-        revision,
-        excerpt:
-          'Security identifier used in matching; not a user account or an exchange-specific ticker.',
-      },
-    },
-    {
-      id: 'reconciliation',
-      version: 1,
-      kind: 'quiz',
-      title: 'Check before saving',
-      prompt: 'Your CSV was parsed successfully. What still needs checking?',
-      choices: [
-        {
-          id: 'totals',
-          text: 'Its quantities and totals against the source records',
-        },
-        {
-          id: 'nothing',
-          text: 'Nothing: parsing proves every number is correct',
-        },
-        { id: 'returns', text: 'Whether it guarantees a profit' },
-      ],
-      source: {
-        title: 'Fingent360 product glossary · Reconciliation',
-        revision,
-        excerpt:
-          'Comparing imported/calculated values against source totals under a stated rule; not assuming an upload is correct because parsing succeeded.',
-      },
-    },
-    {
-      id: 'learning-interest',
-      version: 1,
-      kind: 'poll',
-      title: 'What would you like to understand?',
-      prompt: 'Choose the topic you would like explained next.',
-      choices: [
-        { id: 'sources', text: 'Checking financial sources' },
-        { id: 'holdings', text: 'Understanding my holdings' },
-        { id: 'goals', text: 'Planning for a goal' },
-      ],
-      source: {
-        title: 'Fingent360 learning preference poll',
-        revision,
-        excerpt:
-          'Voluntary learning interests only. Responses are not a market forecast, recommendation or representative survey.',
-      },
-    },
-  ],
-}).items;
-const rubrics: Record<string, { answer: string; explanation: string }> = {
-  'isin-meaning': {
-    answer: 'security',
-    explanation:
-      'An ISIN identifies a security. A valid check digit alone does not verify your ownership, the issuer record or a market price.',
-  },
-  reconciliation: {
-    answer: 'totals',
-    explanation:
-      'Parsing checks the format. Reconciliation separately checks quantities and totals against the source under a stated rule.',
-  },
-};
+const revision = learningContentRevision;
+const items = learningContentItems;
+const rubrics = learningRubrics;
 export function learningGrade(questionId: string, choiceId: string) {
   const question = items.find((q) => q.id === questionId && q.kind === 'quiz');
   if (!question || !question.choices.some((c) => c.id === choiceId))

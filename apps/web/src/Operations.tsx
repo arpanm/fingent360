@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 import {
   MediaAssetSchema,
+  ResearchCatalogSchema,
+  ResearchRunsSchema,
+  DiscoveryRunSchema,
+  type ResearchCatalog,
   type MediaAsset,
   OperatorSessionSchema,
   DiscoveryOperationsSchema,
@@ -196,29 +200,12 @@ export function Operations() {
             </div>
             {tab === 'news' ? (
               <>
-                <div className="panel">
-                  <h2>Source ingestion and editorial review</h2>
-                  <p>
-                    Fetch official Federal Reserve RSS, synchronize accepted
-                    annual data and prepare glossary editions. New or changed
-                    items stay in draft until reviewed.
-                  </p>
-                  <button
-                    disabled={busy}
-                    onClick={() =>
-                      void action(async () => {
-                        await json('/ops/discovery/refresh', {}, 'POST');
-                        await load();
-                        setNotice(
-                          'Source check complete. Review drafts before publication.',
-                        );
-                      })
-                    }
-                  >
-                    {busy ? 'Working…' : 'Refresh discovery sources'}
-                  </button>
-                  <p role="status">{latest}</p>
-                </div>
+                <SourceRefresh
+                  action={action}
+                  busy={busy}
+                  afterRefresh={load}
+                  latest={latest}
+                />
                 <p className="muted">
                   Preparing a visual may use the server-configured OpenAI,
                   Gemini or Anthropic model to select source excerpts. Missing
@@ -647,6 +634,141 @@ function SourceEditor() {
           ))}
         </Dialog>
       )}
+    </section>
+  );
+}
+
+function SourceRefresh({
+  action,
+  busy,
+  afterRefresh,
+  latest,
+}: {
+  action: (work: () => Promise<void>) => Promise<void>;
+  busy: boolean;
+  afterRefresh: () => Promise<void>;
+  latest: string;
+}) {
+  const [catalog, setCatalog] = useState<ResearchCatalog | null>(null),
+    [runs, setRuns] = useState<
+      ReturnType<typeof ResearchRunsSchema.parse>['runs']
+    >([]),
+    [selected, setSelected] = useState<string[]>([]),
+    [error, setError] = useState(''),
+    [message, setMessage] = useState(''),
+    [retry, setRetry] = useState(0);
+  useEffect(() => {
+    let active = true;
+    setError('');
+    void Promise.all([json('/discovery/catalog'), json('/ops/discovery/runs')])
+      .then(([c, r]) => {
+        const next = ResearchCatalogSchema.parse(c);
+        const history = ResearchRunsSchema.parse(r);
+        if (active) {
+          setCatalog(next);
+          setRuns(history.runs);
+        }
+      })
+      .catch((e: unknown) => {
+        if (active)
+          setError(
+            e instanceof Error
+              ? e.message
+              : 'Source status could not be loaded.',
+          );
+      });
+    return () => {
+      active = false;
+    };
+  }, [retry]);
+  return (
+    <section className="panel" aria-label="Source refresh">
+      <h2>Source ingestion and editorial review</h2>
+      <p>
+        Select fixed, approved adapters. New or changed items stay in draft;
+        each source reports its own outcome. A failed source does not erase
+        previous publications.
+      </p>
+      {error && <p role="alert">{error}</p>}
+      {!catalog && !error && <p role="status">Loading source adapters…</p>}
+      <fieldset disabled={busy}>
+        <legend>Sources to check</legend>
+        {catalog?.sources.map((source) => {
+          const run = runs.find((r) => r.sourceId === source.id);
+          return (
+            <div key={source.id} className="research-source-status">
+              <label className="consent">
+                <input
+                  type="checkbox"
+                  disabled={source.access !== 'enabled'}
+                  checked={selected.includes(source.id)}
+                  onChange={(e) =>
+                    setSelected((old) =>
+                      e.target.checked
+                        ? [...old, source.id]
+                        : old.filter((id) => id !== source.id),
+                    )
+                  }
+                />
+                {source.name}
+              </label>
+              <p>
+                {source.accessNote} · {source.publishedCount} published
+              </p>
+              {run ? (
+                <p>
+                  {run.status} · {run.checked} checked · {run.inserted} new
+                  drafts · {shortDate(run.finishedAt ?? run.startedAt)}
+                  <br />
+                  {run.message}
+                </p>
+              ) : (
+                <p>No source run recorded.</p>
+              )}
+            </div>
+          );
+        })}
+      </fieldset>
+      <div className="page-actions">
+        <button
+          disabled={busy || !selected.length}
+          onClick={() =>
+            void action(async () => {
+              setMessage(
+                'Checking selected sources. This can take several minutes.',
+              );
+              try {
+                const run = DiscoveryRunSchema.parse(
+                  await json(
+                    '/ops/discovery/refresh',
+                    { sourceIds: selected },
+                    'POST',
+                    AbortSignal.timeout(300000),
+                  ),
+                );
+                setMessage(`${run.status}: ${run.message}`);
+              } finally {
+                setRetry((n) => n + 1);
+                await afterRefresh();
+              }
+            })
+          }
+        >
+          {busy ? 'Checking sources…' : 'Refresh discovery sources'}
+        </button>
+        <button
+          className="secondary"
+          disabled={busy}
+          onClick={() => setRetry((n) => n + 1)}
+        >
+          Reload source status
+        </button>
+      </div>
+      <p role="status">{message || latest}</p>
+      <p className="muted">
+        If the connection times out, reload status before starting another run.
+        Publication remains a separate per-item review below.
+      </p>
     </section>
   );
 }

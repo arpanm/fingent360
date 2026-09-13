@@ -1,5 +1,7 @@
 import {
   LearningCatalogSchema,
+  learningRubrics,
+  learningContentItems,
   LearningStateSchema,
   LearningSubmitSchema,
   LearningSuggestionsSchema,
@@ -24,23 +26,13 @@ export function exportOfflineLearning(
     LearningStateSchema.parse({ attempts: [], votes: [], polls: [] })
   );
 }
-const rubrics: Record<string, { answer: string; explanation: string }> = {
-  'isin-meaning': {
-    answer: 'security',
-    explanation:
-      'An ISIN identifies a security. A valid check digit alone does not verify your ownership, the issuer record or a market price.',
-  },
-  reconciliation: {
-    answer: 'totals',
-    explanation:
-      'Parsing checks the format. Reconciliation separately checks quantities and totals against the source under a stated rule.',
-  },
-};
+const rubrics = learningRubrics;
 export function handleLearning(
   req: OfflineRequest,
   state: LocalState,
   bundle: OfflineBundle,
 ): OfflineResult | undefined {
+  void bundle;
   if (!req.path.startsWith('/api/v1/account/learning/')) return undefined;
   const user = requireUser(state),
     learning = exportOfflineLearning(state, user.id),
@@ -50,7 +42,7 @@ export function handleLearning(
     LearningState
   >;
   all[user.id] = learning;
-  const catalog = LearningCatalogSchema.parse(bundle.learningCatalog);
+  const catalog = LearningCatalogSchema.parse({ items: learningContentItems });
   if (req.method === 'GET' && p === 'state') {
     learning.polls = catalog.items
       .filter((q) => q.kind === 'poll')

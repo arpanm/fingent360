@@ -1,0 +1,40 @@
+[
+  {
+    "file": "ecb-press.xml",
+    "url": "https://www.ecb.europa.eu/rss/press.html",
+    "retrievedAt": "2026-09-13T08:13:34.068781Z",
+    "sha256": "20e63b80d35e7ac5bef7cf3a57919e7d1ef28e56d8ea826499f5011a1e8d9eca"
+  },
+  {
+    "file": "pib-index.html",
+    "url": "https://www.pib.gov.in/AllRel.aspx?lang=1&reg=3",
+    "retrievedAt": "2026-09-13T08:13:34.068941Z",
+    "originalSha256": "f1f8a508d1fe5e7077d06119bba56289077f712f59650565983e2d714718f5af",
+    "sha256": "6656e21881bf60aa641412971bfdc66e2e28550c4f9b5cea3c948cca72fb1315",
+    "capture": "Bounded actual source excerpt, not full original HTML; originalSha256 identifies fetched original."
+  },
+  {
+    "file": "wb-unemployment.json",
+    "url": "https://api.worldbank.org/v2/country/IND/indicator/SL.UEM.TOTL.ZS?format=json&per_page=100",
+    "retrievedAt": "2026-09-13T08:13:34.068944Z",
+    "sha256": "706aa095dd39b5bb770d2b137aefbf8756e93acd4aa2beca5c1ea2f055f5008f",
+    "originalSha256": "abea7492ca53cdebef202aaa63115b4811356547eeb7145ea79de414e3d51118",
+    "capture": "Formatter-normalized semantic fixture; originalSha256 identifies fetched source bytes."
+  },
+  {
+    "file": "pib-release.html",
+    "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2309663&lang=1&reg=3",
+    "retrievedAt": "2026-09-13T08:20:20.556380Z",
+    "originalSha256": "176cb0f194f04705cad592c8403da3f6ee1df8f580b7f3c02138c0907694a7b6",
+    "sha256": "9e3286d3fdaefdcc9be2450eb718c300a4156c53094d819301cf499f95b5e3f7",
+    "capture": "Bounded exact source excerpt; script element excluded. Original hash identifies fetched HTML."
+  },
+  {
+    "file": "pib-social.html",
+    "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2309650&lang=1&reg=3",
+    "retrievedAt": "2026-09-13T08:20:20.636626Z",
+    "originalSha256": "3f477c35d531bd6e6836726b636a06f194d56cf2fef2bc3fe24c1407fb0f7a26",
+    "sha256": "7e55e3a6793b43ecdbe7cd21b8bbed26e58c83fb9876fb75181033f9b9d836fb",
+    "capture": "Bounded exact source excerpt; script element excluded. Original hash identifies fetched HTML."
+  }
+]

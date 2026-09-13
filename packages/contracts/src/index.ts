@@ -37,3 +37,6 @@ export * from './media.js';
 export * from './assistance.js';
 
 export * from './journey-domain.js';
+export * from './research.js';
+export * from './research-enrichment.js';
+export * from './learning-content.js';

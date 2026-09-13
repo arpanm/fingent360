@@ -13,6 +13,8 @@ async function call(
   body?: unknown,
   token?: string,
 ) {
+  // Document load can precede the asynchronous on-device runtime startup.
+  await expect(page.getByLabel('On-device mode')).toBeVisible();
   return page.evaluate(
     async (args) => {
       const response = await fetch(`/api/v1/journey${args.path}`, {

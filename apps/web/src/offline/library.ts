@@ -10,6 +10,7 @@ import {
   LibraryReminderUpdateSchema,
   LibraryReminderCancelSchema,
   FeedRankingSchema,
+  selectToday,
   type Library,
 } from '@fingent360/contracts';
 import {
@@ -20,7 +21,7 @@ import {
   type LocalState,
   type OfflineBundle,
 } from './types';
-import { published, filtered, page } from './content';
+import { published, filtered, page, filtersFor } from './content';
 export function exportOfflineLibrary(
   state: LocalState,
   userId: string,
@@ -132,13 +133,17 @@ export async function handleLibrary(
           );
           if (j >= 0) candidates.splice(i, 0, candidates.splice(j, 1)[0]!);
         }
-    const selected = await page(req, candidates, [
-      bundle.generatedAt,
-      user.id,
-      lib.preferences,
-      lib.reactions,
-      lib.saved.map((v) => [v.itemId, v.version]),
-    ]);
+    const selected = await page(
+      req,
+      filtersFor(req).view === 'today' ? selectToday(candidates) : candidates,
+      [
+        bundle.generatedAt,
+        user.id,
+        lib.preferences,
+        lib.reactions,
+        lib.saved.map((v) => [v.itemId, v.version]),
+      ],
+    );
     return {
       body: FeedRankingSchema.parse({
         ...selected,

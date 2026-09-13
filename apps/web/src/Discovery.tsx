@@ -1,3 +1,4 @@
+import './research.css';
 import { TermLink } from './TermLink';
 import {
   useEffect,
@@ -7,6 +8,11 @@ import {
 } from 'react';
 import {
   FeedSchema,
+  ResearchCatalogSchema,
+  ResearchContextSchema,
+  sourceIdFor,
+  type ResearchCatalog,
+  type ResearchContext,
   FeedItemSchema,
   FeedRankingSchema,
   DiscoveryEvidenceSchema,
@@ -50,11 +56,26 @@ window.addEventListener('f360-session-changed', () => memory.clear());
 let readingOrder: FeedItem[] = [];
 export function Discovery({ explore = false }: { explore?: boolean }) {
   const key = explore ? 'explore' : 'today';
-  const stored = memory.get(key);
-  const [mode, setMode] = useState<'scan' | 'stories'>(stored?.mode ?? 'scan');
+  const routeQuery = new URLSearchParams(
+    window.location.hash.split('?')[1] ?? '',
+  );
+  const stored = memory.get(window.location.hash.slice(1) || key);
+  const [mode, setMode] = useState<'scan' | 'stories'>(
+    routeQuery.get('mode') === 'stories' ? 'stories' : (stored?.mode ?? 'scan'),
+  );
   const [index, setIndex] = useState(stored?.index ?? 0);
-  const [query, setQuery] = useState(stored?.query ?? '');
-  const [kind, setKind] = useState(stored?.kind ?? 'all');
+  const [query, setQuery] = useState(
+    routeQuery.get('q') ?? stored?.query ?? '',
+  );
+  const [kind, setKind] = useState(
+    routeQuery.get('kind') ?? stored?.kind ?? 'all',
+  );
+  const [catalog, setCatalog] = useState<ResearchCatalog | null>(null);
+  const [catalogError, setCatalogError] = useState('');
+  const [catalogRetry, setCatalogRetry] = useState(0);
+  const [source, setSource] = useState(routeQuery.get('source') ?? '');
+  const [topic, setTopic] = useState(routeQuery.get('topic') ?? '');
+  const [region, setRegion] = useState(routeQuery.get('region') ?? '');
   const [expanded, setExpanded] = useState(stored?.expanded ?? false);
   const [items, setItems] = useState<FeedItem[]>(stored?.items ?? []);
   const [reasons, setReasons] = useState<Record<string, string>>(
@@ -71,9 +92,32 @@ export function Discovery({ explore = false }: { explore?: boolean }) {
   const initial = useRef(!!stored?.loaded);
   const requestId = useRef(0);
   const touch = useRef<{ x: number; y: number } | null>(null);
+  useEffect(() => {
+    let active = true;
+    setCatalogError('');
+    void json('/discovery/catalog')
+      .then((value) => {
+        if (active) setCatalog(ResearchCatalogSchema.parse(value));
+      })
+      .catch((e: unknown) => {
+        if (active)
+          setCatalogError(
+            e instanceof Error
+              ? e.message
+              : 'Source choices could not be loaded.',
+          );
+      });
+    return () => {
+      active = false;
+    };
+  }, [catalogRetry]);
   const params = (next?: string) => {
     const p = new URLSearchParams();
     if (next) p.set('cursor', next);
+    p.set('view', explore ? 'explore' : 'today');
+    if (source) p.set('source', source);
+    if (topic) p.set('topic', topic);
+    if (region) p.set('region', region);
     if (query.trim()) p.set('q', query.trim());
     if (kind !== 'all') p.set('kind', kind);
     return p.toString() ? `?${p}` : '';
@@ -148,9 +192,16 @@ export function Discovery({ explore = false }: { explore?: boolean }) {
       clearTimeout(timer);
       requestId.current++;
     };
-  }, [query, kind, revision]);
+  }, [query, kind, source, topic, region, revision]);
   useEffect(() => {
-    memory.set(key, {
+    const p = new URLSearchParams();
+    if (query) p.set('q', query);
+    if (kind !== 'all') p.set('kind', kind);
+    if (source) p.set('source', source);
+    if (topic) p.set('topic', topic);
+    if (region) p.set('region', region);
+    if (mode === 'stories') p.set('mode', mode);
+    memory.set(`${key}${p.size ? `?${p}` : ''}`, {
       mode,
       index,
       query,
@@ -168,6 +219,9 @@ export function Discovery({ explore = false }: { explore?: boolean }) {
     index,
     query,
     kind,
+    source,
+    topic,
+    region,
     expanded,
     items,
     reasons,
@@ -176,6 +230,38 @@ export function Discovery({ explore = false }: { explore?: boolean }) {
     error,
     authenticated,
   ]);
+  useEffect(() => {
+    const sync = () => {
+      if ((window.location.hash.slice(1).split('?')[0] || 'today') !== key)
+        return;
+      const p = new URLSearchParams(window.location.hash.split('?')[1] ?? '');
+      setQuery(p.get('q') ?? '');
+      setKind(p.get('kind') ?? 'all');
+      setSource(p.get('source') ?? '');
+      setTopic(p.get('topic') ?? '');
+      setRegion(p.get('region') ?? '');
+      setMode(p.get('mode') === 'stories' ? 'stories' : 'scan');
+    };
+    window.addEventListener('hashchange', sync);
+    return () => window.removeEventListener('hashchange', sync);
+  }, [key]);
+  useEffect(() => {
+    if ((window.location.hash.slice(1).split('?')[0] || 'today') !== key)
+      return;
+    const p = new URLSearchParams();
+    if (query) p.set('q', query);
+    if (kind !== 'all') p.set('kind', kind);
+    if (source) p.set('source', source);
+    if (topic) p.set('topic', topic);
+    if (region) p.set('region', region);
+    if (mode === 'stories') p.set('mode', mode);
+    const route = `${key}${p.size ? `?${p}` : ''}`;
+    window.history.replaceState(
+      { ...window.history.state, route },
+      '',
+      `#${route}`,
+    );
+  }, [key, query, kind, source, topic, region, mode]);
   async function more() {
     if (!cursor || moreLoading) return;
     const generation = requestId.current;
@@ -212,7 +298,7 @@ export function Discovery({ explore = false }: { explore?: boolean }) {
       if (generation === requestId.current) setMoreLoading(false);
     }
   }
-  const visible = explore || expanded ? items : items.slice(0, 6);
+  const visible = items;
   const selected = Math.min(index, Math.max(0, visible.length - 1));
   const story = visible[selected];
   const step = (delta: number) =>
@@ -270,6 +356,121 @@ export function Discovery({ explore = false }: { explore?: boolean }) {
           </button>
         </div>
       </div>
+      <details
+        className="research-filters"
+        aria-label="Filter research"
+        open={
+          explore || !!(source || topic || region || query || kind !== 'all')
+        }
+      >
+        <summary>
+          Shape your reading{' '}
+          <span>
+            {source || topic || region
+              ? 'Selected filters'
+              : 'Sources, topics & focus'}
+          </span>
+        </summary>
+        <div className="research-filter-grid">
+          <label htmlFor={`${key}-source`}>
+            Source
+            <select
+              id={`${key}-source`}
+              aria-label="Research source"
+              value={source}
+              onChange={(e) => {
+                setSource(e.target.value);
+                setIndex(0);
+              }}
+            >
+              <option value="">All published sources</option>
+              {catalog?.sources
+                .filter((s) => s.publishedCount > 0)
+                .map((s) => (
+                  <option key={s.id} value={s.id}>
+                    {s.name} ({s.publishedCount})
+                  </option>
+                ))}
+              {source &&
+                !catalog?.sources.some(
+                  (s) => s.id === source && s.publishedCount > 0,
+                ) && (
+                  <option value={source}>{source} · no published items</option>
+                )}
+            </select>
+          </label>
+          <label htmlFor={`${key}-topic`}>
+            Topic
+            <select
+              id={`${key}-topic`}
+              aria-label="Research topic"
+              value={topic}
+              onChange={(e) => {
+                setTopic(e.target.value);
+                setIndex(0);
+              }}
+            >
+              <option value="">All topics</option>
+              {catalog?.topics.map((t) => (
+                <option key={t} value={t}>
+                  {t}
+                </option>
+              ))}
+              {topic && !catalog?.topics.includes(topic) && (
+                <option value={topic}>{topic}</option>
+              )}
+            </select>
+          </label>
+          <label htmlFor={`${key}-region`}>
+            Focus
+            <select
+              id={`${key}-region`}
+              aria-label="Research region"
+              value={region}
+              onChange={(e) => {
+                setRegion(e.target.value);
+                setIndex(0);
+              }}
+            >
+              <option value="">India and the world</option>
+              <option value="india">India</option>
+              <option value="global">Global context</option>
+            </select>
+          </label>
+        </div>
+        <div className="research-coverage">
+          {catalog && (
+            <span>
+              {catalog.sources.filter((s) => s.publishedCount > 0).length}{' '}
+              published collections · checked {shortDate(catalog.evaluatedAt)}
+            </span>
+          )}
+          <a href="#sources">See source coverage and limits</a>
+          {(source || topic || region || query || kind !== 'all') && (
+            <button
+              className="text-link"
+              onClick={() => {
+                setSource('');
+                setTopic('');
+                setRegion('');
+                setQuery('');
+                setKind('all');
+                setIndex(0);
+              }}
+            >
+              Reset selection
+            </button>
+          )}
+        </div>
+        {catalogError && (
+          <p role="alert">
+            {catalogError}{' '}
+            <button onClick={() => setCatalogRetry((n) => n + 1)}>
+              Retry source choices
+            </button>
+          </p>
+        )}
+      </details>
       {explore && (
         <>
           <label className="search-field">
@@ -335,15 +536,28 @@ export function Discovery({ explore = false }: { explore?: boolean }) {
         <div className="empty-state">
           <Icon name="learn" size={40} />
           <h2>
-            {query || kind !== 'all'
+            {query || kind !== 'all' || source || topic || region
               ? 'Try another topic'
               : 'Your next perspective is on its way'}
           </h2>
           <p>
-            {query || kind !== 'all'
+            {query || kind !== 'all' || source || topic || region
               ? 'No published items match those filters.'
               : 'There are no published items available here yet. You can explore the economic record or your own plans.'}
           </p>
+          <button
+            className="secondary"
+            onClick={() => {
+              setQuery('');
+              setKind('all');
+              setSource('');
+              setTopic('');
+              setRegion('');
+              setIndex(0);
+            }}
+          >
+            Clear reading filters
+          </button>
           <a className="button" href="#macro">
             Explore annual data
           </a>
@@ -405,6 +619,20 @@ export function Discovery({ explore = false }: { explore?: boolean }) {
       {!loading && mode === 'stories' && story && (
         <div
           className="story-stage"
+          tabIndex={0}
+          role="region"
+          aria-label="Reading story"
+          onKeyDown={(event) => {
+            if (event.target !== event.currentTarget) return;
+            if (
+              ['ArrowDown', 'ArrowRight', 'ArrowUp', 'ArrowLeft'].includes(
+                event.key,
+              )
+            ) {
+              event.preventDefault();
+              step(['ArrowDown', 'ArrowRight'].includes(event.key) ? 1 : -1);
+            }
+          }}
           onPointerDown={(e) => {
             if (
               !e.isPrimary ||
@@ -443,7 +671,9 @@ export function Discovery({ explore = false }: { explore?: boolean }) {
             {labels[story.kind]} · {story.effectiveLabel}
           </span>
           <h2>{story.title}</h2>
-          <p>{story.summary}</p>
+          <p className="story-excerpt">
+            {story.summary !== story.title ? story.summary : null}
+          </p>
           <a
             className="button"
             href={`#read/${story.id}`}
@@ -489,10 +719,10 @@ export function Discovery({ explore = false }: { explore?: boolean }) {
               : 'You’ve reached the end of this selection. Return to something worth keeping.'}
           </p>
           <div className="page-actions">
-            {!expanded && !explore && items.length > 6 ? (
-              <button className="secondary" onClick={() => setExpanded(true)}>
-                Continue exploring
-              </button>
+            {!explore ? (
+              <a className="button secondary" href="#explore">
+                Explore all reading
+              </a>
             ) : (
               cursor && (
                 <button
@@ -898,7 +1128,9 @@ export function Reader({ id }: { id: string }) {
         <p className="reader-deck">
           {withdrawn
             ? 'This item has been withdrawn from publication.'
-            : item.summary}
+            : item.summary !== item.body && item.summary !== item.title
+              ? item.summary
+              : null}
         </p>
         <div className="byline">
           <span className="source-monogram">{item.source.name[0]}</span>
@@ -927,18 +1159,22 @@ export function Reader({ id }: { id: string }) {
         )}
       </div>
       {item.correctionNote && (
-        <p className="correction-note">
-          Version {item.version} · {item.correctionNote}
-        </p>
+        <details className="correction-note">
+          <summary>Edition {item.version} · editorial notes</summary>
+          <p>{item.correctionNote}</p>
+        </details>
       )}
       {!withdrawn && (
         <>
           <MediaSummary itemId={item.id} />
           <div className="reading-body">
-            {item.body.split(/\n\n+/).map((p, i) => (
-              <p key={i}>{p}</p>
-            ))}
+            {(item.body === item.title ? [] : item.body.split(/\n\n+/)).map(
+              (p, i) => (
+                <p key={i}>{p}</p>
+              ),
+            )}
           </div>
+          <ReadingContext item={item} />
           {item.relatedIds.length > 0 && (
             <section className="reader-related">
               <span className="eyebrow">MAKE A CONNECTION</span>
@@ -963,6 +1199,9 @@ export function Reader({ id }: { id: string }) {
           {item.source.name} · checked {shortDate(item.source.retrievedAt)}
         </p>
         <div className="page-actions">
+          <a href={`#explore?source=${encodeURIComponent(sourceIdFor(item))}`}>
+            More from this source
+          </a>
           <a href={item.source.url} target="_blank" rel="noreferrer">
             Original source <Icon name="arrow" size={16} />
           </a>
@@ -1282,5 +1521,102 @@ function Evidence({
         <pre>{data.body}</pre>
       </details>
     </>
+  );
+}
+
+function ReadingContext({ item }: { item: FeedItem }) {
+  const [value, setValue] = useState<ResearchContext | null>(null),
+    [error, setError] = useState(''),
+    [retry, setRetry] = useState(0);
+  useEffect(() => {
+    let active = true;
+    setValue(null);
+    setError('');
+    void json(`/discovery/items/${encodeURIComponent(item.id)}/context`)
+      .then((raw) => {
+        const next = ResearchContextSchema.parse(raw);
+        if (next.itemId !== item.id || next.itemVersion !== item.version)
+          throw new Error(
+            'This reading changed. Reopen it for its latest context.',
+          );
+        if (active) setValue(next);
+      })
+      .catch((e: unknown) => {
+        if (active)
+          setError(
+            e instanceof Error ? e.message : 'Context could not be loaded.',
+          );
+      });
+    return () => {
+      active = false;
+    };
+  }, [item.id, item.version, retry]);
+  return (
+    <section className="research-context" aria-label="Reading context">
+      <span className="eyebrow">MAKE SENSE OF THE CONNECTION</span>
+      <h2>Put this in context.</h2>
+      {!value && !error && <p role="status">Finding related reading…</p>}
+      {error && (
+        <p role="alert">
+          {error}{' '}
+          <button onClick={() => setRetry((n) => n + 1)}>Retry context</button>
+        </p>
+      )}
+      {value && (
+        <>
+          <p className="data-note">{value.caveat}</p>
+          {value.explanations.map((v, i) => (
+            <div key={`${v.href}-${i}`}>
+              <h3>{v.title}</h3>
+              <p>{v.text}</p>
+              <a href={v.href}>Read the explanation</a>
+            </div>
+          ))}
+          <div className="research-connections">
+            {value.related.map((v) => (
+              <a key={v.id} href={`#read/${v.id}`}>
+                <strong>{v.title}</strong>
+                <small>
+                  {v.source.name} · {shortDate(v.publishedAt)}
+                </small>
+              </a>
+            ))}
+            {value.terms.map((v) => (
+              <a key={v.id} href={`#read/${v.id}`}>
+                <strong>{v.title}</strong>
+                <small>Understand the term · sourced explanation</small>
+              </a>
+            ))}
+          </div>
+          {value.learning.length > 0 && (
+            <div className="page-actions">
+              {value.learning.map((v) => (
+                <a key={v.id} href={v.href}>
+                  Try: {v.title}
+                </a>
+              ))}
+            </div>
+          )}
+          {!value.related.length &&
+            !value.terms.length &&
+            !value.learning.length && (
+              <p>
+                No additional published connections are available for this item
+                yet.
+              </p>
+            )}
+          <div className="related-chips">
+            {value.topics.map((topic) => (
+              <a
+                key={topic}
+                href={`#explore?topic=${encodeURIComponent(topic)}`}
+              >
+                Explore {topic}
+              </a>
+            ))}
+          </div>
+        </>
+      )}
+    </section>
   );
 }

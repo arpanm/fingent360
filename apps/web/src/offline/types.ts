@@ -1,4 +1,4 @@
-import type { FeedItem } from '@fingent360/contracts';
+import type { FeedItem, ResearchCatalog } from '@fingent360/contracts';
 
 export interface OfflineRequest {
   method: string;
@@ -36,6 +36,7 @@ export interface OfflineBundle {
   macroHistory: Record<string, unknown>;
   macroEvidence: Record<string, unknown>;
   sources: unknown;
+  researchCatalog?: ResearchCatalog;
   learningCatalog: unknown;
   journeyCatalog: unknown;
   media: Record<string, unknown>;

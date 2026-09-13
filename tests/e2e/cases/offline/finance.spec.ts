@@ -11,6 +11,8 @@ import {
   OverviewSchema,
 } from '../../../../packages/contracts/src/index';
 async function local(page: Page, path: string, method = 'GET', body?: unknown) {
+  // React mounts only after the on-device API and storage are initialized.
+  await expect(page.getByLabel('On-device mode')).toBeVisible();
   return page.evaluate(
     async (args) => {
       const response = await fetch(`/api/v1/account${args.path}`, {
@@ -157,11 +159,15 @@ test('E2E-OFFLINE-011 local ownership and deletion preserve the other account @A
   await page.goto('/');
   const first = `owner_${Date.now()}`;
   const second = `other_${Date.now()}`;
-  await local(page, '/register', 'POST', {
-    username: first,
-    password,
-    consent: true,
-  });
+  expect(
+    (
+      await local(page, '/register', 'POST', {
+        username: first,
+        password,
+        consent: true,
+      })
+    ).status,
+  ).toBe(201);
   const goal = SavedGoalSchema.parse(
     (await local(page, '/goals', 'POST', input)).body,
   );
@@ -175,11 +181,15 @@ test('E2E-OFFLINE-011 local ownership and deletion preserve the other account @A
     ).body,
   );
   await local(page, '/logout', 'POST', {});
-  await local(page, '/register', 'POST', {
-    username: second,
-    password,
-    consent: true,
-  });
+  expect(
+    (
+      await local(page, '/register', 'POST', {
+        username: second,
+        password,
+        consent: true,
+      })
+    ).status,
+  ).toBe(201);
   expect(
     SavedGoalsSchema.parse((await local(page, '/goals')).body).goals,
   ).toHaveLength(0);

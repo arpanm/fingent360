@@ -9,6 +9,8 @@ import {
   AssistanceResultSchema,
 } from '../../../../packages/contracts/src/index';
 async function local(page: Page, path: string, method = 'GET', body?: unknown) {
+  // Also wait after reload before calling the real local API transport.
+  await expect(page.getByLabel('On-device mode')).toBeVisible();
   return page.evaluate(
     async (args) => {
       const response = await fetch(`/api/v1${args.path}`, {

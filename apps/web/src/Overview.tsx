@@ -6,6 +6,7 @@ import {
   type MacroObservation,
   type Overview,
 } from '@fingent360/contracts';
+import { ResearchLinks } from './ResearchLinks';
 import { Icon, money, shortDate } from './ui';
 
 export function Trend({ observations }: { observations: MacroObservation[] }) {
@@ -442,6 +443,26 @@ export function OverviewPage() {
           in Market context.
         </p>
       </section>
+      {!loading && !error && (
+        <ResearchLinks
+          topic={
+            account?.watchlist.indicators.includes('FP.CPI.TOTL.ZG') ||
+            !!account?.goals.length
+              ? 'Inflation'
+              : account?.watchlist.indicators.length
+                ? 'Growth'
+                : 'Investor basics'
+          }
+          title="Reading for your next step"
+          basis={
+            account?.goals.length
+              ? 'You have a saved goal, so we show inflation context for understanding purchasing power. No goal names, amounts or holdings are sent to a provider; this is a broad topic link, not personalised advice.'
+              : account?.watchlist.indicators.length
+                ? 'Matched to your followed macro topic. This does not measure exposure, value your holdings or predict returns.'
+                : 'General investing basics to get started. Add a goal or follow a macro topic for a transparent topic-based reading link.'
+          }
+        />
+      )}
       <aside className="learning-strip">
         <Icon name="learn" size={26} />
         <div>

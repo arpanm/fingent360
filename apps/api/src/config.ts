@@ -1,5 +1,14 @@
 import { z } from 'zod';
 const ConfigSchema = z.object({
+  AI_PROVIDER: z
+    .enum(['auto', 'query', 'openai', 'gemini', 'anthropic'])
+    .default('auto'),
+  OPENAI_API_KEY: z.string().optional(),
+  OPENAI_MODEL: z.string().optional(),
+  GEMINI_API_KEY: z.string().optional(),
+  GEMINI_MODEL: z.string().optional(),
+  ANTHROPIC_API_KEY: z.string().optional(),
+  ANTHROPIC_MODEL: z.string().optional(),
   RESEARCH_ADMIN_TOKEN: z
     .string()
     .regex(/^[a-f0-9]{64}$/)

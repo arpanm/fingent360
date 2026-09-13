@@ -1,6 +1,35 @@
 import type { ReactNode } from 'react';
 
 const paths: Record<string, ReactNode> = {
+  sun: (
+    <>
+      <circle cx="12" cy="12" r="4" />
+      <path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5" />
+    </>
+  ),
+  search: (
+    <>
+      <circle cx="10.5" cy="10.5" r="6.5" />
+      <path d="m16 16 5 5" />
+    </>
+  ),
+  bookmark: <path d="M6 3h12v18l-6-4-6 4z" />,
+  more: (
+    <>
+      <circle cx="5" cy="12" r="1" />
+      <circle cx="12" cy="12" r="1" />
+      <circle cx="19" cy="12" r="1" />
+    </>
+  ),
+  back: <path d="M20 12H4m6-6-6 6 6 6" />,
+  like: <path d="M8 10l4-7h2v6h6v11H8zM3 10h5v10H3z" />,
+  dislike: <path d="M8 14l4 7h2v-6h6V4H8zM3 14h5V4H3z" />,
+  bell: (
+    <>
+      <path d="M5 17h14l-2-4V8a5 5 0 0 0-10 0v5zM10 21h4" />
+    </>
+  ),
+  shield: <path d="M12 2l8 4v6c0 5-8 10-8 10S4 17 4 12V6z" />,
   overview: (
     <>
       <rect x="3" y="3" width="7" height="7" rx="1.5" />

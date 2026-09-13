@@ -42,18 +42,24 @@ test('E2E-WEB-060 save, edit, reload and remove a private goal @GOALS-001', asyn
       .getByLabel('Goal name', { exact: true })
       .fill('Synthetic school plan');
     await page
+      .getByRole('button', { name: 'Next: amounts', exact: true })
+      .click();
+    await page
       .getByLabel('Target amount (INR)', { exact: true })
       .fill('100000.01');
+    await page
+      .getByRole('button', { name: 'Next: contributions', exact: true })
+      .click();
     await page
       .getByLabel('Monthly contribution (INR)', { exact: true })
       .fill('1000.01');
     await page.getByLabel('Months from this plan', { exact: true }).fill('12');
-    await expect(page.getByLabel('Goal name', { exact: true })).toHaveValue(
-      'Synthetic school plan',
-    );
+    await page
+      .getByRole('button', { name: 'Review goal', exact: true })
+      .click();
     await expect(
-      page.getByLabel('Monthly contribution (INR)', { exact: true }),
-    ).toHaveValue('1000.01');
+      page.getByRole('region', { name: 'Goal review' }),
+    ).toContainText('Synthetic school plan');
     await page
       .getByRole('checkbox', { name: /I agree to store this goal/ })
       .check();
@@ -74,8 +80,17 @@ test('E2E-WEB-060 save, edit, reload and remove a private goal @GOALS-001', asyn
     await expect(card).toContainText('₹1,00,000.01');
     await card.getByRole('button', { name: 'Edit goal', exact: true }).click();
     await page
+      .getByRole('button', { name: 'Next: amounts', exact: true })
+      .click();
+    await page
+      .getByRole('button', { name: 'Next: contributions', exact: true })
+      .click();
+    await page
       .getByLabel('Monthly contribution (INR)', { exact: true })
       .fill('2000.01');
+    await page
+      .getByRole('button', { name: 'Review goal', exact: true })
+      .click();
     await page
       .getByRole('checkbox', { name: /I agree to store this goal/ })
       .check();
@@ -184,6 +199,99 @@ test('E2E-WEB-062 goal auth gates distinguish outages and cancellation preserves
     await page.unroute('**/api/v1/account/goals');
     await page.request.delete('/api/v1/account', {
       headers: { Origin: process.env.E2E_WEB_URL || 'http://localhost:5173' },
+      data: { password },
+    });
+  }
+});
+
+test('E2E-WEB-066 confirmed goal save survives later refresh failure without duplicate creation @GOALS-001 @UX-002', async ({
+  page,
+}) => {
+  const password = 'Synthetic-goal-acknowledgment-2026';
+  const headers = {
+    Origin: process.env.E2E_WEB_URL || 'http://localhost:5173',
+  };
+  expect(
+    (
+      await page.request.post('/api/v1/account/register', {
+        headers,
+        data: {
+          username: `ack_${randomUUID().slice(0, 16)}`,
+          password,
+          consent: true,
+        },
+      })
+    ).status(),
+  ).toBe(201);
+  try {
+    await page.goto('/#my-goals');
+    await page
+      .getByRole('button', { name: 'Create a goal', exact: true })
+      .click();
+    await page
+      .getByLabel('Goal name', { exact: true })
+      .fill('Synthetic confirmed goal');
+    await page
+      .getByRole('button', { name: 'Next: amounts', exact: true })
+      .click();
+    await page
+      .getByLabel('Target amount (INR)', { exact: true })
+      .fill('12345.67');
+    await page
+      .getByRole('button', { name: 'Next: contributions', exact: true })
+      .click();
+    await page
+      .getByRole('button', { name: 'Review goal', exact: true })
+      .click();
+    await page
+      .getByRole('checkbox', { name: /I agree to store this goal/ })
+      .check();
+    // Only subsequent browser reads fail. The write and API evidence use real storage.
+    await page.route('**/api/v1/account/goals', (route) =>
+      route.request().method() === 'GET'
+        ? route.fulfill({
+            status: 503,
+            contentType: 'application/json',
+            body: JSON.stringify({ message: 'Synthetic refresh unavailable' }),
+          })
+        : route.continue(),
+    );
+    await page
+      .getByRole('button', { name: 'Add saved goal', exact: true })
+      .click();
+    const card = page.getByRole('article', {
+      name: 'Goal Synthetic confirmed goal',
+      exact: true,
+    });
+    await expect(card).toBeVisible();
+    await expect(
+      page.getByRole('button', { name: 'Add saved goal', exact: true }),
+    ).toHaveCount(0);
+    await expect(
+      page
+        .getByRole('region', { name: 'My saved goals', exact: true })
+        .getByRole('status'),
+    ).toHaveText('Goal saved.');
+    await page
+      .getByRole('button', { name: 'Reload goals', exact: true })
+      .click();
+    await expect(page.getByRole('alert')).toContainText(
+      'Synthetic refresh unavailable',
+    );
+    await expect(card).toBeVisible();
+    await expect(
+      page.getByRole('button', { name: 'Add saved goal', exact: true }),
+    ).toHaveCount(0);
+    const response = await page.request.get('/api/v1/account/goals');
+    expect(response.status()).toBe(200);
+    const data = (await response.json()) as { goals: { name: string }[] };
+    expect(
+      data.goals.filter((goal) => goal.name === 'Synthetic confirmed goal'),
+    ).toHaveLength(1);
+  } finally {
+    await page.unrouteAll({ behavior: 'wait' });
+    await page.request.delete('/api/v1/account', {
+      headers,
       data: { password },
     });
   }

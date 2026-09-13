@@ -32,10 +32,16 @@ test('E2E-WEB-090 review, save, reload, export and clear entered holdings @PORTF
     await page
       .getByLabel('Security ISIN', { exact: true })
       .fill('INE002A01018');
+    await page
+      .getByRole('button', { name: 'Next: holding amounts', exact: true })
+      .click();
     await page.getByLabel('Quantity', { exact: true }).fill('1.000001');
     await page
       .getByLabel('Total purchase cost (INR)', { exact: true })
       .fill('1000.01');
+    await page
+      .getByRole('button', { name: 'Review this holding', exact: true })
+      .click();
     await page
       .getByRole('button', { name: 'Add to draft', exact: true })
       .click();
@@ -44,6 +50,9 @@ test('E2E-WEB-090 review, save, reload, export and clear entered holdings @PORTF
     ).toContainText('1000.01');
     await page
       .getByRole('button', { name: 'Edit INE002A01018', exact: true })
+      .click();
+    await page
+      .getByRole('button', { name: 'Next: holding amounts', exact: true })
       .click();
     await page
       .getByLabel('Total purchase cost (INR)', { exact: true })
@@ -172,6 +181,9 @@ test('E2E-WEB-092 holdings auth gates distinguish outages and preserve unsaved e
     await page
       .getByLabel('Security ISIN', { exact: true })
       .fill('INE002A01018');
+    await page
+      .getByRole('button', { name: 'Next: holding amounts', exact: true })
+      .click();
     await page.getByLabel('Quantity', { exact: true }).fill('2');
     await page
       .getByLabel('Total purchase cost (INR)', { exact: true })
@@ -185,9 +197,9 @@ test('E2E-WEB-092 holdings auth gates distinguish outages and preserve unsaved e
     ).toHaveValue('300.01');
     page.once('dialog', (dialog) => dialog.dismiss());
     await page.getByRole('button', { name: 'Import CSV', exact: true }).click();
-    await expect(page.getByLabel('Security ISIN', { exact: true })).toHaveValue(
-      'INE002A01018',
-    );
+    await expect(
+      page.getByLabel('Total purchase cost (INR)', { exact: true }),
+    ).toHaveValue('300.01');
     await page.route('**/api/v1/account/holdings', (route) =>
       route.fulfill({ status: 401, body: '' }),
     );

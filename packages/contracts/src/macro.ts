@@ -42,13 +42,11 @@ export const MacroSourceSchema = z.strictObject({
   rightsReviewedAt: z.iso.date(),
   freshness: z.enum(['never_synced', 'recently_checked', 'refresh_due']),
   lastSuccessAt: z.iso.datetime().nullable(),
-  latestRun: MacroRunSchema.nullable(),
   observations: z.array(MacroObservationSchema),
 });
 export const MacroDashboardSchema = z.strictObject({
   sources: z.array(MacroSourceSchema),
   evaluatedAt: z.iso.datetime(),
-  operatorConfigured: z.boolean(),
 });
 export const MacroRefreshSchema = z.strictObject({
   indicator: MacroIndicatorSchema,

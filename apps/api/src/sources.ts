@@ -26,7 +26,8 @@ import {
 } from '@fingent360/contracts';
 import { checkOrigin } from './account-security.js';
 import type { AppConfig } from './config.js';
-const STORE = Symbol('SOURCE_STORE');
+export const SOURCE_STORE = Symbol('SOURCE_STORE');
+const STORE = SOURCE_STORE;
 type Row = {
   source_id: string;
   revision: number;

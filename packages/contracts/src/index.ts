@@ -29,3 +29,9 @@ export * from './alert-preferences.js';
 export * from './holdings.js';
 
 export * from './overview.js';
+
+export * from './discovery.js';
+export * from './library.js';
+export * from './learning.js';
+export * from './media.js';
+export * from './assistance.js';

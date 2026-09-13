@@ -1,5 +1,8 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
 import { AccountGate } from './AccountGate';
+import { Assist } from './Assist';
+import { useDraftGuard } from './useDraftGuard';
+import { SmartHelp } from './SmartHelp';
 import { money } from './ui';
 import {
   AccountActionSchema,
@@ -53,11 +56,13 @@ const empty = {
   months: '120',
 };
 export function Goals() {
+  const goalTypeId = useId();
   const editor = useRef<HTMLDivElement>(null);
   const createButton = useRef<HTMLButtonElement>(null);
   const focusEditor = useRef(false);
   const focusReturn = useRef(false);
   const baseline = useRef(empty);
+  const [step, setStep] = useState(0);
   const [showEditor, setShowEditor] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [goals, setGoals] = useState<SavedGoal[]>([]);
@@ -82,6 +87,10 @@ export function Goals() {
       setError('');
     } else setError(e instanceof Error ? e.message : 'Goal request failed.');
   }
+  useDraftGuard(
+    showEditor && JSON.stringify(form) !== JSON.stringify(baseline.current),
+    'Leave this page and discard your unsaved goal changes?',
+  );
   const reload = async (active: () => boolean = () => true) => {
     const result = SavedGoalsSchema.parse(await api());
     if (!active()) return;
@@ -89,6 +98,7 @@ export function Goals() {
     setLoaded(true);
   };
   const openEditor = () => {
+    setStep(0);
     focusEditor.current = true;
     setShowEditor(true);
   };
@@ -105,6 +115,15 @@ export function Goals() {
       focusReturn.current = false;
     }
   });
+  useEffect(() => {
+    if (showEditor)
+      requestAnimationFrame(() => {
+        const target = editor.current?.querySelector<
+          HTMLInputElement | HTMLButtonElement
+        >('input,button');
+        target?.focus({ preventScroll: true });
+      });
+  }, [step, showEditor]);
   const canDiscard = () =>
     !showEditor ||
     JSON.stringify(form) === JSON.stringify(baseline.current) ||
@@ -217,6 +236,16 @@ export function Goals() {
             onSubmit={(event) => {
               event.preventDefault();
               void action(async () => {
+                if (step < 3) {
+                  if (step === 1) {
+                    if (BigInt(rupeesToGoalMinor(form.target)) <= 0n)
+                      throw new Error('Enter a target greater than zero.');
+                    rupeesToGoalMinor(form.saved);
+                  }
+                  if (step === 2) rupeesToGoalMinor(form.monthly);
+                  setStep(step + 1);
+                  return;
+                }
                 const input = SavedGoalInputSchema.parse({
                   name: form.name,
                   type: form.type,
@@ -229,7 +258,7 @@ export function Goals() {
                   assumptions: 'no-growth-nominal-v1',
                   storageConsent: consent,
                 });
-                SavedGoalSchema.parse(
+                const savedGoal = SavedGoalSchema.parse(
                   await api(
                     editing ? `/${editing.id}` : '',
                     editing
@@ -238,7 +267,12 @@ export function Goals() {
                     editing ? 'PUT' : 'POST',
                   ),
                 );
-                await reload();
+                // The write response is authoritative: a subsequent read failure
+                // must not leave a successful create available for resubmission.
+                setGoals((current) => [
+                  ...current.filter((goal) => goal.id !== savedGoal.id),
+                  savedGoal,
+                ]);
                 setForm(empty);
                 setEditing(null);
                 setConsent(false);
@@ -257,107 +291,189 @@ export function Goals() {
                 Start with what you know. You can change these amounts and your
                 timeline later.
               </p>
+              <p className="badge">
+                Step {step + 1} of 4 ·{' '}
+                {
+                  ['Your goal', 'Your amounts', 'Your plan', 'Review and save'][
+                    step
+                  ]
+                }
+              </p>
               <div className="form-grid">
-                <label>
-                  Goal name
-                  <input
-                    required
-                    maxLength={100}
-                    value={form.name}
-                    onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  />
-                </label>
-                <label>
-                  Goal type
-                  <select
-                    value={form.type}
-                    onChange={(e) =>
+                {step === 0 && (
+                  <>
+                    <label>
+                      Goal name
+                      <input
+                        required
+                        maxLength={100}
+                        value={form.name}
+                        onChange={(e) =>
+                          setForm({ ...form, name: e.target.value })
+                        }
+                      />
+                    </label>
+                    <div className="field">
+                      <label htmlFor={goalTypeId}>Goal type</label>
+                      <select
+                        id={goalTypeId}
+                        value={form.type}
+                        onChange={(e) =>
+                          setForm({
+                            ...form,
+                            type: e.target.value as SavedGoalInput['type'],
+                          })
+                        }
+                      >
+                        {[
+                          'education',
+                          'retirement',
+                          'purchase',
+                          'emergency',
+                          'other',
+                        ].map((type) => (
+                          <option key={type} value={type}>
+                            {type}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </>
+                )}
+                {step === 1 && (
+                  <>
+                    <label>
+                      Target amount (INR)
+                      <input
+                        required
+                        inputMode="decimal"
+                        value={form.target}
+                        onChange={(e) =>
+                          setForm({ ...form, target: e.target.value })
+                        }
+                      />
+                    </label>
+                    <label>
+                      Already saved (INR)
+                      <input
+                        required
+                        inputMode="decimal"
+                        value={form.saved}
+                        onChange={(e) =>
+                          setForm({ ...form, saved: e.target.value })
+                        }
+                      />
+                    </label>
+                  </>
+                )}
+                {step === 2 && (
+                  <>
+                    <label>
+                      Monthly contribution (INR)
+                      <input
+                        required
+                        inputMode="decimal"
+                        value={form.monthly}
+                        onChange={(e) =>
+                          setForm({ ...form, monthly: e.target.value })
+                        }
+                      />
+                    </label>
+                    <label>
+                      Months from this plan
+                      <input
+                        required
+                        type="number"
+                        min="1"
+                        max="1200"
+                        value={form.months}
+                        onChange={(e) =>
+                          setForm({ ...form, months: e.target.value })
+                        }
+                      />
+                    </label>
+                  </>
+                )}
+              </div>
+              {step === 2 && (
+                <Assist
+                  kind="goal"
+                  onApply={(suggestion) => {
+                    if (suggestion.kind === 'goal') {
                       setForm({
                         ...form,
-                        type: e.target.value as SavedGoalInput['type'],
-                      })
+                        monthly: goalMinorToRupees(
+                          suggestion.values.monthlyMinor,
+                        ),
+                        months: String(suggestion.values.horizonMonths),
+                      });
+                      setMessage(
+                        'Previous contribution and timeline applied. Review them for this goal.',
+                      );
                     }
-                  >
-                    {[
-                      'education',
-                      'retirement',
-                      'purchase',
-                      'emergency',
-                      'other',
-                    ].map((type) => (
-                      <option key={type} value={type}>
-                        {type}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-
-                <label>
-                  Target amount (INR)
-                  <input
-                    required
-                    inputMode="decimal"
-                    value={form.target}
-                    onChange={(e) =>
-                      setForm({ ...form, target: e.target.value })
-                    }
-                  />
-                </label>
-                <label>
-                  Already saved (INR)
-                  <input
-                    required
-                    inputMode="decimal"
-                    value={form.saved}
-                    onChange={(e) =>
-                      setForm({ ...form, saved: e.target.value })
-                    }
-                  />
-                </label>
-                <label>
-                  Monthly contribution (INR)
-                  <input
-                    required
-                    inputMode="decimal"
-                    value={form.monthly}
-                    onChange={(e) =>
-                      setForm({ ...form, monthly: e.target.value })
-                    }
-                  />
-                </label>
-                <label>
-                  Months from this plan
-                  <input
-                    required
-                    type="number"
-                    min="1"
-                    max="1200"
-                    value={form.months}
-                    onChange={(e) =>
-                      setForm({ ...form, months: e.target.value })
-                    }
-                  />
-                </label>
-              </div>
+                  }}
+                />
+              )}
+              {step === 3 && (
+                <section aria-label="Goal review">
+                  <h3>{form.name}</h3>
+                  <p>
+                    {form.type} · target INR {form.target} · already saved INR{' '}
+                    {form.saved}
+                  </p>
+                  <p>
+                    INR {form.monthly} monthly for {form.months} months
+                  </p>
+                  <p>
+                    Contribution-only total INR{' '}
+                    {goalMinorToRupees(
+                      (
+                        BigInt(rupeesToGoalMinor(form.saved)) +
+                        BigInt(rupeesToGoalMinor(form.monthly)) *
+                          BigInt(form.months)
+                      ).toString(),
+                    )}
+                    . These amounts are not verified account balances or
+                    promised returns.
+                  </p>
+                </section>
+              )}
               <p className="muted">
                 Starts with ₹0 saved, ₹0 monthly and 120 months. Change these to
                 match your plan. This calculation includes only your entered
                 savings and contributions, with no investment returns, inflation
                 or costs.
               </p>
-              <label className="check-label">
-                <input
-                  required
-                  type="checkbox"
-                  checked={consent}
-                  onChange={(e) => setConsent(e.target.checked)}
-                />
-                I agree to store this goal and its revisions until account
-                deletion.
-              </label>
+              {step === 3 && (
+                <label className="check-label">
+                  <input
+                    required
+                    type="checkbox"
+                    checked={consent}
+                    onChange={(e) => setConsent(e.target.checked)}
+                  />
+                  I agree to store this goal and its revisions until account
+                  deletion.
+                </label>
+              )}
               <button type="submit">
-                {editing ? 'Save goal changes' : 'Add saved goal'}
+                {step < 3
+                  ? ['Next: amounts', 'Next: contributions', 'Review goal'][
+                      step
+                    ]
+                  : editing
+                    ? 'Save goal changes'
+                    : 'Add saved goal'}
               </button>
+              {step > 0 && (
+                <button
+                  type="button"
+                  className="secondary"
+                  onClick={() => setStep(step - 1)}
+                >
+                  Back a step
+                </button>
+              )}
               <button
                 type="button"
                 className="secondary"
@@ -369,6 +485,12 @@ export function Goals() {
               </button>
             </fieldset>
           </form>
+          {step === 0 && (
+            <SmartHelp
+              scope="goals"
+              onApplyName={(name) => setForm({ ...form, name })}
+            />
+          )}
         </div>
       )}
       <section aria-label="Saved goals" className="goal-grid">
@@ -474,7 +596,9 @@ export function Goals() {
                         'DELETE',
                       ),
                     );
-                    await reload();
+                    setGoals((current) =>
+                      current.filter((item) => item.id !== goal.id),
+                    );
                     setHistory([]);
                     if (editing?.id === goal.id) {
                       setEditing(null);

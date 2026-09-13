@@ -1,3 +1,15 @@
+import { MediaController, OpsMediaController, mediaProvider } from './media.js';
+import { AssistanceController, assistanceProvider } from './assistance.js';
+import {
+  DiscoveryController,
+  OpsDiscoveryController,
+  discoveryProvider,
+} from './discovery.js';
+import { OperatorController, operatorProvider } from './operator.js';
+import { OpsLegacyController } from './ops-legacy.js';
+import { LibraryController } from './library.js';
+import { LibraryReminderWorker } from './library-worker.js';
+import { LearningController, AccountLearningController } from './learning.js';
 import 'reflect-metadata';
 import {
   Controller,
@@ -63,13 +75,28 @@ export async function createApp(
         AlertPreferencesController,
         HoldingsController,
         OverviewController,
+        AssistanceController,
+        DiscoveryController,
+        OpsDiscoveryController,
+        OperatorController,
+        OpsLegacyController,
+        LibraryController,
+        LearningController,
+        AccountLearningController,
+        MediaController,
+        OpsMediaController,
       ],
       providers: [
         { provide: DEPENDENCY_PROBE, useValue: probe },
         journeyProvider(config),
         macroProvider(config),
         accountProvider(config),
+        discoveryProvider(config),
+        operatorProvider(config),
+        LibraryReminderWorker,
+        mediaProvider(config),
         sourcesProvider(config),
+        assistanceProvider(config),
       ],
     },
     { logger: ['error', 'warn', 'log'] },

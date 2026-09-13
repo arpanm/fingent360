@@ -63,6 +63,10 @@ export function checkOrigin(origin: string | undefined, webOrigin: string) {
     );
 }
 export class AccountRateLimit {
+  constructor(private readonly capacity = 120) {
+    if (!Number.isSafeInteger(capacity) || capacity < 1)
+      throw new Error('Rate limit capacity must be a positive integer.');
+  }
   private readonly clients = new Map<
     string,
     { count: number; until: number }
@@ -73,7 +77,7 @@ export class AccountRateLimit {
       if (value.until <= now) this.clients.delete(key);
     const key = sessionHash(client);
     const current = this.clients.get(key);
-    if (current && current.count >= 120)
+    if (current && current.count >= this.capacity)
       throw new HttpException(
         'Too many account attempts. Retry after 15 minutes.',
         429,

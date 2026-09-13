@@ -56,10 +56,64 @@ test('manual run evidence includes failures and replaces latest on the next run'
 
 test('handoff redacts known secrets and common credential formats', () => {
   const result = redact(
-    'private-value Bearer abc123 password=unsafe\npostgres://user:pass@localhost/db',
+    'private-value Bearer abc123 password=unsafe\npostgres://user:pass@localhost/db\nOPENAI_API_KEY=secret-key',
     ['private-value'],
   );
-  for (const secret of ['private-value', 'abc123', 'unsafe', 'user:pass']) {
+  for (const secret of [
+    'private-value',
+    'abc123',
+    'unsafe',
+    'user:pass',
+    'secret-key',
+  ]) {
     assert.ok(!result.includes(secret));
+  }
+});
+
+test('large run retains late failures and redacts each error before bounding it', () => {
+  const directory = mkdtempSync(path.join(tmpdir(), 'f360-large-handoff-'));
+  try {
+    const reporter = new HandoffReporter({ directory });
+    reporter.onBegin({ metadata: {} }, { allTests: () => Array(132) });
+    const example = (index) => ({
+      titlePath: () => ['mobile', `E2E-WEB-${index}`],
+      location: { file: 'large.spec.ts', line: index },
+      expectedStatus: 'passed',
+    });
+    for (let index = 1; index <= 130; index++)
+      reporter.onTestEnd(example(index), {
+        status: 'passed',
+        retry: 0,
+        errors: [],
+      });
+    reporter.onTestEnd(example(131), {
+      status: 'failed',
+      retry: 0,
+      errors: [
+        {
+          message:
+            'Final account failure\nOPENAI_API_KEY=secret-key\n' +
+            'x'.repeat(20000),
+        },
+      ],
+    });
+    reporter.onTestEnd(example(132), {
+      status: 'timedOut',
+      retry: 0,
+      errors: [{ message: 'Final reminder timeout' }],
+    });
+    reporter.onEnd({ status: 'failed' });
+    const report = readFileSync(path.join(directory, 'latest.md'), 'utf8');
+    assert.match(report, /Final account failure/);
+    assert.match(report, /Final reminder timeout/);
+    assert.match(report, /passed: mobile > E2E-WEB-130/);
+    assert.ok(
+      report.indexOf('Final reminder timeout') <
+        report.indexOf('passed: mobile'),
+    );
+    assert.doesNotMatch(report, /secret-key/);
+    assert.equal((report.match(/^## /gm) ?? []).length, 132);
+  } finally {
+    rmSync(directory, { recursive: true, force: true });
   }
 });

@@ -1,8 +1,23 @@
 # End-to-end case catalogue
 
-**UX-002 planning:** [mobile experience acceptance](plans/mobile-experience-acceptance.md) defines UX-PLAN-001–006 document reviews and UX-ACC-001–028 future implementation scenarios. They are not runnable cases or passes. The user has rejected mobile usability; historical UX-001 results do not close current operator/history/source issues. Extend real API/browser cases with visible results, focus/return, actual device gestures and complete data/job paths when implementing UX-002A–G.
+**UX-002 implemented coverage:** The cases below exercise the new persisted discovery, library, money, assistance, learning and media flows. See [CTA inventory](../../docs/development/ux2-cta-inventory.md) for actual UI/API paths. The broader [acceptance plan](plans/mobile-experience-acceptance.md) still includes physical-device, user-research and release gates that automated cases cannot establish.
 
-Case definitions describe coverage; current execution evidence is recorded at the top of TODO and in artifacts/e2e/latest.md. Historical notes below apply to their original change only. Task status and manual verification live in [TODO.md](../../TODO.md). Stable IDs appear in the UI, errors and reports. Browser cases run separately under desktop and mobile projects.
+| Cases                             | Projects       | Implemented acceptance                                                                                                                       |
+| --------------------------------- | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| API120 / API123                   | API            | Fixed real feed → draft/review/publication/withdrawal/evidence; protected operations sessions and failed-login limiter                       |
+| API121 / API122                   | API            | Library ownership, idempotent saves/reminders, stable feed cursors/search, ranked reasons/reset, worker delivery and withdrawal cancellation |
+| API140 / API141                   | API            | Versioned sourced quiz/poll, real attempts/votes/aggregates, validation and owned prior-entry suggestions                                    |
+| API150                            | API            | Authenticated query fallback, explicit history scope and isolation; provider adapters use separate synthetic unit fixtures                   |
+| API160                            | API            | Idempotent source-edition SVG/caption generation, review and source-withdrawal propagation                                                   |
+| WEB020 / WEB070                   | desktop/mobile | Separate operations refresh/source editing, investor provenance readers, row expansion/focus/Back restoration                                |
+| WEB064 / WEB094 / WEB065 / WEB113 | desktop/mobile | Guided money forms, explicit prior-input Apply, Back steps and dirty-route/native-Back protection                                            |
+| WEB120 / WEB121                   | desktop/mobile | Saved search/status, preferences, schedule/edit/cancel/snooze and live in-app reminders preserving drafts                                    |
+| WEB130 / WEB131 / WEB132          | desktop/mobile | Real scan/story reader, filtered Back, save/reaction Undo, persisted reminder and view state                                                 |
+| WEB133 / WEB134 / WEB135          | desktop/mobile | Originating tab/More/root navigation, innermost Back, deliberate/cancelled gestures,320–430px/landscape/large text and public screenshots    |
+| WEB136                            | desktop/mobile | Related primary-source term preview, keyboard/Escape and full contextual reader                                                              |
+| WEB140 / WEB150 / WEB160          | desktop/mobile | Sourced learning, query assistance explicitly applied, reviewed visual/caption controls and actual WebM download                             |
+
+The full integration run2026-09-13T04-24-09-866Z-83652 passed110 with one intentional API004 outage skip. Case definitions describe coverage; current execution evidence is recorded at the top of TODO and in artifacts/e2e/latest.md. Historical notes below apply to their original change only. Task status and manual verification live in [TODO.md](../../TODO.md). Stable IDs appear in the UI, errors and reports. Browser cases run separately under desktop and mobile projects.
 
 | ID          | Task                         | Project / scenario   | Prerequisites                                                    | Expected outcome                                      | Kind                                   |
 | ----------- | ---------------------------- | -------------------- | ---------------------------------------------------------------- | ----------------------------------------------------- | -------------------------------------- |
@@ -24,7 +39,7 @@ Current results are recorded in TODO and the saved run reports. Cases use real o
 | E2E-API-110       | api            | Anonymous denial, exact large costs, consistent owned overview, session persistence, isolation, goal removal and inbox preference agreement |
 | E2E-WEB-033       | desktop/mobile | Sign-in returns to an allowlisted private page; external redirect parameters are ignored                                                    |
 | E2E-WEB-110       | desktop/mobile | Overview → registration → saved goal → manual holding → persisted overview totals and setup progress                                        |
-| E2E-WEB-111       | desktop/mobile | Active navigation, mobile menu/Escape, skip link, route focus, no overflow and unknown-route recovery                                       |
+| E2E-WEB-111       | desktop/mobile | Persistent bottom/rail navigation, skip link, route focus, no overflow and unknown-route recovery                                           |
 | E2E-WEB-112       | desktop/mobile | Simulated overview storage outage offers retry without inventing an empty account; recovery uses the real API                               |
 | E2E-WEB-062 / 092 | desktop/mobile | Goals/holdings distinguish401 sign-in from503 outage and preserve drafts when discard is cancelled                                          |
 | E2E-WEB-063 / 093 | desktop/mobile | A held initial real API response cannot overwrite a newly saved goal or an entered holdings draft                                           |
@@ -88,7 +103,7 @@ Prerequisites: research:setup, rebuilt/restarted API, db:migrate, both databases
 | ----------- | -------------- | ------------------------------------------------------------------------------------------------------------------- |
 | E2E-API-020 | api            | Real refresh persists observations and hash-verifiable Mongo evidence; history/repeated refresh retain revision IDs |
 | E2E-API-021 | api            | Missing/wrong operator key rejects; arbitrary source/URL fields reject; unknown evidence is 404                     |
-| E2E-WEB-020 | desktop/mobile | User refreshes real GDP, views history/source, reloads persisted values without overflow                            |
+| E2E-WEB-020 | desktop/mobile | Operator refreshes real GDP; investor views contextual history/source and returns to original row without overflow  |
 
 The source parser's unit cases exercise exact decimals, null, identity, unit, pagination and schema failures using explicitly synthetic wire fixtures only. No fixtures are served in the application.
 
@@ -138,3 +153,9 @@ Lint follow-up: manually rerun `pnpm format` and `pnpm check` before the scenari
 Start a second root pnpm dev while the previous session runs. Open the newly printed web URL and a newly launched E2E UI; its target URLs must match. Run E2E-API-001/002/030 and E2E-WEB-001/030 to verify connectivity and account Origin handling. A second E2E UI/report listener must choose another free port without stopping the first. For database-port conflicts, use a disposable local setup and confirm selected Compose bindings match .env connection URLs and retained data; never remove volumes. Automated unit definitions cover allocator/env mapping and run under pnpm check. All execution remains manual.
 
 TEAM-001 verified integration: `2026-09-12T16-09-40-894Z-64656` — 51 passed, zero failed, E2E-API-004 intentionally skipped. Includes new API/WEB050, API060/061+WEB060, API/WEB070, API/WEB080, API090/091+WEB090 and WEB100 desktop/mobile.
+
+### Goal write acknowledgment follow-up
+
+| Case        | Behavior                                                  | Projects        | Tags               | Evidence boundary                                                                                                                                                                      |
+| ----------- | --------------------------------------------------------- | --------------- | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| E2E-WEB-066 | Goal save acknowledgment survives subsequent read failure | desktop, mobile | @GOALS-001 @UX-002 | Real goal POST, simulated later browser GET 503, closed create wizard, preserved confirmed card and exactly one persisted goal. Authored; current-run verification tracked separately. |

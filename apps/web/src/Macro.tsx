@@ -1,368 +1,301 @@
-import { useEffect, useState } from 'react';
-import { Trend } from './Overview';
-import { shortDate } from './ui';
+import { useEffect, useRef, useState } from 'react';
 import {
   MacroDashboardSchema,
-  MacroEvidenceSchema,
   MacroHistorySchema,
-  MacroRunSchema,
+  MacroEvidenceSchema,
   type MacroDashboard,
-  type MacroIndicator,
   type MacroObservation,
 } from '@fingent360/contracts';
-async function get(path = ''): Promise<unknown> {
-  const response = await fetch(`/api/v1/macro${path}`, {
-    signal: AbortSignal.timeout(15000),
-  });
-  const body: unknown = await response.json();
-  if (!response.ok)
-    throw new Error(
-      typeof body === 'object' && body && 'message' in body
-        ? String(body.message)
-        : 'Macro data is unavailable.',
-    );
-  return body;
-}
-export function Macro() {
+import { Trend } from './Overview';
+import { json } from './net';
+import { Icon, shortDate } from './ui';
+import { returnTo, restorePosition } from './navigation';
+const expandedIndicators = new Set<string>();
+const indicatorTitles: Record<string, string> = {
+  'NY.GDP.MKTP.KD.ZG': 'India GDP growth',
+  'FP.CPI.TOTL.ZG': 'India CPI inflation',
+};
+export function Macro({ route = 'macro' }: { route?: string }) {
+  const [expanded, setExpanded] = useState(() => new Set(expandedIndicators));
   const [data, setData] = useState<MacroDashboard | null>(null);
-  const [error, setError] = useState('');
-  const [notice, setNotice] = useState('');
-  const [key, setKey] = useState('');
-  const [operatorOpen, setOperatorOpen] = useState(false);
-  const [busy, setBusy] = useState(false);
   const [history, setHistory] = useState<MacroObservation[] | null>(null);
-  const [evidence, setEvidence] = useState<{
-    body: string;
-    hash: string;
-    url: string;
-    retrievedAt: string;
-  } | null>(null);
+  const [evidence, setEvidence] = useState<ReturnType<
+    typeof MacroEvidenceSchema.parse
+  > | null>(null);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [reload, setReload] = useState(0);
+  const heading = useRef<HTMLHeadingElement>(null);
+  const parts = route.split('/');
+  const view = parts[1];
   useEffect(() => {
     let active = true;
-    void get()
-      .then((body) => {
-        if (active) setData(MacroDashboardSchema.parse(body));
-      })
-      .catch((error: unknown) => {
+    setError('');
+    setLoading(true);
+    setHistory(null);
+    setEvidence(null);
+    const load = async () => {
+      if (view === 'history') {
+        const result = MacroHistorySchema.parse(
+          await json(
+            `/macro/${encodeURIComponent(parts[2]!)}/history/${parts[3]}`,
+          ),
+        );
+        if (active) setHistory(result);
+      } else if (view === 'evidence') {
+        const result = MacroEvidenceSchema.parse(
+          await json(`/macro/evidence/${parts[2]}`),
+        );
+        if (active) setEvidence(result);
+      } else {
+        const result = MacroDashboardSchema.parse(await json('/macro'));
+        if (active) setData(result);
+      }
+    };
+    void load()
+      .catch((e: unknown) => {
         if (active)
           setError(
-            error instanceof Error
-              ? error.message
-              : 'Could not load macro data.',
+            e instanceof Error
+              ? e.message
+              : 'Market context could not be loaded.',
           );
+      })
+      .finally(() => {
+        if (active) {
+          setLoading(false);
+          if (view) heading.current?.focus({ preventScroll: true });
+          else restorePosition(route);
+        }
       });
     return () => {
       active = false;
     };
-  }, []);
-  async function action(work: () => Promise<void>) {
-    if (busy) return;
-    setBusy(true);
-    setError('');
-    setNotice('');
-    try {
-      await work();
-    } catch (error) {
-      setError(
-        error instanceof Error
-          ? error.message
-          : 'Operation failed. Previously saved data remains available.',
-      );
-    } finally {
-      setBusy(false);
-    }
-  }
-  async function reload() {
-    setData(MacroDashboardSchema.parse(await get()));
-  }
-  async function refresh(indicator: MacroIndicator) {
-    let failure: Error | null = null;
-    try {
-      const response = await fetch('/api/v1/macro/refresh', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${key}`,
-        },
-        body: JSON.stringify({ indicator }),
-        signal: AbortSignal.timeout(45000),
-      });
-      const body: unknown = await response.json();
-      if (!response.ok)
-        throw new Error(
-          typeof body === 'object' && body && 'message' in body
-            ? String(body.message)
-            : 'Source refresh failed.',
-        );
-      const result = MacroRunSchema.parse(body);
-      setNotice(result.message);
-    } catch (error) {
-      failure =
-        error instanceof Error ? error : new Error('Source refresh failed.');
-    }
-    await reload();
-    if (failure) throw failure;
-  }
+    // route contains the complete selected indicator/year/evidence identity.
+  }, [route, reload, view]);
+  useEffect(() => {
+    const key = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && view && !document.querySelector('dialog[open]'))
+        returnTo('macro');
+    };
+    window.addEventListener('keydown', key);
+    return () => window.removeEventListener('keydown', key);
+  }, [view]);
+  const source = data?.sources.find((s) => s.indicator === parts[2]);
   return (
-    <section className="macro" aria-labelledby="macro-title">
+    <section
+      className={`macro ${view ? 'evidence-reader' : ''}`}
+      aria-labelledby="macro-title"
+    >
+      {view && (
+        <button
+          className="text-link back-control"
+          onClick={() => returnTo('macro')}
+        >
+          <Icon name="back" /> Back to market context
+        </button>
+      )}
       <div className="page-header">
         <div>
-          <p className="page-kicker">REPORTED DATA · INDIA</p>
-          <h1 id="macro-title">India macro dashboard</h1>
+          <p className="page-kicker">EXPLORE / REPORTED DATA</p>
+          <h1 id="macro-title" ref={heading} tabIndex={-1}>
+            {view === 'history'
+              ? `${source?.title ?? indicatorTitles[parts[2]!] ?? 'Annual observation'} · ${parts[3]}`
+              : view === 'evidence'
+                ? 'Source evidence'
+                : 'India macro dashboard'}
+          </h1>
           <p className="page-description">
-            A longer view of growth and inflation. Explore the numbers, then
-            follow the evidence.
+            {view === 'history'
+              ? 'The published record, including subsequent revisions.'
+              : view === 'evidence'
+                ? 'Check the original source behind this observation.'
+                : 'Understand growth and inflation, one observation at a time.'}
           </p>
         </div>
-        <a className="button secondary" href="#account">
-          Manage your watchlist
-        </a>
       </div>
-      <p className="data-note">
-        Annual World Bank observations provide economic context, not live
-        quotes, forecasts or investment recommendations.
-      </p>
-      <button
-        className="secondary"
-        disabled={busy}
-        onClick={() => void action(reload)}
-      >
-        Reload saved data
-      </button>
-      <p aria-live="polite">
-        {busy ? 'Working… source refresh may take a moment.' : notice}
-      </p>
       {error && (
-        <p role="alert" className="error">
-          {error}
+        <div className="error" role="alert">
+          {error}{' '}
+          <button onClick={() => setReload((n) => n + 1)}>Try again</button>
+        </div>
+      )}
+      {loading && (
+        <p role="status">
+          Loading {view ? 'selected evidence' : 'market context'}…
         </p>
       )}
-      {!data && !error && <p>Loading saved observations…</p>}
-      {data && (
+      {!view && data && (
         <>
+          <p className="data-note">
+            Annual World Bank observations. The observation year describes the
+            data; the checked date describes when it was retrieved.
+          </p>
           <div className="macro-grid">
-            {data.sources.map((source) => {
-              const latest = source.observations.find((o) => o.value !== null);
-              return (
-                <article
-                  className="card"
-                  key={source.indicator}
-                  aria-label={source.title}
-                >
-                  <h3>{source.title}</h3>
-                  <p>{source.explanation}</p>
-                  {latest ? (
+            {data.sources.map((s) => (
+              <article
+                key={s.indicator}
+                className="macro-summary"
+                aria-label={s.title}
+              >
+                <span className="eyebrow">ANNUAL DATA · INDIA</span>
+                <h2>{s.title}</h2>
+                <p>{s.explanation}</p>
+                <div className="macro-value">
+                  {s.observations.find((o) => o.value !== null)?.value !==
+                  undefined ? (
                     <>
-                      <p className="big-number">
-                        {Number(latest.value).toFixed(2)}%
-                      </p>
-                      <p>
-                        Observation year: <strong>{latest.year}</strong> ·
-                        reported annual percentage
-                      </p>
+                      <strong>
+                        {Number(
+                          s.observations.find((o) => o.value !== null)?.value,
+                        ).toFixed(2)}
+                        <small>%</small>
+                      </strong>
+                      <span>
+                        Observation year{' '}
+                        {s.observations.find((o) => o.value !== null)?.year}
+                      </span>
                     </>
                   ) : (
-                    <p>
-                      No reported values stored yet. An operator can fetch the
-                      latest available history using the source controls below.
-                    </p>
+                    <p>No reported values available yet.</p>
                   )}
-                  <Trend observations={source.observations} />
-                  <p>
-                    Source checked: {shortDate(source.lastSuccessAt)}.{' '}
-                    {source.freshness === 'refresh_due'
-                      ? 'Refresh due — last successful check is over 7 days old.'
-                      : source.freshness === 'recently_checked'
-                        ? 'Checked within 7 days; this does not make annual data a current release.'
-                        : ''}
-                  </p>
-                  {source.latestRun && (
-                    <p>
-                      Latest refresh: {source.latestRun.status}.{' '}
-                      {source.latestRun.message}
-                    </p>
-                  )}
-                  {operatorOpen && /^[a-f0-9]{64}$/.test(key) && (
-                    <button
-                      disabled={
-                        busy ||
-                        !data.operatorConfigured ||
-                        !/^[a-f0-9]{64}$/.test(key)
+                </div>
+                <Trend observations={s.observations} />
+                <p className="muted">
+                  Source checked {shortDate(s.lastSuccessAt)}
+                </p>
+                <details
+                  open={expanded.has(s.indicator)}
+                  onToggle={(event) => {
+                    const open = event.currentTarget.open;
+                    setExpanded((previous) => {
+                      if (previous.has(s.indicator) === open) return previous;
+                      const next = new Set(previous);
+                      if (open) {
+                        next.add(s.indicator);
+                        expandedIndicators.add(s.indicator);
+                      } else {
+                        next.delete(s.indicator);
+                        expandedIndicators.delete(s.indicator);
                       }
-                      onClick={() =>
-                        void action(() => refresh(source.indicator))
-                      }
-                    >
-                      Refresh {source.title}
-                    </button>
-                  )}
-                  <p>
-                    <a href={source.sourceUrl} target="_blank" rel="noreferrer">
-                      Official indicator and licensing
-                    </a>{' '}
-                    ·{' '}
-                    <a href={source.termsUrl} target="_blank" rel="noreferrer">
-                      CC BY 4.0 and additional terms
-                    </a>
-                  </p>
-                  <p className="muted">
-                    {source.attribution} No endorsement implied.
-                  </p>
-                  <details>
-                    <summary>
-                      Annual observations and provenance (
-                      {source.observations.length})
-                    </summary>
-                    <div
-                      className="table-scroll"
-                      tabIndex={0}
-                      role="region"
-                      aria-label={`${source.title} observations`}
-                    >
-                      <table>
-                        <thead>
-                          <tr>
-                            <th>Year</th>
-                            <th>Annual %</th>
-                            <th>Revision</th>
-                            <th>Evidence</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {source.observations.map((o) => (
-                            <tr key={o.id}>
-                              <td>{o.year}</td>
-                              <td>{o.value ?? 'Unavailable'}</td>
-                              <td>
-                                <button
-                                  className="secondary"
-                                  disabled={busy}
-                                  onClick={() =>
-                                    void action(async () => {
-                                      setHistory(
-                                        MacroHistorySchema.parse(
-                                          await get(
-                                            `/${source.indicator}/history/${o.year}`,
-                                          ),
-                                        ),
-                                      );
-                                      setEvidence(null);
-                                    })
-                                  }
-                                >
-                                  History {o.year} (v{o.revision})
-                                </button>
-                              </td>
-                              <td>
-                                <button
-                                  className="secondary"
-                                  disabled={busy}
-                                  onClick={() =>
-                                    void action(async () => {
-                                      setEvidence(
-                                        MacroEvidenceSchema.parse(
-                                          await get(
-                                            `/evidence/${o.sourceHash}`,
-                                          ),
-                                        ),
-                                      );
-                                      setHistory(null);
-                                    })
-                                  }
-                                >
-                                  Source {o.year}
-                                </button>
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  </details>
-                </article>
-              );
-            })}
+                      return next;
+                    });
+                  }}
+                >
+                  <summary>
+                    Annual observations and provenance ({s.observations.length})
+                  </summary>
+                  <div
+                    className="observation-list"
+                    aria-label={`${s.title} observations`}
+                  >
+                    {s.observations.map((o) => (
+                      <div className="observation-row" key={o.id}>
+                        <div>
+                          <strong>{o.year}</strong>
+                          <span>
+                            {o.value ?? 'Unavailable'}
+                            {o.value !== null ? '%' : ''}
+                          </span>
+                        </div>
+                        <div className="row-actions">
+                          <a
+                            className="button secondary"
+                            href={`#macro/history/${s.indicator}/${o.year}`}
+                          >
+                            History {o.year} (v{o.revision})
+                          </a>
+                          <a
+                            className="button secondary"
+                            href={`#macro/evidence/${o.sourceHash}`}
+                          >
+                            Source {o.year}
+                          </a>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </details>
+                <a
+                  className="text-link"
+                  href={s.sourceUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  World Bank source <Icon name="arrow" />
+                </a>
+              </article>
+            ))}
           </div>
-          <details
-            className="card"
-            onToggle={(event) => setOperatorOpen(event.currentTarget.open)}
-          >
-            <summary>Source refresh controls</summary>
-            <p>
-              Refreshes call the real provider and save source evidence. The
-              local operator key is held only in this page’s memory and is never
-              included in public data.
-            </p>
-            {!data.operatorConfigured && (
-              <p>
-                Source refresh is disabled. Run pnpm research:setup locally and
-                restart the API, then reload this page.
-              </p>
-            )}
-            <label>
-              Operator key
-              <input
-                type="password"
-                autoComplete="off"
-                value={key}
-                onChange={(event) => setKey(event.target.value)}
-              />
-            </label>
-            <button className="secondary" onClick={() => setKey('')}>
-              Forget operator key
+          <div className="page-actions">
+            <button
+              className="secondary"
+              disabled={loading}
+              onClick={() => setReload((n) => n + 1)}
+            >
+              Check for saved updates
             </button>
-          </details>
+            <a href="#account">Follow these indicators</a>
+          </div>
         </>
       )}
       {history && (
-        <section className="card" aria-label="Observation history">
-          <h3>Observation history</h3>
-          {history.length === 0 && <p>No revisions found.</p>}
-          {history.map((o) => (
-            <div key={o.id}>
-              <p>
-                {o.indicator} · {o.year} · revision {o.revision}:{' '}
-                {o.value ?? 'Unavailable'} annual %
-              </p>
-              <p>
-                Provider dataset updated: {o.providerUpdatedAt}. Retrieved:{' '}
-                {o.retrievedAt}. Previous revision ID:{' '}
-                {o.supersedesId ?? 'None'}.
-              </p>
-              <p className="hash">Evidence hash: {o.sourceHash}</p>
-              <button
-                disabled={busy}
-                className="secondary"
-                onClick={() =>
-                  void action(async () =>
-                    setEvidence(
-                      MacroEvidenceSchema.parse(
-                        await get(`/evidence/${o.sourceHash}`),
-                      ),
-                    ),
-                  )
-                }
-              >
-                View evidence for revision {o.revision}
-              </button>
-            </div>
-          ))}
+        <section aria-label="Observation history" className="revision-list">
+          {history.length === 0 ? (
+            <p>No revisions found for this observation.</p>
+          ) : (
+            history.map((o) => (
+              <article className="panel" key={o.id}>
+                <span className="eyebrow">
+                  REVISION {o.revision} · {o.year}
+                </span>
+                <h2>
+                  {o.value ?? 'Unavailable'}
+                  {o.value !== null ? '%' : ''}
+                </h2>
+                <dl className="evidence-facts">
+                  <div>
+                    <dt>Meaning</dt>
+                    <dd>Reported annual percentage</dd>
+                  </div>
+                  <div>
+                    <dt>Provider dataset updated</dt>
+                    <dd>{shortDate(o.providerUpdatedAt)}</dd>
+                  </div>
+                  <div>
+                    <dt>Retrieved</dt>
+                    <dd>{shortDate(o.retrievedAt)}</dd>
+                  </div>
+                </dl>
+                <a className="button" href={`#macro/evidence/${o.sourceHash}`}>
+                  View evidence for revision {o.revision}
+                </a>
+              </article>
+            ))
+          )}
         </section>
       )}
       {evidence && (
-        <section className="card" aria-label="Source evidence">
-          <h3>Stored source evidence</h3>
-          <p>Retrieved: {evidence.retrievedAt}</p>
+        <section aria-label="Original source record" className="panel">
+          <span className="eyebrow">ORIGINAL PROVIDER RECORD</span>
+          <h2>World Bank Open Data</h2>
           <p>
-            <a href={evidence.url} target="_blank" rel="noreferrer">
-              Original provider request
-            </a>
+            Retrieved {shortDate(evidence.retrievedAt)}. This stored source
+            supports the observation and preserves the provider response for
+            inspection.
           </p>
-          <p className="hash">
-            SHA-256 (request URL + newline + raw response): {evidence.hash}
-          </p>
+          <a
+            className="button"
+            href={evidence.url}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Open original provider source <Icon name="arrow" />
+          </a>
           <details>
-            <summary>Original JSON response</summary>
+            <summary>Advanced evidence</summary>
+            <p className="hash">SHA-256: {evidence.hash}</p>
+            <h3>Original JSON response</h3>
             <pre>{evidence.body}</pre>
           </details>
         </section>

@@ -26,6 +26,11 @@ try {
     '007_sources.sql',
     '008_alert_preferences.sql',
     '009_holdings.sql',
+    '010_discovery.sql',
+    '011_library.sql',
+    '012_learning.sql',
+    '013_media.sql',
+    '014_media_attempts.sql',
   ]) {
     await applyMigration(
       client,

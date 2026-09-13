@@ -2,9 +2,17 @@
 
 A market research and personal record-keeping application for Indian investors. It stores real World Bank annual macro observations and user-entered account, holdings and goal data. Holdings cost basis is not market value; contribution-only planning assumes no investment return. A separately labelled virtual learning exercise uses fictional companies and prices. Personalised regulated advice and trade execution remain disabled.
 
-## Current direction — UX-002
+## Mobile reading and planning experience — UX-002
 
-**Current direction: UX-002 mobile product redesign.** Subsequent user feedback rejects the mobile experience and reports operator/history/source control problems. The [new product plan](docs/product/mobile-experience-plan.md) defines Today/Explore/My money/Saved/More, typographic Scan/Stories, contextual reading/evidence, private save/remind/personalization, grounded suggestions and learning/media, with complete API/data/automation requirements. [UX-002A–G in TODO](TODO.md) and the [acceptance plan](tests/e2e/plans/mobile-experience-acceptance.md) sequence implementation. This is a planning deliverable; current runtime behavior is unchanged and the reported issues remain open. UX-001's historical passes below do not establish design acceptance.
+The app opens on **Today**, a compact reading selection. **Explore** searches the full published collection; **My money** connects real holdings, goals and overview; **Saved** holds reading, reminders and preferences; **More** lists the remaining investor pages. Scan and Stories share the same collection. Readers have contextual Back, version/source details, saved state, explicit interest feedback and Undo. Macro year/history/source actions open a visible reader and restore the original row on return.
+
+The feed uses reviewed Federal Reserve RSS headlines/summary metadata, actual stored World Bank annual observations and three sourced educational terms. It is a bounded real-data discovery release, not comprehensive Indian company news. Private saved versions, reactions, reading progress, preferences and in-app reminders persist in PostgreSQL. The reminder worker checks current publication and delivers once; Saved supports search, status filters, edit/cancel/snooze and incoming reminders. No email/push delivery is promised.
+
+Goals and holdings use guided input → review → confirmed saved records. Previous owned entries are reusable explicitly. Assistance supports **OpenAI, Gemini and Anthropic** through server-only key/model pairs in .env, selected by AI_PROVIDER; query suggestions work without a model and remain the fallback on provider failure. User history sharing is optional and visible. Amounts and calculations never come from an LLM. Reviewed learning questions/polls persist actual attempts/votes. Source-based visuals, captions/transcript and genuine downloadable WebM clips are bound to a reviewed source version; optional AI only selects grounded source excerpts before operator review.
+
+Operations are separate at **#ops**, protected by a short-lived server-authorized session. Investor pages contain no operator key/refresh controls. Operators refresh real sources, review/publish/correct/withdraw items and prepare/review media. Migrations010–014 are additive. No new package dependency is required. [Plan and release gates](docs/product/mobile-experience-plan.md), [CTA inventory](docs/development/ux2-cta-inventory.md), [TODO](TODO.md), [assistance configuration](docs/development/assistance.md) and [media workflow](docs/development/media.md) document the complete paths and limits. Current runtime verification is recorded in [status](docs/development/status.md); physical-device/user design acceptance is kept separate.
+
+**Verification:** `2026-09-13T04-24-09-866Z-83652` completed API/desktop/mobile with **110 passed, zero failed**, one intentional database-outage skip. Format/check and **68 unit tests** passed; migrations010–014 are applied locally. Optional paid-provider calls and physical-device/user design acceptance remain open.
 
 ## Implemented baseline — UX-001
 
@@ -36,7 +44,7 @@ pnpm research:setup
 pnpm dev
 ```
 
-`bootstrap` creates .env only if absent. `research:setup` configures the local operator key needed for actual provider refresh cases; keep it private. Apply migrations after building/checking so compiled migration code is current. Migration checksums reject edits to already-applied SQL: add a new migration instead. No dependency changes are currently required for UX-001.
+`bootstrap` creates .env only if absent. `research:setup` configures the local operator key needed for actual provider refresh cases; keep it private. Apply migrations after building/checking so compiled migration code is current. Migration checksums reject edits to already-applied SQL: add a new migration instead. No dependency changes are required for UX-002.
 
 Use the **URLs printed by pnpm dev**, not an old fixed port. The launcher chooses free web/API ports, prepares this project's database services and propagates addresses through .env/proxy/origin/test configuration. New test sessions use the latest selected addresses; existing tabs and watchers retain their session settings. Default preferred ports are web 5173, API 4100, PostgreSQL 55432 and MongoDB 57017. Stop your dev launcher with Ctrl-C. No unrelated service is killed. Database down preserves named volumes; never remove volumes to solve a port or credential problem.
 
@@ -52,17 +60,17 @@ pnpm sdlc "Describe the change" -- --project=api
 pnpm e2e:ui
 ```
 
-The SDLC command runs **format → check → stage/commit → E2E**, stops on failure and never pushes. Format and check must pass before any commit. It stages all nonignored changes, so inspect scope first; it does not apply migrations or start the app. E2E failure leaves the earlier gated commit in place. Codex leaves changes awaiting user-run gates when execution is not authorized; the current UX-001 correction has explicit parent-controlled testing authorization.
+The SDLC command runs **format → check → stage/commit → E2E**, stops on failure and never pushes. Format and check must pass before any commit. It stages all nonignored changes, so inspect scope first; it does not apply migrations or start the app. E2E failure leaves the earlier gated commit in place. Codex leaves changes awaiting user-run gates when execution is not authorized; the ongoing UX correction has explicit parent-controlled testing authorization.
 
 `pnpm format` rewrites formatting. `pnpm check` checks formatting/lint/types, builds and runs unit tests; it type-checks E2E definitions but does not execute browser cases. The test UI starts at the printed available port, initially 9323. Select cases/projects and click Run with watch/eye mode off. macOS defaults to installed Google Chrome; choose E2E_BROWSER=chromium for manually installed managed Chromium or E2E_BROWSER=chrome explicitly. Run pnpm e2e:install only when managed Chromium is needed. Real-source cases require external provider connectivity and the configured research key.
 
-After failure, ask Codex: **Read artifacts/e2e/latest.md and fix the failures.** It records run time, targets, selected cases and failures; historical reports remain local under artifacts/e2e/handoffs. A running report is incomplete. Inspect assertions before sharing externally. For startup errors before a report exists, provide launcher output. See [test catalogue](tests/e2e/CATALOG.md) and [test usage](tests/e2e/README.md).
+After failure, ask Codex: **Read artifacts/e2e/latest.md and fix the failures.** It records run time, targets and every selected case, puts failures first and bounds/redacts each error without truncating later cases; historical reports remain local under artifacts/e2e/handoffs. A running report is incomplete. Inspect assertions before sharing externally. For startup errors before a report exists, provide launcher output. See [test catalogue](tests/e2e/CATALOG.md) and [test usage](tests/e2e/README.md).
 
 ## Delivery and evidence
 
 Follow [SDLC](docs/development/sdlc.md): maintain TODO before work; deliver every required layer; add meaningful cases and UX acceptance; record real evidence; update docs; commit only after gates; never push automatically. A screenshot, generated document, mocked UI or passed endpoint alone does not finish a feature. Implementation, verification and acceptance are separate statuses.
 
-Current UX-001 run `2026-09-12T17-03-42-614Z-70343`: 68 passed, zero failed, E2E-API-004 intentionally skipped; API/desktop/mobile against web http://127.0.0.1:5175 and API http://127.0.0.1:4103. Format/check and all 40 unit tests passed. In-app browser review covered empty/populated overview, goals, holdings, macro context and account; full accessibility and user design acceptance remain separate. Existing migrations001–009 are reused with no schema change. Historical TEAM-001 evidence is retained in TODO/status. The next complete workflows are verified equity valuation, connected goal allocations, evidence-to-portfolio research, and durable review/release readiness; their detailed scope and dependencies are in TODO.
+Historical UX-001 run `2026-09-12T17-03-42-614Z-70343`: 68 passed, zero failed, E2E-API-004 intentionally skipped; API/desktop/mobile against web http://127.0.0.1:5175 and API http://127.0.0.1:4103. Format/check and all 40 unit tests passed. In-app browser review covered empty/populated overview, goals, holdings, macro context and account; full accessibility and user design acceptance remain separate. Existing migrations001–009 are reused with no schema change. Historical TEAM-001 evidence is retained in TODO/status. The next complete workflows are verified equity valuation, connected goal allocations, evidence-to-portfolio research, and durable review/release readiness; their detailed scope and dependencies are in TODO.
 
 ## Repository map
 

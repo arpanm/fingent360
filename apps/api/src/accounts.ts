@@ -67,6 +67,8 @@ function parse<T>(schema: z.ZodType<T>, body: unknown): T {
 export class AccountStore {
   private readonly pool: pg.Pool;
   private readonly limits = new AccountRateLimit();
+  private readonly deletionIpLimits = new AccountRateLimit();
+  private readonly deletionOwnerLimits = new AccountRateLimit(5);
   constructor(private readonly config: AppConfig) {
     this.pool = new pg.Pool({
       connectionString: config.DATABASE_URL,
@@ -295,10 +297,12 @@ export class AccountStore {
   }
 
   async remove(body: unknown, cookie: string | undefined, ip: string) {
-    this.limits.consume(ip);
+    this.deletionIpLimits.consume(ip);
     const input = parse(DeleteAccountSchema, body);
     return this.transaction(async (c) => {
       const account = await this.require(c, cookie);
+      // In-memory attempts survive a failed password transaction.
+      this.deletionOwnerLimits.consume(account.id);
       const computed = await derivePassword(
         input.password,
         account.password_salt,

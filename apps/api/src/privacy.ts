@@ -20,6 +20,7 @@ import {
   RevocationSchema,
 } from '@fingent360/contracts';
 import { AccountStore, STORE } from './accounts.js';
+import { readLibrary } from './library.js';
 import { sessionFromCookie } from './account-security.js';
 
 function input<T>(schema: z.ZodType<T>, value: unknown): T {
@@ -178,6 +179,38 @@ export class PrivacyController {
             )
           ).rows
         : [];
+      const libraryTables = await client.query<{ available: boolean }>(
+        "SELECT to_regclass('public.library_notifications') IS NOT NULL AS available",
+      );
+      const libraryAvailable = libraryTables.rows[0]?.available ?? false;
+      const libraryData = libraryAvailable
+        ? await readLibrary(client, user.id)
+        : null;
+      const learningTables = await client.query<{ available: boolean }>(
+        "SELECT to_regclass('public.app_learning_attempts') IS NOT NULL AND to_regclass('public.app_learning_votes') IS NOT NULL AS available",
+      );
+      const learningAvailable = learningTables.rows[0]?.available ?? false;
+      const learningAttempts = learningAvailable
+        ? (
+            await client.query<{ payload: unknown }>(
+              'SELECT payload FROM app_learning_attempts WHERE user_id=$1 ORDER BY created_at,id',
+              [user.id],
+            )
+          ).rows
+        : [];
+      const learningVotes = learningAvailable
+        ? (
+            await client.query<{
+              question_id: string;
+              question_version: number;
+              choice_id: string;
+              voted_at: Date;
+            }>(
+              'SELECT question_id,question_version,choice_id,voted_at FROM app_learning_votes WHERE user_id=$1 ORDER BY voted_at,question_id',
+              [user.id],
+            )
+          ).rows
+        : [];
       const exported = PrivacyExportSchema.parse({
         formatVersion: 'account-export-v1',
         exportedAt: new Date().toISOString(),
@@ -218,6 +251,17 @@ export class PrivacyController {
             holdings: row.payload,
             expiresAt: row.expires_at.toISOString(),
             confirmedVersion: row.confirmed_version,
+          })),
+        },
+        library: { available: libraryAvailable, data: libraryData },
+        learning: {
+          available: learningAvailable,
+          attempts: learningAttempts.map((row) => row.payload),
+          votes: learningVotes.map((row) => ({
+            questionId: row.question_id,
+            version: row.question_version,
+            choiceId: row.choice_id,
+            votedAt: row.voted_at.toISOString(),
           })),
         },
         exclusions: [

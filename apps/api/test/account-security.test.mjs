@@ -51,3 +51,49 @@ test('account request work is bounded per client', () => {
     (error) => error.getStatus() === 429,
   );
 });
+
+test('deletion and sign-in have independent IP budgets with stricter owner limits', () => {
+  const signIn = new AccountRateLimit();
+  const deletion = new AccountRateLimit();
+  const owners = new AccountRateLimit(5);
+  for (let i = 0; i < 120; i++) signIn.consume('same-ip');
+  assert.throws(
+    () => signIn.consume('same-ip'),
+    (error) => error.getStatus() === 429,
+  );
+  deletion.consume('same-ip');
+  for (let i = 0; i < 5; i++) owners.consume('owner-a');
+  assert.throws(
+    () => owners.consume('owner-a'),
+    (error) => error.getStatus() === 429,
+  );
+  owners.consume('owner-b');
+  for (let i = 1; i < 120; i++) deletion.consume('same-ip');
+  assert.throws(
+    () => deletion.consume('same-ip'),
+    (error) => error.getStatus() === 429,
+  );
+});
+
+test('account deletion enforces the authenticated owner budget before password work', async () => {
+  const { AccountStore } = await import('../dist/accounts.js');
+  const store = new AccountStore({
+    DATABASE_URL: 'postgresql://fixture:fixture@127.0.0.1:1/fixture',
+  });
+  store.transaction = async (work) => work({});
+  store.require = async () => ({ id: 'owner-fixture' });
+  for (let i = 0; i < 5; i++)
+    store.deletionOwnerLimits.consume('owner-fixture');
+  try {
+    await assert.rejects(
+      store.remove(
+        { password: 'test-only-passphrase-123' },
+        'fixture-cookie',
+        'fixture-ip',
+      ),
+      (error) => error.getStatus() === 429,
+    );
+  } finally {
+    await store.onApplicationShutdown();
+  }
+});

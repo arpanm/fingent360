@@ -11,7 +11,7 @@ test('E2E-WEB-112 unavailable overview offers recovery without inventing an empt
       body: JSON.stringify({ message: 'Synthetic temporary failure' }),
     }),
   );
-  await page.goto('/');
+  await page.goto('/#overview');
   await expect(page.getByRole('alert')).toContainText(
     'Your workspace could not be loaded',
   );
@@ -39,7 +39,7 @@ test('E2E-WEB-110 create a workspace and see real saved goals and holdings on ov
   const headers = {
     Origin: process.env.E2E_WEB_URL || 'http://localhost:5173',
   };
-  await page.goto('/');
+  await page.goto('/#overview');
   await expect(
     page.getByRole('heading', {
       level: 1,
@@ -80,15 +80,24 @@ test('E2E-WEB-110 create a workspace and see real saved goals and holdings on ov
       .getByLabel('Goal name', { exact: true })
       .fill('Synthetic overview education');
     await page
+      .getByRole('button', { name: 'Next: amounts', exact: true })
+      .click();
+    await page
       .getByLabel('Target amount (INR)', { exact: true })
       .fill('12000.01');
     await page
       .getByLabel('Already saved (INR)', { exact: true })
       .fill('2000.01');
     await page
+      .getByRole('button', { name: 'Next: contributions', exact: true })
+      .click();
+    await page
       .getByLabel('Monthly contribution (INR)', { exact: true })
       .fill('500.00');
     await page.getByLabel('Months from this plan', { exact: true }).fill('20');
+    await page
+      .getByRole('button', { name: 'Review goal', exact: true })
+      .click();
     await page
       .getByRole('checkbox', { name: /I agree to store this goal/ })
       .check();
@@ -113,10 +122,16 @@ test('E2E-WEB-110 create a workspace and see real saved goals and holdings on ov
     await page
       .getByLabel('Security ISIN', { exact: true })
       .fill('INE002A01018');
+    await page
+      .getByRole('button', { name: 'Next: holding amounts', exact: true })
+      .click();
     await page.getByLabel('Quantity', { exact: true }).fill('2.000001');
     await page
       .getByLabel('Total purchase cost (INR)', { exact: true })
       .fill('12345.67');
+    await page
+      .getByRole('button', { name: 'Review this holding', exact: true })
+      .click();
     await page
       .getByRole('button', { name: 'Add to draft', exact: true })
       .click();
@@ -160,49 +175,37 @@ test('E2E-WEB-110 create a workspace and see real saved goals and holdings on ov
   }
 });
 
-test('E2E-WEB-111 keyboard navigation, mobile menu and route recovery @UX-001', async ({
+test('E2E-WEB-111 persistent navigation, keyboard and route recovery @UX-001 @UX-002', async ({
   page,
   isMobile,
 }) => {
-  await page.goto('/');
-  const navigation = page.getByRole('navigation', { name: 'Product areas' });
-  const menu = page.getByRole('button', {
-    name: 'Open navigation',
+  await page.goto('/#today');
+  const nav = page.getByRole('navigation', {
+    name: isMobile ? 'Mobile navigation' : 'Product areas',
     exact: true,
   });
-  if (isMobile) {
-    await expect(menu).toBeVisible();
-    await menu.click();
-    await expect(
-      page.getByRole('button', { name: 'Close navigation', exact: true }),
-    ).toHaveAttribute('aria-expanded', 'true');
-    await expect(navigation).toBeVisible();
-    await page.keyboard.press('Escape');
-    await expect(menu).toBeFocused();
-    await expect(menu).toHaveAttribute('aria-expanded', 'false');
-    await menu.click();
-  }
   await expect(
-    navigation.getByRole('link', { name: 'Overview', exact: true }),
+    nav.getByRole('link', { name: 'Today', exact: true }),
   ).toHaveAttribute('aria-current', 'page');
-  await navigation
-    .getByRole('link', { name: 'Market context', exact: true })
-    .click();
-  await expect(page).toHaveURL(/#macro$/);
-  await expect(page.getByRole('main')).toBeFocused();
+  await nav.getByRole('link', { name: 'Explore', exact: true }).click();
+  await expect(page).toHaveURL(/#explore$/);
+  await expect(
+    nav.getByRole('link', { name: 'Explore', exact: true }),
+  ).toHaveAttribute('aria-current', 'page');
+  await page.getByRole('link', { name: 'India macro', exact: true }).click();
+  await expect(
+    page.getByRole('heading', { name: 'India macro dashboard' }),
+  ).toBeVisible();
   const heading = await page
-    .getByRole('heading', { name: 'India macro dashboard', exact: true })
+    .getByRole('heading', { name: 'India macro dashboard' })
     .boundingBox();
-  const bar = await page.locator('.topbar').boundingBox();
+  const bar = await page.locator('.experience-topbar').boundingBox();
   expect(heading!.y).toBeGreaterThanOrEqual(bar!.y + bar!.height);
-  if (isMobile) await menu.click();
-  await expect(
-    navigation.getByRole('link', { name: 'Market context', exact: true }),
-  ).toHaveAttribute('aria-current', 'page');
-  if (isMobile) await page.keyboard.press('Escape');
-  await page.goto('/');
-  // A hash-only navigation focuses main; reload to test the initial tab order.
+  await page.goto('/#today');
   await page.reload();
+  await expect(
+    page.getByRole('button', { name: 'Scan', exact: true }),
+  ).toBeVisible();
   await page.keyboard.press('Tab');
   await expect(
     page.getByRole('link', { name: 'Skip to content', exact: true }),
@@ -216,19 +219,64 @@ test('E2E-WEB-111 keyboard navigation, mobile menu and route recovery @UX-001', 
   expect(dimensions.width).toBeLessThanOrEqual(dimensions.viewport);
   await page.goto('/#not-a-real-area');
   await expect(
-    page.getByRole('heading', {
-      level: 1,
-      name: 'We couldn’t find that page.',
-    }),
+    page.getByRole('heading', { name: 'We couldn’t find that page.' }),
   ).toBeVisible();
-  await page
-    .getByRole('link', { name: 'Back to overview', exact: true })
-    .click();
-  await expect(page).toHaveURL(/#overview$/);
-  await expect(
-    page.getByRole('heading', {
-      level: 1,
-      name: 'A little context. A clearer plan.',
-    }),
-  ).toBeVisible();
+  await page.getByRole('link', { name: 'Back to Today', exact: true }).click();
+  await expect(page).toHaveURL(/#today$/);
+});
+
+test('E2E-WEB-113 native Back cannot bypass a cancelled dirty goal guard @UX-002', async ({
+  page,
+}) => {
+  const password = 'Synthetic-back-guard-2026';
+  const headers = {
+    Origin: process.env.E2E_WEB_URL || 'http://localhost:5173',
+  };
+  expect(
+    (
+      await page.request.post('/api/v1/account/register', {
+        headers,
+        data: {
+          username: `back_${randomUUID().slice(0, 16)}`,
+          password,
+          consent: true,
+        },
+      })
+    ).status(),
+  ).toBe(201);
+  try {
+    await page.goto('/#more');
+    await page
+      .getByRole('link', {
+        name: 'My goals Your goals, timelines and contributions',
+        exact: false,
+      })
+      .click();
+    await page
+      .getByRole('button', { name: 'Create a goal', exact: true })
+      .click();
+    await page
+      .getByLabel('Goal name', { exact: true })
+      .fill('Synthetic protected Back draft');
+    const declined = page.waitForEvent('dialog');
+    const back = page.goBack();
+    await (await declined).dismiss();
+    await back;
+    await expect(page).toHaveURL(/#my-goals$/);
+    await expect(page.getByLabel('Goal name', { exact: true })).toHaveValue(
+      'Synthetic protected Back draft',
+    );
+    const accepted = page.waitForEvent('dialog');
+    const backAgain = page.goBack();
+    await (await accepted).accept();
+    await backAgain;
+    await expect(page).toHaveURL(/#more$/);
+    await expect(page.getByLabel('Goal name', { exact: true })).toHaveCount(0);
+  } finally {
+    page.on('dialog', (dialog) => dialog.dismiss());
+    await page.request.delete('/api/v1/account', {
+      headers,
+      data: { password },
+    });
+  }
 });

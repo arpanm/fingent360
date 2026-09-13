@@ -1,4 +1,6 @@
 import { z } from 'zod';
+import { LibrarySchema } from './library.js';
+import { LearningAttemptSchema, LearningVoteSchema } from './learning.js';
 import { HoldingRowsSchema, HoldingsSnapshotSchema } from './holdings.js';
 import { MacroIndicatorSchema } from './macro.js';
 import { SavedGoalSchema } from './goals.js';
@@ -63,6 +65,15 @@ export const PrivacyExportSchema = z.strictObject({
         confirmedVersion: z.number().int().positive().nullable(),
       }),
     ),
+  }),
+  library: z.strictObject({
+    available: z.boolean(),
+    data: LibrarySchema.nullable(),
+  }),
+  learning: z.strictObject({
+    available: z.boolean(),
+    attempts: z.array(LearningAttemptSchema),
+    votes: z.array(LearningVoteSchema),
   }),
   exclusions: z.array(z.string()),
 });

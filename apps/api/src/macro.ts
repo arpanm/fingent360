@@ -36,7 +36,8 @@ import {
 import { storageErrorMessage } from './storage-error.js';
 import type { AppConfig } from './config.js';
 
-const STORE = Symbol('MACRO_STORE');
+export const MACRO_STORE = Symbol('MACRO_STORE');
+const STORE = MACRO_STORE;
 interface RawDocument {
   _id: string;
   url: string;
@@ -142,10 +143,6 @@ export class MacroStore {
           `SELECT DISTINCT ON (year) id,indicator,year,value::text,provider_updated_at::text,retrieved_at,source_hash,source_url,revision,supersedes_id FROM macro_observations WHERE indicator=$1 ORDER BY year DESC,revision DESC`,
           [source.indicator],
         );
-        const runs = await this.pool.query<RunRow>(
-          'SELECT * FROM macro_runs WHERE indicator=$1 ORDER BY started_at DESC,id DESC LIMIT 1',
-          [source.indicator],
-        );
         const success = await this.pool.query<{ finished_at: Date }>(
           "SELECT finished_at FROM macro_runs WHERE indicator=$1 AND status='succeeded' ORDER BY finished_at DESC LIMIT 1",
           [source.indicator],
@@ -155,7 +152,6 @@ export class MacroStore {
         sources.push({
           ...source,
           lastSuccessAt,
-          latestRun: runs.rows[0] ? run(runs.rows[0]) : null,
           freshness: !lastSuccessAt
             ? 'never_synced'
             : Date.now() - Date.parse(lastSuccessAt) > 7 * 86400000
@@ -167,7 +163,6 @@ export class MacroStore {
       return MacroDashboardSchema.parse({
         sources,
         evaluatedAt: new Date().toISOString(),
-        operatorConfigured: Boolean(this.config.RESEARCH_ADMIN_TOKEN),
       });
     } catch {
       throw new ServiceUnavailableException(

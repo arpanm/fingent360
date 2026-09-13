@@ -1,0 +1,12 @@
+CREATE TABLE IF NOT EXISTS discovery_items(id text PRIMARY KEY,version integer NOT NULL CHECK(version>0));
+CREATE TABLE IF NOT EXISTS discovery_versions(item_id text NOT NULL REFERENCES discovery_items(id),version integer NOT NULL CHECK(version>0),data jsonb NOT NULL,created_at timestamptz NOT NULL DEFAULT now(),PRIMARY KEY(item_id,version));
+CREATE TABLE IF NOT EXISTS discovery_runs(id uuid PRIMARY KEY,started_at timestamptz NOT NULL DEFAULT now(),finished_at timestamptz,status text NOT NULL CHECK(status IN ('running','succeeded','failed')),message text NOT NULL DEFAULT '',inserted integer NOT NULL DEFAULT 0);
+CREATE TABLE IF NOT EXISTS operator_sessions(token_hash text PRIMARY KEY,expires_at timestamptz NOT NULL,created_at timestamptz NOT NULL DEFAULT now());
+CREATE TABLE IF NOT EXISTS operator_login_limits(client_hash text PRIMARY KEY,attempts integer NOT NULL,reset_at timestamptz NOT NULL);
+CREATE OR REPLACE FUNCTION prevent_discovery_revision_mutation() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN RAISE EXCEPTION 'Discovery revisions are append only'; END; $$;
+DROP TRIGGER IF EXISTS discovery_revision_immutable ON discovery_versions;
+CREATE TRIGGER discovery_revision_immutable BEFORE UPDATE OR DELETE ON discovery_versions FOR EACH ROW EXECUTE FUNCTION prevent_discovery_revision_mutation();
+CREATE INDEX IF NOT EXISTS operator_sessions_expiry ON operator_sessions(expires_at);
+CREATE TABLE IF NOT EXISTS operator_audit(id uuid PRIMARY KEY,actor_hash text NOT NULL,action text NOT NULL,target text NOT NULL,recorded_at timestamptz NOT NULL DEFAULT now());
+DROP TRIGGER IF EXISTS operator_audit_immutable ON operator_audit;
+CREATE TRIGGER operator_audit_immutable BEFORE UPDATE OR DELETE ON operator_audit FOR EACH ROW EXECUTE FUNCTION prevent_discovery_revision_mutation();

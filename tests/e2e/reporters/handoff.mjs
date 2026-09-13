@@ -12,7 +12,7 @@ export function redact(value, secrets = []) {
     .replace(/\b(Bearer\s+)\S+/gi, '$1[REDACTED]')
     .replace(/(\w+:\/\/)[^\s/@]+:[^\s/@]+@/g, '$1[REDACTED]@')
     .replace(
-      /((?:password|token|secret|cookie|authorization)["']?\s*[:=]\s*)[^\n,}]+/gi,
+      /((?:password|token|secret|cookie|authorization|api[_-]?key)["']?\s*[:=]\s*)[^\n,}]+/gi,
       '$1[REDACTED]',
     )
     .slice(0, 16000);
@@ -23,7 +23,7 @@ export default class HandoffReporter {
     this.directory = options.directory ?? path.resolve('artifacts/e2e');
     this.secrets = Object.entries(process.env)
       .filter(([key]) =>
-        /TOKEN|SECRET|PASSWORD|DATABASE_URL|MONGODB_URI/i.test(key),
+        /TOKEN|SECRET|PASSWORD|API_KEY|DATABASE_URL|MONGODB_URI/i.test(key),
       )
       .map(([, value]) => value);
     this.cases = [];
@@ -79,7 +79,13 @@ export default class HandoffReporter {
       '',
       ...this.errors.map((error) => `## Runner error\n\n${error}\n`),
     ];
-    for (const item of this.cases) {
+    // Put failures first, but keep every case. Bound/redact individual fragments
+    // so a large suite cannot hide later failures behind one global text limit.
+    const priority = (item) =>
+      item.status === 'passed' || item.status === 'skipped' ? 1 : 0;
+    for (const item of [...this.cases].sort(
+      (a, b) => priority(a) - priority(b),
+    )) {
       lines.push(
         `## ${item.status}: ${item.title}`,
         `Location: ${item.location} | Expected: ${item.expected} | Retry: ${item.retry}`,
@@ -88,7 +94,8 @@ export default class HandoffReporter {
         '',
       );
     }
-    const content = redact(lines.join('\n'), this.secrets) + '\n';
+    const content =
+      lines.map((line) => redact(line, this.secrets)).join('\n') + '\n';
     const history = path.join(this.directory, 'handoffs');
     mkdirSync(history, { recursive: true });
     writeFileSync(path.join(history, `${this.id}.md`), content, {

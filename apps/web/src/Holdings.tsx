@@ -1,5 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AccountGate } from './AccountGate';
+import { Assist } from './Assist';
+import { useDraftGuard } from './useDraftGuard';
+import { SmartHelp } from './SmartHelp';
 import { money, shortDate } from './ui';
 import {
   HoldingsSnapshotSchema,
@@ -9,6 +12,7 @@ import {
   goalMinorToRupees,
   rupeesToGoalMinor,
   AccountHoldingSchema,
+  validIndianIsin,
   parseHoldingsCsv,
   type Holding,
   type HoldingsSnapshot,
@@ -43,6 +47,15 @@ async function api(path = '', body?: unknown): Promise<unknown> {
   return payload;
 }
 export function Holdings() {
+  const rowEditor = useRef<HTMLFormElement>(null);
+  const [rowStep, setRowStep] = useState(0);
+  useEffect(() => {
+    requestAnimationFrame(() =>
+      rowEditor.current
+        ?.querySelector<HTMLInputElement | HTMLButtonElement>('input,button')
+        ?.focus({ preventScroll: true }),
+    );
+  }, [rowStep]);
   const [mode, setMode] = useState<'manual' | 'csv'>('manual');
   const [draft, setDraft] = useState<Holding[]>([]);
   const [row, setRow] = useState({ isin: '', quantity: '', cost: '' });
@@ -91,6 +104,10 @@ export function Holdings() {
     (rowDirty() ||
       (mode === 'csv' ? csv : holdingsCsv(draft)) !==
         holdingsCsv(saved.holdings));
+  useDraftGuard(
+    draftDirty(),
+    'Leave this page and discard your unsaved holdings draft?',
+  );
   async function load(active: () => boolean = () => true) {
     const result = HoldingsSnapshotSchema.parse(await api());
     // StrictMode may finish its discarded effect after the active load.
@@ -100,6 +117,7 @@ export function Holdings() {
     setDraft(result.holdings);
     setRow({ isin: '', quantity: '', cost: '' });
     setEditingRow(null);
+    setRowStep(0);
     setCsv(holdingsCsv(result.holdings));
     setPreview(null);
   }
@@ -296,6 +314,7 @@ export function Holdings() {
               setRow({ isin: '', quantity: '', cost: '' });
               setEditingRow(null);
               setCsv(holdingsCsv(draft));
+              setRowStep(0);
               setMode('csv');
               setPreview(null);
             }}
@@ -305,10 +324,20 @@ export function Holdings() {
         </div>
         {mode === 'manual' && (
           <>
+            <SmartHelp scope="holdings" />
             <form
+              ref={rowEditor}
               onSubmit={(event) => {
                 event.preventDefault();
                 try {
+                  if (rowStep === 0) {
+                    if (!validIndianIsin(row.isin.trim().toUpperCase()))
+                      throw new Error(
+                        'Enter a valid Indian ISIN from your statement.',
+                      );
+                    setRowStep(1);
+                    return;
+                  }
                   const parsed = AccountHoldingSchema.parse({
                     isin: row.isin.trim().toUpperCase(),
                     quantity: row.quantity.trim(),
@@ -325,6 +354,10 @@ export function Holdings() {
                     );
                   if (editingRow === null && draft.length >= 200)
                     throw new Error('You can save up to 200 holdings.');
+                  if (rowStep === 1) {
+                    setRowStep(2);
+                    return;
+                  }
                   const next =
                     editingRow === null
                       ? [...draft, parsed]
@@ -336,6 +369,7 @@ export function Holdings() {
                   setPreview(null);
                   setRow({ isin: '', quantity: '', cost: '' });
                   setEditingRow(null);
+                  setRowStep(0);
                   setError('');
                   setMessage('Draft updated. Review and confirm to save.');
                 } catch (e) {
@@ -351,57 +385,129 @@ export function Holdings() {
                 <legend>
                   {editingRow === null ? 'Add a holding' : 'Edit holding'}
                 </legend>
+                <p className="badge">
+                  Step {rowStep + 1} of 3 ·{' '}
+                  {
+                    [
+                      'Identify the security',
+                      'Enter your record',
+                      'Review this holding',
+                    ][rowStep]
+                  }
+                </p>
                 <div className="form-grid">
-                  <label className="field">
-                    Security ISIN
-                    <input
-                      required
-                      maxLength={12}
-                      placeholder="12-character ISIN from your statement"
-                      value={row.isin}
-                      onChange={(e) => setRow({ ...row, isin: e.target.value })}
-                    />
-                  </label>
-                  <label className="field">
-                    Quantity
-                    <input
-                      required
-                      inputMode="decimal"
-                      placeholder="e.g. 10"
-                      value={row.quantity}
-                      onChange={(e) =>
-                        setRow({ ...row, quantity: e.target.value })
-                      }
-                    />
-                  </label>
-                  <label className="field">
-                    Total purchase cost (INR)
-                    <input
-                      required
-                      inputMode="decimal"
-                      placeholder="e.g. 12500.50"
-                      value={row.cost}
-                      onChange={(e) => setRow({ ...row, cost: e.target.value })}
-                    />
-                  </label>
+                  {rowStep === 0 && (
+                    <label className="field">
+                      Security ISIN
+                      <input
+                        required
+                        maxLength={12}
+                        placeholder="12-character ISIN from your statement"
+                        value={row.isin}
+                        onChange={(e) =>
+                          setRow({ ...row, isin: e.target.value })
+                        }
+                      />
+                    </label>
+                  )}
+                  {rowStep === 1 && (
+                    <>
+                      <label className="field">
+                        Quantity
+                        <input
+                          required
+                          inputMode="decimal"
+                          placeholder="e.g. 10"
+                          value={row.quantity}
+                          onChange={(e) =>
+                            setRow({ ...row, quantity: e.target.value })
+                          }
+                        />
+                      </label>
+                      <label className="field">
+                        Total purchase cost (INR)
+                        <input
+                          required
+                          inputMode="decimal"
+                          placeholder="e.g. 12500.50"
+                          value={row.cost}
+                          onChange={(e) =>
+                            setRow({ ...row, cost: e.target.value })
+                          }
+                        />
+                      </label>
+                    </>
+                  )}
                 </div>
+                {rowStep === 0 && (
+                  <Assist
+                    kind="holding"
+                    onApply={(suggestion) => {
+                      if (suggestion.kind !== 'holding' || !discardRow())
+                        return;
+                      setRow({
+                        isin: suggestion.values.isin,
+                        quantity: suggestion.values.quantity,
+                        cost: goalMinorToRupees(
+                          suggestion.values.totalCostMinor,
+                        ),
+                      });
+                      const index = draft.findIndex(
+                        (item) => item.isin === suggestion.values.isin,
+                      );
+                      setEditingRow(index < 0 ? null : index);
+                      setRowStep(1);
+                      setPreview(null);
+                    }}
+                  />
+                )}
+                {rowStep === 2 && (
+                  <section aria-label="Holding row review">
+                    <h3>{row.isin}</h3>
+                    <p>
+                      {row.quantity} units · total purchase cost INR {row.cost}
+                    </p>
+                    <p>
+                      This is your entered record, not a current market
+                      valuation. Add it to the draft, then review the complete
+                      portfolio before saving.
+                    </p>
+                  </section>
+                )}
                 <p className="muted">
                   Use total cost for the whole holding, not the cost per share.
                   Up to two decimal places for rupees and six for quantity.
                 </p>
                 <div className="page-actions">
                   <button type="submit">
-                    {editingRow === null
-                      ? 'Add to draft'
-                      : 'Update draft holding'}
+                    {rowStep < 2
+                      ? ['Next: holding amounts', 'Review this holding'][
+                          rowStep
+                        ]
+                      : editingRow === null
+                        ? 'Add to draft'
+                        : 'Update draft holding'}
                   </button>
-                  {editingRow !== null && (
+                  {rowStep > 0 && (
+                    <button
+                      type="button"
+                      className="secondary"
+                      onClick={() => setRowStep(rowStep - 1)}
+                    >
+                      Back a step
+                    </button>
+                  )}
+                  {(editingRow !== null ||
+                    row.isin ||
+                    row.quantity ||
+                    row.cost) && (
                     <button
                       type="button"
                       className="secondary"
                       onClick={() => {
                         if (!discardRow()) return;
                         setEditingRow(null);
+                        setRowStep(0);
                         setRow({ isin: '', quantity: '', cost: '' });
                       }}
                     >
@@ -444,6 +550,7 @@ export function Holdings() {
                               onClick={() => {
                                 if (!discardRow()) return;
                                 setEditingRow(index);
+                                setRowStep(0);
                                 setRow({
                                   isin: holding.isin,
                                   quantity: holding.quantity,

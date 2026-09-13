@@ -1,13 +1,26 @@
 export type AccountDestination =
-  'overview' | 'my-goals' | 'holdings' | 'privacy';
+  | 'overview'
+  | 'my-goals'
+  | 'holdings'
+  | 'privacy'
+  | 'saved'
+  | 'today'
+  | 'explore'
+  | 'learning'
+  | `read/${string}`;
 export function accountDestination(hash: string): AccountDestination | null {
   const query = hash.split('?')[1] ?? '';
   const next = new URLSearchParams(query).get('next');
   return next === 'overview' ||
     next === 'my-goals' ||
     next === 'holdings' ||
-    next === 'privacy'
-    ? next
+    next === 'privacy' ||
+    next === 'saved' ||
+    next === 'today' ||
+    next === 'explore' ||
+    next === 'learning' ||
+    (next !== null && /^read\/[a-z0-9-]{1,100}$/.test(next))
+    ? (next as AccountDestination)
     : null;
 }
 export function AccountGate({

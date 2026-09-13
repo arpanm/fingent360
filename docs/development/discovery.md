@@ -1,0 +1,31 @@
+# UX-002 — Reviewed public discovery and operations sessions
+
+## Data and rights
+
+The adapter fetches one fixed endpoint: [Federal Reserve Board press RSS](https://www.federalreserve.gov/feeds/press_all.xml). The [official RSS page](https://www.federalreserve.gov/feeds/feeds.htm) describes distributing headlines, links and short summaries. The [Board disclaimer](https://www.federalreserve.gov/disclaimer.htm), reviewed 2026-09-13, permits copying/distributing Board information unless otherwise marked and requests source attribution. Non-Board material needs separate permission; logos/seals are excluded. This implementation uses only feed text metadata, no linked articles, images, embeds or logos. It does not claim Board endorsement or Indian company-news coverage. Operators must review individual entries before publication and withdraw entries with exceptions or inaccuracies.
+
+News retains original publication time, retrieval time, official HTTPS link, rights explanation and SHA-256 of feed URL + newline + exact XML. Raw XML is preserved in MongoDB before drafts reach PostgreSQL. XML parsing is bounded to 1 MB/200 items, rejects DTD/entity declarations, duplicate/missing required fields and unexpected links. Fetch has a timeout and refuses redirects. URLs supplied by users or feed content are never fetched.
+
+Annual cards reuse accepted World Bank observation rows and their existing MongoDB evidence. No macro data is fabricated or fetched separately by discovery. Exact percentages, observation year and provider revision remain explicit; these are historical annual observations, not current news. Three original glossary entries explain inflation, GDP and interest rates, linked to primary [Fed inflation](https://www.federalreserve.gov/faqs/economy_14419.htm), [World Bank GDP](https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG) and [Fed policy operations](https://www.federalreserve.gov/monetarypolicy/openmarket.htm) references. Definitions are authored education, not syndicated news.
+
+## Storage and workflow
+
+Migration010 adds discovery_items/current version, immutable discovery_versions, ingest runs and hashed operations sessions/login limits. A manually triggered refresh saves changed content as draft; identical content does not generate a duplicate version. An operator reviews/publishes/withdraws using the expected version and a mandatory public note; conflicts return409. Every review creates a new immutable version. A changed provider item becomes a draft pending fresh review; its prior published version remains the public version until a reviewed correction or withdrawal supersedes it. Withdrawal removes the item from feeds while its direct detail and historical published versions identify its withdrawn state. Operator refresh/review requests also persist an append-only audit record with hashed session actor, action and target; these are request audit events, not fabricated success receipts. No background schedule or LLM runs.
+
+Feed order is publication time descending with deterministic ID tie-break; cursor pagination uses both fields. Terms, annual observations and news can be filtered by kind. The whole feed is public; no visitor tracking or read receipts are created here. Account-specific saved/read state belongs to the separate Library feature. Related glossary links do not imply investment recommendations or causal certainty.
+
+## Operations boundary
+
+POST /api/v1/ops/session accepts the existing local research key only on the dedicated operations UI. It exchanges that key for a random1-hour HttpOnly SameSite=Strict cookie scoped to /api/v1/ops; Secure is set for HTTPS configuration. Only the hash is persisted. GET checks current auth/expiry; DELETE revokes that session and clears the cookie. Mutation Origin checks use configured web origin, and failed login attempts are limited. Clearing a UI input is not session revocation; sign-out is the DELETE call. This is shared-key local operations, not production named-operator identity. Investor pages never receive the key. Parent-provided legacy operations proxies authorize the session and access the key only on the server.
+
+## API integration
+
+DiscoveryController, OpsDiscoveryController and OperatorController are registered with discoveryProvider(config), operatorProvider(config); shared discovery contracts validate boundaries. No package/config additions. Public endpoints: GET /discovery/feed?kind=news|term|annual&q=...&cursor=..., GET /discovery/items/:id, /history, /evidence. Operators: GET /ops/discovery/items returns items/latestRun; POST /ops/discovery/refresh with empty object; PUT /ops/discovery/items/:id accepts expectedVersion,status published|withdrawn,correctionNote. Session endpoints are GET/POST/DELETE /ops/session. Public bodies are plain text.
+
+## Acceptance
+
+Local operation requires migrations010–014, running PostgreSQL/MongoDB, configured research key, prior macro refresh for annual entries and external Fed access. Manually run pnpm format/check, migrations, app and API120 plus existing macro cases. API120 exercises the actual fixed feed, review conflict, public evidence, auth/origin boundaries and logout; it restores publication for originally published entries and withdraws previously unpublished fixtures. Isolated unit fixtures are synthetic and labelled; they cover parser bounds, hostile XML/links and stable IDs. Browser cases cover review/reader/session workflows, viewport containment and keyboard checks. Report artifacts/e2e/latest.md on failure. See [current verification](status.md) for executed integration evidence.
+
+### Metadata-only corrections
+
+Revision identity includes source name, rights, URL, topics, related item IDs and importance as well as content and effective/publication context. Correcting these stable metadata fields creates a draft for operator review even when the wording is unchanged. Routine retrieval timestamps and whole-feed hashes do not alone create a new content edition. Previously published editions remain visible until a corrected draft is reviewed. The regression compares metadata-only versus retrieval-only updates; execution evidence is recorded by the integrating parent, not inferred here.

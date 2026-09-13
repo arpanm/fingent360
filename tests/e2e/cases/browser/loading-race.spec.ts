@@ -84,11 +84,20 @@ test('E2E-WEB-063 late initial goals read cannot overwrite a newly saved goal @U
       .getByLabel('Goal name', { exact: true })
       .fill('Synthetic delayed-read goal');
     await page
+      .getByRole('button', { name: 'Next: amounts', exact: true })
+      .click();
+    await page
       .getByLabel('Target amount (INR)', { exact: true })
       .fill('1000.01');
     await page
+      .getByRole('button', { name: 'Next: contributions', exact: true })
+      .click();
+    await page
       .getByLabel('Monthly contribution (INR)', { exact: true })
       .fill('10.01');
+    await page
+      .getByRole('button', { name: 'Review goal', exact: true })
+      .click();
     await page
       .getByRole('checkbox', { name: /I agree to store this goal/ })
       .check();
@@ -124,10 +133,16 @@ test('E2E-WEB-093 late initial holdings read cannot overwrite an entered draft @
     await page
       .getByLabel('Security ISIN', { exact: true })
       .fill('INE002A01018');
+    await page
+      .getByRole('button', { name: 'Next: holding amounts', exact: true })
+      .click();
     await page.getByLabel('Quantity', { exact: true }).fill('1.000001');
     await page
       .getByLabel('Total purchase cost (INR)', { exact: true })
       .fill('500.01');
+    await page
+      .getByRole('button', { name: 'Review this holding', exact: true })
+      .click();
     await page
       .getByRole('button', { name: 'Add to draft', exact: true })
       .click();

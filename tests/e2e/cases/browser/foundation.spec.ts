@@ -7,7 +7,7 @@ test.describe('Foundation browser @SETUP-001 @SDLC-001 @smoke', () => {
       await expect(page.getByRole('heading', { level: 1 })).toContainText(
         'Understand the market.',
       );
-      await expect(page.getByRole('status')).toHaveText('API connected');
+      await expect(page.getByRole('status')).toHaveText('Connected');
     });
     await test.step('Show the honest synthetic workspace scope', async () => {
       await expect(
@@ -33,7 +33,9 @@ test.describe('Foundation browser @SETUP-001 @SDLC-001 @smoke', () => {
         }),
       );
       await page.goto('/#brief');
-      await expect(page.getByRole('status')).toHaveText('API unavailable');
+      await expect(page.getByRole('status')).toHaveText(
+        'Connection unavailable',
+      );
     });
   });
 
@@ -48,7 +50,7 @@ test.describe('Foundation browser @SETUP-001 @SDLC-001 @smoke', () => {
       }),
     );
     await page.goto('/#brief');
-    await expect(page.getByRole('status')).toHaveText('API unavailable');
+    await expect(page.getByRole('status')).toHaveText('Connection unavailable');
   });
 
   test('E2E-WEB-004 layout fits and brand works by keyboard', async ({
@@ -69,11 +71,12 @@ test.describe('Foundation browser @SETUP-001 @SDLC-001 @smoke', () => {
       ).toBeFocused();
       await page.keyboard.press('Enter');
       await expect(page.getByRole('main')).toBeFocused();
-      const menu = page.getByRole('button', { name: 'Open navigation' });
-      if (await menu.isVisible()) await menu.click();
-      await page.getByRole('link', { name: 'fingent360', exact: true }).focus();
+      await page
+        .getByRole('link', { name: 'fingent360', exact: true })
+        .filter({ visible: true })
+        .focus();
       await page.keyboard.press('Enter');
-      await expect(page).toHaveURL(/#overview$/);
+      await expect(page).toHaveURL(/#today$/);
     });
   });
 });

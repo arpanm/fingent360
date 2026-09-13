@@ -1,3 +1,4 @@
+import { announceSessionChange } from './session';
 import { useEffect, useState } from 'react';
 import { AlertPreferences } from './AlertPreferences';
 import { accountDestination } from './AccountGate';
@@ -35,6 +36,12 @@ async function api(
         ? String(payload.message)
         : 'Account request failed.',
     );
+  if (
+    ['/register', '/login', '/logout'].includes(path) ||
+    (path === '' && method === 'DELETE')
+  ) {
+    announceSessionChange();
+  }
   return payload;
 }
 export function Account() {
@@ -401,13 +408,6 @@ export function Account() {
                             ? 'Refresh due.'
                             : ''}
                         </p>
-                        {source.latestRun?.status === 'failed' && (
-                          <p>
-                            The latest source check was unsuccessful. The
-                            figures shown are from the previous successful
-                            update.
-                          </p>
-                        )}
                         <a href="#macro">View source evidence and history</a>
                       </article>
                     );

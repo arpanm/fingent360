@@ -1,8 +1,14 @@
 # Current implementation and verification status
 
-## UX-002 — proposed mobile product replacement
+## UX-002 — integrated mobile reading and planning experience
 
-Plan authored after the user's rejection of current mobile usability and report of operator/history/source CTA problems. Read docs/product/mobile-experience-plan.md and root TODO UX-002A–G for the new target experience, full-stack dependencies and complete delivery prompts. The source audit identifies distant appended results, absent credential-clear feedback and global scroll reset; runtime failures were not reproduced in this planning turn. Tests below remain historical coverage, not user acceptance. Current app/data/schema are unchanged; proposed feed, personalized library/reminders, media and suggestions are not implemented. New manual/implementation acceptance scenarios are authored under tests/e2e/plans/mobile-experience-acceptance.md. Planning-turn deterministic gates and tests were not run; local commit awaits the user's manual format/check gates.
+The approved plan is implemented against actual APIs and persisted data: five destinations, Scan/Stories, contextual macro/article/source readers, owned saved/reaction/preferences/reminders, guided goal/holding forms, three optional assistance providers with query fallback, sourced quiz/poll and reviewed SVG/caption/WebM. The [CTA inventory](ux2-cta-inventory.md) maps screens and actions to contracts, API and tests. Migrations010–014 add these domains without replacing user records. Public information comes from reviewed official Fed RSS metadata, existing World Bank annual data and sourced authored glossary/learning; no synthetic market feed or valuation is presented.
+
+Full API/desktop/mobile run `2026-09-13T04-24-09-866Z-83652` passed **110**, failed **0**, and intentionally skipped **E2E-API-004** (the destructive database-outage scenario): 111 selected/completed executions. Targets: web http://127.0.0.1:5175; API http://127.0.0.1:4103. Format/check passed, including 68 unit tests, lint, application/E2E types and builds. Migrations010–014 were applied without resetting existing records. Actual downloaded WebM files were saved and decoded on desktop/mobile. Live paid-provider calls, physical-device/screen-reader checks and field/user-design acceptance remain unverified. Saved handoff ID: `1789273450604-fce06d92-1cc8-4d37-aeba-6e72cd979a60`, started2026-09-13T04:24:10.604Z. Report: artifacts/e2e/2026-09-13T04-24-09-866Z-83652/results.json. Earlier integration failures were corrected before this run; earlier UX-001 evidence below is historical.
+
+Additional viewport run `2026-09-13T04-32-24-890Z-84690` passed both WEB135 desktop/mobile executions after making each screenshot a fresh document visit. Captures verify top/bottom controls at 320,360,390,430 and640px, plus large text. Mobile390 Today/reader images were visually inspected; desktop/mobile WebM files decode as960×640 video. Artifacts: `artifacts/ux2-viewport-*`, `artifacts/ux2-visual-*`, `artifacts/ux2-caption-*.webm`. This is emulated-browser evidence.
+
+Open release gates: actual iOS/Android and VoiceOver/TalkBack checks, field performance, representative user design/affinity evaluation and live paid-provider calls with supplied keys/models. Existing broader parent tasks for verified identities/prices/allocations and more content sources remain open. The working media path is sourced template visuals and a real caption clip; optional AI selects only validated source excerpts, not invented scenes.
 
 ## UX-001 — historical implemented baseline
 
@@ -24,7 +30,7 @@ See [full delivery audit](delivery-matrix.md) for all DEV-001–030 and SRC-001�
 
 ## Verification rules
 
-A committed change is not proof of tests or user acceptance. Format/check must pass before commit. Default command execution is manual; current UX-001 has explicit parent testing authorization. Handoffs state exactly what ran and did not run, run IDs/cases/targets, migration impact, commit scope and remaining uncommitted work. Do not carry old localhost ports forward: use current launcher output. No automatic push.
+A committed change is not proof of tests or user acceptance. Format/check must pass before commit. Default command execution is manual; this session's ongoing UX-002 implementation has explicit parent testing authorization. Handoffs state exactly what ran and did not run, run IDs/cases/targets, migration impact, commit scope and remaining uncommitted work. Do not carry old localhost ports forward: use current launcher output. No automatic push.
 
 ## Historical foundation context
 

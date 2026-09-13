@@ -2,7 +2,9 @@
 
 ## UX-002 mobile product direction
 
-[Mobile experience acceptance](mobile-experience-acceptance.md) maps UX-002A–G to 6 planning reviews and 28 implementation acceptance scenarios covering operator separation, reader/navigation/evidence, actual sources, interest gestures, library/reminders, ranking/privacy, guided financial forms, grounded AI, media/learning, migrations and real-device acceptance. These are planned, not executable/pass placeholders. Source review found current macro tests can pass without visible result navigation or key-clear confirmation; current user-reported problems remain open. The prior UX-001 runtime evidence below remains historical.
+[Mobile experience acceptance](mobile-experience-acceptance.md) defines the full target. Executable API120–123/140–141/150/160 and WEB120–121/130–136/140/150/160 cover real publication, search/pagination, contextual reading, interest/save/reminder persistence, worker correction/withdrawal, grounded query assistance, learning and reviewed SVG/WebM. Existing macro/source/money tests now follow the separate operations and guided investor flows. Provider unit fixtures cover the three optional adapters without paid calls. Current run IDs and failures/passes live in TODO/status; no live paid-provider, physical-device, field-metric or user-research pass is implied.
+
+Migrations010–014 preserve existing records and add immutable content/media, owned library/learning and durable reminder/provider-attempt state. No default test auto-run or source schedule was added. All tests remain available in the existing manually operated runner; this implementation uses the user's explicit ongoing test-and-fix authorization.
 
 ## UX-001 complete workflow correction
 

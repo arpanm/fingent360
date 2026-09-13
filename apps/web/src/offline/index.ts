@@ -15,6 +15,7 @@ import { handleLibrary, deliverOfflineReminders } from './library';
 import { handleLearning } from './learning';
 import { handleAssistance } from './assistance';
 import { handleJourney } from './journey';
+import { handleResearchConnections } from './research-connections';
 import { handleAllocations } from './allocations';
 import { handleRecovery } from './recovery';
 import { handleSecurities } from './securities';
@@ -29,6 +30,7 @@ const handlers: OfflineHandler[] = [
   handleAccounts,
   reportsHandler,
   handleAllocations,
+  handleResearchConnections,
   handleFinance,
   handleLibrary,
   handleLearning,

@@ -40,3 +40,5 @@ Operations cleanup uses the existing expiry fields and fixed policy; it does not
 ### Session revocation during database waits
 
 Recovery revokes server sessions while holding the account row. Private financial waiters recheck the same cookie after acquiring that row; current wall-clock expiry also applies. Old sessions cannot mutate or replay private receipts after a completed reset merely because their requests started earlier. A request admitted first may finish before reset obtains the lock. Session-independent report workers retain their captured authorized job; recovery does not erase reports.
+
+Research connections export owned immutable connection revisions, personal reasons, exact target versions and minimal source receipts; no source article text is copied into private history. Removed connections retain their dated history until account deletion; account cascade removes heads, revisions and request receipts. On-device exports/deletion follow the same ownership boundary. Source withdrawal does not erase the user's reason or falsely keep a live-source link available.

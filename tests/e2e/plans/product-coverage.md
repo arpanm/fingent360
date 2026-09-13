@@ -1,5 +1,9 @@
 # Planned end-to-end coverage
 
+## EVIDENCE-LINKS-001 acceptance
+
+Prove reader→owned target→personal reason/consent→review→persist→reload/history for server and dated local bundle. Source/target edition changes require explicit reaffirmation; note edits preserve bindings. Withdrawal exposes only minimal receipt metadata, never copied article text. Verify ownership, strict inputs, conflicts/replays, final-lock authorization, immutable receipts, privacy/account cascade, unchanged exact financial records and zero-network local behavior. Validate failed save versus saved-but-refresh-failed states separately, including lost acknowledgement/replay and manual reload; neither may claim current context before authoritative GET. Keyboard/360px/Back, screenshots and physical TalkBack/native Back are separate acceptance. Cases: API260–269/276–277, WEB260–269/276–278, OFFLINE300–309.
+
 ## AUTH-WAIT-001 acceptance
 
 Prove that authentication before a blocking query cannot authorize private work after recovery/session expiry. Queue actual recovery ahead of account mutations/replays and private allocation reads; use observed owned-schema locks and assert401 plus unchanged financial/revision/report/receipt/budget digest. Cancel/retry must retain account→job ordering; expiry tests distinguish transaction start from database wall time. Recovered sessions still save normally. API300–309 and WEB300 desktop/mobile use actual APIs, no fabricated successful responses; all blockers/requests drain on failure. Existing local-mode serial execution has no PostgreSQL lock waiter. No schema or financial-model change.

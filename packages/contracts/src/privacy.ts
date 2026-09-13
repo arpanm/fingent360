@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { ResearchConnectionHistorySchema } from './research-connections.js';
 import { LibrarySchema } from './library.js';
 import { LearningAttemptSchema, LearningVoteSchema } from './learning.js';
 import {
@@ -85,5 +86,6 @@ export const PrivacyExportSchema = z.strictObject({
   exclusions: z.array(z.string()),
   allocations: AllocationHistorySchema,
   reports: ReportJobsSchema,
+  researchConnections: ResearchConnectionHistorySchema,
 });
 export type PrivacySession = z.infer<typeof PrivacySessionSchema>;

@@ -114,8 +114,9 @@ export function Privacy() {
           <section className="card" aria-label="Account export">
             <h3>Download your account data</h3>
             <p>
-              Save a copy of your account, watchlist, goals, holdings and
-              preferences. Keep the downloaded file somewhere private.
+              Save a copy of your account, watchlist, goals, holdings, research
+              connections and preferences. Keep the downloaded file somewhere
+              private.
             </p>
             <button
               disabled={busy}

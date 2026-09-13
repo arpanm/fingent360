@@ -1,5 +1,11 @@
 # Fingent360
 
+## Your research connections — EVIDENCE-LINKS-001
+
+An eligible source reader now offers **Connect to my records**. Choose one of your saved goals or holdings, explain the connection in your own words, then review and save. **My money / More → Research connections** lets you reopen, edit, explicitly reaffirm, remove and inspect earlier receipts. Changed source editions and changed/removed records ask for review; a withdrawn source does not expose copied article text. These are your own research notes, not computed exposure or investment recommendations.
+
+Connections retain the exact source edition/hash/dates and record version. Note edits do not silently update either binding. Saved receipts remain available during failed refreshes, while current-source links and reaffirmation wait for an authoritative reload. The same flow uses the dated public bundle in device mode with no API calls. Privacy export includes history; deleting the account removes its connections. Migration024 is additive; no new dependency. Shared web changes reach a phone after rebuilding/reinstalling its APK. [Specification](docs/product/research-connections.md), [verification](docs/development/status.md). Verified:41/41 connected cases,4/4 final keyboard/disclosure checks and12/12 selected offline regressions; physical-device acceptance remains separate.
+
 ## Session protection during financial updates — AUTH-WAIT-001
 
 Private financial requests recheck their session after waiting for account and subsequent preview, goal or report locks. If a password reset revoked the session, or it expired during the wait, the request returns to sign-in without changing holdings, goals, allocations or reports. Report cancel/retry follows the same account-before-report lock order. Previously authorized report workers continue independently. Existing saved records and replay receipts remain private and preserved.

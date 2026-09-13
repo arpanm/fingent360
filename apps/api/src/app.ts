@@ -38,6 +38,7 @@ import { SourcesController, sourcesProvider } from './sources.js';
 import { AlertPreferencesController } from './alert-preferences.js';
 import { HoldingsController } from './holdings.js';
 import { OverviewController } from './overview.js';
+import { ResearchConnectionsController } from './research-connections.js';
 import { AllocationsController } from './allocations.js';
 import { RecoveryController } from './recovery.js';
 import { ReportsController, ReportsStore } from './reports.js';
@@ -94,6 +95,7 @@ export async function createApp(
         HoldingsController,
         OverviewController,
         AllocationsController,
+        ResearchConnectionsController,
         RecoveryController,
         RetentionController,
         ReportsController,

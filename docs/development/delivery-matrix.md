@@ -105,3 +105,7 @@ Spec/contracts/migration022, actual expiry predicates, owned operator authorizat
 ## AUTH-WAIT-001 boundary
 
 The identified financial database waiters reauthorize after account locks and use current-time expiry; report transitions preserve account→job ordering. Existing screens recover through their401 sign-in states. Actual API/browser cases and unchanged-record checks are authored, with parent evidence in status. This bounded security correction reuses schemas/financial workflows and does not claim production identity/MFA, a complete penetration test, or redesigned logout semantics.
+
+## EVIDENCE-LINKS-001 boundary
+
+Specified in docs/product/research-connections.md. Contracts/DB/API: strict owned exact-edition bindings, additive024 immutable revisions/idempotency and final-lock session checks. Web/UX: reader→review→save, workspace edit/reaffirm/remove/history, loading/empty/error/retry/current-context states, keyboard/mobile/Back. Device: shared domain plus serialized local records, real dated bundle and zero API traffic. Privacy: history export and account cascade. Real data: existing permitted publications and explicit owned records; no automated impact or prices. Automation is not needed for these explicit actions; connection-review monitoring is a separate child. API/browser/offline cases and status provide actual verification; physical/user-design acceptance is independent. This advances DEV005/006/010/016/017 without closing automated exposure, causal inference, regulated advice or source-rights parent gates.

@@ -1,5 +1,17 @@
 # End-to-end case catalogue
 
+## EVIDENCE-LINKS-001 — personal research connections
+
+| Cases          | Projects       | Acceptance                                                                                                                                                                                                                                        |
+| -------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| API260–269     | api            | Exact published/owned binding; same-request replay; foreign denial; strict input/consent; stale/concurrent writes; immutable edit/remove history; source withdrawal/update/reaffirm; removed/changed goal/holding; private export/account cascade |
+| API276–277     | api            | Actual recovery ahead of account wait; actual source-row wait with session expiry;401 leaves receipts unchanged                                                                                                                                   |
+| WEB260–269     | desktop/mobile | Reader→choose→review→save/reload; edit/remove/history; keyboard360px/Back/draft cancellation; failed save retry; target/source review; competing edits; empty navigation; list retry; sign-in return and inert text                               |
+| WEB276–278     | desktop/mobile | Actual writes with simulated failed refresh; lost acknowledgement and historical replay after real target change/synthetic withdrawal; manual reload invalidates current context, preserves receipts and recovers                                 |
+| OFFLINE300–309 | offline        | Dated real bundled reader; local goal/holding persistence/history/ownership; replay/conflict; changed/removed targets; consent/bounds; navigation; export/deletion; explicit synthetic bundle update/withdrawal via actual handler                |
+
+Tag @EVIDENCE-LINKS-001. Twelve API and thirteen browser definitions produce38 connected selections; ten offline cases are separate. Tests create owned isolated records and never infer a pass from authorship. OFFLINE309 intentionally exercises the actual bundle-lifecycle handler;300–308 cover packaged persistence. Execution and physical-device acceptance are recorded separately in status.
+
 ## AUTH-WAIT-001 — revoked/expired database waiters
 
 | Case        | Acceptance                                                                                                                                   | Project         |

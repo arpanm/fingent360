@@ -24,6 +24,7 @@ import { Icon } from './ui';
 import { AppSettings, DeviceStatus } from './AppSettings';
 import { runtime } from './runtime';
 import { FeedbackPage, FeedbackWidget } from './Feedback';
+import { ResearchConnections } from './ResearchConnections';
 import { GoalAllocations } from './GoalAllocations';
 import { Recovery } from './Recovery';
 import { Reports } from './Reports';
@@ -52,6 +53,12 @@ const destinations = [
   ['more', 'More', 'more'],
 ];
 const moreLinks = [
+  [
+    'connections',
+    'Research connections',
+    'Your own reasons for linking reading to records',
+    'sources',
+  ],
   [
     'allocations',
     'Goal allocations',
@@ -340,6 +347,8 @@ export function App() {
             <Account key={route} />
           ) : base === 'recovery' ? (
             <Recovery />
+          ) : base === 'connections' ? (
+            <ResearchConnections key={route} />
           ) : base === 'allocations' ? (
             <GoalAllocations />
           ) : base === 'reports' ? (

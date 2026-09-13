@@ -1,0 +1,64 @@
+.research-connections {
+  max-width: 58rem;
+  margin-inline: auto;
+}
+.research-connections .panel {
+  margin-block: 1.25rem;
+}
+.connection-list {
+  display: grid;
+  gap: 1rem;
+}
+.connection-list .panel {
+  margin: 0;
+  min-width: 0;
+}
+.connection-receipt {
+  display: grid;
+  grid-template-columns: minmax(7rem, 1fr) minmax(0, 3fr);
+  gap: 0.5rem 1rem;
+  font-size: 0.9rem;
+}
+.connection-receipt dt {
+  font-weight: 600;
+}
+.connection-receipt dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.connection-note {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.connection-dated {
+  padding: 1rem;
+  border-left: 3px solid currentColor;
+}
+.connection-editor textarea,
+.connection-editor select {
+  width: 100%;
+  max-width: 100%;
+}
+.connection-editor h2:focus {
+  outline-offset: 0.25rem;
+}
+.research-connections details {
+  margin-block: 1rem;
+}
+.research-connections summary {
+  cursor: pointer;
+  padding-block: 0.5rem;
+}
+@media (max-width: 480px) {
+  .connection-receipt {
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+  }
+  .connection-receipt dd {
+    margin-bottom: 0.7rem;
+  }
+  .research-connections .page-actions {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}

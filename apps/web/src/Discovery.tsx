@@ -11,6 +11,7 @@ import {
   ResearchCatalogSchema,
   ResearchContextSchema,
   sourceIdFor,
+  connectionSource,
   type ResearchCatalog,
   type ResearchContext,
   FeedItemSchema,
@@ -1174,6 +1175,24 @@ export function Reader({ id }: { id: string }) {
               ),
             )}
           </div>
+          {connectionSource(item) && (
+            <section
+              className="panel"
+              aria-label="Connect reading to your records"
+            >
+              <h2>Your research connection</h2>
+              <p>
+                Keep your own reason for connecting this source edition to a
+                saved holding or goal.
+              </p>
+              <a
+                className="button secondary"
+                href={`#connections?itemId=${item.id}&sourceVersion=${item.version}&sourceHash=${item.sourceHash}`}
+              >
+                Connect to my records
+              </a>
+            </section>
+          )}
           <ReadingContext item={item} />
           {item.relatedIds.length > 0 && (
             <section className="reader-related">

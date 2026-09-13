@@ -284,6 +284,7 @@ export function Holdings() {
         </>
       )}
       <p>
+        <a href="#connections">Research connections to my records</a> ·{' '}
         <a href="#allocations">Connect holdings to goals</a>. After changing
         holdings, review any saved allocations against your new quantities.
       </p>

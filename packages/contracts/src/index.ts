@@ -48,3 +48,4 @@ export * from './securities.js';
 
 export * from './workbook.js';
 export * from './retention.js';
+export * from './research-connections.js';

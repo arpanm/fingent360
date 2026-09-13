@@ -23,6 +23,7 @@ import {
 import { AccountStore, STORE } from './accounts.js';
 import { readLibrary } from './library.js';
 import { sessionFromCookie } from './account-security.js';
+import { exportResearchConnections } from './research-connections.js';
 import { exportRecordReports } from './reports.js';
 
 function input<T>(schema: z.ZodType<T>, value: unknown): T {
@@ -223,6 +224,7 @@ export class PrivacyController {
           ).rows.map((r) => r.payload),
         },
         reports: await exportRecordReports(client, user.id),
+        researchConnections: await exportResearchConnections(client, user.id),
         formatVersion: 'account-export-v1',
         exportedAt: new Date().toISOString(),
         account: {

@@ -194,11 +194,13 @@ export function Account() {
           {next && (
             <p className="badge">
               Continue to{' '}
-              {next === 'my-goals'
-                ? 'your goals'
-                : next === 'holdings'
-                  ? 'your holdings'
-                  : next}{' '}
+              {next.startsWith('connections')
+                ? 'your research connections'
+                : next === 'my-goals'
+                  ? 'your goals'
+                  : next === 'holdings'
+                    ? 'your holdings'
+                    : next}{' '}
               after signing in.
             </p>
           )}
@@ -299,7 +301,12 @@ export function Account() {
             <div className="page-actions">
               {next && (
                 <a className="button-link" href={`#${next}`}>
-                  Continue to {next === 'my-goals' ? 'your goals' : next}
+                  Continue to{' '}
+                  {next.startsWith('connections')
+                    ? 'your research connections'
+                    : next === 'my-goals'
+                      ? 'your goals'
+                      : next}
                 </a>
               )}
               <button

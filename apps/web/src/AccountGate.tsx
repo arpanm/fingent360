@@ -7,6 +7,8 @@ export type AccountDestination =
   | 'today'
   | 'explore'
   | 'learning'
+  | 'connections'
+  | `connections?${string}`
   | 'allocations'
   | 'reports'
   | `read/${string}`;
@@ -22,6 +24,11 @@ export function accountDestination(hash: string): AccountDestination | null {
     next === 'explore' ||
     next === 'learning' ||
     next === 'allocations' ||
+    next === 'connections' ||
+    (next !== null &&
+      /^connections\?itemId=[a-z0-9-]{1,100}&sourceVersion=[1-9][0-9]*&sourceHash=[a-f0-9]{64}$/.test(
+        next,
+      )) ||
     next === 'reports' ||
     (next !== null && /^read\/[a-z0-9-]{1,100}$/.test(next))
     ? (next as AccountDestination)
@@ -42,7 +49,10 @@ export function AccountGate({
       <h2>{title}</h2>
       <p>{description}</p>
       <div className="page-actions">
-        <a className="button-link" href={`#account?next=${next}`}>
+        <a
+          className="button-link"
+          href={`#account?next=${next.includes('?') ? encodeURIComponent(next) : next}`}
+        >
           Sign in or create an account
         </a>
         <a href="#overview">Explore the overview</a>

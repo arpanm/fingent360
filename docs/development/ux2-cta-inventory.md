@@ -82,3 +82,5 @@ Reports → Delete report opens explicit private-content deletion confirmation. 
 ## Expired data cleanup
 
 Operations → Expired data cleanup → Preview counts → Review cleanup → Cancel/Escape or Confirm cleanup → result/history/retry. Counts show caps and remaining eligibility at the saved cutoff, not private row contents. Expired sessions return to sign-in and reopen the saved preview. On-device Operations offers settings/reading links and does not invoke cleanup. API250–257, WEB250–254, OFFLINE280–281 cover actual storage and visible transitions; source policy is docs/product/retention.md.
+
+EVIDENCE-LINKS-001: eligible reader→Connect to my records; Holdings/Goals/My money/More→Research connections; choose target, personal reason, consent, review/Back/cancel/save; edit note, reaffirm current edition/record, remove, view history, current source reader/original site and Retry. Saved receipts survive failed refresh, while current-source links/reaffirm stay unavailable until authoritative context loads. Sign-in returns to the encoded source edition; draft navigation is confirmed; device mode uses dated bundle.

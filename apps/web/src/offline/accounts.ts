@@ -38,6 +38,7 @@ import {
 } from './finance';
 import { exportOfflineLibrary } from './library';
 import { exportOfflineLearning } from './learning';
+import { exportLocalConnections } from './research-connections';
 import { localAllocationRevisions } from './allocations';
 import { exportOfflineReports } from './reports';
 interface LocalAccountData {
@@ -281,6 +282,7 @@ export async function handleAccounts(
     for (const key of [
       'localRecovery',
       'localAllocations',
+      'localResearchConnections',
       'localReports',
       'localReportTombstones',
       'localReportLimits',
@@ -397,6 +399,7 @@ export async function handleAccounts(
       body: PrivacyExportSchema.parse({
         allocations: { revisions: localAllocationRevisions(detached, user.id) },
         reports: exportOfflineReports(detached, user.id),
+        researchConnections: exportLocalConnections(detached, user.id),
         formatVersion: 'account-export-v1',
         exportedAt: new Date().toISOString(),
         account: account(user),

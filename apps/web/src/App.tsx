@@ -23,6 +23,8 @@ import { Discovery, Reader } from './Discovery';
 import { Icon } from './ui';
 import { AppSettings, DeviceStatus } from './AppSettings';
 import { runtime } from './runtime';
+import { FeedbackPage, FeedbackWidget } from './Feedback';
+import { startFeedbackSync } from './feedback-sync';
 import {
   canNavigate,
   currentRoute,
@@ -67,6 +69,7 @@ const moreLinks = [
   ],
   ['macro', 'India macro', 'Growth, inflation and the source record', 'market'],
   ['sources', 'Our sources', 'Where information comes from', 'sources'],
+  ['feedback', 'Your feedback', 'Ideas, issues and delivery status', 'inbox'],
   [
     'privacy',
     'Privacy & security',
@@ -94,6 +97,7 @@ const lab = new Set([
   'reviews',
 ]);
 export function App() {
+  useEffect(() => startFeedbackSync(), []);
   const [sessionEpoch, setSessionEpoch] = useState(0);
   useEffect(
     () => onOtherTabSessionChange(() => setSessionEpoch((n) => n + 1)),
@@ -220,9 +224,14 @@ export function App() {
   );
   if (base === 'ops' && runtime.mode !== 'offline')
     return (
-      <Suspense fallback={<p className="loading-panel">Opening operations…</p>}>
-        <Operations />
-      </Suspense>
+      <>
+        <Suspense
+          fallback={<p className="loading-panel">Opening operations…</p>}
+        >
+          <Operations />
+        </Suspense>
+        <FeedbackWidget />
+      </>
     );
   return (
     <div
@@ -298,6 +307,8 @@ export function App() {
             <Saved />
           ) : base === 'learning' ? (
             <Learning />
+          ) : base === 'feedback' ? (
+            <FeedbackPage />
           ) : base === 'app-settings' ||
             (base === 'ops' && runtime.mode === 'offline') ? (
             <AppSettings />
@@ -379,6 +390,7 @@ export function App() {
         </footer>
       </div>
       {nav(true)}
+      <FeedbackWidget />
     </div>
   );
 }

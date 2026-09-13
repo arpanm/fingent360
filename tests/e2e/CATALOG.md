@@ -193,3 +193,26 @@ Native install/airplane mode, file pickers, system Back, update persistence, con
 | E2E-OFFLINE-222 | Snapshot source/topic filtering, annual edition dates and related context preserved after reload            | offline         |
 
 Use `pnpm e2e:ui`, select @SOURCES-002 and existing discovery/library/media/navigation regressions. Offline uses `pnpm android:test:ui` after building assets. Watch/eye mode remains off. Apply migration015 and refresh/review actual sources first; no source fixtures masquerade as live data. Parser/unit fixtures preserve capture provenance and exercise schema/country/unit/date/URL failures, exact decimals and content-bound cursors. Exact executed evidence lives in status, separately from this catalogue.
+
+## FEEDBACK-001 — screenshot, voice and durable delivery
+
+| Case            | Coverage                                                                                                                      | Projects        |
+| --------------- | ----------------------------------------------------------------------------------------------------------------------------- | --------------- |
+| E2E-API-190     | Explicit consent payload, private capability, duplicate retries, conflict, cancellation-before-POST and deletion tombstones   | api             |
+| E2E-API-191     | Real PNG above default parser limit, dimensions/magic rejection, exact native-origin CORS and unrelated-origin isolation      | api             |
+| E2E-API-192     | Protected inbox/detail, private attachments, versioned operator status, stale conflict and deletion                           | api             |
+| E2E-API-193     | Only owned synthetic report expired; content/bytes scrubbed and resurrection rejected                                         | api             |
+| E2E-WEB-190     | Actual viewport screenshot, crop/privacy cover, consent, server receipt and durable deletion                                  | desktop, mobile |
+| E2E-WEB-191     | Launcher choices, Escape/Back, crop retake and deliberate draft discard                                                       | desktop, mobile |
+| E2E-WEB-192     | Synthetic audio device with real MediaRecorder/playback/upload/receipt; explicitly simulated microphone input                 | desktop, mobile |
+| E2E-WEB-193     | Simulated microphone denial preserves typed feedback and does not submit                                                      | desktop, mobile |
+| E2E-WEB-194     | Simulated lost acknowledgment after actual server save; reload/retry returns original receipt and no duplicate after received | desktop, mobile |
+| E2E-WEB-195     | Actual operator review followed by submitting user's private receipt status/version refresh                                   | desktop, mobile |
+| E2E-OFFLINE-230 | Feedback-only submission survives reload, stays separate/private and sends nothing while disabled                             | offline         |
+| E2E-OFFLINE-231 | Unsafe destinations rejected; disabled configuration survives reload                                                          | offline         |
+| E2E-OFFLINE-232 | Cancelled consent never queues or delivers a report                                                                           | offline         |
+| E2E-OFFLINE-233 | Simulated terminal POST rejection during concurrent deletion still proceeds to eventual DELETE                                | offline         |
+| E2E-OFFLINE-234 | Out-of-order simulated receipt checks cannot downgrade a newer persisted receipt version                                      | offline         |
+| E2E-OFFLINE-235 | Another tab rereads durable queue after payload-free invalidation; submitted and deleted records become visible consistently  | offline         |
+
+Apply migration 016 and use the existing test UI with @FEEDBACK-001; leave watch/eye mode off. Offline cases use dedicated Android assets and require no server. Native acceptance covers viewport capture (not OS/other apps), form masking and review, microphone allow/deny/background stop, restart/CDN-switch queue retention, controlled HTTPS receipt/deletion, same-key update persistence and existing imports/Back. Never reset existing user data. Source recordings, lost acknowledgments and denial simulations are labelled; authored tests are not runtime evidence. Parent records current results/APK identity separately in status. See [complete workflow](../../docs/development/feedback.md), [API](../../docs/development/feedback-api.md), [native acceptance details](../../docs/development/feedback-native.md).

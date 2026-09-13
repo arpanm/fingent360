@@ -79,6 +79,12 @@ const paths: Record<string, ReactNode> = {
     </>
   ),
   check: <path d="m5 12 4 4L19 6" />,
+  microphone: (
+    <>
+      <rect x="9" y="2" width="6" height="12" rx="3" />
+      <path d="M5 10v2a7 7 0 0 0 14 0v-2M12 19v3M8 22h8" />
+    </>
+  ),
   menu: <path d="M4 6h16M4 12h16M4 18h16" />,
   close: <path d="m6 6 12 12M18 6 6 18" />,
   learn: (

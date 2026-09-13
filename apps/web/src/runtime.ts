@@ -1,10 +1,32 @@
 import { canNavigate, currentRoute, returnTo } from './navigation';
+// Explicit feedback destinations must not inherit account/API URL rewriting.
+export const networkFetch = window.fetch.bind(window);
 
 interface NativeBridge {
   getConfig(): string;
   getBuildInfo?(): string;
   saveFile(filename: string, mime: string, base64: string): void;
   setConnection(mode: string, webUrl: string, apiUrl: string): void;
+  captureFeedback?(): Promise<string>;
+  feedbackRead?(): Promise<{
+    revision: number;
+    records: unknown[];
+    config: { enabled: boolean; apiOrigin: string };
+  }>;
+  feedbackWrite?(
+    expectedRevision: number,
+    state: {
+      records: unknown[];
+      config: { enabled: boolean; apiOrigin: string };
+    },
+  ): Promise<{ revision: number }>;
+  sendFeedback?(
+    apiOrigin: string,
+    method: 'POST' | 'GET' | 'DELETE',
+    id: string | null,
+    receiptToken: string | null,
+    body: unknown,
+  ): Promise<{ status: number; body: unknown }>;
 }
 declare global {
   interface Window {
@@ -64,7 +86,6 @@ export async function initializeRuntime() {
     runtime.mode = 'offline';
   else if (import.meta.env.VITE_API_ORIGIN)
     runtime.apiUrl = httpsOrigin(import.meta.env.VITE_API_ORIGIN);
-  const networkFetch = window.fetch.bind(window);
   if (runtime.mode === 'offline') {
     const offline = await import('./offline');
     await offline.initializeOffline();

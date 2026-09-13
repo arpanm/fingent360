@@ -15,6 +15,9 @@ export function Dialog({
   useEffect(() => {
     const back = (event: Event) => {
       if (event.defaultPrevented) return;
+      // Match native Back: a confirmation above a form handles navigation first.
+      const top = [...document.querySelectorAll('dialog[open]')].at(-1);
+      if (!ref.current?.open || top !== ref.current) return;
       event.preventDefault();
       close.current();
     };

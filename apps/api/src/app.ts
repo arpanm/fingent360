@@ -1,3 +1,9 @@
+import { createRequire } from 'node:module';
+import {
+  FeedbackController,
+  OpsFeedbackController,
+  feedbackProvider,
+} from './feedback.js';
 import { MediaController, OpsMediaController, mediaProvider } from './media.js';
 import { AssistanceController, assistanceProvider } from './assistance.js';
 import {
@@ -66,6 +72,8 @@ export async function createApp(
       module: AppModule,
       controllers: [
         HealthController,
+        FeedbackController,
+        OpsFeedbackController,
         JourneyController,
         MacroController,
         AccountController,
@@ -88,6 +96,7 @@ export async function createApp(
       ],
       providers: [
         { provide: DEPENDENCY_PROBE, useValue: probe },
+        feedbackProvider(config),
         journeyProvider(config),
         macroProvider(config),
         accountProvider(config),
@@ -99,11 +108,49 @@ export async function createApp(
         assistanceProvider(config),
       ],
     },
-    { logger: ['error', 'warn', 'log'] },
+    { logger: ['error', 'warn', 'log'], bodyParser: false },
   );
   // The Express adapter mounts its not-found router with this exact prefix.
   app.setGlobalPrefix('/api/v1');
-  app.enableCors({ origin: config.WEB_ORIGIN, credentials: true });
+  // Parse only feedback with the larger explicit upload bound. Other routes retain Nest's default.
+  const requireExpress = createRequire(
+    import.meta.resolve('@nestjs/platform-express'),
+  );
+  const express = requireExpress('express') as {
+    json: (options: { limit: number }) => unknown;
+    urlencoded: (options: { limit: number; extended: boolean }) => unknown;
+  };
+  app.use('/api/v1/feedback', express.json({ limit: 8_500_000 }));
+  // Explicitly mount the defaults: Nest detects any named jsonParser as global,
+  // even a path-scoped one, and would otherwise skip parsing every other route.
+  app.use(express.json({ limit: 102400 }));
+  app.use(express.urlencoded({ limit: 102400, extended: true }));
+  app.enableCors(
+    (
+      request: { url: string; headers: { origin?: string } },
+      callback: (
+        error: null,
+        options: {
+          origin: string | false;
+          credentials: boolean;
+          allowedHeaders?: string[];
+        },
+      ) => void,
+    ) => {
+      const feedback = /^\/api\/v1\/feedback(?:\/|\?|$)/.test(request.url);
+      const incoming = request.headers.origin;
+      const allowed =
+        incoming === config.WEB_ORIGIN ||
+        (feedback && incoming === 'https://appassets.androidplatform.net');
+      callback(null, {
+        origin: feedback ? (allowed ? incoming! : false) : config.WEB_ORIGIN,
+        credentials: true,
+        ...(feedback
+          ? { allowedHeaders: ['Content-Type', 'X-Feedback-Token'] }
+          : {}),
+      });
+    },
+  );
   // Workspace capabilities and private responses must never enter shared caches.
   app.use(
     (

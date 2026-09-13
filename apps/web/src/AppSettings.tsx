@@ -106,7 +106,9 @@ export function AppSettings() {
                 · {runtime.snapshotItems} published items
               </dd>
               <dt>Private data</dt>
-              <dd>Starts empty. Nothing is automatically sent to a server.</dd>
+              <dd>
+                Starts empty. Account and financial records stay on this device.
+              </dd>
             </dl>
             <p>
               Research is a dated snapshot, not a live feed. Source links need
@@ -198,11 +200,16 @@ export function AppSettings() {
       )}
       <div className="device-card">
         <h2>Send useful feedback</h2>
+        <a className="button" href="#feedback">
+          Your feedback & delivery settings
+        </a>
         <p>
           Share the screen name, the steps you took, what you expected and what
           happened. Include whether you were in device or connected mode. A
-          screenshot or Android screen recording helps with layout and gesture
-          issues.
+          screenshot or voice note helps with layout and gesture issues. Use the
+          floating finger button to capture this app, crop or cover details, and
+          type or record your feedback. Submitted feedback stays queued on this
+          device until you enable its server destination and it is received.
         </p>
         <p>
           You choose what to share. Account exports can contain private

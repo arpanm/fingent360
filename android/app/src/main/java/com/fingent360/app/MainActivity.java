@@ -29,6 +29,13 @@ import org.json.JSONObject;
 public class MainActivity extends ComponentActivity {
   private static final String LOCAL = "https://appassets.androidplatform.net";
   private WebView web;
+  private FeedbackBridge feedback;
+  private PermissionRequest microphone;
+  private Uri microphoneOrigin;
+  private boolean microphonePrompt;
+  private boolean activityStopped;
+  private long pageGeneration;
+  private static final int MICROPHONE = 73;
   private JSONObject config;
   private String bundleIdentity = "unknown";
   private boolean recoveryOpen = false;
@@ -126,9 +133,19 @@ public class MainActivity extends ComponentActivity {
     web.setWebViewClient(
         new WebViewClient() {
           @Override
+          public void onPageStarted(WebView view, String url, android.graphics.Bitmap favicon) {
+            pageGeneration++;
+            cancelMicrophone();
+          }
+
+          @Override
           public WebResourceResponse shouldInterceptRequest(
               WebView view, WebResourceRequest request) {
             String url = request.getUrl().toString();
+            // Inline recorder playback and cropped PNG previews never leave this document.
+            // Keep main-frame navigation restricted by shouldOverrideUrlLoading.
+            if (!request.isForMainFrame() && "data".equals(request.getUrl().getScheme())
+                && url.length() <= 8_500_000 && url.matches("(?s)^data:(?:image/png|audio/webm|audio/mp4|audio/ogg);base64,[A-Za-z0-9+/=]+$")) return null;
             if (url.startsWith(LOCAL + "/")) return loader.shouldInterceptRequest(request.getUrl());
             if (!connected() || !allowedNetwork(request.getUrl())) return empty(503);
             return null;
@@ -162,6 +179,27 @@ public class MainActivity extends ComponentActivity {
         });
     web.setWebChromeClient(
         new WebChromeClient() {
+          @Override
+          public void onPermissionRequest(PermissionRequest request) {
+            runOnUiThread(() -> {
+              if (web == null || web.getUrl() == null || !trusted(request.getOrigin())
+                  || !trusted(Uri.parse(web.getUrl())) || !origin(request.getOrigin()).equals(origin(Uri.parse(web.getUrl())))
+                  || !Arrays.asList(request.getResources()).contains(PermissionRequest.RESOURCE_AUDIO_CAPTURE)) {
+                request.deny(); return;
+              }
+              cancelMicrophone();
+              microphone = request; microphoneOrigin = request.getOrigin();
+              if (checkSelfPermission(android.Manifest.permission.RECORD_AUDIO) == android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                grantMicrophone();
+              } else {microphonePrompt = true;requestPermissions(new String[] {android.Manifest.permission.RECORD_AUDIO}, MICROPHONE);}
+            });
+          }
+
+          @Override
+          public void onPermissionRequestCanceled(PermissionRequest request) {
+            if (microphone == request) cancelMicrophone();
+          }
+
           @Override
           public boolean onJsConfirm(WebView view, String url, String message, JsResult result) {
             if (!trusted(Uri.parse(url))) {
@@ -226,6 +264,7 @@ public class MainActivity extends ComponentActivity {
       bundleIdentity = new String(readAsset("build-identity.txt"), StandardCharsets.UTF_8);
     } catch (IOException ignored) {
     }
+    feedback = new FeedbackBridge(this);
     installBridge();
     getOnBackPressedDispatcher()
         .addCallback(
@@ -320,14 +359,35 @@ public class MainActivity extends ComponentActivity {
           try {
             JSONObject data = new JSONObject(message.getData());
             action = data.getString("action");
-            if (action.equals("saveFile")) saveFile(data);
+            if (action.equals("feedbackRead") || action.equals("feedbackWrite") || action.equals("sendFeedback") || action.equals("captureFeedback")) {
+              String requestId = data.getString("requestId");
+              if (!requestId.matches("[A-Za-z0-9_-]{1,100}")) throw new Exception();
+              final long generation = pageGeneration;
+              java.util.function.Consumer<JSONObject> deliver = payload -> runOnUiThread(() -> {
+                if (web == null || isFinishing() || isDestroyed() || generation != pageGeneration || web.getUrl() == null || !trusted(Uri.parse(web.getUrl()))) return;
+                reply.postMessage(payload.toString());
+              });
+              if (action.equals("captureFeedback")) {
+                try {deliver.accept(new JSONObject().put("requestId", requestId).put("ok", true).put("result", FeedbackBridge.capture(web)));}
+                catch (Exception captureError) {deliver.accept(new JSONObject().put("requestId", requestId).put("ok", false).put("error", captureError.getMessage()));}
+              } else feedback.handle(data, deliver);
+            }
+            else if (action.equals("saveFile")) saveFile(data);
             else if (action.equals("setConnection")) setConnection(data);
           } catch (Exception e) {
-            event(action, "failed", "Invalid native request.");
+            try {
+              String requestId = new JSONObject(message.getData()).optString("requestId");
+              if (requestId.matches("[A-Za-z0-9_-]{1,100}")) reply.postMessage(new JSONObject().put("requestId", requestId).put("ok", false).put("error", "Invalid native request.").toString());
+              else event(action, "failed", "Invalid native request.");
+            } catch (Exception ignored) {event(action, "failed", "Invalid native request.");}
           }
         });
     String script =
-        "if(window.top===window){window.FingentAndroid=Object.freeze({getConfig:function(){return "
+        "if(window.top===window){(function(){var pending=new Map();var counter=0;"
+            + "FingentNative.onmessage=function(event){var value;try{value=JSON.parse(event.data);}catch(e){return;}var item=pending.get(value.requestId);if(!item)return;clearTimeout(item.timer);pending.delete(value.requestId);if(value.ok)item.resolve(value.result);else item.reject(new Error(value.error||'Native feedback failed.'));};"
+            + "function call(action,args){return new Promise(function(resolve,reject){var requestId='feedback_'+Date.now()+'_'+(++counter);var timer=setTimeout(function(){pending.delete(requestId);reject(new Error('Native feedback timed out. Reload history before retrying.'));},120000);pending.set(requestId,{resolve:resolve,reject:reject,timer:timer});try{FingentNative.postMessage(JSON.stringify(Object.assign({},args,{action:action,requestId:requestId})));}catch(error){clearTimeout(timer);pending.delete(requestId);reject(error);}});}"
+            + "window.addEventListener('pagehide',function(){pending.forEach(function(item){clearTimeout(item.timer);item.reject(new Error('App page changed. Reopen feedback history.'));});pending.clear();});"
+            + "window.FingentAndroid=Object.freeze({feedbackRead:function(){return call('feedbackRead',{});},feedbackWrite:function(expectedRevision,state){return call('feedbackWrite',{expectedRevision:expectedRevision,state:state});},captureFeedback:function(){return call('captureFeedback',{});},sendFeedback:function(apiOrigin,method,id,receiptToken,body){return call('sendFeedback',{apiOrigin:apiOrigin,method:method,id:id,receiptToken:receiptToken,body:body});},getConfig:function(){return "
             + JSONObject.quote(config.toString())
             + ";},getBuildInfo:function(){return "
             + JSONObject.quote(
@@ -338,7 +398,7 @@ public class MainActivity extends ComponentActivity {
                     + BuildConfig.BUILD_TYPE
                     + " bundle:"
                     + bundleIdentity)
-            + ";},saveFile:function(filename,mime,base64){FingentNative.postMessage(JSON.stringify({action:'saveFile',filename:filename,mime:mime,base64:base64}));},setConnection:function(mode,webUrl,apiUrl){FingentNative.postMessage(JSON.stringify({action:'setConnection',mode:mode,webUrl:webUrl,apiUrl:apiUrl}));}});}";
+            + ";},saveFile:function(filename,mime,base64){FingentNative.postMessage(JSON.stringify({action:'saveFile',filename:filename,mime:mime,base64:base64}));},setConnection:function(mode,webUrl,apiUrl){FingentNative.postMessage(JSON.stringify({action:'setConnection',mode:mode,webUrl:webUrl,apiUrl:apiUrl}));}});})();}";
     WebViewCompat.addDocumentStartJavaScript(web, script, origins);
   }
 
@@ -550,13 +610,58 @@ public class MainActivity extends ComponentActivity {
     }
   }
 
+  private void cancelMicrophone() {
+    if (microphone != null) {microphone.deny();microphone = null;}
+    microphoneOrigin = null;
+  }
+
+  private void grantMicrophone() {
+    PermissionRequest request = microphone;
+    Uri requestedOrigin = microphoneOrigin;
+    microphone = null; microphoneOrigin = null;
+    if (request == null) return;
+    if (web != null && web.getUrl() != null && requestedOrigin != null
+        && trusted(requestedOrigin) && trusted(Uri.parse(web.getUrl()))
+        && origin(requestedOrigin).equals(origin(Uri.parse(web.getUrl()))))
+      request.grant(new String[] {PermissionRequest.RESOURCE_AUDIO_CAPTURE});
+    else request.deny();
+  }
+
+  @Override
+  public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grants) {
+    super.onRequestPermissionsResult(requestCode, permissions, grants);
+    if (requestCode == MICROPHONE) {
+      microphonePrompt = false;
+      if (!activityStopped && grants.length > 0 && grants[0] == android.content.pm.PackageManager.PERMISSION_GRANTED) grantMicrophone();
+      else cancelMicrophone();
+    }
+  }
+
   @Override
   protected void onPause() {
+    // Android's runtime permission activity can pause this activity. Do not
+    // cancel the pending microphone request merely because its own prompt opened.
+    if (!microphonePrompt) cancelMicrophone();
     if (web != null) {
+      if (!microphonePrompt) web.evaluateJavascript("window.dispatchEvent(new Event('f360-pause'))", null);
       web.onPause();
       web.pauseTimers();
     }
     super.onPause();
+  }
+
+  @Override
+  protected void onStart() {
+    super.onStart();
+    activityStopped = false;
+  }
+
+  @Override
+  protected void onStop() {
+    activityStopped = true;
+    cancelMicrophone();
+    if (web != null) web.evaluateJavascript("window.dispatchEvent(new Event('f360-pause'))", null);
+    super.onStop();
   }
 
   @Override
@@ -565,6 +670,7 @@ public class MainActivity extends ComponentActivity {
     if (web != null) {
       web.onResume();
       web.resumeTimers();
+      web.evaluateJavascript("window.dispatchEvent(new Event('f360-resume'))", null);
     }
   }
 
@@ -572,6 +678,8 @@ public class MainActivity extends ComponentActivity {
   protected void onDestroy() {
     if (fileChoice != null) fileChoice.onReceiveValue(null);
     exportData = null;
+    cancelMicrophone();
+    if (feedback != null) feedback.close();
     if (web != null) {
       web.stopLoading();
       web.destroy();

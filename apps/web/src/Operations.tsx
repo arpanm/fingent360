@@ -21,6 +21,7 @@ import {
 import { json, RequestError } from './net';
 import { Dialog } from './Dialog';
 import { shortDate } from './ui';
+import { FeedbackInbox } from './FeedbackInbox';
 const blank: SourceInput = {
   name: '',
   category: '',
@@ -188,6 +189,7 @@ export function Operations() {
                 ['news', 'Publishing'],
                 ['macro', 'Macro ingestion'],
                 ['sources', 'Source registry'],
+                ['feedback', 'Feedback inbox'],
               ].map(([value, label]) => (
                 <button
                   key={value}
@@ -261,6 +263,8 @@ export function Operations() {
               </>
             ) : tab === 'macro' ? (
               <MacroOperations action={action} busy={busy} />
+            ) : tab === 'feedback' ? (
+              <FeedbackInbox />
             ) : (
               <SourceEditor />
             )}

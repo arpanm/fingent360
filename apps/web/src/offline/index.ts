@@ -9,6 +9,7 @@ import {
 } from './types';
 import { withState } from './storage';
 import { handleAccounts } from './accounts';
+import { handleGoalScenarios } from './goal-scenarios';
 import { handleFinance } from './finance';
 import { handleContent } from './content';
 import { handleLibrary, deliverOfflineReminders } from './library';
@@ -32,6 +33,7 @@ const handlers: OfflineHandler[] = [
   handleAllocations,
   handleResearchConnections,
   handleFinance,
+  handleGoalScenarios,
   handleLibrary,
   handleLearning,
   handleContent,

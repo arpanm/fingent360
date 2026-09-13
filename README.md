@@ -1,5 +1,11 @@
 # Fingent360
 
+## Compare contribution plans — GOAL-SCENARIOS-001
+
+**My money → Goals → Compare plans** compares an actual saved goal with up to three explicit monthly-contribution/horizon alternatives. Exact contribution-only amounts show the unchanged plan alongside your alternatives; no investment growth is assumed. Save and reopen a comparison without changing the goal. To use an alternative, separately review and confirm adoption; changed or removed goals require a new comparison from their current edition.
+
+Comparisons and adoption receipts retain immutable versions. A saved or replayed receipt does not establish current goal state: failed refresh keeps it visible but disables adoption until current records load. Adoption creates the ordinary goal revision and makes existing allocations visibly require review. The same workflow persists on device without a server; privacy export/account deletion include its records. Migration025 is additive, with no new dependency. The limit is 100 immutable saved comparisons per account. [Specification](docs/product/goal-scenarios.md), [verification and APK availability](docs/development/status.md). Verified: all27 selected connected scenarios have passing evidence across correction runs, and4/4 packaged offline regressions passed. Physical-phone acceptance remains separate.
+
 ## Your research connections — EVIDENCE-LINKS-001
 
 An eligible source reader now offers **Connect to my records**. Choose one of your saved goals or holdings, explain the connection in your own words, then review and save. **My money / More → Research connections** lets you reopen, edit, explicitly reaffirm, remove and inspect earlier receipts. Changed source editions and changed/removed records ask for review; a withdrawn source does not expose copied article text. These are your own research notes, not computed exposure or investment recommendations.

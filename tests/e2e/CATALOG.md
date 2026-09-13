@@ -1,5 +1,17 @@
 # End-to-end case catalogue
 
+## GOAL-SCENARIOS-001 — contribution plan comparisons
+
+| Cases      | Projects       | Acceptance                                                                                                                                                                                                                  |
+| ---------- | -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| API280     | api            | Exact extreme paise/1200months; immutable baseline; create/replay; foreign denial; simultaneous adoption once; unrelated goal retained; allocation review; export/cascade                                                   |
+| API281–282 | api            | Different payload sameID, stale/deleted goal conflicts; actual owned account lock revocation rejects401 before comparison write                                                                                             |
+| WEB280–281 | desktop/mobile | Real comparison/adoption; failed post-adoption GET retains historical receipt without current claim; guest return; keyboard/mobile/Back and draft cancellation                                                              |
+| WEB282–283 | desktop/mobile | Initial503/unreadable JSON keyboard Retry; actual committed save with lost acknowledgement, changed goal, identical replay and failed refresh; adoption remains disabled until valid current context and unchanged baseline |
+| OFFLINE320 | offline        | Shared exact local comparison/save/adopt/reload/export/delete with no API requests                                                                                                                                          |
+
+Tag @GOAL-SCENARIOS-001;11connected selections plus1offline case. Unit tests cover exact arithmetic and rejection of unsupported growth inputs/extra alternatives. Execution is recorded independently in status; physical phone acceptance is not implied.
+
 ## EVIDENCE-LINKS-001 — personal research connections
 
 | Cases          | Projects       | Acceptance                                                                                                                                                                                                                                        |

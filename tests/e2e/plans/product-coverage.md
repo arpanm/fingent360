@@ -1,5 +1,9 @@
 # Planned end-to-end coverage
 
+## GOAL-SCENARIOS-001 acceptance
+
+Capture actual saved-goal edition and compare unchanged inputs with1–3 explicitly entered contribution/horizon alternatives using integer paise. Prove save cannot alter goals; separately confirmed adoption checks current version/ownership after locks, records one normal revision on replay and preserves unrelated finances. Extreme precision, stale/deleted goals, foreign access, consent, request conflicts, source-free exact reconstruction and account cascade are required. Initial errors must expose Retry. Uncertain committed saves/replayed historical comparison or adoption receipts must not enable adoption when authoritative refresh failed or the baseline changed. API280–282, WEB280–283 desktop/mobile and OFFLINE320 cover actual storage and keyboard/navigation/local zero-network. Phone/TalkBack/user-design acceptance stays separate.
+
 ## EVIDENCE-LINKS-001 acceptance
 
 Prove reader→owned target→personal reason/consent→review→persist→reload/history for server and dated local bundle. Source/target edition changes require explicit reaffirmation; note edits preserve bindings. Withdrawal exposes only minimal receipt metadata, never copied article text. Verify ownership, strict inputs, conflicts/replays, final-lock authorization, immutable receipts, privacy/account cascade, unchanged exact financial records and zero-network local behavior. Validate failed save versus saved-but-refresh-failed states separately, including lost acknowledgement/replay and manual reload; neither may claim current context before authoritative GET. Keyboard/360px/Back, screenshots and physical TalkBack/native Back are separate acceptance. Cases: API260–269/276–277, WEB260–269/276–278, OFFLINE300–309.

@@ -178,6 +178,7 @@ export function Goals() {
           <h1 id="goals-title">Make room for what matters</h1>
           <p>
             <a href="#connections">Research connections to my records</a> ·{' '}
+            <a href="#comparisons">Compare plans</a> ·{' '}
             <a href="#allocations">Connect holdings to goals</a>. Goal changes
             may require reviewing an existing allocation plan.
           </p>

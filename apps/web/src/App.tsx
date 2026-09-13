@@ -25,6 +25,7 @@ import { AppSettings, DeviceStatus } from './AppSettings';
 import { runtime } from './runtime';
 import { FeedbackPage, FeedbackWidget } from './Feedback';
 import { ResearchConnections } from './ResearchConnections';
+import { GoalScenarios } from './GoalScenarios';
 import { GoalAllocations } from './GoalAllocations';
 import { Recovery } from './Recovery';
 import { Reports } from './Reports';
@@ -53,6 +54,12 @@ const destinations = [
   ['more', 'More', 'more'],
 ];
 const moreLinks = [
+  [
+    'comparisons',
+    'Compare contribution plans',
+    'Explore monthly contributions and time horizons',
+    'goals',
+  ],
   [
     'connections',
     'Research connections',
@@ -349,6 +356,8 @@ export function App() {
             <Recovery />
           ) : base === 'connections' ? (
             <ResearchConnections key={route} />
+          ) : base === 'comparisons' ? (
+            <GoalScenarios />
           ) : base === 'allocations' ? (
             <GoalAllocations />
           ) : base === 'reports' ? (

@@ -9,6 +9,7 @@ export type AccountDestination =
   | 'learning'
   | 'connections'
   | `connections?${string}`
+  | 'comparisons'
   | 'allocations'
   | 'reports'
   | `read/${string}`;
@@ -29,6 +30,7 @@ export function accountDestination(hash: string): AccountDestination | null {
       /^connections\?itemId=[a-z0-9-]{1,100}&sourceVersion=[1-9][0-9]*&sourceHash=[a-f0-9]{64}$/.test(
         next,
       )) ||
+    next === 'comparisons' ||
     next === 'reports' ||
     (next !== null && /^read\/[a-z0-9-]{1,100}$/.test(next))
     ? (next as AccountDestination)

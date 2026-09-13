@@ -1,3 +1,4 @@
+import { exportLocalGoalScenarios } from './goal-scenarios';
 import { z } from 'zod';
 import {
   RegistrationSchema,
@@ -283,6 +284,7 @@ export async function handleAccounts(
       'localRecovery',
       'localAllocations',
       'localResearchConnections',
+      'localGoalScenarios',
       'localReports',
       'localReportTombstones',
       'localReportLimits',
@@ -400,6 +402,7 @@ export async function handleAccounts(
         allocations: { revisions: localAllocationRevisions(detached, user.id) },
         reports: exportOfflineReports(detached, user.id),
         researchConnections: exportLocalConnections(detached, user.id),
+        goalScenarios: exportLocalGoalScenarios(detached, user.id),
         formatVersion: 'account-export-v1',
         exportedAt: new Date().toISOString(),
         account: account(user),

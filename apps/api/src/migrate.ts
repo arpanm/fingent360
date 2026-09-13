@@ -40,6 +40,7 @@ try {
     '021_report_deletions.sql',
     '022_retention.sql',
     '024_research_connections.sql',
+    '025_goal_scenarios.sql',
   ]) {
     await applyMigration(
       client,

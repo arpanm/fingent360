@@ -1,5 +1,18 @@
 # End-to-end case catalogue
 
+## UI-RACES-001 — settings readiness and step focus
+
+WEB060/194 retain their original save/edit and actual receipt/retry assertions. WEB194 explicitly awaits loaded controls before changing delivery. New cases run in desktop/mobile with `@UI-RACES-001`:
+
+| ID          | Acceptance                                                                                                            | Data and fault scope                                          |
+| ----------- | --------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| E2E-WEB-067 | Late animation callbacks cannot redirect horizon input into monthly contribution; review/save preserves exact amounts | Controlled frames; owned real account/goal/API                |
+| E2E-WEB-095 | Late animation callbacks cannot redirect purchase cost into quantity; review/confirm persists exact row               | Controlled frames; owned real account/holdings/API            |
+| E2E-WEB-196 | Delivery form appears only after saved settings load; pause survives reload with its origin intact                    | Held real IndexedDB-open notification; real local persistence |
+| E2E-WEB-197 | Storage-open failure exposes Retry and no placeholder settings; retry then pause/reload works                         | One simulated open error; recovery uses real IndexedDB        |
+
+The timing fixtures reproduce application bugs; they do not fabricate successful API responses or bypass validation. WEB067/095 delete only their owned synthetic accounts. Existing offline cases exercise the rebuilt shared UI without a server. Exact execution evidence is in [status](../../docs/development/status.md).
+
 **UX-002 implemented coverage:** The cases below exercise the new persisted discovery, library, money, assistance, learning and media flows. See [CTA inventory](../../docs/development/ux2-cta-inventory.md) for actual UI/API paths. The broader [acceptance plan](plans/mobile-experience-acceptance.md) still includes physical-device, user-research and release gates that automated cases cannot establish.
 
 | Cases                             | Projects       | Implemented acceptance                                                                                                                       |

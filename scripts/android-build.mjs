@@ -117,8 +117,8 @@ const metadata = {
   builtAt: new Date().toISOString(),
   mode: config.mode,
   applicationId: 'com.fingent360.app',
-  versionCode: 3,
-  versionName: '0.3.0-feedback',
+  versionCode: 4,
+  versionName: '0.3.1-feedback',
   minSdk: 26,
   debugSigned: true,
 };

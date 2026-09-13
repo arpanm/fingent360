@@ -107,9 +107,11 @@ test('E2E-WEB-194 simulated lost acknowledgment retries one actual server report
       posts++;
   });
   await page.goto('/#feedback');
-  await page
-    .getByLabel('Automatically deliver submitted feedback', { exact: true })
-    .uncheck();
+  const delivery = page.getByLabel('Automatically deliver submitted feedback', {
+    exact: true,
+  });
+  await expect(delivery).toBeEnabled();
+  await delivery.uncheck();
   await page
     .getByRole('button', {
       name: 'Save feedback delivery settings',

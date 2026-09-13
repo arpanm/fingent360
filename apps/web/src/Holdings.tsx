@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useEffect, useRef, useState } from 'react';
 import { saveDownload } from './runtime';
 import { AccountGate } from './AccountGate';
 import { Assist } from './Assist';
@@ -50,12 +50,12 @@ async function api(path = '', body?: unknown): Promise<unknown> {
 export function Holdings() {
   const rowEditor = useRef<HTMLFormElement>(null);
   const [rowStep, setRowStep] = useState(0);
-  useEffect(() => {
-    requestAnimationFrame(() =>
-      rowEditor.current
-        ?.querySelector<HTMLInputElement | HTMLButtonElement>('input,button')
-        ?.focus({ preventScroll: true }),
-    );
+  // Commit step focus before typing can begin in the next input. A deferred
+  // frame can otherwise redirect cost input back into quantity.
+  useLayoutEffect(() => {
+    rowEditor.current
+      ?.querySelector<HTMLInputElement | HTMLButtonElement>('input,button')
+      ?.focus({ preventScroll: true });
   }, [rowStep]);
   const [mode, setMode] = useState<'manual' | 'csv'>('manual');
   const [draft, setDraft] = useState<Holding[]>([]);

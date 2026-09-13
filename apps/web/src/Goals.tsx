@@ -115,14 +115,15 @@ export function Goals() {
       focusReturn.current = false;
     }
   });
-  useEffect(() => {
-    if (showEditor)
-      requestAnimationFrame(() => {
-        const target = editor.current?.querySelector<
-          HTMLInputElement | HTMLButtonElement
-        >('input,button');
-        target?.focus({ preventScroll: true });
-      });
+  // Step focus is part of the DOM commit, before another field can receive
+  // input. Never queue it behind user typing in an animation callback.
+  useLayoutEffect(() => {
+    if (showEditor) {
+      const target = editor.current?.querySelector<
+        HTMLInputElement | HTMLButtonElement
+      >('input,button');
+      target?.focus({ preventScroll: true });
+    }
   }, [step, showEditor]);
   const canDiscard = () =>
     !showEditor ||

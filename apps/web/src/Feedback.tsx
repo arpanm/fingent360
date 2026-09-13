@@ -61,7 +61,7 @@ function context(): z.infer<typeof FeedbackContextSchema> {
       .replace(/[^A-Za-z0-9/_-]/g, '')
       .slice(0, 100),
     runtime: runtime.mode,
-    appVersion: '0.3.0-feedback',
+    appVersion: '0.3.1-feedback',
     viewport: { width: innerWidth, height: innerHeight },
     capturedAt: new Date().toISOString(),
   };
@@ -479,7 +479,10 @@ const stateLabel = (entry: FeedbackEntry) =>
       }[entry.state];
 export function FeedbackPage() {
   const [entries, setEntries] = useState<FeedbackEntry[]>([]),
-    [loading, setLoading] = useState(true),
+    [loadState, setLoadState] = useState<'loading' | 'ready' | 'failed'>(
+      'loading',
+    ),
+    [loadAttempt, setLoadAttempt] = useState(0),
     [error, setError] = useState(''),
     [notice, setNotice] = useState(''),
     [busy, setBusy] = useState(false);
@@ -494,6 +497,8 @@ export function FeedbackPage() {
   }
   useEffect(() => {
     let active = true;
+    setLoadState('loading');
+    setError('');
     void Promise.all([listFeedback(), getFeedbackSettings()])
       .then(([items, settings]) => {
         if (active) {
@@ -501,16 +506,16 @@ export function FeedbackPage() {
           setEnabled(settings.enabled);
           setApiOrigin(settings.apiOrigin);
           setActiveOrigin(settings.apiOrigin);
+          setLoadState('ready');
         }
       })
       .catch((e) => {
-        if (active)
+        if (active) {
           setError(
             e instanceof Error ? e.message : 'Feedback could not be opened.',
           );
-      })
-      .finally(() => {
-        if (active) setLoading(false);
+          setLoadState('failed');
+        }
       });
     const changed = () => {
       void listFeedback()
@@ -526,7 +531,7 @@ export function FeedbackPage() {
       active = false;
       window.removeEventListener('f360-feedback-changed', changed);
     };
-  }, []);
+  }, [loadAttempt]);
   async function action(work: () => Promise<void>) {
     if (busy) return;
     setBusy(true);
@@ -557,7 +562,7 @@ export function FeedbackPage() {
         </button>
         <button
           className="secondary"
-          disabled={busy || loading}
+          disabled={busy || loadState !== 'ready'}
           onClick={() =>
             void action(async () => {
               await syncFeedback({ force: true });
@@ -571,10 +576,15 @@ export function FeedbackPage() {
           Check delivery
         </button>
       </div>
-      {loading && <p role="status">Opening saved feedback…</p>}
+      {loadState === 'loading' && <p role="status">Opening saved feedback…</p>}
       {error && <p role="alert">{error}</p>}
+      {loadState === 'failed' && (
+        <button onClick={() => setLoadAttempt((attempt) => attempt + 1)}>
+          Retry opening feedback
+        </button>
+      )}
       {notice && <p role="status">{notice}</p>}
-      {!loading && entries.length === 0 && (
+      {loadState === 'ready' && entries.length === 0 && (
         <div className="feedback-empty">
           <FeedbackGlyph />
           <h2>Every detail helps.</h2>
@@ -690,61 +700,61 @@ export function FeedbackPage() {
           </article>
         ))}
       </div>
-      <form
-        className="feedback-settings device-card"
-        onSubmit={(event) => {
-          event.preventDefault();
-          void action(async () => {
-            await saveFeedbackSettings({ enabled, apiOrigin });
-            const settings = await getFeedbackSettings();
-            setActiveOrigin(settings.apiOrigin);
-            setApiOrigin(settings.apiOrigin);
-            setNotice(
-              settings.enabled
-                ? 'Feedback delivery enabled. Submitted reports will retry while the app is open.'
-                : 'Feedback delivery paused. Reports remain on this device.',
-            );
-            void syncFeedback().catch(() => {});
-          });
-        }}
-      >
-        <h2>Feedback delivery</h2>
-        <p>
-          Only feedback you explicitly submit is sent. Accounts, holdings and
-          other private records are not synchronized.
-        </p>
-        <label className="feedback-consent">
-          <input
-            type="checkbox"
-            disabled={loading || busy}
-            checked={enabled}
-            onChange={(event) => setEnabled(event.target.checked)}
-          />
-          Automatically deliver submitted feedback
-        </label>
-        <label>
-          Feedback API URL
-          <input
-            type="url"
-            disabled={loading || busy}
-            placeholder="https://api.example.com"
-            value={apiOrigin}
-            required={enabled}
-            onChange={(event) => setApiOrigin(event.target.value)}
-            autoCapitalize="none"
-            autoCorrect="off"
-          />
-        </label>
-        <p className="feedback-hint">
-          Use your Fingent360 API origin. On Android it must use HTTPS. Pending
-          reports with no destination will use this server; reports already
-          attempted stay bound to their original server. Retries run while the
-          app is open and on return.
-        </p>
-        <button disabled={busy || loading}>
-          Save feedback delivery settings
-        </button>
-      </form>
+      {loadState === 'ready' && (
+        <form
+          className="feedback-settings device-card"
+          onSubmit={(event) => {
+            event.preventDefault();
+            void action(async () => {
+              await saveFeedbackSettings({ enabled, apiOrigin });
+              const settings = await getFeedbackSettings();
+              setActiveOrigin(settings.apiOrigin);
+              setApiOrigin(settings.apiOrigin);
+              setNotice(
+                settings.enabled
+                  ? 'Feedback delivery enabled. Submitted reports will retry while the app is open.'
+                  : 'Feedback delivery paused. Reports remain on this device.',
+              );
+              void syncFeedback().catch(() => {});
+            });
+          }}
+        >
+          <h2>Feedback delivery</h2>
+          <p>
+            Only feedback you explicitly submit is sent. Accounts, holdings and
+            other private records are not synchronized.
+          </p>
+          <label className="feedback-consent">
+            <input
+              type="checkbox"
+              disabled={busy}
+              checked={enabled}
+              onChange={(event) => setEnabled(event.target.checked)}
+            />
+            Automatically deliver submitted feedback
+          </label>
+          <label>
+            Feedback API URL
+            <input
+              type="url"
+              disabled={busy}
+              placeholder="https://api.example.com"
+              value={apiOrigin}
+              required={enabled}
+              onChange={(event) => setApiOrigin(event.target.value)}
+              autoCapitalize="none"
+              autoCorrect="off"
+            />
+          </label>
+          <p className="feedback-hint">
+            Use your Fingent360 API origin. On Android it must use HTTPS.
+            Pending reports with no destination will use this server; reports
+            already attempted stay bound to their original server. Retries run
+            while the app is open and on return.
+          </p>
+          <button disabled={busy}>Save feedback delivery settings</button>
+        </form>
+      )}
       {remove && (
         <Dialog title="Delete this feedback?" onClose={() => setRemove(null)}>
           <p>

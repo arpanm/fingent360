@@ -1,5 +1,6 @@
 import { randomUUID } from 'node:crypto';
-import { test, expect, type Page } from '@playwright/test';
+import type { Page } from '@playwright/test';
+import { test, expect, expectReceived } from '../../helpers/feedback-fixture';
 import {
   FeedbackReceiptSchema,
   type FeedbackReceipt,
@@ -37,20 +38,6 @@ async function owned(page: Page, text: string): Promise<OwnedEntry[]> {
       };
     });
   }, text);
-}
-async function cleanup(page: Page, text: string) {
-  for (const record of await owned(page, text)) {
-    const response = await page.request.delete(
-      `/api/v1/feedback/${record.submission.id}`,
-      {
-        headers: {
-          'X-Feedback-Token': record.submission.receiptToken,
-          Origin: process.env.E2E_WEB_URL!,
-        },
-      },
-    );
-    expect([200, 204, 410]).toContain(response.status());
-  }
 }
 async function submit(page: Page, text: string) {
   await page
@@ -93,6 +80,7 @@ async function remove(page: Page, text: string) {
 
 test('E2E-WEB-194 simulated lost acknowledgment retries one actual server report without duplicate POST after receipt @FEEDBACK-001 @simulated', async ({
   page,
+  feedbackSandbox,
 }) => {
   test.setTimeout(90000);
   const text = `E2E delivery fixture ${randomUUID()} lost acknowledgment`;
@@ -126,134 +114,132 @@ test('E2E-WEB-194 simulated lost acknowledgment retries one actual server report
   // Fault only the first acknowledgment after route.fetch has committed the real report.
   await page.route('**/api/v1/feedback', async (route) => {
     if (route.request().method() !== 'POST' || intercepted) {
-      await route.continue();
+      await route.fallback();
       return;
     }
     intercepted = true;
-    const response = await route.fetch();
-    expect(response.status()).toBe(201);
+    const response = await route.fetch({
+      url: `${feedbackSandbox.apiOrigin}/api/v1/feedback`,
+    });
+    if (response.status() !== 201) {
+      await route.fulfill({ response });
+      return;
+    }
     firstReceipt = FeedbackReceiptSchema.parse(await response.json());
     await route.abort('failed');
   });
-  try {
-    await page.goto('/#today');
-    const card = await submit(page, text);
-    await expect(
-      card.getByText('Pending delivery', { exact: true }),
-    ).toBeVisible();
-    expect(posts).toBe(0);
-    const original = (await owned(page, text))[0]!;
-    await page
-      .getByLabel('Automatically deliver submitted feedback', { exact: true })
-      .check();
-    await page
-      .getByRole('button', {
-        name: 'Save feedback delivery settings',
-        exact: true,
-      })
-      .click();
-    await expect(
-      card.getByText('Needs attention', { exact: true }),
-    ).toBeVisible({ timeout: 30000 });
-    expect(firstReceipt?.id).toBe(original.submission.id);
-    await page.unroute('**/api/v1/feedback');
-    await page.reload();
-    await page
-      .getByRole('button', { name: 'Check delivery', exact: true })
-      .click();
-    await expect(
-      page
-        .getByRole('article')
-        .filter({ hasText: text })
-        .getByText('Received', { exact: true }),
-    ).toBeVisible({ timeout: 30000 });
-    const retried = (await owned(page, text))[0]!;
-    expect(retried.submission.id).toBe(original.submission.id);
-    expect(retried.receipt?.receivedAt).toBe(firstReceipt!.receivedAt);
-    const receivedPosts = posts;
-    await page
-      .getByRole('button', { name: 'Check delivery', exact: true })
-      .click();
-    await expect(
-      page.getByText(
-        'Delivery checked. Pending reports stay saved until acknowledged.',
-        { exact: true },
-      ),
-    ).toBeVisible();
-    expect(posts).toBe(receivedPosts);
-    await remove(page, text);
-  } finally {
-    await page.unroute('**/api/v1/feedback');
-    await cleanup(page, text);
-  }
+  await page.goto('/#today');
+  const card = await submit(page, text);
+  await expect(
+    card.getByText('Pending delivery', { exact: true }),
+  ).toBeVisible();
+  expect(posts).toBe(0);
+  const original = (await owned(page, text))[0]!;
+  await page
+    .getByLabel('Automatically deliver submitted feedback', { exact: true })
+    .check();
+  await page
+    .getByRole('button', {
+      name: 'Save feedback delivery settings',
+      exact: true,
+    })
+    .click();
+  await expect(card.getByText('Needs attention', { exact: true })).toBeVisible({
+    timeout: 30000,
+  });
+  expect(
+    firstReceipt?.id,
+    `Expected an actual saved report before losing its acknowledgment. ${await card.innerText()}`,
+  ).toBe(original.submission.id);
+  await page.unroute('**/api/v1/feedback');
+  await page.reload();
+  await page
+    .getByRole('button', { name: 'Check delivery', exact: true })
+    .click();
+  await expect(
+    page
+      .getByRole('article')
+      .filter({ hasText: text })
+      .getByText('Received', { exact: true }),
+  ).toBeVisible({ timeout: 30000 });
+  const retried = (await owned(page, text))[0]!;
+  expect(retried.submission.id).toBe(original.submission.id);
+  expect(retried.receipt?.receivedAt).toBe(firstReceipt!.receivedAt);
+  const receivedPosts = posts;
+  await page
+    .getByRole('button', { name: 'Check delivery', exact: true })
+    .click();
+  await expect(
+    page.getByText(
+      'Delivery checked. Pending reports stay saved until acknowledged.',
+      { exact: true },
+    ),
+  ).toBeVisible();
+  expect(posts).toBe(receivedPosts);
+  await remove(page, text);
 });
 
 test('E2E-WEB-195 operator review reaches the original user receipt through actual status check @FEEDBACK-001', async ({
   page,
+  feedbackSandbox,
 }) => {
   test.setTimeout(90000);
   const text = `E2E delivery fixture ${randomUUID()} operator review`;
   const origin = process.env.E2E_WEB_URL || 'http://localhost:5173';
   await page.goto('/#today');
-  try {
-    const card = await submit(page, text);
-    await expect(card.getByText('Received', { exact: true })).toBeVisible({
-      timeout: 30000,
-    });
-    const entry = (await owned(page, text))[0]!;
-    expect(
-      (
-        await page.request.post('/api/v1/ops/session', {
+  const card = await submit(page, text);
+  await expectReceived(card);
+  const entry = (await owned(page, text))[0]!;
+  expect(
+    (
+      await page.request.post(
+        `${feedbackSandbox.apiOrigin}/api/v1/ops/session`,
+        {
           headers: { Origin: origin },
           data: { key: await operatorKey() },
-        })
-      ).status(),
-    ).toBe(200);
-    await page.goto('/#ops');
-    await page
-      .getByRole('button', { name: 'Feedback inbox', exact: true })
-      .click();
-    const inbox = page.getByRole('region', { name: 'Feedback inbox' });
-    const report = inbox.getByRole('article').filter({ hasText: text });
-    await report
-      .getByRole('button', {
-        name: `Review feedback ${entry.submission.id.slice(0, 8)}`,
-        exact: true,
-      })
-      .click();
-    const review = page.getByRole('dialog', {
-      name: 'Review feedback',
+        },
+      )
+    ).status(),
+  ).toBe(200);
+  await page.goto('/#ops');
+  await page
+    .getByRole('button', { name: 'Feedback inbox', exact: true })
+    .click();
+  const inbox = page.getByRole('region', { name: 'Feedback inbox' });
+  const report = inbox.getByRole('article').filter({ hasText: text });
+  await report
+    .getByRole('button', {
+      name: `Review feedback ${entry.submission.id.slice(0, 8)}`,
       exact: true,
-    });
-    await review
-      .getByLabel('Review status', { exact: true })
-      .selectOption('reviewing');
-    await review
-      .getByRole('button', { name: 'Save review status', exact: true })
-      .click();
-    await expect(
-      review.getByText('Feedback status saved.', { exact: true }),
-    ).toBeVisible();
-    await review.getByRole('button', { name: 'Close', exact: true }).click();
-    await expect(review).toHaveCount(0);
-    await page.goto('/#feedback');
-    await page
-      .getByRole('button', { name: 'Check delivery', exact: true })
-      .click();
-    await expect(
-      page
-        .getByRole('article')
-        .filter({ hasText: text })
-        .getByText('Being reviewed', { exact: true }),
-    ).toBeVisible({ timeout: 30000 });
-    expect((await owned(page, text))[0]!.receipt?.version).toBeGreaterThan(
-      entry.receipt!.version,
-    );
-    await remove(page, text);
-  } finally {
-    await cleanup(page, text);
-    await page.request.delete('/api/v1/ops/session', {
-      headers: { Origin: origin },
-    });
-  }
+    })
+    .click();
+  const review = page.getByRole('dialog', {
+    name: 'Review feedback',
+    exact: true,
+  });
+  await review
+    .getByLabel('Review status', { exact: true })
+    .selectOption('reviewing');
+  await review
+    .getByRole('button', { name: 'Save review status', exact: true })
+    .click();
+  await expect(
+    review.getByText('Feedback status saved.', { exact: true }),
+  ).toBeVisible();
+  await review.getByRole('button', { name: 'Close', exact: true }).click();
+  await expect(review).toHaveCount(0);
+  await page.goto('/#feedback');
+  await page
+    .getByRole('button', { name: 'Check delivery', exact: true })
+    .click();
+  await expect(
+    page
+      .getByRole('article')
+      .filter({ hasText: text })
+      .getByText('Being reviewed', { exact: true }),
+  ).toBeVisible({ timeout: 30000 });
+  expect((await owned(page, text))[0]!.receipt?.version).toBeGreaterThan(
+    entry.receipt!.version,
+  );
+  await remove(page, text);
 });

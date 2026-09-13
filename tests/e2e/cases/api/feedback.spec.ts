@@ -1,9 +1,8 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '../../helpers/feedback-fixture';
 import { randomBytes, randomUUID } from 'node:crypto';
 import { deflateSync } from 'node:zlib';
 import { createRequire } from 'node:module';
-import { readFile } from 'node:fs/promises';
-import { parseEnv } from 'node:util';
+import { fork } from 'node:child_process';
 const pg = createRequire(
   new URL('../../../../apps/api/package.json', import.meta.url),
 )('pg') as {
@@ -350,6 +349,7 @@ test('E2E-API-192 protected feedback inbox private attachment review conflict an
 });
 test('E2E-API-193 feedback retention scrubs owned expired report and rejects resurrection @FEEDBACK-001', async ({
   request,
+  feedbackSandbox,
 }) => {
   const body = { ...submission(), image: image() };
   expect(
@@ -358,11 +358,7 @@ test('E2E-API-193 feedback retention scrubs owned expired report and rejects res
     ).status(),
   ).toBe(201);
   const pool = new pg.Pool({
-    connectionString:
-      process.env.DATABASE_URL ??
-      parseEnv(
-        await readFile(new URL('../../../../.env', import.meta.url), 'utf8'),
-      ).DATABASE_URL,
+    connectionString: feedbackSandbox.databaseUrl,
     max: 1,
   });
   try {
@@ -397,6 +393,215 @@ test('E2E-API-193 feedback retention scrubs owned expired report and rejects res
     await request.delete(`/api/v1/feedback/${body.id}`, {
       headers: capability(body),
     });
+    await pool.end();
+  }
+});
+
+test('E2E-API-194 feedback quota rolls back rejected new reports while allowing receipt retries and owned deletion @FEEDBACK-TEST-001 @FEEDBACK-001', async ({
+  request,
+  feedbackSandbox,
+}) => {
+  const pool = new pg.Pool({
+    connectionString: feedbackSandbox.databaseUrl,
+    max: 1,
+  });
+  const first = submission();
+  try {
+    let firstReceipt: unknown;
+    for (let index = 0; index < 20; index++) {
+      const body = index === 0 ? first : submission();
+      const response = await request.post('/api/v1/feedback', {
+        headers: origin(),
+        data: body,
+      });
+      expect(response.status(), await response.text()).toBe(201);
+      const receipt = FeedbackReceiptSchema.parse(await response.json());
+      expect(receipt.id).toBe(body.id);
+      if (index === 0) firstReceipt = receipt;
+    }
+    const before = await pool.query(
+      'SELECT bucket,count FROM feedback_rate_limits ORDER BY bucket',
+      [],
+    );
+    expect(before.rows).toHaveLength(2);
+    expect(before.rows.every((row) => row.count === 20)).toBe(true);
+    const overflow = submission();
+    expect(
+      (
+        await request.post('/api/v1/feedback', {
+          headers: origin(),
+          data: overflow,
+        })
+      ).status(),
+    ).toBe(429);
+    const after = await pool.query(
+      'SELECT bucket,count FROM feedback_rate_limits ORDER BY bucket',
+      [],
+    );
+    expect(after.rows).toEqual(before.rows);
+    const reports = await pool.query(
+      'SELECT count(*)::integer AS count FROM feedback_reports',
+      [],
+    );
+    expect(reports.rows[0]?.count).toBe(20);
+    expect(
+      (
+        await pool.query('SELECT id FROM feedback_reports WHERE id=$1', [
+          overflow.id,
+        ])
+      ).rows,
+    ).toHaveLength(0);
+
+    // A lost receipt may be retried even after the new-report quota is full.
+    const retry = await request.post('/api/v1/feedback', {
+      headers: origin(),
+      data: first,
+    });
+    expect(retry.status()).toBe(201);
+    expect(FeedbackReceiptSchema.parse(await retry.json())).toEqual(
+      firstReceipt,
+    );
+    expect(
+      (
+        await request.delete(`/api/v1/feedback/${first.id}`, {
+          headers: capability(first),
+        })
+      ).status(),
+    ).toBe(200);
+    expect(
+      (
+        await request.get(`/api/v1/feedback/${first.id}`, {
+          headers: capability(first),
+        })
+      ).status(),
+    ).toBe(410);
+    expect(
+      (
+        await pool.query(
+          'SELECT bucket,count FROM feedback_rate_limits ORDER BY bucket',
+          [],
+        )
+      ).rows,
+    ).toEqual(before.rows);
+
+    // Creating a new cancellation tombstone is a new resource, so it still
+    // consumes the same quota. A rejected cancellation must not create a row.
+    const absent = submission();
+    expect(
+      (
+        await request.delete(`/api/v1/feedback/${absent.id}`, {
+          headers: capability(absent),
+        })
+      ).status(),
+    ).toBe(429);
+    expect(
+      (
+        await pool.query('SELECT id FROM feedback_reports WHERE id=$1', [
+          absent.id,
+        ])
+      ).rows,
+    ).toHaveLength(0);
+    expect(
+      (
+        await pool.query(
+          'SELECT bucket,count FROM feedback_rate_limits ORDER BY bucket',
+          [],
+        )
+      ).rows,
+    ).toEqual(before.rows);
+  } finally {
+    await pool.end();
+  }
+});
+
+test('E2E-API-195 cancelled feedback fixture startup removes only its owned schema @FEEDBACK-TEST-001 @FEEDBACK-001', async ({
+  feedbackSandbox,
+}, testInfo) => {
+  test.setTimeout(60000);
+  const pool = new pg.Pool({
+    connectionString: feedbackSandbox.databaseUrl,
+    max: 1,
+  });
+  const child = fork(
+    new URL('../../helpers/feedback-api-process.mjs', import.meta.url),
+    [],
+    {
+      stdio: ['ignore', 'ignore', 'ignore', 'ipc'],
+      execArgv: [],
+      env: { ...process.env },
+    },
+  );
+  let ownedSchema: string | undefined;
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  try {
+    const exitCode = await new Promise<number | null>((resolve, reject) => {
+      timer = setTimeout(() => {
+        child.kill('SIGKILL');
+        reject(
+          Error(
+            'Owned cancellation fixture did not exit within 30 seconds. Inspect its annotated schema.',
+          ),
+        );
+      }, 30000);
+      child.once('error', () =>
+        reject(Error('Could not start the owned cancellation fixture.')),
+      );
+      child.once('exit', (code) => resolve(code));
+      child.on('message', (message) => {
+        if (
+          !message ||
+          typeof message !== 'object' ||
+          !('phase' in message) ||
+          message.phase !== 'schema-created' ||
+          !('schema' in message)
+        )
+          return;
+        const schema = String(message.schema);
+        if (!/^e2e_feedback_[a-f0-9]{32}$/.test(schema)) {
+          if (child.connected) child.disconnect();
+          reject(
+            Error('Cancellation fixture reported an invalid owned schema.'),
+          );
+          return;
+        }
+        ownedSchema = schema;
+        testInfo.annotations.push({
+          type: 'cancelled-feedback-schema',
+          description: schema,
+        });
+        // Disconnect immediately at the creation boundary, before accepting any
+        // ready API. The child must settle startup ownership and clean itself.
+        if (child.connected) child.disconnect();
+      });
+    });
+    expect(exitCode).toBe(0);
+    expect(ownedSchema).toMatch(/^e2e_feedback_[a-f0-9]{32}$/);
+    expect(ownedSchema).not.toBe(feedbackSandbox.schema);
+    const cancelled = await pool.query(
+      'SELECT nspname FROM pg_catalog.pg_namespace WHERE nspname=$1',
+      [ownedSchema!],
+    );
+    expect(cancelled.rows).toHaveLength(0);
+    const active = await pool.query(
+      'SELECT nspname FROM pg_catalog.pg_namespace WHERE nspname=$1',
+      [feedbackSandbox.schema],
+    );
+    expect(active.rows).toHaveLength(1);
+  } finally {
+    if (timer) clearTimeout(timer);
+    if (child.connected) child.disconnect();
+    if (child.pid && child.exitCode === null && child.signalCode === null) {
+      await new Promise<void>((resolve) => {
+        const deadline = setTimeout(() => {
+          child.kill('SIGKILL');
+          resolve();
+        }, 15000);
+        child.once('exit', () => {
+          clearTimeout(deadline);
+          resolve();
+        });
+      });
+    }
     await pool.end();
   }
 });

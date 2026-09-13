@@ -24,7 +24,15 @@ Open the URL printed by the launcher. Opening the dashboard lists tests but does
 
 API cases issue real HTTP requests using Playwright's request fixture. Browser cases run Chromium against the web app. Explicit `@simulated` cases intercept only that test's requests to exercise failure handling. A skipped manual-preparation test is not a pass.
 
-The runner does not start services, migrate/seed/reset databases, invoke an LLM, edit TODO, commit, push or run on a timer. It executes only after the user requests a run. Configuration loads and test discovery must remain side-effect free.
+The runner does not start the main application/databases, reset app data, invoke an LLM, edit TODO, commit, push or run on a timer. It executes only after the user requests a run. Configuration loads and test discovery remain side-effect free. Selected connected feedback cases create an isolated test API/schema as described below.
+
+## Repeatable feedback tests
+
+Feedback API190–195 and browser190–195 use the actual compiled API in a temporary process on an OS-assigned loopback port. Each case creates its own random `e2e_feedback_*` PostgreSQL schema and applies the existing migrations there, without a `public` search-path fallback. The normal app's reports, quotas, source content and financial records are untouched. The fixture forwards only feedback/operations browser requests to that API; the page still comes from the running web app. Retention setup uses only the isolated schema. No API responses, attachments or successful receipts are fabricated, and production limits stay20 per address/200 globally per hour. API195 verifies cancellation at schema creation settles startup and removes only that owned schema.
+
+Prerequisites: `pnpm build`, running local PostgreSQL/MongoDB, a loopback `DATABASE_URL`/`MONGODB_URI` in .env, and the existing `pnpm research:setup` operator key. The database role needs CREATE SCHEMA permission (the supplied local Compose role has it). No global dependency or new app migration is added. Fixtures start only when Run executes a selected case; opening the UI/listing tests does not create schemas or start APIs. Each case closes its own API and drops only its own schema, including failed cases and normal cancellation. It never resets the main app's quota or kills the user's dev session. If a worker is forcibly killed before cleanup, use the exact annotated schema in the failure report to investigate; never delete schemas by a broad wildcard.
+
+Run `E2E_BROWSER=chrome pnpm e2e:run --grep @FEEDBACK-001` twice consecutively, or select the tag in the UI and click Run twice with watch off. Both runs should pass independently without waiting for an hourly reset. API194 deliberately fills its own allowance, verifies429 for the next new report/cancellation, and confirms idempotent retry/deletion still work. Each case's actual temporary API/schema is included in HTML/JSON annotations and `artifacts/e2e/latest.md`; the header still lists the ordinary configured targets. Browser receipt checks surface the visible delivery error; fixture teardown replaces redundant failed-report DELETE cleanup that previously hid it. Offline cases keep using their server-free local transport.
 
 ## Manual source checks
 

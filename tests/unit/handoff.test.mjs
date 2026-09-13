@@ -19,6 +19,14 @@ test('manual run evidence includes failures and replaces latest on the next run'
       titlePath: () => ['api', 'E2E-API-002'],
       location: { file: 'foundation.spec.ts', line: 31 },
       expectedStatus: 'passed',
+      annotations: [
+        {
+          type: 'feedback-api',
+          description:
+            'http://127.0.0.1:54321; isolated schema e2e_feedback_fixture',
+        },
+        { type: 'unrelated', description: 'unneeded private annotation' },
+      ],
     };
     reporter.onTestEnd(example, {
       status: 'failed',
@@ -38,6 +46,11 @@ test('manual run evidence includes failures and replaces latest on the next run'
       readFileSync(path.join(directory, 'latest.md'), 'utf8');
     assert.match(latest(), /Expected 200; received 503/);
     assert.match(latest(), /foundation.spec.ts:31/);
+    assert.match(
+      latest(),
+      /Fixture: http:\/\/127\.0\.0\.1:54321; isolated schema e2e_feedback_fixture/,
+    );
+    assert.doesNotMatch(latest(), /unneeded private annotation/);
     assert.match(latest(), /skipped: api > E2E-API-004/);
     reporter.onBegin({ metadata: {} }, { allTests: () => [1] });
     reporter.onTestEnd(example, { status: 'passed', retry: 0, errors: [] });

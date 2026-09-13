@@ -2,6 +2,14 @@
 
 A market research and personal record-keeping application for Indian investors. It stores real World Bank annual macro observations and user-entered account, holdings and goal data. Holdings cost basis is not market value; contribution-only planning assumes no investment return. A separately labelled virtual learning exercise uses fictional companies and prices. Personalised regulated advice and trade execution remain disabled.
 
+## Repeatable feedback tests — FEEDBACK-TEST-001
+
+Feedback tests now use a fresh temporary schema and real API for each case. Repeated full runs no longer consume the normal app's hourly allowance. Production limits, real screenshot/audio uploads, receipt/review/deletion assertions and app data are preserved. API194 tests the actual20/21 quota boundary; API195 verifies cancellation cleanup. The test UI still runs only when you click Run, and listing tests starts no fixtures. Errors retain the original delivery failure, and reports identify the actual temporary API/schema.
+
+**Verified:** full API/desktop/mobile run `2026-09-13T17-43-32-847Z-19192` passed **148**, failed **0**, with one intentional E2E-API-004 outage skip. All seven reported failures passed. Two preceding feedback runs each passed21/21 consecutively. Main feedback rows/quotas remained unchanged and temporary resources were removed. Format/check passed with85 unit tests.
+
+Use the existing local databases, web app and compiled API (`pnpm build` after changes). Run `E2E_BROWSER=chrome pnpm e2e:ui`, select @FEEDBACK-001 or Run all, and keep watch off. No new dependency or app migration is required. The local database role needs CREATE SCHEMA permission; the supplied Compose role has it. [Runner setup and isolation](tests/e2e/README.md#repeatable-feedback-tests), [verification](docs/development/status.md). This correction changes tests and diagnostics; the code4 Android APK is unchanged.
+
 ## In-app feedback — FEEDBACK-001
 
 Tap the floating finger button for **Screenshot + feedback** or **Feedback only**. Capture the app viewport, crop or cover details, then type, record a voice note, or use both. Preview/play attachments before confirming submission. **More → Your feedback** keeps receipts, attachment previews, delivery status, retry and deletion together. Voice is recorded audio, with no transcription provider or paid API required.

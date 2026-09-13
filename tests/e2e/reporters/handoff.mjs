@@ -47,6 +47,13 @@ export default class HandoffReporter {
       status: result.status,
       expected: test.expectedStatus,
       retry: result.retry,
+      fixtures: (test.annotations ?? [])
+        .filter((annotation) =>
+          ['feedback-api', 'cancelled-feedback-schema'].includes(
+            annotation.type,
+          ),
+        )
+        .map((annotation) => annotation.description ?? ''),
       errors: result.errors.map((error) => error.stack ?? error.message ?? ''),
     });
     this.publish('running');
@@ -89,6 +96,7 @@ export default class HandoffReporter {
       lines.push(
         `## ${item.status}: ${item.title}`,
         `Location: ${item.location} | Expected: ${item.expected} | Retry: ${item.retry}`,
+        ...item.fixtures.map((fixture) => `Fixture: ${fixture}`),
         '',
         ...item.errors,
         '',

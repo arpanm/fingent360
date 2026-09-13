@@ -1,5 +1,11 @@
 # Planned end-to-end coverage
 
+## FEEDBACK-TEST-001 repeat-run and quota acceptance
+
+Run all connected @FEEDBACK-001 cases twice consecutively against real per-test API/schema fixtures; no shared quota reset, enlarged production limit or mocked success is allowed. API194 verifies the real20/21 threshold, transaction rollback, retry and owned-delete behavior at the limit. API193 must never expire a row in the app's schema. Preserve WEB190/192 actual screenshot/audio and WEB194/195 lost-receipt/operator lifecycle. Confirm no fixture starts during discovery, schemas disappear after normal/failing runs and the main feedback counts/quotas remain unchanged. Reports must identify each temporary API and preserve primary errors. No production UI, native binary, API contract or data migration changes are required for test isolation.
+
+API195 covers a parent disconnect exactly when its child creates a schema, proving shutdown waits for startup ownership to settle and removes the cancelled schema while preserving the active fixture. The manual discovery check lists feedback cases with unreachable database connection overrides: listing must succeed without starting an API or connecting to storage.
+
 ## UI-RACES-001 settings and focus lifecycle
 
 WEB067/095 hold animation callbacks across actual goal/holding wizard transitions, then verify the intended second input retains focus and the API stores the exact confirmed values. WEB196 holds the real local database opening: neither a false unchecked setting nor a save action may be exposed before reading saved settings. WEB197 exercises a failed opening and explicit retry without inventing an empty history or default configuration. Existing WEB060/194 still cover complete edit/reload and lost-acknowledgment workflows; desktop/mobile and the packaged offline suite remain separate verification. These are shared UI lifecycle changes, with no new contract, migration, provider, data reset or synchronization policy. Tests use owned synthetic financial input and labelled timing faults, not mocked product content.

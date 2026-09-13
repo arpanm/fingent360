@@ -1,5 +1,13 @@
 # End-to-end case catalogue
 
+## FEEDBACK-TEST-001 — repeatable isolated feedback integration
+
+API190–195 and WEB190–195 now use a fresh temporary schema and actual loopback API per selected test. Existing UI/media/ownership/review/deletion assertions remain; API193's expiry setup uses only the owned schema. Production rate limits and app data are unchanged. Discovery has no fixture side effects. Tests still require the running web app/local databases and compiled API; see [runner setup and lifecycle](README.md#repeatable-feedback-tests).
+
+**E2E-API-194** (@FEEDBACK-001 @FEEDBACK-TEST-001, api):20 actual reports succeed,21st returns429 without a row or committed quota increment, identical receipt retry still succeeds, owned deletion works, and an absent-ID cancellation is rejected without creating a tombstone. Repeat the feedback tag twice: each case's schema/API remains independent and teardown removes only owned resources. Final verification is recorded in [status](../../docs/development/status.md), not inferred from fixture creation.
+
+**E2E-API-195** (@FEEDBACK-001 @FEEDBACK-TEST-001, api): disconnect a separately owned fixture at its schema-created notification during startup. It must exit successfully, remove that exact schema, and preserve the current case's independent schema. No process or schema outside those test resources is stopped/removed.
+
 ## UI-RACES-001 — settings readiness and step focus
 
 WEB060/194 retain their original save/edit and actual receipt/retry assertions. WEB194 explicitly awaits loaded controls before changing delivery. New cases run in desktop/mobile with `@UI-RACES-001`:

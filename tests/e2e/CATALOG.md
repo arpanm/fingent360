@@ -1,5 +1,17 @@
 # End-to-end case catalogue
 
+## XLSX-001 — exact standard workbook import
+
+| Case            | Contract                                                                                                                                                                     | Projects        |
+| --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------- |
+| E2E-API-240     | Blank template, exact workbook preview/confirmation/replay, ownership, stale version and pending/confirmed privacy metadata without raw bytes                                | api             |
+| E2E-API-241     | Formulas, qualified active XML, external links, DTD, numeric precision, inherited date/scientific styles and reconciliation failures preserve saved holdings                 | api             |
+| E2E-API-242     | Legacy array and new CSV preview receipts export before/after confirmation                                                                                                   | api             |
+| E2E-WEB-240     | Keyboard downloads validate actual blank/sample bytes; invalid upload preserves draft; real independent-library workbook review/consent/save/reload preserves exact holdings | desktop, mobile |
+| E2E-OFFLINE-290 | Same workbook UI/worker and local save/reload/privacy/account deletion without API traffic                                                                                   | offline         |
+
+Tag @XLSX-001. Cases use synthetic user inputs with the actual API/database or packaged local transport. Existing PORTFOLIO/PRIVACY cases remain regression coverage. Unit tests cover ZIP/CRC/expansion, lexical precision, format rejection and actual worker timeout/termination/capacity. Execution evidence is recorded separately in status.
+
 ## REPORTS-002 — individual record-report deletion
 
 | Case            | Contract                                                                                                                                                                                        | Projects        |

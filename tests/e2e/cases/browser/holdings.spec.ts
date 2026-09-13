@@ -95,9 +95,11 @@ test('E2E-WEB-090 review, save, reload, export and clear entered holdings @PORTF
     expect((await downloadPromise).suggestedFilename()).toBe(
       'fingent360-holdings.csv',
     );
-    await page.getByRole('button', { name: 'Import CSV', exact: true }).click();
     await page
-      .getByLabel('Upload standard CSV', { exact: true })
+      .getByRole('button', { name: 'Import CSV or XLSX', exact: true })
+      .click();
+    await page
+      .getByLabel('Upload standard CSV or XLSX', { exact: true })
       .setInputFiles({
         name: 'empty.csv',
         mimeType: 'text/csv',
@@ -196,7 +198,9 @@ test('E2E-WEB-092 holdings auth gates distinguish outages and preserve unsaved e
       page.getByLabel('Total purchase cost (INR)', { exact: true }),
     ).toHaveValue('300.01');
     page.once('dialog', (dialog) => dialog.dismiss());
-    await page.getByRole('button', { name: 'Import CSV', exact: true }).click();
+    await page
+      .getByRole('button', { name: 'Import CSV or XLSX', exact: true })
+      .click();
     await expect(
       page.getByLabel('Total purchase cost (INR)', { exact: true }),
     ).toHaveValue('300.01');

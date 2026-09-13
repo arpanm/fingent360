@@ -1,7 +1,11 @@
 import { z } from 'zod';
 import { LibrarySchema } from './library.js';
 import { LearningAttemptSchema, LearningVoteSchema } from './learning.js';
-import { HoldingRowsSchema, HoldingsSnapshotSchema } from './holdings.js';
+import {
+  HoldingsImportSchema,
+  HoldingRowsSchema,
+  HoldingsSnapshotSchema,
+} from './holdings.js';
 import { MacroIndicatorSchema } from './macro.js';
 import { SavedGoalSchema } from './goals.js';
 import { AccountSchema, WatchlistSchema } from './account.js';
@@ -63,6 +67,7 @@ export const PrivacyExportSchema = z.strictObject({
         id: z.uuid(),
         expectedVersion: z.number().int().nonnegative(),
         holdings: HoldingRowsSchema,
+        import: HoldingsImportSchema.optional(),
         expiresAt: z.iso.datetime(),
         confirmedVersion: z.number().int().positive().nullable(),
       }),

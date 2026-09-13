@@ -1,5 +1,9 @@
 # Planned end-to-end coverage
 
+## XLSX-001 acceptance
+
+Standard two-sheet workbook → local parser → inspect/reconcile → server revalidation → owned persisted preview → consent/confirmation → reload/history/privacy. Preserve exact lexical quantities and long text paise; reject active/ambiguous/bounded-resource violations before saved mutation. Cover old preview array compatibility and no raw-file retention. Actual disposable worker tests exercise timeout/termination, constructor errors, malformed replies and capacity release. Connected API240–242 and desktop/mobile WEB240; packaged OFFLINE290 proves local parity/no network. A representative independent-library round trip supplements generated fixtures; Excel/LibreOffice and physical Android picker remain explicit acceptance gates. This does not complete broker-specific SRC-013 onboarding.
+
 ## REPORTS-002 deletion acceptance
 
 Prove physically removed private job snapshots and issued bytes, surviving unrelated goals/holdings/allocations, retained metadata-only receipts, same-request idempotency without resurrection, account deletion cascade, terminal-only/expected-version/ownership/Origin enforcement, cancellation and actual late-worker fencing,100-slot capacity recovery and bounded new requests. UI cases must complete confirmation/cancel/Escape/focus/reload on desktop/mobile and deliver controlled stale responses before asserting no resurrection. Device tests must await runtime initialization, verify persisted behavior and count zero outgoing API requests. Full lifetime receipts belong only in explicit privacy export, not three-second list polling. API224–226, WEB223–225, OFFLINE263–264; physical-phone and downloaded-copy limits remain separate.

@@ -12,7 +12,12 @@ import {
 } from '@nestjs/common';
 import { z } from 'zod';
 import {
-  HoldingsCsvSchema,
+  HoldingsImportRequestSchema,
+  HoldingsImportSchema,
+  holdingsWorkbookTemplate,
+  workbookBase64,
+  workbookBytes,
+  HoldingsTemplateSchema,
   HoldingsConfirmSchema,
   HoldingsPreviewSchema,
   HoldingsSnapshotSchema,
@@ -21,6 +26,7 @@ import {
   holdingsTotal,
   parseHoldingsCsv,
 } from '@fingent360/contracts';
+import { parseWorkbook } from './workbook.js';
 import { AccountStore, STORE } from './accounts.js';
 function parse<T>(schema: z.ZodType<T>, body: unknown): T {
   const result = schema.safeParse(body);
@@ -67,16 +73,46 @@ export class HoldingsController {
       });
     });
   }
-  @Post('preview') preview(
+  @Get('template') async template(@Headers('cookie') cookie?: string) {
+    await this.store.transaction((c) => this.store.require(c, cookie));
+    return HoldingsTemplateSchema.parse({
+      filename: 'fingent360-holdings-template.xlsx',
+      mime: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      base64: workbookBase64(holdingsWorkbookTemplate()),
+      synthetic: false,
+    });
+  }
+  @Get('sample') async sample(@Headers('cookie') cookie?: string) {
+    await this.store.transaction((c) => this.store.require(c, cookie));
+    return HoldingsTemplateSchema.parse({
+      filename: 'SYNTHETIC-fingent360-holdings-sample.xlsx',
+      mime: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      base64: workbookBase64(holdingsWorkbookTemplate(true)),
+      synthetic: true,
+    });
+  }
+  @Post('preview') async preview(
     @Body() body: unknown,
     @Headers('origin') origin?: string,
     @Headers('cookie') cookie?: string,
   ) {
     this.store.origin(origin);
-    const input = parse(HoldingsCsvSchema, body);
+    const input = parse(HoldingsImportRequestSchema, body);
+    await this.store.transaction((c) => this.store.require(c, cookie));
     let holdings;
+    let imported: z.infer<typeof HoldingsImportSchema> = {
+      parserVersion: 'standard-holdings-csv-v1',
+    };
     try {
-      holdings = parseHoldingsCsv(input.csv);
+      if ('format' in input) {
+        const parsed = await parseWorkbook(workbookBytes(input.workbookBase64));
+        holdings = parsed.holdings;
+        imported = {
+          parserVersion: 'standard-holdings-xlsx-v1',
+          declaredRowCount: parsed.declaredRowCount,
+          declaredTotalMinor: parsed.declaredTotalMinor,
+        };
+      } else holdings = parseHoldingsCsv(input.csv);
     } catch (e) {
       throw new BadRequestException(
         e instanceof z.ZodError
@@ -119,7 +155,7 @@ export class HoldingsController {
           previewId,
           account.id,
           input.expectedVersion,
-          JSON.stringify(holdings),
+          JSON.stringify({ holdings, import: imported }),
           expiresAt,
         ],
       );
@@ -129,7 +165,8 @@ export class HoldingsController {
         expectedVersion: input.expectedVersion,
         holdings,
         totalCostMinor: holdingsTotal(holdings),
-        parserVersion: 'standard-holdings-csv-v1',
+        parserVersion: imported.parserVersion,
+        import: imported,
       });
     });
   }
@@ -174,7 +211,14 @@ export class HoldingsController {
         throw new ConflictException(
           'Holdings changed. Reload and preview again.',
         );
-      const holdings = HoldingRowsSchema.parse(preview.payload);
+      const holdings = HoldingRowsSchema.parse(
+        Array.isArray(preview.payload)
+          ? preview.payload
+          : preview.payload.holdings,
+      );
+      const imported = Array.isArray(preview.payload)
+        ? undefined
+        : HoldingsImportSchema.parse(preview.payload.import);
       const version = input.expectedVersion + 1;
       const result = HoldingsSnapshotSchema.parse({
         version,
@@ -183,6 +227,7 @@ export class HoldingsController {
         currency: 'INR',
         scale: 2,
         provenance: 'user-entered-unverified',
+        import: imported,
         updatedAt: new Date().toISOString(),
       });
       await c.query(

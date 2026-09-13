@@ -1,4 +1,5 @@
 import { useLayoutEffect, useEffect, useRef, useState } from 'react';
+import { parseWorkbook } from './workbook';
 import { saveDownload } from './runtime';
 import { AccountGate } from './AccountGate';
 import { Assist } from './Assist';
@@ -6,6 +7,9 @@ import { useDraftGuard } from './useDraftGuard';
 import { SmartHelp } from './SmartHelp';
 import { money, shortDate } from './ui';
 import {
+  HoldingsTemplateSchema,
+  workbookBase64,
+  workbookBytes,
   HoldingsSnapshotSchema,
   HoldingsPreviewSchema,
   HoldingsHistorySchema,
@@ -62,6 +66,7 @@ export function Holdings() {
   const [row, setRow] = useState({ isin: '', quantity: '', cost: '' });
   const [editingRow, setEditingRow] = useState<number | null>(null);
   const [saved, setSaved] = useState<HoldingsSnapshot | null>(null);
+  const [workbook, setWorkbook] = useState<string | null>(null);
   const [csv, setCsv] = useState('isin,quantity,total_cost_paise');
   const [preview, setPreview] = useState<HoldingsPreview | null>(null);
   const [history, setHistory] = useState<HoldingsSnapshot[]>([]);
@@ -114,6 +119,7 @@ export function Holdings() {
     // StrictMode may finish its discarded effect after the active load.
     // A stale initial response must never reset an editable draft.
     if (!active()) return;
+    setWorkbook(null);
     setSaved(result);
     setDraft(result.holdings);
     setRow({ isin: '', quantity: '', cost: '' });
@@ -302,6 +308,7 @@ export function Holdings() {
               if (mode === 'manual') return;
               try {
                 setDraft(parseHoldingsCsv(csv));
+                setWorkbook(null);
                 setMode('manual');
                 setPreview(null);
               } catch {
@@ -327,7 +334,7 @@ export function Holdings() {
               setPreview(null);
             }}
           >
-            Import CSV
+            Import CSV or XLSX
           </button>
         </div>
         {mode === 'manual' && (
@@ -603,28 +610,42 @@ export function Holdings() {
         {mode === 'csv' && (
           <>
             <label className="field">
-              Upload standard CSV
+              Upload standard CSV or XLSX
               <input
                 disabled={busy || !saved}
                 type="file"
-                accept=".csv,text/csv"
+                accept=".csv,.xlsx,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
                 onChange={(event) => {
                   const file = event.target.files?.[0];
                   if (!file) return;
                   if (
                     draftDirty() &&
                     !window.confirm(
-                      'Replace your unsaved draft with this CSV file?',
+                      'Replace your unsaved draft with this import file?',
                     )
                   ) {
                     event.target.value = '';
                     return;
                   }
                   void action(async () => {
+                    if (file.name.toLowerCase().endsWith('.xlsx')) {
+                      if (file.size > 65536)
+                        throw Error('Choose an XLSX no larger than 64 KiB.');
+                      const bytes = new Uint8Array(await file.arrayBuffer());
+                      const parsed = await parseWorkbook(bytes);
+                      setCsv(holdingsCsv(parsed.holdings));
+                      setWorkbook(workbookBase64(bytes));
+                      setPreview(null);
+                      setMessage(
+                        'Workbook reconciled. Inspect the normalized rows, then preview and confirm. Editing these rows switches to CSV and discards workbook provenance.',
+                      );
+                      return;
+                    }
                     if (file.size > 50000)
                       throw new Error('Choose a CSV smaller than 50 KB.');
                     const text = await file.text();
                     setCsv(text);
+                    setWorkbook(null);
                     setPreview(null);
                     setMessage(
                       'CSV loaded into your draft. Review before saving.',
@@ -633,6 +654,48 @@ export function Holdings() {
                 }}
               />
             </label>
+            <section aria-label="Standard workbook templates">
+              <h3>Start with our XLSX template</h3>
+              <p>
+                Use the Holdings and Reconciliation sheets. Enter a declared row
+                count and acquisition-cost total in whole paise. Keep long
+                numbers as text. Maximum 200 holdings and 64 KiB. Broker
+                exports, formulas, hidden sheets and external links are
+                unsupported.
+              </p>
+              {(['template', 'sample'] as const).map((kind) => (
+                <button
+                  key={kind}
+                  type="button"
+                  disabled={busy || !saved}
+                  onClick={() =>
+                    void action(async () => {
+                      const file = HoldingsTemplateSchema.parse(
+                        await api(`/${kind}`),
+                      );
+                      setMessage(
+                        await saveDownload(
+                          new Blob([workbookBytes(file.base64) as BlobPart], {
+                            type: file.mime,
+                          }),
+                          file.filename,
+                        ),
+                      );
+                    })
+                  }
+                >
+                  {kind === 'template'
+                    ? 'Download blank XLSX template'
+                    : 'Download synthetic XLSX sample'}
+                </button>
+              ))}
+              {workbook && (
+                <p role="status">
+                  XLSX validated locally; declared totals match. Nothing saved
+                  yet.
+                </p>
+              )}
+            </section>
             <details>
               <summary>CSV format and units</summary>
               <p>
@@ -640,7 +703,8 @@ export function Holdings() {
                 row contains an Indian ISIN, quantity, and total cost in whole
                 paise (INR 100.00 = 10000 paise). Maximum 200 rows. Quoted
                 fields, formulas, duplicate ISINs and extra columns are
-                rejected. This standard CSV is not a broker or XLSX importer.
+                rejected. Use our standard XLSX template for workbooks;
+                arbitrary broker formats remain unsupported.
               </p>
             </details>
             <label htmlFor="holdings-csv">Holdings CSV</label>
@@ -652,6 +716,7 @@ export function Holdings() {
               value={csv}
               onChange={(e) => {
                 setCsv(e.target.value);
+                setWorkbook(null);
                 setPreview(null);
               }}
             />
@@ -669,7 +734,9 @@ export function Holdings() {
               setPreview(
                 HoldingsPreviewSchema.parse(
                   await api('/preview', {
-                    csv: mode === 'manual' ? holdingsCsv(draft) : csv,
+                    ...(mode === 'csv' && workbook
+                      ? { format: 'xlsx', workbookBase64: workbook }
+                      : { csv: mode === 'manual' ? holdingsCsv(draft) : csv }),
                     expectedVersion: saved.version,
                     storageConsent: consent,
                   }),
@@ -698,6 +765,13 @@ export function Holdings() {
       </section>
       {preview && (
         <section aria-label="Holdings preview" className="panel">
+          {preview.import?.parserVersion === 'standard-holdings-xlsx-v1' && (
+            <p>
+              Workbook totals reconciled: {preview.import.declaredRowCount}{' '}
+              rows; {preview.import.declaredTotalMinor} paise. Raw workbook
+              bytes are not stored.
+            </p>
+          )}
           <h3>Review before replacing</h3>
           <p>
             {preview.holdings.length} rows · total acquisition cost INR{' '}

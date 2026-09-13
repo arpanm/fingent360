@@ -31,6 +31,17 @@ export const HoldingRowsSchema = z
     (rows) => new Set(rows.map((r) => r.isin)).size === rows.length,
     'Duplicate ISINs must be consolidated before import.',
   );
+export const HoldingsImportSchema = z.strictObject({
+  parserVersion: z.enum([
+    'standard-holdings-csv-v1',
+    'standard-holdings-xlsx-v1',
+  ]),
+  declaredRowCount: z.number().int().min(0).max(200).optional(),
+  declaredTotalMinor: z
+    .string()
+    .regex(/^(0|[1-9][0-9]*)$/)
+    .optional(),
+});
 export const HoldingsSnapshotSchema = z.strictObject({
   version: z.number().int().nonnegative(),
   holdings: HoldingRowsSchema,
@@ -39,11 +50,30 @@ export const HoldingsSnapshotSchema = z.strictObject({
   scale: z.literal(2),
   provenance: z.literal('user-entered-unverified'),
   updatedAt: z.iso.datetime().nullable(),
+  import: HoldingsImportSchema.optional(),
 });
 export const HoldingsCsvSchema = z.strictObject({
   csv: z.string().max(50000),
   expectedVersion: z.number().int().nonnegative(),
   storageConsent: z.literal(true),
+});
+export const HoldingsWorkbookSchema = z.strictObject({
+  format: z.literal('xlsx'),
+  workbookBase64: z.string().min(1).max(87384),
+  expectedVersion: z.number().int().nonnegative(),
+  storageConsent: z.literal(true),
+});
+export const HoldingsImportRequestSchema = z.union([
+  HoldingsCsvSchema,
+  HoldingsWorkbookSchema,
+]);
+export const HoldingsTemplateSchema = z.strictObject({
+  filename: z.string(),
+  mime: z.literal(
+    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+  ),
+  base64: z.string().max(87384),
+  synthetic: z.boolean(),
 });
 export const HoldingsPreviewSchema = z.strictObject({
   previewId: z.uuid(),
@@ -51,7 +81,11 @@ export const HoldingsPreviewSchema = z.strictObject({
   expectedVersion: z.number().int().nonnegative(),
   holdings: HoldingRowsSchema,
   totalCostMinor: z.string().regex(/^(0|[1-9][0-9]*)$/),
-  parserVersion: z.literal('standard-holdings-csv-v1'),
+  parserVersion: z.enum([
+    'standard-holdings-csv-v1',
+    'standard-holdings-xlsx-v1',
+  ]),
+  import: HoldingsImportSchema.optional(),
 });
 export const HoldingsConfirmSchema = z.strictObject({
   previewId: z.uuid(),
@@ -90,4 +124,15 @@ export function holdingsCsv(rows: Holding[]): string {
     'isin,quantity,total_cost_paise',
     ...rows.map((row) => `${row.isin},${row.quantity},${row.totalCostMinor}`),
   ].join('\n');
+}
+
+/** Decode pre-XLSX array receipts and new normalized import receipts without retaining uploaded bytes. */
+export function storedHoldingsPreview(value: unknown): {
+  holdings: Holding[];
+  import?: z.infer<typeof HoldingsImportSchema>;
+} {
+  if (Array.isArray(value)) return { holdings: HoldingRowsSchema.parse(value) };
+  return z
+    .strictObject({ holdings: HoldingRowsSchema, import: HoldingsImportSchema })
+    .parse(value);
 }

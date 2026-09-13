@@ -428,6 +428,7 @@ export async function handleAccounts(
             id: p.preview.previewId,
             expectedVersion: p.preview.expectedVersion,
             holdings: p.preview.holdings,
+            ...(p.preview.import ? { import: p.preview.import } : {}),
             expiresAt: p.preview.expiresAt,
             confirmedVersion: p.confirmedVersion,
           })),

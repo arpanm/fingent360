@@ -14,6 +14,7 @@ import type pg from 'pg';
 import { z } from 'zod';
 import {
   PrivacyExportSchema,
+  storedHoldingsPreview,
   SessionsSchema,
   RevokeSessionSchema,
   RevokeOthersSchema,
@@ -258,7 +259,7 @@ export class PrivacyController {
           previews: holdingsPreviews.map((row) => ({
             id: row.id,
             expectedVersion: row.expected_version,
-            holdings: row.payload,
+            ...storedHoldingsPreview(row.payload),
             expiresAt: row.expires_at.toISOString(),
             confirmedVersion: row.confirmed_version,
           })),

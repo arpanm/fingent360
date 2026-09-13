@@ -92,3 +92,7 @@ A goal can reference several funding positions, and a position can fund several 
 ## Mapping to implementation
 
 PostgreSQL owns canonical numeric/domain/ownership/audit records; MongoDB owns entitled raw documents and extracted working material. Canonical facts promoted from documents require validation and retain evidence linkage. All financial calculations occur in domain libraries, not React or LLM prose. DEV-003 adds concrete runtime schemas and golden fixtures; DEV-004 adds migrations/indexes after those contracts stabilize. IDs and field designs above may evolve through recorded decisions; do not create speculative endpoints solely to match a proposed route.
+
+## Standard holdings import provenance — XLSX-001
+
+Existing app_holdings_previews.payload supports legacy arrays and new normalized {holdings, import} objects. import records parserVersion standard-holdings-csv-v1 or standard-holdings-xlsx-v1; workbook imports add declaredRowCount and exact declaredTotalMinor in INR paise. New saved snapshots/revisions carry optional import metadata; old records remain unchanged. Privacy export validates and normalizes both receipt shapes. No workbook bytes, filename or filesystem path is retained. No SQL migration is required; account cascade and on-device account deletion include these records. Provenance remains user-entered-unverified, not provider prices or verified broker data.

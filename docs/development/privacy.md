@@ -28,3 +28,7 @@ Parent verified this feature in full E2E run `2026-09-12T16-09-40-894Z-64656`: 5
 Account deletion has a separate 120-attempt/IP/15-minute budget and a five-attempt/authenticated-owner/15-minute budget, counted before password hashing and retained after failed password transactions. Registration/login retain their shared 120/IP/15-minute budget. This intentionally permits up to 240 combined endpoint attempts/IP/window instead of the former shared 120; it prevents sign-in abuse from consuming the authenticated deletion budget. Origin, valid session, password confirmation and the two-concurrent-scrypt bound remain unchanged. Limits remain process-local and reset on restart. Unit cases cover budget isolation and the authenticated-owner gate.
 
 Individual record reports can now be removed without deleting the account. See [report deletion](../product/report-deletion.md): snapshot/output bytes are removed, metadata-only receipts preserve idempotency until account deletion, and the explicit privacy export includes these receipts. Downloaded copies are not revoked.
+
+### Workbook provenance
+
+Standard XLSX preview/confirmation retains normalized holdings and parser version plus declared row count/acquisition-cost total. Export includes pending and confirmed receipt metadata; legacy array previews remain readable without invented metadata. Uploaded bytes, filename and path are not retained. User acquisition costs remain unverified inputs. Account deletion removes owned previews/revisions as before, including local-mode records.

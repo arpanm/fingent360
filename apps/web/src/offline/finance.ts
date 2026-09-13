@@ -1,3 +1,4 @@
+import { parseWorkbook } from '../workbook';
 import { z } from 'zod';
 import {
   SavedGoalInputSchema,
@@ -9,7 +10,11 @@ import {
   goalProjection,
   HoldingsSnapshotSchema,
   HoldingsHistorySchema,
-  HoldingsCsvSchema,
+  HoldingsImportRequestSchema,
+  HoldingsImportSchema,
+  holdingsWorkbookTemplate,
+  workbookBase64,
+  workbookBytes,
   HoldingsPreviewSchema,
   HoldingsConfirmSchema,
   parseHoldingsCsv,
@@ -194,17 +199,44 @@ export async function handleFinance(
         revisions: [...holdingsRecords(state, user.id).revisions].reverse(),
       }),
     };
+  if (
+    req.method === 'GET' &&
+    [`${base}/holdings/template`, `${base}/holdings/sample`].includes(req.path)
+  ) {
+    const synthetic = req.path.endsWith('/sample');
+    return {
+      body: {
+        filename: synthetic
+          ? 'SYNTHETIC-fingent360-holdings-sample.xlsx'
+          : 'fingent360-holdings-template.xlsx',
+        mime: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        base64: workbookBase64(holdingsWorkbookTemplate(synthetic)),
+        synthetic,
+      },
+    };
+  }
   if (req.path === `${base}/holdings/preview` && req.method === 'POST') {
-    const input = parseLocal(HoldingsCsvSchema, req.body);
+    const input = parseLocal(HoldingsImportRequestSchema, req.body);
     if (input.expectedVersion !== localHoldings(state, user.id).version)
       return fail(409, 'Holdings changed. Reload before previewing.');
     let holdings;
+    let imported = HoldingsImportSchema.parse({
+      parserVersion: 'standard-holdings-csv-v1',
+    });
     try {
-      holdings = parseHoldingsCsv(input.csv);
-    } catch {
+      if ('format' in input) {
+        const parsed = await parseWorkbook(workbookBytes(input.workbookBase64));
+        holdings = parsed.holdings;
+        imported = {
+          parserVersion: 'standard-holdings-xlsx-v1',
+          declaredRowCount: parsed.declaredRowCount,
+          declaredTotalMinor: parsed.declaredTotalMinor,
+        };
+      } else holdings = parseHoldingsCsv(input.csv);
+    } catch (error) {
       return fail(
         400,
-        'Invalid CSV. Check the header, ISIN check digits, quantities, whole-paise costs and duplicates.',
+        error instanceof Error ? error.message : 'Invalid holdings import.',
       );
     }
     const record = holdingsRecords(state, user.id);
@@ -221,7 +253,8 @@ export async function handleFinance(
       expiresAt: new Date(Date.now() + 1800000).toISOString(),
       holdings,
       totalCostMinor: holdingsTotal(holdings),
-      parserVersion: 'standard-holdings-csv-v1',
+      parserVersion: imported.parserVersion,
+      import: imported,
     });
     saveHoldings(state, user.id, {
       ...record,
@@ -259,6 +292,7 @@ export async function handleFinance(
       scale: 2,
       provenance: 'user-entered-unverified',
       updatedAt: now,
+      import: item.preview.import,
     });
     saveHoldings(state, user.id, {
       revisions: [...record.revisions, saved],

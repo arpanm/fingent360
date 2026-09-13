@@ -80,7 +80,8 @@ test('account deletion enforces the authenticated owner budget before password w
   const store = new AccountStore({
     DATABASE_URL: 'postgresql://fixture:fixture@127.0.0.1:1/fixture',
   });
-  store.transaction = async (work) => work({});
+  store.transaction = async (work) =>
+    work({ query: async () => ({ rows: [{ id: 'owner-fixture' }] }) });
   store.require = async () => ({ id: 'owner-fixture' });
   for (let i = 0; i < 5; i++)
     store.deletionOwnerLimits.consume('owner-fixture');

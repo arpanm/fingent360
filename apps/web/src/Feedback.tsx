@@ -61,7 +61,7 @@ function context(): z.infer<typeof FeedbackContextSchema> {
       .replace(/[^A-Za-z0-9/_-]/g, '')
       .slice(0, 100),
     runtime: runtime.mode,
-    appVersion: '0.3.1-feedback',
+    appVersion: '0.4.0-planning',
     viewport: { width: innerWidth, height: innerHeight },
     capturedAt: new Date().toISOString(),
   };

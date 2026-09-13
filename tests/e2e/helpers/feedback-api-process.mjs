@@ -7,8 +7,10 @@ const require = createRequire(
   new URL('../../../apps/api/package.json', import.meta.url),
 );
 const { Pool } = require('pg');
+const { MongoClient } = require('mongodb');
 const schema = `e2e_feedback_${randomUUID().replaceAll('-', '')}`;
 let pool,
+  ownedMongo,
   app,
   created = false,
   stopping,
@@ -47,6 +49,15 @@ async function stop(code = 0) {
         }
       },
       async () => {
+        if (ownedMongo) {
+          try {
+            await ownedMongo.db(schema).dropDatabase();
+          } finally {
+            await ownedMongo.close();
+          }
+        }
+      },
+      async () => {
         await pool?.end();
       },
     ];
@@ -82,11 +93,12 @@ async function start() {
     'postgresql:',
   ]);
   const mongo = localConnection(env.MONGODB_URI, ['mongodb:']);
-  // Mongo-backed writes are not part of feedback; give all other app modules an
-  // unused namespace as well so no accidental fixture call can touch app data.
+  // Every module receives the exact owned namespace. Broader application tests
+  // can store real source evidence here; teardown also drops this private database.
   if (!mongo.searchParams.has('authSource'))
     mongo.searchParams.set('authSource', mongo.pathname.slice(1) || 'admin');
   mongo.pathname = `/${schema}`;
+  ownedMongo = new MongoClient(mongo.href, { serverSelectionTimeoutMS: 3000 });
   database.searchParams.set('options', `-c search_path=${schema}`);
   pool = new Pool({
     connectionString: database.href,

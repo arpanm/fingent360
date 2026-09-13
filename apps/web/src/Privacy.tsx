@@ -1,3 +1,4 @@
+import { RecoverySettings } from './Recovery';
 import { useEffect, useState } from 'react';
 import { saveDownload } from './runtime';
 import { AccountGate } from './AccountGate';
@@ -109,6 +110,7 @@ export function Privacy() {
       </button>
       {signedIn && (
         <>
+          <RecoverySettings />
           <section className="card" aria-label="Account export">
             <h3>Download your account data</h3>
             <p>

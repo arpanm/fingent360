@@ -7,6 +7,8 @@ export type AccountDestination =
   | 'today'
   | 'explore'
   | 'learning'
+  | 'allocations'
+  | 'reports'
   | `read/${string}`;
 export function accountDestination(hash: string): AccountDestination | null {
   const query = hash.split('?')[1] ?? '';
@@ -19,6 +21,8 @@ export function accountDestination(hash: string): AccountDestination | null {
     next === 'today' ||
     next === 'explore' ||
     next === 'learning' ||
+    next === 'allocations' ||
+    next === 'reports' ||
     (next !== null && /^read\/[a-z0-9-]{1,100}$/.test(next))
     ? (next as AccountDestination)
     : null;

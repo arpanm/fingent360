@@ -282,8 +282,8 @@ export function Account() {
             </p>
           </details>
           <p>
-            Keep your password somewhere safe. Password recovery is not yet
-            available; no email address is required.
+            <a href="#recovery">Forgot your password?</a> Use a recovery code
+            you saved earlier. No email address is required.
           </p>
         </div>
       )}

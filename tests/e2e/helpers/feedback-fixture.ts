@@ -1,7 +1,7 @@
 import { fork } from 'node:child_process';
 import { test as base, expect, type Locator } from '@playwright/test';
 
-interface FeedbackSandbox {
+export interface FeedbackSandbox {
   apiOrigin: string;
   databaseUrl: string;
   schema: string;

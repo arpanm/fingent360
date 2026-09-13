@@ -41,3 +41,7 @@ export * from './research.js';
 export * from './research-enrichment.js';
 export * from './learning-content.js';
 export * from './feedback.js';
+export * from './allocations.js';
+export * from './recovery.js';
+export * from './reports.js';
+export * from './securities.js';

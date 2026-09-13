@@ -24,6 +24,10 @@ import { Icon } from './ui';
 import { AppSettings, DeviceStatus } from './AppSettings';
 import { runtime } from './runtime';
 import { FeedbackPage, FeedbackWidget } from './Feedback';
+import { GoalAllocations } from './GoalAllocations';
+import { Recovery } from './Recovery';
+import { Reports } from './Reports';
+import { Securities } from './Securities';
 import { startFeedbackSync } from './feedback-sync';
 import {
   canNavigate,
@@ -47,6 +51,24 @@ const destinations = [
   ['more', 'More', 'more'],
 ];
 const moreLinks = [
+  [
+    'allocations',
+    'Goal allocations',
+    'Connect owned holdings to your plans',
+    'goals',
+  ],
+  [
+    'reports',
+    'Saved record reviews',
+    'Keep an immutable version of your plan',
+    'overview',
+  ],
+  [
+    'securities',
+    'Security directory',
+    'Source-backed names and identifiers',
+    'search',
+  ],
   ['overview', 'My overview', 'Your saved plans at a glance', 'overview'],
   [
     'account',
@@ -314,6 +336,17 @@ export function App() {
             <AppSettings />
           ) : base === 'account' ? (
             <Account key={route} />
+          ) : base === 'recovery' ? (
+            <Recovery />
+          ) : base === 'allocations' ? (
+            <GoalAllocations />
+          ) : base === 'reports' ? (
+            <Reports />
+          ) : base === 'securities' || base.startsWith('securities/') ? (
+            <Securities
+              key={base}
+              isin={base.startsWith('securities/') ? base.slice(11) : undefined}
+            />
           ) : base === 'privacy' ? (
             <Privacy />
           ) : base === 'sources' ? (

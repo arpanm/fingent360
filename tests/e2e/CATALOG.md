@@ -237,3 +237,43 @@ Use `pnpm e2e:ui`, select @SOURCES-002 and existing discovery/library/media/navi
 | E2E-OFFLINE-235 | Another tab rereads durable queue after payload-free invalidation; submitted and deleted records become visible consistently  | offline         |
 
 Apply migration 016 and use the existing test UI with @FEEDBACK-001; leave watch/eye mode off. Offline cases use dedicated Android assets and require no server. Native acceptance covers viewport capture (not OS/other apps), form masking and review, microphone allow/deny/background stop, restart/CDN-switch queue retention, controlled HTTPS receipt/deletion, same-key update persistence and existing imports/Back. Never reset existing user data. Source recordings, lost acknowledgments and denial simulations are labelled; authored tests are not runtime evidence. Parent records current results/APK identity separately in status. See [complete workflow](../../docs/development/feedback.md), [API](../../docs/development/feedback-api.md), [native acceptance details](../../docs/development/feedback-native.md).
+
+## TEAM-002 — allocations, recovery, record reports and identity
+
+These are implemented bounded workflows, not a claim that the complete roadmap or production acceptance is done. Runtime results and the tested revision are recorded in [status](../../docs/development/status.md).
+
+| Case            | Coverage                                                                                                                         | Projects        |
+| --------------- | -------------------------------------------------------------------------------------------------------------------------------- | --------------- |
+| E2E-API-200     | Exact allocated quantities/cost, oversubscription, concurrent version conflict, changed holdings and revision history            | api             |
+| E2E-API-201     | Split quantities, account isolation, removed-goal review and privacy export                                                      | api             |
+| E2E-WEB-200     | Choose goal/holding, review, consent, save and reload allocation                                                                 | desktop, mobile |
+| E2E-WEB-201     | Mobile keyboard, cancel edit, release allocation and changed-holdings review                                                     | desktop, mobile |
+| E2E-OFFLINE-240 | Durable local allocation choose/review/save/reload/history                                                                       | offline         |
+| E2E-API-210     | Recovery-code rotation/single use, session revocation, retained data and concurrent login serialization                          | api             |
+| E2E-API-211     | Durable recovery failure budget across sessions                                                                                  | api             |
+| E2E-API-212     | Global recovery budget admits one concurrent final request then caps counters and per-user cardinality                           | api             |
+| E2E-WEB-210     | One-time private code display, actual screenshot privacy-mask pixels, zero upload and forgot-password journey                    | desktop, mobile |
+| E2E-OFFLINE-250 | Local code reset, consumed-code rejection, retained records and revoked session                                                  | offline         |
+| E2E-OFFLINE-251 | Local recovery failure limits survive reload without changing password                                                           | offline         |
+| E2E-OFFLINE-252 | Device recovery budget caps counters and new usernames across concurrent requests and reload                                     | offline         |
+| E2E-OFFLINE-253 | Real generated device recovery code is masked in screenshot pixels and discarded without upload                                  | offline         |
+| E2E-API-220     | Owned report request, idempotency/conflict, issuance and JSON download                                                           | api             |
+| E2E-API-221     | Strict report consent/input rejection without creating jobs                                                                      | api             |
+| E2E-API-222     | Test-owned expired leases, exhausted retry, explicit retry and cancellation                                                      | api             |
+| E2E-API-223     | Populated exact report, no allocation double count, immutable snapshot after edits, new review flags, privacy/ownership/deletion | api             |
+| E2E-WEB-220     | Report create/open/download/reload                                                                                               | desktop, mobile |
+| E2E-WEB-221     | Mobile report dialog, Escape, focus return and overflow                                                                          | desktop, mobile |
+| E2E-WEB-222     | Populated goals/holdings/allocation report, exact displayed amounts, reload and export                                           | desktop, mobile |
+| E2E-OFFLINE-260 | Durable local report create/open/download/reload                                                                                 | offline         |
+| E2E-OFFLINE-261 | Queued snapshot survives reload and later goal changes                                                                           | offline         |
+| E2E-OFFLINE-262 | Populated local report keeps contribution estimate separate from allocated recorded cost                                         | offline         |
+| E2E-API-230     | Actual OpenFIGI mapping, immutable evidence/hash and replay/unchanged edition                                                    | api             |
+| E2E-API-231     | Investor/Origin/input denial before provider work and private account preservation                                               | api             |
+| E2E-API-232     | Explicitly simulated cooldown/interruption preserves previously stored real evidence                                             | api             |
+| E2E-API-233     | Bounded search, invalid/missing identity and evidence ownership                                                                  | api             |
+| E2E-WEB-230     | Actual operator identity refresh → directory → evidence/history → keyboard/Back/reload                                           | desktop, mobile |
+| E2E-WEB-231     | Simulated read failure → retry actual empty API, missing identity and guest operations gate                                      | desktop, mobile |
+| E2E-OFFLINE-270 | Dated real bundled identity/evidence/hash/history and Back without API network                                                   | offline         |
+| E2E-OFFLINE-271 | Offline search miss and unsupported refresh preserve stored identities                                                           | offline         |
+
+Use tags `@ALLOCATIONS-001`, `@RECOVERY-001`, `@REPORTS-001`, `@IDENTITY-001`. Connected cases use the real isolated application fixture described in [test setup](README.md#team-002-isolated-application-cases). `@real-provider` requires ordinary OpenFIGI availability; `@simulated` explicitly marks controlled interruption scenarios and is not provider-success evidence. Offline identity cases require a fresh bundle containing at least five actual stored identities. Physical Android install, keyboard, native Back/file export, airplane-mode and same-key update acceptance remain separate from Playwright coverage.

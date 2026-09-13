@@ -1,5 +1,7 @@
 # Saved financial goals (GOALS-001)
 
+TEAM-002 now adds [goal allocations](../product/goal-allocations.md): earmark exact quantities of actual saved holdings, review/save and retain history, with double-allocation checks and visible review when goals or holdings change. Recorded acquisition cost is separate from entered savings and market value. [Record reports](../product/record-reports.md) capture immutable contribution-only reviews; broader suitability/return scenarios remain open.
+
 This completes an account-owned goal planning increment under DEV-009, with PostgreSQL persistence, repeat goal types, explicit storage consent, version history, optimistic edit/delete conflicts and responsive UI. No source feeds or mock portfolio balances are used. This does not complete portfolio allocation, suitability, inflation/return scenarios or regulated recommendations in the parent roadmap.
 
 Amounts are INR with scale 2, transported as integer-paise strings. Input accepts at most two decimal places and rejects rounding. Calculations use BigInt: already saved + monthly contribution × entered months. A negative remaining gap is displayed as zero. No market growth, inflation, taxes, fees or withdrawals are assumed. The nominal calculation is an illustration of the user's inputs, not a promised outcome. Horizon is fixed to each saved plan, not automatically reduced with calendar time. Defaults (zero saved, zero monthly, 120 months) are visible and editable; assumptions have version no-growth-nominal-v1.

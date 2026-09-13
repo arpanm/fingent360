@@ -38,6 +38,15 @@ import { SourcesController, sourcesProvider } from './sources.js';
 import { AlertPreferencesController } from './alert-preferences.js';
 import { HoldingsController } from './holdings.js';
 import { OverviewController } from './overview.js';
+import { AllocationsController } from './allocations.js';
+import { RecoveryController } from './recovery.js';
+import { ReportsController, ReportsStore } from './reports.js';
+import { ReportWorker } from './report-worker.js';
+import {
+  SecuritiesController,
+  OpsSecuritiesController,
+  securitiesProvider,
+} from './securities.js';
 
 @Controller()
 class HealthController {
@@ -83,6 +92,11 @@ export async function createApp(
         AlertPreferencesController,
         HoldingsController,
         OverviewController,
+        AllocationsController,
+        RecoveryController,
+        ReportsController,
+        SecuritiesController,
+        OpsSecuritiesController,
         AssistanceController,
         DiscoveryController,
         OpsDiscoveryController,
@@ -100,9 +114,12 @@ export async function createApp(
         journeyProvider(config),
         macroProvider(config),
         accountProvider(config),
+        securitiesProvider(config),
         discoveryProvider(config),
         operatorProvider(config),
         LibraryReminderWorker,
+        ReportsStore,
+        ReportWorker,
         mediaProvider(config),
         sourcesProvider(config),
         assistanceProvider(config),

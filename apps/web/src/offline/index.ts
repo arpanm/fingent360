@@ -15,10 +15,18 @@ import { handleLibrary, deliverOfflineReminders } from './library';
 import { handleLearning } from './learning';
 import { handleAssistance } from './assistance';
 import { handleJourney } from './journey';
+import { handleAllocations } from './allocations';
+import { handleRecovery } from './recovery';
+import { handleSecurities } from './securities';
+import { reportsHandler } from './reports';
 
 const bundle = snapshot as OfflineBundle;
 const handlers: OfflineHandler[] = [
+  handleRecovery,
+  handleSecurities,
   handleAccounts,
+  reportsHandler,
+  handleAllocations,
   handleFinance,
   handleLibrary,
   handleLearning,

@@ -38,6 +38,8 @@ import {
 } from './finance';
 import { exportOfflineLibrary } from './library';
 import { exportOfflineLearning } from './learning';
+import { localAllocationRevisions } from './allocations';
+import { exportOfflineReports } from './reports';
 interface LocalAccountData {
   watchlist: MacroIndicator[];
   acknowledgments: Record<string, string>;
@@ -277,6 +279,9 @@ export async function handleAccounts(
     delete state.users[user.id];
     state.sessionUserId = null;
     for (const key of [
+      'localRecovery',
+      'localAllocations',
+      'localReports',
       'localAccounts',
       'localGoals',
       'localHoldings',
@@ -388,6 +393,8 @@ export async function handleAccounts(
           'attachment; filename="fingent360-local-account.json"',
       },
       body: PrivacyExportSchema.parse({
+        allocations: { revisions: localAllocationRevisions(detached, user.id) },
+        reports: exportOfflineReports(detached, user.id),
         formatVersion: 'account-export-v1',
         exportedAt: new Date().toISOString(),
         account: account(user),
@@ -434,7 +441,7 @@ export async function handleAccounts(
         },
         exclusions: [
           'This export contains only records stored by this app on this device.',
-          'Passwords, password hashes, salts and sign-in counters are excluded.',
+          'Passwords, password hashes, salts, recovery codes/hashes and sign-in/recovery counters are excluded.',
           'No server synchronization, remote sessions or current market prices are included.',
         ],
       }),
@@ -442,3 +449,9 @@ export async function handleAccounts(
   }
   return fail(404, 'This account operation is unavailable in local mode.');
 }
+
+export {
+  hash as hashLocalPassword,
+  matches as matchesLocalPassword,
+  current as currentLocalAccount,
+};

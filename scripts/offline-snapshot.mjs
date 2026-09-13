@@ -10,6 +10,9 @@ import {
   LearningCatalogSchema,
   CatalogSchema,
   MediaAssetSchema,
+  SecurityDirectorySchema,
+  SecurityHistorySchema,
+  SecurityEvidenceSchema,
 } from '../packages/contracts/dist/index.js';
 
 const envPath = fileURLToPath(new URL('../.env', import.meta.url));
@@ -55,6 +58,9 @@ const bundle = {
   learningCatalog: null,
   journeyCatalog: null,
   media: {},
+  securities: null,
+  securityHistories: {},
+  securityEvidence: {},
 };
 let cursor = null;
 do {
@@ -102,6 +108,22 @@ for (const source of bundle.macro.sources)
       );
   }
 bundle.sources = await get('/sources');
+bundle.securities = SecurityDirectorySchema.parse(await get('/securities'));
+if (bundle.securities.limited)
+  throw Error(
+    'Narrow the supported identity corpus before bundling more than 200 identities.',
+  );
+for (const identity of bundle.securities.items) {
+  const history = SecurityHistorySchema.parse(
+    await get(`/securities/${identity.isin}/history`),
+  );
+  bundle.securityHistories[identity.isin] = history;
+  for (const edition of history.revisions) {
+    bundle.securityEvidence[edition.sourceHash] = SecurityEvidenceSchema.parse(
+      await get(`/securities/${identity.isin}/evidence/${edition.sourceHash}`),
+    );
+  }
+}
 bundle.researchCatalog = ResearchCatalogSchema.parse(
   await get('/discovery/catalog'),
 );

@@ -120,6 +120,11 @@ export class GoalsController {
     identifier(id);
     return this.store.transaction(async (c) => {
       const account = await this.store.require(c, cookie);
+      // Match holdings/allocation lock order so a plan cannot save against a
+      // goal that is concurrently being revised or removed.
+      await c.query('SELECT id FROM app_users WHERE id=$1 FOR UPDATE', [
+        account.id,
+      ]);
       const rows = await c.query(
         'SELECT * FROM app_goals WHERE id=$1 AND user_id=$2 AND deleted_at IS NULL FOR UPDATE',
         [id, account.id],

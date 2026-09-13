@@ -1,5 +1,18 @@
 # TODO — Fingent360 delivery tracker
 
+## TEAM-002 — Continue complete backlog workflows in parallel
+
+- **Request:** Continue pending tasks one after another with parallel agents, specification → complete implementation → E2E cases → documentation/trackers → gated local commit. Preserve the session's parent-controlled integration/test-and-fix workflow; never push.
+- **Implementation:** All four child workflows complete across implemented layers; integrated verification passed, final gated local commit follows. Clean starting commit `f0eed9a`. Parent owns shared registrations, privacy integration, root trackers, verification and commits; agents own bounded modules below. Each child completes independently; this does not close broad DEV/SRC parents or external rights/release gates.
+- **Verification:** Full API/desktop/mobile run `2026-09-13T20-32-29-686Z-27492`:177 passed,0failed,1intentional API004 outage skip. Final packaged offline run `1789333771403-889ac67a-e773-4f7e-8380-af24d3e29f0d`:26/26 passed, zero skips. Format/check passed with94 unit tests; final documentation is included in pre-commit gates. Migrations017–020 preserved existing record counts and row digests exactly; temporary test databases/schemas were cleaned. Focused correction runs, the worker/timing anomalies, viewport evidence, and current code5 APK identity are recorded in docs/development/status.md. Physical phone/screen-reader/user-design and broad parent acceptance remain separate.
+- **ALLOCATIONS-001 (DEV-009/016/019):** Implemented and verified for the bounded scope. Connect real saved goals to exact quantities of owned holdings. Specify quantity units and cost attribution first; persist immutable allocation revisions, prevent cross-account and double allocation, reject stale inputs, and make removed/reduced holdings visibly require review. Deliver guided choose → review → save → edit/history, no-growth contribution context without treating cost as market value; shared offline behavior, export/deletion and meaningful API/browser/offline cases. Dependencies: existing accounts/goals/holdings; no live prices needed. Prompt: read current contracts and lifecycle, add allocation contracts and migration017, reuse exact arithmetic, coordinate holding/goal mutations with allocation checks, implement responsive accessible UI and local transport parity, test concurrent oversubscription, stale revisions, removal, reload/history, privacy and recovery. Document all layer acceptance and limits. Reserved API/WEB200–209, OFFLINE240–249.
+- **RECOVERY-001 (DEV-007/017):** Implemented and verified for the bounded scope. Let a user explicitly create a strong recovery code while authenticated, retain it privately, and reset a forgotten password using that code without email/provider dependencies. Prompt: specify one-time display, hashing, rotation/consumption, password confirmation, session revocation, generic failure and abuse bounds; add strict contracts and migration018, secure API and account/privacy UI, accessible mobile recovery flow, local-device equivalent with preserved data, and API/browser/offline tests for reuse/rotation, ownership, failed attempts, reload and export exclusion. Never expose password/recovery hashes or claim email/verified identity. A blocked IP/device budget must short-circuit before allocating more per-user counters; saturate counters and cover cardinality after limit. Mask displayed recovery codes in feedback screenshots and verify actual captured pixels without uploading the code. Root integrates shared export/router registration. Reserved API/WEB210–219, OFFLINE250–259.
+- **REPORTS-001 (DEV-011/016/021):** Implemented and verified for the bounded scope. Request and reopen an immutable record review of actual owned goals/holdings, with provenance and missing-market-data boundaries. Prompt: specify report inputs/output and deterministic no-growth policy; implement migration019 with PostgreSQL jobs, leases, bounded retries, idempotency, cancellation and immutable issued snapshots; real account-scoped status/history/download API, mobile/keyboard UI and retry/recovery, offline local equivalent that resumes on next open, export/deletion integration, and meaningful API/browser/offline tests including worker crash/expired lease, duplicate request, ownership and unchanged issued output after edits. No trades, fabricated prices, scheduled external delivery or investment recommendation. Reserved API/WEB220–229, OFFLINE260–269.
+- **SOURCE-AUDIT-003 (SRC-001–003):** Completed bounded source audit; OpenFIGI identity implementation follows. NSE EOD/corporate-action access and redistribution need explicit source rights. Parent researches primary free Indian-equity identity/EOD/corporate-action access and terms, records dated source evidence and precise blockers, then implements the next permitted complete source slice when evidence supports it. Public accessibility alone cannot approve ingestion/display. Existing source/holding UI remains truthful until actual validated data is delivered.
+- **IDENTITY-001 (SRC-001; DEV-003/005/015/016):** Implemented; five actual public ISINs matched and persisted with evidence. Offline/regression verification passed. OpenFIGI official terms/FAQ permit free identifier metadata reuse and an actual unauthenticated INR/India-equity mapping returned a Reliance identity on 2026-09-13. Deliver a bounded operator-entered public-ISIN mapping pipeline, immutable MongoDB raw evidence and PostgreSQL canonical revisions, public searchable identity directory/detail/history, explicit unresolved/ambiguous/failure states, and dated offline snapshot parity. No prices, action adjustment, verified ownership or exchange-listing assertion. Never send private account holdings automatically. Migration020; API/WEB230–239 and OFFLINE270–279. Prompt: use a fixed official endpoint, strict schemas, conservative request limits, recorded source/rights/version/retrieval/hash, duplicate-safe unchanged observations and durable bounded refresh status; authenticate operations and keep investor controls separate. Validate real provider → evidence → directory → holding-context navigation, replay/no-match/failure/isolation cases, mobile/keyboard flow and offline source dates. Root documentation/trackers/gates/local commit follow each slice; EOD/actions remain precisely gated by source terms.
+- **Per-child completion:** Specification and reused/new layers documented; meaningful E2E cases/catalogue/coverage; root TODO/README/status/delivery-matrix updated; format/check pass before scoped local commit. Parent serializes builds/migrations/tests and preserves existing data/services. User-facing visual acceptance and physical phone testing remain distinct from automated passes.
+- **Manual next actions:** Existing local migrations are applied; another checkout runs pnpm install --frozen-lockfile, pnpm build, pnpm db:migrate, then pnpm dev. Open #allocations, #reports, Account/Privacy recovery and #securities at the printed web URL (currently http://127.0.0.1:5175). Run E2E_BROWSER=chrome pnpm e2e:ui with the four child tags in API/desktop/mobile and watch off, or E2E_BROWSER=chrome pnpm android:test:ui for device cases. Expect real owned persistence, exact calculations, replay/ownership/recovery checks and no offline API traffic. Install artifacts/android/fingent360-debug.apk code5 over the same-key previous build without clearing data. Send artifacts/e2e/latest.md for failures. No new dependency, push or deployment.
+
 ## FEEDBACK-TEST-001 — Repeatable real feedback tests without shared quota exhaustion
 
 - **Request/evidence:** Fix all seven feedback failures in user run `2026-09-13T17-22-11-309Z-16823`, started17:22:12.095Z, web5175/API4103:147 completed,139 passed,7 failed,1 intentional outage skip. WEB190/192/194/195 hit HTTP429 after earlier runs used the shared hourly quota; failed cleanup obscured the original submission error. Previous focused passes did not establish repeatable full-suite behavior.
@@ -131,10 +144,10 @@
 
 These are delivery packages over the existing DEV/SRC IDs, not competing tasks or completed work. Each package must deliver specification, UI/UX, API/contracts, domain behavior, database, real data, automation, tests and documentation before acceptance. Work may run in parallel when contracts and file ownership are agreed; integrate and verify the whole journey before marking a package implemented.
 
-1. **Verified Indian-equity portfolio (DEV-003–008/015/016; SRC-001–003/013). Status: planned.** User outcome: identify an actual security, enter/import owned quantities and cost, preview corrections, then see a dated valuation with evidence and missing-data explanations. Prompt: inspect existing holdings contracts and source registry; research permitted security-master, EOD price and corporate-action inputs and record actual access/usage evidence. Implement strict adapter contracts, additive identity/observation/revision migrations, quarantined unresolved ISINs, exact money/quantity calculations, freshness and adjustment semantics. Build search/selection, import reconciliation, saved portfolio table and position detail; retain cost separately from market value. Add an operator-invoked refresh job with durable status, idempotency and retry, then surface accepted observations through the API. Verify real provider → raw evidence → canonical data → API → user confirmation → persisted/reloaded valuation, stale/missing/action/conflict cases and account isolation. Do not value unknown securities or use fixtures as live prices. Preserve representative synthetic parser fixtures for deterministic failure tests; record external-access gates precisely.
-2. **Connected goals and owned holdings (DEV-009/016/019). Status: planned; identity/valuation required only for valuation-dependent views.** User outcome: assign portions of actual saved holdings and contributions to repeated goals, understand funding gaps, and change a plan without losing history. Prompt: specify allocation units and lifecycle first; implement runtime allocation contracts, additive ownership/revision schema and exact deterministic calculations that prevent double allocation and cross-account access. Build guided goal setup → holding selection → allocation review → save → goal detail → rebalance/edit history. Contribution-only paths can ship without assumed market returns; scenarios must show editable assumptions, costs and no-action comparison. Separate recorded cost, dated value and hypothetical future value. Add API/browser cases for reload, oversubscription, removed holdings, stale revisions, missing prices, repeated goal types and privacy export/deletion. Reuse manual automation; do not trigger trades or advice. Parent completion requires the connected flow, not another standalone calculator.
+1. **Verified Indian-equity portfolio (DEV-003–008/015/016; SRC-001–003/013). Status: IDENTITY-001 supplies five real identity records and an operator lookup pipeline; licensed EOD/action data and valuation remain open.** User outcome: identify an actual security, enter/import owned quantities and cost, preview corrections, then see a dated valuation with evidence and missing-data explanations. Prompt: inspect existing holdings contracts and source registry; research permitted security-master, EOD price and corporate-action inputs and record actual access/usage evidence. Implement strict adapter contracts, additive identity/observation/revision migrations, quarantined unresolved ISINs, exact money/quantity calculations, freshness and adjustment semantics. Build search/selection, import reconciliation, saved portfolio table and position detail; retain cost separately from market value. Add an operator-invoked refresh job with durable status, idempotency and retry, then surface accepted observations through the API. Verify real provider → raw evidence → canonical data → API → user confirmation → persisted/reloaded valuation, stale/missing/action/conflict cases and account isolation. Do not value unknown securities or use fixtures as live prices. Preserve representative synthetic parser fixtures for deterministic failure tests; record external-access gates precisely.
+2. **Connected goals and owned holdings (DEV-009/016/019). Status: ALLOCATIONS-001 implemented for quantity/cost earmarking and no-growth contribution context; valuation/scenarios remain open.** User outcome: assign portions of actual saved holdings and contributions to repeated goals, understand funding gaps, and change a plan without losing history. Prompt: specify allocation units and lifecycle first; implement runtime allocation contracts, additive ownership/revision schema and exact deterministic calculations that prevent double allocation and cross-account access. Build guided goal setup → holding selection → allocation review → save → goal detail → rebalance/edit history. Contribution-only paths can ship without assumed market returns; scenarios must show editable assumptions, costs and no-action comparison. Separate recorded cost, dated value and hypothetical future value. Add API/browser cases for reload, oversubscription, removed holdings, stale revisions, missing prices, repeated goal types and privacy export/deletion. Reuse manual automation; do not trigger trades or advice. Parent completion requires the connected flow, not another standalone calculator.
 3. **Evidence-to-portfolio research journey (DEV-005/006/010/015/016/018–020; SRC-004–012/014). Status: planned.** User outcome: read one verified event, inspect source facts and explained uncertainty, and see relevant owned positions/goals without invented causation or a trade instruction. Prompt: choose a bounded real event family with permitted source inputs, specify fact/expectation/scenario/inference boundaries and a versioned educational policy. Implement source ingestion/evidence/revisions, canonical event/sector/company links, deterministic relevance rules, owned-context API and corrections history. Design brief → event → evidence → company → holding/goal navigation, empty/unavailable/stale/corrected states and meaningful watchlist/inbox controls. Persist policy/input versions for reconstruction; use golden scenarios and real integration cases. Add operator review and explicit user refresh automation with retry/quarantine visibility. Keep the learning lab labelled synthetic until the real journey is accepted; do not present annual macro observations as live equity analysis.
-4. **Durable review and release readiness (DEV-002/004/007/011/012/015/017/018/021). Status: planned; implement supporting pieces alongside the preceding journeys.** User outcome: request a review/report, follow progress, reopen the same issued version and recover safely after failures. Prompt: implement PostgreSQL outbox/jobs with leases, retries, idempotency and cancellation tied to actual accepted data/policies; add status/history/download API and accessible UI with explicit failure recovery. Preserve immutable issued inputs and scoped privacy/deletion behavior. Complete account recovery, operational retention, backup/restore, security/abuse monitoring and accessibility acceptance for the launch scope. Test worker crashes, duplicate requests, expired leases, denied access, missing sources, fresh/stale outputs and mobile/keyboard flow. Document operator controls and user-run automation. No scheduled notifications, external delivery or regulated advice without the relevant explicit product gates.
+4. **Durable review and release readiness (DEV-002/004/007/011/012/015/017/018/021). Status: REPORTS-001 and RECOVERY-001 implemented; scheduled evidence reviews, granular retention, backup/restore and production/physical acceptance remain open.** User outcome: request a review/report, follow progress, reopen the same issued version and recover safely after failures. Prompt: implement PostgreSQL outbox/jobs with leases, retries, idempotency and cancellation tied to actual accepted data/policies; add status/history/download API and accessible UI with explicit failure recovery. Preserve immutable issued inputs and scoped privacy/deletion behavior. Complete account recovery, operational retention, backup/restore, security/abuse monitoring and accessibility acceptance for the launch scope. Test worker crashes, duplicate requests, expired leases, denied access, missing sources, fresh/stale outputs and mobile/keyboard flow. Document operator controls and user-run automation. No scheduled notifications, external delivery or regulated advice without the relevant explicit product gates.
 
 Follow the original Indian-equity-first asset sequence after these launch workflows. Later asset classes, broker entitlements, messaging channels and monetization retain their existing DEV/SRC task IDs and gates; their detailed prompts below remain in force.
 
@@ -350,7 +363,7 @@ TEAM-001 adds GOALS-001, PRIVACY-001, SOURCES-001, ALERT-002, PORTFOLIO-001, PWA
 - **Context:** README.md sections 19–25; docs/product/decisions.md
 - **Scope and acceptance:** Explicit allowed vocabulary and activation gates; document injection, uploaded PII, tenant access, consent and deletion design
 - **E2E cases:** Planned scenarios in tests/e2e/plans/product-coverage.md#dev-002; add stable executable IDs when implemented
-- **Evidence / blockers:** SLICE-001 implements the bounded synthetic journey portion; see docs/development/working-journey.md and docs/product/educational-slice-policy.md. Full task acceptance and production dependencies remain open; no tests executed.
+- **Evidence / blockers:** SLICE-001 implements the bounded synthetic journey portion; see docs/development/working-journey.md and docs/product/educational-slice-policy.md. Full parent acceptance and production dependencies remain open; executed evidence for implemented children is in docs/development/status.md. Historical authoring-only statements do not describe the current integrated implementation.
 - **Manual next actions:** After implementation, user runs relevant checks and selected E2E cases listed in the handoff; attach evidence before marking verified.
 
 **Codex prompt**
@@ -361,13 +374,15 @@ TEAM-001 adds GOALS-001, PRIVACY-001, SOURCES-001, ALERT-002, PORTFOLIO-001, PWA
 
 ### DEV-003 — Versioned domain contracts and golden fixtures
 
+- **TEAM-002 delivery:** TEAM-002 adds strict allocation, recovery, record report/job and source-identity contracts. Runtime/reconciliation and real API/browser cases exist; broader event/policy/valuation models remain open.
+
 - **Implementation:** In progress
 - **Verification:** Not run
 - **Dependencies:** DEV-001, DEV-002
 - **Context:** README.md sections 19–25; docs/product/decisions.md
 - **Scope and acceptance:** Instrument, evidence, observation, event/edge, portfolio/lot, goal/profile and policy-result schemas; strict rejection and decimal/reconciliation rules
 - **E2E cases:** Planned scenarios in tests/e2e/plans/product-coverage.md#dev-003; add stable executable IDs when implemented
-- **Evidence / blockers:** SLICE-001 implements the bounded synthetic journey portion; see docs/development/working-journey.md and docs/product/educational-slice-policy.md. Full task acceptance and production dependencies remain open; no tests executed.
+- **Evidence / blockers:** SLICE-001 implements the bounded synthetic journey portion; see docs/development/working-journey.md and docs/product/educational-slice-policy.md. Full parent acceptance and production dependencies remain open; executed evidence for implemented children is in docs/development/status.md. Historical authoring-only statements do not describe the current integrated implementation.
 - **Manual next actions:** After implementation, user runs relevant checks and selected E2E cases listed in the handoff; attach evidence before marking verified.
 
 **Codex prompt**
@@ -378,6 +393,8 @@ TEAM-001 adds GOALS-001, PRIVACY-001, SOURCES-001, ALERT-002, PORTFOLIO-001, PWA
 
 ### DEV-004 — PostgreSQL migrations and MongoDB indexes
 
+- **TEAM-002 delivery:** TEAM-002 migrations017–020 add owned allocation revisions, hashed recovery/abuse counters, leased report jobs/immutable reports and source-identity revisions/refresh status. They were applied additively; least-privilege deployment and broad operational restore acceptance remain open.
+
 - **TEAM-001 delivery:** MIGRATIONS-001 adds checksum-ledger execution and migrations005–009; least-privilege deployment and durable jobs/outbox remain open.
 
 - **Implementation:** In progress
@@ -386,7 +403,7 @@ TEAM-001 adds GOALS-001, PRIVACY-001, SOURCES-001, ALERT-002, PORTFOLIO-001, PWA
 - **Context:** README.md sections 19–25; docs/product/decisions.md
 - **Scope and acceptance:** Repeatable migrations, tenant boundaries and least-privilege application access; versioned observations; transaction-safe jobs/outbox schema
 - **E2E cases:** Planned scenarios in tests/e2e/plans/product-coverage.md#dev-004; add stable executable IDs when implemented
-- **Evidence / blockers:** SLICE-001 implements the bounded synthetic journey portion; see docs/development/working-journey.md and docs/product/educational-slice-policy.md. Full task acceptance and production dependencies remain open; no tests executed.
+- **Evidence / blockers:** SLICE-001 implements the bounded synthetic journey portion; see docs/development/working-journey.md and docs/product/educational-slice-policy.md. Full parent acceptance and production dependencies remain open; executed evidence for implemented children is in docs/development/status.md. Historical authoring-only statements do not describe the current integrated implementation.
 - **Manual next actions:** After implementation, user runs relevant checks and selected E2E cases listed in the handoff; attach evidence before marking verified.
 
 **Codex prompt**
@@ -396,6 +413,8 @@ TEAM-001 adds GOALS-001, PRIVACY-001, SOURCES-001, ALERT-002, PORTFOLIO-001, PWA
 <a id="dev-005"></a>
 
 ### DEV-005 — P0 source registry and initial adapters
+
+- **TEAM-002 delivery:** IDENTITY-001 adds the fixed permitted OpenFIGI adapter with actual evidence/editions. This is a bounded identity lookup source, not complete exchange-master, EOD or action coverage.
 
 - **TEAM-001 delivery:** SOURCES-001 adds operator/public registry and immutable reviews; wider source adapters and production rights/freshness acceptance remain open.
 
@@ -422,7 +441,7 @@ TEAM-001 adds GOALS-001, PRIVACY-001, SOURCES-001, ALERT-002, PORTFOLIO-001, PWA
 - **Context:** README.md sections 19–25; docs/product/decisions.md
 - **Scope and acceptance:** Five/six verified points; event, sector and company details; supporting sources, corrections, stale/unavailable states
 - **E2E cases:** Planned scenarios in tests/e2e/plans/product-coverage.md#dev-006; add stable executable IDs when implemented
-- **Evidence / blockers:** SLICE-001 implements the bounded synthetic journey portion; see docs/development/working-journey.md and docs/product/educational-slice-policy.md. Full task acceptance and production dependencies remain open; no tests executed.
+- **Evidence / blockers:** SLICE-001 implements the bounded synthetic journey portion; see docs/development/working-journey.md and docs/product/educational-slice-policy.md. Full parent acceptance and production dependencies remain open; executed evidence for implemented children is in docs/development/status.md. Historical authoring-only statements do not describe the current integrated implementation.
 - **Manual next actions:** After implementation, user runs relevant checks and selected E2E cases listed in the handoff; attach evidence before marking verified.
 
 **Codex prompt**
@@ -433,6 +452,8 @@ TEAM-001 adds GOALS-001, PRIVACY-001, SOURCES-001, ALERT-002, PORTFOLIO-001, PWA
 
 ### DEV-007 — Identity/consent and manual/virtual portfolios
 
+- **TEAM-002 delivery:** RECOVERY-001 adds explicitly generated single-use recovery codes and safe password/session reset for server/device accounts. Verified identity, MFA/households and production key management remain open.
+
 - **TEAM-001 delivery:** PORTFOLIO-001 adds authenticated user-entered holdings, separate from the virtual exercise; verified identity/master and live valuations remain open.
 
 - **Implementation:** In progress
@@ -442,7 +463,7 @@ TEAM-001 adds GOALS-001, PRIVACY-001, SOURCES-001, ALERT-002, PORTFOLIO-001, PWA
 - **Scope and acceptance:** Authenticated ownership, consent, exact quantities/amounts, synthetic demo clearly distinguished
 - **Current delivery:** ACCOUNT-001 now provides persisted authenticated accounts and passive real-data watchlists; broader parent acceptance remains open.
 - **E2E cases:** Planned scenarios in tests/e2e/plans/product-coverage.md#dev-007; add stable executable IDs when implemented
-- **Evidence / blockers:** SLICE-001 implements the bounded synthetic journey portion; see docs/development/working-journey.md and docs/product/educational-slice-policy.md. Full task acceptance and production dependencies remain open; no tests executed.
+- **Evidence / blockers:** SLICE-001 implements the bounded synthetic journey portion; see docs/development/working-journey.md and docs/product/educational-slice-policy.md. Full parent acceptance and production dependencies remain open; executed evidence for implemented children is in docs/development/status.md. Historical authoring-only statements do not describe the current integrated implementation.
 - **Manual next actions:** After implementation, user runs relevant checks and selected E2E cases listed in the handoff; attach evidence before marking verified.
 
 **Codex prompt**
@@ -461,7 +482,7 @@ TEAM-001 adds GOALS-001, PRIVACY-001, SOURCES-001, ALERT-002, PORTFOLIO-001, PWA
 - **Context:** README.md sections 19–25; docs/product/decisions.md
 - **Scope and acceptance:** Platform-specific formats and fixtures; preview/corrections; duplicate detection and source-total reconciliation; private upload handling
 - **E2E cases:** Planned scenarios in tests/e2e/plans/product-coverage.md#dev-008; add stable executable IDs when implemented
-- **Evidence / blockers:** SLICE-001 implements the bounded synthetic journey portion; see docs/development/working-journey.md and docs/product/educational-slice-policy.md. Full task acceptance and production dependencies remain open; no tests executed.
+- **Evidence / blockers:** SLICE-001 implements the bounded synthetic journey portion; see docs/development/working-journey.md and docs/product/educational-slice-policy.md. Full parent acceptance and production dependencies remain open; executed evidence for implemented children is in docs/development/status.md. Historical authoring-only statements do not describe the current integrated implementation.
 - **Manual next actions:** After implementation, user runs relevant checks and selected E2E cases listed in the handoff; attach evidence before marking verified.
 
 **Codex prompt**
@@ -472,6 +493,8 @@ TEAM-001 adds GOALS-001, PRIVACY-001, SOURCES-001, ALERT-002, PORTFOLIO-001, PWA
 
 ### DEV-009 — Multiple goals and portfolio linkage
 
+- **TEAM-002 delivery:** ALLOCATIONS-001 connects actual goals to exact recorded holding quantities, immutable versions/history, oversubscription/conflict checks, explicit review after holdings/goals change, and privacy/offline flows. Valuation, suitability and return/scenario planning remain open.
+
 - **TEAM-001 delivery:** GOALS-001 adds account-owned repeated goals and revisioned contribution-only plans; real portfolio allocation/suitability/scenario modeling remain open.
 
 - **Implementation:** In progress
@@ -480,7 +503,7 @@ TEAM-001 adds GOALS-001, PRIVACY-001, SOURCES-001, ALERT-002, PORTFOLIO-001, PWA
 - **Context:** README.md sections 19–25; docs/product/decisions.md
 - **Scope and acceptance:** Repeat goal types, visible editable assumptions; contribution/horizon/risk feasibility; no guaranteed return
 - **E2E cases:** Planned scenarios in tests/e2e/plans/product-coverage.md#dev-009; add stable executable IDs when implemented
-- **Evidence / blockers:** SLICE-001 implements the bounded synthetic journey portion; see docs/development/working-journey.md and docs/product/educational-slice-policy.md. Full task acceptance and production dependencies remain open; no tests executed.
+- **Evidence / blockers:** SLICE-001 implements the bounded synthetic journey portion; see docs/development/working-journey.md and docs/product/educational-slice-policy.md. Full parent acceptance and production dependencies remain open; executed evidence for implemented children is in docs/development/status.md. Historical authoring-only statements do not describe the current integrated implementation.
 - **Manual next actions:** After implementation, user runs relevant checks and selected E2E cases listed in the handoff; attach evidence before marking verified.
 
 **Codex prompt**
@@ -497,7 +520,7 @@ TEAM-001 adds GOALS-001, PRIVACY-001, SOURCES-001, ALERT-002, PORTFOLIO-001, PWA
 - **Context:** README.md sections 19–25; docs/product/decisions.md
 - **Scope and acceptance:** Evidence → factor → sector → company → holding → goal traceable; no-action comparator; stale/conflicting inputs cannot generate confident action
 - **E2E cases:** Planned scenarios in tests/e2e/plans/product-coverage.md#dev-010; add stable executable IDs when implemented
-- **Evidence / blockers:** SLICE-001 implements the bounded synthetic journey portion; see docs/development/working-journey.md and docs/product/educational-slice-policy.md. Full task acceptance and production dependencies remain open; no tests executed.
+- **Evidence / blockers:** SLICE-001 implements the bounded synthetic journey portion; see docs/development/working-journey.md and docs/product/educational-slice-policy.md. Full parent acceptance and production dependencies remain open; executed evidence for implemented children is in docs/development/status.md. Historical authoring-only statements do not describe the current integrated implementation.
 - **Manual next actions:** After implementation, user runs relevant checks and selected E2E cases listed in the handoff; attach evidence before marking verified.
 
 **Codex prompt**
@@ -507,6 +530,8 @@ TEAM-001 adds GOALS-001, PRIVACY-001, SOURCES-001, ALERT-002, PORTFOLIO-001, PWA
 <a id="dev-011"></a>
 
 ### DEV-011 — Daily/weekly reports and durable workers
+
+- **TEAM-002 delivery:** REPORTS-001 delivers actual owned saved-record snapshots with PostgreSQL leases/retries/cancellation/idempotency, immutable issue/download and device equivalent. Scheduled daily/weekly evidence research and material-change delivery remain open.
 
 - **Implementation:** Planned
 - **Verification:** Not run
@@ -578,6 +603,8 @@ TEAM-001 adds GOALS-001, PRIVACY-001, SOURCES-001, ALERT-002, PORTFOLIO-001, PWA
 
 ### DEV-015 — Admin and research operations
 
+- **TEAM-002 delivery:** IDENTITY-001 adds authenticated operator ISIN refresh, durable outcomes, pacing/cooldown and evidence. Investor pages expose read-only dated records; review/publishing rights are not inferred for other providers.
+
 - **TEAM-001 delivery:** SOURCES-001 adds authorized source metadata review operations and history; operational dashboards and worker controls remain open.
 
 - **Implementation:** In progress
@@ -598,6 +625,8 @@ TEAM-001 adds GOALS-001, PRIVACY-001, SOURCES-001, ALERT-002, PORTFOLIO-001, PWA
 
 ### DEV-016 — Evidence, explanations and corrections
 
+- **TEAM-002 delivery:** TEAM-002 preserves immutable allocations, captured/issued report inputs and original identity evidence/revision history. Equity valuation/recommendation reconstruction remains open.
+
 - **TEAM-001 delivery:** SOURCES-001 records immutable metadata review evidence/revisions; additional event/source correction propagation remains open.
 
 - **Implementation:** In progress
@@ -617,6 +646,8 @@ TEAM-001 adds GOALS-001, PRIVACY-001, SOURCES-001, ALERT-002, PORTFOLIO-001, PWA
 <a id="dev-017"></a>
 
 ### DEV-017 — Privacy, security and consent lifecycle
+
+- **TEAM-002 delivery:** RECOVERY-001 consumes hashed codes and revokes sessions without deleting records; allocations/reports participate in own-data export/account deletion and device isolation. Granular retention/MFA/key management and production abuse/support review remain open.
 
 - **TEAM-001 delivery:** PRIVACY-001 adds own-data export and session revocation; encryption/key management, production retention, recovery/MFA and support auditing remain open.
 
@@ -658,6 +689,8 @@ TEAM-001 adds GOALS-001, PRIVACY-001, SOURCES-001, ALERT-002, PORTFOLIO-001, PWA
 
 ### DEV-019 — Deterministic research policy and action centre
 
+- **TEAM-002 delivery:** ALLOCATIONS-001 and REPORTS-001 use exact contribution-only and recorded-cost arithmetic. They do not implement investment actions, suitability, no-action/return/tax scenarios or valuation.
+
 - **Implementation:** Planned
 - **Verification:** Not run
 - **Dependencies:** DEV-003, DEV-008, DEV-009, DEV-016
@@ -691,6 +724,8 @@ TEAM-001 adds GOALS-001, PRIVACY-001, SOURCES-001, ALERT-002, PORTFOLIO-001, PWA
 <a id="dev-021"></a>
 
 ### DEV-021 — Operational quality, observability and release controls
+
+- **TEAM-002 delivery:** REPORTS-001 adds tested real worker lease expiry/retry/cancellation and isolated temporary application fixtures. Restore/retention/security operations, field and physical-device release acceptance remain open.
 
 - **Implementation:** Planned
 - **Verification:** Not run
@@ -862,6 +897,8 @@ TEAM-001 adds GOALS-001, PRIVACY-001, SOURCES-001, ALERT-002, PORTFOLIO-001, PWA
 
 ### SRC-001 — Instrument/security master source onboarding (P0)
 
+- **TEAM-002 delivery:** IDENTITY-001 ingests five real OpenFIGI India/INR common-stock ISIN mappings with permitted open metadata, PostgreSQL editions, MongoDB evidence, public directory/history and a dated offline bundle. See docs/product/security-identities.md for dated source evidence. Complete exchange master/listing status remains open.
+
 - **Implementation:** Planned
 - **Verification:** Not run
 - **Dependencies:** DEV-003, DEV-004, DEV-005; Yes
@@ -879,6 +916,8 @@ TEAM-001 adds GOALS-001, PRIVACY-001, SOURCES-001, ALERT-002, PORTFOLIO-001, PWA
 
 ### SRC-002 — Indian EOD prices/volume source onboarding (P0)
 
+- **TEAM-002 delivery:** SOURCE-AUDIT-003 verified official NSE EOD access/redistribution terms require an appropriate agreement; no eligible price feed or entitlement has been supplied. Identity metadata does not value holdings. Continue other independent work.
+
 - **Implementation:** Planned
 - **Verification:** Not run
 - **Dependencies:** DEV-003, DEV-004, DEV-005; Yes
@@ -895,6 +934,8 @@ TEAM-001 adds GOALS-001, PRIVACY-001, SOURCES-001, ALERT-002, PORTFOLIO-001, PWA
 <a id="src-003"></a>
 
 ### SRC-003 — Corporate actions source onboarding (P0)
+
+- **TEAM-002 delivery:** SOURCE-AUDIT-003 verified exchange-data terms cover corporate-data use/redistribution; no approved actions dataset or entitlement is available. No split/dividend adjustments are invented.
 
 - **Implementation:** Planned
 - **Verification:** Not run

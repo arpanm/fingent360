@@ -5,6 +5,8 @@ import { HoldingRowsSchema, HoldingsSnapshotSchema } from './holdings.js';
 import { MacroIndicatorSchema } from './macro.js';
 import { SavedGoalSchema } from './goals.js';
 import { AccountSchema, WatchlistSchema } from './account.js';
+import { AllocationHistorySchema } from './allocations.js';
+import { ReportJobsSchema } from './reports.js';
 export const PrivacySessionSchema = z.strictObject({
   id: z.uuid(),
   createdAt: z.iso.datetime(),
@@ -76,5 +78,7 @@ export const PrivacyExportSchema = z.strictObject({
     votes: z.array(LearningVoteSchema),
   }),
   exclusions: z.array(z.string()),
+  allocations: AllocationHistorySchema,
+  reports: ReportJobsSchema,
 });
 export type PrivacySession = z.infer<typeof PrivacySessionSchema>;

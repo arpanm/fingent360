@@ -13,7 +13,17 @@ export function prepareRestore(route: string) {
 export const currentRoute = () => window.location.hash.slice(1) || 'today';
 export function sectionFor(route: string) {
   const key = route.split('?')[0]!;
-  if (['holdings', 'my-goals', 'money', 'overview'].includes(key))
+  if (
+    [
+      'holdings',
+      'my-goals',
+      'money',
+      'overview',
+      'allocations',
+      'reports',
+    ].includes(key) ||
+    key.startsWith('securities')
+  )
     return 'money';
   if (key === 'saved') return 'saved';
   if (key === 'explore' || key.startsWith('macro') || key === 'sources')

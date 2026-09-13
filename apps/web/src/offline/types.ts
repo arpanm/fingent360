@@ -40,6 +40,9 @@ export interface OfflineBundle {
   learningCatalog: unknown;
   journeyCatalog: unknown;
   media: Record<string, unknown>;
+  securities?: unknown;
+  securityHistories?: Record<string, unknown>;
+  securityEvidence?: Record<string, unknown>;
 }
 export class OfflineError extends Error {
   constructor(

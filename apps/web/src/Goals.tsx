@@ -176,6 +176,10 @@ export function Goals() {
         <div>
           <p className="page-kicker">YOUR PLANS</p>
           <h1 id="goals-title">Make room for what matters</h1>
+          <p>
+            <a href="#allocations">Connect holdings to goals</a>. Goal changes
+            may require reviewing an existing allocation plan.
+          </p>
           <p className="page-description">
             Give each goal a name, a target and a monthly contribution. Keep
             your plans together and see what your own savings could cover.

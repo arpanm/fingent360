@@ -1,0 +1,34 @@
+.recovery-page {
+  max-width: 42rem;
+  margin-inline: auto;
+}
+.recovery-page label,
+.recovery-settings form label {
+  display: grid;
+  gap: 0.4rem;
+  margin-block: 1rem;
+}
+.recovery-page input,
+.recovery-page textarea,
+.recovery-settings input[type='password'] {
+  width: 100%;
+  min-height: 44px;
+}
+.recovery-secret {
+  padding: 1rem;
+  border: 1px solid #b0c9bb;
+  background: #f3f7ef;
+  border-radius: 0.8rem;
+}
+.recovery-secret output {
+  display: block;
+  padding: 1rem;
+  background: white;
+  font-family: monospace;
+  overflow-wrap: anywhere;
+  user-select: all;
+}
+.recovery-settings .consent {
+  display: flex;
+  align-items: flex-start;
+}

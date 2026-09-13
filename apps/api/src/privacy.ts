@@ -22,6 +22,7 @@ import {
 import { AccountStore, STORE } from './accounts.js';
 import { readLibrary } from './library.js';
 import { sessionFromCookie } from './account-security.js';
+import { exportRecordReports } from './reports.js';
 
 function input<T>(schema: z.ZodType<T>, value: unknown): T {
   const parsed = schema.safeParse(value);
@@ -118,7 +119,7 @@ export class PrivacyController {
         [user.id],
       );
       const tables = await client.query<{ available: boolean }>(
-        "SELECT to_regclass('public.app_goals') IS NOT NULL AND to_regclass('public.app_goal_revisions') IS NOT NULL AS available",
+        "SELECT to_regclass('app_goals') IS NOT NULL AND to_regclass('app_goal_revisions') IS NOT NULL AS available",
       );
       const goalsAvailable = tables.rows[0]?.available ?? false;
       const goalRows = goalsAvailable
@@ -130,7 +131,7 @@ export class PrivacyController {
           ).rows
         : [];
       const preferenceTable = await client.query<{ available: boolean }>(
-        "SELECT to_regclass('public.app_alert_preferences') IS NOT NULL AS available",
+        "SELECT to_regclass('app_alert_preferences') IS NOT NULL AS available",
       );
       const preferencesAvailable = preferenceTable.rows[0]?.available ?? false;
       const preferences = preferencesAvailable
@@ -146,7 +147,7 @@ export class PrivacyController {
           ).rows
         : [];
       const holdingsTables = await client.query<{ available: boolean }>(
-        "SELECT to_regclass('public.app_holdings') IS NOT NULL AND to_regclass('public.app_holdings_revisions') IS NOT NULL AND to_regclass('public.app_holdings_previews') IS NOT NULL AS available",
+        "SELECT to_regclass('app_holdings') IS NOT NULL AND to_regclass('app_holdings_revisions') IS NOT NULL AND to_regclass('app_holdings_previews') IS NOT NULL AS available",
       );
       const holdingsAvailable = holdingsTables.rows[0]?.available ?? false;
       const currentHoldings = holdingsAvailable
@@ -180,14 +181,14 @@ export class PrivacyController {
           ).rows
         : [];
       const libraryTables = await client.query<{ available: boolean }>(
-        "SELECT to_regclass('public.library_notifications') IS NOT NULL AS available",
+        "SELECT to_regclass('library_notifications') IS NOT NULL AS available",
       );
       const libraryAvailable = libraryTables.rows[0]?.available ?? false;
       const libraryData = libraryAvailable
         ? await readLibrary(client, user.id)
         : null;
       const learningTables = await client.query<{ available: boolean }>(
-        "SELECT to_regclass('public.app_learning_attempts') IS NOT NULL AND to_regclass('public.app_learning_votes') IS NOT NULL AS available",
+        "SELECT to_regclass('app_learning_attempts') IS NOT NULL AND to_regclass('app_learning_votes') IS NOT NULL AS available",
       );
       const learningAvailable = learningTables.rows[0]?.available ?? false;
       const learningAttempts = learningAvailable
@@ -212,6 +213,15 @@ export class PrivacyController {
           ).rows
         : [];
       const exported = PrivacyExportSchema.parse({
+        allocations: {
+          revisions: (
+            await client.query<{ payload: unknown }>(
+              'SELECT payload FROM app_goal_allocation_revisions WHERE user_id=$1 ORDER BY version',
+              [user.id],
+            )
+          ).rows.map((r) => r.payload),
+        },
+        reports: await exportRecordReports(client, user.id),
         formatVersion: 'account-export-v1',
         exportedAt: new Date().toISOString(),
         account: {
@@ -265,7 +275,7 @@ export class PrivacyController {
           })),
         },
         exclusions: [
-          'Password material and session credentials',
+          'Password material, recovery codes/hashes, abuse counters and session credentials',
           'Public provider data (available separately through source evidence)',
           'Separate anonymous virtual exercise workspaces',
         ],

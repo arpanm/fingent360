@@ -33,6 +33,10 @@ try {
     '014_media_attempts.sql',
     '015_source_runs.sql',
     '016_feedback.sql',
+    '017_goal_allocations.sql',
+    '018_account_recovery.sql',
+    '019_record_reports.sql',
+    '020_security_identities.sql',
   ]) {
     await applyMigration(
       client,

@@ -325,6 +325,10 @@ export function OverviewPage() {
                         </a>
                       </div>
                     )}
+                    <div className="page-actions">
+                      <a href="#allocations">Connect holdings to goals</a>
+                      <a href="#reports">Review a saved version</a>
+                    </div>
                   </section>
                   <section
                     className="panel setup-panel"

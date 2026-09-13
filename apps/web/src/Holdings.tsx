@@ -234,7 +234,13 @@ export function Holdings() {
                   <tbody>
                     {saved.holdings.map((holding) => (
                       <tr key={holding.isin}>
-                        <th scope="row">{holding.isin}</th>
+                        <th scope="row">
+                          {holding.isin}
+                          <br />
+                          <a href={`#securities/${holding.isin}`}>
+                            Look up identity
+                          </a>
+                        </th>
                         <td>{holding.quantity}</td>
                         <td>{goalMinorToRupees(holding.totalCostMinor)}</td>
                       </tr>
@@ -271,6 +277,10 @@ export function Holdings() {
           </button>
         </>
       )}
+      <p>
+        <a href="#allocations">Connect holdings to goals</a>. After changing
+        holdings, review any saved allocations against your new quantities.
+      </p>
       <section className="panel" aria-label="Edit holdings">
         <div className="section-heading">
           <h3>Update your holdings</h3>

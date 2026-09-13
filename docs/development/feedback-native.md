@@ -1,6 +1,6 @@
 # Native feedback bridge — FEEDBACK-001
 
-The native package is `com.fingent360.app`, version code **4**, version name **0.3.1-feedback**, including the UI-RACES-001 settings and form-focus correction. Rebuild and install over the existing same-key build to retain local records. Version constants and generated metadata are aligned; current build and offline evidence is in [status](status.md). The native emulator evidence below describes the earlier code3 build; native bridge code did not change in this correction.
+The native package is `com.fingent360.app`, version code **5**, version name **0.4.0-planning**, including TEAM-002 allocations, recovery, record reports and dated security identities. Rebuild and install over the existing same-key build to retain local records. Version constants and generated metadata are aligned; current build and offline evidence is in [status](status.md). The native emulator evidence below describes the earlier code3 build; native bridge code did not change in this correction.
 
 `window.FingentAndroid` exposes these asynchronous methods to the trusted main frame through the document-start WebMessageListener bridge:
 

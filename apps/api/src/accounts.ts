@@ -185,7 +185,7 @@ export class AccountStore {
     });
     return this.transaction(async (c) => {
       const result = await c.query<UserRow>(
-        'SELECT * FROM app_users WHERE username=$1',
+        'SELECT * FROM app_users WHERE username=$1 FOR UPDATE',
         [input.username],
       );
       const row = result.rows[0];
@@ -300,6 +300,10 @@ export class AccountStore {
     this.deletionIpLimits.consume(ip);
     const input = parse(DeleteAccountSchema, body);
     return this.transaction(async (c) => {
+      const owner = await this.require(c, cookie);
+      await c.query('SELECT id FROM app_users WHERE id=$1 FOR UPDATE', [
+        owner.id,
+      ]);
       const account = await this.require(c, cookie);
       // In-memory attempts survive a failed password transaction.
       this.deletionOwnerLimits.consume(account.id);

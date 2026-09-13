@@ -1,0 +1,46 @@
+.reports-page {
+  max-width: 64rem;
+  margin: auto;
+  min-width: 0;
+}
+.report-card {
+  border: 1px solid var(--line, #ccd3dc);
+  border-radius: 1rem;
+  padding: 1.2rem;
+  margin-block: 1rem;
+  overflow-wrap: anywhere;
+}
+.report-card label {
+  display: grid;
+  gap: 0.5rem;
+  margin-block: 1rem;
+}
+.report-card input:not([type='checkbox']) {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 44px;
+}
+.report-card .report-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+.report-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+.report-card button {
+  min-height: 44px;
+  max-width: 100%;
+}
+.report-card li {
+  margin-block: 0.5rem;
+}
+
+.report-actions > button + button {
+  margin-left: 0;
+}
+.report-actions + p {
+  margin-top: 0.8rem;
+}

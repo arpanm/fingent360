@@ -36,7 +36,7 @@ Run `E2E_BROWSER=chrome pnpm e2e:run --grep @FEEDBACK-001` twice consecutively, 
 
 ## Manual source checks
 
-After pulling or receiving authored changes, the user can run `pnpm format` followed by `pnpm check`. The latter includes end-to-end case/configuration type checking (`pnpm e2e:typecheck`) but does not execute E2E scenarios; run those explicitly in the UI or with the commands below. Source formatting and all checks are pending for this change.
+After pulling or receiving authored changes, the user can run `pnpm format` followed by `pnpm check`. The latter includes end-to-end case/configuration type checking (`pnpm e2e:typecheck`) but does not execute E2E scenarios; run those explicitly in the UI or with the commands below. Current executed gate and regression evidence is recorded in docs/development/status.md; rerun after new changes.
 
 ## Results and optional manual command-line runs
 
@@ -52,7 +52,7 @@ pnpm e2e:run --project=desktop --grep E2E-WEB-001
 pnpm e2e:report
 ```
 
-Use the printed report URL. The Markdown reporter supports both the manual UI and CLI paths; verification remains pending. If no summary is created (for example, configuration failed before reporters loaded), provide the launcher terminal error. Nothing uploads these files or executes tests automatically.
+Use the printed report URL. The Markdown reporter supports both manual UI and CLI paths; each report records only its selected run. If no summary is created (for example, configuration failed before reporters loaded), provide the launcher terminal error. Nothing uploads these files or executes tests automatically.
 
 Artifacts are ignored by Git and can contain response data or screenshots. Use synthetic development data. Remove old artifacts manually when no longer needed. Nothing uploads them.
 
@@ -115,3 +115,19 @@ UX-002 large-suite reports put failures before passed/skipped cases and retain e
 ## Android offline build
 
 `pnpm android:build` creates the APK and its dedicated offline web assets. Run `E2E_BROWSER=chrome pnpm android:test:ui` to choose local-domain and mobile-flow cases manually, or `pnpm android:test` for the selected offline project as a saved run. No API or database is started or required. The asset server chooses a free loopback port and closes with the test UI/runner. Watch remains off. Failure handoffs use the existing `artifacts/e2e/latest.md`; include the APK/build SHA256 for phone-specific issues. Native acceptance is separate from browser tests; see [Android guide](../../docs/development/android.md).
+
+## TEAM-002 isolated application cases
+
+Allocations, recovery, record reports and security identity connected cases import `helpers/app-fixture.ts`. Each case launches the actual built Nest application against a uniquely named PostgreSQL schema and MongoDB database on the configured local database services, applies the real migrations and binds a free loopback API port. It does not mock account calculations, report jobs or provider-success responses. Teardown removes only that fixture's owned schema/database and child process; it never resets user accounts, shared quotas or application data. Imports and test discovery do not launch this work.
+
+The browser still loads the running web app. Its account, security and operations requests are forwarded to the fixture API; browser setup uses same-origin `fetch` so this routing applies. `page.request` does not pass through browser routing. Additional API contexts must use `feedbackSandbox.apiOrigin`. Test-owned lease/cooldown inspection uses the fixture's schema-bound database URL. Do not replace these with the ordinary application database or clear production throttles to make tests pass. Recovery secrets and private payloads must stay out of saved traces/artifacts.
+
+Prerequisites are the current dependencies, built application, available local PostgreSQL/MongoDB, and running web application. Apply normal application migrations for manual UI use; fixture migrations are confined to the owned schema. Select `@ALLOCATIONS-001|@RECOVERY-001|@REPORTS-001|@IDENTITY-001` in the existing UI, keep watch/eye mode off and run the selected cases manually. CLI equivalent after those prerequisites:
+
+```bash
+E2E_BROWSER=chrome pnpm e2e:run --grep '@ALLOCATIONS-001|@RECOVERY-001|@REPORTS-001|@IDENTITY-001'
+```
+
+Identity `@real-provider` cases perform explicitly requested public OpenFIGI mapping and require its ordinary network availability. No credentials or private holdings are sent. Controlled provider/browser interruptions are tagged `@simulated`; their success does not establish live provider availability. Device tests use `pnpm android:build` followed by `E2E_BROWSER=chrome pnpm android:test:ui`. The offline identity bundle must contain at least five actual stored identities and their evidence; missing data is a prerequisite failure, not permission to fabricate records. Local report work resumes on report reads while the app is open; local recovery codes cannot restore an erased device database.
+
+See [catalogue](CATALOG.md#team-002--allocations-recovery-record-reports-and-identity) for IDs and [delivery matrix](../../docs/development/delivery-matrix.md) for scope limits. A current all-green result, formatting/check gates, mobile visual acceptance and physical Android acceptance are separate evidence. Report failures using the saved run's timestamp, project/case IDs, target addresses and redacted error details from `artifacts/e2e/latest.md`; never paste recovery codes or exported financial records.

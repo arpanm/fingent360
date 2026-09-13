@@ -7,6 +7,8 @@ DEV-001 deliverables:
 - [First-slice PRD](../product/first-slice-prd.md): screen behavior and acceptance criteria.
 - [Manual acceptance matrix](../../tests/e2e/plans/dev-001-acceptance.md): document review scenarios.
 
-These are authored specifications awaiting user review, not implemented financial contracts or database tables. Only health/readiness schemas currently execute. DEV-002 specifies policy and threat boundaries next; DEV-003 implements versioned domain runtime schemas and golden fixtures; DEV-004 then adds migrations.
+The original broad canonical design remains a specification and does not imply full roadmap delivery. Executable strict contracts now live in packages/contracts/src for the implemented account, goals, holdings, privacy, research, library, learning, feedback and planning workflows; migrations001–020 define their stored records. Current implementation/evidence is in docs/development/status.md. Broader policy, event and valuation acceptance remains tracked under DEV-002–004.
 
 The bounded virtual journey now has runtime contracts in packages/contracts/src/journey.ts. See [slice decisions](../product/educational-slice-policy.md) for differences from the full canonical design (synthetic IDs, uniform portfolio allocation and minor-unit rounding). Full canonical schemas remain DEV-003.
+
+TEAM-002 adds [exact goal allocations](../product/goal-allocations.md), [recovery lifecycle](../product/account-recovery.md), [immutable record reports](../product/record-reports.md) and [source security identities](../product/security-identities.md). Their runtime schemas, timestamps, ownership, versions and exact-unit rules are documented in those implementation specifications; they do not introduce market valuations or trade recommendations.

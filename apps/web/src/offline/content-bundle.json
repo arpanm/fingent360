@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-13T08:33:53.105Z",
+  "generatedAt": "2026-09-13T20:29:39.159Z",
   "feed": [
     {
       "id": "pib-2309663",
@@ -54,7 +54,7 @@
     },
     {
       "id": "term-basis-points",
-      "version": 8,
+      "version": 56,
       "kind": "term",
       "title": "Basis points",
       "summary": "One basis point is one hundredth of a percentage point.",
@@ -73,7 +73,7 @@
       "relatedIds": ["term-interest-rates"],
       "status": "published",
       "correctionNote": "Media acceptance cleanup.",
-      "reviewedAt": "2026-09-13T08:26:32.820Z"
+      "reviewedAt": "2026-09-13T17:51:12.522Z"
     },
     {
       "id": "term-cost-basis",
@@ -472,7 +472,7 @@
     },
     {
       "id": "fed-f48681be97f292e1b3f70c67f2ca4e4c",
-      "version": 14,
+      "version": 32,
       "kind": "news",
       "title": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
       "summary": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
@@ -491,7 +491,7 @@
       "relatedIds": [],
       "status": "published",
       "correctionNote": "Acceptance cleanup; preserve prior publication or withdraw previously unpublished item.",
-      "reviewedAt": "2026-09-13T08:25:56.494Z"
+      "reviewedAt": "2026-09-13T17:50:35.457Z"
     },
     {
       "id": "ecb-press-157f8b145352e1933eb8bc36624f10c8",
@@ -3318,6 +3318,742 @@
     "term-basis-points": [
       {
         "id": "term-basis-points",
+        "version": 56,
+        "kind": "term",
+        "title": "Basis points",
+        "summary": "One basis point is one hundredth of a percentage point.",
+        "body": "A move from 4.00% to 4.25% is 25 basis points, or 0.25 percentage points. The example illustrates the unit; it is not a current policy rate.",
+        "topics": ["Basics", "Investor basics", "Rates"],
+        "publishedAt": "2026-09-13T00:00:00.000Z",
+        "effectiveLabel": "Educational definition · authored content",
+        "source": {
+          "name": "Fingent360 editorial glossary",
+          "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html",
+          "retrievedAt": "2026-09-13T08:18:39.362Z",
+          "rights": "Original educational explanation with primary-reference links. Not provider news, current data or investment advice."
+        },
+        "sourceHash": null,
+        "importance": 1,
+        "relatedIds": ["term-interest-rates"],
+        "status": "published",
+        "correctionNote": "Media acceptance cleanup.",
+        "reviewedAt": "2026-09-13T17:51:12.522Z"
+      },
+      {
+        "id": "term-basis-points",
+        "version": 54,
+        "kind": "term",
+        "title": "Basis points",
+        "summary": "One basis point is one hundredth of a percentage point.",
+        "body": "A move from 4.00% to 4.25% is 25 basis points, or 0.25 percentage points. The example illustrates the unit; it is not a current policy rate.",
+        "topics": ["Basics", "Investor basics", "Rates"],
+        "publishedAt": "2026-09-13T00:00:00.000Z",
+        "effectiveLabel": "Educational definition · authored content",
+        "source": {
+          "name": "Fingent360 editorial glossary",
+          "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html",
+          "retrievedAt": "2026-09-13T08:18:39.362Z",
+          "rights": "Original educational explanation with primary-reference links. Not provider news, current data or investment advice."
+        },
+        "sourceHash": null,
+        "importance": 1,
+        "relatedIds": ["term-interest-rates"],
+        "status": "published",
+        "correctionNote": "Media acceptance of authored glossary edition.",
+        "reviewedAt": "2026-09-13T17:51:12.487Z"
+      },
+      {
+        "id": "term-basis-points",
+        "version": 53,
+        "kind": "term",
+        "title": "Basis points",
+        "summary": "One basis point is one hundredth of a percentage point.",
+        "body": "A move from 4.00% to 4.25% is 25 basis points, or 0.25 percentage points. The example illustrates the unit; it is not a current policy rate.",
+        "topics": ["Basics", "Investor basics", "Rates"],
+        "publishedAt": "2026-09-13T00:00:00.000Z",
+        "effectiveLabel": "Educational definition · authored content",
+        "source": {
+          "name": "Fingent360 editorial glossary",
+          "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html",
+          "retrievedAt": "2026-09-13T08:18:39.362Z",
+          "rights": "Original educational explanation with primary-reference links. Not provider news, current data or investment advice."
+        },
+        "sourceHash": null,
+        "importance": 1,
+        "relatedIds": ["term-interest-rates"],
+        "status": "published",
+        "correctionNote": "Acceptance cleanup: republish the unchanged educational glossary entry.",
+        "reviewedAt": "2026-09-13T17:51:11.985Z"
+      },
+      {
+        "id": "term-basis-points",
+        "version": 51,
+        "kind": "term",
+        "title": "Basis points",
+        "summary": "One basis point is one hundredth of a percentage point.",
+        "body": "A move from 4.00% to 4.25% is 25 basis points, or 0.25 percentage points. The example illustrates the unit; it is not a current policy rate.",
+        "topics": ["Basics", "Investor basics", "Rates"],
+        "publishedAt": "2026-09-13T00:00:00.000Z",
+        "effectiveLabel": "Educational definition · authored content",
+        "source": {
+          "name": "Fingent360 editorial glossary",
+          "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html",
+          "retrievedAt": "2026-09-13T08:18:39.362Z",
+          "rights": "Original educational explanation with primary-reference links. Not provider news, current data or investment advice."
+        },
+        "sourceHash": null,
+        "importance": 1,
+        "relatedIds": ["term-interest-rates"],
+        "status": "published",
+        "correctionNote": "Acceptance revision: original glossary explanation remains unchanged.",
+        "reviewedAt": "2026-09-13T17:50:57.772Z"
+      },
+      {
+        "id": "term-basis-points",
+        "version": 50,
+        "kind": "term",
+        "title": "Basis points",
+        "summary": "One basis point is one hundredth of a percentage point.",
+        "body": "A move from 4.00% to 4.25% is 25 basis points, or 0.25 percentage points. The example illustrates the unit; it is not a current policy rate.",
+        "topics": ["Basics", "Investor basics", "Rates"],
+        "publishedAt": "2026-09-13T00:00:00.000Z",
+        "effectiveLabel": "Educational definition · authored content",
+        "source": {
+          "name": "Fingent360 editorial glossary",
+          "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html",
+          "retrievedAt": "2026-09-13T08:18:39.362Z",
+          "rights": "Original educational explanation with primary-reference links. Not provider news, current data or investment advice."
+        },
+        "sourceHash": null,
+        "importance": 1,
+        "relatedIds": ["term-interest-rates"],
+        "status": "published",
+        "correctionNote": "Media acceptance cleanup.",
+        "reviewedAt": "2026-09-13T17:44:17.919Z"
+      },
+      {
+        "id": "term-basis-points",
+        "version": 48,
+        "kind": "term",
+        "title": "Basis points",
+        "summary": "One basis point is one hundredth of a percentage point.",
+        "body": "A move from 4.00% to 4.25% is 25 basis points, or 0.25 percentage points. The example illustrates the unit; it is not a current policy rate.",
+        "topics": ["Basics", "Investor basics", "Rates"],
+        "publishedAt": "2026-09-13T00:00:00.000Z",
+        "effectiveLabel": "Educational definition · authored content",
+        "source": {
+          "name": "Fingent360 editorial glossary",
+          "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html",
+          "retrievedAt": "2026-09-13T08:18:39.362Z",
+          "rights": "Original educational explanation with primary-reference links. Not provider news, current data or investment advice."
+        },
+        "sourceHash": null,
+        "importance": 1,
+        "relatedIds": ["term-interest-rates"],
+        "status": "published",
+        "correctionNote": "Media acceptance of authored glossary edition.",
+        "reviewedAt": "2026-09-13T17:44:17.877Z"
+      },
+      {
+        "id": "term-basis-points",
+        "version": 47,
+        "kind": "term",
+        "title": "Basis points",
+        "summary": "One basis point is one hundredth of a percentage point.",
+        "body": "A move from 4.00% to 4.25% is 25 basis points, or 0.25 percentage points. The example illustrates the unit; it is not a current policy rate.",
+        "topics": ["Basics", "Investor basics", "Rates"],
+        "publishedAt": "2026-09-13T00:00:00.000Z",
+        "effectiveLabel": "Educational definition · authored content",
+        "source": {
+          "name": "Fingent360 editorial glossary",
+          "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html",
+          "retrievedAt": "2026-09-13T08:18:39.362Z",
+          "rights": "Original educational explanation with primary-reference links. Not provider news, current data or investment advice."
+        },
+        "sourceHash": null,
+        "importance": 1,
+        "relatedIds": ["term-interest-rates"],
+        "status": "published",
+        "correctionNote": "Acceptance cleanup: republish the unchanged educational glossary entry.",
+        "reviewedAt": "2026-09-13T17:44:17.373Z"
+      },
+      {
+        "id": "term-basis-points",
+        "version": 45,
+        "kind": "term",
+        "title": "Basis points",
+        "summary": "One basis point is one hundredth of a percentage point.",
+        "body": "A move from 4.00% to 4.25% is 25 basis points, or 0.25 percentage points. The example illustrates the unit; it is not a current policy rate.",
+        "topics": ["Basics", "Investor basics", "Rates"],
+        "publishedAt": "2026-09-13T00:00:00.000Z",
+        "effectiveLabel": "Educational definition · authored content",
+        "source": {
+          "name": "Fingent360 editorial glossary",
+          "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html",
+          "retrievedAt": "2026-09-13T08:18:39.362Z",
+          "rights": "Original educational explanation with primary-reference links. Not provider news, current data or investment advice."
+        },
+        "sourceHash": null,
+        "importance": 1,
+        "relatedIds": ["term-interest-rates"],
+        "status": "published",
+        "correctionNote": "Acceptance revision: original glossary explanation remains unchanged.",
+        "reviewedAt": "2026-09-13T17:44:04.064Z"
+      },
+      {
+        "id": "term-basis-points",
+        "version": 44,
+        "kind": "term",
+        "title": "Basis points",
+        "summary": "One basis point is one hundredth of a percentage point.",
+        "body": "A move from 4.00% to 4.25% is 25 basis points, or 0.25 percentage points. The example illustrates the unit; it is not a current policy rate.",
+        "topics": ["Basics", "Investor basics", "Rates"],
+        "publishedAt": "2026-09-13T00:00:00.000Z",
+        "effectiveLabel": "Educational definition · authored content",
+        "source": {
+          "name": "Fingent360 editorial glossary",
+          "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html",
+          "retrievedAt": "2026-09-13T08:18:39.362Z",
+          "rights": "Original educational explanation with primary-reference links. Not provider news, current data or investment advice."
+        },
+        "sourceHash": null,
+        "importance": 1,
+        "relatedIds": ["term-interest-rates"],
+        "status": "published",
+        "correctionNote": "Media acceptance cleanup.",
+        "reviewedAt": "2026-09-13T17:22:54.623Z"
+      },
+      {
+        "id": "term-basis-points",
+        "version": 42,
+        "kind": "term",
+        "title": "Basis points",
+        "summary": "One basis point is one hundredth of a percentage point.",
+        "body": "A move from 4.00% to 4.25% is 25 basis points, or 0.25 percentage points. The example illustrates the unit; it is not a current policy rate.",
+        "topics": ["Basics", "Investor basics", "Rates"],
+        "publishedAt": "2026-09-13T00:00:00.000Z",
+        "effectiveLabel": "Educational definition · authored content",
+        "source": {
+          "name": "Fingent360 editorial glossary",
+          "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html",
+          "retrievedAt": "2026-09-13T08:18:39.362Z",
+          "rights": "Original educational explanation with primary-reference links. Not provider news, current data or investment advice."
+        },
+        "sourceHash": null,
+        "importance": 1,
+        "relatedIds": ["term-interest-rates"],
+        "status": "published",
+        "correctionNote": "Media acceptance of authored glossary edition.",
+        "reviewedAt": "2026-09-13T17:22:54.585Z"
+      },
+      {
+        "id": "term-basis-points",
+        "version": 41,
+        "kind": "term",
+        "title": "Basis points",
+        "summary": "One basis point is one hundredth of a percentage point.",
+        "body": "A move from 4.00% to 4.25% is 25 basis points, or 0.25 percentage points. The example illustrates the unit; it is not a current policy rate.",
+        "topics": ["Basics", "Investor basics", "Rates"],
+        "publishedAt": "2026-09-13T00:00:00.000Z",
+        "effectiveLabel": "Educational definition · authored content",
+        "source": {
+          "name": "Fingent360 editorial glossary",
+          "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html",
+          "retrievedAt": "2026-09-13T08:18:39.362Z",
+          "rights": "Original educational explanation with primary-reference links. Not provider news, current data or investment advice."
+        },
+        "sourceHash": null,
+        "importance": 1,
+        "relatedIds": ["term-interest-rates"],
+        "status": "published",
+        "correctionNote": "Acceptance cleanup: republish the unchanged educational glossary entry.",
+        "reviewedAt": "2026-09-13T17:22:54.145Z"
+      },
+      {
+        "id": "term-basis-points",
+        "version": 39,
+        "kind": "term",
+        "title": "Basis points",
+        "summary": "One basis point is one hundredth of a percentage point.",
+        "body": "A move from 4.00% to 4.25% is 25 basis points, or 0.25 percentage points. The example illustrates the unit; it is not a current policy rate.",
+        "topics": ["Basics", "Investor basics", "Rates"],
+        "publishedAt": "2026-09-13T00:00:00.000Z",
+        "effectiveLabel": "Educational definition · authored content",
+        "source": {
+          "name": "Fingent360 editorial glossary",
+          "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html",
+          "retrievedAt": "2026-09-13T08:18:39.362Z",
+          "rights": "Original educational explanation with primary-reference links. Not provider news, current data or investment advice."
+        },
+        "sourceHash": null,
+        "importance": 1,
+        "relatedIds": ["term-interest-rates"],
+        "status": "published",
+        "correctionNote": "Acceptance revision: original glossary explanation remains unchanged.",
+        "reviewedAt": "2026-09-13T17:22:39.928Z"
+      },
+      {
+        "id": "term-basis-points",
+        "version": 38,
+        "kind": "term",
+        "title": "Basis points",
+        "summary": "One basis point is one hundredth of a percentage point.",
+        "body": "A move from 4.00% to 4.25% is 25 basis points, or 0.25 percentage points. The example illustrates the unit; it is not a current policy rate.",
+        "topics": ["Basics", "Investor basics", "Rates"],
+        "publishedAt": "2026-09-13T00:00:00.000Z",
+        "effectiveLabel": "Educational definition · authored content",
+        "source": {
+          "name": "Fingent360 editorial glossary",
+          "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html",
+          "retrievedAt": "2026-09-13T08:18:39.362Z",
+          "rights": "Original educational explanation with primary-reference links. Not provider news, current data or investment advice."
+        },
+        "sourceHash": null,
+        "importance": 1,
+        "relatedIds": ["term-interest-rates"],
+        "status": "published",
+        "correctionNote": "Media acceptance cleanup.",
+        "reviewedAt": "2026-09-13T17:06:01.037Z"
+      },
+      {
+        "id": "term-basis-points",
+        "version": 36,
+        "kind": "term",
+        "title": "Basis points",
+        "summary": "One basis point is one hundredth of a percentage point.",
+        "body": "A move from 4.00% to 4.25% is 25 basis points, or 0.25 percentage points. The example illustrates the unit; it is not a current policy rate.",
+        "topics": ["Basics", "Investor basics", "Rates"],
+        "publishedAt": "2026-09-13T00:00:00.000Z",
+        "effectiveLabel": "Educational definition · authored content",
+        "source": {
+          "name": "Fingent360 editorial glossary",
+          "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html",
+          "retrievedAt": "2026-09-13T08:18:39.362Z",
+          "rights": "Original educational explanation with primary-reference links. Not provider news, current data or investment advice."
+        },
+        "sourceHash": null,
+        "importance": 1,
+        "relatedIds": ["term-interest-rates"],
+        "status": "published",
+        "correctionNote": "Media acceptance of authored glossary edition.",
+        "reviewedAt": "2026-09-13T17:06:01.000Z"
+      },
+      {
+        "id": "term-basis-points",
+        "version": 35,
+        "kind": "term",
+        "title": "Basis points",
+        "summary": "One basis point is one hundredth of a percentage point.",
+        "body": "A move from 4.00% to 4.25% is 25 basis points, or 0.25 percentage points. The example illustrates the unit; it is not a current policy rate.",
+        "topics": ["Basics", "Investor basics", "Rates"],
+        "publishedAt": "2026-09-13T00:00:00.000Z",
+        "effectiveLabel": "Educational definition · authored content",
+        "source": {
+          "name": "Fingent360 editorial glossary",
+          "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html",
+          "retrievedAt": "2026-09-13T08:18:39.362Z",
+          "rights": "Original educational explanation with primary-reference links. Not provider news, current data or investment advice."
+        },
+        "sourceHash": null,
+        "importance": 1,
+        "relatedIds": ["term-interest-rates"],
+        "status": "published",
+        "correctionNote": "Acceptance cleanup: republish the unchanged educational glossary entry.",
+        "reviewedAt": "2026-09-13T17:06:00.063Z"
+      },
+      {
+        "id": "term-basis-points",
+        "version": 33,
+        "kind": "term",
+        "title": "Basis points",
+        "summary": "One basis point is one hundredth of a percentage point.",
+        "body": "A move from 4.00% to 4.25% is 25 basis points, or 0.25 percentage points. The example illustrates the unit; it is not a current policy rate.",
+        "topics": ["Basics", "Investor basics", "Rates"],
+        "publishedAt": "2026-09-13T00:00:00.000Z",
+        "effectiveLabel": "Educational definition · authored content",
+        "source": {
+          "name": "Fingent360 editorial glossary",
+          "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html",
+          "retrievedAt": "2026-09-13T08:18:39.362Z",
+          "rights": "Original educational explanation with primary-reference links. Not provider news, current data or investment advice."
+        },
+        "sourceHash": null,
+        "importance": 1,
+        "relatedIds": ["term-interest-rates"],
+        "status": "published",
+        "correctionNote": "Acceptance revision: original glossary explanation remains unchanged.",
+        "reviewedAt": "2026-09-13T17:05:46.873Z"
+      },
+      {
+        "id": "term-basis-points",
+        "version": 32,
+        "kind": "term",
+        "title": "Basis points",
+        "summary": "One basis point is one hundredth of a percentage point.",
+        "body": "A move from 4.00% to 4.25% is 25 basis points, or 0.25 percentage points. The example illustrates the unit; it is not a current policy rate.",
+        "topics": ["Basics", "Investor basics", "Rates"],
+        "publishedAt": "2026-09-13T00:00:00.000Z",
+        "effectiveLabel": "Educational definition · authored content",
+        "source": {
+          "name": "Fingent360 editorial glossary",
+          "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html",
+          "retrievedAt": "2026-09-13T08:18:39.362Z",
+          "rights": "Original educational explanation with primary-reference links. Not provider news, current data or investment advice."
+        },
+        "sourceHash": null,
+        "importance": 1,
+        "relatedIds": ["term-interest-rates"],
+        "status": "published",
+        "correctionNote": "Media acceptance cleanup.",
+        "reviewedAt": "2026-09-13T15:00:45.122Z"
+      },
+      {
+        "id": "term-basis-points",
+        "version": 30,
+        "kind": "term",
+        "title": "Basis points",
+        "summary": "One basis point is one hundredth of a percentage point.",
+        "body": "A move from 4.00% to 4.25% is 25 basis points, or 0.25 percentage points. The example illustrates the unit; it is not a current policy rate.",
+        "topics": ["Basics", "Investor basics", "Rates"],
+        "publishedAt": "2026-09-13T00:00:00.000Z",
+        "effectiveLabel": "Educational definition · authored content",
+        "source": {
+          "name": "Fingent360 editorial glossary",
+          "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html",
+          "retrievedAt": "2026-09-13T08:18:39.362Z",
+          "rights": "Original educational explanation with primary-reference links. Not provider news, current data or investment advice."
+        },
+        "sourceHash": null,
+        "importance": 1,
+        "relatedIds": ["term-interest-rates"],
+        "status": "published",
+        "correctionNote": "Media acceptance of authored glossary edition.",
+        "reviewedAt": "2026-09-13T15:00:45.088Z"
+      },
+      {
+        "id": "term-basis-points",
+        "version": 29,
+        "kind": "term",
+        "title": "Basis points",
+        "summary": "One basis point is one hundredth of a percentage point.",
+        "body": "A move from 4.00% to 4.25% is 25 basis points, or 0.25 percentage points. The example illustrates the unit; it is not a current policy rate.",
+        "topics": ["Basics", "Investor basics", "Rates"],
+        "publishedAt": "2026-09-13T00:00:00.000Z",
+        "effectiveLabel": "Educational definition · authored content",
+        "source": {
+          "name": "Fingent360 editorial glossary",
+          "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html",
+          "retrievedAt": "2026-09-13T08:18:39.362Z",
+          "rights": "Original educational explanation with primary-reference links. Not provider news, current data or investment advice."
+        },
+        "sourceHash": null,
+        "importance": 1,
+        "relatedIds": ["term-interest-rates"],
+        "status": "published",
+        "correctionNote": "Acceptance cleanup: republish the unchanged educational glossary entry.",
+        "reviewedAt": "2026-09-13T15:00:44.648Z"
+      },
+      {
+        "id": "term-basis-points",
+        "version": 27,
+        "kind": "term",
+        "title": "Basis points",
+        "summary": "One basis point is one hundredth of a percentage point.",
+        "body": "A move from 4.00% to 4.25% is 25 basis points, or 0.25 percentage points. The example illustrates the unit; it is not a current policy rate.",
+        "topics": ["Basics", "Investor basics", "Rates"],
+        "publishedAt": "2026-09-13T00:00:00.000Z",
+        "effectiveLabel": "Educational definition · authored content",
+        "source": {
+          "name": "Fingent360 editorial glossary",
+          "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html",
+          "retrievedAt": "2026-09-13T08:18:39.362Z",
+          "rights": "Original educational explanation with primary-reference links. Not provider news, current data or investment advice."
+        },
+        "sourceHash": null,
+        "importance": 1,
+        "relatedIds": ["term-interest-rates"],
+        "status": "published",
+        "correctionNote": "Acceptance revision: original glossary explanation remains unchanged.",
+        "reviewedAt": "2026-09-13T15:00:30.465Z"
+      },
+      {
+        "id": "term-basis-points",
+        "version": 26,
+        "kind": "term",
+        "title": "Basis points",
+        "summary": "One basis point is one hundredth of a percentage point.",
+        "body": "A move from 4.00% to 4.25% is 25 basis points, or 0.25 percentage points. The example illustrates the unit; it is not a current policy rate.",
+        "topics": ["Basics", "Investor basics", "Rates"],
+        "publishedAt": "2026-09-13T00:00:00.000Z",
+        "effectiveLabel": "Educational definition · authored content",
+        "source": {
+          "name": "Fingent360 editorial glossary",
+          "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html",
+          "retrievedAt": "2026-09-13T08:18:39.362Z",
+          "rights": "Original educational explanation with primary-reference links. Not provider news, current data or investment advice."
+        },
+        "sourceHash": null,
+        "importance": 1,
+        "relatedIds": ["term-interest-rates"],
+        "status": "published",
+        "correctionNote": "Media acceptance cleanup.",
+        "reviewedAt": "2026-09-13T14:31:10.260Z"
+      },
+      {
+        "id": "term-basis-points",
+        "version": 24,
+        "kind": "term",
+        "title": "Basis points",
+        "summary": "One basis point is one hundredth of a percentage point.",
+        "body": "A move from 4.00% to 4.25% is 25 basis points, or 0.25 percentage points. The example illustrates the unit; it is not a current policy rate.",
+        "topics": ["Basics", "Investor basics", "Rates"],
+        "publishedAt": "2026-09-13T00:00:00.000Z",
+        "effectiveLabel": "Educational definition · authored content",
+        "source": {
+          "name": "Fingent360 editorial glossary",
+          "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html",
+          "retrievedAt": "2026-09-13T08:18:39.362Z",
+          "rights": "Original educational explanation with primary-reference links. Not provider news, current data or investment advice."
+        },
+        "sourceHash": null,
+        "importance": 1,
+        "relatedIds": ["term-interest-rates"],
+        "status": "published",
+        "correctionNote": "Media acceptance of authored glossary edition.",
+        "reviewedAt": "2026-09-13T14:31:10.221Z"
+      },
+      {
+        "id": "term-basis-points",
+        "version": 23,
+        "kind": "term",
+        "title": "Basis points",
+        "summary": "One basis point is one hundredth of a percentage point.",
+        "body": "A move from 4.00% to 4.25% is 25 basis points, or 0.25 percentage points. The example illustrates the unit; it is not a current policy rate.",
+        "topics": ["Basics", "Investor basics", "Rates"],
+        "publishedAt": "2026-09-13T00:00:00.000Z",
+        "effectiveLabel": "Educational definition · authored content",
+        "source": {
+          "name": "Fingent360 editorial glossary",
+          "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html",
+          "retrievedAt": "2026-09-13T08:18:39.362Z",
+          "rights": "Original educational explanation with primary-reference links. Not provider news, current data or investment advice."
+        },
+        "sourceHash": null,
+        "importance": 1,
+        "relatedIds": ["term-interest-rates"],
+        "status": "published",
+        "correctionNote": "Acceptance cleanup: republish the unchanged educational glossary entry.",
+        "reviewedAt": "2026-09-13T14:31:09.717Z"
+      },
+      {
+        "id": "term-basis-points",
+        "version": 21,
+        "kind": "term",
+        "title": "Basis points",
+        "summary": "One basis point is one hundredth of a percentage point.",
+        "body": "A move from 4.00% to 4.25% is 25 basis points, or 0.25 percentage points. The example illustrates the unit; it is not a current policy rate.",
+        "topics": ["Basics", "Investor basics", "Rates"],
+        "publishedAt": "2026-09-13T00:00:00.000Z",
+        "effectiveLabel": "Educational definition · authored content",
+        "source": {
+          "name": "Fingent360 editorial glossary",
+          "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html",
+          "retrievedAt": "2026-09-13T08:18:39.362Z",
+          "rights": "Original educational explanation with primary-reference links. Not provider news, current data or investment advice."
+        },
+        "sourceHash": null,
+        "importance": 1,
+        "relatedIds": ["term-interest-rates"],
+        "status": "published",
+        "correctionNote": "Acceptance revision: original glossary explanation remains unchanged.",
+        "reviewedAt": "2026-09-13T14:30:55.485Z"
+      },
+      {
+        "id": "term-basis-points",
+        "version": 20,
+        "kind": "term",
+        "title": "Basis points",
+        "summary": "One basis point is one hundredth of a percentage point.",
+        "body": "A move from 4.00% to 4.25% is 25 basis points, or 0.25 percentage points. The example illustrates the unit; it is not a current policy rate.",
+        "topics": ["Basics", "Investor basics", "Rates"],
+        "publishedAt": "2026-09-13T00:00:00.000Z",
+        "effectiveLabel": "Educational definition · authored content",
+        "source": {
+          "name": "Fingent360 editorial glossary",
+          "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html",
+          "retrievedAt": "2026-09-13T08:18:39.362Z",
+          "rights": "Original educational explanation with primary-reference links. Not provider news, current data or investment advice."
+        },
+        "sourceHash": null,
+        "importance": 1,
+        "relatedIds": ["term-interest-rates"],
+        "status": "published",
+        "correctionNote": "Media acceptance cleanup.",
+        "reviewedAt": "2026-09-13T14:26:15.172Z"
+      },
+      {
+        "id": "term-basis-points",
+        "version": 18,
+        "kind": "term",
+        "title": "Basis points",
+        "summary": "One basis point is one hundredth of a percentage point.",
+        "body": "A move from 4.00% to 4.25% is 25 basis points, or 0.25 percentage points. The example illustrates the unit; it is not a current policy rate.",
+        "topics": ["Basics", "Investor basics", "Rates"],
+        "publishedAt": "2026-09-13T00:00:00.000Z",
+        "effectiveLabel": "Educational definition · authored content",
+        "source": {
+          "name": "Fingent360 editorial glossary",
+          "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html",
+          "retrievedAt": "2026-09-13T08:18:39.362Z",
+          "rights": "Original educational explanation with primary-reference links. Not provider news, current data or investment advice."
+        },
+        "sourceHash": null,
+        "importance": 1,
+        "relatedIds": ["term-interest-rates"],
+        "status": "published",
+        "correctionNote": "Media acceptance of authored glossary edition.",
+        "reviewedAt": "2026-09-13T14:26:15.138Z"
+      },
+      {
+        "id": "term-basis-points",
+        "version": 17,
+        "kind": "term",
+        "title": "Basis points",
+        "summary": "One basis point is one hundredth of a percentage point.",
+        "body": "A move from 4.00% to 4.25% is 25 basis points, or 0.25 percentage points. The example illustrates the unit; it is not a current policy rate.",
+        "topics": ["Basics", "Investor basics", "Rates"],
+        "publishedAt": "2026-09-13T00:00:00.000Z",
+        "effectiveLabel": "Educational definition · authored content",
+        "source": {
+          "name": "Fingent360 editorial glossary",
+          "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html",
+          "retrievedAt": "2026-09-13T08:18:39.362Z",
+          "rights": "Original educational explanation with primary-reference links. Not provider news, current data or investment advice."
+        },
+        "sourceHash": null,
+        "importance": 1,
+        "relatedIds": ["term-interest-rates"],
+        "status": "published",
+        "correctionNote": "Acceptance cleanup: republish the unchanged educational glossary entry.",
+        "reviewedAt": "2026-09-13T14:26:14.679Z"
+      },
+      {
+        "id": "term-basis-points",
+        "version": 15,
+        "kind": "term",
+        "title": "Basis points",
+        "summary": "One basis point is one hundredth of a percentage point.",
+        "body": "A move from 4.00% to 4.25% is 25 basis points, or 0.25 percentage points. The example illustrates the unit; it is not a current policy rate.",
+        "topics": ["Basics", "Investor basics", "Rates"],
+        "publishedAt": "2026-09-13T00:00:00.000Z",
+        "effectiveLabel": "Educational definition · authored content",
+        "source": {
+          "name": "Fingent360 editorial glossary",
+          "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html",
+          "retrievedAt": "2026-09-13T08:18:39.362Z",
+          "rights": "Original educational explanation with primary-reference links. Not provider news, current data or investment advice."
+        },
+        "sourceHash": null,
+        "importance": 1,
+        "relatedIds": ["term-interest-rates"],
+        "status": "published",
+        "correctionNote": "Acceptance revision: original glossary explanation remains unchanged.",
+        "reviewedAt": "2026-09-13T14:26:00.432Z"
+      },
+      {
+        "id": "term-basis-points",
+        "version": 14,
+        "kind": "term",
+        "title": "Basis points",
+        "summary": "One basis point is one hundredth of a percentage point.",
+        "body": "A move from 4.00% to 4.25% is 25 basis points, or 0.25 percentage points. The example illustrates the unit; it is not a current policy rate.",
+        "topics": ["Basics", "Investor basics", "Rates"],
+        "publishedAt": "2026-09-13T00:00:00.000Z",
+        "effectiveLabel": "Educational definition · authored content",
+        "source": {
+          "name": "Fingent360 editorial glossary",
+          "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html",
+          "retrievedAt": "2026-09-13T08:18:39.362Z",
+          "rights": "Original educational explanation with primary-reference links. Not provider news, current data or investment advice."
+        },
+        "sourceHash": null,
+        "importance": 1,
+        "relatedIds": ["term-interest-rates"],
+        "status": "published",
+        "correctionNote": "Media acceptance cleanup.",
+        "reviewedAt": "2026-09-13T08:36:28.769Z"
+      },
+      {
+        "id": "term-basis-points",
+        "version": 12,
+        "kind": "term",
+        "title": "Basis points",
+        "summary": "One basis point is one hundredth of a percentage point.",
+        "body": "A move from 4.00% to 4.25% is 25 basis points, or 0.25 percentage points. The example illustrates the unit; it is not a current policy rate.",
+        "topics": ["Basics", "Investor basics", "Rates"],
+        "publishedAt": "2026-09-13T00:00:00.000Z",
+        "effectiveLabel": "Educational definition · authored content",
+        "source": {
+          "name": "Fingent360 editorial glossary",
+          "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html",
+          "retrievedAt": "2026-09-13T08:18:39.362Z",
+          "rights": "Original educational explanation with primary-reference links. Not provider news, current data or investment advice."
+        },
+        "sourceHash": null,
+        "importance": 1,
+        "relatedIds": ["term-interest-rates"],
+        "status": "published",
+        "correctionNote": "Media acceptance of authored glossary edition.",
+        "reviewedAt": "2026-09-13T08:36:28.737Z"
+      },
+      {
+        "id": "term-basis-points",
+        "version": 11,
+        "kind": "term",
+        "title": "Basis points",
+        "summary": "One basis point is one hundredth of a percentage point.",
+        "body": "A move from 4.00% to 4.25% is 25 basis points, or 0.25 percentage points. The example illustrates the unit; it is not a current policy rate.",
+        "topics": ["Basics", "Investor basics", "Rates"],
+        "publishedAt": "2026-09-13T00:00:00.000Z",
+        "effectiveLabel": "Educational definition · authored content",
+        "source": {
+          "name": "Fingent360 editorial glossary",
+          "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html",
+          "retrievedAt": "2026-09-13T08:18:39.362Z",
+          "rights": "Original educational explanation with primary-reference links. Not provider news, current data or investment advice."
+        },
+        "sourceHash": null,
+        "importance": 1,
+        "relatedIds": ["term-interest-rates"],
+        "status": "published",
+        "correctionNote": "Acceptance cleanup: republish the unchanged educational glossary entry.",
+        "reviewedAt": "2026-09-13T08:36:28.246Z"
+      },
+      {
+        "id": "term-basis-points",
+        "version": 9,
+        "kind": "term",
+        "title": "Basis points",
+        "summary": "One basis point is one hundredth of a percentage point.",
+        "body": "A move from 4.00% to 4.25% is 25 basis points, or 0.25 percentage points. The example illustrates the unit; it is not a current policy rate.",
+        "topics": ["Basics", "Investor basics", "Rates"],
+        "publishedAt": "2026-09-13T00:00:00.000Z",
+        "effectiveLabel": "Educational definition · authored content",
+        "source": {
+          "name": "Fingent360 editorial glossary",
+          "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html",
+          "retrievedAt": "2026-09-13T08:18:39.362Z",
+          "rights": "Original educational explanation with primary-reference links. Not provider news, current data or investment advice."
+        },
+        "sourceHash": null,
+        "importance": 1,
+        "relatedIds": ["term-interest-rates"],
+        "status": "published",
+        "correctionNote": "Acceptance revision: original glossary explanation remains unchanged.",
+        "reviewedAt": "2026-09-13T08:36:14.081Z"
+      },
+      {
+        "id": "term-basis-points",
         "version": 8,
         "kind": "term",
         "title": "Basis points",
@@ -4529,6 +5265,420 @@
       }
     ],
     "fed-f48681be97f292e1b3f70c67f2ca4e4c": [
+      {
+        "id": "fed-f48681be97f292e1b3f70c67f2ca4e4c",
+        "version": 32,
+        "kind": "news",
+        "title": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "summary": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "body": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "topics": ["Federal Reserve releases", "Global economy"],
+        "publishedAt": "2026-08-25T18:00:00.000Z",
+        "effectiveLabel": "Official press release",
+        "source": {
+          "name": "Federal Reserve Board",
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260825a.htm",
+          "retrievedAt": "2026-09-13T08:18:36.250Z",
+          "rights": "Board-authored RSS headlines and summaries; public-domain information unless otherwise marked. Federal Reserve Board attribution; no endorsement, logos, images or external copyrighted material. Rights checked 2026-09-13: https://www.federalreserve.gov/disclaimer.htm"
+        },
+        "sourceHash": "59a12c7db8159d813da4be05c8be221d723dcff8fab390f1c4b21f91b8dac643",
+        "importance": 2,
+        "relatedIds": [],
+        "status": "published",
+        "correctionNote": "Acceptance cleanup; preserve prior publication or withdraw previously unpublished item.",
+        "reviewedAt": "2026-09-13T17:50:35.457Z"
+      },
+      {
+        "id": "fed-f48681be97f292e1b3f70c67f2ca4e4c",
+        "version": 31,
+        "kind": "news",
+        "title": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "summary": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "body": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "topics": ["Federal Reserve releases", "Global economy"],
+        "publishedAt": "2026-08-25T18:00:00.000Z",
+        "effectiveLabel": "Official press release",
+        "source": {
+          "name": "Federal Reserve Board",
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260825a.htm",
+          "retrievedAt": "2026-09-13T08:18:36.250Z",
+          "rights": "Board-authored RSS headlines and summaries; public-domain information unless otherwise marked. Federal Reserve Board attribution; no endorsement, logos, images or external copyrighted material. Rights checked 2026-09-13: https://www.federalreserve.gov/disclaimer.htm"
+        },
+        "sourceHash": "59a12c7db8159d813da4be05c8be221d723dcff8fab390f1c4b21f91b8dac643",
+        "importance": 2,
+        "relatedIds": [],
+        "status": "published",
+        "correctionNote": "Acceptance review of official feed metadata and attribution.",
+        "reviewedAt": "2026-09-13T17:50:35.415Z"
+      },
+      {
+        "id": "fed-f48681be97f292e1b3f70c67f2ca4e4c",
+        "version": 30,
+        "kind": "news",
+        "title": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "summary": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "body": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "topics": ["Federal Reserve releases", "Global economy"],
+        "publishedAt": "2026-08-25T18:00:00.000Z",
+        "effectiveLabel": "Official press release",
+        "source": {
+          "name": "Federal Reserve Board",
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260825a.htm",
+          "retrievedAt": "2026-09-13T08:18:36.250Z",
+          "rights": "Board-authored RSS headlines and summaries; public-domain information unless otherwise marked. Federal Reserve Board attribution; no endorsement, logos, images or external copyrighted material. Rights checked 2026-09-13: https://www.federalreserve.gov/disclaimer.htm"
+        },
+        "sourceHash": "59a12c7db8159d813da4be05c8be221d723dcff8fab390f1c4b21f91b8dac643",
+        "importance": 2,
+        "relatedIds": [],
+        "status": "published",
+        "correctionNote": "Acceptance cleanup; preserve prior publication or withdraw previously unpublished item.",
+        "reviewedAt": "2026-09-13T17:43:39.304Z"
+      },
+      {
+        "id": "fed-f48681be97f292e1b3f70c67f2ca4e4c",
+        "version": 29,
+        "kind": "news",
+        "title": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "summary": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "body": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "topics": ["Federal Reserve releases", "Global economy"],
+        "publishedAt": "2026-08-25T18:00:00.000Z",
+        "effectiveLabel": "Official press release",
+        "source": {
+          "name": "Federal Reserve Board",
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260825a.htm",
+          "retrievedAt": "2026-09-13T08:18:36.250Z",
+          "rights": "Board-authored RSS headlines and summaries; public-domain information unless otherwise marked. Federal Reserve Board attribution; no endorsement, logos, images or external copyrighted material. Rights checked 2026-09-13: https://www.federalreserve.gov/disclaimer.htm"
+        },
+        "sourceHash": "59a12c7db8159d813da4be05c8be221d723dcff8fab390f1c4b21f91b8dac643",
+        "importance": 2,
+        "relatedIds": [],
+        "status": "published",
+        "correctionNote": "Acceptance review of official feed metadata and attribution.",
+        "reviewedAt": "2026-09-13T17:43:39.267Z"
+      },
+      {
+        "id": "fed-f48681be97f292e1b3f70c67f2ca4e4c",
+        "version": 28,
+        "kind": "news",
+        "title": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "summary": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "body": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "topics": ["Federal Reserve releases", "Global economy"],
+        "publishedAt": "2026-08-25T18:00:00.000Z",
+        "effectiveLabel": "Official press release",
+        "source": {
+          "name": "Federal Reserve Board",
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260825a.htm",
+          "retrievedAt": "2026-09-13T08:18:36.250Z",
+          "rights": "Board-authored RSS headlines and summaries; public-domain information unless otherwise marked. Federal Reserve Board attribution; no endorsement, logos, images or external copyrighted material. Rights checked 2026-09-13: https://www.federalreserve.gov/disclaimer.htm"
+        },
+        "sourceHash": "59a12c7db8159d813da4be05c8be221d723dcff8fab390f1c4b21f91b8dac643",
+        "importance": 2,
+        "relatedIds": [],
+        "status": "published",
+        "correctionNote": "Acceptance cleanup; preserve prior publication or withdraw previously unpublished item.",
+        "reviewedAt": "2026-09-13T17:22:17.814Z"
+      },
+      {
+        "id": "fed-f48681be97f292e1b3f70c67f2ca4e4c",
+        "version": 27,
+        "kind": "news",
+        "title": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "summary": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "body": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "topics": ["Federal Reserve releases", "Global economy"],
+        "publishedAt": "2026-08-25T18:00:00.000Z",
+        "effectiveLabel": "Official press release",
+        "source": {
+          "name": "Federal Reserve Board",
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260825a.htm",
+          "retrievedAt": "2026-09-13T08:18:36.250Z",
+          "rights": "Board-authored RSS headlines and summaries; public-domain information unless otherwise marked. Federal Reserve Board attribution; no endorsement, logos, images or external copyrighted material. Rights checked 2026-09-13: https://www.federalreserve.gov/disclaimer.htm"
+        },
+        "sourceHash": "59a12c7db8159d813da4be05c8be221d723dcff8fab390f1c4b21f91b8dac643",
+        "importance": 2,
+        "relatedIds": [],
+        "status": "published",
+        "correctionNote": "Acceptance review of official feed metadata and attribution.",
+        "reviewedAt": "2026-09-13T17:22:17.784Z"
+      },
+      {
+        "id": "fed-f48681be97f292e1b3f70c67f2ca4e4c",
+        "version": 26,
+        "kind": "news",
+        "title": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "summary": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "body": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "topics": ["Federal Reserve releases", "Global economy"],
+        "publishedAt": "2026-08-25T18:00:00.000Z",
+        "effectiveLabel": "Official press release",
+        "source": {
+          "name": "Federal Reserve Board",
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260825a.htm",
+          "retrievedAt": "2026-09-13T08:18:36.250Z",
+          "rights": "Board-authored RSS headlines and summaries; public-domain information unless otherwise marked. Federal Reserve Board attribution; no endorsement, logos, images or external copyrighted material. Rights checked 2026-09-13: https://www.federalreserve.gov/disclaimer.htm"
+        },
+        "sourceHash": "59a12c7db8159d813da4be05c8be221d723dcff8fab390f1c4b21f91b8dac643",
+        "importance": 2,
+        "relatedIds": [],
+        "status": "published",
+        "correctionNote": "Acceptance cleanup; preserve prior publication or withdraw previously unpublished item.",
+        "reviewedAt": "2026-09-13T17:05:24.569Z"
+      },
+      {
+        "id": "fed-f48681be97f292e1b3f70c67f2ca4e4c",
+        "version": 25,
+        "kind": "news",
+        "title": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "summary": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "body": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "topics": ["Federal Reserve releases", "Global economy"],
+        "publishedAt": "2026-08-25T18:00:00.000Z",
+        "effectiveLabel": "Official press release",
+        "source": {
+          "name": "Federal Reserve Board",
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260825a.htm",
+          "retrievedAt": "2026-09-13T08:18:36.250Z",
+          "rights": "Board-authored RSS headlines and summaries; public-domain information unless otherwise marked. Federal Reserve Board attribution; no endorsement, logos, images or external copyrighted material. Rights checked 2026-09-13: https://www.federalreserve.gov/disclaimer.htm"
+        },
+        "sourceHash": "59a12c7db8159d813da4be05c8be221d723dcff8fab390f1c4b21f91b8dac643",
+        "importance": 2,
+        "relatedIds": [],
+        "status": "published",
+        "correctionNote": "Acceptance review of official feed metadata and attribution.",
+        "reviewedAt": "2026-09-13T17:05:24.533Z"
+      },
+      {
+        "id": "fed-f48681be97f292e1b3f70c67f2ca4e4c",
+        "version": 24,
+        "kind": "news",
+        "title": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "summary": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "body": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "topics": ["Federal Reserve releases", "Global economy"],
+        "publishedAt": "2026-08-25T18:00:00.000Z",
+        "effectiveLabel": "Official press release",
+        "source": {
+          "name": "Federal Reserve Board",
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260825a.htm",
+          "retrievedAt": "2026-09-13T08:18:36.250Z",
+          "rights": "Board-authored RSS headlines and summaries; public-domain information unless otherwise marked. Federal Reserve Board attribution; no endorsement, logos, images or external copyrighted material. Rights checked 2026-09-13: https://www.federalreserve.gov/disclaimer.htm"
+        },
+        "sourceHash": "59a12c7db8159d813da4be05c8be221d723dcff8fab390f1c4b21f91b8dac643",
+        "importance": 2,
+        "relatedIds": [],
+        "status": "published",
+        "correctionNote": "Acceptance cleanup; preserve prior publication or withdraw previously unpublished item.",
+        "reviewedAt": "2026-09-13T15:00:08.907Z"
+      },
+      {
+        "id": "fed-f48681be97f292e1b3f70c67f2ca4e4c",
+        "version": 23,
+        "kind": "news",
+        "title": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "summary": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "body": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "topics": ["Federal Reserve releases", "Global economy"],
+        "publishedAt": "2026-08-25T18:00:00.000Z",
+        "effectiveLabel": "Official press release",
+        "source": {
+          "name": "Federal Reserve Board",
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260825a.htm",
+          "retrievedAt": "2026-09-13T08:18:36.250Z",
+          "rights": "Board-authored RSS headlines and summaries; public-domain information unless otherwise marked. Federal Reserve Board attribution; no endorsement, logos, images or external copyrighted material. Rights checked 2026-09-13: https://www.federalreserve.gov/disclaimer.htm"
+        },
+        "sourceHash": "59a12c7db8159d813da4be05c8be221d723dcff8fab390f1c4b21f91b8dac643",
+        "importance": 2,
+        "relatedIds": [],
+        "status": "published",
+        "correctionNote": "Acceptance review of official feed metadata and attribution.",
+        "reviewedAt": "2026-09-13T15:00:08.882Z"
+      },
+      {
+        "id": "fed-f48681be97f292e1b3f70c67f2ca4e4c",
+        "version": 22,
+        "kind": "news",
+        "title": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "summary": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "body": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "topics": ["Federal Reserve releases", "Global economy"],
+        "publishedAt": "2026-08-25T18:00:00.000Z",
+        "effectiveLabel": "Official press release",
+        "source": {
+          "name": "Federal Reserve Board",
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260825a.htm",
+          "retrievedAt": "2026-09-13T08:18:36.250Z",
+          "rights": "Board-authored RSS headlines and summaries; public-domain information unless otherwise marked. Federal Reserve Board attribution; no endorsement, logos, images or external copyrighted material. Rights checked 2026-09-13: https://www.federalreserve.gov/disclaimer.htm"
+        },
+        "sourceHash": "59a12c7db8159d813da4be05c8be221d723dcff8fab390f1c4b21f91b8dac643",
+        "importance": 2,
+        "relatedIds": [],
+        "status": "published",
+        "correctionNote": "Acceptance cleanup; preserve prior publication or withdraw previously unpublished item.",
+        "reviewedAt": "2026-09-13T14:30:35.940Z"
+      },
+      {
+        "id": "fed-f48681be97f292e1b3f70c67f2ca4e4c",
+        "version": 21,
+        "kind": "news",
+        "title": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "summary": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "body": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "topics": ["Federal Reserve releases", "Global economy"],
+        "publishedAt": "2026-08-25T18:00:00.000Z",
+        "effectiveLabel": "Official press release",
+        "source": {
+          "name": "Federal Reserve Board",
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260825a.htm",
+          "retrievedAt": "2026-09-13T08:18:36.250Z",
+          "rights": "Board-authored RSS headlines and summaries; public-domain information unless otherwise marked. Federal Reserve Board attribution; no endorsement, logos, images or external copyrighted material. Rights checked 2026-09-13: https://www.federalreserve.gov/disclaimer.htm"
+        },
+        "sourceHash": "59a12c7db8159d813da4be05c8be221d723dcff8fab390f1c4b21f91b8dac643",
+        "importance": 2,
+        "relatedIds": [],
+        "status": "published",
+        "correctionNote": "Acceptance review of official feed metadata and attribution.",
+        "reviewedAt": "2026-09-13T14:30:35.904Z"
+      },
+      {
+        "id": "fed-f48681be97f292e1b3f70c67f2ca4e4c",
+        "version": 20,
+        "kind": "news",
+        "title": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "summary": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "body": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "topics": ["Federal Reserve releases", "Global economy"],
+        "publishedAt": "2026-08-25T18:00:00.000Z",
+        "effectiveLabel": "Official press release",
+        "source": {
+          "name": "Federal Reserve Board",
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260825a.htm",
+          "retrievedAt": "2026-09-13T08:18:36.250Z",
+          "rights": "Board-authored RSS headlines and summaries; public-domain information unless otherwise marked. Federal Reserve Board attribution; no endorsement, logos, images or external copyrighted material. Rights checked 2026-09-13: https://www.federalreserve.gov/disclaimer.htm"
+        },
+        "sourceHash": "59a12c7db8159d813da4be05c8be221d723dcff8fab390f1c4b21f91b8dac643",
+        "importance": 2,
+        "relatedIds": [],
+        "status": "published",
+        "correctionNote": "Acceptance cleanup; preserve prior publication or withdraw previously unpublished item.",
+        "reviewedAt": "2026-09-13T14:25:42.447Z"
+      },
+      {
+        "id": "fed-f48681be97f292e1b3f70c67f2ca4e4c",
+        "version": 19,
+        "kind": "news",
+        "title": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "summary": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "body": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "topics": ["Federal Reserve releases", "Global economy"],
+        "publishedAt": "2026-08-25T18:00:00.000Z",
+        "effectiveLabel": "Official press release",
+        "source": {
+          "name": "Federal Reserve Board",
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260825a.htm",
+          "retrievedAt": "2026-09-13T08:18:36.250Z",
+          "rights": "Board-authored RSS headlines and summaries; public-domain information unless otherwise marked. Federal Reserve Board attribution; no endorsement, logos, images or external copyrighted material. Rights checked 2026-09-13: https://www.federalreserve.gov/disclaimer.htm"
+        },
+        "sourceHash": "59a12c7db8159d813da4be05c8be221d723dcff8fab390f1c4b21f91b8dac643",
+        "importance": 2,
+        "relatedIds": [],
+        "status": "published",
+        "correctionNote": "Acceptance review of official feed metadata and attribution.",
+        "reviewedAt": "2026-09-13T14:25:42.404Z"
+      },
+      {
+        "id": "fed-f48681be97f292e1b3f70c67f2ca4e4c",
+        "version": 18,
+        "kind": "news",
+        "title": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "summary": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "body": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "topics": ["Federal Reserve releases", "Global economy"],
+        "publishedAt": "2026-08-25T18:00:00.000Z",
+        "effectiveLabel": "Official press release",
+        "source": {
+          "name": "Federal Reserve Board",
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260825a.htm",
+          "retrievedAt": "2026-09-13T08:18:36.250Z",
+          "rights": "Board-authored RSS headlines and summaries; public-domain information unless otherwise marked. Federal Reserve Board attribution; no endorsement, logos, images or external copyrighted material. Rights checked 2026-09-13: https://www.federalreserve.gov/disclaimer.htm"
+        },
+        "sourceHash": "59a12c7db8159d813da4be05c8be221d723dcff8fab390f1c4b21f91b8dac643",
+        "importance": 2,
+        "relatedIds": [],
+        "status": "published",
+        "correctionNote": "Acceptance cleanup; preserve prior publication or withdraw previously unpublished item.",
+        "reviewedAt": "2026-09-13T08:35:54.579Z"
+      },
+      {
+        "id": "fed-f48681be97f292e1b3f70c67f2ca4e4c",
+        "version": 17,
+        "kind": "news",
+        "title": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "summary": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "body": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "topics": ["Federal Reserve releases", "Global economy"],
+        "publishedAt": "2026-08-25T18:00:00.000Z",
+        "effectiveLabel": "Official press release",
+        "source": {
+          "name": "Federal Reserve Board",
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260825a.htm",
+          "retrievedAt": "2026-09-13T08:18:36.250Z",
+          "rights": "Board-authored RSS headlines and summaries; public-domain information unless otherwise marked. Federal Reserve Board attribution; no endorsement, logos, images or external copyrighted material. Rights checked 2026-09-13: https://www.federalreserve.gov/disclaimer.htm"
+        },
+        "sourceHash": "59a12c7db8159d813da4be05c8be221d723dcff8fab390f1c4b21f91b8dac643",
+        "importance": 2,
+        "relatedIds": [],
+        "status": "published",
+        "correctionNote": "Acceptance review of official feed metadata and attribution.",
+        "reviewedAt": "2026-09-13T08:35:54.548Z"
+      },
+      {
+        "id": "fed-f48681be97f292e1b3f70c67f2ca4e4c",
+        "version": 16,
+        "kind": "news",
+        "title": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "summary": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "body": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "topics": ["Federal Reserve releases", "Global economy"],
+        "publishedAt": "2026-08-25T18:00:00.000Z",
+        "effectiveLabel": "Official press release",
+        "source": {
+          "name": "Federal Reserve Board",
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260825a.htm",
+          "retrievedAt": "2026-09-13T08:18:36.250Z",
+          "rights": "Board-authored RSS headlines and summaries; public-domain information unless otherwise marked. Federal Reserve Board attribution; no endorsement, logos, images or external copyrighted material. Rights checked 2026-09-13: https://www.federalreserve.gov/disclaimer.htm"
+        },
+        "sourceHash": "59a12c7db8159d813da4be05c8be221d723dcff8fab390f1c4b21f91b8dac643",
+        "importance": 2,
+        "relatedIds": [],
+        "status": "published",
+        "correctionNote": "Acceptance cleanup; preserve prior publication or withdraw previously unpublished item.",
+        "reviewedAt": "2026-09-13T08:35:07.802Z"
+      },
+      {
+        "id": "fed-f48681be97f292e1b3f70c67f2ca4e4c",
+        "version": 15,
+        "kind": "news",
+        "title": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "summary": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "body": "Minutes of the Board's discount rate meetings on July 20 and July 29, 2026",
+        "topics": ["Federal Reserve releases", "Global economy"],
+        "publishedAt": "2026-08-25T18:00:00.000Z",
+        "effectiveLabel": "Official press release",
+        "source": {
+          "name": "Federal Reserve Board",
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260825a.htm",
+          "retrievedAt": "2026-09-13T08:18:36.250Z",
+          "rights": "Board-authored RSS headlines and summaries; public-domain information unless otherwise marked. Federal Reserve Board attribution; no endorsement, logos, images or external copyrighted material. Rights checked 2026-09-13: https://www.federalreserve.gov/disclaimer.htm"
+        },
+        "sourceHash": "59a12c7db8159d813da4be05c8be221d723dcff8fab390f1c4b21f91b8dac643",
+        "importance": 2,
+        "relatedIds": [],
+        "status": "published",
+        "correctionNote": "Acceptance review of official feed metadata and attribution.",
+        "reviewedAt": "2026-09-13T08:35:07.729Z"
+      },
       {
         "id": "fed-f48681be97f292e1b3f70c67f2ca4e4c",
         "version": 14,
@@ -10108,7 +11258,7 @@
         "termsUrl": "https://data.worldbank.org/summary-terms-of-use",
         "rightsReviewedAt": "2026-09-12",
         "freshness": "recently_checked",
-        "lastSuccessAt": "2026-09-13T08:30:34.091Z",
+        "lastSuccessAt": "2026-09-13T17:53:08.866Z",
         "observations": [
           {
             "id": "f60f0abb-4ab6-46b0-8f51-094df29afeb8",
@@ -10487,7 +11637,7 @@
         "termsUrl": "https://data.worldbank.org/summary-terms-of-use",
         "rightsReviewedAt": "2026-09-12",
         "freshness": "recently_checked",
-        "lastSuccessAt": "2026-09-13T08:26:32.692Z",
+        "lastSuccessAt": "2026-09-13T17:51:12.395Z",
         "observations": [
           {
             "id": "4eab6531-30e3-4801-857f-8ed03e64548c",
@@ -10856,7 +12006,7 @@
         ]
       }
     ],
-    "evaluatedAt": "2026-09-13T08:33:53.796Z"
+    "evaluatedAt": "2026-09-13T20:29:39.862Z"
   },
   "macroHistory": {
     "NY.GDP.MKTP.KD.ZG/2025": [
@@ -11723,8 +12873,8 @@
         "topics": ["Rates", "Banking", "Policy"],
         "publishedCount": 20,
         "latestPublishedAt": "2026-09-11T14:00:00.000Z",
-        "lastCheckedAt": "2026-09-13T08:33:49.990Z",
-        "lastSuccessAt": "2026-09-13T08:33:50.455Z",
+        "lastCheckedAt": "2026-09-13T17:50:34.933Z",
+        "lastSuccessAt": "2026-09-13T17:50:35.340Z",
         "lastRunStatus": "succeeded",
         "lastMessage": "20 source items checked; 0 drafts await review."
       },
@@ -11818,8 +12968,8 @@
         "topics": ["Basics", "Investor basics"],
         "publishedCount": 11,
         "latestPublishedAt": "2026-09-13T00:00:00.000Z",
-        "lastCheckedAt": "2026-09-13T08:33:52.784Z",
-        "lastSuccessAt": "2026-09-13T08:33:52.793Z",
+        "lastCheckedAt": "2026-09-13T17:54:27.888Z",
+        "lastSuccessAt": "2026-09-13T17:54:27.901Z",
         "lastRunStatus": "succeeded",
         "lastMessage": "11 source items checked; 0 drafts await review."
       },
@@ -11934,7 +13084,7 @@
       "Rates",
       "Trade"
     ],
-    "evaluatedAt": "2026-09-13T08:33:53.843Z"
+    "evaluatedAt": "2026-09-13T20:29:39.924Z"
   },
   "learningCatalog": {
     "items": [
@@ -13068,6 +14218,310 @@
         "fallbackReason": "not_configured"
       },
       "label": "Source-based illustration; not a document photograph."
+    }
+  },
+  "securities": {
+    "items": [
+      {
+        "isin": "INE002A01018",
+        "version": 1,
+        "resolution": "matched",
+        "candidates": [
+          {
+            "figi": "BBG000BKVP93",
+            "name": "RELIANCE INDUSTRIES LIMITED",
+            "ticker": "RELIANCE",
+            "exchCode": "IN",
+            "securityType": "Common Stock",
+            "marketSector": "Equity",
+            "compositeFIGI": "BBG000BKVP93",
+            "shareClassFIGI": "BBG001S84HH9"
+          }
+        ],
+        "retrievedAt": "2026-09-13T20:28:32.389Z",
+        "checkedAt": "2026-09-13T20:28:32.389Z",
+        "sourceHash": "125a397b47b8bb6a906a06e8482948260fe0f77ff1f336129c16a48b513edb6e",
+        "source": "OpenFIGI",
+        "sourceUrl": "https://api.openfigi.com/v3/mapping",
+        "termsUrl": "https://www.openfigi.com/docs/terms-of-service",
+        "mappingPolicy": "india-common-stock-v1"
+      },
+      {
+        "isin": "INE009A01021",
+        "version": 1,
+        "resolution": "matched",
+        "candidates": [
+          {
+            "figi": "BBG000CT9HP8",
+            "name": "INFOSYS LTD",
+            "ticker": "INFO",
+            "exchCode": "IN",
+            "securityType": "Common Stock",
+            "marketSector": "Equity",
+            "compositeFIGI": "BBG000CT9HP8",
+            "shareClassFIGI": "BBG001S83PF4"
+          }
+        ],
+        "retrievedAt": "2026-09-13T20:28:34.808Z",
+        "checkedAt": "2026-09-13T20:28:34.808Z",
+        "sourceHash": "71483f5c72f18bffadfd53942a851e85be29261ea3e162ab7b5eea34abc9afc1",
+        "source": "OpenFIGI",
+        "sourceUrl": "https://api.openfigi.com/v3/mapping",
+        "termsUrl": "https://www.openfigi.com/docs/terms-of-service",
+        "mappingPolicy": "india-common-stock-v1"
+      },
+      {
+        "isin": "INE040A01034",
+        "version": 1,
+        "resolution": "matched",
+        "candidates": [
+          {
+            "figi": "BBG000F8W9K8",
+            "name": "HDFC BANK LIMITED",
+            "ticker": "HDFCB",
+            "exchCode": "IN",
+            "securityType": "Common Stock",
+            "marketSector": "Equity",
+            "compositeFIGI": "BBG000F8W9K8",
+            "shareClassFIGI": "BBG001S8J4N5"
+          }
+        ],
+        "retrievedAt": "2026-09-13T20:28:40.784Z",
+        "checkedAt": "2026-09-13T20:28:40.784Z",
+        "sourceHash": "a1bb2fca017ee0f2864781594e4db67859fabe96549cd2e87d5e922a82ccb2b6",
+        "source": "OpenFIGI",
+        "sourceUrl": "https://api.openfigi.com/v3/mapping",
+        "termsUrl": "https://www.openfigi.com/docs/terms-of-service",
+        "mappingPolicy": "india-common-stock-v1"
+      },
+      {
+        "isin": "INE154A01025",
+        "version": 1,
+        "resolution": "matched",
+        "candidates": [
+          {
+            "figi": "BBG000BMYVC9",
+            "name": "ITC LTD",
+            "ticker": "ITC",
+            "exchCode": "IN",
+            "securityType": "Common Stock",
+            "marketSector": "Equity",
+            "compositeFIGI": "BBG000BMYVC9",
+            "shareClassFIGI": "BBG001S83LW4"
+          }
+        ],
+        "retrievedAt": "2026-09-13T20:28:43.798Z",
+        "checkedAt": "2026-09-13T20:28:43.798Z",
+        "sourceHash": "e20ea875cdd61b5250f5923edcb9618dce37e87f30950c9ffa4a64e17be0d435",
+        "source": "OpenFIGI",
+        "sourceUrl": "https://api.openfigi.com/v3/mapping",
+        "termsUrl": "https://www.openfigi.com/docs/terms-of-service",
+        "mappingPolicy": "india-common-stock-v1"
+      },
+      {
+        "isin": "INE467B01029",
+        "version": 1,
+        "resolution": "matched",
+        "candidates": [
+          {
+            "figi": "BBG000Q0WCK6",
+            "name": "TATA CONSULTANCY SVCS LTD",
+            "ticker": "TCS",
+            "exchCode": "IN",
+            "securityType": "Common Stock",
+            "marketSector": "Equity",
+            "compositeFIGI": "BBG000Q0WCK6",
+            "shareClassFIGI": "BBG001SM1D62"
+          }
+        ],
+        "retrievedAt": "2026-09-13T20:28:37.794Z",
+        "checkedAt": "2026-09-13T20:28:37.794Z",
+        "sourceHash": "f64de1886fb5a736cb3ce6af18197cbfe4a838d1090cc4b6991947f049d52789",
+        "source": "OpenFIGI",
+        "sourceUrl": "https://api.openfigi.com/v3/mapping",
+        "termsUrl": "https://www.openfigi.com/docs/terms-of-service",
+        "mappingPolicy": "india-common-stock-v1"
+      }
+    ],
+    "limited": false
+  },
+  "securityHistories": {
+    "INE002A01018": {
+      "revisions": [
+        {
+          "isin": "INE002A01018",
+          "version": 1,
+          "resolution": "matched",
+          "candidates": [
+            {
+              "figi": "BBG000BKVP93",
+              "name": "RELIANCE INDUSTRIES LIMITED",
+              "ticker": "RELIANCE",
+              "exchCode": "IN",
+              "securityType": "Common Stock",
+              "marketSector": "Equity",
+              "compositeFIGI": "BBG000BKVP93",
+              "shareClassFIGI": "BBG001S84HH9"
+            }
+          ],
+          "retrievedAt": "2026-09-13T20:28:32.389Z",
+          "checkedAt": "2026-09-13T20:28:32.389Z",
+          "sourceHash": "125a397b47b8bb6a906a06e8482948260fe0f77ff1f336129c16a48b513edb6e",
+          "source": "OpenFIGI",
+          "sourceUrl": "https://api.openfigi.com/v3/mapping",
+          "termsUrl": "https://www.openfigi.com/docs/terms-of-service",
+          "mappingPolicy": "india-common-stock-v1"
+        }
+      ]
+    },
+    "INE009A01021": {
+      "revisions": [
+        {
+          "isin": "INE009A01021",
+          "version": 1,
+          "resolution": "matched",
+          "candidates": [
+            {
+              "figi": "BBG000CT9HP8",
+              "name": "INFOSYS LTD",
+              "ticker": "INFO",
+              "exchCode": "IN",
+              "securityType": "Common Stock",
+              "marketSector": "Equity",
+              "compositeFIGI": "BBG000CT9HP8",
+              "shareClassFIGI": "BBG001S83PF4"
+            }
+          ],
+          "retrievedAt": "2026-09-13T20:28:34.808Z",
+          "checkedAt": "2026-09-13T20:28:34.808Z",
+          "sourceHash": "71483f5c72f18bffadfd53942a851e85be29261ea3e162ab7b5eea34abc9afc1",
+          "source": "OpenFIGI",
+          "sourceUrl": "https://api.openfigi.com/v3/mapping",
+          "termsUrl": "https://www.openfigi.com/docs/terms-of-service",
+          "mappingPolicy": "india-common-stock-v1"
+        }
+      ]
+    },
+    "INE040A01034": {
+      "revisions": [
+        {
+          "isin": "INE040A01034",
+          "version": 1,
+          "resolution": "matched",
+          "candidates": [
+            {
+              "figi": "BBG000F8W9K8",
+              "name": "HDFC BANK LIMITED",
+              "ticker": "HDFCB",
+              "exchCode": "IN",
+              "securityType": "Common Stock",
+              "marketSector": "Equity",
+              "compositeFIGI": "BBG000F8W9K8",
+              "shareClassFIGI": "BBG001S8J4N5"
+            }
+          ],
+          "retrievedAt": "2026-09-13T20:28:40.784Z",
+          "checkedAt": "2026-09-13T20:28:40.784Z",
+          "sourceHash": "a1bb2fca017ee0f2864781594e4db67859fabe96549cd2e87d5e922a82ccb2b6",
+          "source": "OpenFIGI",
+          "sourceUrl": "https://api.openfigi.com/v3/mapping",
+          "termsUrl": "https://www.openfigi.com/docs/terms-of-service",
+          "mappingPolicy": "india-common-stock-v1"
+        }
+      ]
+    },
+    "INE154A01025": {
+      "revisions": [
+        {
+          "isin": "INE154A01025",
+          "version": 1,
+          "resolution": "matched",
+          "candidates": [
+            {
+              "figi": "BBG000BMYVC9",
+              "name": "ITC LTD",
+              "ticker": "ITC",
+              "exchCode": "IN",
+              "securityType": "Common Stock",
+              "marketSector": "Equity",
+              "compositeFIGI": "BBG000BMYVC9",
+              "shareClassFIGI": "BBG001S83LW4"
+            }
+          ],
+          "retrievedAt": "2026-09-13T20:28:43.798Z",
+          "checkedAt": "2026-09-13T20:28:43.798Z",
+          "sourceHash": "e20ea875cdd61b5250f5923edcb9618dce37e87f30950c9ffa4a64e17be0d435",
+          "source": "OpenFIGI",
+          "sourceUrl": "https://api.openfigi.com/v3/mapping",
+          "termsUrl": "https://www.openfigi.com/docs/terms-of-service",
+          "mappingPolicy": "india-common-stock-v1"
+        }
+      ]
+    },
+    "INE467B01029": {
+      "revisions": [
+        {
+          "isin": "INE467B01029",
+          "version": 1,
+          "resolution": "matched",
+          "candidates": [
+            {
+              "figi": "BBG000Q0WCK6",
+              "name": "TATA CONSULTANCY SVCS LTD",
+              "ticker": "TCS",
+              "exchCode": "IN",
+              "securityType": "Common Stock",
+              "marketSector": "Equity",
+              "compositeFIGI": "BBG000Q0WCK6",
+              "shareClassFIGI": "BBG001SM1D62"
+            }
+          ],
+          "retrievedAt": "2026-09-13T20:28:37.794Z",
+          "checkedAt": "2026-09-13T20:28:37.794Z",
+          "sourceHash": "f64de1886fb5a736cb3ce6af18197cbfe4a838d1090cc4b6991947f049d52789",
+          "source": "OpenFIGI",
+          "sourceUrl": "https://api.openfigi.com/v3/mapping",
+          "termsUrl": "https://www.openfigi.com/docs/terms-of-service",
+          "mappingPolicy": "india-common-stock-v1"
+        }
+      ]
+    }
+  },
+  "securityEvidence": {
+    "125a397b47b8bb6a906a06e8482948260fe0f77ff1f336129c16a48b513edb6e": {
+      "hash": "125a397b47b8bb6a906a06e8482948260fe0f77ff1f336129c16a48b513edb6e",
+      "retrievedAt": "2026-09-13T20:28:32.389Z",
+      "url": "https://api.openfigi.com/v3/mapping",
+      "isin": "INE002A01018",
+      "body": "[{\"data\":[{\"figi\":\"BBG000BKVP93\",\"name\":\"RELIANCE INDUSTRIES LIMITED\",\"ticker\":\"RELIANCE\",\"exchCode\":\"IN\",\"compositeFIGI\":\"BBG000BKVP93\",\"securityType\":\"Common Stock\",\"marketSector\":\"Equity\",\"shareClassFIGI\":\"BBG001S84HH9\",\"securityType2\":\"Common Stock\",\"securityDescription\":\"RELIANCE\"}]}]"
+    },
+    "71483f5c72f18bffadfd53942a851e85be29261ea3e162ab7b5eea34abc9afc1": {
+      "hash": "71483f5c72f18bffadfd53942a851e85be29261ea3e162ab7b5eea34abc9afc1",
+      "retrievedAt": "2026-09-13T20:28:34.808Z",
+      "url": "https://api.openfigi.com/v3/mapping",
+      "isin": "INE009A01021",
+      "body": "[{\"data\":[{\"figi\":\"BBG000CT9HP8\",\"name\":\"INFOSYS LTD\",\"ticker\":\"INFO\",\"exchCode\":\"IN\",\"compositeFIGI\":\"BBG000CT9HP8\",\"securityType\":\"Common Stock\",\"marketSector\":\"Equity\",\"shareClassFIGI\":\"BBG001S83PF4\",\"securityType2\":\"Common Stock\",\"securityDescription\":\"INFO\"}]}]"
+    },
+    "a1bb2fca017ee0f2864781594e4db67859fabe96549cd2e87d5e922a82ccb2b6": {
+      "hash": "a1bb2fca017ee0f2864781594e4db67859fabe96549cd2e87d5e922a82ccb2b6",
+      "retrievedAt": "2026-09-13T20:28:40.784Z",
+      "url": "https://api.openfigi.com/v3/mapping",
+      "isin": "INE040A01034",
+      "body": "[{\"data\":[{\"figi\":\"BBG000F8W9K8\",\"name\":\"HDFC BANK LIMITED\",\"ticker\":\"HDFCB\",\"exchCode\":\"IN\",\"compositeFIGI\":\"BBG000F8W9K8\",\"securityType\":\"Common Stock\",\"marketSector\":\"Equity\",\"shareClassFIGI\":\"BBG001S8J4N5\",\"securityType2\":\"Common Stock\",\"securityDescription\":\"HDFCB\"}]}]"
+    },
+    "e20ea875cdd61b5250f5923edcb9618dce37e87f30950c9ffa4a64e17be0d435": {
+      "hash": "e20ea875cdd61b5250f5923edcb9618dce37e87f30950c9ffa4a64e17be0d435",
+      "retrievedAt": "2026-09-13T20:28:43.798Z",
+      "url": "https://api.openfigi.com/v3/mapping",
+      "isin": "INE154A01025",
+      "body": "[{\"data\":[{\"figi\":\"BBG000BMYVC9\",\"name\":\"ITC LTD\",\"ticker\":\"ITC\",\"exchCode\":\"IN\",\"compositeFIGI\":\"BBG000BMYVC9\",\"securityType\":\"Common Stock\",\"marketSector\":\"Equity\",\"shareClassFIGI\":\"BBG001S83LW4\",\"securityType2\":\"Common Stock\",\"securityDescription\":\"ITC\"}]}]"
+    },
+    "f64de1886fb5a736cb3ce6af18197cbfe4a838d1090cc4b6991947f049d52789": {
+      "hash": "f64de1886fb5a736cb3ce6af18197cbfe4a838d1090cc4b6991947f049d52789",
+      "retrievedAt": "2026-09-13T20:28:37.794Z",
+      "url": "https://api.openfigi.com/v3/mapping",
+      "isin": "INE467B01029",
+      "body": "[{\"data\":[{\"figi\":\"BBG000Q0WCK6\",\"name\":\"TATA CONSULTANCY SVCS LTD\",\"ticker\":\"TCS\",\"exchCode\":\"IN\",\"compositeFIGI\":\"BBG000Q0WCK6\",\"securityType\":\"Common Stock\",\"marketSector\":\"Equity\",\"shareClassFIGI\":\"BBG001SM1D62\",\"securityType2\":\"Common Stock\",\"securityDescription\":\"TCS\"}]}]"
     }
   }
 }

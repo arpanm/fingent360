@@ -1,0 +1,37 @@
+.allocation-page {
+  max-width: 72rem;
+  margin: auto;
+}
+.allocation-page > .panel {
+  margin-block: 1.25rem;
+}
+.allocation-rows {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  gap: 1rem;
+}
+.allocation-page button {
+  margin: 0.35rem 0.5rem 0.35rem 0;
+}
+.allocation-page li {
+  padding-block: 0.5rem;
+  overflow-wrap: anywhere;
+}
+.allocation-page select,
+.allocation-page input:not([type='checkbox']) {
+  width: 100%;
+  min-width: 0;
+}
+.allocation-page [role='alert'] {
+  border-left: 4px solid #a66018;
+  padding: 0.75rem 1rem;
+  background: #fff5e8;
+}
+.allocation-page .card {
+  padding: 1rem;
+  border: 1px solid var(--line, #d6ded4);
+  border-radius: 1rem;
+}
+.allocation-page details {
+  padding-block: 0.6rem;
+}

@@ -1,5 +1,27 @@
 # End-to-end case catalogue
 
+## RETENTION-001 — bounded operator cleanup
+
+| Case           | Acceptance                                                                                 | Projects        |
+| -------------- | ------------------------------------------------------------------------------------------ | --------------- |
+| E2E-API250     | Fixed-category expiry cleanup, fresh/financial/evidence preservation and count-only result | api             |
+| E2E-API251     | Authorization, Origin, malformed bounds and no side effects                                | api             |
+| E2E-API252     | Two operators, concurrent replay and immutable completed results                           | api             |
+| E2E-API253     | Actual SQL failure rolls back all categories; retry completes                              | api             |
+| E2E-API254     | Confirmed receipts survive ordinary preview expiry/capacity handling                       | api             |
+| E2E-API255     | Owned connection interruption rolls back before same-preview retry                         | api             |
+| E2E-API256     | Scrubbed feedback keeps receipt/deletion protections without resurrection                  | api             |
+| E2E-API257     | All category caps and truthful remaining counts                                            | api             |
+| E2E-WEB250     | Loading, preview, Cancel/Escape/keyboard confirm, result focus/history/reload/mobile       | desktop, mobile |
+| E2E-WEB251     | Failed history read retries into real empty state                                          | desktop, mobile |
+| E2E-WEB252     | Lost real preview/execution responses retry without duplicate cleanup                      | desktop, mobile |
+| E2E-WEB253     | Actual failed transaction displays rollback and keyboard retry                             | desktop, mobile |
+| E2E-WEB254     | Expired operator session returns to sign-in and saved preview                              | desktop, mobile |
+| E2E-OFFLINE280 | Connected requirement, keyboard settings/reading navigation, no API traffic                | offline         |
+| E2E-OFFLINE281 | Confirmed local receipt/draft capacity preserved across expiry/reload                      | offline         |
+
+Tag @RETENTION-001. Selected fixtures own actual isolated APIs/schemas; no production quota or expiry policy is changed. Count records contain no private content. Execution evidence is in status.
+
 ## XLSX-001 — exact standard workbook import
 
 | Case            | Contract                                                                                                                                                                     | Projects        |

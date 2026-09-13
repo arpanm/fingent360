@@ -1,5 +1,11 @@
 # Fingent360
 
+## Expired data cleanup — RETENTION-001
+
+**Operations → Expired data cleanup** previews eight fixed categories under existing expiry rules. An operator reviews the saved cutoff/counts and explicitly confirms a bounded batch, then sees actual results and history. Repeating a completed request returns the saved result; a failed batch rolls back before offering retry. No cleanup timer is installed. Fresh content, financial histories, source evidence and confirmed holdings receipts are preserved. Offline Operations explains that connected access is required and makes no API calls.
+
+Migration022 adds count-only maintenance records/indexes; running the migration does not execute cleanup. Confirmed holdings preview receipts now remain replayable and do not consume the20-unconfirmed-draft capacity. [Policy and limits](docs/product/retention.md), [verification](docs/development/status.md). Install/build, run `pnpm db:migrate`, then use the printed development URL. Cleanup testing uses isolated records; no cleanup is run on your application data as verification.
+
 ## Reviewed workbook import — XLSX-001
 
 **My money → Holdings → Import CSV or XLSX** now accepts the downloadable standard workbook. Fill the Holdings and Reconciliation sheets, upload, inspect the exact rows and declared cost total, then Preview and Confirm. Failed imports preserve the draft. Editing the normalized rows explicitly switches to CSV. Dates, formulas, external links and ambiguous numeric formatting are rejected; keep long numbers as text. Acquisition cost remains a user-entered record, not a market valuation.

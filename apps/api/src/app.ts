@@ -42,6 +42,7 @@ import { AllocationsController } from './allocations.js';
 import { RecoveryController } from './recovery.js';
 import { ReportsController, ReportsStore } from './reports.js';
 import { ReportWorker } from './report-worker.js';
+import { RetentionController, retentionProvider } from './retention.js';
 import {
   SecuritiesController,
   OpsSecuritiesController,
@@ -94,6 +95,7 @@ export async function createApp(
         OverviewController,
         AllocationsController,
         RecoveryController,
+        RetentionController,
         ReportsController,
         SecuritiesController,
         OpsSecuritiesController,
@@ -114,6 +116,7 @@ export async function createApp(
         journeyProvider(config),
         macroProvider(config),
         accountProvider(config),
+        retentionProvider(config),
         securitiesProvider(config),
         discoveryProvider(config),
         operatorProvider(config),

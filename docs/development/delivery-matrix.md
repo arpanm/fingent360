@@ -97,3 +97,7 @@ Individual saved-record report deletion adds migration021, strict terminal/versi
 ## XLSX-001 delivery boundary
 
 Specification, strict contracts, bounded worker parser, templates, exact reconciliation, API validation, existing database JSON storage/revisions, mobile UI and local persistence, privacy compatibility and API/browser/offline cases are implemented. Root verification is recorded in status. Real input means the user's own workbook; fixtures are explicitly synthetic and no prices are fabricated. No scheduled automation is needed: parsing runs only on upload/preview. No schema change or raw-file persistence. Broker onboarding, actual desktop spreadsheet/phone acceptance and valuation remain separate.
+
+## RETENTION-001 delivery boundary
+
+Spec/contracts/migration022, actual expiry predicates, owned operator authorization, transactional cleanup/replay/audit, responsive preview/confirmation/results/history and local-mode explanation are implemented. Exact verification is in status. Automation trigger is explicitly the operator's confirm action; no timer is introduced. Confirmed CSV/XLSX import receipts survive draft expiry. Production retention review, operations rollout and physical-device accessibility remain open acceptance gates; this child does not complete DEV017/021.

@@ -32,3 +32,7 @@ Individual record reports can now be removed without deleting the account. See [
 ### Workbook provenance
 
 Standard XLSX preview/confirmation retains normalized holdings and parser version plus declared row count/acquisition-cost total. Export includes pending and confirmed receipt metadata; legacy array previews remain readable without invented metadata. Uploaded bytes, filename and path are not retained. User acquisition costs remain unverified inputs. Account deletion removes owned previews/revisions as before, including local-mode records.
+
+### Explicit expiry maintenance
+
+Operations cleanup uses the existing expiry fields and fixed policy; it does not expire financial histories or issued reports. Expired feedback content/attachment bytes are scrubbed, preserving minimal receipt/idempotency/audit metadata. Fresh feedback, active sessions and recovery credentials remain. Preview/result/audit expose counts, not private contents. Account deletion retains its existing owned-data cascade.

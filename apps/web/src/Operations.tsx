@@ -23,6 +23,7 @@ import { Dialog } from './Dialog';
 import { shortDate } from './ui';
 import { FeedbackInbox } from './FeedbackInbox';
 import { SecurityOperations } from './Securities';
+import { RetentionOperations } from './RetentionOperations';
 const blank: SourceInput = {
   name: '',
   category: '',
@@ -192,6 +193,7 @@ export function Operations() {
                 ['sources', 'Source registry'],
                 ['feedback', 'Feedback inbox'],
                 ['securities', 'Security identities'],
+                ['retention', 'Expired data cleanup'],
               ].map(([value, label]) => (
                 <button
                   key={value}
@@ -267,6 +269,15 @@ export function Operations() {
               <MacroOperations action={action} busy={busy} />
             ) : tab === 'securities' ? (
               <SecurityOperations />
+            ) : tab === 'retention' ? (
+              <RetentionOperations
+                onSessionExpired={() => {
+                  setAuthenticated(false);
+                  setError(
+                    'Operations session ended. Sign in again to reopen saved cleanup history.',
+                  );
+                }}
+              />
             ) : tab === 'feedback' ? (
               <FeedbackInbox />
             ) : (

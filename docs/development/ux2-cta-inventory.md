@@ -78,3 +78,7 @@ Shared routes are bundled for offline Android; source refresh requires connected
 ## Individual report deletion
 
 Reports → Delete report opens explicit private-content deletion confirmation. Keep report, Escape and Back return focus without a write. Permanently delete uses the owned current version; success closes the reader and removes the card, announces capacity and preserves goals/holdings/allocations. Running work requires cancellation first; errors preserve retry/cancel. Newer authoritative polls replace removed cards, and late responses cannot restore them. The same shared UI runs on device; API224–226/WEB223–225/OFFLINE263–264 cover connected and local storage. Downloaded files remain outside application control.
+
+## Expired data cleanup
+
+Operations → Expired data cleanup → Preview counts → Review cleanup → Cancel/Escape or Confirm cleanup → result/history/retry. Counts show caps and remaining eligibility at the saved cutoff, not private row contents. Expired sessions return to sign-in and reopen the saved preview. On-device Operations offers settings/reading links and does not invoke cleanup. API250–257, WEB250–254, OFFLINE280–281 cover actual storage and visible transitions; source policy is docs/product/retention.md.

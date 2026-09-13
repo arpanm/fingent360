@@ -242,10 +242,15 @@ export async function handleFinance(
     const record = holdingsRecords(state, user.id);
     const previews = Object.fromEntries(
       Object.entries(record.previews).filter(
-        ([, p]) => Date.parse(p.preview.expiresAt) > Date.now(),
+        ([, p]) =>
+          p.confirmedVersion !== null ||
+          Date.parse(p.preview.expiresAt) > Date.now(),
       ),
     );
-    if (Object.keys(previews).length >= 20)
+    if (
+      Object.values(previews).filter((p) => p.confirmedVersion === null)
+        .length >= 20
+    )
       return fail(400, 'Too many previews. Wait for older previews to expire.');
     const preview = HoldingsPreviewSchema.parse({
       previewId: crypto.randomUUID(),

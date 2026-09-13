@@ -136,11 +136,11 @@ export class HoldingsController {
           'Holdings changed. Reload before previewing.',
         );
       await c.query(
-        'DELETE FROM app_holdings_previews WHERE user_id=$1 AND expires_at < now()',
+        'DELETE FROM app_holdings_previews WHERE user_id=$1 AND confirmed_version IS NULL AND expires_at < now()',
         [account.id],
       );
       const pending = await c.query(
-        'SELECT count(*)::integer AS count FROM app_holdings_previews WHERE user_id=$1',
+        'SELECT count(*)::integer AS count FROM app_holdings_previews WHERE user_id=$1 AND confirmed_version IS NULL',
         [account.id],
       );
       if (pending.rows[0].count >= 20)

@@ -96,3 +96,7 @@ PostgreSQL owns canonical numeric/domain/ownership/audit records; MongoDB owns e
 ## Standard holdings import provenance — XLSX-001
 
 Existing app_holdings_previews.payload supports legacy arrays and new normalized {holdings, import} objects. import records parserVersion standard-holdings-csv-v1 or standard-holdings-xlsx-v1; workbook imports add declaredRowCount and exact declaredTotalMinor in INR paise. New saved snapshots/revisions carry optional import metadata; old records remain unchanged. Privacy export validates and normalizes both receipt shapes. No workbook bytes, filename or filesystem path is retained. No SQL migration is required; account cascade and on-device account deletion include these records. Provenance remains user-entered-unverified, not provider prices or verified broker data.
+
+## Expiry maintenance records — migration022
+
+retention_runs stores immutable preview identity, server cutoff and fixed-policy count arrays; completed results cannot be changed/deleted. Attempt state and final per-category counts contain no tokens, usernames, private bodies or attachments. Existing operator audit stores actor hash/action/record ID. Eight fixed existing-expiry predicates are defined in docs/product/retention.md; feedback content is scrubbed while idempotency/deletion metadata remains, and confirmed holdings receipts are excluded. No cleanup runs merely by migration/application startup.

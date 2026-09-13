@@ -28,6 +28,7 @@ import { GoalAllocations } from './GoalAllocations';
 import { Recovery } from './Recovery';
 import { Reports } from './Reports';
 import { Securities } from './Securities';
+import { OfflineOperationsNotice } from './RetentionOperations';
 import { startFeedbackSync } from './feedback-sync';
 import {
   canNavigate,
@@ -331,8 +332,9 @@ export function App() {
             <Learning />
           ) : base === 'feedback' ? (
             <FeedbackPage />
-          ) : base === 'app-settings' ||
-            (base === 'ops' && runtime.mode === 'offline') ? (
+          ) : base === 'ops' && runtime.mode === 'offline' ? (
+            <OfflineOperationsNotice />
+          ) : base === 'app-settings' ? (
             <AppSettings />
           ) : base === 'account' ? (
             <Account key={route} />

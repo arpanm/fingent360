@@ -38,6 +38,7 @@ try {
     '019_record_reports.sql',
     '020_security_identities.sql',
     '021_report_deletions.sql',
+    '022_retention.sql',
   ]) {
     await applyMigration(
       client,

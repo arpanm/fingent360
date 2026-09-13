@@ -19,9 +19,11 @@ import { handleAllocations } from './allocations';
 import { handleRecovery } from './recovery';
 import { handleSecurities } from './securities';
 import { reportsHandler } from './reports';
+import { handleRetention } from './retention';
 
 const bundle = snapshot as OfflineBundle;
 const handlers: OfflineHandler[] = [
+  handleRetention,
   handleRecovery,
   handleSecurities,
   handleAccounts,

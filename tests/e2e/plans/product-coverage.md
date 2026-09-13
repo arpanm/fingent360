@@ -1,5 +1,9 @@
 # Planned end-to-end coverage
 
+## RETENTION-001 acceptance
+
+Authenticate operator → count-only fixed-cutoff preview → explicit bounded confirmation → atomic cleanup/results/audit → replay/history/retry. All eight scopes enforce existing expiry and preserve fresh sessions/content, financial histories/evidence and confirmed import receipts. Verify actual per-category caps/moreAvailable, owner schema serialization, response loss, SQL failure and owned-connection interruption rollback. No arbitrary caller table/cutoff/predicate. API250–257, WEB250–254, OFFLINE280–281. API255 only terminates its own identified sleeping database connection; no shared services or app data are cleaned. Mobile/keyboard flow and truthful offline connected requirement are distinct from SQL correctness.
+
 ## XLSX-001 acceptance
 
 Standard two-sheet workbook → local parser → inspect/reconcile → server revalidation → owned persisted preview → consent/confirmation → reload/history/privacy. Preserve exact lexical quantities and long text paise; reject active/ambiguous/bounded-resource violations before saved mutation. Cover old preview array compatibility and no raw-file retention. Actual disposable worker tests exercise timeout/termination, constructor errors, malformed replies and capacity release. Connected API240–242 and desktop/mobile WEB240; packaged OFFLINE290 proves local parity/no network. A representative independent-library round trip supplements generated fixtures; Excel/LibreOffice and physical Android picker remain explicit acceptance gates. This does not complete broker-specific SRC-013 onboarding.

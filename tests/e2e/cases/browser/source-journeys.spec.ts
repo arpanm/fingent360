@@ -1,7 +1,9 @@
 import { test, expect } from '@playwright/test';
+import { test as sourceTest } from '../../helpers/source-fixture';
 import { operatorKey } from '../../helpers/operator';
 import { FeedSchema } from '../../../../packages/contracts/src/index';
 test.use({ trace: 'off', video: 'off', screenshot: 'off' });
+sourceTest.use({ trace: 'off', video: 'off', screenshot: 'off' });
 test('E2E-WEB-180 source filters Scan Stories reader context and Back preserve selection @SOURCES-002', async ({
   page,
 }) => {
@@ -73,50 +75,83 @@ test('E2E-WEB-180 source filters Scan Stories reader context and Back preserve s
   await expect(page.locator('a.headline-link').first()).toBeVisible();
 });
 
-test('E2E-WEB-181 operations fixed-source selection reports independent refresh outcomes @SOURCES-002', async ({
-  page,
-}) => {
-  test.setTimeout(90000);
-  const session = await page.request.post('/api/v1/ops/session', {
-    headers: { Origin: process.env.E2E_WEB_URL || 'http://localhost:5173' },
-    data: { key: await operatorKey() },
-  });
-  expect(session.status()).toBe(200);
-  try {
-    await page.goto('/#ops');
-    const panel = page.getByRole('region', { name: 'Source refresh' });
-    await expect(panel).toBeVisible();
-    const refresh = panel.getByRole('button', {
-      name: 'Refresh discovery sources',
-      exact: true,
-    });
-    await expect(refresh).toBeDisabled();
-    await panel
-      .getByRole('checkbox', { name: /glossary|educational/i })
-      .check();
-    await expect(refresh).toBeEnabled();
-    await refresh.click();
-    await expect(
-      panel.getByRole('button', {
+sourceTest(
+  'E2E-WEB-181 operations fixed-source selection reports independent refresh outcomes @SOURCES-002 @LEGACY-FIXTURE-ISOLATION-001',
+  async ({ page, sourceDatabase }) => {
+    sourceTest.setTimeout(90000);
+    await page.goto('/#sources');
+    // Browser fetch follows the owned context routes and uses the browser cookie
+    // jar. page.request bypasses those routes and would mutate the normal API.
+    const session = await page.evaluate(
+      async (key) => {
+        const response = await fetch('/api/v1/ops/session', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ key }),
+        });
+        return response.status;
+      },
+      await operatorKey(),
+    );
+    expect(session).toBe(200);
+    try {
+      await page.goto('/#ops');
+      const panel = page.getByRole('region', { name: 'Source refresh' });
+      await expect(panel).toBeVisible();
+      const refresh = panel.getByRole('button', {
         name: 'Refresh discovery sources',
         exact: true,
-      }),
-    ).toBeEnabled({ timeout: 60000 });
-    await expect(
-      panel.getByText(/checked · .*new drafts/).first(),
-    ).toBeVisible();
-    await panel
-      .getByRole('button', { name: 'Reload source status', exact: true })
-      .click();
-    await expect(
-      panel.getByRole('checkbox', { name: /glossary|educational/i }),
-    ).toBeChecked();
-  } finally {
-    await page.request.delete('/api/v1/ops/session', {
-      headers: { Origin: process.env.E2E_WEB_URL || 'http://localhost:5173' },
-    });
-  }
-});
+      });
+      await expect(refresh).toBeDisabled();
+      await panel
+        .getByRole('checkbox', { name: /glossary|educational/i })
+        .check();
+      await expect(refresh).toBeEnabled();
+      await refresh.click();
+      await expect(
+        panel.getByRole('button', {
+          name: 'Refresh discovery sources',
+          exact: true,
+        }),
+      ).toBeEnabled({ timeout: 60000 });
+      await expect(
+        panel.getByText(/checked · .*new drafts/).first(),
+      ).toBeVisible();
+      await panel
+        .getByRole('button', { name: 'Reload source status', exact: true })
+        .click();
+      await expect(
+        panel.getByRole('checkbox', { name: /glossary|educational/i }),
+      ).toBeChecked();
+      const runs = await sourceDatabase.query<{
+        source_id: string;
+        status: string;
+        checked: number;
+        inserted: number;
+      }>(
+        'SELECT source_id,status,checked,inserted FROM discovery_source_runs ORDER BY started_at,id',
+      );
+      expect(runs.rows).toHaveLength(1);
+      expect(runs.rows[0]).toMatchObject({
+        source_id: 'glossary',
+        status: 'succeeded',
+      });
+      expect(runs.rows[0]!.checked).toBeGreaterThanOrEqual(11);
+      expect(runs.rows[0]!.inserted).toBeGreaterThanOrEqual(11);
+      const editions = await sourceDatabase.query<{ total: number }>(
+        'SELECT count(*)::int AS total FROM discovery_versions',
+      );
+      expect(editions.rows[0]!.total).toBe(runs.rows[0]!.inserted);
+    } finally {
+      expect(
+        await page.evaluate(
+          async () =>
+            (await fetch('/api/v1/ops/session', { method: 'DELETE' })).status,
+        ),
+      ).toBe(200);
+    }
+  },
+);
 
 test('E2E-WEB-182 India source story opens original evidence history and linked learning @SOURCES-002', async ({
   page,

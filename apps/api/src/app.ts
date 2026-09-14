@@ -18,6 +18,7 @@ import {
 } from './discovery.js';
 import { OperatorController, operatorProvider } from './operator.js';
 import { OperatorAuditController } from './operator-audit.js';
+import { PublishingQueueController } from './publishing-queue.js';
 import { OpsLegacyController } from './ops-legacy.js';
 import { LibraryController } from './library.js';
 import { LibraryReminderWorker } from './library-worker.js';
@@ -125,6 +126,7 @@ export async function createApp(
         OpsDiscoveryController,
         OperatorController,
         OperatorAuditController,
+        PublishingQueueController,
         OpsLegacyController,
         LibraryController,
         LearningController,

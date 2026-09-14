@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "dev": "node ../../scripts/api-dev.mjs",
-    "start": "node --env-file=../../.env dist/main.js",
+    "start": "node ../../scripts/api-start.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "node --test test/*.test.mjs",
     "db:migrate": "node --env-file=../../.env dist/migrate.js"

@@ -127,6 +127,10 @@ test('E2E-WEB-321 actual BEA draft review publishes and withdraws through Operat
   await dialog
     .getByRole('button', { name: 'Publish reviewed edition' })
     .click();
+  await expect(dialog.getByRole('status')).toContainText(
+    'Saved published edition',
+  );
+  await page.keyboard.press('Escape');
   await expect(dialog).toHaveCount(0);
   const published = FeedItemSchema.parse(
     (await beaBrowserCall(page, `/api/v1/discovery/items/${source.id}`)).body,
@@ -141,6 +145,10 @@ test('E2E-WEB-321 actual BEA draft review publishes and withdraws through Operat
       'Synthetic withdrawal acceptance; retain original evidence internally.',
     );
   await dialog.getByRole('button', { name: 'Withdraw item' }).click();
+  await expect(dialog.getByRole('status')).toContainText(
+    'Saved withdrawn edition',
+  );
+  await page.keyboard.press('Escape');
   await expect(dialog).toHaveCount(0);
   await page.goto(`/#read/${source.id}`);
   await expect(

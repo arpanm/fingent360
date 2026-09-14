@@ -31,14 +31,24 @@ export class OpsLegacyController {
   }
   @Get('sources') async list(@Headers('cookie') cookie?: string) {
     await this.ops.require(cookie);
-    return this.sources.list(true, this.ops.serverAuthorization());
+    const result = await this.sources.list(
+      true,
+      this.ops.serverAuthorization(),
+    );
+    await this.ops.require(cookie);
+    return result;
   }
   @Get('sources/:id/history') async history(
     @Param('id') id: string,
     @Headers('cookie') cookie?: string,
   ) {
     await this.ops.require(cookie);
-    return this.sources.history(id, this.ops.serverAuthorization());
+    const result = await this.sources.history(
+      id,
+      this.ops.serverAuthorization(),
+    );
+    await this.ops.require(cookie);
+    return result;
   }
   @Post('sources') async add(
     @Body() body: unknown,

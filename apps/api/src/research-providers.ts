@@ -203,6 +203,14 @@ export const researchSources: ResearchSource[] = [
     'Ordinary feed request returned HTTP403. No access-control bypass.',
   ),
 ];
+export class OfficialFetchError extends Error {
+  constructor(
+    public readonly category: 'network' | 'http' | 'oversize' | 'incomplete',
+    message: string,
+  ) {
+    super(message);
+  }
+}
 export async function boundedOfficial(
   url: string,
 ): Promise<Omit<ResearchRaw, 'items'>> {
@@ -213,9 +221,22 @@ export async function boundedOfficial(
       Accept: 'application/xml,text/xml,text/html,application/json',
       'User-Agent': 'Fingent360 educational source reader',
     },
+  }).catch(() => {
+    throw new OfficialFetchError(
+      'network',
+      'Official request failed or timed out.',
+    );
   });
-  if (!response.ok || !response.body)
-    throw Error('Official endpoint unavailable or redirected.');
+  if (!response.ok)
+    throw new OfficialFetchError(
+      'http',
+      `Official HTTP status ${response.status}.`,
+    );
+  if (!response.body)
+    throw new OfficialFetchError(
+      'incomplete',
+      'Official response has no body.',
+    );
   const reader = response.body.getReader(),
     chunks: Uint8Array[] = [];
   let size = 0;
@@ -224,14 +245,34 @@ export async function boundedOfficial(
       const { done, value } = await reader.read();
       if (done) break;
       size += value.byteLength;
-      if (size > 1000000) throw Error('Official response exceeds 1MB.');
+      if (size > 1000000)
+        throw new OfficialFetchError(
+          'oversize',
+          'Official response exceeds 1MB.',
+        );
       chunks.push(value);
     }
+  } catch (error) {
+    if (error instanceof OfficialFetchError) throw error;
+    throw new OfficialFetchError(
+      'incomplete',
+      'Official response stream was interrupted.',
+    );
   } finally {
     await reader.cancel().catch(() => {});
   }
-  const body = Buffer.concat(chunks).toString('utf8'),
-    retrievedAt = new Date().toISOString();
+  let body: string;
+  try {
+    body = new TextDecoder('utf-8', { fatal: true, ignoreBOM: true }).decode(
+      Buffer.concat(chunks),
+    );
+  } catch {
+    throw new OfficialFetchError(
+      'incomplete',
+      'Official response is not valid UTF-8; no complete text retained.',
+    );
+  }
+  const retrievedAt = new Date().toISOString();
   return { url, body, retrievedAt, hash: sourceHash(url, body) };
 }
 export function parsePibIndex(html: string): string[] {

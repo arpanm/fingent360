@@ -26,3 +26,11 @@ These are engineering choices made locally, not additional user requirements: pn
 ## First end-to-end slice
 
 Oil shock → verified event → economic factor/sector/company mapping → uploaded Indian-equity portfolio → affected goals → educational No-action/Review result, with sources and uncertainty. A personalised Rebalance recommendation is gated behind the approved regulatory model. Build contracts and fixtures before this slice; do not seed it with the unverified numerical claims from the original newsletter.
+
+## SDLC-004 — deterministic execution belongs to the user
+
+The latest user instruction supersedes prior session testing authorization. Agents author specifications, implementation, test cases and trackers, without running format/check/build/migrations/E2E or the SDLC command. The user runs pnpm sdlc, which gates the local commit on successful format/check and then executes selected or all E2E cases. No automatic push. Earlier verified runs remain historical evidence; pending changes must not inherit those passes.
+
+## DELIVERY-RECONCILE-002 — local runtime activation
+
+The user explicitly requested the local owner/runtime separation be enabled. It is now configured and active; see development/local-database-activation.md for safe operational evidence. This specific connection/provisioning/additive migration/service activation did not revoke the user-owned format/check/test/commit workflow. Reusable domain schemas are code/data-model contracts; existing consumer persistence and remaining event/lot/profile/policy workflows are documented separately rather than represented by invented tables or mock screens.

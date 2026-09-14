@@ -1,11 +1,14 @@
 import { readFile } from 'node:fs/promises';
 import pg from 'pg';
-import { readConfig } from './config.js';
+import {
+  DatabaseRoleError,
+  migrationDatabaseUrl,
+  refreshRuntimeGrants,
+} from './database-roles.js';
 import { storageErrorMessage } from './storage-error.js';
 import { applyMigration } from './migration-ledger.js';
-const config = readConfig(process.env);
 const pool = new pg.Pool({
-  connectionString: config.DATABASE_URL,
+  connectionString: migrationDatabaseUrl(process.env),
   connectionTimeoutMillis: 5000,
 });
 let client: pg.PoolClient | undefined;
@@ -45,6 +48,8 @@ try {
     '029_report_schedules.sql',
     '030_worker_health.sql',
     '032_reading_follow.sql',
+    '035_bea_quarantine.sql',
+    '036_publishing_queue_indexes.sql',
   ]) {
     await applyMigration(
       client,
@@ -55,6 +60,7 @@ try {
       ),
     );
   }
+  await refreshRuntimeGrants(client, process.env);
   await client.query('COMMIT');
   console.log(
     'Application schemas are ready. Applied migration checksums recorded; existing data preserved.',
@@ -62,8 +68,9 @@ try {
 } catch (error) {
   if (client) await client.query('ROLLBACK').catch(() => {});
   const detail =
-    error instanceof Error &&
-    error.message.startsWith('Applied migration changed:')
+    error instanceof DatabaseRoleError ||
+    (error instanceof Error &&
+      error.message.startsWith('Applied migration changed:'))
       ? error.message
       : storageErrorMessage(error);
   console.error(`Migration failed: ${detail}`);

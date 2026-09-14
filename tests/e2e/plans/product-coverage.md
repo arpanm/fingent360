@@ -1,5 +1,13 @@
 # Planned end-to-end coverage
 
+## BEA-QUARANTINE-001 acceptance
+
+Link only actual complete verified retained BEA bytes to immutable attempts; record original retrieval/hash/size/parser and actual state transitions. Revalidate stored bytes without network; inspect candidates/baselines before exact idempotent staging, with atomic draft receipts, conflicts and final auth after waits. Preserve legacy/unavailable/corrupt evidence states honestly. Verify bounded Mongo/PostgreSQL operations, invalid UTF8/streams, actual finalization failure after commit, full paged receipt history, lost acknowledgement and401 after Back. API500–506/WEB500–503/OFFLINE510, existing BEA/provider parser regressions. Normal accepted source data must remain separate from labelled isolated faults. No auto-publication or new rights claim.
+
+## SOURCE-REVIEW-DIFF-001 acceptance
+
+Review the actual current head against its nearest prior non-draft public-state edition, with explicit state/version labels and immutable originals. Require matching expectedVersion after source admission, post-wait operator authorization, strict evidence drill-down, exact existing publication write and changed-head recovery. UI must retain historical successful receipt, clear protected text on401 even after Close and ignore late200 without reopening. API460–462/WEB460–464/OFFLINE470 plus WEB321 compatibility and1 domain unit. No source-rights or completed second-person review claim.
+
 ## OPS-AUDIT-001 acceptance
 
 Expose only allowlisted request/cleanup event metadata through protected fixed filters and exact50-row keyset pages; no raw targets, actors/hashes, private bodies or completion inference. Verify signed cursor/upper boundary, SQL ordering, real expiry/revocation after waits, immutable storage and unchanged goals. Exercise keyboard/mobile pages/Back/Retry/Reset, invalid-filter recovery, incomplete-page notice, late-response generation invalidation and401 after child unmount. Device Operations must remain connected-only/noAPI. API480–487, WEB480–486, OFFLINE490 and4 units; chronological boundary is not a full snapshot/export.
@@ -780,3 +788,17 @@ Source-withdrawal parent verification:27/27 connected withdrawal/media execution
 READING-FOLLOW-001 verification:25/25 connected and10/10 selected packaged offline scenarios passed; final Saved-navigation reruns passed2/2 connected and2/2 offline. See development status for exact runs, corrections and separate physical-device acceptance.
 
 OPS-AUDIT-001 has passing evidence for all34 selected connected scenarios across the initial run and corrected four-case rerun, plus packaged offline acceptance. See development status for run identities, gate counts and separate hardware/production limits.
+
+SDLC-004 manual acceptance: repository instructions consistently assign deterministic format/check/build/migration/E2E work to the user. Existing pnpm sdlc accepts a message and optional Playwright filters after --, commits only after format/check, stops on failure and never pushes. No runner change or new execution-based test is needed for this instruction-only correction. Current SourceReview final offline correction and BEA recovery cases are authored/unverified; historical passes do not validate the entire current working tree.
+
+OPS-READ-ADMISSION-001 acceptance: protect legacy discovery items/runs and source registry list/history after actual storage waits; final current-session check must deny expiry/revocation without changing originals or public/owned data. Reuse existing sign-in/keyboard/mobile/recovery, reject late200 restoration, preserve noAPI device mode. API520–523/WEB520–522/OFFLINE530 authored; user runs deterministic verification.
+
+LEGACY-FIXTURE-ISOLATION-001 acceptance: strengthen API070/WEB070/WEB181 without weakening persistence/history/publication/UI assertions; isolate all writes to the owned fixture, forward only required source/catalogue paths, compare configured normal-source digests read-only and preserve exact teardown ownership. No upstream provider request for the selected glossary path. Authored five-case selection; broader global/provider inventory remains in the handoff.
+
+ROADMAP-AUDIT-001 manual acceptance: compare each formerly active parent with its original acceptance and linked implementation; completed design/contract tasks may be Implemented while validation is pending. Check TODO index/detail agree, source and asset gates remain, synthetic exercises do not complete real-data parents, and current commit/verification are never inferred. DOMAIN-CONTRACTS-002 uses golden unit cases through the user-run check gate; no API/UI/DB consumer is introduced by this schema-only task.
+
+PUBLISHING-QUEUE-001 acceptance: actual stored publication heads, bounded newest-edition pages, strict source/status/text and signed cursor filters, reset/previous/next/retry, exact-version review and retained saved receipt, post-storage expiry/revocation and late-response protection; offline remains connected-only. API560–567, WEB560–565 and OFFLINE550 are authored, with WEB484/521/501 integration updates. User executes all gates.
+
+DB-LEAST-PRIVILEGE-001 acceptance: explicit safe manual preview/apply, existing configuration preservation, actual runtime DML/immutable records, denied persistent DDL/ledger/role escalation, successful owner migrations/default grants, unknown-role refusal and transactional rollback. API580–586 and four units authored. Role provisioning and tests are user-run; TEMP remains disclosed/unchanged and no end-user UI or offline dataset is added.
+
+DELIVERY-RECONCILE-002 manual acceptance: reconcile session-request-register.md with TODO/README and preserve visible requests/remaining scope; distinguish 13 authored domain golden groups from persisted consumers. Queue migration036 supplies actual ordering indexes; API567 checks them and combined filter pagination; WEB562 covers focus after review. Local DB setup/readiness is recorded separately from unexecuted E2E.

@@ -28,3 +28,17 @@
 | Corporate action                          | Issuer event affecting securities/entitlements/units                                  | A normal user buy/sell transaction                                 |
 | XIRR                                      | Annualized return using dated cash flows                                              | Simple price return; requires a separately specified calculation   |
 | Provenance                                | Record of where a value came from and how it changed                                  | A model's confidence score                                         |
+
+## Current saved-record terminology
+
+- **Recorded acquisition cost:** the user's entered purchase-cost total. It is not a live price, present market value, profit or return.
+- **Contribution-only projection:** entered savings plus monthly contribution multiplied by the entered horizon; no market growth, inflation, fees or taxes are assumed. A remaining gap is not a risk probability.
+- **Saved allocation:** exact quantities assigned to a goal, with allocated recorded cost disclosed separately. Allocation does not create cash or add to entered savings.
+- **Research connection:** the user's explicitly chosen source edition, owned target and personal reason. It does not establish causation or verified financial exposure.
+- **Public-state edition:** a reviewed publication or withdrawal. A withdrawn predecessor is not described as a previously published article merely because it is retained for operator review.
+- **Historical receipt:** evidence of what a request saved or observed at its recorded time. Replaying it is not a fresh reading of current heads, permissions or publication state.
+- **Issued report:** an immutable captured-record review. Comparing reports does not rewrite either original and does not calculate investment performance.
+- **On-device workspace:** separately persisted local accounts and records. It is not server synchronization, encrypted cloud backup or knowledge of changes after the bundle capture date.
+- **Quarantine revalidation:** parsing a verified linked retained response using a recorded parser version, without fetching a provider or publishing the candidate. Unlinked legacy blobs are not inferred ingestion attempts.
+
+Risk capacity, risk tolerance, funded ratios based on market value, lots and causal event edges elsewhere in this glossary define concepts; they do not claim those assessments/data models are implemented. Use the [threat model and vocabulary gates](../product/threat-model.md) when explaining confidence, advice and missing evidence.

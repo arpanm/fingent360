@@ -7,12 +7,12 @@ export function storageErrorMessage(error: unknown): string {
   switch (code) {
     case '42P01':
     case '42703':
-      return 'Workspace schema is missing or incompatible. Run pnpm db:migrate against the same DATABASE_URL used by the API, then retry.';
+      return 'Workspace schema is missing or incompatible. Run pnpm db:migrate using owner credentials for the same database/schema as the API; separate setups use MIGRATION_DATABASE_URL. Then retry.';
     case '28P01':
     case '28000':
       return 'PostgreSQL authentication failed. Check the API database credentials locally; do not share them.';
     case '42501':
-      return 'PostgreSQL denied access. The configured database role needs access to the virtual workspace tables.';
+      return 'PostgreSQL denied access. Check runtime grants with pnpm db:roles and owner migrations locally. Keep DATABASE_URL for runtime and MIGRATION_DATABASE_URL for the same owner-managed schema; do not give the API owner privileges.';
     case '3D000':
       return 'The configured PostgreSQL database does not exist. Check DATABASE_URL locally.';
     case 'ECONNREFUSED':

@@ -2,7 +2,7 @@
 
 ## Authority and execution
 
-Current user instructions take precedence. Default: Codex authors specifications, code, cases and documentation; the user runs deterministic commands and tests. Do not indirectly execute them through hooks, watchers, delegates or CI. An explicit override authorizes only its stated work. This session's ongoing UX-001/UX-002 implementation includes parent-controlled testing/fixes; it does not establish automatic execution for every later request. Never push automatically.
+Current user instructions take precedence. Default: Codex authors specifications, code, cases and documentation; the user runs deterministic commands and tests. Do not indirectly execute them through hooks, watchers, delegates or CI. An explicit override authorizes only its stated work. The latest user instruction revokes the earlier testing override for this ongoing task as well. Agents author specifications, implementation, test cases and documentation only. The user invokes pnpm sdlc for format → check → gated commit → E2E; agents must not invoke it or repeat its deterministic stages. Further execution requires a new explicit, scoped user instruction. Never push automatically.
 
 The user's commit gate is mandatory: **format and check must pass before staging/committing the change**. If execution is not authorized, leave the work reviewable and awaiting the user's gates or user-invoked `pnpm sdlc`; do not bypass the gate to satisfy a generic commit instruction. Earlier task prompts that requested unverified commits are historical and superseded by this rule. Use hooks-disabled commits only after the gate to avoid unrelated hook execution; do not weaken checks/security settings.
 

@@ -1,9 +1,10 @@
 import { randomUUID } from 'node:crypto';
-import { test, expect } from '@playwright/test';
+import { test, expect } from '../../helpers/source-fixture';
 import { operatorKey } from '../../helpers/operator';
 test.use({ trace: 'off', video: 'off', screenshot: 'off' });
-test('E2E-WEB-070 operations source metadata persists and history opens visibly @SOURCES-001 @UX-002', async ({
+test('E2E-WEB-070 operations source metadata persists and history opens visibly @SOURCES-001 @UX-002 @LEGACY-FIXTURE-ISOLATION-001', async ({
   page,
+  sourceDatabase,
 }) => {
   await page.goto('/#sources');
   await expect(
@@ -66,6 +67,17 @@ test('E2E-WEB-070 operations source metadata persists and history opens visibly 
     .getByRole('button', { name: 'Source registry', exact: true })
     .click();
   await expect(page.getByRole('heading', { name, exact: true })).toBeVisible();
+  const revisions = await sourceDatabase.query<{
+    revision: number;
+    constraint: string;
+  }>(
+    "SELECT r.revision,r.data->>'constraints' AS constraint FROM research_sources s JOIN research_source_revisions r ON r.source_id=s.id WHERE r.data->>'name'=$1 ORDER BY r.revision",
+    [name],
+  );
+  expect(revisions.rows).toEqual([
+    { revision: 1, constraint: 'No ingestion; fixture only.' },
+    { revision: 2, constraint: 'Updated fixture constraint.' },
+  ]);
   await page.getByRole('button', { name: 'Sign out of operations' }).click();
   await expect(
     page.getByRole('button', { name: 'Sign in to operations', exact: true }),

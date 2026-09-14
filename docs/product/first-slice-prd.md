@@ -1,6 +1,6 @@
 # DEV-001: First-slice product requirements
 
-Status: authored for implementation planning; user review pending. This document specifies future behavior, not features already running. Source: README sections 3–13, 19 and 23–25, plus docs/product/decisions.md. Schema definitions below are deliberate design proposals to implement in DEV-003 after DEV-002; they are not descriptions of existing endpoints.
+Status: DEV-001 documentation deliverable, with user document acceptance separate from runtime verification. This PRD records the broad screen contracts; it does not assert that every proposed event/company/action screen exists. Implemented workflows and the remaining real-data event trace are distinguished below. Source: README scope and [accepted decisions](decisions.md).
 
 ## Outcome and boundaries
 
@@ -58,7 +58,7 @@ PRD-12: all required calculations and loading/error states come from typed API c
 
 ## First-slice acceptance fixture (synthetic only)
 
-FIX-OIL-001 will be authored in DEV-003. Names and numbers below are fictional arithmetic examples, not market data or financial advice.
+The implemented `fixture-v1` journey in `packages/contracts/src/journey-domain.ts` supplies a bounded fictional oil exercise; the broader FIX-OIL-001 design below remains a reference for the real event-trace objective. Names and numbers below are fictional arithmetic examples, not market data or financial advice.
 
 - Two synthetic sources support an oil supply event; a conflicting-source variant is also defined. A reviewed hypothetical mechanism maps oil cost sensitivity to fictional company Alpha Air. No quantitative return prediction is claimed.
 - Portfolio P contains 10 Alpha Air units at INR 100.00 and INR 1,000.00 cash. Exact total: INR 2,000.00; direct equity exposure: INR 1,000.00 or 50% of fully priced portfolio value.
@@ -70,13 +70,21 @@ PRD-13: expanding the review must reconstruct the exact snapshot, goal allocatio
 
 ## Dependencies and decisions
 
-| Decision                                                             | Current treatment                                                                     | Owner/task              |
-| -------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ----------------------- |
-| Screen routes and dictionary field design                            | Proposed here; amend through a recorded decision if implementation reveals a conflict | DEV-001/DEV-003         |
-| Legal operating model, jurisdiction vocabulary and review thresholds | No regulated advice activation; no launch approval assumed                            | DEV-002/DEV-013         |
-| First data sources and automated/display rights                      | Candidate only; no production source approved                                         | DEV-005 and SRC tasks   |
-| Auth provider, secure upload size/format policy and retention        | Must be selected before private-data/import release; no vendor assumed                | DEV-007/DEV-008/DEV-017 |
-| Freshness thresholds, source-total tolerances and risk bands         | Versioned per domain; missing approval/config blocks dependent behavior               | DEV-003/DEV-005/DEV-019 |
-| Probability-of-success, tax and advanced return models               | Unavailable until separately specified/evaluated; not improvised in UI                | DEV-009/DEV-019/DEV-022 |
+| Decision                                                             | Current treatment                                                                                                                                     | Owner/task              |
+| -------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------- |
+| Screen routes and dictionary field design                            | Proposed here; amend through a recorded decision if implementation reveals a conflict                                                                 | DEV-001/DEV-003         |
+| Legal operating model, jurisdiction vocabulary and review thresholds | No regulated advice activation; no launch approval assumed                                                                                            | DEV-002/DEV-013         |
+| First data sources and automated/display rights                      | Bounded World Bank/Fed/ECB/PIB/BEA/OpenFIGI adapters and recorded rights evidence exist; full source coverage and production approval remain separate | DEV-005 and SRC tasks   |
+| Auth provider, secure upload size/format policy and retention        | Owned cookie accounts, recovery, strict standard CSV/XLSX limits and retention are implemented; see threat-model and workbook specifications          | DEV-007/DEV-008/DEV-017 |
+| Freshness thresholds, source-total tolerances and risk bands         | Versioned per domain; missing approval/config blocks dependent behavior                                                                               | DEV-003/DEV-005/DEV-019 |
+| Probability-of-success, tax and advanced return models               | Unavailable until separately specified/evaluated; not improvised in UI                                                                                | DEV-009/DEV-019/DEV-022 |
 
-DEV-001 is complete when this specification, glossary, dictionary and manual review matrix exist and cross-reference the acceptance criteria. It does not complete Gate 0 or any application feature. Next: DEV-002 policy/threat model, then DEV-003 runtime domain contracts and synthetic golden fixtures.
+DEV-001 delivers this specification, glossary, dictionary and manual review matrix. Document acceptance does not complete Gate 0 or any runtime feature. The consolidated [threat model](threat-model.md) documents implemented controls; missing general event/lot/policy schemas remain DEV-003 work.
+
+## Current workflow mapping
+
+The public home is Today/Explore with reviewed stored sources; source readers expose edition/evidence context. My overview, saved goals, holdings, allocations, goal comparisons, reports/schedules, research connections and reading updates use real owned persistence. Account recovery/privacy and Operations have distinct authenticated workflows. Canonical company valuation, inferred sector impact and the real evidence→factor→sector→company→holding→goal action chain remain incomplete; the fictional Learning lab never supplies live facts to those paths.
+
+The route sketches in the screen table are logical product contracts, not literal deployed URL promises. Current routes are defined by `apps/web/src/App.tsx` and `navigation.ts`; feature specifications describe their current forms and exact persistence semantics. Empty/error/stale/conflict and keyboard/mobile requirements above apply to delivered workflows. Actual test evidence and later unverified changes remain in development/status, not inferred from this PRD.
+
+Manual document acceptance: check each screen contract identifies its state/error behavior; follow dictionary links for units/IDs/times; distinguish proposed event/company screens from delivered saved-record workflows; verify the educational fixture is visibly fictional and no absent market/risk metric is presented as implemented. Record review findings without running app tests.

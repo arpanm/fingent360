@@ -1,3 +1,14 @@
+import {
+  beaHistory,
+  beaValidation,
+  beginBeaAttempt,
+  beaEvent,
+  beaAttempts,
+  beaAttempt,
+  beaRetained,
+  revalidateBea,
+  stageBea,
+} from './bea-quarantine.js';
 import { admitPublications } from './publication.js';
 import {
   publicEdition,
@@ -26,6 +37,10 @@ import pg from 'pg';
 import { MongoClient } from 'mongodb';
 import { z } from 'zod';
 import {
+  SourceReviewComparisonSchema,
+  SourceReviewQuerySchema,
+  sourceReviewDifferences,
+  BeaPageQuerySchema,
   DiscoveryIdSchema,
   DiscoveryReviewSchema,
   DiscoveryRunSchema,
@@ -38,7 +53,11 @@ import {
 import type { AppConfig } from './config.js';
 import { OPERATOR_STORE, OperatorStore } from './operator.js';
 import { glossaryItems, sourceHash } from './discovery-provider.js';
-import { fetchResearchSource, researchSources } from './research-providers.js';
+import {
+  OfficialFetchError,
+  fetchResearchSource,
+  researchSources,
+} from './research-providers.js';
 import {
   enrichResearchItem,
   researchGlossaryItems,
@@ -444,6 +463,79 @@ export class DiscoveryStore {
       }
     });
   }
+  async comparison(
+    id: string,
+    query: unknown,
+    authorize: () => Promise<unknown>,
+  ) {
+    validId(id);
+    const parsed = SourceReviewQuerySchema.safeParse(query);
+    if (!parsed.success)
+      throw new BadRequestException('Provide the exact examined head version.');
+    return this.transaction(async (c) => {
+      const locked = await c.query<{ version: number }>(
+        'SELECT version FROM discovery_items WHERE id=$1 FOR SHARE',
+        [id],
+      );
+      await authorize();
+      if (!locked.rows[0]) throw new NotFoundException('Item not found.');
+      if (locked.rows[0].version !== Number(parsed.data.expectedVersion))
+        throw new ConflictException('Item changed. Reload before reviewing.');
+      const rows = await c.query<VersionRow>(
+        "SELECT data FROM discovery_versions WHERE item_id=$1 AND (version=$2 OR (version<$2 AND data->>'status'<>'draft')) ORDER BY version DESC LIMIT 2",
+        [id, locked.rows[0].version],
+      );
+      const head = FeedItemSchema.parse(rows.rows[0]!.data),
+        previous = rows.rows[1]
+          ? FeedItemSchema.parse(rows.rows[1].data)
+          : null;
+      await authorize();
+      return SourceReviewComparisonSchema.parse({
+        head,
+        previous,
+        checkedAt: new Date().toISOString(),
+        differences: sourceReviewDifferences(head, previous),
+      });
+    });
+  }
+  async quarantine(
+    kind:
+      | 'list'
+      | 'detail'
+      | 'evidence'
+      | 'validate'
+      | 'stage'
+      | 'history'
+      | 'validation',
+    id: string | undefined,
+    body: unknown,
+    authorize: () => Promise<unknown>,
+  ) {
+    return this.transaction(async (c) => {
+      await c.query("SET LOCAL statement_timeout='3s'");
+      await authorize();
+      let result: unknown;
+      if (kind === 'list') result = await beaAttempts(c, id);
+      else if (kind === 'detail') result = await beaAttempt(c, id!);
+      else if (kind === 'history')
+        result = await beaHistory(
+          c,
+          id!,
+          typeof body === 'string' ? body : undefined,
+        );
+      else if (kind === 'validation') result = await beaValidation(c, id!);
+      else if (kind === 'evidence')
+        result = await beaRetained(c, this.mongo, id!);
+      else if (kind === 'validate')
+        result = await revalidateBea(c, this.mongo, id!, body, authorize);
+      else
+        result = await stageBea(c, body, authorize, (client, item) =>
+          this.promoteDraft(client, item),
+        );
+      await authorize();
+      return result;
+    });
+  }
   async operations() {
     return this.transaction(async (c) => {
       const items = await c.query<VersionRow>(
@@ -573,6 +665,10 @@ export class DiscoveryStore {
           "INSERT INTO discovery_source_runs(id,run_id,source_id,status) VALUES($1,$2,$3,'running')",
           [sourceRunId, id, sourceId],
         );
+        const beaAttemptId =
+          sourceId === 'bea'
+            ? await beginBeaAttempt(client, sourceRunId)
+            : null;
         let sourceInserted = 0;
         const inputs: FeedItem[] = [];
         try {
@@ -595,8 +691,31 @@ export class DiscoveryStore {
                       retrievedAt: raw.retrievedAt,
                     },
                   },
-                  { upsert: true },
+                  {
+                    upsert: true,
+                    ...(beaAttemptId
+                      ? { timeoutMS: 3000, maxTimeMS: 2500 }
+                      : {}),
+                  },
                 );
+              if (beaAttemptId) {
+                const saved = await this.mongo
+                  .db()
+                  .collection<Raw>('discovery_raw')
+                  .findOne(
+                    { _id: raw.hash },
+                    { timeoutMS: 3000, maxTimeMS: 2500 },
+                  );
+                if (!saved || saved.url !== raw.url || saved.body !== raw.body)
+                  throw Error('Retained response verification failed.');
+                await beaEvent(
+                  client!,
+                  beaAttemptId,
+                  'retained',
+                  'Complete response retained and verified.',
+                  raw,
+                );
+              }
             });
             for (const raw of raws) inputs.push(...raw.items);
           }
@@ -649,8 +768,21 @@ export class DiscoveryStore {
               }
             }
           }
+          if (beaAttemptId)
+            await beaEvent(
+              client,
+              beaAttemptId,
+              'parsed',
+              'Bounded BEA parser accepted the response.',
+            );
           await client.query('BEGIN');
           try {
+            if (beaAttemptId) {
+              await client.query("SET LOCAL statement_timeout='3s'");
+              await client.query(
+                'SELECT id FROM bea_staging_gate WHERE id=1 FOR UPDATE',
+              );
+            }
             await client.query(
               'SELECT id FROM discovery_items WHERE id=ANY($1::text[]) ORDER BY id FOR UPDATE',
               [inputs.map((item) => item.id)],
@@ -661,6 +793,13 @@ export class DiscoveryStore {
               sourceInserted += await this.promoteDraft(
                 client,
                 enrichResearchItem(item),
+              );
+            if (beaAttemptId)
+              await beaEvent(
+                client,
+                beaAttemptId,
+                'staged',
+                'Parsed drafts committed atomically with this receipt.',
               );
             await client.query('COMMIT');
           } catch (error) {
@@ -678,7 +817,16 @@ export class DiscoveryStore {
               sourceInserted,
             ],
           );
-        } catch {
+        } catch (failure) {
+          if (beaAttemptId)
+            await beaEvent(
+              client,
+              beaAttemptId,
+              'failed',
+              failure instanceof OfficialFetchError
+                ? `${failure.category}: ${failure.message}`
+                : 'Parse or storage failure. Any preceding staged event remains authoritative.',
+            );
           failures++;
           await client.query(
             "UPDATE discovery_source_runs SET status='failed',finished_at=now(),message='Source unavailable, invalid, or storage failed. Existing editions retained; other sources continue.' WHERE id=$1",
@@ -758,9 +906,87 @@ export class OpsDiscoveryController {
     @Inject(DISCOVERY_STORE) private readonly store: DiscoveryStore,
     @Inject(OPERATOR_STORE) private readonly operator: OperatorStore,
   ) {}
+  @Get('bea-attempts/:id/history') async beaHistory(
+    @Param('id') id: string,
+    @Query() query: unknown,
+    @Headers('cookie') cookie?: string,
+  ) {
+    const parsed = BeaPageQuerySchema.safeParse(query);
+    if (!parsed.success) throw new BadRequestException('Invalid history page.');
+    return this.store.quarantine('history', id, parsed.data.after, () =>
+      this.operator.require(cookie),
+    );
+  }
+  @Get('bea-validations/:id') async beaValidation(
+    @Param('id') id: string,
+    @Headers('cookie') cookie?: string,
+  ) {
+    return this.store.quarantine('validation', id, null, () =>
+      this.operator.require(cookie),
+    );
+  }
+  @Get('bea-attempts') async beaList(
+    @Query() query: unknown,
+    @Headers('cookie') cookie?: string,
+  ) {
+    const parsed = BeaPageQuerySchema.safeParse(query);
+    if (!parsed.success) throw new BadRequestException('Invalid attempt page.');
+    return this.store.quarantine('list', parsed.data.after, null, () =>
+      this.operator.require(cookie),
+    );
+  }
+  @Get('bea-attempts/:id') async beaDetail(
+    @Param('id') id: string,
+    @Headers('cookie') cookie?: string,
+  ) {
+    return this.store.quarantine('detail', id, null, () =>
+      this.operator.require(cookie),
+    );
+  }
+  @Get('bea-attempts/:id/evidence') async beaEvidence(
+    @Param('id') id: string,
+    @Headers('cookie') cookie?: string,
+  ) {
+    return this.store.quarantine('evidence', id, null, () =>
+      this.operator.require(cookie),
+    );
+  }
+  @Post('bea-attempts/:id/revalidate') async beaValidate(
+    @Param('id') id: string,
+    @Body() body: unknown,
+    @Headers('origin') origin: string | undefined,
+    @Headers('cookie') cookie?: string,
+  ) {
+    this.operator.origin(origin);
+    return this.store.quarantine('validate', id, body, () =>
+      this.operator.require(cookie),
+    );
+  }
+  @Post('bea-staging') async beaStage(
+    @Body() body: unknown,
+    @Headers('origin') origin: string | undefined,
+    @Headers('cookie') cookie?: string,
+  ) {
+    this.operator.origin(origin);
+    return this.store.quarantine('stage', undefined, body, () =>
+      this.operator.require(cookie),
+    );
+  }
   @Get('items') async items(@Headers('cookie') cookie?: string) {
     await this.operator.require(cookie);
-    return this.store.operations();
+    const result = await this.store.operations();
+    await this.operator.require(cookie);
+    return result;
+  }
+  @Get('items/:id/comparison') async comparison(
+    @Param('id') id: string,
+    @Query() query: unknown,
+    @Headers('cookie') cookie?: string,
+  ) {
+    await this.operator.require(cookie);
+    return this.store.comparison(id, query, () =>
+      this.operator.require(cookie),
+    );
   }
   @Get('items/:id/history') async history(
     @Param('id') id: string,
@@ -783,7 +1009,9 @@ export class OpsDiscoveryController {
   }
   @Get('runs') async runs(@Headers('cookie') cookie?: string) {
     await this.operator.require(cookie);
-    return this.store.sourceRuns();
+    const result = await this.store.sourceRuns();
+    await this.operator.require(cookie);
+    return result;
   }
   @Post('refresh') async refresh(
     @Body() body: unknown,

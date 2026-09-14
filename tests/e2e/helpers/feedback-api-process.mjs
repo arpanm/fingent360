@@ -1,6 +1,6 @@
 // Executed only by a selected feedback test. Never imported for discovery.
 import { createRequire } from 'node:module';
-import { randomUUID } from 'node:crypto';
+import { randomBytes, randomUUID } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { parseEnv } from 'node:util';
 const require = createRequire(
@@ -17,6 +17,7 @@ let pool,
   startup,
   cancelled = false,
   exitCode = 0;
+let runtimeRole, runtimeDatabaseUrl;
 function notify(message) {
   if (process.connected) process.send?.(message, () => {});
 }
@@ -46,6 +47,22 @@ async function stop(code = 0) {
           // This exact random schema was created by this process; never remove
           // another schema, reset shared quotas or fall back to public tables.
           await pool.query(`DROP SCHEMA "${schema}" CASCADE`);
+        }
+      },
+      async () => {
+        if (runtimeRole) {
+          // This process created this exact random role after its owned schema.
+          const row = await pool.query('SELECT current_database() AS database');
+          const database = row.rows[0].database;
+          if (
+            !/^[a-z][a-z0-9_]{0,62}$/.test(database) ||
+            !/^f360_app_[a-f0-9]{32}$/.test(runtimeRole)
+          )
+            throw Error('Owned role cleanup identity failed.');
+          await pool.query(
+            `REVOKE CONNECT ON DATABASE "${database}" FROM "${runtimeRole}"`,
+          );
+          await pool.query(`DROP ROLE "${runtimeRole}"`);
         }
       },
       async () => {
@@ -88,10 +105,10 @@ async function start() {
   );
   if (cancelled) return;
   const env = { ...local, ...process.env };
-  const database = localConnection(env.DATABASE_URL, [
-    'postgres:',
-    'postgresql:',
-  ]);
+  const database = localConnection(
+    env.MIGRATION_DATABASE_URL || env.DATABASE_URL,
+    ['postgres:', 'postgresql:'],
+  );
   const mongo = localConnection(env.MONGODB_URI, ['mongodb:']);
   // Every module receives the exact owned namespace. Broader application tests
   // can store real source evidence here; teardown also drops this private database.
@@ -118,6 +135,7 @@ async function start() {
     throw Error('Fixture schema isolation failed.');
   Object.assign(process.env, env, {
     DATABASE_URL: database.href,
+    MIGRATION_DATABASE_URL: database.href,
     MONGODB_URI: mongo.href,
     API_HOST: '127.0.0.1',
     API_PORT: '4100',
@@ -127,6 +145,21 @@ async function start() {
   await import('../../../apps/api/dist/migrate.js');
   if (process.exitCode) throw Error('Fixture migration failed.');
   if (cancelled) return;
+  if (env.F360_TEST_LEAST_PRIVILEGE === '1') {
+    const { provisionRuntimeRole } =
+      await import('../../../apps/api/dist/database-roles.js');
+    const runtime = new URL(database.href),
+      name = `f360_app_${randomUUID().replaceAll('-', '')}`;
+    runtime.username = name;
+    runtime.password = randomBytes(32).toString('hex');
+    await provisionRuntimeRole(database.href, runtime.href, true);
+    runtimeRole = name;
+    runtimeDatabaseUrl = runtime.href;
+    process.env.DATABASE_URL = runtime.href;
+  }
+  delete process.env.MIGRATION_DATABASE_URL;
+  delete process.env.POSTGRES_USER;
+  delete process.env.POSTGRES_PASSWORD;
   const { readConfig } = await import('../../../apps/api/dist/config.js');
   const { createApp } = await import('../../../apps/api/dist/app.js');
   app = await createApp(readConfig(process.env));
@@ -148,6 +181,7 @@ async function start() {
       apiOrigin: await app.getUrl(),
       databaseUrl: database.href,
       schema,
+      ...(runtimeDatabaseUrl ? { runtimeDatabaseUrl, runtimeRole } : {}),
     });
 }
 startup = start();
@@ -155,7 +189,7 @@ void startup.catch(() => {
   // Driver errors can contain credentials; expose only actionable safe context.
   notify({
     error:
-      'Feedback fixture setup failed. Run pnpm build; ensure .env has loopback databases, an operator key and CREATE SCHEMA permission. Existing app data was not reset.',
+      'Feedback fixture setup failed. User must build the API; check loopback owner credentials (MIGRATION_DATABASE_URL or legacy DATABASE_URL), operator key and CREATE SCHEMA permission. Least-privilege cases also need safe schema grants and CREATE ROLE authority. Existing app data was not reset.',
   });
   void stop(1);
 });

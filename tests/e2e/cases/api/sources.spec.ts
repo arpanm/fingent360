@@ -1,13 +1,14 @@
 import { randomUUID } from 'node:crypto';
-import { test, expect } from '@playwright/test';
+import { test, expect } from '../../helpers/source-fixture';
 import {
   SourceListSchema,
   SourceRecordSchema,
 } from '../../../../packages/contracts/src/index';
 import { operatorKey } from '../../helpers/operator';
 test.use({ trace: 'off', video: 'off', screenshot: 'off' });
-test('E2E-API-070 registry revisions, publication and authorization @SOURCES-001', async ({
+test('E2E-API-070 registry revisions, publication and authorization @SOURCES-001 @LEGACY-FIXTURE-ISOLATION-001', async ({
   request,
+  sourceDatabase,
 }) => {
   const headers = {
     Origin: process.env.E2E_WEB_URL || 'http://localhost:5173',
@@ -47,6 +48,14 @@ test('E2E-API-070 registry revisions, publication and authorization @SOURCES-001
   const created = await request.post('/api/v1/sources', { headers, data });
   expect(created.status(), await created.text()).toBe(201);
   const source = SourceRecordSchema.parse(await created.json());
+  expect(
+    (
+      await sourceDatabase.query(
+        'SELECT revision FROM research_sources WHERE id=$1',
+        [source.id],
+      )
+    ).rows,
+  ).toEqual([{ revision: 1 }]);
   expect(
     SourceListSchema.parse(
       await (await request.get('/api/v1/sources')).json(),
@@ -106,4 +115,16 @@ test('E2E-API-070 registry revisions, publication and authorization @SOURCES-001
       await (await request.get('/api/v1/sources')).json(),
     ).some((s) => s.id === source.id),
   ).toBe(false);
+  expect(
+    (
+      await sourceDatabase.query<{ revision: number; data: unknown }>(
+        'SELECT revision,data FROM research_source_revisions WHERE source_id=$1 ORDER BY revision',
+        [source.id],
+      )
+    ).rows,
+  ).toEqual([
+    { revision: 1, data },
+    { revision: 2, data: published },
+    { revision: 3, data },
+  ]);
 });

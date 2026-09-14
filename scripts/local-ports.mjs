@@ -92,21 +92,37 @@ export function run(command, args, env = process.env) {
 }
 export function databaseUrls(env, postgresPort, mongoPort) {
   const pg = new URL(env.DATABASE_URL);
+  const owner = env.MIGRATION_DATABASE_URL
+    ? new URL(env.MIGRATION_DATABASE_URL)
+    : null;
   const mongo = new URL(env.MONGODB_URI);
   if (
-    ![pg.hostname, mongo.hostname].every((host) =>
-      ['localhost', '127.0.0.1'].includes(host),
+    ![pg.hostname, mongo.hostname, ...(owner ? [owner.hostname] : [])].every(
+      (host) => ['localhost', '127.0.0.1'].includes(host),
     )
   )
     throw new Error(
       'Local Compose requires loopback database URLs; remote URLs were not changed.',
     );
+  if (
+    owner &&
+    (!['postgres:', 'postgresql:'].includes(owner.protocol) ||
+      owner.hostname !== pg.hostname ||
+      (owner.port || '5432') !== (pg.port || '5432') ||
+      owner.pathname !== pg.pathname ||
+      owner.searchParams.get('options') !== pg.searchParams.get('options'))
+  )
+    throw new Error(
+      'Migration and runtime URLs must identify the same local database/schema before ports are changed.',
+    );
   pg.port = String(postgresPort);
+  if (owner) owner.port = String(postgresPort);
   mongo.port = String(mongoPort);
   return {
     POSTGRES_PORT: String(postgresPort),
     MONGO_PORT: String(mongoPort),
     DATABASE_URL: pg.href,
+    ...(owner ? { MIGRATION_DATABASE_URL: owner.href } : {}),
     MONGODB_URI: mongo.href,
   };
 }

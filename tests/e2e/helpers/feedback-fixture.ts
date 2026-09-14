@@ -5,14 +5,18 @@ export interface FeedbackSandbox {
   apiOrigin: string;
   databaseUrl: string;
   schema: string;
+  runtimeDatabaseUrl?: string;
+  runtimeRole?: string;
 }
 export const test = base.extend<{
   feedbackSandbox: FeedbackSandbox;
   manualWorkers: boolean;
+  leastPrivilege: boolean;
 }>({
   manualWorkers: [false, { option: true }],
+  leastPrivilege: [false, { option: true }],
   feedbackSandbox: [
-    async ({ manualWorkers }, use, testInfo) => {
+    async ({ manualWorkers, leastPrivilege }, use, testInfo) => {
       const child = fork(
         new URL('./feedback-api-process.mjs', import.meta.url),
         [],
@@ -23,6 +27,7 @@ export const test = base.extend<{
             ...process.env,
             E2E_WEB_URL: process.env.E2E_WEB_URL,
             F360_TEST_MANUAL_WORKERS: manualWorkers ? '1' : '0',
+            F360_TEST_LEAST_PRIVILEGE: leastPrivilege ? '1' : '0',
           },
         },
       );

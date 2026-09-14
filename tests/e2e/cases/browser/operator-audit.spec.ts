@@ -350,7 +350,7 @@ test('E2E-WEB-484 real401 clears audit and parent publication reads before their
     await route.fulfill({ response });
   });
   await page.route(pattern, auditRoutes.handler);
-  await page.route('**/api/v1/ops/discovery/items', publicationRoutes.handler);
+  await page.route('**/api/v1/ops/discovery/queue', publicationRoutes.handler);
   const pool = await auditDatabase(feedbackSandbox);
   try {
     await signInAudit(page);
@@ -393,7 +393,7 @@ test('E2E-WEB-484 real401 clears audit and parent publication reads before their
     try {
       await Promise.all([
         auditRoutes.close(page, pattern),
-        publicationRoutes.close(page, '**/api/v1/ops/discovery/items'),
+        publicationRoutes.close(page, '**/api/v1/ops/discovery/queue'),
       ]);
     } finally {
       await pool.end();

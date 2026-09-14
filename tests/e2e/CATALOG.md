@@ -1,5 +1,25 @@
 # End-to-end case catalogue
 
+DOMAIN-CONTRACTS-002 is a reusable contract-only task: 13 golden unit groups now cover all seven DEV003 categories and exact chronology/reconstruction/refusal invariants. No API/UI/table is manufactured for these schemas. DELIVERY-RECONCILE-002 includes manual request-register acceptance and separate recorded local DB activation, not an E2E pass.
+
+## DB-LEAST-PRIVILEGE-001 — separate runtime and migration ownership
+
+API586 cleanup guards are in a helper outside finally; its observer/module/promise boundaries are explicitly typed. Ownership refusal, cancellation assertions and unconditional connection closure are retained, with user validation pending.
+
+API580–586 run an actual isolated API with a newly provisioned runtime role: account/goal/holdings/source DML and immutable history, denied persistent DDL/TRUNCATE/role escalation/ledger writes, owner migration and default grants, repeat/credential/refusal behavior, failed migration rollback and exact owned provisioning cancellation. Four units cover URL validation, legacy/explicit owner configuration, port preservation and runtime environment stripping. These seven API cases require owner CREATE ROLE/SCHEMA authority; no production role or shared PUBLIC grant is changed. No new UI/offline behavior. All execution remains pending.
+
+## PUBLISHING-QUEUE-001 — current publication heads
+
+API560–567 cover bounded real stored heads, strict filters/cursors, microsecond traversal, changed heads, final session/expiry waits, storage recovery and dated bundled provenance. WEB560–565 cover pages/filter/keyboard/mobile, failed-page retry, exact review conflict and durable receipt, late200/401 and new-session protection. OFFLINE550 retains connected-only/no-network behavior. Eight API and six desktop/mobile cases mean 20 connected selections, plus one offline case and three contract units. WEB484 and WEB521 now observe the queue; WEB501 retries queue failure then reopens the durable BEA staging history. API567 covers combined filters across pages and actual index validity; migration036 adds queue access paths. WEB562 now checks focus after a saved review removes its trigger. All new/corrected cases await user execution.
+
+## BEA-QUARANTINE-001 — actual retained response recovery
+
+API500–506: verified captured response, actual validation/concurrent stage replay, invalid/altered evidence, changed heads, real gate wait/expiry401, actual draft commit followed by finalization failure, fatal UTF8/interrupted streams and31-receipt history pagination. WEB500–503: protected evidence/Back, validation/stage/history/reload, initial draft rollback then recovery, saved receipt with failed Publishing refresh/retry, exact lost-response replay, immediate and delayed actual401 after Back. OFFLINE510: connected-only notice/noAPI. Tag selects15 connected instances and1offline; execution is recorded in status. Private automatic traces/video/screenshots are disabled where operator keys enter the fixture; explicit controlled layout artifacts are separate.
+
+## SOURCE-REVIEW-DIFF-001 — actual prior-public-state comparison
+
+API460–462 cover original retained evidence, absent/prior published/prior withdrawn baseline, skipped intermediate drafts, exact head conflicts, strict input, unchanged originals and actual source-lock expiry401. WEB460–464 cover review/evidence/Back, concurrent changes/reload/saved receipt, open-reader401, delayed real200 after Close and delayed real401 after Close and stale401 after a new real sign-in. OFFLINE470 covers connected-only UI/noAPI. WEB321 preserves BEA publication/withdrawal with explicit saved receipt closure. One contract unit checks differences agree with originals. Tag selects13 connected instances plus1offline; execution in development status.
+
 ## OPS-AUDIT-001 — protected request audit browser
 
 API480–487 cover actual successful/invalid source request records, strict filters/tampered cursors,115-row microsecond/UUID pages, safe unknown-action projection, audit/final-session waits with real401, storage recovery and immutable unchanged records/goals. WEB480–486 cover keyboard/filter/pages/Back/mobile capture, actual request/reset, initial/later failure and invalid-filter recovery, late successful/invalid payloads, real401 and sign-out privacy, and delayed401 after Back clearing parent publications. OFFLINE490 checks connected-only UI/direct local denial, unchanged owned goal and zero API traffic. Four contract units verify projection/order/bounds.
@@ -462,3 +482,9 @@ Source-withdrawal parent verification:27/27 connected withdrawal/media execution
 READING-FOLLOW-001 verification:25/25 connected and10/10 selected packaged offline scenarios passed; final Saved-navigation reruns passed2/2 connected and2/2 offline. See development status for exact runs, corrections and separate physical-device acceptance.
 
 OPS-AUDIT-001 has passing evidence for all34 selected connected scenarios across the initial run and corrected four-case rerun, plus packaged offline acceptance. See development status for run identities, gate counts and separate hardware/production limits.
+
+SDLC-004 manual acceptance: repository instructions consistently assign deterministic format/check/build/migration/E2E work to the user. Existing pnpm sdlc accepts a message and optional Playwright filters after --, commits only after format/check, stops on failure and never pushes. No runner change or new execution-based test is needed for this instruction-only correction. Current SourceReview final offline correction and BEA recovery cases are authored/unverified; historical passes do not validate the entire current working tree.
+
+OPS-READ-ADMISSION-001: API520–523 cover four actual legacy stored reads with exact table wait/expiry/revocation, nonempty original/account/public preservation. WEB520–522 cover actual Publishing/registry wait denial, recovery and held200 after sign-out; OFFLINE530 covers noAPI/server-only UI. Tag @OPS-READ-ADMISSION-001 selects10 connected instances and1offline; authored/unexecuted.
+
+LEGACY-FIXTURE-ISOLATION-001: stable API070/WEB070/WEB181 additionally tagged for five focused connected selections. Real source creation/publication/conflict/history, registry UI/reload/sign-out and fixed glossary ingestion now use actual owned storage and assert normal source digests unchanged. No successful response mocks or new test IDs; not executed by agents.

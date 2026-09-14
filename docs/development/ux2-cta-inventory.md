@@ -120,3 +120,13 @@ Saved/More → Reading updates → choose sources/topics → consent → review/
 ## Operator audit activity
 
 Operations → Audit activity → fixed filters → Apply → Older entries → exact failed-page Retry or Reset for new boundary → Open relevant module/Back. Recorded requests are visibly distinct from completion receipts. Invalid drafts cannot retry older filters invisibly. Real401 after Back clears protected parent state; delayed success/sign-out cannot restore it. WEB480–486/OFFLINE490 cover keyboard/mobile, pages, recovery and connected-only device mode.
+
+## Source comparison review
+
+Operations → Publishing → Review → compare current/prior public state → retained evidence → Back → review note → Publish/Withdraw → saved dated receipt → Close. Stale head → Reload current review → inspect again; protected401 → sign-in, with no stale restoration after Close. WEB460–464/OFFLINE470 cover transitions and device boundary.
+
+## BEA retained-response recovery
+
+Operations → BEA recovery → attempt → original evidence → Back → revalidate stored response → candidate changes → stage drafts → saved receipt → Open staged drafts → Publishing review. History → prior validation/staging receipt; failed reads Retry, uncertain actions identical Retry, changed heads revalidate, expired session sign-in. Connected-only device notice makes no network request. WEB500–503/OFFLINE510 cover the actual transitions.
+
+OPS-READ-ADMISSION-001 reuses Publishing/Source registry → protected read → expired-session sign-in → reload, with late-result invalidation. No new CTA or stored dataset. WEB520–522 and OFFLINE530 are authored, not executed.

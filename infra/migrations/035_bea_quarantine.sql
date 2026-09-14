@@ -1,0 +1,11 @@
+CREATE TABLE bea_ingestion_attempts(id uuid PRIMARY KEY,source_run_id uuid NOT NULL UNIQUE REFERENCES discovery_source_runs(id),started_at timestamptz NOT NULL DEFAULT clock_timestamp());
+CREATE TABLE bea_ingestion_events(sequence bigserial UNIQUE NOT NULL,id uuid PRIMARY KEY,attempt_id uuid NOT NULL REFERENCES bea_ingestion_attempts(id),at timestamptz NOT NULL DEFAULT clock_timestamp(),payload jsonb NOT NULL);
+CREATE INDEX bea_attempt_events ON bea_ingestion_events(attempt_id,at,id);
+CREATE TABLE bea_revalidations(id uuid PRIMARY KEY,attempt_id uuid NOT NULL REFERENCES bea_ingestion_attempts(id),payload jsonb NOT NULL);
+CREATE TABLE bea_staging_receipts(id uuid PRIMARY KEY,validation_id uuid NOT NULL UNIQUE REFERENCES bea_revalidations(id),input jsonb NOT NULL,payload jsonb NOT NULL);
+CREATE TABLE bea_staging_gate(id integer PRIMARY KEY CHECK(id=1));
+INSERT INTO bea_staging_gate VALUES(1);
+CREATE TRIGGER bea_attempts_immutable BEFORE UPDATE OR DELETE ON bea_ingestion_attempts FOR EACH ROW EXECUTE FUNCTION prevent_discovery_revision_mutation();
+CREATE TRIGGER bea_events_immutable BEFORE UPDATE OR DELETE ON bea_ingestion_events FOR EACH ROW EXECUTE FUNCTION prevent_discovery_revision_mutation();
+CREATE TRIGGER bea_validations_immutable BEFORE UPDATE OR DELETE ON bea_revalidations FOR EACH ROW EXECUTE FUNCTION prevent_discovery_revision_mutation();
+CREATE TRIGGER bea_stages_immutable BEFORE UPDATE OR DELETE ON bea_staging_receipts FOR EACH ROW EXECUTE FUNCTION prevent_discovery_revision_mutation();

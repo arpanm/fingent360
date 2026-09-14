@@ -8,7 +8,6 @@ import {
   type ResearchCatalog,
   type MediaAsset,
   OperatorSessionSchema,
-  DiscoveryOperationsSchema,
   FeedItemSchema,
   MacroDashboardSchema,
   MacroRunSchema,
@@ -27,7 +26,10 @@ import { SecurityOperations } from './Securities';
 import { RetentionOperations } from './RetentionOperations';
 import { WorkerHealth } from './WorkerHealth';
 import { OperatorAudit } from './OperatorAudit';
+import { PublishingQueue } from './PublishingQueue';
 class StaleOperationsRead extends Error {}
+import { SourceReview } from './SourceReview';
+import { BeaQuarantine } from './BeaQuarantine';
 const blank: SourceInput = {
   name: '',
   category: '',
@@ -47,9 +49,8 @@ export function Operations() {
     [error, setError] = useState(''),
     [notice, setNotice] = useState('');
   const [tab, setTab] = useState('news');
-  const [items, setItems] = useState<FeedItem[]>([]),
-    [review, setReview] = useState<FeedItem | null>(null),
-    [note, setNote] = useState('');
+  const [queueRefresh, setQueueRefresh] = useState(0),
+    [review, setReview] = useState<FeedItem | null>(null);
   const [latest, setLatest] = useState('');
   const [retained, setRetained] = useState<{
     title: string;
@@ -60,11 +61,10 @@ export function Operations() {
     live = useRef(true),
     sessionEnded = useRef(false);
   const clearProtected = useCallback(() => {
-    setItems([]);
+    setQueueRefresh((value) => value + 1);
     setRetained(null);
     setReview(null);
     setMedia(null);
-    setNote('');
     setLatest('');
     setNotice('');
     setKey('');
@@ -91,26 +91,15 @@ export function Operations() {
         throw new StaleOperationsRead();
       return value;
     } catch (cause) {
-      if (
-        live.current &&
-        ticket === sessionGeneration.current &&
-        cause instanceof RequestError &&
-        cause.status === 401
-      )
+      if (!live.current || ticket !== sessionGeneration.current)
+        throw new StaleOperationsRead();
+      if (cause instanceof RequestError && cause.status === 401)
         sessionExpired();
       throw cause;
     }
   }
   const load = async () => {
-    const value = DiscoveryOperationsSchema.parse(
-      await request('/ops/discovery/items'),
-    );
-    setItems(value.items);
-    setLatest(
-      value.latestRun
-        ? `${value.latestRun.status}: ${value.latestRun.message}`
-        : 'No discovery refresh yet.',
-    );
+    setQueueRefresh((value) => value + 1);
   };
   useEffect(() => {
     let active = true;
@@ -264,6 +253,7 @@ export function Operations() {
             >
               {[
                 ['news', 'Publishing'],
+                ['bea-recovery', 'BEA recovery'],
                 ['macro', 'Macro ingestion'],
                 ['sources', 'Source registry'],
                 ['feedback', 'Feedback inbox'],
@@ -297,8 +287,11 @@ export function Operations() {
                   template. Each source edition is prepared once; publication
                   still requires your review.
                 </p>
-                <div className="ops-items">
-                  {items.map((item) => (
+                <PublishingQueue
+                  request={request}
+                  refreshKey={queueRefresh}
+                  onLatestRun={setLatest}
+                  renderItem={(item) => (
                     <article className="panel" key={item.id}>
                       <span className="eyebrow">
                         {item.kind} · {item.status} · v{item.version}
@@ -365,7 +358,6 @@ export function Operations() {
                         disabled={busy}
                         onClick={() => {
                           setReview(item);
-                          setNote('');
                         }}
                       >
                         Review {item.title}
@@ -392,8 +384,8 @@ export function Operations() {
                         </button>
                       )}
                     </article>
-                  ))}
-                </div>
+                  )}
+                />
               </>
             ) : tab === 'audit' ? (
               <OperatorAudit
@@ -401,6 +393,16 @@ export function Operations() {
                 onUnauthorized={sessionExpired}
                 onBack={() => setTab('news')}
                 onSection={setTab}
+              />
+            ) : tab === 'bea-recovery' ? (
+              <BeaQuarantine
+                request={request}
+                onReview={async () => {
+                  await load();
+                  setTab('news');
+                }}
+                onBack={() => setTab('news')}
+                onUnauthorized={sessionExpired}
               />
             ) : tab === 'macro' ? (
               <MacroOperations action={action} busy={busy} />
@@ -498,74 +500,38 @@ export function Operations() {
           </Dialog>
         )}
         {authenticated && review && (
-          <Dialog title="Review publication" onClose={() => setReview(null)}>
-            <p className="eyebrow">
-              {review.kind} · VERSION {review.version}
-            </p>
-            <h3>{review.title}</h3>
-            <p>{review.body}</p>
-            <p>{review.effectiveLabel}</p>
-            <a href={review.source.url} target="_blank" rel="noreferrer">
-              Inspect original source
-            </a>
-            <p>{review.source.rights}</p>
-            <label>
-              Review note
-              <textarea
-                required
-                value={note}
-                onChange={(e) => setNote(e.target.value)}
-              />
-            </label>
-            {error && <p role="alert">{error}</p>}
-            <div className="page-actions">
-              <button
-                disabled={busy || !note.trim()}
-                onClick={() =>
-                  void action(async () => {
-                    FeedItemSchema.parse(
-                      await request(
-                        `/ops/discovery/items/${review.id}`,
-                        {
-                          expectedVersion: review.version,
-                          status: 'published',
-                          correctionNote: note,
-                        },
-                        'PUT',
-                      ),
-                    );
-                    await load();
-                    setReview(null);
-                    setNotice('Reviewed edition published.');
-                  })
-                }
-              >
-                Publish reviewed edition
-              </button>
-              <button
-                className="secondary"
-                disabled={busy || !note.trim()}
-                onClick={() =>
-                  void action(async () => {
-                    await request(
-                      `/ops/discovery/items/${review.id}`,
-                      {
-                        expectedVersion: review.version,
-                        status: 'withdrawn',
-                        correctionNote: note,
-                      },
-                      'PUT',
-                    );
-                    await load();
-                    setReview(null);
-                    setNotice('Item withdrawn from discovery.');
-                  })
-                }
-              >
-                Withdraw item
-              </button>
-            </div>
-          </Dialog>
+          <SourceReview
+            key={`${review.id}:${review.version}`}
+            id={review.id}
+            version={review.version}
+            request={request}
+            onClose={() => {
+              setReview(null);
+              requestAnimationFrame(() => {
+                if (
+                  !document.querySelector('dialog[open]') &&
+                  (!document.activeElement ||
+                    document.activeElement === document.body)
+                )
+                  document.getElementById('publishing-queue-heading')?.focus();
+              });
+            }}
+            onDenied={sessionExpired}
+            onSaved={() => {
+              void load().catch((e: unknown) => {
+                if (
+                  live.current &&
+                  !sessionEnded.current &&
+                  !(e instanceof StaleOperationsRead)
+                )
+                  setError(
+                    e instanceof Error
+                      ? e.message
+                      : 'Saved; reload the publications list.',
+                  );
+              });
+            }}
+          />
         )}
       </main>
     </div>

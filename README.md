@@ -1,5 +1,39 @@
 # Fingent360
 
+Latest SDLC correction: API586 now uses the typed owned-database helper and a typed lazy provisioning module, with a definite promise for its assertion and an optional teardown reference. The prior lint correction remains intact. Rerun your previous `pnpm sdlc` command; validation and commit remain user-run.
+
+The three audited delivery items are implemented in the working tree. Local database owner/runtime separation is now enabled, migrations035/036 are applied, and the API is running with the runtime role on4103 (web5175). Operational readiness returned200. Format/check/E2E and the gated commit remain user-run; this is not a claim of full test or production acceptance. [Current activation and exact next command](docs/development/local-database-activation.md). Installed APKs do not update until rebuilt/reinstalled.
+
+## Ad hoc requests and roadmap status
+
+The [session request register](docs/development/session-request-register.md) maps all visible requests to stable TODO tasks, implementation evidence and remaining scope. Missing ASSIST-001 and MEDIA-001 tracker entries are restored. Inaccessible shared-chat content is not claimed as reviewed.
+
+## Roadmap status audit
+
+[TODO.md](TODO.md) now separates **Implemented** work from **Partial** parents with named remaining acceptance. Implementation does not imply validation or a commit. Accounts, the initial ingestion framework, PWA and current product/security specifications are credited; unfinished event/company analysis, platform-specific imports and policy work remain visible. [Evidence and exact remaining gaps](docs/development/roadmap-gaps.md) records the audit without treating synthetic lessons as completed real-data features.
+
+Reusable domain contracts now cover versioned events/evidence edges, exact reconciled lots, explicit profile inputs and education-only results. Their golden cases do not publish synthetic data or implement the remaining event/policy screens. [Contract scope](docs/product/domain-contracts.md).
+
+## Separate database runtime access
+
+`MIGRATION_DATABASE_URL` now keeps schema ownership separate from the API’s `DATABASE_URL`. The manual `pnpm db:roles` preview and `pnpm db:roles --apply` provision a distinct runtime role; migrations preserve its bounded table/sequence grants and read-only ledger. Legacy single-URL installations remain compatible; this machine now uses separated credentials. Local setup was explicitly authorized and completed: the API now uses the dedicated role; the private .env retains separate migration-owner credentials. [Private configuration and manual steps](docs/development/database-least-privilege-handoff.md).
+
+## Publishing review queue
+
+Operations → Publishing now shows 20 current heads per page, newest changed edition first, with source/status/text filters, Previous/Next, Reset and Retry. Review retains the existing evidence, exact-version conflict checks and saved decision receipt. Pages are a current queue, not a frozen snapshot; reset to find newly changed heads. [Specification and manual acceptance](docs/development/publishing-queue-handoff.md).
+
+## Recover retained BEA responses — BEA-QUARANTINE-001
+
+**Operations → BEA recovery** lists linked ingestion attempts and their actual retained/parsed/staged/failed events. Inspect verified original evidence, explicitly revalidate those stored bytes, review candidates against current heads, then stage drafts and open Publishing review. Revalidation makes no provider request and staging never publishes automatically. Historical receipts survive uncertain replies, list failures and reloads; changed heads require another review.
+
+New normal BEA refreshes link only complete, verified Mongo responses to immutable PostgreSQL attempts. A staged event commits with its drafts, so a later run-finalization failure cannot hide the committed outcome. Missing, altered, incomplete or legacy unlinked evidence is unavailable for recovery. Migration035 adds attempts/events/validation/staging receipts and bounded staging admission. Existing fixed official source, parser and rights boundaries are reused. Operations remains connected-only in device mode. [Specification](docs/product/bea-quarantine.md), [verification](docs/development/status.md).
+
+## Review source changes — SOURCE-REVIEW-DIFF-001
+
+**Operations → Publishing → Review** compares the current head with its nearest earlier published or withdrawn edition. It shows exact field differences, states, dates and retained evidence before an explicit publication or withdrawal. Intermediate drafts are not mistaken for public predecessors. A changed head requires Reload and another review; successful decisions retain a dated saved receipt. Back/Escape and expired sessions clear protected content safely.
+
+This reuses actual stored editions and the existing immutable publication workflow: no new provider call, dataset, migration or dependency. Device Operations remains connected-only with zero outgoing API requests. [Specification](docs/product/source-review-diff.md), [verification](docs/development/status.md). Named roles, independent second review and production source approval remain separate.
+
 ## Operator activity history — OPS-AUDIT-001
 
 **Operations → Audit activity** shows recorded requests and specific existing cleanup events with UTC filters and50-row pages. Request entries show that an action was requested; they do not prove it completed. Use the relevant module's saved results to inspect completion. Actor/session hashes, raw targets, credentials and private request bodies are excluded.
@@ -224,7 +258,7 @@ pnpm sdlc "Describe the change" -- --project=api
 pnpm e2e:ui
 ```
 
-The SDLC command runs **format → check → stage/commit → E2E**, stops on failure and never pushes. Format and check must pass before any commit. It stages all nonignored changes, so inspect scope first; it does not apply migrations or start the app. E2E failure leaves the earlier gated commit in place. Codex leaves changes awaiting user-run gates when execution is not authorized; the ongoing UX correction has explicit parent-controlled testing authorization.
+The SDLC command runs **format → check → stage/commit → E2E**, stops on failure and never pushes. Format and check must pass before any commit. It stages all nonignored changes, so inspect scope first; it does not apply migrations or start the app. E2E failure leaves the earlier gated commit in place. Codex authors the complete change and leaves it awaiting the user-run `pnpm sdlc` workflow. The latest instruction revokes the earlier testing override: agents do not run format/check/build/E2E/migrations or invoke `pnpm sdlc`.
 
 `pnpm format` rewrites formatting. `pnpm check` checks formatting/lint/types, builds and runs unit tests; it type-checks E2E definitions but does not execute browser cases. The test UI starts at the printed available port, initially 9323. Select cases/projects and click Run with watch/eye mode off. macOS defaults to installed Google Chrome; choose E2E_BROWSER=chromium for manually installed managed Chromium or E2E_BROWSER=chrome explicitly. Run pnpm e2e:install only when managed Chromium is needed. Real-source cases require external provider connectivity and the configured research key.
 
@@ -1711,3 +1745,7 @@ Restored a missing closing brace in AccountStore. If formatting/checks previousl
 READING-FOLLOW-001 verification:25/25 connected and10/10 selected packaged offline scenarios passed; final Saved-navigation reruns passed2/2 connected and2/2 offline. See development status for exact runs, corrections and separate physical-device acceptance.
 
 OPS-AUDIT-001 has passing evidence for all34 selected connected scenarios across the initial run and corrected four-case rerun, plus packaged offline acceptance. See development status for run identities, gate counts and separate hardware/production limits.
+
+Protected legacy Operations reads now recheck the current session after waiting for stored results. Publishing items/runs and source registry list/history keep existing data and UI, while expired or revoked sessions must sign in again. API520–523, WEB520–522 and OFFLINE530 are authored; user-run validation is pending. No additional migration or dependency. See docs/product/ops-read-admission.md.
+
+API070, WEB070 and WEB181 now use owned test storage, preserving normal source data with read-only before/after digests. Their existing IDs/assertions remain, with tag @LEGACY-FIXTURE-ISOLATION-001 for five connected selections. This bounded cleanup is authored/unverified and does not claim the entire suite is isolated; see docs/development/legacy-fixture-isolation-handoff.md for remaining cases.

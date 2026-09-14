@@ -52,3 +52,37 @@ button.report-delete-confirm {
 button.report-delete-confirm:hover {
   background: #7d271f;
 }
+
+.report-source-receipt {
+  display: grid;
+  grid-template-columns: minmax(7rem, 1fr) minmax(0, 3fr);
+  gap: 0.35rem 1rem;
+}
+.report-source-receipt dt {
+  font-weight: 600;
+}
+.report-source-receipt dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 420px) {
+  .report-source-receipt {
+    display: block;
+  }
+  .report-source-receipt dd {
+    margin-bottom: 0.75rem;
+  }
+}
+
+.report-card h2 + .report-actions {
+  margin-top: 1rem;
+}
+.report-technical-receipt {
+  margin-block: 0.75rem;
+}
+.report-technical-receipt summary {
+  cursor: pointer;
+  min-height: 44px;
+  display: list-item;
+  padding-block: 0.65rem;
+}

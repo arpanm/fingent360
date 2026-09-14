@@ -1,5 +1,14 @@
-import { useEffect, useRef, useState, type FormEvent } from 'react';
 import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type FormEvent,
+} from 'react';
+import {
+  ReportRequestSchema,
+  type ReportRequest,
+  type ResearchConnectionView,
   ReportDeletionSchema,
   ReportJobsSchema,
   ReportJobSchema,
@@ -8,32 +17,16 @@ import {
 } from '@fingent360/contracts';
 import { AccountGate } from './AccountGate';
 import { Dialog } from './Dialog';
+import {
+  ReportResearchSelection,
+  ReportResearchReview,
+  IssuedReportResearch,
+} from './ReportResearch';
+import { useDraftGuard } from './useDraftGuard';
 import { money } from './ui';
-import { saveDownload } from './runtime';
+import { saveDownload, runtime } from './runtime';
+import { ReportSignedOut, reportRequest as request } from './report-request';
 import './reports.css';
-async function request(path = '', body?: unknown, method = 'POST') {
-  const response = await fetch(`/api/v1/account/reports${path}`, {
-    credentials: 'include',
-    signal: AbortSignal.timeout(15000),
-    ...(body === undefined
-      ? {}
-      : {
-          method,
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(body),
-        }),
-  });
-  const data: unknown = await response.json();
-  if (!response.ok)
-    throw Error(
-      response.status === 401
-        ? 'Sign in to view your private record reports.'
-        : typeof data === 'object' && data && 'message' in data
-          ? String(data.message)
-          : 'Unable to load reports. Try again.',
-    );
-  return data;
-}
 export function Reports() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -45,12 +38,23 @@ export function Reports() {
   const [message, setMessage] = useState('');
   const [deleting, setDeleting] = useState<ReportJob | null>(null);
   const [deleteError, setDeleteError] = useState('');
+  const [includeResearch, setIncludeResearch] = useState(false);
+  const [research, setResearch] = useState<ResearchConnectionView[]>([]);
+  const [reviewing, setReviewing] = useState(false);
+  const [captureError, setCaptureError] = useState('');
+  const [printMessage, setPrintMessage] = useState('');
+  const issuedRef = useRef<HTMLElement>(null);
+  useDraftGuard(
+    includeResearch && (research.length > 0 || consent),
+    'Leave and discard this unsaved report selection?',
+  );
+  const authDenied = useRef(false);
   const sequence = useRef(0);
   const accepted = useRef(0);
   // A later pending read must not starve a usable earlier response. Only a
   // response already applied, or a completed mutation, supersedes older reads.
   function acceptRead(ticket: number) {
-    if (ticket < accepted.current) return false;
+    if (authDenied.current || ticket < accepted.current) return false;
     accepted.current = ticket;
     return true;
   }
@@ -60,8 +64,30 @@ export function Reports() {
 
   const deleted = useRef(new Set<string>());
   const [selected, setSelected] = useState<string | null>(null);
-  const pending = useRef<{ id: string; label: string } | null>(null);
+  const pending = useRef<ReportRequest | null>(null);
   const historyHeading = useRef<HTMLHeadingElement>(null);
+  const signOut = useCallback(() => {
+    authDenied.current = true;
+    accepted.current = ++sequence.current;
+    pending.current = null;
+    deleted.current.clear();
+    setGuest(true);
+    setJobs([]);
+    setSelected(null);
+    setDeleting(null);
+    setResearch([]);
+    setIncludeResearch(false);
+    setReviewing(false);
+    setConsent(false);
+    setLabel('My saved-record review');
+    setCaptureError('');
+    setDeleteError('');
+    setMessage('');
+    setPrintMessage('');
+    setError('');
+    setLoading(false);
+    setBusy(false);
+  }, []);
   function merge(incoming: ReportJob[], authoritative = false) {
     if (authoritative) {
       setSelected((current) =>
@@ -90,6 +116,7 @@ export function Reports() {
     );
   }
   async function load() {
+    if (authDenied.current) return;
     setError('');
     const ticket = ++sequence.current;
     try {
@@ -99,6 +126,10 @@ export function Reports() {
       merge(data.jobs, true);
       setGuest(false);
     } catch (error) {
+      if (error instanceof ReportSignedOut) {
+        signOut();
+        return;
+      }
       if (!acceptRead(ticket)) return;
       const text = (error as Error).message;
       setError(text);
@@ -110,7 +141,7 @@ export function Reports() {
   useEffect(() => {
     let live = true;
     const refresh = () => {
-      if (document.visibilityState === 'hidden') return;
+      if (authDenied.current || document.visibilityState === 'hidden') return;
       const ticket = ++sequence.current;
       void request()
         .then((data) => {
@@ -124,6 +155,10 @@ export function Reports() {
           }
         })
         .catch((error) => {
+          if (live && error instanceof ReportSignedOut) {
+            signOut();
+            return;
+          }
           if (live && acceptRead(ticket)) {
             const text = (error as Error).message;
             setError(text);
@@ -138,41 +173,131 @@ export function Reports() {
       live = false;
       clearInterval(timer);
     };
-  }, []);
+  }, [signOut]);
   async function create(event: FormEvent) {
     event.preventDefault();
+    if (includeResearch && !pending.current) {
+      setReviewing(true);
+      return;
+    }
+    await capture();
+  }
+  async function capture() {
     setBusy(true);
+    setCaptureError('');
     try {
       if (!pending.current)
-        pending.current = { id: crypto.randomUUID(), label };
-      const job = ReportJobSchema.parse(
-        await request('', {
-          requestId: pending.current.id,
-          label: pending.current.label,
+        pending.current = ReportRequestSchema.parse({
+          requestId: crypto.randomUUID(),
+          label,
           consent,
-        }),
-      );
+          ...(includeResearch
+            ? {
+                researchConnections: research.map((row) => ({
+                  id: row.revision.id,
+                  version: row.revision.version,
+                })),
+              }
+            : {}),
+        });
+      const job = ReportJobSchema.parse(await request('', pending.current));
+      if (authDenied.current) return;
       invalidateReads();
       pending.current = null;
       merge([job]);
+      setReviewing(false);
+      setResearch([]);
+      setIncludeResearch(false);
+      setConsent(false);
       setMessage(
         'Snapshot stored. Preparation will resume while Reports is open.',
       );
     } catch (error) {
-      setMessage((error as Error).message);
+      if (error instanceof ReportSignedOut) {
+        signOut();
+        return;
+      }
+      if (!authDenied.current) {
+        setCaptureError((error as Error).message);
+        setMessage((error as Error).message);
+      }
     } finally {
       setBusy(false);
     }
+  }
+  function printableDocument() {
+    if (!issuedRef.current) return null;
+    const doc = document.implementation.createHTMLDocument(
+      'Private saved-record report',
+    );
+    const content = issuedRef.current.cloneNode(true) as HTMLElement;
+    content
+      .querySelectorAll('button, .report-actions, .report-print-message')
+      .forEach((node) => node.remove());
+    // DOM cloning preserves escaped personal text and only this immutable report.
+    content
+      .querySelectorAll('a')
+      .forEach((node) => node.replaceWith(node.textContent ?? ''));
+    // Export every retained receipt even when its on-screen disclosure is closed.
+    content.querySelectorAll('details').forEach((node) => {
+      node.open = true;
+    });
+    const style = doc.createElement('style');
+    style.textContent =
+      'body{font:14px system-ui;color:#111;margin:24px;line-height:1.5}h1,h2,h3,h4{break-after:avoid}article{break-inside:avoid;margin-block:18px}dd{overflow-wrap:anywhere}dl{margin:12px 0}dt{font-weight:bold}';
+    doc.head.appendChild(style);
+    doc.body.appendChild(content);
+    return doc;
+  }
+  async function savePrintCopy() {
+    const doc = printableDocument();
+    if (!doc) return;
+    try {
+      setPrintMessage(
+        await saveDownload(
+          new Blob(['<!doctype html>', doc.documentElement.outerHTML], {
+            type: 'text/html',
+          }),
+          `saved-record-review-${selected}.html`,
+          'Printable report downloaded. Open it in a browser to print or save a PDF.',
+        ),
+      );
+    } catch (error) {
+      setPrintMessage((error as Error).message);
+    }
+  }
+  function printReport() {
+    const doc = printableDocument();
+    if (!doc) return;
+    const view = window.open('', '_blank');
+    if (!view) {
+      setPrintMessage(
+        'Allow a print window and retry, or save the printable copy.',
+      );
+      return;
+    }
+    view.opener = null;
+    view.document.title = doc.title;
+    view.document.head.replaceChildren(...Array.from(doc.head.childNodes));
+    view.document.body.replaceChildren(...Array.from(doc.body.childNodes));
+    view.focus();
+    view.print();
   }
   async function act(job: ReportJob, action: 'cancel' | 'retry') {
     setBusy(true);
     try {
       await request(`/${job.id}/${action}`, { expectedVersion: job.version });
+      if (authDenied.current) return;
       await load();
       setMessage(
         action === 'cancel' ? 'Report cancelled.' : 'Retry requested.',
       );
     } catch (error) {
+      if (error instanceof ReportSignedOut) {
+        signOut();
+        return;
+      }
+      if (authDenied.current) return;
       setMessage((error as Error).message);
     } finally {
       setBusy(false);
@@ -191,6 +316,7 @@ export function Reports() {
           'DELETE',
         ),
       );
+      if (authDenied.current) return;
       deleted.current.add(receipt.id);
       invalidateReads();
       setJobs((old) => old.filter((j) => j.id !== receipt.id));
@@ -202,6 +328,11 @@ export function Reports() {
       await load();
       historyHeading.current?.focus({ preventScroll: true });
     } catch (error) {
+      if (error instanceof ReportSignedOut) {
+        signOut();
+        return;
+      }
+      if (authDenied.current) return;
       setDeleteError((error as Error).message);
     } finally {
       setBusy(false);
@@ -212,6 +343,7 @@ export function Reports() {
       const report = RecordReportSchema.parse(
         await request(`/${job.id}/download`),
       );
+      if (authDenied.current) return;
       setMessage(
         await saveDownload(
           new Blob([JSON.stringify(report, null, 2)], {
@@ -221,6 +353,11 @@ export function Reports() {
         ),
       );
     } catch (error) {
+      if (error instanceof ReportSignedOut) {
+        signOut();
+        return;
+      }
+      if (authDenied.current) return;
       setMessage((error as Error).message);
     }
   }
@@ -247,7 +384,8 @@ export function Reports() {
       </header>
       <p>
         <a href="#account?next=reports">Account and sign in</a> ·{' '}
-        <a href="#my-goals">Goals</a> · <a href="#holdings">Holdings</a>
+        <a href="#my-goals">Goals</a> · <a href="#holdings">Holdings</a> ·{' '}
+        <a href="#connections">Research connections</a>
       </p>
       {loading && <p role="status">Loading private reports…</p>}
       {error && (
@@ -273,15 +411,101 @@ export function Reports() {
         <label className="report-consent">
           <input
             type="checkbox"
+            checked={includeResearch}
+            disabled={busy || !!pending.current}
+            onChange={(event) => {
+              setIncludeResearch(event.target.checked);
+              setResearch([]);
+              setConsent(false);
+            }}
+          />
+          Include research connections in this report
+        </label>
+        {includeResearch && (
+          <ReportResearchSelection
+            selected={research}
+            onChange={setResearch}
+            onSignedOut={signOut}
+            disabled={busy || !!pending.current}
+          />
+        )}
+        <label className="report-consent">
+          <input
+            type="checkbox"
             checked={consent}
+            disabled={busy || !!pending.current}
             onChange={(event) => setConsent(event.target.checked)}
           />
-          Store a private snapshot of my saved goals, holdings and allocations.
+          Store a private snapshot of my saved goals, holdings and allocations
+          {includeResearch
+            ? ', including my selected research reasons and receipts'
+            : ''}
+          .
         </label>
-        <button disabled={busy || !consent || !label.trim()} type="submit">
-          {pending.current ? 'Retry same request' : 'Create record report'}
+        <button
+          disabled={
+            busy ||
+            !consent ||
+            !label.trim() ||
+            (includeResearch && !research.length)
+          }
+          type="submit"
+        >
+          {pending.current
+            ? 'Retry same request'
+            : includeResearch
+              ? 'Review report selection'
+              : 'Create record report'}
         </button>
       </form>
+      {pending.current && (
+        <button
+          className="secondary"
+          disabled={busy}
+          onClick={() => {
+            if (
+              confirm(
+                'The previous request may already be saved. Discard this retry and start a new report draft?',
+              )
+            ) {
+              pending.current = null;
+              setReviewing(false);
+              setResearch([]);
+              setMessage(
+                'Retry draft discarded. Check report history before creating another snapshot.',
+              );
+            }
+          }}
+        >
+          Discard report retry draft
+        </button>
+      )}
+      {reviewing && (
+        <Dialog
+          title="Review report selection"
+          onClose={() => {
+            if (!busy) setReviewing(false);
+          }}
+        >
+          <h3>{pending.current?.label ?? label}</h3>
+          <ReportResearchReview selected={research} />
+          {captureError && <p role="alert">{captureError}</p>}
+          <div className="report-actions">
+            <button disabled={busy} onClick={() => void capture()}>
+              {pending.current
+                ? 'Retry same request'
+                : 'Capture selected report'}
+            </button>
+            <button
+              className="secondary"
+              disabled={busy}
+              onClick={() => setReviewing(false)}
+            >
+              Back to report selection
+            </button>
+          </div>
+        </Dialog>
+      )}
       <p role="status" aria-label="Report status">
         {message}
       </p>
@@ -374,11 +598,33 @@ export function Reports() {
       )}
       {report && (
         <Dialog title="Issued record report" onClose={() => setSelected(null)}>
-          <section className="report-card" aria-label="Issued record report">
+          <section
+            ref={issuedRef}
+            className="report-card"
+            aria-label="Issued record report"
+          >
             <h2>{report.label}</h2>
             <div className="report-actions">
-              <button onClick={() => setSelected(null)}>Close report</button>
+              <button className="secondary" onClick={() => setSelected(null)}>
+                Close report
+              </button>
               <button
+                onClick={
+                  runtime.native ? () => void savePrintCopy() : printReport
+                }
+              >
+                {runtime.native ? 'Save report for printing' : 'Print report'}
+              </button>
+              {!runtime.native && (
+                <button
+                  className="secondary"
+                  onClick={() => void savePrintCopy()}
+                >
+                  Save printable copy
+                </button>
+              )}
+              <button
+                className="secondary"
                 onClick={() =>
                   void download(jobs.find((j) => j.id === selected)!)
                 }
@@ -386,10 +632,39 @@ export function Reports() {
                 Download this report
               </button>
             </div>
+            {printMessage && (
+              <p role="status" className="report-print-message">
+                {printMessage}
+              </p>
+            )}
+            {runtime.native && (
+              <p>
+                Save the printable HTML, then open it in a browser to print or
+                save a PDF.
+              </p>
+            )}
             <p>
               Captured {new Date(report.snapshot.capturedAt).toLocaleString()}.
               Issued {new Date(report.issuedAt).toLocaleString()}.
             </p>
+            <p>
+              Format{' '}
+              {report.policy === 'saved-record-review-v2'
+                ? 'v2 · includes selected research receipts'
+                : 'v1 · financial records'}
+              .
+            </p>
+            {report.policy === 'saved-record-review-v2' && (
+              <IssuedReportResearch
+                capture={report.snapshot.researchConnections}
+                onCheckCurrent={() => {
+                  setSelected(null);
+                  setTimeout(() => {
+                    window.location.hash = 'connections';
+                  }, 0);
+                }}
+              />
+            )}
             <h3>Contribution-only goal review</h3>
             {report.goalReviews.length ? (
               report.goalReviews.map((goal) => (

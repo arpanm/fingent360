@@ -1,4 +1,8 @@
 import {
+  reportSelections,
+  captureReportResearch,
+  ResearchConnectionsSchema,
+  ReportSelectionError,
   ReportDeleteInputSchema,
   ReportDeletionSchema,
   ReportRequestSchema,
@@ -16,6 +20,7 @@ import {
 } from './types';
 import { localGoals, localHoldings, parseLocal } from './finance';
 import { localAllocation } from './allocations';
+import { handleResearchConnections } from './research-connections';
 function records(state: LocalState, userId: string): ReportJob[] {
   const all = (state.data.localReports ??= {}) as Record<string, ReportJob[]>;
   return (all[userId] ??= []);
@@ -39,7 +44,11 @@ export function exportOfflineReports(
     deletions: includeDeletions ? deletions(state, userId) : [],
   });
 }
-export const reportsHandler: OfflineHandler = (request, state) => {
+export const reportsHandler: OfflineHandler = async (
+  request,
+  state,
+  bundle,
+) => {
   if (!/^\/api\/v1\/account\/reports(?:\/|$)/.test(request.path)) return null;
   const user = requireUser(state);
   const jobs = records(state, user.id);
@@ -73,8 +82,15 @@ export const reportsHandler: OfflineHandler = (request, state) => {
       );
     const old = jobs.find((j) => j.id === input.requestId);
     if (old) {
-      if (old.label !== input.label)
-        fail(409, 'This request ID already has a different label.');
+      if (
+        old.label !== input.label ||
+        JSON.stringify(reportSelections(old.snapshot)) !==
+          JSON.stringify(input.researchConnections ?? [])
+      )
+        fail(
+          409,
+          'This request ID already has a different label or research connection selection.',
+        );
       return { body: old, status: 201 };
     }
     if (jobs.length >= 100)
@@ -91,6 +107,33 @@ export const reportsHandler: OfflineHandler = (request, state) => {
         429,
         'New report request limit reached. Try again after one hour. Existing reports can still be deleted.',
       );
+    let researchConnections;
+    if (input.researchConnections) {
+      const stateResult = await handleResearchConnections(
+        {
+          ...request,
+          path: '/api/v1/account/research-connections',
+          method: 'GET',
+          query: new URLSearchParams(),
+          body: undefined,
+        },
+        state,
+        bundle,
+      );
+      const context = ResearchConnectionsSchema.parse(stateResult?.body);
+      try {
+        researchConnections = captureReportResearch(
+          input.researchConnections,
+          context.connections,
+          now,
+          context.bundleGeneratedAt,
+        );
+      } catch (error) {
+        if (error instanceof ReportSelectionError)
+          fail(error.status, error.message);
+        throw error;
+      }
+    }
     const job = ReportJobSchema.parse({
       id: input.requestId,
       label: input.label,
@@ -107,6 +150,7 @@ export const reportsHandler: OfflineHandler = (request, state) => {
         goals: localGoals(state, user.id),
         holdings: localHoldings(state, user.id),
         allocations: localAllocation(state, user.id),
+        ...(researchConnections ? { researchConnections } : {}),
       },
       report: null,
     });

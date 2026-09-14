@@ -18,6 +18,8 @@ import {
 import type pg from 'pg';
 import { z } from 'zod';
 import {
+  reportSelections,
+  ReportSelectionError,
   ReportDeleteInputSchema,
   ReportDeletionSchema,
   emptyAllocation,
@@ -32,6 +34,7 @@ import {
   type RecordReport,
 } from '@fingent360/contracts';
 import { AccountStore, STORE } from './accounts.js';
+import { captureReportConnections } from './report-research.js';
 const emptyHoldings = () =>
   HoldingsSnapshotSchema.parse({
     version: 0,
@@ -93,6 +96,10 @@ export class ReportsStore {
   async list(cookie?: string) {
     return this.account.transaction(async (c) => {
       const user = await this.account.require(c, cookie);
+      await c.query('SELECT id FROM app_users WHERE id=$1 FOR SHARE', [
+        user.id,
+      ]);
+      await this.account.require(c, cookie);
       return exportRecordReports(c, user.id, false);
     });
   }
@@ -100,6 +107,10 @@ export class ReportsStore {
     identifier(id);
     return this.account.transaction(async (c) => {
       const user = await this.account.require(c, cookie);
+      await c.query('SELECT id FROM app_users WHERE id=$1 FOR SHARE', [
+        user.id,
+      ]);
+      await this.account.require(c, cookie);
       const r = await c.query(`${selection} WHERE j.id=$1 AND j.user_id=$2`, [
         id,
         user.id,
@@ -141,9 +152,14 @@ export class ReportsStore {
       if (old.rows[0]) {
         if (old.rows[0].user_id !== user.id)
           throw new NotFoundException('Report not found.');
-        if (old.rows[0].label !== parsed.data.label)
+        if (
+          old.rows[0].label !== parsed.data.label ||
+          JSON.stringify(
+            reportSelections(ReportSnapshotSchema.parse(old.rows[0].snapshot)),
+          ) !== JSON.stringify(parsed.data.researchConnections ?? [])
+        )
           throw new ConflictException(
-            'This request ID already has a different label.',
+            'This request ID already has a different label or research connection selection.',
           );
         return mapJob(old.rows[0]);
       }
@@ -176,12 +192,33 @@ export class ReportsStore {
         'SELECT r.payload FROM app_goal_allocations a JOIN app_goal_allocation_revisions r ON r.user_id=a.user_id AND r.version=a.version WHERE a.user_id=$1',
         [user.id],
       );
-      const snapshot = ReportSnapshotSchema.parse({
+      let snapshot = ReportSnapshotSchema.parse({
         capturedAt: new Date().toISOString(),
         goals: goals.rows.map((r) => r.payload),
         holdings: holdings.rows[0]?.payload ?? emptyHoldings(),
         allocations: allocations.rows[0]?.payload ?? emptyAllocation(),
       });
+      if (parsed.data.researchConnections) {
+        try {
+          const researchConnections = await captureReportConnections(
+            c,
+            user.id,
+            parsed.data.researchConnections,
+            snapshot,
+          );
+          // Source publication may have held this request past session expiry.
+          await this.account.require(c, cookie);
+          snapshot = ReportSnapshotSchema.parse({
+            ...snapshot,
+            capturedAt: researchConnections.evaluatedAt,
+            researchConnections,
+          });
+        } catch (error) {
+          if (error instanceof ReportSelectionError)
+            throw new HttpException(error.message, error.status);
+          throw error;
+        }
+      }
       const result = await c.query(
         'INSERT INTO record_report_jobs(id,user_id,label,snapshot) VALUES($1,$2,$3,$4) RETURNING *',
         [

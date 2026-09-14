@@ -1,5 +1,9 @@
 # Planned end-to-end coverage
 
+## REPORTS-003 acceptance
+
+Prove optional explicit connection selection creates a v2 snapshot while plain requests and historical v1 reports keep exact existing shapes/math. Capture only owned exact revisions, personal reasons and minimal dated source receipts, with current-at-capture warnings under consistent locks. Never include article text or infer current publication from an old receipt. Actual canonical replay cannot recapture; different selection/label conflicts. Worker retry/late finish/cancel/delete/quota/export/account cascade retain existing semantics. Verify UI selection/review/Back/errors, actual committed-response loss, conflicting edits, immutable downloads/escaped print, and immediate401 private-state clearing despite old polls. API290–299, WEB290–299/301 desktop/mobile and OFFLINE330–339 cover actual APIs/storage/bundle with explicit synthetic faults. Physical native printing/TalkBack/phone acceptance remains separate.
+
 ## GOAL-SCENARIOS-001 acceptance
 
 Capture actual saved-goal edition and compare unchanged inputs with1–3 explicitly entered contribution/horizon alternatives using integer paise. Prove save cannot alter goals; separately confirmed adoption checks current version/ownership after locks, records one normal revision on replay and preserves unrelated finances. Extreme precision, stale/deleted goals, foreign access, consent, request conflicts, source-free exact reconstruction and account cascade are required. Initial errors must expose Retry. Uncertain committed saves/replayed historical comparison or adoption receipts must not enable adoption when authoritative refresh failed or the baseline changed. API280–282, WEB280–283 desktop/mobile and OFFLINE320 cover actual storage and keyboard/navigation/local zero-network. Phone/TalkBack/user-design acceptance stays separate.

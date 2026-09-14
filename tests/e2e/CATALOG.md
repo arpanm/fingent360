@@ -1,5 +1,17 @@
 # End-to-end case catalogue
 
+## REPORTS-003 — optional report research receipts
+
+| Cases          | Projects       | Acceptance                                                                                                                                                                                                                       |
+| -------------- | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| API290–294     | api            | Exact v1/v2 reconstruction; canonical replay/conflicting selection; foreign/stale/removed selection; bounds/consent/Origin; capture-time changed/withdrawn source and changed/removed goal warnings                              |
+| API295–299     | api            | Actual source-lock withdrawal/expiry; worker fault/retry from stored snapshot; cancel/delete/actual late finish; capacity/hourly bounds; private export/account cascade                                                          |
+| WEB290–294     | desktop/mobile | Real opt-in review/issued receipt/JSON; plain v1; selection outage/retry;360px keyboard/Escape/Back; actual lost committed response with exact retry                                                                             |
+| WEB295–299,301 | desktop/mobile | Competing edit conflict/discard/review; changed/withdrawn context navigation; actual escaped print window; individual deletion; guest return; immediate actual401 cleanup despite delayed polling                                |
+| OFFLINE330–339 | offline        | Real dated bundle/v2/HTML/no network; exact v1/v2/replay; account isolation; bounds/inert text; changed goals; cancel/delete/tombstone; export/cascade; actual100-request limits; synthetic bundle withdrawal via actual handler |
+
+Tag @REPORTS-003. Thirty-one definitions produce32 connected and10offline selections. Source changes, permission/capacity/worker faults are labelled simulations; successful persistence and outputs use the actual application. Browser print invocation is intercepted for assertions, so physical printing/Android user acceptance is separate. Status records executed evidence.
+
 ## GOAL-SCENARIOS-001 — contribution plan comparisons
 
 | Cases      | Projects       | Acceptance                                                                                                                                                                                                                  |

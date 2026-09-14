@@ -1,5 +1,11 @@
 # Fingent360
 
+## Research receipts in saved reports — REPORTS-003
+
+**Saved record reviews** can now optionally include up to20 of your research connections. Select the exact connection revisions, review the captured notes/source dates and warnings, then request the report. Existing reports and requests without research keep their original v1 shape; optional research produces an immutable v2 report. Capture-time context stays dated, and current source availability requires opening your connections again.
+
+The worker uses only the saved snapshot. Identical retries retain the original capture; changed selection under the same request ID conflicts. Original financial calculations, request limits, cancellation, retry and individual deletion remain. JSON and self-contained printable HTML downloads preserve the selected report; web can also open a private print view. Android saves HTML through the existing file picker for browser printing/PDF. Removing a connection does not remove its already-consented report copy; delete that report or account separately. No article text, automated impact or provider call is added. Shared device mode implements the same workflow with its dated local bundle and no server. No new migration/dependency; rebuild/reinstall the APK to update a phone. [Specification](docs/product/report-research-receipts.md), [verification](docs/development/status.md). All54 selected connected scenarios have passing evidence across runs, and15/15 packaged offline report cases passed; physical phone/printing acceptance remains separate.
+
 ## Compare contribution plans — GOAL-SCENARIOS-001
 
 **My money → Goals → Compare plans** compares an actual saved goal with up to three explicit monthly-contribution/horizon alternatives. Exact contribution-only amounts show the unchanged plan alongside your alternatives; no investment growth is assumed. Save and reopen a comparison without changing the goal. To use an alternative, separately review and confirm adoption; changed or removed goals require a new comparison from their current edition.

@@ -1,3 +1,9 @@
+import { admitPublications } from './publication.js';
+import {
+  publicLibrary,
+  publicationStatus,
+  publicationTitle,
+} from '@fingent360/contracts';
 import { createHash, randomUUID } from 'node:crypto';
 import {
   BadRequestException,
@@ -23,7 +29,7 @@ import {
   filterResearchItems,
   selectToday,
   FeedRankingSchema,
-  FeedItemSchema,
+  type FeedItem,
   LibrarySchema,
   LibraryItemIdSchema,
   LibrarySaveInputSchema,
@@ -108,15 +114,21 @@ function reminder(row: ReminderRow) {
     version: row.version,
   });
 }
-async function item(client: pg.PoolClient, id: string, version?: number) {
+function projectedReminder(publications: FeedItem[], row: ReminderRow) {
+  const currentStatus = publicationStatus(row.item_id, publications);
+  return LibraryReminderSchema.parse({
+    ...reminder(row),
+    currentStatus,
+    ...(currentStatus === 'published'
+      ? {}
+      : { title: publicationTitle(currentStatus) }),
+  });
+}
+function item(publications: FeedItem[], id: string, version?: number) {
   parse(LibraryItemIdSchema, id);
-  const rows = await client.query<{ data: unknown }>(
-    "SELECT data FROM (SELECT data FROM discovery_versions WHERE item_id=$1 AND data->>'status'<>'draft' ORDER BY version DESC LIMIT 1) visible WHERE data->>'status'='published'",
-    [id],
-  );
-  if (!rows.rows[0])
+  const found = publications.find((value) => value.id === id);
+  if (!found || found.status !== 'published')
     throw new NotFoundException('This item is no longer available.');
-  const found = FeedItemSchema.parse(rows.rows[0].data);
   if (version !== undefined && found.version !== version)
     throw new ConflictException(
       'This item has changed. Open its latest version before saving your progress.',
@@ -130,7 +142,12 @@ function due(value: string) {
       'Choose a future reminder within the next year.',
     );
 }
-export async function readLibrary(client: pg.PoolClient, userId: string) {
+export async function readLibrary(
+  client: pg.PoolClient,
+  userId: string,
+  admitted?: FeedItem[],
+) {
+  const publications = admitted ?? (await admitPublications(client));
   const saved = await client.query<{
     item_id: string;
     item_version: number;
@@ -173,40 +190,43 @@ export async function readLibrary(client: pg.PoolClient, userId: string) {
     'SELECT * FROM library_notifications WHERE user_id=$1 ORDER BY delivered_at DESC,id',
     [userId],
   );
-  return LibrarySchema.parse({
-    saved: saved.rows.map((row) => ({
-      itemId: row.item_id,
-      version: row.item_version,
-      ...row.snapshot,
-      savedAt: row.saved_at.toISOString(),
-      currentStatus: row.current_status ?? 'unavailable',
-      currentVersion: row.current_version,
-    })),
-    reactions: reactions.rows.map((row) => ({
-      itemId: row.item_id,
-      reaction: row.reaction,
-    })),
-    positions: positions.rows.map((row) => ({
-      itemId: row.item_id,
-      version: row.item_version,
-      percent: row.percent,
-      updatedAt: row.updated_at.toISOString(),
-    })),
-    preferences: preferences.rows[0]?.data ?? {
-      topics: [],
-      mutedTopics: [],
-      mode: 'chronological',
-    },
-    reminders: reminders.rows.map(reminder),
-    notifications: notifications.rows.map((row) => ({
-      id: row.id,
-      reminderId: row.reminder_id,
-      itemId: row.item_id,
-      title: row.title,
-      deliveredAt: row.delivered_at.toISOString(),
-      readAt: row.read_at?.toISOString() ?? null,
-    })),
-  });
+  return publicLibrary(
+    LibrarySchema.parse({
+      saved: saved.rows.map((row) => ({
+        itemId: row.item_id,
+        version: row.item_version,
+        ...row.snapshot,
+        savedAt: row.saved_at.toISOString(),
+        currentStatus: row.current_status ?? 'unavailable',
+        currentVersion: row.current_version,
+      })),
+      reactions: reactions.rows.map((row) => ({
+        itemId: row.item_id,
+        reaction: row.reaction,
+      })),
+      positions: positions.rows.map((row) => ({
+        itemId: row.item_id,
+        version: row.item_version,
+        percent: row.percent,
+        updatedAt: row.updated_at.toISOString(),
+      })),
+      preferences: preferences.rows[0]?.data ?? {
+        topics: [],
+        mutedTopics: [],
+        mode: 'chronological',
+      },
+      reminders: reminders.rows.map(reminder),
+      notifications: notifications.rows.map((row) => ({
+        id: row.id,
+        reminderId: row.reminder_id,
+        itemId: row.item_id,
+        title: row.title,
+        deliveredAt: row.delivered_at.toISOString(),
+        readAt: row.read_at?.toISOString() ?? null,
+      })),
+    }),
+    publications,
+  );
 }
 @Controller('account/library')
 export class LibraryController {
@@ -231,17 +251,17 @@ export class LibraryController {
       ...(view === undefined ? {} : { view }),
     });
     return this.store.transaction(async (c) => {
-      await c.query(
-        'SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY',
-      );
       const user = await this.store.require(c, cookie);
-      const library = await readLibrary(c, user.id);
-      const rows = await c.query<{ data: unknown }>(
-        "SELECT data FROM (SELECT DISTINCT ON(item_id) data FROM discovery_versions WHERE data->>'status'<>'draft' ORDER BY item_id,version DESC) visible WHERE data->>'status'='published'",
-      );
+      await c.query('SELECT id FROM app_users WHERE id=$1 FOR SHARE', [
+        user.id,
+      ]);
+      await this.store.require(c, cookie);
+      const publications = await admitPublications(c);
+      await this.store.require(c, cookie);
+      const library = await readLibrary(c, user.id, publications);
       const items = filterResearchItems(
-        rows.rows
-          .map((row) => FeedItemSchema.parse(row.data))
+        publications
+          .filter((value) => value.status === 'published')
           .filter(
             (value) =>
               !value.topics.some((topic) =>
@@ -362,6 +382,7 @@ export class LibraryController {
         )
         .digest('hex');
       const page = libraryFeedPage(ordered, fingerprint, cursor);
+      await this.store.require(c, cookie);
       return FeedRankingSchema.parse({
         items: page.items,
         evaluatedAt: new Date().toISOString(),
@@ -375,17 +396,24 @@ export class LibraryController {
   }
   @Get() get(@Headers('cookie') cookie?: string) {
     return this.store.transaction(async (c) => {
-      await c.query(
-        'SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY',
-      );
       const user = await this.store.require(c, cookie);
-      return readLibrary(c, user.id);
+      await c.query('SELECT id FROM app_users WHERE id=$1 FOR SHARE', [
+        user.id,
+      ]);
+      await this.store.require(c, cookie);
+      const result = await readLibrary(c, user.id);
+      await this.store.require(c, cookie);
+      return result;
     });
   }
   private change(
     cookie: string | undefined,
     origin: string | undefined,
-    work: (c: pg.PoolClient, id: string) => Promise<unknown>,
+    work: (
+      c: pg.PoolClient,
+      id: string,
+      publications: FeedItem[],
+    ) => Promise<unknown>,
   ) {
     this.store.origin(origin);
     return this.store.transaction(async (c) => {
@@ -393,7 +421,12 @@ export class LibraryController {
       await c.query('SELECT id FROM app_users WHERE id=$1 FOR UPDATE', [
         user.id,
       ]);
-      return work(c, user.id);
+      await this.store.require(c, cookie);
+      const publications = await admitPublications(c);
+      await this.store.require(c, cookie);
+      const result = await work(c, user.id, publications);
+      await this.store.require(c, cookie);
+      return result;
     });
   }
   @Put('items/:id/save') save(
@@ -403,8 +436,8 @@ export class LibraryController {
     @Headers('origin') origin?: string,
   ) {
     const input = parse(LibrarySaveInputSchema, body);
-    return this.change(cookie, origin, async (c, user) => {
-      const found = await item(c, id, input.version);
+    return this.change(cookie, origin, async (c, user, publications) => {
+      const found = item(publications, id, input.version);
       await c.query(
         'INSERT INTO library_saved(user_id,item_id,item_version,snapshot) VALUES($1,$2,$3,$4) ON CONFLICT(user_id,item_id) DO NOTHING',
         [
@@ -442,8 +475,8 @@ export class LibraryController {
     @Headers('origin') origin?: string,
   ) {
     const input = parse(LibraryReactionInputSchema, body);
-    return this.change(cookie, origin, async (c, user) => {
-      await item(c, id);
+    return this.change(cookie, origin, async (c, user, publications) => {
+      item(publications, id);
       await c.query(
         'INSERT INTO library_reactions(user_id,item_id,reaction) VALUES($1,$2,$3) ON CONFLICT(user_id,item_id) DO UPDATE SET reaction=excluded.reaction',
         [user, id, input.reaction],
@@ -472,8 +505,8 @@ export class LibraryController {
     @Headers('origin') origin?: string,
   ) {
     const input = parse(LibraryPositionInputSchema, body);
-    return this.change(cookie, origin, async (c, user) => {
-      await item(c, id, input.version);
+    return this.change(cookie, origin, async (c, user, publications) => {
+      item(publications, id, input.version);
       await c.query(
         'INSERT INTO library_positions(user_id,item_id,item_version,percent) VALUES($1,$2,$3,$4) ON CONFLICT(user_id,item_id) DO UPDATE SET item_version=excluded.item_version,percent=excluded.percent,updated_at=now()',
         [user, id, input.version, input.percent],
@@ -514,7 +547,7 @@ export class LibraryController {
     @Headers('origin') origin?: string,
   ) {
     const input = parse(LibraryReminderInputSchema, body);
-    return this.change(cookie, origin, async (c, user) => {
+    return this.change(cookie, origin, async (c, user, publications) => {
       const existing = await c.query<ReminderRow>(
         'SELECT * FROM library_reminders WHERE user_id=$1 AND idempotency_key=$2',
         [user, input.idempotencyKey],
@@ -528,10 +561,10 @@ export class LibraryController {
           throw new ConflictException(
             'This reminder request key was used for different details.',
           );
-        return reminder(existing.rows[0]);
+        return projectedReminder(publications, existing.rows[0]);
       }
       due(input.dueAt);
-      const found = await item(c, input.itemId);
+      const found = item(publications, input.itemId);
       const result = await c.query<ReminderRow>(
         'INSERT INTO library_reminders(id,user_id,item_id,title,due_at,time_zone,idempotency_key,request) VALUES($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *',
         [
@@ -545,7 +578,7 @@ export class LibraryController {
           input,
         ],
       );
-      return reminder(result.rows[0]!);
+      return projectedReminder(publications, result.rows[0]!);
     });
   }
   @Patch('reminders/:id') updateReminder(
@@ -557,7 +590,7 @@ export class LibraryController {
     parse(z.uuid(), id);
     const input = parse(LibraryReminderUpdateSchema, body);
     due(input.dueAt);
-    return this.change(cookie, origin, async (c, user) => {
+    return this.change(cookie, origin, async (c, user, publications) => {
       const result = await c.query<ReminderRow>(
         "UPDATE library_reminders SET due_at=$3,time_zone=$4,version=version+1 WHERE id=$1 AND user_id=$2 AND version=$5 AND status='pending' RETURNING *",
         [id, user, input.dueAt, input.timeZone, input.expectedVersion],
@@ -566,7 +599,7 @@ export class LibraryController {
         throw new ConflictException(
           'Reminder unavailable or changed. Reload before editing.',
         );
-      return reminder(result.rows[0]);
+      return projectedReminder(publications, result.rows[0]);
     });
   }
   @Delete('reminders/:id') cancelReminder(
@@ -577,7 +610,7 @@ export class LibraryController {
   ) {
     parse(z.uuid(), id);
     const input = parse(LibraryReminderCancelSchema, body);
-    return this.change(cookie, origin, async (c, user) => {
+    return this.change(cookie, origin, async (c, user, publications) => {
       const result = await c.query<ReminderRow>(
         "UPDATE library_reminders SET status='cancelled',version=version+1 WHERE id=$1 AND user_id=$2 AND version=$3 AND status='pending' RETURNING *",
         [id, user, input.expectedVersion],
@@ -586,7 +619,7 @@ export class LibraryController {
         throw new ConflictException(
           'Reminder unavailable or already delivered. Reload its status.',
         );
-      return reminder(result.rows[0]);
+      return projectedReminder(publications, result.rows[0]);
     });
   }
   @Put('notifications/:id/read') markRead(

@@ -1,4 +1,10 @@
-import { publicBeaEdition } from '@fingent360/contracts';
+import {
+  currentPublications,
+  publicEdition,
+  editionEvidence,
+  PublicationManifestSchema,
+  MediaAssetSchema,
+} from '@fingent360/contracts';
 import { learningContentItems } from '@fingent360/contracts';
 import {
   ResearchFiltersSchema,
@@ -7,7 +13,6 @@ import {
   filterResearchItems,
   buildResearchContext,
   FeedSchema,
-  FeedItemSchema,
   DiscoveryIdSchema,
   LearningCatalogSchema,
   type FeedItem,
@@ -21,9 +26,9 @@ import {
 } from './types';
 
 export function published(bundle: OfflineBundle): FeedItem[] {
-  return bundle.feed
-    .map((v) => FeedItemSchema.parse(v))
-    .filter((v) => v.status === 'published');
+  return currentPublications(bundle.feed, bundle.histories).filter(
+    (v) => v.status === 'published',
+  );
 }
 export function filtersFor(req: OfflineRequest) {
   const input = Object.fromEntries(
@@ -96,6 +101,26 @@ export async function handleContent(
         evaluatedAt: bundle.generatedAt,
       }),
     };
+  if (p === '/discovery/publication-manifest')
+    return {
+      body: PublicationManifestSchema.parse({
+        admittedAt: bundle.generatedAt,
+        items: published(bundle).map((v) => {
+          const parsed = MediaAssetSchema.safeParse(bundle.media[v.id]);
+          const asset = parsed.success ? parsed.data : null;
+          return {
+            id: v.id,
+            version: v.version,
+            mediaId:
+              asset?.itemId === v.id &&
+              asset.itemVersion === v.version &&
+              asset.status === 'published'
+                ? asset.id
+                : null,
+          };
+        }),
+      }),
+    };
   if (p === '/discovery/catalog') {
     if (!bundle.researchCatalog)
       fail(
@@ -131,28 +156,26 @@ export async function handleContent(
   );
   if (item) {
     const id = DiscoveryIdSchema.parse(decodeURIComponent(item[1]!));
-    const current = bundle.feed.find(
-      (v) => v.id === id && v.status !== 'draft',
+    const current = currentPublications(bundle.feed, bundle.histories).find(
+      (v) => v.id === id,
     );
     if (!current) fail(404, 'Published item is not included in this snapshot.');
     const action = item[2];
-    if (!action) return { body: publicBeaEdition(current) };
-    if (action === 'history')
+    if (!action) return { body: publicEdition(current) };
+    if (action === 'history') {
+      const editions = new Map(
+        (bundle.histories[id] ?? [])
+          .concat(current)
+          .filter((v) => v.status !== 'draft')
+          .map((v) => [v.version, v]),
+      );
       return {
-        body: (bundle.histories[id] ?? [current]).map((v) =>
-          publicBeaEdition(
-            FeedItemSchema.parse(v),
-            current.status === 'withdrawn',
-          ),
-        ),
+        body: [...editions.values()]
+          .sort((a, b) => b.version - a.version)
+          .map((v) => publicEdition(v, current.status === 'withdrawn')),
       };
-    if (id.startsWith('bea-') && current.status !== 'published')
-      fail(404, 'BEA release evidence is unavailable or withdrawn.');
-    if (
-      (action === 'media' || action === 'context') &&
-      current.status !== 'published'
-    )
-      fail(404, 'Source item was withdrawn.');
+    }
+    if (current.status !== 'published') fail(404, 'Source item was withdrawn.');
     if (action === 'context')
       return { body: buildResearchContext(current, published(bundle)) };
     const value = action === 'media' ? bundle.media[id] : bundle.evidence[id];
@@ -161,7 +184,19 @@ export async function handleContent(
         404,
         `${action === 'media' ? 'Reviewed visual' : 'Source evidence'} is not bundled for this item.`,
       );
-    return { body: value };
+    if (action === 'media') {
+      const asset = MediaAssetSchema.parse(value);
+      if (
+        asset.itemId !== current.id ||
+        asset.itemVersion !== current.version ||
+        asset.status !== 'published'
+      )
+        fail(404, 'Reviewed visual is unavailable for this source edition.');
+      return { body: asset };
+    }
+    return {
+      body: action === 'evidence' ? editionEvidence(current, value) : value,
+    };
   }
   return undefined;
 }

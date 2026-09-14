@@ -1,3 +1,4 @@
+import { currentPublications, publicLibrary } from '@fingent360/contracts';
 import { z } from 'zod';
 import {
   LibrarySchema,
@@ -22,10 +23,7 @@ import {
   type OfflineBundle,
 } from './types';
 import { published, filtered, page, filtersFor } from './content';
-export function exportOfflineLibrary(
-  state: LocalState,
-  userId: string,
-): Library {
+function localLibrary(state: LocalState, userId: string): Library {
   const all = (state.data.localLibraries ?? {}) as Record<string, Library>;
   return (
     all[userId] ??
@@ -37,6 +35,16 @@ export function exportOfflineLibrary(
       reminders: [],
       notifications: [],
     })
+  );
+}
+export function exportOfflineLibrary(
+  state: LocalState,
+  userId: string,
+  bundle: OfflineBundle,
+): Library {
+  return publicLibrary(
+    localLibrary(state, userId),
+    currentPublications(bundle.feed, bundle.histories),
   );
 }
 function future(dueAt: string) {
@@ -62,6 +70,7 @@ export function deliverOfflineReminders(
             reminderId: r.id,
             itemId: r.itemId,
             title: item.title,
+            currentStatus: 'published',
             deliveredAt: new Date().toISOString(),
             readAt: null,
           });
@@ -76,7 +85,10 @@ export async function handleLibrary(
   const p = req.path.replace(/^\/api\/v1\/account\/library/, '');
   if (!req.path.startsWith('/api/v1/account/library')) return undefined;
   const user = requireUser(state);
-  const lib = exportOfflineLibrary(state, user.id);
+  const lib = localLibrary(state, user.id);
+  const sources = currentPublications(bundle.feed, bundle.histories);
+  const projectedReminder = (r: Library['reminders'][number]) =>
+    publicLibrary({ ...lib, reminders: [r] }, sources).reminders[0]!;
   state.data.localLibraries ??= {} as Record<string, Library>;
   (state.data.localLibraries as Record<string, Library>)[user.id] = lib;
   deliverOfflineReminders(state, bundle);
@@ -88,18 +100,15 @@ export async function handleLibrary(
       fail(409, 'Source edition changed. Reopen the item.');
     return item;
   };
-  for (const saved of lib.saved) {
-    const item = bundle.feed.find((v) => v.id === saved.itemId);
-    saved.currentStatus = item?.status ?? 'unavailable';
-    saved.currentVersion = item?.version ?? null;
-  }
   if (req.method === 'GET' && p === '')
-    return { body: LibrarySchema.parse(lib) };
+    return { body: publicLibrary(lib, sources) };
   if (req.method === 'GET' && p === '/feed') {
     const score = (item: ReturnType<typeof published>[number]) =>
       lib.preferences.topics.filter((t) => item.topics.includes(t)).length * 3 +
       lib.reactions.reduce((n, r) => {
-        const ref = bundle.feed.find((v) => v.id === r.itemId);
+        const ref = sources.find(
+          (v) => v.id === r.itemId && v.status === 'published',
+        );
         return (
           n +
           (r.itemId === item.id
@@ -225,7 +234,11 @@ export async function handleLibrary(
     if (previous) {
       if (JSON.stringify(previous.input) !== JSON.stringify(input))
         fail(409, 'Reminder request key was already used.');
-      return { body: lib.reminders.find((v) => v.id === previous.reminderId) };
+      return {
+        body: projectedReminder(
+          lib.reminders.find((v) => v.id === previous.reminderId)!,
+        ),
+      };
     }
     future(input.dueAt);
     const item = current(input.itemId);
@@ -236,11 +249,12 @@ export async function handleLibrary(
       dueAt: input.dueAt,
       timeZone: input.timeZone,
       status: 'pending' as const,
+      currentStatus: 'published' as const,
       version: 1,
     };
     lib.reminders.push(reminder);
     requests[input.idempotencyKey] = { input, reminderId: reminder.id };
-    return { body: reminder, status: 201 };
+    return { body: projectedReminder(reminder), status: 201 };
   }
   const reminderRoute = p.match(/^\/reminders\/([^/]+)$/);
   if (reminderRoute && (req.method === 'PATCH' || req.method === 'DELETE')) {
@@ -259,7 +273,7 @@ export async function handleLibrary(
       r.timeZone = update.timeZone;
     } else r.status = 'cancelled';
     r.version++;
-    return { body: r };
+    return { body: projectedReminder(r) };
   }
   const read = p.match(/^\/notifications\/([^/]+)\/read$/);
   if (read && req.method === 'PUT') {

@@ -269,6 +269,15 @@ test('E2E-OFFLINE-353 pre-BEA snapshot remains a truthful empty source collectio
   const older: OfflineBundle = {
     ...bundle,
     feed: bundle.feed.filter((i: { id: string }) => !i.id.startsWith('bea-')),
+    histories: Object.fromEntries(
+      Object.entries(bundle.histories).filter(([id]) => !id.startsWith('bea-')),
+    ),
+    evidence: Object.fromEntries(
+      Object.entries(bundle.evidence).filter(([id]) => !id.startsWith('bea-')),
+    ),
+    media: Object.fromEntries(
+      Object.entries(bundle.media).filter(([id]) => !id.startsWith('bea-')),
+    ),
   };
   const req = request('/api/v1/discovery/feed');
   req.query = new URLSearchParams({ source: 'bea', view: 'explore' });

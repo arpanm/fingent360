@@ -1,8 +1,10 @@
+import { admitPublications } from './publication.js';
 import {
-  beaReleaseFields,
-  publicBeaEdition,
-  BEA_FEED,
+  publicEdition,
+  editionEvidence,
+  PublicationManifestSchema,
 } from '@fingent360/contracts';
+import { beaReleaseFields, BEA_FEED } from '@fingent360/contracts';
 import { createHash, randomUUID } from 'node:crypto';
 import {
   BadRequestException,
@@ -195,12 +197,9 @@ export class DiscoveryStore {
     }
   }
   async publishedItems() {
-    return this.transaction(async (c) => {
-      const result = await c.query<VersionRow>(
-        "SELECT v.data FROM discovery_items i JOIN LATERAL (SELECT data FROM discovery_versions WHERE item_id=i.id AND data->>'status'<>'draft' ORDER BY version DESC LIMIT 1) v ON true WHERE v.data->>'status'='published'",
-      );
-      return result.rows.map((r) => FeedItemSchema.parse(r.data));
-    });
+    return this.transaction(async (c) =>
+      (await admitPublications(c)).filter((v) => v.status === 'published'),
+    );
   }
   async feed(
     cursor?: string,
@@ -217,10 +216,46 @@ export class DiscoveryStore {
     return FeedSchema.parse({ ...page, evaluatedAt: new Date().toISOString() });
   }
   async context(id: string) {
-    const item = await this.item(id);
-    if (item.status !== 'published')
-      throw new NotFoundException('Published context unavailable.');
-    return buildResearchContext(item, await this.publishedItems());
+    validId(id);
+    return this.transaction(async (c) => {
+      const all = await admitPublications(c),
+        item = all.find((v) => v.id === id);
+      if (!item || item.status !== 'published')
+        throw new NotFoundException('Published context unavailable.');
+      return buildResearchContext(
+        item,
+        all.filter((v) => v.status === 'published'),
+      );
+    });
+  }
+  async manifest() {
+    return this.transaction(async (c) => {
+      const items = (await admitPublications(c)).filter(
+        (v) => v.status === 'published',
+      );
+      const assets = await c.query(
+        'SELECT id,item_id,item_version FROM discovery_media WHERE item_id=ANY($1::text[]) ORDER BY id FOR SHARE',
+        [items.map((v) => v.id)],
+      );
+      const published = await c.query(
+        'SELECT DISTINCT ON(asset_id) asset_id,published FROM discovery_media_reviews WHERE asset_id=ANY($1::uuid[]) ORDER BY asset_id,reviewed_at DESC,id DESC',
+        [assets.rows.map((v) => v.id)],
+      );
+      return PublicationManifestSchema.parse({
+        admittedAt: new Date().toISOString(),
+        items: items.map((item) => ({
+          id: item.id,
+          version: item.version,
+          mediaId:
+            assets.rows.find(
+              (a) =>
+                a.item_id === item.id &&
+                a.item_version === item.version &&
+                published.rows.some((p) => p.asset_id === a.id && p.published),
+            )?.id ?? null,
+        })),
+      });
+    });
   }
   async sourceRuns() {
     return this.transaction(async (c) => {
@@ -278,73 +313,96 @@ export class DiscoveryStore {
   async item(id: string) {
     validId(id);
     return this.transaction(async (c) => {
-      const r = await c.query<VersionRow>(
-        "SELECT v.data FROM discovery_items i JOIN LATERAL (SELECT data FROM discovery_versions WHERE item_id=i.id AND data->>'status'<>'draft' ORDER BY version DESC LIMIT 1) v ON true WHERE i.id=$1",
-        [id],
-      );
-      if (!r.rows[0]) throw new NotFoundException('Published item not found.');
-      const item = FeedItemSchema.parse(r.rows[0].data);
-      if (item.status === 'draft')
-        throw new NotFoundException('Published item not found.');
-      return publicBeaEdition(item);
+      const item = (await admitPublications(c, [id]))[0];
+      if (!item) throw new NotFoundException('Published item not found.');
+      return publicEdition(item);
     });
   }
   async history(id: string) {
-    await this.item(id);
+    validId(id);
     return this.transaction(async (c) => {
-      if (id.startsWith('bea-'))
-        await c.query('SELECT id FROM discovery_items WHERE id=$1 FOR SHARE', [
-          id,
-        ]);
-      const r = await c.query<VersionRow>(
-        "SELECT data FROM discovery_versions WHERE item_id=$1 AND data->>'status' IN ('published','withdrawn') ORDER BY version DESC",
+      const item = (await admitPublications(c, [id]))[0];
+      if (!item) throw new NotFoundException('Published item not found.');
+      const rows = await c.query(
+        "SELECT data FROM discovery_versions WHERE item_id=$1 AND data->>'status'<>'draft' ORDER BY version DESC",
         [id],
       );
-      const editions = r.rows.map((v) => FeedItemSchema.parse(v.data));
-      return editions.map((v) =>
-        publicBeaEdition(v, editions[0]?.status === 'withdrawn'),
+      return rows.rows.map((r) =>
+        publicEdition(
+          FeedItemSchema.parse(r.data),
+          item.status === 'withdrawn',
+        ),
       );
     });
   }
   async evidence(id: string) {
+    validId(id);
     if (id.startsWith('bea-')) return this.beaEvidence(id);
-    const item = await this.item(id);
+    return this.transaction(async (c) => {
+      const item = (await admitPublications(c, [id]))[0];
+      if (!item || item.status !== 'published' || !item.sourceHash)
+        throw new NotFoundException('Published source evidence unavailable.');
+      const raw = await this.originalEvidence(item);
+      return editionEvidence(item, raw);
+    });
+  }
+  private async originalEvidence(item: FeedItem) {
     if (!item.sourceHash)
       throw new NotFoundException(
         'This authored definition has no provider document.',
       );
-    try {
-      const raw = await this.mongo
-        .db()
-        .collection<Raw>(
-          item.id.startsWith('annual-') ? 'macro_raw' : 'discovery_raw',
-        )
-        .findOne({ _id: item.sourceHash });
-      if (!raw) throw new NotFoundException('Source document unavailable.');
-      return DiscoveryEvidenceSchema.parse({
-        hash: raw._id,
-        url: raw.url,
-        retrievedAt: raw.retrievedAt,
-        body: raw.body,
-      });
-    } catch (error) {
-      if (error instanceof HttpException) throw error;
-      throw new ServiceUnavailableException('Evidence storage unavailable.');
-    }
+    const raw = await this.mongo
+      .db()
+      .collection<Raw>(
+        item.id.startsWith('annual-') ? 'macro_raw' : 'discovery_raw',
+      )
+      .findOne({ _id: item.sourceHash });
+    if (!raw || sourceHash(raw.url, raw.body) !== item.sourceHash)
+      throw new NotFoundException('Retained evidence unavailable.');
+    return DiscoveryEvidenceSchema.parse({
+      hash: raw._id,
+      url: raw.url,
+      retrievedAt: raw.retrievedAt,
+      body: raw.body,
+      scope: 'retained-original',
+    });
+  }
+  async retained(
+    id: string,
+    evidence: boolean,
+    version: unknown,
+    authorize: () => Promise<unknown>,
+  ) {
+    validId(id);
+    const selected = z.coerce
+      .number()
+      .int()
+      .positive()
+      .optional()
+      .safeParse(version);
+    if (!selected.success)
+      throw new BadRequestException('Choose a valid retained edition.');
+    return this.transaction(async (c) => {
+      await admitPublications(c, [id]);
+      await authorize();
+      const rows = await c.query(
+        'SELECT data FROM discovery_versions WHERE item_id=$1 AND ($2::integer IS NULL OR version=$2) ORDER BY version DESC',
+        [id, selected.data ?? null],
+      );
+      if (!rows.rows.length)
+        throw new NotFoundException('Retained edition not found.');
+      if (!evidence) return rows.rows.map((r) => FeedItemSchema.parse(r.data));
+      const raw = await this.originalEvidence(
+        FeedItemSchema.parse(rows.rows[0].data),
+      );
+      await authorize();
+      return raw;
+    });
   }
   private async beaEvidence(id: string) {
     validId(id);
     return this.transaction(async (c) => {
-      await c.query('SELECT id FROM discovery_items WHERE id=$1 FOR SHARE', [
-        id,
-      ]);
-      const rows = await c.query<VersionRow>(
-        "SELECT data FROM discovery_versions WHERE item_id=$1 AND data->>'status'<>'draft' ORDER BY version DESC LIMIT 1",
-        [id],
-      );
-      const item = rows.rows[0]
-        ? FeedItemSchema.parse(rows.rows[0].data)
-        : null;
+      const item = (await admitPublications(c, [id]))[0];
       if (!item || item.status !== 'published' || !item.sourceHash)
         throw new NotFoundException(
           'BEA release evidence is unavailable or withdrawn.',
@@ -400,7 +458,11 @@ export class DiscoveryStore {
       });
     });
   }
-  async review(id: string, body: unknown) {
+  async review(
+    id: string,
+    body: unknown,
+    authorize: () => Promise<unknown> = async () => undefined,
+  ) {
     validId(id);
     const parsed = DiscoveryReviewSchema.safeParse(body);
     if (!parsed.success)
@@ -412,6 +474,7 @@ export class DiscoveryStore {
         'SELECT version FROM discovery_items WHERE id=$1 FOR UPDATE',
         [id],
       );
+      await authorize();
       if (!lock.rows[0]) throw new NotFoundException('Item not found.');
       if (lock.rows[0].version !== parsed.data.expectedVersion)
         throw new ConflictException('Item changed. Reload before reviewing.');
@@ -588,7 +651,13 @@ export class DiscoveryStore {
           }
           await client.query('BEGIN');
           try {
-            for (const item of inputs)
+            await client.query(
+              'SELECT id FROM discovery_items WHERE id=ANY($1::text[]) ORDER BY id FOR UPDATE',
+              [inputs.map((item) => item.id)],
+            );
+            for (const item of [...inputs].sort((a, b) =>
+              a.id.localeCompare(b.id),
+            ))
               sourceInserted += await this.promoteDraft(
                 client,
                 enrichResearchItem(item),
@@ -667,6 +736,9 @@ export class DiscoveryController {
   @Get('items/:id/context') context(@Param('id') id: string) {
     return this.store.context(id);
   }
+  @Get('publication-manifest') manifest() {
+    return this.store.manifest();
+  }
   @Get('catalog') catalog() {
     return this.store.catalog();
   }
@@ -689,6 +761,25 @@ export class OpsDiscoveryController {
   @Get('items') async items(@Headers('cookie') cookie?: string) {
     await this.operator.require(cookie);
     return this.store.operations();
+  }
+  @Get('items/:id/history') async history(
+    @Param('id') id: string,
+    @Headers('cookie') cookie?: string,
+  ) {
+    await this.operator.require(cookie);
+    return this.store.retained(id, false, undefined, () =>
+      this.operator.require(cookie),
+    );
+  }
+  @Get('items/:id/evidence') async evidence(
+    @Param('id') id: string,
+    @Query('version') version?: string,
+    @Headers('cookie') cookie?: string,
+  ) {
+    await this.operator.require(cookie);
+    return this.store.retained(id, true, version, () =>
+      this.operator.require(cookie),
+    );
   }
   @Get('runs') async runs(@Headers('cookie') cookie?: string) {
     await this.operator.require(cookie);
@@ -722,7 +813,7 @@ export class OpsDiscoveryController {
     this.operator.origin(origin);
     await this.operator.require(cookie);
     await this.operator.record('discovery.review.requested', id, cookie);
-    return this.store.review(id, body);
+    return this.store.review(id, body, () => this.operator.require(cookie));
   }
 }
 export function discoveryProvider(config: AppConfig) {

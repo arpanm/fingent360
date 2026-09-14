@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import {
   MediaAssetSchema,
+  DiscoveryEvidenceSchema,
   ResearchCatalogSchema,
   ResearchRunsSchema,
   DiscoveryRunSchema,
@@ -48,6 +49,10 @@ export function Operations() {
     [review, setReview] = useState<FeedItem | null>(null),
     [note, setNote] = useState('');
   const [latest, setLatest] = useState('');
+  const [retained, setRetained] = useState<{
+    title: string;
+    text: string;
+  } | null>(null);
   const [media, setMedia] = useState<MediaAsset | null>(null);
   const load = async () => {
     const value = DiscoveryOperationsSchema.parse(
@@ -94,8 +99,13 @@ export function Operations() {
     try {
       await work();
     } catch (e) {
-      if (e instanceof RequestError && e.status === 401)
+      if (e instanceof RequestError && e.status === 401) {
         setAuthenticated(false);
+        setRetained(null);
+        setReview(null);
+        setMedia(null);
+        setItems([]);
+      }
       setError(e instanceof Error ? e.message : 'Operation failed.');
     } finally {
       setBusy(false);
@@ -115,6 +125,9 @@ export function Operations() {
                 await json('/ops/session', undefined, 'DELETE');
                 setAuthenticated(false);
                 setItems([]);
+                setRetained(null);
+                setReview(null);
+                setMedia(null);
                 setNotice('Operations session ended.');
               })
             }
@@ -228,6 +241,58 @@ export function Operations() {
                         {item.kind} · {item.status} · v{item.version}
                       </span>
                       <h2>{item.title}</h2>
+                      <button
+                        disabled={busy}
+                        onClick={() =>
+                          void action(async () => {
+                            const rows = FeedItemSchema.array().parse(
+                              await json(
+                                `/ops/discovery/items/${item.id}/history`,
+                              ),
+                            );
+                            setRetained({
+                              title: 'Retained publication history',
+                              text: JSON.stringify(rows, null, 2),
+                            });
+                          })
+                        }
+                      >
+                        Retained history
+                      </button>
+                      <button
+                        disabled={busy || !item.sourceHash}
+                        onClick={() =>
+                          void action(async () => {
+                            const raw = DiscoveryEvidenceSchema.parse(
+                              await json(
+                                `/ops/discovery/items/${item.id}/evidence?version=${item.version}`,
+                              ),
+                            );
+                            setRetained({
+                              title: 'Protected original evidence',
+                              text: JSON.stringify(raw, null, 2),
+                            });
+                          })
+                        }
+                      >
+                        Retained evidence
+                      </button>
+                      <button
+                        disabled={busy}
+                        onClick={() =>
+                          void action(async () => {
+                            const asset = MediaAssetSchema.parse(
+                              await json(`/ops/media/${item.id}`),
+                            );
+                            setRetained({
+                              title: 'Retained visual record',
+                              text: JSON.stringify(asset, null, 2),
+                            });
+                          })
+                        }
+                      >
+                        Retained visual
+                      </button>
                       <p>{item.summary}</p>
                       <p>
                         {item.source.name} · {shortDate(item.publishedAt)}
@@ -299,7 +364,18 @@ export function Operations() {
             )}
           </>
         )}
-        {media && (
+        {authenticated && retained && (
+          <Dialog title={retained.title} onClose={() => setRetained(null)}>
+            <p>
+              Protected retained original. Public withdrawal does not rewrite
+              this record.
+            </p>
+            <pre style={{ whiteSpace: 'pre-wrap', overflowWrap: 'anywhere' }}>
+              {retained.text}
+            </pre>
+          </Dialog>
+        )}
+        {authenticated && media && (
           <Dialog title="Review visual summary" onClose={() => setMedia(null)}>
             <img
               alt={media.title}
@@ -361,7 +437,7 @@ export function Operations() {
             </div>
           </Dialog>
         )}
-        {review && (
+        {authenticated && review && (
           <Dialog title="Review publication" onClose={() => setReview(null)}>
             <p className="eyebrow">
               {review.kind} · VERSION {review.version}

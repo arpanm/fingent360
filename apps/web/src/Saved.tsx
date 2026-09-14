@@ -214,6 +214,13 @@ export function Saved() {
         <a href="#today" className="button secondary">
           Find something to read
         </a>
+        <button
+          className="secondary"
+          disabled={busy}
+          onClick={() => void action(() => load())}
+        >
+          Refresh library
+        </button>
       </header>
       {error && (
         <div role="alert" className="error">
@@ -260,7 +267,9 @@ export function Saved() {
                       {new Date(value.deliveredAt).toLocaleString()}.
                     </p>
                     <a href={`#read/${encodeURIComponent(value.itemId)}`}>
-                      Open reminder item
+                      {value.currentStatus === 'published'
+                        ? 'Open reminder item'
+                        : 'View source status'}
                     </a>
                     <button
                       disabled={busy}
@@ -351,16 +360,18 @@ export function Saved() {
                     )}
                   {value.currentStatus !== 'published' && (
                     <p>
-                      This item is no longer published. Your saved summary
-                      remains available; its current reading page may be
-                      unavailable.
+                      This item is no longer published. Source text is
+                      unavailable; your saved edition and reading records
+                      remain.
                     </p>
                   )}
                   <div className="page-actions">
                     <a
                       href={`#read/${encodeURIComponent(value.itemId)}?resume=1`}
                     >
-                      Continue reading
+                      {value.currentStatus === 'published'
+                        ? 'Continue reading'
+                        : 'View source status'}
                     </a>
                     <button
                       disabled={busy || value.currentStatus !== 'published'}
@@ -525,29 +536,30 @@ export function Saved() {
                     <p>
                       {new Date(value.dueAt).toLocaleString()} · {value.status}
                     </p>
-                    {value.status === 'delivered' && (
-                      <button
-                        disabled={busy}
-                        onClick={() =>
-                          void action(async () => {
-                            await schedule(
-                              new Date(presetDate('tomorrow')).toISOString(),
-                              value.itemId,
-                            );
-                            await load();
-                            setMessage(
-                              'New reminder scheduled for tomorrow. The original reminder stays in your history.',
-                            );
-                          })
-                        }
-                      >
-                        Snooze until tomorrow
-                      </button>
-                    )}
+                    {value.status === 'delivered' &&
+                      value.currentStatus === 'published' && (
+                        <button
+                          disabled={busy}
+                          onClick={() =>
+                            void action(async () => {
+                              await schedule(
+                                new Date(presetDate('tomorrow')).toISOString(),
+                                value.itemId,
+                              );
+                              await load();
+                              setMessage(
+                                'New reminder scheduled for tomorrow. The original reminder stays in your history.',
+                              );
+                            })
+                          }
+                        >
+                          Snooze until tomorrow
+                        </button>
+                      )}
                     {value.status === 'pending' && (
                       <div className="page-actions">
                         <button
-                          disabled={busy}
+                          disabled={busy || value.currentStatus !== 'published'}
                           onClick={() => {
                             setEditing(value);
                             setItemId(value.itemId);

@@ -53,12 +53,19 @@ export const DiscoveryReviewSchema = z.strictObject({
   correctionNote: z.string().trim().min(1).max(2000),
 });
 export const DiscoveryEvidenceSchema = z.strictObject({
-  scope: z.literal('release-metadata').optional(),
-  hash: z.string(),
+  scope: z
+    .enum(['release-metadata', 'published-edition', 'retained-original'])
+    .optional(),
+  hash: z.string().regex(/^[a-f0-9]{64}$/),
   url: PublicUrl,
   retrievedAt: z.iso.datetime(),
   body: z.string().max(1000000),
 });
+export const PublicDiscoveryEvidenceSchema = DiscoveryEvidenceSchema.refine(
+  (value) =>
+    value.scope === 'published-edition' || value.scope === 'release-metadata',
+  'Only a scoped published excerpt is available here.',
+);
 export const OperatorSessionSchema = z.strictObject({
   authenticated: z.boolean(),
   expiresAt: z.iso.datetime().nullable(),

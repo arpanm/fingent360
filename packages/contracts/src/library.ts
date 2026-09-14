@@ -65,6 +65,9 @@ export const LibraryReminderCancelSchema = z.strictObject({
   expectedVersion: z.number().int().positive(),
 });
 export const LibraryReminderSchema = z.strictObject({
+  currentStatus: z
+    .enum(['published', 'withdrawn', 'unavailable'])
+    .default('unavailable'),
   id: z.uuid(),
   itemId: LibraryItemIdSchema,
   title: z.string(),
@@ -74,6 +77,9 @@ export const LibraryReminderSchema = z.strictObject({
   version: z.number().int().positive(),
 });
 export const LibraryNotificationSchema = z.strictObject({
+  currentStatus: z
+    .enum(['published', 'withdrawn', 'unavailable'])
+    .default('unavailable'),
   id: z.uuid(),
   reminderId: z.uuid(),
   itemId: LibraryItemIdSchema,

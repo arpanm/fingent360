@@ -1,4 +1,5 @@
-import { writeFile, mkdir } from 'node:fs/promises';
+import { finalizePublicSnapshot } from './lib/finalize-public-snapshot.mjs';
+import { writeFile, mkdir, rename } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { parseEnv } from 'node:util';
 import { readFileSync, existsSync } from 'node:fs';
@@ -45,7 +46,7 @@ async function get(path, optional = false) {
   if (text.length > 8_000_000) throw Error('Snapshot response too large.');
   return JSON.parse(text);
 }
-const bundle = {
+let bundle = {
   generatedAt: new Date().toISOString(),
   feed: [],
   histories: {},
@@ -82,7 +83,7 @@ for (const item of bundle.feed) {
   );
   bundle.histories[item.id] = history
     .map((v) => FeedItemSchema.parse(v))
-    .filter((v) => v.status === 'published');
+    .filter((v) => v.status !== 'draft');
   if (item.sourceHash) {
     const evidence = await get(
       `/discovery/items/${encodeURIComponent(item.id)}/evidence`,
@@ -131,13 +132,21 @@ bundle.learningCatalog = LearningCatalogSchema.parse(
   await get('/learning/catalog'),
 );
 bundle.journeyCatalog = CatalogSchema.parse(await get('/journey/catalog'));
+bundle = finalizePublicSnapshot(
+  bundle,
+  await get('/discovery/publication-manifest'),
+);
 const directory = fileURLToPath(
   new URL('../apps/web/src/offline/', import.meta.url),
 );
 await mkdir(directory, { recursive: true });
 await writeFile(
-  `${directory}content-bundle.json`,
+  `${directory}content-bundle.json.tmp`,
   JSON.stringify(bundle, null, 2) + '\n',
+);
+await rename(
+  `${directory}content-bundle.json.tmp`,
+  `${directory}content-bundle.json`,
 );
 console.log(
   `Bundled ${bundle.feed.length} published items, ${Object.keys(bundle.macroHistory).length} annual histories, ${Object.keys(bundle.media).length} reviewed visuals at ${bundle.generatedAt}. Only public GET routes were used.`,

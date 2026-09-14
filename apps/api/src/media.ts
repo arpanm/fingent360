@@ -1,3 +1,4 @@
+import { admitPublications } from './publication.js';
 import { randomUUID } from 'node:crypto';
 import {
   BadRequestException,
@@ -152,21 +153,20 @@ export class MediaStore {
   private async item(c: pg.PoolClient, id: string) {
     if (!DiscoveryIdSchema.safeParse(id).success)
       throw new BadRequestException('Invalid item ID.');
-    const r = await c.query<{ data: unknown }>(
-      "SELECT data FROM discovery_versions WHERE item_id=$1 AND data->>'status'<>'draft' ORDER BY version DESC LIMIT 1",
-      [id],
-    );
-    if (!r.rows[0])
-      throw new NotFoundException('Published source item not found.');
-    const item = FeedItemSchema.parse(r.rows[0].data);
+    const item = (await admitPublications(c, [id]))[0];
+    if (!item) throw new NotFoundException('Published source item not found.');
     if (item.status !== 'published')
       throw new NotFoundException('Source item was withdrawn.');
     return item;
   }
   private async read(c: pg.PoolClient, item: FeedItem, publicOnly: boolean) {
-    const r = await c.query<{ data: unknown; published: boolean | null }>(
-      `SELECT m.data,(SELECT published FROM discovery_media_reviews WHERE asset_id=m.id ORDER BY reviewed_at DESC,id DESC LIMIT 1) AS published FROM discovery_media m WHERE m.item_id=$1 AND m.item_version=$2`,
+    const admitted = await c.query(
+      'SELECT id FROM discovery_media WHERE item_id=$1 AND item_version=$2 FOR SHARE',
       [item.id, item.version],
+    );
+    const r = await c.query<{ data: unknown; published: boolean | null }>(
+      `SELECT m.data,(SELECT published FROM discovery_media_reviews WHERE asset_id=m.id ORDER BY reviewed_at DESC,id DESC LIMIT 1) AS published FROM discovery_media m WHERE m.id=ANY($1::uuid[])`,
+      [admitted.rows.map((row) => row.id)],
     );
     if (!r.rows[0] || (publicOnly && !r.rows[0].published))
       throw new NotFoundException(
@@ -177,12 +177,36 @@ export class MediaStore {
       status: r.rows[0].published ? 'published' : 'draft',
     });
   }
-  get(id: string, publicOnly = true) {
-    return this.work(async (c) =>
-      this.read(c, await this.item(c, id), publicOnly),
-    );
+  get(
+    id: string,
+    publicOnly = true,
+    authorize: () => Promise<unknown> = async () => undefined,
+  ) {
+    if (!DiscoveryIdSchema.safeParse(id).success)
+      throw new BadRequestException('Invalid item ID.');
+    return this.work(async (c) => {
+      await admitPublications(c, [id]);
+      await authorize();
+      if (publicOnly) return this.read(c, await this.item(c, id), true);
+      const rows = await c.query(
+        'SELECT v.data FROM discovery_media m JOIN discovery_versions v ON v.item_id=m.item_id AND v.version=m.item_version WHERE m.item_id=$1 ORDER BY m.item_version DESC LIMIT 1',
+        [id],
+      );
+      if (!rows.rows[0])
+        throw new NotFoundException('Retained visual unavailable.');
+      const result = await this.read(
+        c,
+        FeedItemSchema.parse(rows.rows[0].data),
+        false,
+      );
+      await authorize();
+      return result;
+    });
   }
-  async generate(id: string) {
+  async generate(
+    id: string,
+    authorize: () => Promise<unknown> = async () => undefined,
+  ) {
     let slotReserved = false;
     const reservation = await this.work(async (c) => {
       if (!DiscoveryIdSchema.safeParse(id).success)
@@ -196,12 +220,16 @@ export class MediaStore {
           'Media preparation is already running. Retry shortly.',
         );
       const item = await this.item(c, id);
+      await authorize();
       const existing = await c.query(
         'SELECT id FROM discovery_media WHERE item_id=$1 AND item_version=$2',
         [item.id, item.version],
       );
-      if (existing.rowCount)
-        return { asset: await this.read(c, item, false), item, selected: null };
+      if (existing.rowCount) {
+        const asset = await this.read(c, item, false);
+        await authorize();
+        return { asset, item, selected: null };
+      }
       const choices = configuredProviders(this.config);
       const requested = this.config.AI_PROVIDER ?? 'auto';
       const selected =
@@ -251,7 +279,9 @@ export class MediaStore {
         'INSERT INTO discovery_media(id,item_id,item_version,data) VALUES($1,$2,$3,$4) ON CONFLICT(item_id,item_version) DO NOTHING',
         [asset.id, item.id, item.version, JSON.stringify(asset)],
       );
-      return { asset: await this.read(c, item, false), item, selected: null };
+      const saved = await this.read(c, item, false);
+      await authorize();
+      return { asset: saved, item, selected: null };
     }).catch((error) => {
       if (slotReserved) this.active--;
       throw error;
@@ -300,14 +330,27 @@ export class MediaStore {
       this.active--;
     }
     return this.work(async (c) => {
+      const current = await this.item(c, id);
+      await authorize();
+      if (current.version !== item.version)
+        throw new ConflictException(
+          'Source edition changed during preparation. Reopen its current edition.',
+        );
       await c.query(
         'INSERT INTO discovery_media(id,item_id,item_version,data) VALUES($1,$2,$3,$4) ON CONFLICT(item_id,item_version) DO NOTHING',
         [asset.id, item.id, item.version, JSON.stringify(asset)],
       );
-      return this.read(c, item, false);
+      const saved = await this.read(c, item, false);
+      await authorize();
+      return saved;
     });
   }
-  review(id: string, body: unknown, actor: string) {
+  review(
+    id: string,
+    body: unknown,
+    actor: string,
+    authorize: () => Promise<unknown> = async () => undefined,
+  ) {
     const parsed = z
       .strictObject({ assetId: z.uuid(), publish: z.boolean() })
       .safeParse(body);
@@ -315,6 +358,11 @@ export class MediaStore {
       throw new BadRequestException('Supply assetId and publish boolean.');
     return this.work(async (c) => {
       const item = await this.item(c, id);
+      await c.query(
+        'SELECT id FROM discovery_media WHERE item_id=$1 AND item_version=$2 FOR UPDATE',
+        [item.id, item.version],
+      );
+      await authorize();
       const asset = await this.read(c, item, false);
       if (asset.id !== parsed.data.assetId)
         throw new BadRequestException(
@@ -324,7 +372,9 @@ export class MediaStore {
         'INSERT INTO discovery_media_reviews(id,asset_id,published,actor_hash) VALUES($1,$2,$3,$4)',
         [randomUUID(), asset.id, parsed.data.publish, actor],
       );
-      return this.read(c, item, false);
+      const saved = await this.read(c, item, false);
+      await authorize();
+      return saved;
     });
   }
 }
@@ -346,7 +396,7 @@ export class OpsMediaController {
     @Headers('cookie') cookie?: string,
   ) {
     await this.ops.require(cookie);
-    return this.store.get(id, false);
+    return this.store.get(id, false, () => this.ops.require(cookie));
   }
   @Post(':id') async generate(
     @Param('id') id: string,
@@ -361,7 +411,7 @@ export class OpsMediaController {
         'Generation accepts no external prompt or URL.',
       );
     await this.ops.record('media.generate.requested', id, cookie);
-    return this.store.generate(id);
+    return this.store.generate(id, () => this.ops.require(cookie));
   }
   @Put(':id') async review(
     @Param('id') id: string,
@@ -371,7 +421,7 @@ export class OpsMediaController {
   ) {
     this.ops.origin(origin);
     const actor = await this.ops.require(cookie);
-    return this.store.review(id, body, actor);
+    return this.store.review(id, body, actor, () => this.ops.require(cookie));
   }
 }
 export function mediaProvider(config: AppConfig) {

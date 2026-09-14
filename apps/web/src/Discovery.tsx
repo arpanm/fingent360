@@ -17,6 +17,7 @@ import {
   FeedItemSchema,
   FeedRankingSchema,
   DiscoveryEvidenceSchema,
+  PublicDiscoveryEvidenceSchema,
   type FeedItem,
   type Library,
 } from '@fingent360/contracts';
@@ -1002,7 +1003,7 @@ export function Reader({ id }: { id: string }) {
       if (generation === detailGeneration.current)
         setDetail(
           which === 'evidence'
-            ? DiscoveryEvidenceSchema.parse(data)
+            ? PublicDiscoveryEvidenceSchema.parse(data)
             : which === 'term'
               ? FeedItemSchema.parse(data)
               : FeedItemSchema.array().parse(data),
@@ -1106,6 +1107,13 @@ export function Reader({ id }: { id: string }) {
         </button>
         <span>{labels[item.kind]}</span>
         <button
+          type="button"
+          className="text-link"
+          onClick={() => setRevision((n) => n + 1)}
+        >
+          Refresh reading
+        </button>
+        <button
           className="icon-button"
           aria-label="More item actions"
           onClick={() => {
@@ -1167,7 +1175,7 @@ export function Reader({ id }: { id: string }) {
       )}
       {!withdrawn && (
         <>
-          <MediaSummary itemId={item.id} />
+          <MediaSummary itemId={item.id} itemVersion={item.version} />
           {item.id.startsWith('bea-') && (
             <p className="panel">
               BEA headline only. Open the original release for its reference
@@ -1228,12 +1236,12 @@ export function Reader({ id }: { id: string }) {
           <a href={`#explore?source=${encodeURIComponent(sourceIdFor(item))}`}>
             More from this source
           </a>
-          {!(withdrawn && item.id.startsWith('bea-')) && (
+          {!withdrawn && (
             <a href={item.source.url} target="_blank" rel="noreferrer">
               Original source <Icon name="arrow" size={16} />
             </a>
           )}
-          {item.sourceHash && !(withdrawn && item.id.startsWith('bea-')) && (
+          {item.sourceHash && !withdrawn && (
             <button
               className="text-link"
               onClick={() => void openDetail('evidence')}
@@ -1479,7 +1487,7 @@ export function Reader({ id }: { id: string }) {
                 </div>
               )}
               {detail && modal === 'evidence' && (
-                <Evidence data={DiscoveryEvidenceSchema.parse(detail)} />
+                <Evidence data={PublicDiscoveryEvidenceSchema.parse(detail)} />
               )}
               {detail &&
                 modal === 'history' &&
@@ -1523,9 +1531,11 @@ function TermPreview({ item }: { item: FeedItem }) {
           </div>
         </>
       )}
-      <a href={item.source.url} target="_blank" rel="noreferrer">
-        {item.source.name} · original source
-      </a>
+      {item.status === 'published' && (
+        <a href={item.source.url} target="_blank" rel="noreferrer">
+          {item.source.name} · original source
+        </a>
+      )}
       <p className="muted">
         {item.effectiveLabel} · version {item.version}
       </p>
@@ -1550,11 +1560,21 @@ function Evidence({
           fields and media are excluded from this excerpt.
         </p>
       )}
+      {data.scope === 'published-edition' && (
+        <p>
+          Selected published edition only. This excerpt reproduces its reviewed
+          title, text and dates. The hash identifies the complete retained
+          provider response, not these excerpt bytes. Other releases and
+          unreviewed document content are excluded.
+        </p>
+      )}
       <details>
         <summary>
           {data.scope === 'release-metadata'
             ? 'Advanced: permitted metadata excerpt'
-            : 'Advanced: original response'}
+            : data.scope === 'published-edition'
+              ? 'Advanced: published edition excerpt'
+              : 'Advanced: original response'}
         </summary>
         <p className="hash">{data.hash}</p>
         <pre>{data.body}</pre>

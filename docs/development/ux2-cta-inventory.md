@@ -100,3 +100,7 @@ WORKER-HEALTH-001: Operations→Worker health→Reload/details→Review Pause/Re
 ## Saved-record schedules
 
 Reports → Schedules → Create → frequency/timezone/time/weekday → Review → Back or consent/Confirm → dated receipt and current next run. Schedule card → Pause/Resume or Edit → review/confirm; competing edits → explicit Discard stale draft and reload → fresh Edit. History → actual report deep link → missing/deleted explanation when necessary. Delete preserves separately issued reports. Download history follows every owned page and refuses a partial file on failure/401. Privacy401 clears private controls. Device mode explains open-app-only execution; keyboard/Back/mobile and source-independent exact snapshots are covered by WEB330–335/OFFLINE360–361.
+
+## Source withdrawal
+
+Reader → Refresh reading → current unavailable notice → safe history/Back; known withdrawal removes original-source/evidence/visual/create-connection actions. Saved → Refresh → unavailable snapshot with retained Remove/Cancel controls. Operations → protected history/evidence dialogs retain escaped originals, then sign-out clears protected state. Related/learning context excludes withdrawn items; explicit Retry recovers failed current reads. WEB370–374 and OFFLINE390–393 cover races, keyboard/mobile and dated offline behavior.

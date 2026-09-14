@@ -1,3 +1,4 @@
+import { admitPublications } from './publication.js';
 import { randomUUID } from 'node:crypto';
 import { Inject, Injectable } from '@nestjs/common';
 import { AccountStore, STORE } from './accounts.js';
@@ -25,25 +26,37 @@ export class LibraryReminderWorker {
   async deliver() {
     await this.store.transaction(async (client) => {
       if (!(await admitWorker(client, 'reminders'))) return;
+      // Select a bounded candidate set before claiming work. Lock order matches
+      // private edits/deletion: sorted accounts → sorted sources → reminders.
+      const candidates = await client.query<{
+        id: string;
+        user_id: string;
+        item_id: string;
+      }>(
+        "SELECT id,user_id,item_id FROM library_reminders WHERE status='pending' AND due_at<=now() ORDER BY due_at,id LIMIT 50",
+      );
+      const owners = await client.query<{ id: string }>(
+        'SELECT id FROM app_users WHERE id=ANY($1::uuid[]) ORDER BY id FOR SHARE SKIP LOCKED',
+        [candidates.rows.map((row) => row.user_id)],
+      );
+      const eligible = candidates.rows.filter((row) =>
+        owners.rows.some((owner) => owner.id === row.user_id),
+      );
+      const publications = await admitPublications(
+        client,
+        eligible.map((row) => row.item_id),
+      );
       const due = await client.query<{
         id: string;
         user_id: string;
         item_id: string;
-        title: string;
       }>(
-        "SELECT id,user_id,item_id,title FROM library_reminders WHERE status='pending' AND due_at<=now() ORDER BY due_at,id LIMIT 50 FOR UPDATE SKIP LOCKED",
+        "SELECT id,user_id,item_id FROM library_reminders WHERE id=ANY($1::uuid[]) AND status='pending' AND due_at<=now() ORDER BY due_at,id LIMIT 50 FOR UPDATE SKIP LOCKED",
+        [eligible.map((row) => row.id)],
       );
       for (const row of due.rows) {
-        // Serialize with editorial publication so a withdrawal cannot race delivery.
-        await client.query(
-          'SELECT id FROM discovery_items WHERE id=$1 FOR SHARE',
-          [row.item_id],
-        );
-        const visible = await client.query<{ status: string; title: string }>(
-          "SELECT data->>'status' AS status,data->>'title' AS title FROM discovery_versions WHERE item_id=$1 AND data->>'status'<>'draft' ORDER BY version DESC LIMIT 1",
-          [row.item_id],
-        );
-        if (visible.rows[0]?.status !== 'published') {
+        const visible = publications.find((item) => item.id === row.item_id);
+        if (visible?.status !== 'published') {
           await client.query(
             "UPDATE library_reminders SET status='cancelled',version=version+1 WHERE id=$1",
             [row.id],
@@ -52,13 +65,7 @@ export class LibraryReminderWorker {
         }
         await client.query(
           'INSERT INTO library_notifications(id,user_id,reminder_id,item_id,title) VALUES($1,$2,$3,$4,$5) ON CONFLICT(reminder_id) DO NOTHING',
-          [
-            randomUUID(),
-            row.user_id,
-            row.id,
-            row.item_id,
-            visible.rows[0].title,
-          ],
+          [randomUUID(), row.user_id, row.id, row.item_id, visible.title],
         );
         await client.query(
           "UPDATE library_reminders SET status='delivered',version=version+1 WHERE id=$1",

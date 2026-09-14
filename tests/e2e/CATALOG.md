@@ -1,5 +1,11 @@
 # End-to-end case catalogue
 
+## SOURCE-WITHDRAWAL-001 — admission and retained originals
+
+API370–383 cover actual publication/withdrawal/republication; scoped sibling evidence; saved/reminder/export projection and unchanged underlying records; public/source waits; private expiry; owned connection/report/inbox compatibility; final snapshot manifest; protected access; async assistance revalidation; operator review/media waits; recovery/export admission in both orders; new-source exclusion; exact reminder/withdrawal/cancellation PID ordering. WEB370–374 (desktop/mobile) cover reader/history/media/evidence/Back, late reads, Saved controls, protected escaped originals/sign-out and related/learning fault recovery. OFFLINE390–393 cover genuine dated reading/save/export/deletion and explicitly synthetic higher-history withdrawal/republication/private parity with zero API traffic.
+
+Tag @SOURCE-WITHDRAWAL-001:24connected plus4offline executions. Three strict projection units; existing API122/OFFLINE353 follow the intentional disclosure policy. Every successful API/storage response is actual; faults and synthetic source data are labelled. Status records execution and separate hardware limits.
+
 ## REPORT-SCHEDULES-001 — actual scheduled reports
 
 - API330–335: consent/version/replay/foreign/export; two real workers and latest-due capture; capacity; session expiry during account wait; continued history beyond1000 outcomes; paged101-edition export.
@@ -426,3 +432,5 @@ Use tags `@ALLOCATIONS-001`, `@RECOVERY-001`, `@REPORTS-001`, `@IDENTITY-001`. C
 Worker-health parent verification:39/39 connected checks and19/19 packaged offline regressions passed; full run IDs, earlier UUID-fixture correction,401 body-boundary regression, preserved-record audits and phone limits are recorded in docs/development/status.md.
 
 Report-schedule parent verification:18/18 connected feature cases,26 worker/privacy regressions and20/20 packaged offline cases passed; configured-timezone display additionally passed2browser/2offline checks. Run IDs, fixture-cast correction, full-export validation, gates and physical limits are in status.
+
+Source-withdrawal parent verification:27/27 connected withdrawal/media executions and27 earlier worker/source regressions passed; all26selected offline scenarios have passing evidence across correction runs. The actual179-item bundle was rebuilt with final admission. Status records exact runs, receipt/locator corrections,124unit gates, preserved records and physical/disconnected limits.

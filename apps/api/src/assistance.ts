@@ -1,3 +1,4 @@
+import { admitPublications } from './publication.js';
 import {
   BadRequestException,
   Body,
@@ -31,6 +32,7 @@ export function assistanceProvider(config: AssistanceConfig) {
   return { provide: ASSISTANCE_CONFIG, useValue: config };
 }
 export interface AssistanceCandidate {
+  publication?: { id: string; version: number };
   id: string;
   title: string;
   text: string;
@@ -168,6 +170,12 @@ export class AssistanceController {
     const input = parsed.data;
     const loaded = await this.store.transaction(async (c) => {
       const user = await this.store.require(c, cookie);
+      await c.query('SELECT id FROM app_users WHERE id=$1 FOR SHARE', [
+        user.id,
+      ]);
+      await this.store.require(c, cookie);
+      const admitted = await admitPublications(c);
+      await this.store.require(c, cookie);
       const now = Date.now();
       for (const [id, limit] of this.limits)
         if (limit.until <= now) this.limits.delete(id);
@@ -186,14 +194,18 @@ export class AssistanceController {
       limit.count++;
       this.limits.set(user.id, limit);
       const records: AssistanceCandidate[] = [];
-      const content = await c.query<{ data: unknown }>(
-        "SELECT data FROM (SELECT DISTINCT ON(item_id) data FROM discovery_versions WHERE data->>'status'<>'draft' ORDER BY item_id,version DESC) visible WHERE data->>'status'='published' AND data->>'kind'='term' ORDER BY data->>'id' LIMIT 60",
-      );
+      const content = {
+        rows: admitted
+          .filter((v) => v.status === 'published' && v.kind === 'term')
+          .slice(0, 60)
+          .map((data) => ({ data })),
+      };
       for (const row of content.rows) {
         const item = FeedItemSchema.parse(row.data);
         if (!item.summary || item.summary.length > 700) continue;
         records.push({
           id: `content-${item.id}`,
+          publication: { id: item.id, version: item.version },
           title: item.title,
           text: item.summary,
           href: `#read/${item.id}`,
@@ -246,6 +258,7 @@ export class AssistanceController {
           if (!value.summary || value.summary.length > 700) continue;
           records.push({
             id: `saved-${value.id}`,
+            publication: { id: value.id, version: value.version },
             title: `Your saved reading: ${value.title}`,
             text: value.summary,
             href: `#read/${value.id}`,
@@ -349,14 +362,43 @@ export class AssistanceController {
     } else if (!candidates.length)
       message =
         'No matching saved references. Try a topic such as monthly contribution, ISIN or inflation.';
-    return AssistanceResultSchema.parse({
-      provider,
-      model,
-      fallback,
-      message,
-      suggestions,
-      usedHistory:
-        input.useHistory && candidates.some((value) => value.private),
+    return this.store.transaction(async (c) => {
+      const user = await this.store.require(c, cookie);
+      await c.query('SELECT id FROM app_users WHERE id=$1 FOR SHARE', [
+        user.id,
+      ]);
+      await this.store.require(c, cookie);
+      const current = await admitPublications(
+        c,
+        candidates.flatMap((v) => (v.publication ? [v.publication.id] : [])),
+      );
+      await this.store.require(c, cookie);
+      const admittedSuggestions = suggestions.filter((s) => {
+        const binding = candidates.find(
+          (c) => c.id === s.source.id,
+        )?.publication;
+        return (
+          !binding ||
+          current.some(
+            (v) =>
+              v.id === binding.id &&
+              v.version === binding.version &&
+              v.status === 'published',
+          )
+        );
+      });
+      return AssistanceResultSchema.parse({
+        provider,
+        model,
+        fallback,
+        message:
+          admittedSuggestions.length === suggestions.length
+            ? message
+            : 'Some source editions changed or were withdrawn. Refresh reading for current context.',
+        suggestions: admittedSuggestions,
+        usedHistory:
+          input.useHistory && admittedSuggestions.some((v) => v.source.private),
+      });
     });
   }
 }

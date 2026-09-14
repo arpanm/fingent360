@@ -1,7 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import { saveDownload } from './runtime';
 import { MediaAssetSchema, type MediaAsset } from '@fingent360/contracts';
-export function MediaSummary({ itemId }: { itemId: string }) {
+export function MediaSummary({
+  itemId,
+  itemVersion,
+}: {
+  itemId: string;
+  itemVersion: number;
+}) {
   const [asset, setAsset] = useState<MediaAsset | null>(null),
     [error, setError] = useState(''),
     [loading, setLoading] = useState(true),
@@ -28,7 +34,16 @@ export function MediaSummary({ itemId }: { itemId: string }) {
           throw new Error(
             'Visual summary could not load. You can still read the source below.',
           );
-        return MediaAssetSchema.parse(await response.json());
+        const value = MediaAssetSchema.parse(await response.json());
+        if (
+          value.itemId !== itemId ||
+          value.itemVersion !== itemVersion ||
+          value.status !== 'published'
+        )
+          throw new Error(
+            'This visual belongs to another source edition. Refresh reading.',
+          );
+        return value;
       })
       .then((value) => {
         if (active) setAsset(value);
@@ -47,7 +62,7 @@ export function MediaSummary({ itemId }: { itemId: string }) {
       canceled.current = true;
       if (recorder.current?.state === 'recording') recorder.current.stop();
     };
-  }, [itemId]);
+  }, [itemId, itemVersion]);
   useEffect(() => {
     if (!playing || !asset) return;
     const start = performance.now() - elapsed;

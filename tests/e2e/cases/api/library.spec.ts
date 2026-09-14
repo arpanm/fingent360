@@ -408,7 +408,8 @@ test('E2E-API-122 saved versions survive correction and withdrawn reminders canc
     );
     expect(cancelled.notifications).toEqual([]);
     expect(cancelled.saved[0]?.currentStatus).toBe('withdrawn');
-    expect(cancelled.saved[0]?.summary).toBe(item!.summary);
+    expect(cancelled.saved[0]?.summary).toBe('');
+    expect(cancelled.saved[0]?.title).toBe('Withdrawn source item');
     const exported = PrivacyExportSchema.parse(
       await (await request.get('/api/v1/account/privacy/export')).json(),
     );

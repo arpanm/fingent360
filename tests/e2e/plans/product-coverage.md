@@ -1,5 +1,9 @@
 # Planned end-to-end coverage
 
+## SOURCE-WITHDRAWAL-001 acceptance
+
+Fence public current/history/evidence/media/context/feed at consistent source admission; redact withdrawn provider text across saved/reminder/replay/export outputs without mutating originals or user notes. Scope shared-RSS evidence to one permitted edition. Preserve protected originals and post-wait operator/private authorization, coherent recovery/export ordering and final async assistance revalidation. Worker control → sorted eligible accounts → sorted sources → still-due reminder claims must not deadlock with cancellation/withdrawal. Exercise reader/Saved/Operations/learning loading/error/Retry/Back/keyboard/mobile and late responses. Actual local highest non-draft resolution, final snapshot manifest, dated disconnected limitation, private persistence/export/deletion and noAPI are required. API370–383, WEB370–374, OFFLINE390–393 plus projection units/compatibility; no invented source approval or physical acceptance.
+
 ## REPORT-SCHEDULES-001 acceptance
 
 Specify opt-in cadence and actual capture; validate strict contracts and additive immutable history; preserve account-first ownership, worker pause admission, report capacity/idempotency/tombstones and exact owned snapshots; verify real competing workers, DST/missed occurrences and post-wait auth. Exercise configure/review/Back/consent/save/edit/conflict/pause/resume/delete/history/original report navigation on keyboard and mobile. Failed or partial reads cannot fabricate current state; later401 clears private controls and prevents incomplete export. Complete all bounded history pages without lifetime feature shutdown. Actual local serialized parity includes export/deletion/no API and open-app-only execution. Broader scheduled market monitoring, external delivery, physical-phone and production uptime acceptance remain open.
@@ -754,3 +758,5 @@ The user now explicitly authorizes a native Android feedback build of the curren
 Worker-health parent verification:39/39 connected checks and19/19 packaged offline regressions passed; full run IDs, earlier UUID-fixture correction,401 body-boundary regression, preserved-record audits and phone limits are recorded in docs/development/status.md.
 
 Report-schedule parent verification:18/18 connected feature cases,26 worker/privacy regressions and20/20 packaged offline cases passed; configured-timezone display additionally passed2browser/2offline checks. Run IDs, fixture-cast correction, full-export validation, gates and physical limits are in status.
+
+Source-withdrawal parent verification:27/27 connected withdrawal/media executions and27 earlier worker/source regressions passed; all26selected offline scenarios have passing evidence across correction runs. The actual179-item bundle was rebuilt with final admission. Status records exact runs, receipt/locator corrections,124unit gates, preserved records and physical/disconnected limits.

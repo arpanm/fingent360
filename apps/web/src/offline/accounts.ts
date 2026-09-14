@@ -447,7 +447,7 @@ export async function handleAccounts(
         },
         library: {
           available: true,
-          data: exportOfflineLibrary(detached, user.id),
+          data: exportOfflineLibrary(detached, user.id, bundle),
         },
         learning: {
           available: true,

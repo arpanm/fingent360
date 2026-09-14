@@ -57,3 +57,4 @@ export * from './bea.js';
 export * from './worker-health.js';
 
 export * from './report-schedules.js';
+export * from './publication.js';

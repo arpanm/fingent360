@@ -11,6 +11,7 @@ import {
   Post,
   BadRequestException,
   NotFoundException,
+  UnauthorizedException,
   Res,
 } from '@nestjs/common';
 import type pg from 'pg';
@@ -112,6 +113,24 @@ export class PrivacyController {
       // A single snapshot keeps account data consistent during concurrent edits.
       await client.query('SET TRANSACTION ISOLATION LEVEL REPEATABLE READ');
       const user = await this.store.require(client, cookie);
+      // Account → session → source: keep one coherent export and fence revocation.
+      // A session changed after the repeatable-read snapshot must fail closed.
+      try {
+        await client.query('SELECT id FROM app_users WHERE id=$1 FOR SHARE', [
+          user.id,
+        ]);
+        const session = await client.query(
+          'SELECT token_hash FROM app_sessions WHERE user_id=$1 AND token_hash=$2 AND expires_at>clock_timestamp() FOR SHARE',
+          [user.id, sessionFromCookie(cookie)],
+        );
+        if (!session.rowCount)
+          throw new UnauthorizedException('Sign in to access your account.');
+      } catch (error) {
+        if ((error as { code?: string }).code === '40001')
+          throw new UnauthorizedException('Sign in to access your account.');
+        throw error;
+      }
+      await this.store.require(client, cookie);
       const list = await client.query<{ indicators: string[] }>(
         'SELECT indicators FROM app_watchlists WHERE user_id=$1',
         [user.id],
@@ -192,6 +211,7 @@ export class PrivacyController {
       const libraryData = libraryAvailable
         ? await readLibrary(client, user.id)
         : null;
+      await this.store.require(client, cookie);
       const learningTables = await client.query<{ available: boolean }>(
         "SELECT to_regclass('app_learning_attempts') IS NOT NULL AND to_regclass('app_learning_votes') IS NOT NULL AS available",
       );
@@ -289,6 +309,7 @@ export class PrivacyController {
           'Separate anonymous virtual exercise workspaces',
         ],
       });
+      await this.store.require(client, cookie);
       response.setHeader(
         'Content-Disposition',
         'attachment; filename="fingent360-account.json"',

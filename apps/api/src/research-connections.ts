@@ -1,3 +1,4 @@
+import { admitPublications } from './publication.js';
 import { createHash } from 'node:crypto';
 import {
   BadRequestException,
@@ -16,7 +17,6 @@ import {
 import { z } from 'zod';
 import type pg from 'pg';
 import {
-  FeedItemSchema,
   HoldingsSnapshotSchema,
   SavedGoalSchema,
   ResearchConnectionsSchema,
@@ -62,12 +62,9 @@ async function sources(
   ids: string[],
 ): Promise<ConnectionSourceReceipt[]> {
   if (!ids.length) return [];
-  const result = await c.query(
-    "SELECT v.data FROM discovery_items i JOIN LATERAL (SELECT data FROM discovery_versions WHERE item_id=i.id AND data->>'status'<>'draft' ORDER BY version DESC LIMIT 1) v ON true WHERE i.id=ANY($1::text[])",
-    [ids],
-  );
-  return result.rows.flatMap((r) => {
-    const source = connectionSource(FeedItemSchema.parse(r.data));
+  const result = await admitPublications(c, ids);
+  return result.flatMap((item) => {
+    const source = connectionSource(item);
     return source ? [source] : [];
   });
 }
@@ -114,6 +111,7 @@ export class ResearchConnectionsController {
           ...(parsed.data.itemId ? [parsed.data.itemId] : []),
         ]),
       ]);
+      await this.store.require(c, cookie);
       return ResearchConnectionsSchema.parse({
         connections: revisions.map((r) => connectionView(r, current, choices)),
         targets: choices,
@@ -219,10 +217,7 @@ export class ResearchConnectionsController {
         input.action === 'create' || input.action === 'reaffirm'
           ? input.source.itemId
           : previous?.source.itemId;
-      if (sourceId)
-        await c.query('SELECT id FROM discovery_items WHERE id=$1 FOR SHARE', [
-          sourceId,
-        ]);
+      const currentSources = await sources(c, sourceId ? [sourceId] : []);
       // Publication locking can also wait past natural session expiry.
       // AccountStore.find must use clock_timestamp (AUTH-WAIT integration).
       await this.store.require(c, cookie);
@@ -232,7 +227,7 @@ export class ResearchConnectionsController {
           id,
           input,
           previous,
-          await sources(c, sourceId ? [sourceId] : []),
+          currentSources,
           await targets(c, user.id),
           new Date().toISOString(),
         );

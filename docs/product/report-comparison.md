@@ -1,0 +1,32 @@
+# REPORT-COMPARE-001 — compare issued saved records
+
+Implementation specification; parent execution and integration are pending.
+
+## Scope and workflow
+
+An owned signed-in workspace selects two different issued record reports, reviews their capture/issue dates and baselines, then reads an on-demand comparison. Report choices contain only IDs, labels, policy and dates. Deep links `#report-compare?first=<uuid>&second=<uuid>` contain only opaque IDs. Open original uses `#reports?selected=<uuid>`. The existing original reader is a dialog: Close/Escape first, then Back returns to the comparison (native Back closes the dialog before navigating). Back and reload reconstruct from owned originals. There is no saved comparison, hidden snapshot, market return, price, inferred growth or recommendation.
+
+The direction is older capture to newer capture, independent of selection order. Equal capture times use issue time then lexical UUID as deterministic tie-breakers, explicitly disclosed. Each response states its checked time and remains a dated read: it does not establish present account records or publication status. Refresh clears the previous comparison while checking availability. Selection changes, route changes, unmount and actual 401 invalidate or abort pending reads. A 401 immediately clears all private state, even if an earlier successful read arrives later. Other errors clear comparison contents and offer retry; foreign, missing and deleted reports share a generic unavailable result. Fewer than two issued reports has an actionable Reports link. Keyboard/mobile controls and independent loading/error/recovery states are required.
+
+## Exact rules and supported originals
+
+Only strict immutable `saved-record-review-v1` and `saved-record-review-v2` originals are supported. Goals align by stable goal UUID; holdings by ISIN; allocations by goal UUID plus ISIN; captured research connections by stable connection UUID. Rows and changed fields are deterministic. Both present with equivalent inputs is unchanged; one present is added/removed with a null difference, never a fictitious zero baseline. Changed names, types, versions, goal horizon, contribution-only projections and gaps are explicit. Monetary differences are signed integer INR paise (scale 2); quantity differences are signed integer millionths (scale 6); counts/months/revisions are signed integers. All arithmetic uses BigInt. The original no-growth policy derives projection from entered savings plus monthly contribution times months, with gap floored at zero. Recorded holdings/acquisition/allocation cost changes are not gains, losses, cash or market value. Allocations retain their captured goal/holdings version and review reasons.
+
+Research is available only when both originals have a v2 research capture. If either is v1, show each capture's availability and no invented additions/removals. When both are v2, compare bound source ID/version/hash, target identity/version/label, personal note and captured review context, with each evaluation date. Text is escaped; no source article, live publication claim or external source action is added. Unknown original policies/fields, duplicate identities and invalid originals fail closed with a safe unreadable-original error.
+
+## Contracts/API and storage
+
+GET `/api/v1/account/report-comparison/options` returns at most 100 owned succeeded originals' metadata. GET `/api/v1/account/report-comparison?first=<uuid>&second=<uuid>` rejects duplicate/unknown query keys, malformed IDs and identical IDs. Both require an active session. The comparison transaction locks account first, then the two owned jobs in sorted UUID order with shared locks, then rechecks wall-clock session authorization after the final wait. Owned deletion/account reset serialize on the account lock; issue workers serialize on job locks. Missing/foreign/deleted returns 404 and unissued/cancelled returns 409. A request admitted before a later deletion may finish; later reads cannot recover a deleted original. There is no mutation, CSRF/Origin requirement, new table, migration, capacity use, provider read, export dataset or retention policy. Existing original report export/deletion owns the sole durable data.
+
+Device handling uses the existing serialized local state transaction, strict matching ownership/status rules and the same pure comparison function. Reading comparison does not issue queued jobs; Reports remains the explicit local preparation surface. No API network traffic is needed. Device account deletion removes originals; a remembered comparison link cannot restore them.
+
+## Acceptance and evidence
+
+- Unit: exact large money/fraction quantities, input and version deltas, added/removed/null baselines, deterministic reversed/tied selection, v1/v2 availability, v2 note/binding changes, unknown/duplicate originals rejected.
+- API420–439 reserved: real issue/change/issue comparison, actual originals unchanged and no new records; strict/guest/foreign/deleted/unissued denial; account/job observed-lock expiry/reset with no private response; independent read consistency.
+- WEB420–439 reserved: keyboard/mobile select/review/compare/original/Back/deep link; empty/fewer than two/503 retry; actual deletion; actual 401 despite held late success; changed selections beating an older held response; escaped private text.
+- OFFLINE430–449 reserved: real local issuance and exact parity, reload/original/deletion, no comparison-triggered issuance, ownership and zero network.
+
+No deterministic execution is performed by the author. Exact authored cases, integration points and parent verification commands are recorded in `docs/development/report-comparison-handoff.md`.
+
+Authored case allocation: API420–426 cover exact real issuance, strict/ownership/deletion, queued/cancelled denial, observed recovery/expiry waits, historical v2 source withdrawal and deletion ahead of comparison. WEB420–425 cover keyboard/mobile/date review, both read failure recovery paths, original dialog Close/Escape plus Back, deletion, selection races, actual401 and foreign deep links. OFFLINE430–432 cover exact local records, durable navigation/deletion, queued/foreign denial, actual bundled research and zero-network account deletion. Five contract unit cases cover exact arithmetic, presence/ties, strict originals/research availability and unreadable typed numeric responses. Execution is pending.

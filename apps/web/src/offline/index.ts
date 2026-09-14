@@ -26,6 +26,7 @@ import { handleAllocations } from './allocations';
 import { handleRecovery } from './recovery';
 import { handleSecurities } from './securities';
 import { reportsHandler } from './reports';
+import { handleReportComparison } from './report-comparison';
 import { handleRetention } from './retention';
 import { handleWorkerHealth } from './worker-health';
 
@@ -45,6 +46,7 @@ const handlers: OfflineHandler[] = [
       await materializeLocalSchedules(state, bundle);
     return reportsHandler(request, state, bundle);
   },
+  handleReportComparison,
   handleAllocations,
   handleResearchConnections,
   handleFinance,

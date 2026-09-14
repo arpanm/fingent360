@@ -14,6 +14,8 @@ export type AccountDestination =
   | 'allocations'
   | 'report-schedules'
   | 'reports'
+  | 'report-compare'
+  | `report-compare?${string}`
   | `read/${string}`;
 export function accountDestination(hash: string): AccountDestination | null {
   const query = hash.split('?')[1] ?? '';
@@ -36,6 +38,11 @@ export function accountDestination(hash: string): AccountDestination | null {
     next === 'connection-reviews' ||
     next === 'report-schedules' ||
     next === 'reports' ||
+    next === 'report-compare' ||
+    (next !== null &&
+      /^report-compare\?first=[a-f0-9-]{36}&second=[a-f0-9-]{36}$/.test(
+        next,
+      )) ||
     (next !== null && /^read\/[a-z0-9-]{1,100}$/.test(next))
     ? (next as AccountDestination)
     : null;

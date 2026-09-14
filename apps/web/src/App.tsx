@@ -31,6 +31,7 @@ import { GoalAllocations } from './GoalAllocations';
 import { Recovery } from './Recovery';
 import { ReportSchedules } from './ReportSchedules';
 import { Reports } from './Reports';
+import { ReportComparison } from './ReportComparison';
 import { Securities } from './Securities';
 import { OfflineOperationsNotice } from './RetentionOperations';
 import { startFeedbackSync } from './feedback-sync';
@@ -56,6 +57,12 @@ const destinations = [
   ['more', 'More', 'more'],
 ];
 const moreLinks = [
+  [
+    'report-compare',
+    'Compare issued reports',
+    'Review changes in your captured records',
+    'overview',
+  ],
   [
     'connection-reviews',
     'Connection review inbox',
@@ -378,8 +385,10 @@ export function App() {
             <GoalAllocations />
           ) : base === 'report-schedules' ? (
             <ReportSchedules />
+          ) : base === 'report-compare' ? (
+            <ReportComparison key={route} />
           ) : base === 'reports' ? (
-            <Reports />
+            <Reports key={route} />
           ) : base === 'securities' || base.startsWith('securities/') ? (
             <Securities
               key={base}

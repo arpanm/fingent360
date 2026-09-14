@@ -58,3 +58,5 @@ export * from './worker-health.js';
 
 export * from './report-schedules.js';
 export * from './publication.js';
+
+export * from './report-comparison.js';

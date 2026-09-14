@@ -403,7 +403,8 @@ export function Reports() {
       <p>
         <a href="#account?next=reports">Account and sign in</a> ·{' '}
         <a href="#my-goals">Goals</a> · <a href="#holdings">Holdings</a> ·{' '}
-        <a href="#connections">Research connections</a>
+        <a href="#connections">Research connections</a> ·{' '}
+        <a href="#report-compare">Compare issued reports</a>
       </p>
       {loading && <p role="status">Loading private reports…</p>}
       {error && (

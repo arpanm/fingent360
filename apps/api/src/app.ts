@@ -48,6 +48,10 @@ import { ResearchConnectionsController } from './research-connections.js';
 import { AllocationsController } from './allocations.js';
 import { RecoveryController } from './recovery.js';
 import { ReportsController, ReportsStore } from './reports.js';
+import {
+  ReportComparisonController,
+  ReportComparisonStore,
+} from './report-comparison.js';
 import { ReportWorker } from './report-worker.js';
 import { WorkerHealthController, WorkerHealthStore } from './worker-health.js';
 import { RetentionController, retentionProvider } from './retention.js';
@@ -110,6 +114,7 @@ export async function createApp(
         RetentionController,
         ReportsController,
         ReportSchedulesController,
+        ReportComparisonController,
         SecuritiesController,
         OpsSecuritiesController,
         AssistanceController,
@@ -136,6 +141,7 @@ export async function createApp(
         LibraryReminderWorker,
         ReportsStore,
         ReportSchedulesStore,
+        ReportComparisonStore,
         ReportWorker,
         WorkerHealthStore,
         mediaProvider(config),

@@ -1,5 +1,11 @@
 # Fingent360
 
+## Compare two saved reports — REPORT-COMPARE-001
+
+**Saved record reviews → Compare reports** lets you choose two of your issued originals, review their capture dates and compare recorded goals, contribution plans, holdings and allocation bindings. Differences use exact arithmetic and always run from the older capture to the newer one, regardless of selection order. Missing values stay unknown; changes in acquisition cost are not investment returns. Optional research receipts remain dated personal context.
+
+Open either original, close its reader and return to the comparison. Refresh or reload checks that both originals remain available; deletion or sign-out removes the private comparison. It is calculated on demand and creates no additional stored report or hidden snapshot. Existing report export/deletion rules remain. The same workflow uses actual on-device reports without an API; rebuild/reinstall the APK for phone changes. No migration or dependency added. [Specification](docs/product/report-comparison.md), [verification](docs/development/status.md). Verified: all37 selected connected scenarios have passing evidence across correction runs, and20/20 packaged offline cases passed. Physical-phone acceptance remains separate.
+
 ## Review holdings replacements — HOLDINGS-RECONCILE-001
 
 Every manual, CSV or standard XLSX replacement now shows the actual saved baseline and proposed added, removed, changed and unchanged holdings before confirmation. Quantities and acquisition-cost differences use exact arithmetic. Removing rows requires an explicit acknowledgement. These are changes to recorded inputs, not market returns or valuations.
@@ -216,7 +222,7 @@ After failure, ask Codex: **Read artifacts/e2e/latest.md and fix the failures.**
 
 Follow [SDLC](docs/development/sdlc.md): maintain TODO before work; deliver every required layer; add meaningful cases and UX acceptance; record real evidence; update docs; commit only after gates; never push automatically. A screenshot, generated document, mocked UI or passed endpoint alone does not finish a feature. Implementation, verification and acceptance are separate statuses.
 
-Historical UX-001 run `2026-09-12T17-03-42-614Z-70343`: 68 passed, zero failed, E2E-API-004 intentionally skipped; API/desktop/mobile against web http://127.0.0.1:5175 and API http://127.0.0.1:4103. Format/check and all 40 unit tests passed. In-app browser review covered empty/populated overview, goals, holdings, macro context and account; full accessibility and user design acceptance remain separate. Existing migrations001–009 are reused with no schema change. Historical TEAM-001 evidence is retained in TODO/status. The next complete workflows are verified equity valuation, connected goal allocations, evidence-to-portfolio research, and durable review/release readiness; their detailed scope and dependencies are in TODO.
+Historical UX-001 run `2026-09-12T17-03-42-614Z-70343`: 68 passed, zero failed, E2E-API-004 intentionally skipped; API/desktop/mobile against web http://127.0.0.1:5175 and API http://127.0.0.1:4103. Format/check and all 40 unit tests passed. In-app browser review covered empty/populated overview, goals, holdings, macro context and account; full accessibility and user design acceptance remain separate. Existing migrations001–009 are reused with no schema change. Historical TEAM-001 evidence is retained in TODO/status. Connected allocations, evidence connections and durable reports now have separately verified children above. Remaining work includes eligible equity prices/valuation, broader source coverage, source-review/operational completion and production release acceptance; full parent scope remains in TODO.
 
 ## Repository map
 

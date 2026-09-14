@@ -25,6 +25,7 @@ export function sectionFor(route: string) {
       'connection-reviews',
       'reports',
       'report-schedules',
+      'report-compare',
     ].includes(key) ||
     key.startsWith('securities')
   )

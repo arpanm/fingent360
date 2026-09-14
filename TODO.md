@@ -1,10 +1,16 @@
 # TODO — Fingent360 delivery tracker
 
+## TEAM-007 — source review and accountable operations
+
+- **SOURCE-REVIEW-DIFF-001 (DEV-015/016): In progress; isolated authoring after TEAM-006.** Detailed Codex prompt: specify and implement an operator's comparison of one actual stored draft/head and its prior published edition, including first publication, corrections and withdrawn predecessors. Read current discovery immutable editions, protected operator sessions, source-withdrawal history/evidence and explicit publish/withdraw version rules. Add strict read-only comparison contracts/API using actual retained originals, field-level text/topics/dates/hash/publication-state differences and truthful absent/unchanged states; never infer market impact or fetch providers. Bind publish/review actions to the exact examined head/version and reject an intervening edition with explicit reload, preserving original immutable evidence. Reuse current edition storage; justify any additive schema before authoring (reserve033 only if essential). Extract a responsive Operations review component with review→prior/current→evidence→Back→explicit publication, keyboard/focus/mobile, loading/empty/error/retry/stale/401 states, generation guards and immediate private clearing. Only protected operators may inspect retained withdrawn originals; public endpoints retain existing tombstones. Device Operations explains connected access with zero API calls. Add meaningful actual isolated PostgreSQL/MongoDB API460–479 and desktop/mobile WEB460–479, OFFLINE470–489, exact source-labelled fixtures and units as needed. Test absent/withdrawn predecessors, foreign/malformed head, changed source head, post-wait expiry, text escaping and unchanged originals/finances. No new provider/licensing/advice claim, no hidden publication, no execution/install/migrations/services/commits by agent. Author spec/code/tests/handoff in isolated worktree; parent owns trackers, integration/gates/commit. Broader four-eyes/roles/source rights remain open.
+
+- **OPS-AUDIT-001 (DEV-015/017/021): In progress; parallel isolated authoring.** Detailed Codex prompt: inspect existing immutable operator_audit rows and request-stage insertion semantics; specify a protected bounded audit-history browser without representing requests as completed work. Add strict filter/cursor/result contracts, keyset pages with stable upper bound, fixed safe event projection and authenticated read API using existing storage, final wall-clock session checks after waits and no token/session hashes, credentials, raw URLs/query/body or private financial/feedback content. Never invent operator identity; omit correlation unless safely justified. UI under Operations: filters→results→more→reset/retry/Back, loading/empty/error/expired sign-in, keyboard/mobile and stale-response invalidation, accurate dates and clear links to existing module-specific completion receipts where known without hidden joins/copies. No mutation of audit history or new background work; existing database immutability remains. Local Operations gives connected-only/noAPI explanation. Author product spec, contracts/API/component, real isolated API480–499/browser WEB480–499/OFFLINE490–509 and focused pagination/safe-projection units as needed, including actual recorded operator actions, filters/pages, unchanged audit rows, invalid inputs, post-wait expiry, no secrets/private bodies and late response privacy clearing. Prefer no migration/dependency; reserve034 only with concrete justification. Parent integrates one child at a time, updates README/TODO/catalog/coverage/status, runs authorized gates and commits locally. Agent does not execute tests/builds/install/migrations/provider/services/commits; no push. Named roles, successful-action attribution and approval separation remain explicit broader work.
+
 ## TEAM-006 — safer changes and record comparisons
 
 - **HOLDINGS-RECONCILE-001 (DEV-008/SRC-013): Implemented and verified for the bounded scope;31connected and14offline passes.** Show exactly what a holdings replacement will change before confirmation. Detailed Codex prompt: read current manual/CSV/XLSX preview/confirm/idempotency/version rules, exact decimal contracts, allocations/research connections, privacy and actual offline storage. Specify baseline → proposed rows → added/removed/changed/unchanged quantities and acquisition costs → explicit removal acknowledgement → confirm/replay/conflict. Capture the actual owned baseline edition in a durable preview, calculate signed differences with exact integer/scaled arithmetic and disclose missing values/currencies; recorded cost is not market value or performance. Review changes and aggregate declared reconciliation alongside existing parser provenance, never silently net unlike instruments or currencies. Reuse existing preview JSONB when sound, otherwise additive migration031; never change an applied migration. Confirm must bind the exact reviewed baseline and proposed rows, reject intervening holdings changes without mutation, preserve original successful request replay, and explicitly recover stale/expired/unreadable previews. Explain existing allocation/connection review consequences using real dependencies without silently modifying them. Cover manual entry/CSV/XLSX, initial holdings, complete removal and retained rows, empty/error/retry/Back/draft/removal consent, keyboard/mobile and exact saved receipt. Mirror actual serialized device storage/export/deletion, no API in device mode and no raw private workbook retention. Cases use actual isolated DB/API and owned browser/offline workflows, labelled synthetic holdings/locks/faults, strict foreign/Origin/session-expiry/post-wait rules, concurrent preview/confirm/replay and unchanged unrelated finances. Reserve API400–419, WEB400–419, OFFLINE410–429 plus meaningful unit arithmetic cases. Author spec/code/tests/handoff in assigned worktree only; parent registers shared trackers, integrates, runs authorized gates/migrations/tests and commits separately. No agent execution/install/provider calls/services/commits; no push. Arbitrary broker formats, prices and investment advice remain outside this child.
 
-- **REPORT-COMPARE-001 (DEV-011/016): In progress; isolated authoring.** Compare two actual owned issued record reports without creating hidden snapshot copies. Detailed Codex prompt: read immutable v1/v2 report shapes, exact planning math, ownership/session/tombstone/capacity and offline report storage before specifying select two → review dates/baselines → compare → open original → Back/reload/deep link. Add strict read-only comparison contracts/API/domain logic for goal input/contribution-only projection, holdings quantities/acquisition cost and allocation bindings using exact scaled/integer differences; separate additions/removals/unknown fields, and label cost changes as recorded inputs rather than return or market performance. Preserve report chronology independent of selection ordering; identify comparison direction visibly. v1/v2 research receipts may show binding/note changes only with explicit dated context and no copied provider article or current publication inference. Read owned originals on demand under consistent account/report admission and final post-lock authentication; deletion/account reset/foreign reports must not expose stale private snapshots. Do not persist another report copy; deep links contain only opaque owned IDs, no financial values. Build responsive comparison workspace and Reports entry using existing navigation/AccountGate, complete loading/empty/fewer-than-two/failed/read-retry/missing/deleted/conflict/401/Back/keyboard/mobile states, abort/invalidate late responses and keep receipts distinct from current source availability. Actual local serialized parity/noAPI, existing export/deletion policy reused with no new private dataset; schema/migration not applicable unless justified. Tests must compare actual issued reports with exact canonical output, foreign/deleted/cancelled/unissued denial, waits/session reset, changed report selection while responses race, raw text escaping, original navigation and offline reload/deletion/no-network. Reserve API420–439, WEB420–439, OFFLINE430–449. Author isolated contracts/API/component/local/tests/spec/handoff, leave root trackers/integration/execution/commit to parent. Preserve REPORTS-003 and upcoming schedule deep links; coordinate shared Reports.tsx changes. No provider calls/prices/advice/migrations/dependencies unless concretely needed; no agent execution or commits, no push.
+- **REPORT-COMPARE-001 (DEV-011/016): Implemented and verified for the bounded scope;37connected scenarios passing across corrections and20offline passes.** Compare two actual owned issued record reports without creating hidden snapshot copies. Detailed Codex prompt: read immutable v1/v2 report shapes, exact planning math, ownership/session/tombstone/capacity and offline report storage before specifying select two → review dates/baselines → compare → open original → Back/reload/deep link. Add strict read-only comparison contracts/API/domain logic for goal input/contribution-only projection, holdings quantities/acquisition cost and allocation bindings using exact scaled/integer differences; separate additions/removals/unknown fields, and label cost changes as recorded inputs rather than return or market performance. Preserve report chronology independent of selection ordering; identify comparison direction visibly. v1/v2 research receipts may show binding/note changes only with explicit dated context and no copied provider article or current publication inference. Read owned originals on demand under consistent account/report admission and final post-lock authentication; deletion/account reset/foreign reports must not expose stale private snapshots. Do not persist another report copy; deep links contain only opaque owned IDs, no financial values. Build responsive comparison workspace and Reports entry using existing navigation/AccountGate, complete loading/empty/fewer-than-two/failed/read-retry/missing/deleted/conflict/401/Back/keyboard/mobile states, abort/invalidate late responses and keep receipts distinct from current source availability. Actual local serialized parity/noAPI, existing export/deletion policy reused with no new private dataset; schema/migration not applicable unless justified. Tests must compare actual issued reports with exact canonical output, foreign/deleted/cancelled/unissued denial, waits/session reset, changed report selection while responses race, raw text escaping, original navigation and offline reload/deletion/no-network. Reserve API420–439, WEB420–439, OFFLINE430–449. Author isolated contracts/API/component/local/tests/spec/handoff, leave root trackers/integration/execution/commit to parent. Preserve REPORTS-003 and upcoming schedule deep links; coordinate shared Reports.tsx changes. No provider calls/prices/advice/migrations/dependencies unless concretely needed; no agent execution or commits, no push.
 
 - **READING-FOLLOW-001 (DEV-018): In progress; parallel isolated authoring, integration after SOURCE-WITHDRAWAL-001.** Explicit source/topic subscriptions with a manual check of newly reviewed stored editions, dated coalesced private inbox, mute/acknowledge/reopen and withdrawal-safe navigation. Dependencies: SOURCE-WITHDRAWAL-001, current library/privacy and complete schedule export. Initial follow/re-add/unmute establishes a visible fresh baseline without backlog; later explicit checks reopen only materially changed edition/state observations. No provider refresh, continuous monitoring, email/push, urgency/impact inference or financial mutation. Full scope/specification preparation: artifacts/reading-follow-preparation.md, to be converted into tracked product spec by author. Detailed Codex prompt: Implement READING-FOLLOW-001 end to end in the assigned isolated worktree against the reviewed SOURCE-WITHDRAWAL-001 interfaces; integrate only after that prerequisite. Read this preparation plus AGENTS/README/decisions/current library and privacy workflows. Author strict shared contracts/domain policies, migration032, account-owned API/storage, responsive Reading updates UI, serialized offline parity, complete privacy export/deletion, fixtures/units/API440–459/WEB440–459/OFFLINE450–469 and exact handoff. Follow only explicit reviewed catalogue sources/topics; initial saves establish a visible baseline with no backlog; manual checks inspect stored reviewed editions only. Persist one coalesced private notice per item with exact config/version/fingerprint/ack/reopen/mute/unfollow semantics. Keep immutable minimal receipts and bounded paginated reads without lifetime shutdown caps. Account-first/sorted-source locks with wall-clock reauthorization after every wait; exact replay remains historical until authoritative GET. Reuse withdrawal-aware current projections; never store/disclose source text in private notice history, mutate finance, call providers or schedule background work. Preserve all later report/schedule/privacy changes. No main tracker edits, tests/builds/format/install/service/provider/migration/commit execution by author. Send interfaces early, save increments, get bounded peer review, freeze manifest and honest limitations. Root integrates, runs authorized gates and commits locally without push. Account-owned configuration, baseline and immutable notice/operation histories use additive032 and bounded pagination without a lifetime feature cutoff. Full exports must collect all pages with final account confirmation; later-page401 must not produce a partial file. API440–459, WEB440–459, OFFLINE450–469 cover actual database/publication/lock/race and serialized local flows. All UI states, consent/review/Back/focus/mobile, historical-vs-current receipts, muted/unfollowed behavior, unknown sources/topics and unchanged private finances require concrete acceptance. The broader event-policy and external-delivery gates remain open.
 
@@ -249,75 +255,75 @@ UX-001 reopens full experience acceptance; historical task prompts below remain 
 
 TEAM-001 adds GOALS-001, PRIVACY-001, SOURCES-001, ALERT-002, PORTFOLIO-001, PWA-001 and MIGRATIONS-001. Their current implementation/verification evidence is recorded at the top of this file. Parent roadmap rows below retain their broader scope; a completed child does not complete its parent.
 
-| ID          | Task                                                                 | Implementation         | Verification    |
-| ----------- | -------------------------------------------------------------------- | ---------------------- | --------------- |
-| ALERT-001   | Personal observation inbox                                           | Implemented            | Awaiting user   |
-| ACCOUNT-001 | Authenticated accounts and real-data watchlists                      | Implemented            | Awaiting user   |
-| DATA-001    | Real India macro ingestion and evidence UI                           | Implemented            | Awaiting user   |
-| SLICE-001   | [Working educational portfolio journey](#slice-001)                  | Implemented            | Awaiting user   |
-| BUG-003     | Workspace creation diagnostics                                       | Implemented            | Awaiting user   |
-| BUG-002     | [JSON API not-found responses](#bug-002)                             | Implemented            | Awaiting user   |
-| BUG-001     | [Duplicate startup / browser download recovery](#bug-001)            | Implemented            | Awaiting user   |
-| SETUP-001   | [Local development foundation](#setup-001)                           | Implemented            | Historical only |
-| SDLC-001    | [Manual SDLC and reusable API/browser test dashboard](#sdlc-001)     | Implemented            | Awaiting user   |
-| SDLC-002    | [User acceptance of the SDLC tool](#sdlc-002)                        | Awaiting user          | Awaiting user   |
-| DEV-001     | [Screen-level PRD, glossary and canonical data dictionary](#dev-001) | In progress            | Awaiting user   |
-| DEV-002     | [Research/advice policy and threat model](#dev-002)                  | In progress            | Not run         |
-| DEV-003     | [Versioned domain contracts and golden fixtures](#dev-003)           | In progress            | Not run         |
-| DEV-004     | [PostgreSQL migrations and MongoDB indexes](#dev-004)                | In progress            | Not run         |
-| DEV-005     | [P0 source registry and initial adapters](#dev-005)                  | In progress            | Not run         |
-| DEV-006     | [Public intelligence slice](#dev-006)                                | In progress            | Not run         |
-| DEV-007     | [Identity/consent and manual/virtual portfolios](#dev-007)           | In progress            | Not run         |
-| DEV-008     | [CSV/XLSX imports and help](#dev-008)                                | In progress            | Not run         |
-| DEV-009     | [Multiple goals and portfolio linkage](#dev-009)                     | In progress            | Not run         |
-| DEV-010     | [Oil-shock educational end-to-end slice](#dev-010)                   | In progress            | Not run         |
-| DEV-011     | [Daily/weekly reports and durable workers](#dev-011)                 | Planned                | Not run         |
-| DEV-012     | [Responsive PWA and accessible UI](#dev-012)                         | In progress            | Not run         |
-| DEV-013     | [Regulated personalised advice](#dev-013)                            | Gated                  | Not run         |
-| DEV-014     | [Broker connectivity and later channels/assets](#dev-014)            | Planned                | Not run         |
-| DEV-015     | [Admin and research operations](#dev-015)                            | In progress            | Not run         |
-| DEV-016     | [Evidence, explanations and corrections](#dev-016)                   | In progress            | Not run         |
-| DEV-017     | [Privacy, security and consent lifecycle](#dev-017)                  | In progress            | Not run         |
-| DEV-018     | [Watchlists, material alerts and delivery controls](#dev-018)        | In progress            | Not run         |
-| DEV-019     | [Deterministic research policy and action centre](#dev-019)          | Planned                | Not run         |
-| DEV-020     | [Additional verified event slices](#dev-020)                         | Planned                | Not run         |
-| DEV-021     | [Operational quality, observability and release controls](#dev-021)  | Planned                | Not run         |
-| DEV-022     | [Indian mutual funds and bonds](#dev-022)                            | Planned                | Not run         |
-| DEV-023     | [Other Indian assets and derivatives](#dev-023)                      | Deferred               | Not run         |
-| DEV-024     | [International mutual funds](#dev-024)                               | Deferred               | Not run         |
-| DEV-025     | [International equities and ETFs](#dev-025)                          | Deferred               | Not run         |
-| DEV-026     | [Other international assets](#dev-026)                               | Deferred               | Not run         |
-| DEV-027     | [Crypto last-stage capability](#dev-027)                             | Deferred               | Not run         |
-| DEV-028     | [Broker and account connectivity](#dev-028)                          | Planned                | Not run         |
-| DEV-029     | [WhatsApp and mobile application shells](#dev-029)                   | Partial: Android child | See ANDROID-001 |
-| DEV-030     | [Monetisation decision and commercial conflict controls](#dev-030)   | Deferred               | Not run         |
-| SRC-001     | [Instrument/security master source onboarding (P0)](#src-001)        | Planned                | Not run         |
-| SRC-002     | [Indian EOD prices/volume source onboarding (P0)](#src-002)          | Planned                | Not run         |
-| SRC-003     | [Corporate actions source onboarding (P0)](#src-003)                 | Planned                | Not run         |
-| SRC-004     | [Corporate filings/results source onboarding (P0)](#src-004)         | Planned                | Not run         |
-| SRC-005     | [Reported fundamentals source onboarding (P0)](#src-005)             | Planned                | Not run         |
-| SRC-006     | [Index/sector data source onboarding (P0)](#src-006)                 | Planned                | Not run         |
-| SRC-007     | [India macro source onboarding (P0)](#src-007)                       | In progress            | Not run         |
-| SRC-008     | [Global macro/rates source onboarding (P0)](#src-008)                | Planned                | Not run         |
-| SRC-009     | [Oil/commodity/FX benchmarks source onboarding (P0)](#src-009)       | Planned                | Not run         |
-| SRC-010     | [FII/DII/FPI flows source onboarding (P0)](#src-010)                 | Planned                | Not run         |
-| SRC-011     | [F&O participant positioning source onboarding (P0)](#src-011)       | Planned                | Not run         |
-| SRC-012     | [Market/company news source onboarding (P0)](#src-012)               | Planned                | Not run         |
-| SRC-013     | [Portfolio spreadsheet imports source onboarding (P0)](#src-013)     | Planned                | Not run         |
-| SRC-014     | [Regulatory/tax source registry source onboarding (P0)](#src-014)    | Planned                | Not run         |
-| SRC-015     | [MF scheme master/NAV source onboarding (P1)](#src-015)              | Deferred               | Not run         |
-| SRC-016     | [MF holdings/factsheets source onboarding (P1)](#src-016)            | Deferred               | Not run         |
-| SRC-017     | [India G-sec/yield curve source onboarding (P1)](#src-017)           | Deferred               | Not run         |
-| SRC-018     | [Corporate bonds/ratings source onboarding (P1)](#src-018)           | Deferred               | Not run         |
-| SRC-019     | [CAS/MF statement import source onboarding (P1)](#src-019)           | Deferred               | Not run         |
-| SRC-020     | [Consensus/earnings revisions source onboarding (P1)](#src-020)      | Deferred               | Not run         |
-| SRC-021     | [Broker API connectivity source onboarding (P2)](#src-021)           | Deferred               | Not run         |
-| SRC-022     | [Indian ETFs/gold/commodities source onboarding (P2)](#src-022)      | Deferred               | Not run         |
-| SRC-023     | [Options/derivatives analytics source onboarding (P2)](#src-023)     | Deferred               | Not run         |
-| SRC-024     | [International mutual funds source onboarding (P3)](#src-024)        | Deferred               | Not run         |
-| SRC-025     | [International equities/ETFs source onboarding (P4)](#src-025)       | Deferred               | Not run         |
-| SRC-026     | [International bonds/commodities source onboarding (P5)](#src-026)   | Deferred               | Not run         |
-| SRC-027     | [Crypto market/on-chain source onboarding (P6)](#src-027)            | Deferred               | Not run         |
+| ID          | Task                                                                 | Implementation         | Verification                    |
+| ----------- | -------------------------------------------------------------------- | ---------------------- | ------------------------------- |
+| ALERT-001   | Personal observation inbox                                           | Implemented            | Awaiting user                   |
+| ACCOUNT-001 | Authenticated accounts and real-data watchlists                      | Implemented            | Awaiting user                   |
+| DATA-001    | Real India macro ingestion and evidence UI                           | Implemented            | Awaiting user                   |
+| SLICE-001   | [Working educational portfolio journey](#slice-001)                  | Implemented            | Awaiting user                   |
+| BUG-003     | Workspace creation diagnostics                                       | Implemented            | Awaiting user                   |
+| BUG-002     | [JSON API not-found responses](#bug-002)                             | Implemented            | Awaiting user                   |
+| BUG-001     | [Duplicate startup / browser download recovery](#bug-001)            | Implemented            | Awaiting user                   |
+| SETUP-001   | [Local development foundation](#setup-001)                           | Implemented            | Historical only                 |
+| SDLC-001    | [Manual SDLC and reusable API/browser test dashboard](#sdlc-001)     | Implemented            | Awaiting user                   |
+| SDLC-002    | [User acceptance of the SDLC tool](#sdlc-002)                        | Awaiting user          | Awaiting user                   |
+| DEV-001     | [Screen-level PRD, glossary and canonical data dictionary](#dev-001) | In progress            | Awaiting user                   |
+| DEV-002     | [Research/advice policy and threat model](#dev-002)                  | In progress            | Not run                         |
+| DEV-003     | [Versioned domain contracts and golden fixtures](#dev-003)           | In progress            | Not run                         |
+| DEV-004     | [PostgreSQL migrations and MongoDB indexes](#dev-004)                | In progress            | Not run                         |
+| DEV-005     | [P0 source registry and initial adapters](#dev-005)                  | In progress            | Not run                         |
+| DEV-006     | [Public intelligence slice](#dev-006)                                | In progress            | Not run                         |
+| DEV-007     | [Identity/consent and manual/virtual portfolios](#dev-007)           | In progress            | Not run                         |
+| DEV-008     | [CSV/XLSX imports and help](#dev-008)                                | In progress            | Not run                         |
+| DEV-009     | [Multiple goals and portfolio linkage](#dev-009)                     | In progress            | Not run                         |
+| DEV-010     | [Oil-shock educational end-to-end slice](#dev-010)                   | In progress            | Not run                         |
+| DEV-011     | [Daily/weekly reports and durable workers](#dev-011)                 | In progress            | See child evidence; parent open |
+| DEV-012     | [Responsive PWA and accessible UI](#dev-012)                         | In progress            | Not run                         |
+| DEV-013     | [Regulated personalised advice](#dev-013)                            | Gated                  | Not run                         |
+| DEV-014     | [Broker connectivity and later channels/assets](#dev-014)            | Planned                | Not run                         |
+| DEV-015     | [Admin and research operations](#dev-015)                            | In progress            | Not run                         |
+| DEV-016     | [Evidence, explanations and corrections](#dev-016)                   | In progress            | Not run                         |
+| DEV-017     | [Privacy, security and consent lifecycle](#dev-017)                  | In progress            | Not run                         |
+| DEV-018     | [Watchlists, material alerts and delivery controls](#dev-018)        | In progress            | Not run                         |
+| DEV-019     | [Deterministic research policy and action centre](#dev-019)          | Planned                | Not run                         |
+| DEV-020     | [Additional verified event slices](#dev-020)                         | Planned                | Not run                         |
+| DEV-021     | [Operational quality, observability and release controls](#dev-021)  | In progress            | See child evidence; parent open |
+| DEV-022     | [Indian mutual funds and bonds](#dev-022)                            | Planned                | Not run                         |
+| DEV-023     | [Other Indian assets and derivatives](#dev-023)                      | Deferred               | Not run                         |
+| DEV-024     | [International mutual funds](#dev-024)                               | Deferred               | Not run                         |
+| DEV-025     | [International equities and ETFs](#dev-025)                          | Deferred               | Not run                         |
+| DEV-026     | [Other international assets](#dev-026)                               | Deferred               | Not run                         |
+| DEV-027     | [Crypto last-stage capability](#dev-027)                             | Deferred               | Not run                         |
+| DEV-028     | [Broker and account connectivity](#dev-028)                          | Planned                | Not run                         |
+| DEV-029     | [WhatsApp and mobile application shells](#dev-029)                   | Partial: Android child | See ANDROID-001                 |
+| DEV-030     | [Monetisation decision and commercial conflict controls](#dev-030)   | Deferred               | Not run                         |
+| SRC-001     | [Instrument/security master source onboarding (P0)](#src-001)        | In progress            | See child evidence; parent open |
+| SRC-002     | [Indian EOD prices/volume source onboarding (P0)](#src-002)          | Planned                | Not run                         |
+| SRC-003     | [Corporate actions source onboarding (P0)](#src-003)                 | Planned                | Not run                         |
+| SRC-004     | [Corporate filings/results source onboarding (P0)](#src-004)         | Planned                | Not run                         |
+| SRC-005     | [Reported fundamentals source onboarding (P0)](#src-005)             | Planned                | Not run                         |
+| SRC-006     | [Index/sector data source onboarding (P0)](#src-006)                 | Planned                | Not run                         |
+| SRC-007     | [India macro source onboarding (P0)](#src-007)                       | In progress            | Not run                         |
+| SRC-008     | [Global macro/rates source onboarding (P0)](#src-008)                | In progress            | See child evidence; parent open |
+| SRC-009     | [Oil/commodity/FX benchmarks source onboarding (P0)](#src-009)       | Planned                | Not run                         |
+| SRC-010     | [FII/DII/FPI flows source onboarding (P0)](#src-010)                 | Planned                | Not run                         |
+| SRC-011     | [F&O participant positioning source onboarding (P0)](#src-011)       | Planned                | Not run                         |
+| SRC-012     | [Market/company news source onboarding (P0)](#src-012)               | Planned                | Not run                         |
+| SRC-013     | [Portfolio spreadsheet imports source onboarding (P0)](#src-013)     | In progress            | See child evidence; parent open |
+| SRC-014     | [Regulatory/tax source registry source onboarding (P0)](#src-014)    | Planned                | Not run                         |
+| SRC-015     | [MF scheme master/NAV source onboarding (P1)](#src-015)              | Deferred               | Not run                         |
+| SRC-016     | [MF holdings/factsheets source onboarding (P1)](#src-016)            | Deferred               | Not run                         |
+| SRC-017     | [India G-sec/yield curve source onboarding (P1)](#src-017)           | Deferred               | Not run                         |
+| SRC-018     | [Corporate bonds/ratings source onboarding (P1)](#src-018)           | Deferred               | Not run                         |
+| SRC-019     | [CAS/MF statement import source onboarding (P1)](#src-019)           | Deferred               | Not run                         |
+| SRC-020     | [Consensus/earnings revisions source onboarding (P1)](#src-020)      | Deferred               | Not run                         |
+| SRC-021     | [Broker API connectivity source onboarding (P2)](#src-021)           | Deferred               | Not run                         |
+| SRC-022     | [Indian ETFs/gold/commodities source onboarding (P2)](#src-022)      | Deferred               | Not run                         |
+| SRC-023     | [Options/derivatives analytics source onboarding (P2)](#src-023)     | Deferred               | Not run                         |
+| SRC-024     | [International mutual funds source onboarding (P3)](#src-024)        | Deferred               | Not run                         |
+| SRC-025     | [International equities/ETFs source onboarding (P4)](#src-025)       | Deferred               | Not run                         |
+| SRC-026     | [International bonds/commodities source onboarding (P5)](#src-026)   | Deferred               | Not run                         |
+| SRC-027     | [Crypto market/on-chain source onboarding (P6)](#src-027)            | Deferred               | Not run                         |
 
 ## Detailed tasks and Codex prompts
 
@@ -512,7 +518,7 @@ TEAM-001 adds GOALS-001, PRIVACY-001, SOURCES-001, ALERT-002, PORTFOLIO-001, PWA
 
 - **TEAM-003 delivery:** XLSX-001 implements the fixed standard workbook with declared-total reconciliation, worker isolation, web/API/local preview/confirmation and privacy compatibility. Broker-specific adapters remain open; evidence in status.
 
-- **TEAM-001 delivery:** PORTFOLIO-001 adds strict standard CSV preview/confirmation and export; XLSX/broker-specific parsing and provider reconciliation remain open.
+- **TEAM-001 delivery:** PORTFOLIO-001 adds strict standard CSV preview/confirmation and export. Later XLSX-001 and HOLDINGS-RECONCILE-001 add workbook parsing and exact replacement review; broker-specific parsing and provider reconciliation remain open.
 
 - **Implementation:** In progress
 - **Verification:** Not run
@@ -571,13 +577,13 @@ TEAM-001 adds GOALS-001, PRIVACY-001, SOURCES-001, ALERT-002, PORTFOLIO-001, PWA
 
 - **TEAM-002 delivery:** REPORTS-001 delivers actual owned saved-record snapshots with PostgreSQL leases/retries/cancellation/idempotency, immutable issue/download and device equivalent. Scheduled daily/weekly evidence research and material-change delivery remain open.
 
-- **Implementation:** Planned
-- **Verification:** Not run
+- **Implementation:** In progress
+- **Verification:** Selected child execution in status; full parent acceptance open.
 - **Dependencies:** DEV-004, DEV-010
 - **Context:** README.md sections 19–25; docs/product/decisions.md
 - **Scope and acceptance:** PostgreSQL idempotent jobs/outbox, retries/leases, freshness-aware reports and material-change notifications
 - **E2E cases:** Planned scenarios in tests/e2e/plans/product-coverage.md#dev-011; add stable executable IDs when implemented
-- **Evidence / blockers:** No implementation or verification evidence yet; dependencies and required product/source approvals remain open.
+- **Evidence / blockers:** REPORTS-001–003, REPORT-SCHEDULES-001 and WORKER-HEALTH-001 implement immutable saved-record reports, explicit deletion, dated research receipts, opt-in schedules and controlled durable workers. Selected execution is in status; scheduled market research, materiality, external delivery and production operations remain open.
 - **Manual next actions:** After implementation, user runs relevant checks and selected E2E cases listed in the handoff; attach evidence before marking verified.
 
 **Codex prompt**
@@ -937,18 +943,18 @@ TEAM-001 adds GOALS-001, PRIVACY-001, SOURCES-001, ALERT-002, PORTFOLIO-001, PWA
 
 - **TEAM-002 delivery:** IDENTITY-001 ingests five real OpenFIGI India/INR common-stock ISIN mappings with permitted open metadata, PostgreSQL editions, MongoDB evidence, public directory/history and a dated offline bundle. See docs/product/security-identities.md for dated source evidence. Complete exchange master/listing status remains open.
 
-- **Implementation:** Planned
-- **Verification:** Not run
+- **Implementation:** In progress
+- **Verification:** Selected child execution in status; full parent acceptance open.
 - **Dependencies:** DEV-003, DEV-004, DEV-005; Yes
 - **Context:** README.md sections 10.6–10.10, source order 1, P0
-- **Scope and acceptance:** Onboard Instrument/security master. Starting public candidates: NSE + BSE + ISIN crosswalk. Paid upgrade candidates: NSE/BSE licensed data; Capitaline/ACE. Next action from the accepted plan: Obtain files, document terms, define canonical ISIN/symbol schema. Document actual access/usage rights, effective/retrieval times, units, revisions, fixtures, quarantine and reconciliation. Source register currently says Not started; never mark production without user-provided approval and validation evidence.
+- **Scope and acceptance:** Onboard Instrument/security master. Starting public candidates: NSE + BSE + ISIN crosswalk. Paid upgrade candidates: NSE/BSE licensed data; Capitaline/ACE. Next action from the accepted plan: Obtain files, document terms, define canonical ISIN/symbol schema. Document actual access/usage rights, effective/retrieval times, units, revisions, fixtures, quarantine and reconciliation. See the implemented bounded child and current source evidence; never mark production without user-provided approval and validation evidence.
 - **E2E cases:** Planned scenarios in tests/e2e/plans/product-coverage.md#src-001; add stable executable IDs when implemented
-- **Evidence / blockers:** No implementation or verification evidence yet; dependencies and required product/source approvals remain open.
+- **Evidence / blockers:** IDENTITY-001 provides five actual verified OpenFIGI mappings, immutable evidence and public/offline directory. Selected execution is in status; complete exchange coverage/listing status and exchange reconciliation remain open.
 - **Manual next actions:** After implementation, user runs relevant checks and selected E2E cases listed in the handoff; attach evidence before marking verified.
 
 **Codex prompt**
 
-> Read AGENTS.md, README.md, TODO.md task SRC-001, README.md sections 10.6–10.10, source order 1, P0, and the linked E2E coverage plan. Follow the standard task prompt contract in TODO.md. Work on Instrument/security master source onboarding (P0). Scope and acceptance: Onboard Instrument/security master. Starting public candidates: NSE + BSE + ISIN crosswalk. Paid upgrade candidates: NSE/BSE licensed data; Capitaline/ACE. Next action from the accepted plan: Obtain files, document terms, define canonical ISIN/symbol schema. Document actual access/usage rights, effective/retrieval times, units, revisions, fixtures, quarantine and reconciliation. Source register currently says Not started; never mark production without user-provided approval and validation evidence. Dependencies: DEV-003, DEV-004, DEV-005; Yes. Do not invent missing domain/provider fields or claim future functionality. If a product decision is unresolved, record it as a blocker and progress independent authored work. Add/update API and/or browser acceptance cases (or manual document-review scenarios if there is no executable behavior), including prerequisites and meaningful failures. Update this task, test catalogue and relevant README details. Do not run installation, formatting, lint, builds, tests, browser checks, service changes or migrations. Commit changes locally, never push, and give the user exact manual next actions.
+> Read AGENTS.md, README.md, TODO.md task SRC-001, README.md sections 10.6–10.10, source order 1, P0, and the linked E2E coverage plan. Follow the standard task prompt contract in TODO.md. Work on Instrument/security master source onboarding (P0). Scope and acceptance: Onboard Instrument/security master. Starting public candidates: NSE + BSE + ISIN crosswalk. Paid upgrade candidates: NSE/BSE licensed data; Capitaline/ACE. Next action from the accepted plan: Obtain files, document terms, define canonical ISIN/symbol schema. Document actual access/usage rights, effective/retrieval times, units, revisions, fixtures, quarantine and reconciliation. See the implemented bounded child and current source evidence; never mark production without user-provided approval and validation evidence. Dependencies: DEV-003, DEV-004, DEV-005; Yes. Do not invent missing domain/provider fields or claim future functionality. If a product decision is unresolved, record it as a blocker and progress independent authored work. Add/update API and/or browser acceptance cases (or manual document-review scenarios if there is no executable behavior), including prerequisites and meaningful failures. Update this task, test catalogue and relevant README details. Do not run installation, formatting, lint, builds, tests, browser checks, service changes or migrations. Commit changes locally, never push, and give the user exact manual next actions.
 
 <a id="src-002"></a>
 
@@ -1066,7 +1072,7 @@ TEAM-001 adds GOALS-001, PRIVACY-001, SOURCES-001, ALERT-002, PORTFOLIO-001, PWA
 - **Context:** README.md sections 10.6–10.10, source order 8, P0
 - **Scope and acceptance:** Onboard Global macro/rates. Starting public candidates: FRED, BLS, BEA, Treasury, Fed, ECB. Paid upgrade candidates: Macrobond/Haver/Bloomberg/LSEG. Next action from the accepted plan: Identify minimum India-impact series and official API limits. Document actual access/usage rights, effective/retrieval times, units, revisions, fixtures, quarantine and reconciliation. See the current bounded-child status and source evidence; never mark production without user-provided approval and validation evidence.
 - **E2E cases:** Planned scenarios in tests/e2e/plans/product-coverage.md#src-008; add stable executable IDs when implemented
-- **Evidence / blockers:** SOURCES-002 implements fixed Fed and ECB press/statistics adapters, original evidence, draft/review editions, deterministic context and complete reading paths. BLS currently returns403; BEA/FRED/Treasury remain separate candidates. This bounded source pack does not complete the whole family.
+- **Evidence / blockers:** SOURCES-002 implements fixed Fed and ECB press/statistics adapters, original evidence, draft/review editions, deterministic context and complete reading paths. BEA-001 adds43 actual reviewed BEA releases; SOURCE-WITHDRAWAL-001 protects all current reading projections. BLS access was403 in the recorded source audit; FRED/Treasury remain separate candidates. This bounded source pack does not complete the whole family.
 - **Manual next actions:** After implementation, user runs relevant checks and selected E2E cases listed in the handoff; attach evidence before marking verified.
 
 **Codex prompt**
@@ -1147,18 +1153,18 @@ TEAM-001 adds GOALS-001, PRIVACY-001, SOURCES-001, ALERT-002, PORTFOLIO-001, PWA
 
 - **TEAM-003 delivery:** Standard user-authored CSV/XLSX input and declared workbook reconciliation are implemented. Initial five broker/platform dialects, representative authorized exports and transaction reconciliation remain pending. See XLSX-001 and status for bounded verification.
 
-- **Implementation:** Planned
-- **Verification:** Not run
+- **Implementation:** In progress
+- **Verification:** Selected child execution in status; full parent acceptance open.
 - **Dependencies:** DEV-003, DEV-004, DEV-005; Yes
 - **Context:** README.md sections 10.6–10.10, source order 13, P0
-- **Scope and acceptance:** Onboard Portfolio spreadsheet imports. Starting public candidates: User CSV/XLSX exports. Paid upgrade candidates: Aggregation/broker partners later. Next action from the accepted plan: Collect sample exports from initial five Indian platforms and build versioned parsers. Document actual access/usage rights, effective/retrieval times, units, revisions, fixtures, quarantine and reconciliation. Source register currently says Not started; never mark production without user-provided approval and validation evidence.
+- **Scope and acceptance:** Onboard Portfolio spreadsheet imports. Starting public candidates: User CSV/XLSX exports. Paid upgrade candidates: Aggregation/broker partners later. Next action from the accepted plan: Collect sample exports from initial five Indian platforms and build versioned parsers. Document actual access/usage rights, effective/retrieval times, units, revisions, fixtures, quarantine and reconciliation. See the implemented bounded child and current source evidence; never mark production without user-provided approval and validation evidence.
 - **E2E cases:** Planned scenarios in tests/e2e/plans/product-coverage.md#src-013; add stable executable IDs when implemented
-- **Evidence / blockers:** No implementation or verification evidence yet; dependencies and required product/source approvals remain open.
+- **Evidence / blockers:** XLSX-001 and HOLDINGS-RECONCILE-001 implement standard CSV/XLSX preview, exact baseline differences, explicit removal consent and confirmation/replay/export in API/web/device. Selected execution is in status; representative broker dialects and transaction/corporate-action reconciliation remain open.
 - **Manual next actions:** After implementation, user runs relevant checks and selected E2E cases listed in the handoff; attach evidence before marking verified.
 
 **Codex prompt**
 
-> Read AGENTS.md, README.md, TODO.md task SRC-013, README.md sections 10.6–10.10, source order 13, P0, and the linked E2E coverage plan. Follow the standard task prompt contract in TODO.md. Work on Portfolio spreadsheet imports source onboarding (P0). Scope and acceptance: Onboard Portfolio spreadsheet imports. Starting public candidates: User CSV/XLSX exports. Paid upgrade candidates: Aggregation/broker partners later. Next action from the accepted plan: Collect sample exports from initial five Indian platforms and build versioned parsers. Document actual access/usage rights, effective/retrieval times, units, revisions, fixtures, quarantine and reconciliation. Source register currently says Not started; never mark production without user-provided approval and validation evidence. Dependencies: DEV-003, DEV-004, DEV-005; Yes. Do not invent missing domain/provider fields or claim future functionality. If a product decision is unresolved, record it as a blocker and progress independent authored work. Add/update API and/or browser acceptance cases (or manual document-review scenarios if there is no executable behavior), including prerequisites and meaningful failures. Update this task, test catalogue and relevant README details. Do not run installation, formatting, lint, builds, tests, browser checks, service changes or migrations. Commit changes locally, never push, and give the user exact manual next actions.
+> Read AGENTS.md, README.md, TODO.md task SRC-013, README.md sections 10.6–10.10, source order 13, P0, and the linked E2E coverage plan. Follow the standard task prompt contract in TODO.md. Work on Portfolio spreadsheet imports source onboarding (P0). Scope and acceptance: Onboard Portfolio spreadsheet imports. Starting public candidates: User CSV/XLSX exports. Paid upgrade candidates: Aggregation/broker partners later. Next action from the accepted plan: Collect sample exports from initial five Indian platforms and build versioned parsers. Document actual access/usage rights, effective/retrieval times, units, revisions, fixtures, quarantine and reconciliation. See the implemented bounded child and current source evidence; never mark production without user-provided approval and validation evidence. Dependencies: DEV-003, DEV-004, DEV-005; Yes. Do not invent missing domain/provider fields or claim future functionality. If a product decision is unresolved, record it as a blocker and progress independent authored work. Add/update API and/or browser acceptance cases (or manual document-review scenarios if there is no executable behavior), including prerequisites and meaningful failures. Update this task, test catalogue and relevant README details. Do not run installation, formatting, lint, builds, tests, browser checks, service changes or migrations. Commit changes locally, never push, and give the user exact manual next actions.
 
 <a id="src-014"></a>
 

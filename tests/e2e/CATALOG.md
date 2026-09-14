@@ -1,5 +1,11 @@
 # End-to-end case catalogue
 
+## REPORT-COMPARE-001 — actual immutable originals
+
+API420–426 cover exact issued changes/deterministic direction/unchanged originals; malformed/foreign/deleted denial; queued/cancelled exclusion; actual recovery reset and final job/account wait expiry; dated v2 receipts after withdrawal; deletion winning a lock race. WEB420–425 (desktop/mobile) cover keyboard selection/review/cancel/reverse/original/Back/reload, exact escaping/mobile capture, empty/fault recovery, deletion, delayed reads, actual401 and foreign same-mounted routes. OFFLINE430–432 cover real local issuance/exact comparison, unavailable/queued/deleted/foreign denial and dated v2/account deletion with zero API traffic. Five independent exact-domain units accompany these cases.
+
+Tag @REPORT-COMPARE-001:19connected plus3offline executions. Faults and synthetic private data are labelled; successful originals are actually issued. Full execution evidence and hardware limits are recorded in status.
+
 ## HOLDINGS-RECONCILE-001 — exact before/after holdings
 
 API400–403 exercise actual owned baseline categories/consent/privacy/replay; stale/expired/legacy/corrupt reviews and concurrent confirmation; real allocation/research dependencies; expiry during observed cleanup DELETE. WEB400–402 (desktop/mobile) cover responsive keyboard review/removal, competing revisions and saved-then-read failure, all-initial-read races and preserved drafts. OFFLINE410 covers actual large/fractional local replacement, consent/reload/export/replay/deletion/isolation with zero API traffic. Exact contract units cover arithmetic beyond floating-point precision. Existing API090/240/242/268, WEB090 and offline research cases retain their assertions with required explicit review/consent.

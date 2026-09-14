@@ -108,3 +108,7 @@ Reader → Refresh reading → current unavailable notice → safe history/Back;
 ## Holdings replacement review
 
 Manual/CSV/XLSX → Preview → added/removed/changed/unchanged baseline comparison → explicit removal acknowledgement → Confirm → immutable saved receipt/current reload. Changed baseline → disabled confirmation → Refresh baseline and keep draft → fresh Preview. Saved response followed by failed GET retains the dated saved result and disables new previews until Reload. Dependency links open existing allocations/connections for explicit review. WEB400–402 and OFFLINE410 cover keyboard/mobile, late reads, persistence and private deletion.
+
+## Compare saved reports
+
+Reports/More → Compare reports → two labelled selections → Review capture dates → Cancel or Compare → exact older-to-newer changes → Open original → Close/Escape → Back. Refresh/reload validates original availability; deletion or401 clears private results and late reads cannot restore them. Full-route keys protect changed original URLs. WEB420–425/OFFLINE430–432 cover keyboard/mobile/escaping/recovery and actual local no-network behavior.

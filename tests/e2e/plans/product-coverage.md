@@ -1,5 +1,9 @@
 # Planned end-to-end coverage
 
+## REPORT-COMPARE-001 acceptance
+
+Read two owned immutable originals under account/sorted-job admission and final authorization, calculate exact input differences without new storage, preserve cost-versus-return and capture-versus-current disclosure. Verify strict malformed/foreign/queued/cancelled/deleted denial, reset/expiry/deletion races and unchanged financial/report digests. Complete keyboard/mobile choose/review/cancel/compare/original dialog/Back/reload/deep-link flows, fewer-than-two/error/retry, late-response invalidation and immediate401 clearing. Actual serialized local parity must not issue queued jobs or call an API; original exports/deletions remain authoritative. API420–426, WEB420–425, OFFLINE430–432 and exact units; physical hardware acceptance separate.
+
 ## HOLDINGS-RECONCILE-001 acceptance
 
 Bind proposed rows to the actual immutable owned baseline; compute exact added/removed/changed/unchanged quantity/acquisition-cost differences; require removal acknowledgement; recompute before commit and preserve original successful replay. Verify no change to allocations/connections, truthful dated dependency counts, stale/expired/legacy/corrupt recovery and post-wait401 including cleanup. Exercise manual/CSV/XLSX review, keyboard/mobile/Back, draft-preserving refresh, saved-then-read failure and late initial response rejection. Mirror actual local storage/export/deletion/noAPI. New API400–403, WEB400–402, OFFLINE410 plus compatibility and exact arithmetic cases; physical spreadsheets, phone and market/tax interpretations remain separate.

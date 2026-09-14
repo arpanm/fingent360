@@ -109,6 +109,8 @@ test('API launch environment keeps runtime and strips migration and Compose owne
     MIGRATION_DATABASE_URL: owner,
     POSTGRES_USER: 'synthetic_owner',
     POSTGRES_PASSWORD: 'synthetic-secret',
+    OPERATOR_USERNAME: 'synthetic_initial_admin',
+    OPERATOR_PASSWORD: 'synthetic-setup-secret',
     RESEARCH_ADMIN_TOKEN: 'synthetic-operator',
   };
   assert.deepEqual(runtimeEnvironment(original), {
@@ -116,4 +118,6 @@ test('API launch environment keeps runtime and strips migration and Compose owne
     RESEARCH_ADMIN_TOKEN: 'synthetic-operator',
   });
   assert.equal(original.MIGRATION_DATABASE_URL, owner);
+  assert.equal(original.OPERATOR_USERNAME, 'synthetic_initial_admin');
+  assert.equal(original.OPERATOR_PASSWORD, 'synthetic-setup-secret');
 });

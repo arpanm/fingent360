@@ -1,3 +1,5 @@
+import { namedSessionCondition } from './named-operator-store.js';
+import { OperatorRead, OperatorAction } from './operator-permissions.js';
 import {
   BadRequestException,
   Body,
@@ -56,7 +58,7 @@ export class WorkerHealthStore {
       [actor],
     );
     const result = await c.query(
-      'SELECT 1 FROM operator_sessions WHERE token_hash=$1 AND expires_at>clock_timestamp()',
+      `SELECT 1 FROM operator_sessions WHERE token_hash=$1 AND expires_at>clock_timestamp() AND ${namedSessionCondition}`,
       [actor],
     );
     if (!result.rowCount)
@@ -227,6 +229,7 @@ export class WorkerHealthStore {
     });
   }
 }
+@OperatorRead()
 @Controller('ops/workers')
 export class WorkerHealthController {
   constructor(
@@ -243,7 +246,9 @@ export class WorkerHealthController {
   ) {
     return this.store.history(worker, query, await this.ops.require(cookie));
   }
-  @Post(':worker/control') async control(
+  @OperatorAction('administer')
+  @Post(':worker/control')
+  async control(
     @Param('worker') worker: string,
     @Body() body: unknown,
     @Headers('origin') origin?: string,

@@ -19,6 +19,10 @@ export class LibraryReminderWorker {
     }, 5000);
     this.timer.unref();
   }
+  async onModuleDestroy() {
+    // Drain workers before database stores close in application-shutdown hooks.
+    await this.onApplicationShutdown();
+  }
   async onApplicationShutdown() {
     if (this.timer) clearInterval(this.timer);
     await this.running;

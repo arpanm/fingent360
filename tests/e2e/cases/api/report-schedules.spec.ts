@@ -127,6 +127,16 @@ test('E2E-API-330 opted-in editions replay pause resume ownership and account ex
   );
   expect(exported.reportSchedules.editions).toHaveLength(2);
   expect(exported.reportSchedules.receipts).toHaveLength(2);
+  const scheduleConsent = exported.consents.current.purposes.find(
+    (value) => value.record.purpose === 'scheduled-record-reviews',
+  );
+  expect(scheduleConsent?.status).toBe('active');
+  expect(scheduleConsent?.record.basis?.kind).toBe('schedule-opt-in');
+  expect(
+    exported.consents.history.events.filter(
+      (value) => value.receipt.state.purpose === 'scheduled-record-reviews',
+    ),
+  ).toHaveLength(1);
 });
 test('E2E-API-331 concurrent actual workers capture latest due once and preserve deleted report tombstone @REPORT-SCHEDULES-001', async ({
   request,

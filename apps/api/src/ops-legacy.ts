@@ -1,3 +1,4 @@
+import { OperatorRead, OperatorAction } from './operator-permissions.js';
 import {
   Body,
   Controller,
@@ -12,6 +13,7 @@ import {
 import { OperatorStore, OPERATOR_STORE } from './operator.js';
 import { MacroStore, MACRO_STORE } from './macro.js';
 import { SourcesStore, SOURCE_STORE } from './sources.js';
+@OperatorRead()
 @Controller('ops')
 export class OpsLegacyController {
   constructor(
@@ -19,7 +21,10 @@ export class OpsLegacyController {
     @Inject(MACRO_STORE) private readonly macro: MacroStore,
     @Inject(SOURCE_STORE) private readonly sources: SourcesStore,
   ) {}
-  @Post('macro/refresh') @HttpCode(200) async refresh(
+  @OperatorAction('prepare')
+  @Post('macro/refresh')
+  @HttpCode(200)
+  async refresh(
     @Body() body: unknown,
     @Headers('cookie') cookie?: string,
     @Headers('origin') origin?: string,
@@ -27,7 +32,9 @@ export class OpsLegacyController {
     this.ops.origin(origin);
     await this.ops.require(cookie);
     await this.ops.record('macro.refresh.requested', 'World Bank', cookie);
-    return this.macro.refresh(body, this.ops.serverAuthorization());
+    return this.macro.refresh(body, this.ops.serverAuthorization(), () =>
+      this.ops.permission(cookie, 'prepare'),
+    );
   }
   @Get('sources') async list(@Headers('cookie') cookie?: string) {
     await this.ops.require(cookie);
@@ -50,7 +57,9 @@ export class OpsLegacyController {
     await this.ops.require(cookie);
     return result;
   }
-  @Post('sources') async add(
+  @OperatorAction('blocked')
+  @Post('sources')
+  async add(
     @Body() body: unknown,
     @Headers('cookie') cookie?: string,
     @Headers('origin') origin?: string,
@@ -65,7 +74,9 @@ export class OpsLegacyController {
       origin,
     );
   }
-  @Put('sources/:id') async update(
+  @OperatorAction('blocked')
+  @Put('sources/:id')
+  async update(
     @Param('id') id: string,
     @Body() body: unknown,
     @Headers('cookie') cookie?: string,

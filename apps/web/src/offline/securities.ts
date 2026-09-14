@@ -1,3 +1,10 @@
+import { z } from 'zod';
+import {
+  IdentitySelectionPublicSchema,
+  IdentitySelectionReceiptSchema,
+  IdentitySelectionHistorySchema,
+  selectionMatchesProvider,
+} from '@fingent360/contracts';
 import {
   SecurityDirectorySchema,
   SecurityHistorySchema,
@@ -6,6 +13,11 @@ import {
 } from '@fingent360/contracts';
 import { fail, type OfflineHandler } from './types';
 export const handleSecurities: OfflineHandler = (req, _state, bundle) => {
+  if (req.path.startsWith('/api/v1/ops/identity-selections'))
+    return fail(
+      503,
+      'Identity selection requires connected independent Operations review.',
+    );
   if (!req.path.startsWith('/api/v1/securities')) return null;
   if (req.method !== 'GET')
     return fail(405, 'Identity reads do not modify the device workspace.');
@@ -28,6 +40,58 @@ export const handleSecurities: OfflineHandler = (req, _state, bundle) => {
             ),
         ),
       },
+    };
+  }
+  const selection =
+    /^\/api\/v1\/securities\/([^/]+)\/selection(?:\/(history))?$/.exec(
+      req.path,
+    );
+  if (selection) {
+    const provider = directory.items.find((item) => item.isin === selection[1]);
+    if (!provider)
+      return fail(404, 'Provider identity is not in this snapshot.');
+    if (selection[2]) {
+      const query = z
+        .strictObject({
+          before: z.coerce.number().int().positive().max(2147483647).optional(),
+        })
+        .parse(Object.fromEntries(req.query));
+      const rows = z
+        .array(IdentitySelectionReceiptSchema)
+        .max(1000)
+        .parse(bundle.identitySelectionHistories?.[provider.isin] ?? []);
+      if (rows.some((row) => row.isin !== provider.isin))
+        return fail(503, 'Invalid installed selection history.');
+      const filtered = rows
+        .filter((row) => !query.before || row.version < query.before)
+        .sort((a, b) => b.version - a.version);
+      return {
+        body: IdentitySelectionHistorySchema.parse({
+          receipts: filtered.slice(0, 20),
+          nextBefore: filtered.length > 20 ? filtered[19]!.version : null,
+        }),
+      };
+    }
+    if (req.query.size) return fail(400, 'Unknown selection query.');
+    const value = IdentitySelectionPublicSchema.parse(
+      bundle.identitySelections?.[provider.isin] ?? {
+        isin: provider.isin,
+        state: 'none',
+        receipt: null,
+        evaluatedAt: bundle.generatedAt,
+      },
+    );
+    if (value.isin !== provider.isin)
+      return fail(503, 'Invalid installed selection identity.');
+    return {
+      body: IdentitySelectionPublicSchema.parse({
+        ...value,
+        state:
+          value.receipt?.status === 'approved' &&
+          !selectionMatchesProvider(value.receipt, provider)
+            ? 'stale'
+            : value.state,
+      }),
     };
   }
   const match =

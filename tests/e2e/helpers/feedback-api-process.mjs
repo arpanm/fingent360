@@ -17,7 +17,7 @@ let pool,
   startup,
   cancelled = false,
   exitCode = 0;
-let runtimeRole, runtimeDatabaseUrl;
+let runtimeRole, runtimeDatabaseUrl, namedCredentials;
 function notify(message) {
   if (process.connected) process.send?.(message, () => {});
 }
@@ -137,6 +137,9 @@ async function start() {
     DATABASE_URL: database.href,
     MIGRATION_DATABASE_URL: database.href,
     MONGODB_URI: mongo.href,
+    OPS_AUTH_MODE:
+      env.F360_TEST_NAMED_OPERATORS === '1' ? 'named' : 'bootstrap',
+    ...(env.F360_TEST_NAMED_OPERATORS === '1' ? { AI_PROVIDER: 'query' } : {}),
     API_HOST: '127.0.0.1',
     API_PORT: '4100',
     WEB_ORIGIN: env.E2E_WEB_URL,
@@ -157,6 +160,15 @@ async function start() {
     runtimeDatabaseUrl = runtime.href;
     process.env.DATABASE_URL = runtime.href;
   }
+  if (env.F360_TEST_NAMED_OPERATORS === '1') {
+    const { provisionNamedAdministrator } =
+      await import('../../../apps/api/dist/provision-operator.js');
+    namedCredentials = {
+      username: 'synthetic_admin',
+      password: randomBytes(24).toString('hex'),
+    };
+    await provisionNamedAdministrator(database.href, namedCredentials);
+  }
   delete process.env.MIGRATION_DATABASE_URL;
   delete process.env.POSTGRES_USER;
   delete process.env.POSTGRES_PASSWORD;
@@ -173,6 +185,9 @@ async function start() {
       await import('../../../apps/api/dist/report-worker.js');
     const { LibraryReminderWorker } =
       await import('../../../apps/api/dist/library-worker.js');
+    const { MaterialWorker } =
+      await import('../../../apps/api/dist/material-worker.js');
+    await app.get(MaterialWorker).onApplicationShutdown();
     await app.get(ReportWorker).onApplicationShutdown();
     await app.get(LibraryReminderWorker).onApplicationShutdown();
   }
@@ -181,6 +196,7 @@ async function start() {
       apiOrigin: await app.getUrl(),
       databaseUrl: database.href,
       schema,
+      ...(namedCredentials ? { namedCredentials } : {}),
       ...(runtimeDatabaseUrl ? { runtimeDatabaseUrl, runtimeRole } : {}),
     });
 }

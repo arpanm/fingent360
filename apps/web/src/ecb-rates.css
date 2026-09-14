@@ -1,0 +1,37 @@
+.ecb-rates {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.ecb-rate-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: 1rem;
+}
+.ecb-rates button,
+.ecb-rates summary,
+.ecb-rates a {
+  min-height: 44px;
+}
+.ecb-rates a {
+  display: inline-block;
+}
+.ecb-rates button {
+  max-width: 100%;
+  white-space: normal;
+}
+.ecb-rates pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  max-height: 30rem;
+  overflow: auto;
+}
+.ecb-rate-value {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+.ecb-rates textarea,
+.ecb-rates select {
+  width: 100%;
+  max-width: 100%;
+  min-height: 44px;
+}

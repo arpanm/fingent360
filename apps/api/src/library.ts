@@ -1,8 +1,14 @@
 import { admitPublications } from './publication.js';
 import {
+  readConsent,
+  recordConsentOptIn,
+  requireConsent,
+} from './consent-store.js';
+import {
   publicLibrary,
   publicationStatus,
   publicationTitle,
+  consentActive,
 } from '@fingent360/contracts';
 import { createHash, randomUUID } from 'node:crypto';
 import {
@@ -259,6 +265,11 @@ export class LibraryController {
       const publications = await admitPublications(c);
       await this.store.require(c, cookie);
       const library = await readLibrary(c, user.id, publications);
+      const consent = await readConsent(c, user.id, 'reading-personalization');
+      await this.store.require(c, cookie);
+      const personalize =
+        library.preferences.mode === 'for_you' &&
+        consentActive(consent, new Date().toISOString());
       const items = filterResearchItems(
         publications
           .filter((value) => value.status === 'published')
@@ -273,17 +284,22 @@ export class LibraryController {
       const whyShown: Record<string, string> = {};
       const ranked = items
         .map((value) => {
-          const followed = value.topics.filter((topic) =>
-            library.preferences.topics.includes(topic),
-          );
-          const reaction = library.reactions.find(
-            (entry) => entry.itemId === value.id,
-          )?.reaction;
-          const similar = items.filter(
-            (other) =>
-              other.id !== value.id &&
-              other.topics.some((topic) => value.topics.includes(topic)),
-          );
+          const followed = personalize
+            ? value.topics.filter((topic) =>
+                library.preferences.topics.includes(topic),
+              )
+            : [];
+          const reaction = personalize
+            ? library.reactions.find((entry) => entry.itemId === value.id)
+                ?.reaction
+            : undefined;
+          const similar = personalize
+            ? items.filter(
+                (other) =>
+                  other.id !== value.id &&
+                  other.topics.some((topic) => value.topics.includes(topic)),
+              )
+            : [];
           const similarMore = similar.some((other) =>
             library.reactions.some(
               (entry) => entry.itemId === other.id && entry.reaction === 'more',
@@ -300,40 +316,44 @@ export class LibraryController {
           const score =
             followed.length * 3 +
             (reaction === 'more' ? 5 : reaction === 'less' ? -10 : 0) +
-            (library.saved.some((entry) => entry.itemId === value.id) ? 1 : 0) +
+            (personalize &&
+            library.saved.some((entry) => entry.itemId === value.id)
+              ? 1
+              : 0) +
             (similarMore ? 2 : 0) -
             (similarLess ? 3 : 0) +
             (similarSaved ? 1 : 0);
-          whyShown[value.id] =
-            library.preferences.mode === 'chronological'
-              ? 'Newest published items first. Your reactions do not change this order.'
-              : reaction === 'less'
-                ? 'Shown lower because you asked for less like this.'
-                : reaction === 'more'
-                  ? 'You asked for more like this.'
-                  : followed.length
-                    ? `Matches topics you follow: ${followed.join(', ')}.`
-                    : similarLess
-                      ? 'Shown lower because you asked for less on a related topic.'
-                      : similarMore
-                        ? 'Related to a topic you asked to see more of.'
-                        : similarSaved
-                          ? 'Related to a topic you saved.'
-                          : library.saved.some(
-                                (entry) => entry.itemId === value.id,
-                              )
-                            ? 'You saved this item.'
-                            : 'A recent published item to broaden your reading.';
+          whyShown[value.id] = !personalize
+            ? library.preferences.mode === 'for_you'
+              ? 'Newest published items first. Personalization consent is inactive; review Purpose consent in Privacy.'
+              : 'Newest published items first. Your reactions do not change this order.'
+            : reaction === 'less'
+              ? 'Shown lower because you asked for less like this.'
+              : reaction === 'more'
+                ? 'You asked for more like this.'
+                : followed.length
+                  ? `Matches topics you follow: ${followed.join(', ')}.`
+                  : similarLess
+                    ? 'Shown lower because you asked for less on a related topic.'
+                    : similarMore
+                      ? 'Related to a topic you asked to see more of.'
+                      : similarSaved
+                        ? 'Related to a topic you saved.'
+                        : library.saved.some(
+                              (entry) => entry.itemId === value.id,
+                            )
+                          ? 'You saved this item.'
+                          : 'A recent published item to broaden your reading.';
           return { value, score };
         })
         .sort(
           (a, b) =>
-            (library.preferences.mode === 'for_you' ? b.score - a.score : 0) ||
+            (personalize ? b.score - a.score : 0) ||
             b.value.publishedAt.localeCompare(a.value.publishedAt) ||
             a.value.id.localeCompare(b.value.id),
         );
       // Keep neighboring sources diverse without hiding lower-ranked topics.
-      if (library.preferences.mode === 'for_you')
+      if (personalize)
         for (let index = 2; index < ranked.length; index++) {
           if (
             ranked[index]?.value.source.name ===
@@ -366,6 +386,8 @@ export class LibraryController {
           JSON.stringify({
             userId: user.id,
             policyVersion: 'explicit-v1',
+            consentVersion: consent.version,
+            personalize,
             filters,
             preferences: library.preferences,
             reactions: library.reactions,
@@ -383,6 +405,10 @@ export class LibraryController {
         .digest('hex');
       const page = libraryFeedPage(ordered, fingerprint, cursor);
       await this.store.require(c, cookie);
+      if (personalize && !consentActive(consent, new Date().toISOString()))
+        throw new ConflictException(
+          'Personalization consent expired. Refresh for chronological reading.',
+        );
       return FeedRankingSchema.parse({
         items: page.items,
         evaluatedAt: new Date().toISOString(),
@@ -414,6 +440,7 @@ export class LibraryController {
       id: string,
       publications: FeedItem[],
     ) => Promise<unknown>,
+    finalPurposeCheck?: () => void,
   ) {
     this.store.origin(origin);
     return this.store.transaction(async (c) => {
@@ -426,6 +453,7 @@ export class LibraryController {
       await this.store.require(c, cookie);
       const result = await work(c, user.id, publications);
       await this.store.require(c, cookie);
+      finalPurposeCheck?.();
       return result;
     });
   }
@@ -520,13 +548,31 @@ export class LibraryController {
     @Headers('origin') origin?: string,
   ) {
     const input = parse(LibraryPreferencesSchema, body);
-    return this.change(cookie, origin, async (c, user) => {
-      await c.query(
-        'INSERT INTO library_preferences(user_id,data) VALUES($1,$2) ON CONFLICT(user_id) DO UPDATE SET data=excluded.data',
-        [user, input],
-      );
-      return input;
-    });
+    let consent: Awaited<ReturnType<typeof requireConsent>> | null = null;
+    return this.change(
+      cookie,
+      origin,
+      async (c, user) => {
+        if (input.mode === 'for_you')
+          await recordConsentOptIn(c, user, 'reading-personalization', {
+            kind: 'reading-preference-opt-in',
+            recordedAt: new Date().toISOString(),
+          });
+        await c.query(
+          'INSERT INTO library_preferences(user_id,data) VALUES($1,$2) ON CONFLICT(user_id) DO UPDATE SET data=excluded.data',
+          [user, input],
+        );
+        if (input.mode === 'for_you')
+          consent = await requireConsent(c, user, 'reading-personalization');
+        return input;
+      },
+      () => {
+        if (consent && !consentActive(consent, new Date().toISOString()))
+          throw new ConflictException(
+            'Personalization consent expired. Review a renewal in Privacy.',
+          );
+      },
+    );
   }
   @Post('preferences/reset') @HttpCode(200) reset(
     @Body() body: unknown,

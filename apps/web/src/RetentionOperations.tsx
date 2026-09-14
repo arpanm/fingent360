@@ -349,6 +349,26 @@ export function OfflineOperationsNotice() {
     <section className="account">
       <h1>Operations need a connected server</h1>
       <p>
+        Source-bound event preparation requires connected Operations. Candidate
+        extraction and human draft decisions are not stored on this device;
+        already reviewed events remain available in its dated snapshot.
+      </p>
+      <p>
+        ECB policy-rate refresh, retained raw evidence and publication review
+        require connected Operations. Only the dated reviewed numerical snapshot
+        is available on this device.
+      </p>
+      <p>
+        Oil benchmark capture, retained raw evidence and publication review
+        require connected Operations. This device reads only its dated reviewed
+        monthly numerical snapshot.
+      </p>
+      <p>
+        ECB reference-FX capture, retained XML and publication review require
+        connected Operations. This device reads only its dated reviewed
+        references and marked derived ratio.
+      </p>
+      <p>
         Audit activity requires a connected server and an operations sign-in. No
         server audit history is stored in this device workspace.
       </p>

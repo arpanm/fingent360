@@ -1,0 +1,8 @@
+{
+  "provenance": "Synthetic schema fixture authored from World Bank Pink Sheet workbook structure inspected 2026-09-14; no provider observation copied.",
+  "reportedUpdatedOn": "2000-03-02",
+  "rows": [
+    { "period": "2000M01", "brent": "12.349999999999998", "wti": "-2.25" },
+    { "period": "2000M02", "brent": "13.05", "wti": null }
+  ]
+}

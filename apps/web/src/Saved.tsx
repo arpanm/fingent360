@@ -598,6 +598,16 @@ export function Saved() {
             <section className="panel">
               <h2>Make your feed feel useful</h2>
               <p>
+                Saving For you records permission to rank reading using your
+                followed topics, reactions and saved items, with no expiry for
+                the first opt-in.{' '}
+                <a href="#privacy">
+                  Choose an expiry, renew or revoke in Privacy → Purpose consent
+                </a>
+                . Revocation preserves your choices and shows chronological
+                reading until you renew.
+              </p>
+              <p>
                 Only your chosen topics, reactions and saved items affect your
                 feed. Reading position helps you resume; it does not affect
                 ranking. No dwell tracking is collected.

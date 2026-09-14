@@ -1,4 +1,5 @@
 import { randomBytes, randomUUID } from 'node:crypto';
+import { syncMaterialAccount } from './material-alert-store.js';
 import {
   Body,
   Controller,
@@ -226,10 +227,16 @@ export class AccountStore {
     const input = parse(WatchlistSchema, body);
     return this.transaction(async (c) => {
       const account = await this.require(c, cookie);
+      await c.query('SELECT id FROM app_users WHERE id=$1 FOR UPDATE', [
+        account.id,
+      ]);
+      await this.require(c, cookie);
       await c.query(
         'INSERT INTO app_watchlists(user_id,indicators) VALUES ($1,$2) ON CONFLICT(user_id) DO UPDATE SET indicators=excluded.indicators,updated_at=now()',
         [account.id, input.indicators],
       );
+      await syncMaterialAccount(c, account.id);
+      await this.require(c, cookie);
       return input;
     });
   }

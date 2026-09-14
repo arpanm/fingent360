@@ -30,3 +30,7 @@ Selecting a row opens the existing exact-ID/version SourceReview dialog. Its pro
 - Automation/data: read-only user action, no worker/timer/provider/new data. Explicitly synthetic stored fixtures exercise order/faults; existing stored source editions retain their dates, hash and attribution.
 - Offline: Operations remains connected-only; direct queue bridge access returns the existing connected-required response without API traffic. No local publication editor or bundle change.
 - Documentation/testing: real isolated API560+ and desktop/mobile WEB560+ cases, strict contract units and OFFLINE550; exact manifest and user-run instructions in the handoff. No author execution or verification claim. Physical-device and visual acceptance remain separate.
+
+## Named cursor signing — REGRESSION-014
+
+Bootstrap mode retains its existing private signing key and domain prefix. Named mode uses an independent random32-byte server-only controller key, never the internal authorization Symbol or its public text. The key persists for the controller lifetime; an API restart or different API instance invalidates its cursors and requires the existing Reset action. Authentication and final storage admission remain mandatory for every page. Shared keys for a future multi-instance deployment are not configured here. Codec regression cases and existing pagination/tamper API cases are authored; user validation remains pending.

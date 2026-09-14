@@ -7,16 +7,23 @@ export interface FeedbackSandbox {
   schema: string;
   runtimeDatabaseUrl?: string;
   runtimeRole?: string;
+  namedCredentials?: { username: string; password: string };
 }
 export const test = base.extend<{
   feedbackSandbox: FeedbackSandbox;
   manualWorkers: boolean;
   leastPrivilege: boolean;
+  namedOperators: boolean;
 }>({
   manualWorkers: [false, { option: true }],
   leastPrivilege: [false, { option: true }],
+  namedOperators: [false, { option: true }],
   feedbackSandbox: [
-    async ({ manualWorkers, leastPrivilege }, use, testInfo) => {
+    async (
+      { manualWorkers, leastPrivilege, namedOperators },
+      use,
+      testInfo,
+    ) => {
       const child = fork(
         new URL('./feedback-api-process.mjs', import.meta.url),
         [],
@@ -28,6 +35,7 @@ export const test = base.extend<{
             E2E_WEB_URL: process.env.E2E_WEB_URL,
             F360_TEST_MANUAL_WORKERS: manualWorkers ? '1' : '0',
             F360_TEST_LEAST_PRIVILEGE: leastPrivilege ? '1' : '0',
+            F360_TEST_NAMED_OPERATORS: namedOperators ? '1' : '0',
           },
         },
       );

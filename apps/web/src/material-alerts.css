@@ -1,0 +1,42 @@
+.material-alerts {
+  border-block: 1px solid var(--border, #ccd3db);
+  padding-block: 1rem;
+  margin-block: 1rem;
+  min-width: 0;
+}
+.material-alerts :is(article, fieldset, form, section, details) {
+  min-width: 0;
+}
+.material-alerts :is(p, a, summary, h5) {
+  overflow-wrap: anywhere;
+}
+.material-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-block: 0.75rem;
+}
+.material-alerts button {
+  white-space: normal;
+  max-width: 100%;
+}
+.material-setting {
+  display: grid;
+  gap: 0.5rem;
+  margin-block: 1rem;
+}
+.material-setting input[type='text'] {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 20rem;
+}
+.material-receipt,
+.material-recovery {
+  padding: 0.75rem;
+  background: var(--surface-alt, #f3f5f8);
+  border-radius: 0.5rem;
+}
+.material-alerts summary {
+  padding-block: 0.6rem;
+  cursor: pointer;
+}

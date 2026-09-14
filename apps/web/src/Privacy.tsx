@@ -1,4 +1,7 @@
 import { completeReadingFollowExport } from './reading-follow-export';
+import { completeMaterialExport } from './material-alert-export';
+import { completeConsentExport } from './consent-export';
+import { PurposeConsents } from './PurposeConsents';
 import { completeScheduleExport } from './schedule-export';
 import { RecoverySettings } from './Recovery';
 import { useEffect, useRef, useState } from 'react';
@@ -161,6 +164,7 @@ export function Privacy() {
       {signedIn && (
         <>
           <RecoverySettings />
+          <PurposeConsents request={api} />
           <section className="card" aria-label="Account export">
             <h3>Download your account data</h3>
             <p>
@@ -182,6 +186,16 @@ export function Privacy() {
                           JSON.stringify(
                             CompletePrivacyExportSchema.parse({
                               ...exported,
+                              consents: await completeConsentExport(
+                                exported.consents,
+                                api,
+                                () => exportActive.current,
+                              ),
+                              materialAlerts: await completeMaterialExport(
+                                exported.materialAlerts,
+                                api,
+                                () => exportActive.current,
+                              ),
                               readingFollow: await completeReadingFollowExport(
                                 exported.readingFollow,
                                 api,

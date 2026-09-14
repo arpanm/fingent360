@@ -10,7 +10,14 @@ import {
   latestScheduleDue,
   type ReportSchedule,
   type ScheduleOccurrence,
+  consentActive,
+  consentStatus,
 } from '@fingent360/contracts';
+import {
+  readLocalConsent,
+  recordLocalConsentOptIn,
+  requireLocalConsent,
+} from './consents';
 import {
   type OfflineBundle,
   type LocalState,
@@ -81,6 +88,13 @@ export async function materializeLocalSchedules(
   const user = requireUser(state),
     data = store(state, user.id),
     now = new Date().toISOString();
+  if (
+    !consentActive(
+      readLocalConsent(state, user.id, 'scheduled-record-reviews'),
+      now,
+    )
+  )
+    return;
   for (const schedule of data.schedules) {
     if (
       schedule.status !== 'active' ||
@@ -115,6 +129,8 @@ export async function materializeLocalSchedules(
           ? 'Skipped: report history or hourly capacity was full.'
           : 'Capture failed. No background retry is promised; the next occurrence remains scheduled.';
     }
+    requireUser(state);
+    requireLocalConsent(state, user.id, 'scheduled-record-reviews');
     data.occurrences.push(
       ScheduleOccurrenceSchema.parse({
         id,
@@ -153,6 +169,13 @@ export const reportSchedulesHandler: OfflineHandler = async (
     await materializeLocalSchedules(state, bundle);
     return {
       body: ReportSchedulesSchema.parse({
+        consent: {
+          record: readLocalConsent(state, user.id, 'scheduled-record-reviews'),
+          status: consentStatus(
+            readLocalConsent(state, user.id, 'scheduled-record-reviews'),
+            new Date().toISOString(),
+          ),
+        },
         schedules: [...data.schedules]
           .sort(
             (a, b) =>
@@ -225,10 +248,20 @@ export const reportSchedulesHandler: OfflineHandler = async (
     requestId: input.requestId,
     schedule,
   });
+  if (status === 'active')
+    recordLocalConsentOptIn(state, user.id, 'scheduled-record-reviews', {
+      kind: 'schedule-opt-in',
+      recordedAt: savedAt,
+      scheduleId: id,
+      scheduleVersion: schedule.version,
+      requestId: input.requestId,
+    });
   data.schedules = data.schedules
     .filter((s) => s.id !== id)
     .concat(structuredClone(schedule));
   data.editions.push(structuredClone(schedule));
   data.receipts.push({ fingerprint, receipt: structuredClone(receipt) });
+  if (status === 'active')
+    requireLocalConsent(state, user.id, 'scheduled-record-reviews');
   return { status: 201, body: receipt };
 };

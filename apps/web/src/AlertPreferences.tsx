@@ -1,56 +1,73 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { StaleAccountRead, type AccountRequest } from './account-request';
 import {
   AlertPreferencesSchema,
+  AccountActionSchema,
   type AlertPreferences as AlertPreferencesData,
 } from '@fingent360/contracts';
 export function AlertPreferences({
   onChanged,
+  request,
 }: {
   onChanged?: () => Promise<void>;
+  request: AccountRequest;
 }) {
   const [data, setData] = useState<AlertPreferencesData | null>(null);
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
+  const live = useRef(false),
+    reads = useRef(0),
+    writing = useRef(false);
   async function reload() {
-    const response = await fetch('/api/v1/account/alert-preferences', {
-      credentials: 'same-origin',
-      signal: AbortSignal.timeout(15000),
-    });
-    if (!response.ok)
-      throw new Error(
-        'Inbox settings are temporarily unavailable. Try again shortly.',
-      );
-    setData(AlertPreferencesSchema.parse(await response.json()));
+    const ticket = ++reads.current;
+    const result = AlertPreferencesSchema.parse(
+      await request('/alert-preferences'),
+    );
+    if (live.current && ticket === reads.current) setData(result);
   }
   useEffect(() => {
-    void reload().catch(() => setError('Inbox settings unavailable.'));
-  }, []);
+    live.current = true;
+    void reload().catch((error: unknown) => {
+      if (live.current && !(error instanceof StaleAccountRead))
+        setError('Inbox settings unavailable.');
+    });
+    return () => {
+      live.current = false;
+      reads.current++;
+    };
+  }, [request]);
   async function toggle(indicator: string, muted: boolean) {
-    if (busy) return;
+    if (writing.current) return;
+    writing.current = true;
     setBusy(true);
     setError('');
     try {
-      const response = await fetch('/api/v1/account/alert-preferences', {
-        method: 'PUT',
-        credentials: 'same-origin',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ indicator, muted }),
-        signal: AbortSignal.timeout(15000),
-      });
-      if (!response.ok)
-        throw new Error(
-          'Could not save the inbox setting. Reload your watchlist and retry.',
-        );
-      await reload();
-      await onChanged?.();
-    } catch (failure) {
-      setError(
-        failure instanceof Error
-          ? failure.message
-          : 'Inbox settings unavailable.',
+      AccountActionSchema.parse(
+        await request('/alert-preferences', { indicator, muted }, 'PUT'),
       );
+      if (!live.current) return;
+      // The saved preference already changed material evaluation even if the following GET fails.
+      setData((old) =>
+        old
+          ? {
+              preferences: old.preferences.map((p) =>
+                p.indicator === indicator ? { ...p, muted } : p,
+              ),
+            }
+          : old,
+      );
+      await onChanged?.();
+      await reload();
+    } catch (failure) {
+      if (live.current && !(failure instanceof StaleAccountRead))
+        setError(
+          failure instanceof Error
+            ? failure.message
+            : 'Inbox settings unavailable.',
+        );
     } finally {
-      setBusy(false);
+      writing.current = false;
+      if (live.current) setBusy(false);
     }
   }
   return (
@@ -59,6 +76,8 @@ export function AlertPreferences({
       <p>
         Choose which updates appear in your inbox. Muting keeps your watchlist
         and reading history; unmute whenever you want to see updates again.
+        Material-change rules pause while muted. Unmuting starts a fresh
+        baseline without a backlog.
       </p>
       {error && (
         <div role="alert">

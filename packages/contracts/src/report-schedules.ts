@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { ConsentViewSchema } from './consents.js';
 export const ScheduleConfigSchema = z.strictObject({
   label: z.string().trim().min(1).max(80),
   frequency: z.enum(['daily', 'weekly']),
@@ -64,6 +65,7 @@ export const ScheduleReceiptSchema = z.strictObject({
   schedule: ReportScheduleSchema,
 });
 export const ReportSchedulesSchema = z.strictObject({
+  consent: ConsentViewSchema.optional(),
   schedules: z.array(ReportScheduleSchema).max(105),
   occurrences: z.array(ScheduleOccurrenceSchema).max(100),
   evaluatedAt: z.iso.datetime(),

@@ -11,6 +11,7 @@ import {
 } from './types';
 import { published } from './content';
 import { localGoals } from './finance';
+import { localConsentList } from './consents';
 export function handleAssistance(
   req: OfflineRequest,
   state: LocalState,
@@ -19,7 +20,15 @@ export function handleAssistance(
   if (!req.path.startsWith('/api/v1/account/assistance')) return undefined;
   const user = requireUser(state);
   if (req.method === 'GET' && req.path.endsWith('/options'))
-    return { body: { defaultProvider: 'query', providers: [] } };
+    return {
+      body: {
+        defaultProvider: 'query',
+        providers: [],
+        privateContextConsent: localConsentList(state, user.id).purposes.find(
+          (p) => p.record.purpose === 'external-ai-private-context',
+        ),
+      },
+    };
   if (req.method !== 'POST' || req.path !== '/api/v1/account/assistance')
     return undefined;
   const input = AssistanceInputSchema.parse(req.body),

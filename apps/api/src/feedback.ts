@@ -1,3 +1,4 @@
+import { OperatorRead, OperatorAction } from './operator-permissions.js';
 import { createHash, createHmac, timingSafeEqual } from 'node:crypto';
 import {
   BadRequestException,
@@ -338,7 +339,12 @@ export class FeedbackStore {
       return report(row);
     });
   }
-  async review(id: string, body: unknown, actor: string) {
+  async review(
+    id: string,
+    body: unknown,
+    actor: string,
+    authorize: () => Promise<unknown> = async () => undefined,
+  ) {
     validId(id);
     const parsed = FeedbackReviewSchema.safeParse(body);
     if (!parsed.success)
@@ -347,6 +353,7 @@ export class FeedbackStore {
       );
     return this.transaction(async (c) => {
       const row = await this.row(c, id);
+      await authorize();
       if (!row || row.deleted_at || row.expires_at <= new Date())
         throw new NotFoundException('Feedback not found.');
       if (row.version !== parsed.data.expectedVersion)
@@ -361,13 +368,19 @@ export class FeedbackStore {
         'INSERT INTO feedback_audit(report_id,actor,action,version) VALUES($1,$2,$3,$4)',
         [id, actor, `status:${parsed.data.status}`, r.rows[0]!.version],
       );
+      await authorize();
       return receipt(r.rows[0]!);
     });
   }
-  async operatorRemove(id: string, actor: string) {
+  async operatorRemove(
+    id: string,
+    actor: string,
+    authorize: () => Promise<unknown> = async () => undefined,
+  ) {
     validId(id);
     return this.transaction(async (c) => {
       const row = await this.row(c, id);
+      await authorize();
       if (!row) throw new NotFoundException('Feedback not found.');
       return this.erase(c, row, actor);
     });
@@ -404,6 +417,7 @@ export class FeedbackController {
     );
   }
 }
+@OperatorRead()
 @Controller('ops/feedback')
 export class OpsFeedbackController {
   constructor(
@@ -425,7 +439,9 @@ export class OpsFeedbackController {
     await this.operator.require(cookie);
     return this.store.operatorGet(id);
   }
-  @Patch(':id') async review(
+  @OperatorAction('administer')
+  @Patch(':id')
+  async review(
     @Param('id') id: string,
     @Body() body: unknown,
     @Headers('cookie') cookie: string | undefined,
@@ -433,16 +449,22 @@ export class OpsFeedbackController {
   ) {
     this.operator.origin(origin);
     const actor = await this.operator.require(cookie);
-    return this.store.review(id, body, actor);
+    return this.store.review(id, body, actor, () =>
+      this.operator.permission(cookie, 'administer'),
+    );
   }
-  @Delete(':id') async remove(
+  @OperatorAction('administer')
+  @Delete(':id')
+  async remove(
     @Param('id') id: string,
     @Headers('cookie') cookie: string | undefined,
     @Headers('origin') origin?: string,
   ) {
     this.operator.origin(origin);
     const actor = await this.operator.require(cookie);
-    return this.store.operatorRemove(id, actor);
+    return this.store.operatorRemove(id, actor, () =>
+      this.operator.permission(cookie, 'administer'),
+    );
   }
 }
 export function feedbackProvider(config: AppConfig) {

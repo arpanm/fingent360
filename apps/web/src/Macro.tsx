@@ -114,6 +114,27 @@ export function Macro({ route = 'macro' }: { route?: string }) {
           </p>
         </div>
       </div>
+      {!view && (
+        <p>
+          <a href="#policy-rates">
+            Explore reviewed ECB policy rates and effective-date history
+          </a>
+        </p>
+      )}
+      {!view && (
+        <p>
+          <a href="#oil-benchmarks">
+            Explore reviewed monthly Brent and WTI benchmarks
+          </a>
+        </p>
+      )}
+      {!view && (
+        <p>
+          <a href="#reference-fx">
+            Explore ECB reference exchange rates and derived INR/USD
+          </a>
+        </p>
+      )}
       {error && (
         <div className="error" role="alert">
           {error}{' '}

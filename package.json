@@ -8,6 +8,7 @@
     "node": ">=24 <27"
   },
   "scripts": {
+    "ops:provision": "node --env-file=.env scripts/operator-provision.mjs",
     "android:setup": "node scripts/android-setup.mjs",
     "android:snapshot": "node scripts/offline-snapshot.mjs",
     "android:web": "node scripts/android-package.mjs --web-only",

@@ -1,5 +1,7 @@
 # End-to-end case catalogue
 
+REGRESSION-011 strengthens existing API586 / WEB500–503 / WEB521 / WEB421 without new IDs: actual ACL-write cancellation and restoration, truncation-safe relation/blocker observation, nonoverlapping BEA mobile timeline/action flow, distinct progress/receipt states and held real report-option loading. [Evidence and13-instance manual rerun](../../docs/development/regression-011.md). No new pass is claimed.
+
 DOMAIN-CONTRACTS-002 is a reusable contract-only task: 13 golden unit groups now cover all seven DEV003 categories and exact chronology/reconstruction/refusal invariants. No API/UI/table is manufactured for these schemas. DELIVERY-RECONCILE-002 includes manual request-register acceptance and separate recorded local DB activation, not an E2E pass.
 
 ## DB-LEAST-PRIVILEGE-001 — separate runtime and migration ownership
@@ -488,3 +490,58 @@ SDLC-004 manual acceptance: repository instructions consistently assign determin
 OPS-READ-ADMISSION-001: API520–523 cover four actual legacy stored reads with exact table wait/expiry/revocation, nonempty original/account/public preservation. WEB520–522 cover actual Publishing/registry wait denial, recovery and held200 after sign-out; OFFLINE530 covers noAPI/server-only UI. Tag @OPS-READ-ADMISSION-001 selects10 connected instances and1offline; authored/unexecuted.
 
 LEGACY-FIXTURE-ISOLATION-001: stable API070/WEB070/WEB181 additionally tagged for five focused connected selections. Real source creation/publication/conflict/history, registry UI/reload/sign-out and fixed glossary ingestion now use actual owned storage and assert normal source digests unchanged. No successful response mocks or new test IDs; not executed by agents.
+
+## ROADMAP-COMPLETE-003 — authored acceptance
+
+BROKER-DIALECTS-001: API720–722, WEB720–725 desktop/mobile and OFFLINE720–722 cover exact per-source-record supplemental costs, explicit basis/attestation, immutable provenance, input rejection, replacement conflicts/removals/replay, session/private-state clearing and complete export/deletion. Seven contract units; 15 connected selections and three offline cases authored, not run. These are user-mapped fixtures, not proved broker file layouts. Existing MAPPED-IMPORT-001 compatibility cases remain relevant.
+
+ECB-RATES-001: API680–691, WEB680–684 desktop/mobile and OFFLINE680–681 cover exact three-series capture/quarantine/numeric reconciliation, immutable history, unchanged/A-B-A/replay, named independent approval, withdrawal retirement, storage waits/rollback and snapshot admission. Ten contract/transport/exporter units. This is 22 connected selections and two offline scenarios; all authored, not run. Provider-shaped numerical fixtures are synthetic; actual provider compatibility and published offline data require the separate user refresh/review/snapshot steps.
+
+MATERIAL-ALERTS-001: API660–668 cover actual persisted rules, exact changes, replay/conflicts, mutes, invalid source dates/nulls, ownership/lock admission and complete history export/deletion. WEB660–665 desktop/mobile cover ordinary review/save/check/history, lost replies, stale private reads, mute/reload and multi-page export. OFFLINE660–662 cover actual serialized bundle/local persistence with zero API traffic. Five contract units; 21 connected selections and three offline cases authored, not run.
+
+NAMED-OPERATORS-001: API640–644 cover actual named permissions, denied shared-key/legacy bypasses, independent source/registry/media decisions, exact replay, stale heads and revocation after an observed storage wait. WEB640–641 run on desktop/mobile for target inspection, lost-acknowledgment retry and persisted identity administration. Four contract/guard unit definitions cover proposal invariants and default-deny routes. Authored only; existing offline Operations remains explicitly connected-only.
+
+QUALITY-OVERVIEW-001: API630 checks protected actual stored heads, malformed/missing editions, exact aggregate counts and omitted raw values; WEB630 desktop/mobile checks empty/error/retry and Publishing navigation. Contract cases define age exclusions and explicit truncation. Request-log cases cover safe correlation and disconnected versus completed requests. These cases are authored, not executed.
+
+GOAL-FEASIBILITY-001: API600–602; WEB600–601 desktop/mobile; OFFLINE600; exact calculation/receipt units. EVIDENCE-LAYERS-001: API620–623; WEB620–623 desktop/mobile; OFFLINE620–621; strict source-offset/revision units. New cases are authored, not executed. See feature handoffs for real-data versus simulation boundaries.
+
+MAPPED-IMPORT-001: API610–613 actual preview/replay/ownership/source totals/stale-removal acceptance; WEB610–615 desktop/mobile mapping/file-read recovery/private state/guide; OFFLINE610–611 real serialized parity and zero API traffic. Five contract units cover quoted CSV, precision, bounds and declared-total rejection. Broker format evidence remains separate from synthetic user-defined mapper fixtures.
+
+## EVENT-REVIEW-001 — authored, not executed
+
+API700–704, WEB700–701 (desktop/mobile) and OFFLINE700–701 cover versioned event authoring, real source/identity bindings, independent publication, history, stale suppression, guarded drafts and offline parity. Tag `@EVENT-REVIEW-001`; API702 also uses `@NAMED-OPERATORS-001`. [Case details and manual acceptance](../../docs/development/event-review-handoff.md). No current run/pass is claimed.
+
+## EIA-BENCHMARKS-001 — authored, not executed
+
+API740–751 cover actual retained workbook/numerical storage, parse and insert failures, review/replay/withdrawal, concurrency, pagination, post-wait expiry and independent named approval. WEB740–744 cover year/history/evidence/Back, review recovery and protected late-response clearing on desktop/mobile. OFFLINE740–741 cover admitted installed data and withdrawal suppression with zero API requests. Tag `@EIA-BENCHMARKS-001`; synthetic source/fault cases are explicit.12API+10browser instances and2offline;11 parser/transport/snapshot units. Live provider compatibility remains unverified.
+
+## MATERIAL-AUTO-001 — authored, not executed
+
+API790–792 cover default manual behavior, actual concurrent/restarted workers, exactly-once due processing, revoke/manual preservation, failed-account deferral/nonstarvation and owned export/deletion. WEB790 covers explicit enable/review/Back/disable on desktop/mobile. OFFLINE790–791 cover persisted opt-in and due processing only while the app is open with zero API requests. Shared exact-due reducer cases include no backlog and shutdown after the last rule is removed. Tag `@MATERIAL-AUTO-001`; no run/pass is claimed.
+
+## CONSENT-LIFECYCLE-001 — purpose and expiry enforcement
+
+Authored, not executed: API760–768; WEB760–764 on desktop/mobile; OFFLINE760–762; five contract units. Covers explicit four-purpose grant/renew/revoke/expiry, exact replay and complete paged history/export, real account/session waits, private-record edit/delete around synthetic provider dispatch, schedule capture rollback/no catch-up, keyboard/401 recovery and local no-network parity. See [exact case inventory and manual setup](../../docs/development/consent-lifecycle-handoff.md). No private inputs or provider traffic are needed. Parent security acceptance remains separate.
+
+## ECB-FX-001 — exact reference and calculated exchange rates
+
+Authored, not executed: API810–822; WEB810–814 on desktop/mobile; OFFLINE810–811;16 parser/contract/transport/snapshot units. Covers fixed-source retained XML→exact numerical reconciliation→independent review, unchanged lexical inputs and separate eight-decimal cross-rate, rolling-window added/changed/absent dates, withdrawal-retired history, actual storage/auth waits, lost-response replay, mobile month/table/Back/evidence and local no-network parity. Synthetic syntax and numerical fixtures are explicit. See [exact inventory and manual setup](../../docs/development/ecb-fx-handoff.md). No live provider ingestion or APK update occurred during authoring.
+
+## EVENT-LINEAGE-001 — reviewed merge and split
+
+Authored, not executed: API830–835, WEB830–831 on desktop/mobile, OFFLINE830–831, five contract and four snapshot units. Exact saved-plan inspection, independent named approval, atomic output publication/input supersession, source/version conflicts, immutable original/private records, safe public replacement/Back/offline relationships, actual401 clearing and three-client named authorization regression. See [scope and manual setup](../../docs/development/event-lineage-handoff.md). Source-template or unrelated model output never publishes through this path.
+
+## IDENTITY-ADJUDICATION-001 — reviewed candidate selection
+
+Authored, not executed: API870–875, WEB870–873 on desktop/mobile, OFFLINE870–871, two contract and two snapshot goldens. Actual retained ambiguous candidates, rejected fabricated/empty/stale inputs, distinct named approval, competing decisions, observed session expiry/rollback, unchanged owned goals/provider records, separate public judgement/history, conflict recovery and dated offline event admission. See [scope and exact manual actions](../../docs/development/identity-adjudication-handoff.md). Editorial selection never changes provider ambiguity or proves external corporate identity.
+
+## EVENT-EXTRACTION-001 — source candidate to ordinary event draft
+
+Authored, not executed: API850–862, WEB850–855 on desktop/mobile, OFFLINE850–851 and11 contract units. Actual retained-source binding, strict exact ordered excerpts, explicit human draft and separate named publication, immutable request/decision replay, real rollback/session waits/concurrency/quota, labelled injected-provider failures and no-key fallback. UI includes source preview, deferred editor choices, title-only draft guard, lost/mismatched replies, busy409 same-request preservation, saved-receipt recovery, stale source decline and late-response fencing. Offline explains connected-only preparation while retaining reviewed-event navigation with no API traffic. See [exact cases and manual actions](../../docs/development/event-extraction-handoff.md). No real provider dispatch, ingestion or synthetic successful response is represented as production evidence.
+<!-- REGRESSION-012 manual acceptance: rerun the original pnpm sdlc command and filters. The four reported formatting warnings should clear; remaining gates still run before commit. Whitespace-only changes reuse existing event/operator/import cases, with no new test definition or agent execution. -->
+
+REGRESSION-013: lint corrections preserve existing numerical/event rollback, named provisioning, consent and material-alert behavior. Mapped-import contract coverage now explicitly rejects all forbidden C0/DEL characters while accepting tabs, Unicode, quoted newlines and CRLF normalization. No new E2E ID is necessary; existing feature cases remain applicable. User reruns the original pnpm sdlc command/filters. Authoring only, no new pass or commit.
+
+REGRESSION-014: fixed-URL provider annotations reuse existing transport cases. Four operator-cursor unit cases cover named signing round-trip, tampering, rejection of public Symbol-derived signatures, controller-instance reset, bootstrap compatibility and domain separation. Existing API481/561 exercise strict/tampered cursor rejection; paging/auth tests remain applicable. No new E2E ID or agent-run validation. User reruns the original pnpm sdlc command and filters.
+
+REGRESSION-015 reuses API-767/688/748/792/818 and WEB-062/223/224/681/740/810/850–855/873 for final admission, exact retry timestamp, fixture teardown, pagination and keyboard/recovery corrections. Full API/desktop/mobile run and focused reruns are recorded in docs/development/regression-015.md.

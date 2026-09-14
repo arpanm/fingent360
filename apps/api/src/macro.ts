@@ -1,3 +1,8 @@
+import {
+  INTERNAL_OPERATOR,
+  type OperatorAuthorization,
+} from './operator-internal.js';
+import { LegacyOperatorRoute } from './operator-permissions.js';
 import { createHash, randomUUID, timingSafeEqual } from 'node:crypto';
 import {
   BadRequestException,
@@ -122,7 +127,8 @@ export class MacroStore {
   async onApplicationShutdown() {
     await Promise.allSettled([this.pool.end(), this.mongo.close()]);
   }
-  authorize(auth?: string) {
+  authorize(auth?: OperatorAuthorization) {
+    if (auth === INTERNAL_OPERATOR) return;
     const configured = this.config.RESEARCH_ADMIN_TOKEN;
     if (!configured)
       throw new ServiceUnavailableException(
@@ -221,7 +227,11 @@ export class MacroStore {
       );
     }
   }
-  async refresh(body: unknown, auth?: string) {
+  async refresh(
+    body: unknown,
+    auth?: OperatorAuthorization,
+    authorize: () => Promise<unknown> = async () => undefined,
+  ) {
     this.authorize(auth);
     const parsed = MacroRefreshSchema.safeParse(body);
     if (!parsed.success)
@@ -243,6 +253,7 @@ export class MacroStore {
         throw new ConflictException(
           'This source is already refreshing. Reload its status shortly.',
         );
+      await authorize();
       // A process exit can leave only a run marker, never the session lock.
       await client.query(
         "UPDATE macro_runs SET status='failed',finished_at=now(),message='Previous refresh was interrupted; retry is safe.' WHERE indicator=$1 AND status='running'",
@@ -331,6 +342,7 @@ export class MacroStore {
           hash,
         ],
       );
+      await authorize();
       await client.query('COMMIT');
       transaction = false;
       const row = result.rows[0];
@@ -377,9 +389,12 @@ export class MacroController {
   @Get('evidence/:hash') evidence(@Param('hash') hash: string) {
     return this.store.evidence(hash);
   }
-  @Post('refresh') @HttpCode(200) refresh(
+  @LegacyOperatorRoute()
+  @Post('refresh')
+  @HttpCode(200)
+  refresh(
     @Body() body: unknown,
-    @Headers('authorization') auth?: string,
+    @Headers('authorization') auth?: OperatorAuthorization,
   ) {
     return this.store.refresh(body, auth);
   }

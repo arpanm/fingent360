@@ -802,3 +802,53 @@ PUBLISHING-QUEUE-001 acceptance: actual stored publication heads, bounded newest
 DB-LEAST-PRIVILEGE-001 acceptance: explicit safe manual preview/apply, existing configuration preservation, actual runtime DML/immutable records, denied persistent DDL/ledger/role escalation, successful owner migrations/default grants, unknown-role refusal and transactional rollback. API580–586 and four units authored. Role provisioning and tests are user-run; TEMP remains disclosed/unchanged and no end-user UI or offline dataset is added.
 
 DELIVERY-RECONCILE-002 manual acceptance: reconcile session-request-register.md with TODO/README and preserve visible requests/remaining scope; distinguish 13 authored domain golden groups from persisted consumers. Queue migration036 supplies actual ordering indexes; API567 checks them and combined filter pagination; WEB562 covers focus after review. Local DB setup/readiness is recorded separately from unexecuted E2E.
+
+REGRESSION-011: retain actual isolated grant cancellation/rollback/restored permissions (API586), post-storage session expiry after a confirmed relation wait (WEB521), ordinary mobile BEA pointer actions and explicit persisted staging receipt (WEB500–503), and loading → actual one-report choice transition without stale empty status (WEB421). User-run baseline522passed/11failed/1skipped; corrections await the focused13-instance rerun in docs/development/regression-011.md.
+
+## QUALITY-OVERVIEW-001
+
+Operator-only actual storage summary; strict malformed/missing-head classification; bounded sample explicitly labelled; annual/editorial age excluded from news triage; no personal/raw response data. Desktop/mobile loading, empty, failure, retry and connected Publishing navigation. No provider requests or false freshness guarantee. API630/WEB630 plus contract/request-observation units are authored; execution belongs to user SDLC.
+
+## ROADMAP-COMPLETE-003 feature acceptance
+
+BROKER-DIALECTS-001: supplementary acquisition costs must bind exact CSV record positions, ISINs and quantities, reconcile an explicit total and require user attestation. Never derive exact cost from displayed averages/valuations. Preserve mapped cost-column behavior and immutable receipt/export/local metadata; edits and session failures cannot retain stale authority. API720–722, WEB720–725 desktop/mobile, OFFLINE720–722 and seven units are authored; public broker research leaves precise named-layout gates open.
+
+ECB-RATES-001: preserve exact fixed-series effective dates/units and distinguish retrieval revisions from unavailable historical known-at dates. Capture retains raw evidence before immutable canonical records, rejects missing accepted observations/unknown XML shapes, and needs explicit review. Later publication cannot restore retired history. API680–691, WEB680–684 desktop/mobile, OFFLINE680–681 and ten units cover storage, independent named approval, retry/withdrawal/admission and device parity. Real-provider and physical acceptance remain user-run.
+
+MATERIAL-ALERTS-001: explicit user thresholds compare actual stored annual observations in a max-two-indicator batch. Missing, revised, stale, future and unchanged evidence cannot create false material urgency; baselines and coalesced notices retain exact source/policy/check receipts. API660–668, WEB660–665 desktop/mobile, OFFLINE660–662 and five units cover persistence, recovery, ownership, complete export/deletion and local parity. Calendar/live-provider/channel expansion remains separate; validation is user-run.
+
+NAMED-OPERATORS-001: actual protected target inspection precedes independent named approval; identity versions invalidate waiting old sessions, legacy bearer routes cannot bypass roles, decided retries return historical receipts and stale heads conflict. API640–644 and WEB640–641 desktop/mobile plus contract/guard units are authored. Owner CLI recovery and physical accessibility acceptance are manual; no execution or production-identity assurance is claimed.
+
+GOAL-FEASIBILITY-001: API600–602, WEB600–601 and OFFLINE600 cover exact persisted stress inputs, unknowns, conflicts, retry, ownership, deletion/tombstones, export and capacity. EVIDENCE-LAYERS-001: API620–623, WEB620–623 and OFFLINE620–621 cover exact admitted excerpts, changed/withdrawn editions, source-lock/error recovery, keyboard/mobile/private notes and local parity. MAPPED-IMPORT-001: API610–613, WEB610–615 and OFFLINE610–611 cover real mapped preview/replacement, exact totals, duplicate consent, replay/removal, bounded file parsing, stale private-response guards and researched help. QUALITY-OVERVIEW-001 additionally has OFFLINE630 for explicit connection requirement with zero API traffic. All newly authored cases await user execution.
+
+## EVENT-REVIEW-001 — authored, not executed
+
+API700–704 cover actual source/identity binding, immutable drafts and reviewed history, independent named approval, post-wait expiry rollback and changed identity suppression. WEB700–701 cover authoring, public detail/Back, unknown impact, excerpt removal, preserved draft refresh and guarded departure on desktop/mobile. OFFLINE700–701 cover actual installed content, zero API calls and stale/withdrawn suppression. Tag: `@EVENT-REVIEW-001`; API702 also carries `@NAMED-OPERATORS-001`. Graph and snapshot goldens cover reconciliation and publication changes during capture. See [event handoff](../../../docs/development/event-review-handoff.md) for exact acceptance; no current run or pass is claimed.
+
+## EIA-BENCHMARKS-001 — authored, not executed
+
+API740–751 cover actual retained workbook/numerical storage, parse and insert failures, review/replay/withdrawal, concurrency, pagination, post-wait expiry and independent named approval. WEB740–744 cover year/history/evidence/Back, review recovery and protected late-response clearing on desktop/mobile. OFFLINE740–741 cover admitted installed data and withdrawal suppression with zero API requests. Tag `@EIA-BENCHMARKS-001`; synthetic source/fault cases are explicit.12API+10browser instances and2offline;11 parser/transport/snapshot units. Live provider compatibility remains unverified.
+
+## MATERIAL-AUTO-001 — authored, not executed
+
+API790–792 cover default manual behavior, actual concurrent/restarted workers, exactly-once due processing, revoke/manual preservation, failed-account deferral/nonstarvation and owned export/deletion. WEB790 covers explicit enable/review/Back/disable on desktop/mobile. OFFLINE790–791 cover persisted opt-in and due processing only while the app is open with zero API requests. Shared exact-due reducer cases include no backlog and shutdown after the last rule is removed. Tag `@MATERIAL-AUTO-001`; no run/pass is claimed.
+
+## CONSENT-LIFECYCLE-001 — purpose and expiry enforcement
+
+Authored, not executed: API760–768; WEB760–764 on desktop/mobile; OFFLINE760–762; five contract units. Covers explicit four-purpose grant/renew/revoke/expiry, exact replay and complete paged history/export, real account/session waits, private-record edit/delete around synthetic provider dispatch, schedule capture rollback/no catch-up, keyboard/401 recovery and local no-network parity. See [exact case inventory and manual setup](../../../docs/development/consent-lifecycle-handoff.md). No private inputs or provider traffic are needed. Parent security acceptance remains separate.
+
+## ECB-FX-001 — exact reference and calculated exchange rates
+
+Authored, not executed: API810–822; WEB810–814 on desktop/mobile; OFFLINE810–811;16 parser/contract/transport/snapshot units. Covers fixed-source retained XML→exact numerical reconciliation→independent review, unchanged lexical inputs and separate eight-decimal cross-rate, rolling-window added/changed/absent dates, withdrawal-retired history, actual storage/auth waits, lost-response replay, mobile month/table/Back/evidence and local no-network parity. Synthetic syntax and numerical fixtures are explicit. See [exact inventory and manual setup](../../../docs/development/ecb-fx-handoff.md). No live provider ingestion or APK update occurred during authoring.
+
+## EVENT-LINEAGE-001 — reviewed merge and split
+
+Authored, not executed: API830–835, WEB830–831 on desktop/mobile, OFFLINE830–831, five contract and four snapshot units. Exact saved-plan inspection, independent named approval, atomic output publication/input supersession, source/version conflicts, immutable original/private records, safe public replacement/Back/offline relationships, actual401 clearing and three-client named authorization regression. See [scope and manual setup](../../../docs/development/event-lineage-handoff.md). Source-template or unrelated model output never publishes through this path.
+
+## IDENTITY-ADJUDICATION-001 — reviewed candidate selection
+
+Authored, not executed: API870–875, WEB870–873 on desktop/mobile, OFFLINE870–871, two contract and two snapshot goldens. Actual retained ambiguous candidates, rejected fabricated/empty/stale inputs, distinct named approval, competing decisions, observed session expiry/rollback, unchanged owned goals/provider records, separate public judgement/history, conflict recovery and dated offline event admission. See [scope and exact manual actions](../../../docs/development/identity-adjudication-handoff.md). Editorial selection never changes provider ambiguity or proves external corporate identity.
+
+## EVENT-EXTRACTION-001 — source candidate to ordinary event draft
+
+Authored, not executed: API850–862, WEB850–855 on desktop/mobile, OFFLINE850–851 and11 contract units. Actual retained-source binding, strict exact ordered excerpts, explicit human draft and separate named publication, immutable request/decision replay, real rollback/session waits/concurrency/quota, labelled injected-provider failures and no-key fallback. UI includes source preview, deferred editor choices, title-only draft guard, lost/mismatched replies, busy409 same-request preservation, saved-receipt recovery, stale source decline and late-response fencing. Offline explains connected-only preparation while retaining reviewed-event navigation with no API traffic. See [exact cases and manual actions](../../../docs/development/event-extraction-handoff.md). No real provider dispatch, ingestion or synthetic successful response is represented as production evidence.

@@ -50,6 +50,18 @@ try {
     '032_reading_follow.sql',
     '035_bea_quarantine.sql',
     '036_publishing_queue_indexes.sql',
+    '037_goal_feasibility.sql',
+    '038_named_operators.sql',
+    '039_material_alerts.sql',
+    '040_ecb_rates.sql',
+    '041_reviewed_events.sql',
+    '042_oil_benchmarks.sql',
+    '043_consent_lifecycle.sql',
+    '044_material_automatic.sql',
+    '045_ecb_fx.sql',
+    '046_event_lineage.sql',
+    '047_event_extraction.sql',
+    '048_identity_adjudication.sql',
   ]) {
     await applyMigration(
       client,

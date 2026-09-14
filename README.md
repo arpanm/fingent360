@@ -1,8 +1,72 @@
 # Fingent360
 
-Latest SDLC correction: API586 now uses the typed owned-database helper and a typed lazy provisioning module, with a definite promise for its assertion and an optional teardown reference. The prior lint correction remains intact. Rerun your previous `pnpm sdlc` command; validation and commit remain user-run.
+REGRESSION-015 is validating the full SDLC under explicit user authorization. Web/E2E typing corrections and UTF-16 excerpt validation are implemented. Additive migrations037–048 and runtime grants were applied locally; existing data was preserved. Validation results are recorded in docs/development/regression-015.md. No push is authorized.
 
-The three audited delivery items are implemented in the working tree. Local database owner/runtime separation is now enabled, migrations035/036 are applied, and the API is running with the runtime role on4103 (web5175). Operational readiness returned200. Format/check/E2E and the gated commit remain user-run; this is not a claim of full test or production acceptance. [Current activation and exact next command](docs/development/local-database-activation.md). Installed APKs do not update until rebuilt/reinstalled.
+REGRESSION-014 corrects provider receipt URL typing and named-mode cursor signing after format/lint passed. Named audit/publishing cursors use a random server-only key and require resetting the page after an API restart; bootstrap cursor compatibility is preserved. Four codec regression cases are authored. Rerun the original `pnpm sdlc` invocation with its existing filters; typechecks, tests and commit remain pending.
+
+REGRESSION-013 addresses the11 lint errors reported after formatting passed: dead assignments, provisioning error cause, CSV control validation and two test-code declarations/branches. Rollback, authorization and redacted CLI output are preserved. CSV control-range regression coverage is authored. Rerun the original `pnpm sdlc` invocation and filters; checks and commit remain pending.
+
+REGRESSION-012 corrects wrapping in the four files rejected by the reported format:check stage. The runner still requires format and check to pass before committing. Rerun the same `pnpm sdlc` command with its original filters; this correction has not been executed or committed. No runtime behavior, test selection or formatting exclusions changed.
+
+Remaining roadmap implementation is active under ROADMAP-COMPLETE-003. The current delivery adds saved goal downside assessments, mapped and attested-cost imports, progressive explanations, reviewed events, named operator approvals, numerical ECB policy and reference exchange rates, monthly oil benchmarks, material-change monitoring, purpose-consent controls and Operations diagnostics. Implementation and verification are tracked separately; the earlier regression corrections remain in the working tree. No new APK, migrations applied, test passes or commit is claimed for this batch.
+
+Latest user-run SDLC committed `b5cfcd0`, then reported 522 passed, 11 failed and 1 skipped. The current correction addresses owned database lock observations, BEA mobile recovery/progress states and report-comparison loading states. [Causes and focused rerun](docs/development/regression-011.md). These edits await user validation and a new gated commit.
+
+The three audited delivery items are implemented in the working tree. The recorded local database activation enabled owner/runtime separation, applied migrations035/036 and started the runtime API on4103 (web5175), with readiness200 at that time. It does not establish current process health or apply the newer migrations. Format/check/E2E and the gated commit remain user-run; this is not a claim of full test or production acceptance. [Current activation and exact next command](docs/development/local-database-activation.md). Installed APKs do not update until rebuilt/reinstalled.
+
+## Map a holdings CSV
+
+Holdings → Map CSV columns lets you choose ISIN, quantity and total purchase-cost columns, declare units/source totals, review duplicates and inspect the actual saved-baseline replacement before confirming. Mapping choices survive receipt/history/export; raw files and ignored values are not retained. The same flow works on device. Broker help links the researched export instructions for Zerodha, Groww, Upstox, Angel One and ICICI Direct; automatic platform adapters are not claimed without verified formats. [Evidence, cases and remaining format requirements](docs/development/mapped-import-handoff.md).
+
+For a mapped file without reliable total purchase costs, choose **Supply exact costs from my records**. Enter each source row's exact cost and its basis, reconcile the total and attest before the usual saved-holdings replacement review. Saved receipts, history and privacy exports distinguish these user-attested amounts from imported cost columns. Broker help explains the researched export paths and known cost caveats; named automatic adapters remain unverified. [Scope and cases](docs/development/broker-dialects-handoff.md).
+
+## Downside capacity for saved goals
+
+My goals now supports an explicit affordable monthly ceiling, interrupted contributions and protected savings. Review the unchanged plan against exact stressed totals, save a dated goal-version receipt, reopen it and remove it without changing goals or allocations. Unknown inputs remain unknown. This is a user-entered capacity check, not an investment forecast or suitability score. Migration037 adds owned storage; privacy export/deletion and device-only persistence are included. [Scope and user-run acceptance](docs/development/goal-feasibility-handoff.md).
+
+## Progressive source explanations
+
+Published readers now expose source-bound excerpts, beginner context, your actual private research connections, analytical limits and exact source/version references. Basis controls move focus to the cited stored-edition field. Withdrawal and changed editions invalidate stale reading; approved causal or investment-impact claims are not invented. [Scope and cases](docs/development/evidence-layers-handoff.md).
+
+## Purpose consent and private assistance
+
+Privacy → Purpose consent lets you review, grant, expire, revoke or renew four separate uses: private context sent to configured AI, personalized reading order, scheduled saved-record reviews and automatic material checks. Revocation preserves your financial records, downloads and query-based help. Workers and AI requests check actual permission after waits; AI results also recheck the exact private record versions. The device uses the same local controls, with no external AI capability implied. Migration043 stores the owned immutable ledger. [Policy, cases and manual acceptance](docs/development/consent-lifecycle-handoff.md).
+
+## Operations data quality and request diagnostics
+
+Operations → Data quality shows actual valid/invalid/missing publication heads, review/evidence gaps, retrieval-age triage and recent ingestion outcomes. It also shows process-scoped request/error/latency counters. Safe structured request logs and X-Request-ID support diagnosis without logging private URLs, headers or body text. [Operational objectives and manual acceptance](docs/development/quality-overview.md). No uptime or production-readiness claim is implied.
+
+## Reviewed events and entity exploration
+
+Operations → Event review creates versioned editorial events from exact excerpts of published sources, with optional reviewed sector context and retained security identities. Named mode requires a different operator identity to approve publication. More → Events connects public event details, citations, context filters and reviewed history; changed or withdrawn source/identity records suppress affected content. Impact and horizon remain explicitly unknown. User-generated offline snapshots retain admitted events for the Android app. No events are fabricated or automatically published. [Specification](docs/product/event-review.md), [cases and manual acceptance](docs/development/event-review-handoff.md).
+
+Operations → Merge/split events now authors complete replacement plans, preserves original revisions and applies all outputs together after review. Named mode requires another identity. Public event details show safe predecessor/replacement links; offline snapshots keep admitted relationships. Migration046 stores immutable plans and receipts. [Workflow and acceptance](docs/development/event-lineage-handoff.md).
+
+Event review → Prepare event from a source connects retained published source selection to exact excerpts and a normal saved event draft. A keyless source template works without AI; configured OpenAI, Gemini or Anthropic can select exact excerpts only. People supply classifications and explanations, inspect the candidate and explicitly save or decline it. Receipts support uncertain-response recovery, and publication remains a separate review. Migration047 retains attempts and decisions. Connected preparation is unavailable offline; reviewed published events use the Android snapshot. [Specification](docs/product/event-extraction.md), [cases and manual acceptance](docs/development/event-extraction-handoff.md). Implementation is authored; user validation is pending.
+
+Operations → Identity selections lets reviewers choose among actual retained provider candidates. The choice is explicitly editorial judgement; provider ambiguity and original evidence remain unchanged. Named mode requires independent approval. Public security details show the choice separately, and event authors may explicitly bind it. Changed or withdrawn selections invalidate dependent event context; dated snapshots preserve the same distinction. Migration048 stores the immutable review history. [Scope and acceptance](docs/development/identity-adjudication-handoff.md). Implementation is authored; user validation is pending.
+
+## ECB policy-rate history
+
+More → ECB policy rates adds exact deposit, fixed refinancing and marginal-lending levels, effective dates, retrieval editions, history and evidence. Connected Operations captures the fixed official source, retains failed responses for inspection and requires explicit publication; named mode uses independent approval. Withdrawn history stays retired after later publications. The offline snapshot includes only admitted editions when you rebuild it. No provider data was ingested or bundled during authoring. [Setup, source scope and pending acceptance](docs/development/ecb-rates-handoff.md).
+
+## Daily reference exchange rates
+
+More → Reference exchange rates presents unchanged ECB USD/EUR and INR/EUR observations beside a separately labelled, exactly calculated INR/USD cross-rate. Choose a month or full captured window, inspect the method and compare immutable retrieval editions. Operations retains the original fixed-source XML and requires publication review; named mode requires another operator. Rolling-window absences are disclosed, not filled with invented rates. Migration045 and rebuilt offline snapshots support the same reader on Android. This is reference context rather than an executable quote. [Source, workflow and cases](docs/development/ecb-fx-handoff.md).
+
+## Monthly oil benchmarks
+
+More → Oil benchmarks shows reviewed World Bank monthly Brent and WTI observations with year selection, exact source precision, retrieval history and expandable evidence. Operations captures the fixed public workbook and retains originals before numerical reconciliation; publication requires review, with independent approval in named mode. Withdrawn editions stay retired. Rebuilt offline snapshots carry only admitted data. No live data was ingested during authoring, and monthly averages are not daily or Indian landed prices. [Source selection, cases and manual acceptance](docs/development/oil-benchmarks-handoff.md).
+
+## Material changes in followed observations
+
+Account → Observation inbox → Material changes supports explicit annual GDP/CPI thresholds, fresh opt-in baselines, exact percentage-point comparisons and one coalesced notice per indicator. Mute/unmute, correction/null/stale handling, acknowledgment, immutable history and complete privacy export/deletion work in the API and local app. Checks read stored observations; they do not fetch providers or invent release dates. Migration039 is required. [Scope, cases and manual acceptance](docs/development/material-alerts-handoff.md).
+
+Automatic checks are separately opt-in: review the purpose and enable daily checks of stored observations. Due state survives API restarts; concurrent workers cannot duplicate a check. Revocation pauses future automatic use, and resuming starts a fresh baseline. Device checks run while the app is open against its installed bundle. Operations → Workers shows aggregate health. Migration044 and the consent lifecycle are required. [Cases and manual acceptance](docs/development/material-automatic-handoff.md).
+
+## Named operator permissions and independent review
+
+An explicit named mode adds viewer, researcher, publisher and administrator roles. Material content, visual, registry and ECB publication changes use proposals inspected and approved by a different named identity. Shared-key and legacy bearer bypasses are rejected in that mode; role changes invalidate existing sessions even after storage waits. Bootstrap mode remains the default until you provision identities and choose named mode. [Setup, exact scope and pending validation](docs/development/named-operators-handoff.md).
 
 ## Ad hoc requests and roadmap status
 

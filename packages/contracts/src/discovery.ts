@@ -1,3 +1,4 @@
+import { OperatorIdentitySchema } from './operator-identity.js';
 import { z } from 'zod';
 export const DiscoveryIdSchema = z.string().regex(/^[a-z0-9][a-z0-9-]{0,99}$/);
 const PublicUrl = z.url().refine((value) => {
@@ -67,6 +68,8 @@ export const PublicDiscoveryEvidenceSchema = DiscoveryEvidenceSchema.refine(
   'Only a scoped published excerpt is available here.',
 );
 export const OperatorSessionSchema = z.strictObject({
+  mode: z.enum(['bootstrap', 'named']).optional(),
+  identity: OperatorIdentitySchema.nullable().optional(),
   authenticated: z.boolean(),
   expiresAt: z.iso.datetime().nullable(),
 });

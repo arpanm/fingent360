@@ -1,3 +1,4 @@
+import { OperatorRead, OperatorAction } from './operator-permissions.js';
 import { admitPublications } from './publication.js';
 import { randomUUID } from 'node:crypto';
 import {
@@ -27,7 +28,7 @@ import {
 import type { AppConfig } from './config.js';
 import { configuredProviders, generateAssistance } from './ai-providers.js';
 import { OperatorStore, OPERATOR_STORE } from './operator.js';
-const MEDIA_STORE = Symbol('MEDIA_STORE');
+export const MEDIA_STORE = Symbol('MEDIA_STORE');
 const escape = (value: string) =>
   value
     .replace(/&/g, '&amp;')
@@ -350,6 +351,7 @@ export class MediaStore {
     body: unknown,
     actor: string,
     authorize: () => Promise<unknown> = async () => undefined,
+    complete?: (client: pg.PoolClient) => Promise<void>,
   ) {
     const parsed = z
       .strictObject({ assetId: z.uuid(), publish: z.boolean() })
@@ -374,6 +376,7 @@ export class MediaStore {
       );
       const saved = await this.read(c, item, false);
       await authorize();
+      await complete?.(c);
       return saved;
     });
   }
@@ -385,6 +388,7 @@ export class MediaController {
     return this.store.get(id);
   }
 }
+@OperatorRead()
 @Controller('ops/media')
 export class OpsMediaController {
   constructor(
@@ -398,7 +402,9 @@ export class OpsMediaController {
     await this.ops.require(cookie);
     return this.store.get(id, false, () => this.ops.require(cookie));
   }
-  @Post(':id') async generate(
+  @OperatorAction('prepare')
+  @Post(':id')
+  async generate(
     @Param('id') id: string,
     @Body() body: unknown,
     @Headers('cookie') cookie?: string,
@@ -413,7 +419,9 @@ export class OpsMediaController {
     await this.ops.record('media.generate.requested', id, cookie);
     return this.store.generate(id, () => this.ops.require(cookie));
   }
-  @Put(':id') async review(
+  @OperatorAction('blocked')
+  @Put(':id')
+  async review(
     @Param('id') id: string,
     @Body() body: unknown,
     @Headers('cookie') cookie?: string,

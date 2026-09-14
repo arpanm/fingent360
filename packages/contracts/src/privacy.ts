@@ -1,3 +1,12 @@
+import { GoalFeasibilityExportSchema } from './goal-feasibility.js';
+import {
+  ConsentPrivacySchema,
+  CompleteConsentPrivacySchema,
+} from './consents.js';
+import {
+  MaterialExportSchema,
+  CompleteMaterialExportSchema,
+} from './material-alerts.js';
 import {
   ReadingFollowExportSchema,
   CompleteReadingFollowExportSchema,
@@ -98,8 +107,11 @@ export const PrivacyExportSchema = z.strictObject({
   exclusions: z.array(z.string()),
   allocations: AllocationHistorySchema,
   goalScenarios: GoalScenarioExportSchema,
+  goalFeasibility: GoalFeasibilityExportSchema,
   connectionReviews: ConnectionReviewExportSchema,
   readingFollow: ReadingFollowExportSchema,
+  materialAlerts: MaterialExportSchema,
+  consents: ConsentPrivacySchema,
   reports: ReportJobsSchema,
   reportSchedules: ScheduleExportSchema,
   researchConnections: ResearchConnectionHistorySchema,
@@ -110,4 +122,6 @@ export type PrivacySession = z.infer<typeof PrivacySessionSchema>;
 export const CompletePrivacyExportSchema = PrivacyExportSchema.extend({
   reportSchedules: CompleteScheduleExportSchema,
   readingFollow: CompleteReadingFollowExportSchema,
+  materialAlerts: CompleteMaterialExportSchema,
+  consents: CompleteConsentPrivacySchema,
 });

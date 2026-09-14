@@ -122,10 +122,12 @@ export const DomainEdgeSchema = z
     to: DomainRevisionRefSchema,
     direction: z.enum(['positive', 'negative', 'mixed', 'unknown']),
     mechanism: Text,
-    horizon: z.strictObject({
-      minimumDays: z.number().int().min(0).max(36500),
-      maximumDays: z.number().int().min(0).max(36500),
-    }),
+    horizon: z
+      .strictObject({
+        minimumDays: z.number().int().min(0).max(36500),
+        maximumDays: z.number().int().min(0).max(36500),
+      })
+      .nullable(),
     evidence: z.array(DomainRevisionRefSchema).min(1).max(40),
     reviewState: z.enum(['candidate', 'reviewed', 'withdrawn']),
     modelVersion: z.string().min(1).max(80),
@@ -134,7 +136,7 @@ export const DomainEdgeSchema = z
   })
   .superRefine((v, c) => {
     revisionValid(v, c);
-    if (v.horizon.minimumDays > v.horizon.maximumDays)
+    if (v.horizon && v.horizon.minimumDays > v.horizon.maximumDays)
       c.addIssue({ code: 'custom', message: 'Horizon ends before it begins.' });
   });
 const key = (r: { id: string; version: number }) => `${r.id}:${r.version}`;

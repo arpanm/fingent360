@@ -1,3 +1,4 @@
+import { GoalFeasibility } from './GoalFeasibility';
 import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
 import { AccountGate } from './AccountGate';
 import { Assist } from './Assist';
@@ -635,6 +636,12 @@ export function Goals() {
           illustration, not an investment recommendation or promised outcome.
         </p>
       </aside>
+      {loaded && (
+        <GoalFeasibility
+          goals={goals}
+          onDenied={() => failure(new SignInRequired())}
+        />
+      )}
       {history.length > 0 && (
         <section aria-label="Goal revisions">
           <h3>Goal revisions</h3>

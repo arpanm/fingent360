@@ -1,5 +1,6 @@
 import { z } from 'zod';
 const ConfigSchema = z.object({
+  OPS_AUTH_MODE: z.enum(['bootstrap', 'named']).default('bootstrap'),
   AI_PROVIDER: z
     .enum(['auto', 'query', 'openai', 'gemini', 'anthropic'])
     .default('auto'),

@@ -1,3 +1,8 @@
+import {
+  INTERNAL_OPERATOR,
+  type OperatorAuthorization,
+} from './operator-internal.js';
+import { LegacyOperatorRoute } from './operator-permissions.js';
 import { randomUUID, timingSafeEqual } from 'node:crypto';
 import {
   BadRequestException,
@@ -55,7 +60,8 @@ export class SourcesStore {
   async onApplicationShutdown() {
     await this.pool.end();
   }
-  authorize(auth?: string) {
+  authorize(auth?: OperatorAuthorization) {
+    if (auth === INTERNAL_OPERATOR) return;
     const token = this.config.RESEARCH_ADMIN_TOKEN;
     if (!token)
       throw new ServiceUnavailableException(
@@ -68,7 +74,7 @@ export class SourcesStore {
     )
       throw new UnauthorizedException('Valid operator key required.');
   }
-  async list(operator = false, auth?: string) {
+  async list(operator = false, auth?: OperatorAuthorization) {
     if (operator) this.authorize(auth);
     try {
       const result = await this.pool.query<Row>(
@@ -81,7 +87,7 @@ export class SourcesStore {
       );
     }
   }
-  async history(id: string, auth?: string) {
+  async history(id: string, auth?: OperatorAuthorization) {
     this.authorize(auth);
     if (!z.uuid().safeParse(id).success)
       throw new BadRequestException('Invalid source ID.');
@@ -97,7 +103,17 @@ export class SourcesStore {
       throw new ServiceUnavailableException('Source history unavailable.');
     }
   }
-  async save(body: unknown, auth?: string, id?: string, origin?: string) {
+  async save(
+    body: unknown,
+    auth?: OperatorAuthorization,
+    id?: string,
+    origin?: string,
+    authorize: () => Promise<unknown> = async () => undefined,
+    complete?: (
+      client: pg.PoolClient,
+      saved: ReturnType<typeof record>,
+    ) => Promise<void>,
+  ) {
     this.authorize(auth);
     checkOrigin(origin, this.config.WEB_ORIGIN);
     let data: SourceInput;
@@ -149,6 +165,8 @@ export class SourcesStore {
         [sourceId, revision, JSON.stringify(data)],
       );
       const saved = record(result.rows[0]!);
+      await authorize();
+      await complete?.(client, saved);
       await client.query('COMMIT');
       return saved;
     } catch (error) {
@@ -168,26 +186,34 @@ export class SourcesController {
   @Get() list() {
     return this.store.list();
   }
-  @Get('operator') operator(@Headers('authorization') auth?: string) {
+  @LegacyOperatorRoute()
+  @Get('operator')
+  operator(@Headers('authorization') auth?: OperatorAuthorization) {
     return this.store.list(true, auth);
   }
-  @Get(':id/history') history(
+  @LegacyOperatorRoute()
+  @Get(':id/history')
+  history(
     @Param('id') id: string,
-    @Headers('authorization') auth?: string,
+    @Headers('authorization') auth?: OperatorAuthorization,
   ) {
     return this.store.history(id, auth);
   }
-  @Post() create(
+  @LegacyOperatorRoute()
+  @Post()
+  create(
     @Body() body: unknown,
-    @Headers('authorization') auth?: string,
+    @Headers('authorization') auth?: OperatorAuthorization,
     @Headers('origin') origin?: string,
   ) {
     return this.store.save(body, auth, undefined, origin);
   }
-  @Put(':id') update(
+  @LegacyOperatorRoute()
+  @Put(':id')
+  update(
     @Param('id') id: string,
     @Body() body: unknown,
-    @Headers('authorization') auth?: string,
+    @Headers('authorization') auth?: OperatorAuthorization,
     @Headers('origin') origin?: string,
   ) {
     return this.store.save(body, auth, id, origin);

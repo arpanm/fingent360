@@ -1,3 +1,4 @@
+import { Events } from './Events';
 import { ReadingFollow } from './ReadingFollow';
 import { onOtherTabSessionChange } from './session';
 import {
@@ -11,6 +12,9 @@ import {
 import { HealthSchema } from '@fingent360/contracts';
 import { Journey } from './Journey';
 import { Macro } from './Macro';
+import { EcbRates } from './EcbRates';
+import { OilBenchmarks } from './OilBenchmarks';
+import { EcbFx } from './EcbFx';
 import { Account } from './Account';
 import { Goals } from './Goals';
 import { Privacy } from './Privacy';
@@ -133,6 +137,30 @@ const moreLinks = [
     'learn',
   ],
   ['macro', 'India macro', 'Growth, inflation and the source record', 'market'],
+  [
+    'events',
+    'Reviewed events',
+    'Source-bound editorial events and connected context',
+    'market',
+  ],
+  [
+    'policy-rates',
+    'ECB policy rates',
+    'Reviewed effective rates and retrieval history',
+    'market',
+  ],
+  [
+    'oil-benchmarks',
+    'Oil benchmarks',
+    'Reviewed monthly Brent and WTI history',
+    'market',
+  ],
+  [
+    'reference-fx',
+    'Reference exchange rates',
+    'ECB references and an explicitly derived INR/USD ratio',
+    'market',
+  ],
   ['sources', 'Our sources', 'Where information comes from', 'sources'],
   ['feedback', 'Your feedback', 'Ideas, issues and delivery status', 'inbox'],
   [
@@ -182,11 +210,17 @@ export function App() {
     ['company/', 'event/', 'source/'].some((p) => base.startsWith(p));
   const title = base.startsWith('read/')
     ? 'Reading'
-    : base.startsWith('macro/')
-      ? 'Evidence'
-      : (moreLinks.find((l) => l[0] === base)?.[1] ??
-        destinations.find((l) => l[0] === base)?.[1] ??
-        'Fingent360');
+    : base.startsWith('policy-rates/')
+      ? 'ECB policy rates'
+      : base.startsWith('oil-benchmarks/')
+        ? 'Oil benchmarks'
+        : base.startsWith('reference-fx/')
+          ? 'Reference exchange rates'
+          : base.startsWith('macro/')
+            ? 'Evidence'
+            : (moreLinks.find((l) => l[0] === base)?.[1] ??
+              destinations.find((l) => l[0] === base)?.[1] ??
+              'Fingent360');
   useEffect(() => {
     const changed = (event: Event) => {
       const next = currentRoute();
@@ -366,6 +400,15 @@ export function App() {
             <Discovery key="explore" explore />
           ) : base.startsWith('read/') ? (
             <Reader key={base} id={base.slice(5)} />
+          ) : base === 'events' || base.startsWith('events/') ? (
+            <Events key={route} route={route} />
+          ) : base === 'policy-rates' || base.startsWith('policy-rates/') ? (
+            <EcbRates key={base} route={base} />
+          ) : base === 'oil-benchmarks' ||
+            base.startsWith('oil-benchmarks/') ? (
+            <OilBenchmarks key={base} route={base} />
+          ) : base === 'reference-fx' || base.startsWith('reference-fx/') ? (
+            <EcbFx key={base} route={base} />
           ) : base === 'macro' || base.startsWith('macro/') ? (
             <Macro key={base} route={base} />
           ) : base === 'saved' ? (

@@ -1,5 +1,5 @@
 import { test, expect } from '../../helpers/app-fixture';
-import type { Page } from '@playwright/test';
+import type { Page, Route } from '@playwright/test';
 import { prepareConnectionBrowser } from '../../helpers/research-connection-fixture';
 import { openAuthDatabase } from '../../helpers/auth-wait';
 import { CurrentAccountSchema } from '../../../../packages/contracts/src/index';
@@ -104,6 +104,7 @@ test('E2E-WEB-420 keyboard selection date review reverse order exact values orig
 
 test('E2E-WEB-421 empty one-report unavailable first load and unreadable comparison recover through explicit retry @REPORT-COMPARE-001 @TEST-SIMULATION', async ({
   page,
+  feedbackSandbox,
 }) => {
   await page.goto('/');
   await prepareConnectionBrowser(page);
@@ -115,14 +116,51 @@ test('E2E-WEB-421 empty one-report unavailable first load and unreadable compari
       .getByRole('status'),
   ).toContainText('No issued reports yet');
   const a = await issueComparisonReport(call);
-  await page
-    .getByRole('button', { name: 'Refresh comparison', exact: true })
-    .click();
-  await expect(
-    page
+  let releaseChoices!: () => void;
+  const heldChoices = new Promise<void>((resolve) => {
+    releaseChoices = resolve;
+  });
+  let finishChoices!: () => void;
+  const choicesFinished = new Promise<void>((resolve) => {
+    finishChoices = resolve;
+  });
+  const choicesPath = '**/api/v1/account/report-comparison/options';
+  let choicesStarted = false;
+  const holdChoices = async (route: Route) => {
+    choicesStarted = true;
+    try {
+      const url = new URL(route.request().url());
+      const response = await route.fetch({
+        url: `${feedbackSandbox.apiOrigin}${url.pathname}${url.search}`,
+      });
+      expect(response.status()).toBe(200);
+      await heldChoices;
+      await route.fulfill({ response });
+    } finally {
+      finishChoices();
+    }
+  };
+  await page.route(choicesPath, holdChoices);
+  try {
+    await page
+      .getByRole('button', { name: 'Refresh comparison', exact: true })
+      .click();
+    const choicesStatus = page
       .getByRole('region', { name: 'Compare issued reports', exact: true })
-      .getByRole('status'),
-  ).toContainText('One issued report');
+      .getByRole('status');
+    await expect(choicesStatus).toHaveCount(1);
+    await expect(choicesStatus).toHaveText('Loading issued report choices…');
+    await expect(
+      page.getByText('No issued reports yet.', { exact: false }),
+    ).toHaveCount(0);
+    releaseChoices();
+    await choicesFinished;
+    await expect(choicesStatus).toContainText('One issued report');
+  } finally {
+    releaseChoices();
+    if (choicesStarted) await choicesFinished;
+    await page.unroute(choicesPath, holdChoices);
+  }
   const b = await issueComparisonReport(call, 'Second original');
   let failOptions = true,
     failCompare = true;

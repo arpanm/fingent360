@@ -1,8 +1,14 @@
+import { handleEvents } from './events';
+import { handleConsents } from './consents';
 import {
   reportSchedulesHandler,
   materializeLocalSchedules,
 } from './report-schedules';
 import { handleReadingFollow } from './reading-follow';
+import {
+  handleMaterialAlerts,
+  materializeLocalMaterial,
+} from './material-alerts';
 import { ZodError } from 'zod';
 import snapshot from './content-bundle.json';
 import {
@@ -14,6 +20,7 @@ import {
 } from './types';
 import { withState } from './storage';
 import { handleAccounts } from './accounts';
+import { handleGoalFeasibility } from './goal-feasibility';
 import { handleGoalScenarios } from './goal-scenarios';
 import { handleConnectionReviews } from './connection-reviews';
 import { handleFinance } from './finance';
@@ -30,16 +37,25 @@ import { reportsHandler } from './reports';
 import { handleReportComparison } from './report-comparison';
 import { handleRetention } from './retention';
 import { handleWorkerHealth } from './worker-health';
+import { handleEcbRates } from './ecb-rates';
+import { handleOilBenchmarks } from './oil-benchmarks';
+import { handleEcbFx } from './ecb-fx';
 import { handleOperatorAudit } from './operator-audit';
 
 const bundle = snapshot as OfflineBundle;
 const handlers: OfflineHandler[] = [
+  handleEvents,
+  handleEcbRates,
+  handleOilBenchmarks,
+  handleEcbFx,
   handleWorkerHealth,
   handleOperatorAudit,
   handleRetention,
   handleRecovery,
   handleSecurities,
   handleAccounts,
+  handleConsents,
+  handleMaterialAlerts,
   reportSchedulesHandler,
   async (request, state, bundle) => {
     if (
@@ -54,6 +70,7 @@ const handlers: OfflineHandler[] = [
   handleResearchConnections,
   handleFinance,
   handleGoalScenarios,
+  handleGoalFeasibility,
   handleConnectionReviews,
   handleReadingFollow,
   handleLibrary,
@@ -67,16 +84,20 @@ export const snapshotInfo = {
   items: bundle.feed.length,
 };
 export async function initializeOffline() {
-  await withState(async (state) => deliverOfflineReminders(state, bundle));
+  await withState(async (state) => {
+    await deliverOfflineReminders(state, bundle);
+    materializeLocalMaterial(state, bundle);
+  });
   const refresh = () => {
     if (document.visibilityState === 'visible')
-      void withState(async (state) =>
-        deliverOfflineReminders(state, bundle),
-      ).catch(() => {
+      void withState(async (state) => {
+        await deliverOfflineReminders(state, bundle);
+        materializeLocalMaterial(state, bundle);
+      }).catch(() => {
         window.dispatchEvent(
           new CustomEvent('f360-storage-error', {
             detail:
-              'Reading reminders could not be saved. Check free device storage and reopen Saved.',
+              'Local reminders or observation checks could not be saved. Check free device storage and reopen the app.',
           }),
         );
       });

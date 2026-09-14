@@ -26,6 +26,7 @@ import { Icon, shortDate } from './ui';
 import { returnTo, restorePosition } from './navigation';
 import { Dialog } from './Dialog';
 import { MediaSummary } from './MediaSummary';
+import { EvidenceExplanation } from './EvidenceExplanation';
 import {
   fetchLibrary,
   saveLibraryItem,
@@ -1209,6 +1210,20 @@ export function Reader({ id }: { id: string }) {
             </section>
           )}
           <ReadingContext item={item} />
+          <EvidenceExplanation
+            key={`${item.id}-${item.version}`}
+            item={item}
+            onRefresh={() => setRevision((n) => n + 1)}
+            onEvidence={() => void openDetail('evidence')}
+            onHistory={() => void openDetail('history')}
+            onTerm={(term) => void openDetail('term', term)}
+            onSignOut={() => {
+              setLibrary(null);
+              setUndo(null);
+              setLibraryState('signed-out');
+              setLibraryError('');
+            }}
+          />
           {item.relatedIds.length > 0 && (
             <section className="reader-related">
               <span className="eyebrow">MAKE A CONNECTION</span>

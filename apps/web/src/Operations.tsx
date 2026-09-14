@@ -1,6 +1,16 @@
+import { IdentitySelectionOperations } from './IdentitySelectionOperations';
+import { EventLineageOperations } from './EventLineageOperations';
+import { EventOperations } from './EventOperations';
+import { NamedOperations } from './NamedOperations';
+import { QualityOverview } from './QualityOverview';
+import { EcbRateOperations } from './EcbRateOperations';
+import { OilBenchmarkOperations } from './OilBenchmarkOperations';
+import { EcbFxOperations } from './EcbFxOperations';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   MediaAssetSchema,
+  PublicationProposalSchema,
+  type PublicationProposalInput,
   DiscoveryEvidenceSchema,
   ResearchCatalogSchema,
   ResearchRunsSchema,
@@ -25,6 +35,7 @@ import { FeedbackInbox } from './FeedbackInbox';
 import { SecurityOperations } from './Securities';
 import { RetentionOperations } from './RetentionOperations';
 import { WorkerHealth } from './WorkerHealth';
+import { MaterialWorkerHealth } from './MaterialWorkerHealth';
 import { OperatorAudit } from './OperatorAudit';
 import { PublishingQueue } from './PublishingQueue';
 class StaleOperationsRead extends Error {}
@@ -48,6 +59,14 @@ export function Operations() {
     [busy, setBusy] = useState(false),
     [error, setError] = useState(''),
     [notice, setNotice] = useState('');
+  const [namedMode, setNamedMode] = useState(false);
+  const [namedUsername, setNamedUsername] = useState('');
+  const [identity, setIdentity] = useState<NonNullable<
+    typeof OperatorSessionSchema._output.identity
+  > | null>(null);
+  const proposalIntent = useRef<{ fingerprint: string; id: string } | null>(
+    null,
+  );
   const [tab, setTab] = useState('news');
   const [queueRefresh, setQueueRefresh] = useState(0),
     [review, setReview] = useState<FeedItem | null>(null);
@@ -68,6 +87,8 @@ export function Operations() {
     setLatest('');
     setNotice('');
     setKey('');
+    setIdentity(null);
+    proposalIntent.current = null;
   }, []);
   const sessionExpired = useCallback(() => {
     if (!live.current) return;
@@ -75,6 +96,9 @@ export function Operations() {
     sessionEnded.current = true;
     clearProtected();
     setAuthenticated(false);
+    setIdentity(null);
+    setNamedUsername('');
+    proposalIntent.current = null;
     setBusy(false);
     setChecking(false);
     setError(
@@ -101,13 +125,29 @@ export function Operations() {
   const load = async () => {
     setQueueRefresh((value) => value + 1);
   };
+  async function submitProposal(input: PublicationProposalInput) {
+    const fingerprint = JSON.stringify(input);
+    if (proposalIntent.current?.fingerprint !== fingerprint)
+      proposalIntent.current = { fingerprint, id: crypto.randomUUID() };
+    return PublicationProposalSchema.parse(
+      await request(
+        '/ops/proposals/' + proposalIntent.current.id,
+        input,
+        'PUT',
+      ),
+    );
+  }
   useEffect(() => {
     let active = true;
     live.current = true;
     void request('/ops/session')
       .then((v) => {
-        if (active)
-          setAuthenticated(OperatorSessionSchema.parse(v).authenticated);
+        if (active) {
+          const session = OperatorSessionSchema.parse(v);
+          setAuthenticated(session.authenticated);
+          setNamedMode(session.mode === 'named');
+          setIdentity(session.identity ?? null);
+        }
       })
       .catch((e: unknown) => {
         if (
@@ -204,11 +244,19 @@ export function Operations() {
               e.preventDefault();
               void action(async () => {
                 const session = OperatorSessionSchema.parse(
-                  await request('/ops/session', { key }, 'POST'),
+                  await request(
+                    '/ops/session',
+                    namedMode
+                      ? { username: namedUsername, password: key }
+                      : { key },
+                    'POST',
+                  ),
                 );
                 clearProtected();
                 sessionEnded.current = !session.authenticated;
                 setAuthenticated(session.authenticated);
+                setIdentity(session.identity ?? null);
+                setNamedMode(session.mode === 'named');
               });
             }}
           >
@@ -216,8 +264,20 @@ export function Operations() {
               For maintainers only. This credential opens a separate one-hour
               operations session.
             </p>
+            {namedMode && (
+              <label htmlFor="named-operator-signin">
+                Named operator username
+                <input
+                  id="named-operator-signin"
+                  autoComplete="username"
+                  value={namedUsername}
+                  required
+                  onChange={(event) => setNamedUsername(event.target.value)}
+                />
+              </label>
+            )}
             <label>
-              Operator key
+              {namedMode ? 'Named operator password' : 'Operator key'}
               <input
                 type="password"
                 autoComplete="off"
@@ -255,23 +315,44 @@ export function Operations() {
                 ['news', 'Publishing'],
                 ['bea-recovery', 'BEA recovery'],
                 ['macro', 'Macro ingestion'],
+                ['events', 'Event review'],
+                ['event-lineage', 'Merge/split events'],
+                ['ecb-rates', 'ECB policy rates'],
+                ['oil-benchmarks', 'Oil benchmarks'],
+                ['reference-fx', 'Reference exchange rates'],
                 ['sources', 'Source registry'],
                 ['feedback', 'Feedback inbox'],
                 ['securities', 'Security identities'],
+                ['identity-selections', 'Identity selections'],
                 ['retention', 'Expired data cleanup'],
                 ['workers', 'Worker health'],
+                ['quality', 'Data quality'],
                 ['audit', 'Audit activity'],
+                ...(namedMode
+                  ? [['named', 'Named operators and proposals']]
+                  : []),
               ].map(([value, label]) => (
                 <button
                   key={value}
                   aria-pressed={tab === value}
-                  onClick={() => setTab(value!)}
+                  onClick={() => {
+                    if (
+                      value !== tab &&
+                      !window.dispatchEvent(
+                        new Event('f360-before-navigate', { cancelable: true }),
+                      )
+                    )
+                      return;
+                    setTab(value!);
+                  }}
                 >
                   {label}
                 </button>
               ))}
             </div>
-            {tab === 'news' ? (
+            {tab === 'named' && identity ? (
+              <NamedOperations request={request} identity={identity} />
+            ) : tab === 'news' ? (
               <>
                 <SourceRefresh
                   request={request}
@@ -404,10 +485,40 @@ export function Operations() {
                 onBack={() => setTab('news')}
                 onUnauthorized={sessionExpired}
               />
+            ) : tab === 'events' ? (
+              <EventOperations
+                request={request}
+                onPropose={namedMode ? submitProposal : undefined}
+              />
+            ) : tab === 'event-lineage' ? (
+              <EventLineageOperations request={request} named={namedMode} />
+            ) : tab === 'ecb-rates' ? (
+              <EcbRateOperations
+                request={request}
+                onDenied={sessionExpired}
+                onPropose={namedMode ? submitProposal : undefined}
+              />
+            ) : tab === 'oil-benchmarks' ? (
+              <OilBenchmarkOperations
+                request={request}
+                onDenied={sessionExpired}
+                onPropose={namedMode ? submitProposal : undefined}
+              />
+            ) : tab === 'reference-fx' ? (
+              <EcbFxOperations
+                request={request}
+                onDenied={sessionExpired}
+                onPropose={namedMode ? submitProposal : undefined}
+              />
             ) : tab === 'macro' ? (
               <MacroOperations action={action} busy={busy} />
             ) : tab === 'securities' ? (
               <SecurityOperations />
+            ) : tab === 'identity-selections' ? (
+              <IdentitySelectionOperations
+                request={request}
+                named={namedMode}
+              />
             ) : tab === 'retention' ? (
               <RetentionOperations
                 onSessionExpired={() => {
@@ -417,12 +528,23 @@ export function Operations() {
                   );
                 }}
               />
+            ) : tab === 'quality' ? (
+              <QualityOverview
+                onSessionExpired={sessionExpired}
+                onPublishing={() => setTab('news')}
+              />
             ) : tab === 'workers' ? (
-              <WorkerHealth onSessionExpired={sessionExpired} />
+              <>
+                <WorkerHealth onSessionExpired={sessionExpired} />
+                <MaterialWorkerHealth request={request} />
+              </>
             ) : tab === 'feedback' ? (
               <FeedbackInbox />
             ) : (
-              <SourceEditor request={request} />
+              <SourceEditor
+                request={request}
+                onPropose={namedMode ? submitProposal : undefined}
+              />
             )}
           </>
         )}
@@ -467,34 +589,58 @@ export function Operations() {
                 disabled={busy}
                 onClick={() =>
                   void action(async () => {
-                    await request(
-                      `/ops/media/${media.itemId}`,
-                      { assetId: media.id, publish: true },
-                      'PUT',
-                    );
+                    if (namedMode)
+                      await submitProposal({
+                        kind: 'media',
+                        target: media.itemId,
+                        body: { assetId: media.id, publish: true },
+                      });
+                    else
+                      await request(
+                        `/ops/media/${media.itemId}`,
+                        { assetId: media.id, publish: true },
+                        'PUT',
+                      );
                     setMedia(null);
-                    setNotice('Reviewed visual published.');
+                    setNotice(
+                      namedMode
+                        ? 'Publication proposal saved. Another named reviewer must approve it in Named operators and proposals.'
+                        : 'Reviewed visual published.',
+                    );
                   })
                 }
               >
-                Publish reviewed visual
+                {namedMode
+                  ? 'Propose visual publication'
+                  : 'Publish reviewed visual'}
               </button>
               <button
                 className="secondary"
                 disabled={busy}
                 onClick={() =>
                   void action(async () => {
-                    await request(
-                      `/ops/media/${media.itemId}`,
-                      { assetId: media.id, publish: false },
-                      'PUT',
-                    );
+                    if (namedMode)
+                      await submitProposal({
+                        kind: 'media',
+                        target: media.itemId,
+                        body: { assetId: media.id, publish: false },
+                      });
+                    else
+                      await request(
+                        `/ops/media/${media.itemId}`,
+                        { assetId: media.id, publish: false },
+                        'PUT',
+                      );
                     setMedia(null);
-                    setNotice('Visual unpublished.');
+                    setNotice(
+                      namedMode
+                        ? 'Publication proposal saved. Another named reviewer must approve it in Named operators and proposals.'
+                        : 'Visual unpublished.',
+                    );
                   })
                 }
               >
-                Unpublish visual
+                {namedMode ? 'Propose visual withdrawal' : 'Unpublish visual'}
               </button>
             </div>
           </Dialog>
@@ -504,6 +650,7 @@ export function Operations() {
             key={`${review.id}:${review.version}`}
             id={review.id}
             version={review.version}
+            onPropose={namedMode ? submitProposal : undefined}
             request={request}
             onClose={() => {
               setReview(null);
@@ -590,7 +737,14 @@ function MacroOperations({
     </section>
   );
 }
-function SourceEditor({ request }: { request: typeof json }) {
+function SourceEditor({
+  request,
+  onPropose,
+}: {
+  request: typeof json;
+  onPropose?:
+    ((input: PublicationProposalInput) => Promise<unknown>) | undefined;
+}) {
   const [sources, setSources] = useState<SourceRecord[]>([]),
     [form, setForm] = useState(blank),
     [editing, setEditing] = useState<SourceRecord | null>(null),
@@ -625,6 +779,21 @@ function SourceEditor({ request }: { request: typeof json }) {
           e.preventDefault();
           void action(async () => {
             const data = SourceInputSchema.parse(form);
+            if (onPropose) {
+              await onPropose(
+                editing
+                  ? {
+                      kind: 'source-update',
+                      target: editing.id,
+                      body: { data, expectedRevision: editing.revision },
+                    }
+                  : { kind: 'source-create', target: 'new', body: data },
+              );
+              setNotice(
+                'Source proposal saved; public state is unchanged. Another named reviewer must approve it in Named operators and proposals.',
+              );
+              return;
+            }
             const record = SourceRecordSchema.parse(
               await request(
                 `/ops/sources${editing ? `/${editing.id}` : ''}`,

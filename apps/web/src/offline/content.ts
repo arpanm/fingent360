@@ -4,6 +4,8 @@ import {
   editionEvidence,
   PublicationManifestSchema,
   MediaAssetSchema,
+  EvidenceExplanationQuerySchema,
+  explainEdition,
 } from '@fingent360/contracts';
 import { learningContentItems } from '@fingent360/contracts';
 import {
@@ -152,10 +154,23 @@ export async function handleContent(
     return { body: value };
   }
   const item = p.match(
-    /^\/discovery\/items\/([^/]+)(?:\/(history|evidence|media|context))?$/,
+    /^\/discovery\/items\/([^/]+)(?:\/(history|evidence|media|context|explanation))?$/,
   );
   if (item) {
     const id = DiscoveryIdSchema.parse(decodeURIComponent(item[1]!));
+    const explanationQuery =
+      item[2] === 'explanation'
+        ? EvidenceExplanationQuerySchema.safeParse(
+            Object.fromEntries(req.query),
+          )
+        : null;
+    if (
+      item[2] === 'explanation' &&
+      req.query.getAll('expectedVersion').length !== 1
+    )
+      fail(400, 'Invalid explanation edition.');
+    if (explanationQuery && !explanationQuery.success)
+      fail(400, 'Invalid explanation edition.');
     const current = currentPublications(bundle.feed, bundle.histories).find(
       (v) => v.id === id,
     );
@@ -176,6 +191,30 @@ export async function handleContent(
       };
     }
     if (current.status !== 'published') fail(404, 'Source item was withdrawn.');
+    if (action === 'explanation' && explanationQuery?.success) {
+      if (current.version !== explanationQuery.data.expectedVersion)
+        fail(
+          409,
+          'This source edition changed. Refresh reading before opening its explanation.',
+        );
+      const previous =
+        [...bundle.feed, ...(bundle.histories[id] ?? [])]
+          .filter(
+            (v) =>
+              v.id === id &&
+              v.version < current.version &&
+              v.status !== 'draft',
+          )
+          .sort((a, b) => b.version - a.version)[0] ?? null;
+      return {
+        body: explainEdition(
+          current,
+          previous,
+          new Date().toISOString(),
+          bundle.generatedAt,
+        ),
+      };
+    }
     if (action === 'context')
       return { body: buildResearchContext(current, published(bundle)) };
     const value = action === 'media' ? bundle.media[id] : bundle.evidence[id];

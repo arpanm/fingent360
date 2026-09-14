@@ -1,3 +1,6 @@
+import { exportLocalGoalFeasibility } from './goal-feasibility';
+import { exportLocalConsents } from './consents';
+import { exportLocalMaterial, syncLocalMaterial } from './material-alerts';
 import { exportOfflineReportSchedules } from './report-schedules';
 import { exportLocalReadingFollow } from './reading-follow';
 import { exportLocalGoalScenarios } from './goal-scenarios';
@@ -288,10 +291,13 @@ export async function handleAccounts(
       'localAllocations',
       'localResearchConnections',
       'localGoalScenarios',
+      'localGoalFeasibility',
       'localConnectionReviews',
       'localReadingFollow',
+      'localMaterialAlerts',
       'localReports',
       'localReportSchedules',
+      'localConsents',
       'localReportTombstones',
       'localReportLimits',
       'localAccounts',
@@ -318,6 +324,7 @@ export async function handleAccounts(
   if (req.path === `${base}/watchlist` && req.method === 'PUT') {
     const input = parseLocal(WatchlistSchema, req.body);
     saveAccount(state, user.id, { ...data, watchlist: input.indicators });
+    syncLocalMaterial(state, user.id, bundle);
     return { body: input };
   }
   if (req.path === `${base}/inbox` && req.method === 'GET')
@@ -366,6 +373,7 @@ export async function handleAccounts(
         },
       },
     });
+    syncLocalMaterial(state, user.id, bundle);
     return { body: { ok: true } };
   }
   if (req.path === `${base}/overview` && req.method === 'GET')
@@ -410,8 +418,11 @@ export async function handleAccounts(
         reportSchedules: exportOfflineReportSchedules(detached, user.id),
         researchConnections: exportLocalConnections(detached, user.id),
         goalScenarios: exportLocalGoalScenarios(detached, user.id),
+        goalFeasibility: exportLocalGoalFeasibility(detached, user.id),
         connectionReviews: exportLocalConnectionReviews(detached, user.id),
         readingFollow: exportLocalReadingFollow(detached, user.id),
+        materialAlerts: exportLocalMaterial(detached, user.id),
+        consents: exportLocalConsents(detached, user.id),
         formatVersion: 'account-export-v1',
         exportedAt: new Date().toISOString(),
         account: account(user),

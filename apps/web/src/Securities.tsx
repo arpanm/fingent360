@@ -1,3 +1,4 @@
+import { IdentitySelection } from './IdentitySelection';
 import { useEffect, useState } from 'react';
 import {
   SecurityDirectorySchema,
@@ -205,6 +206,7 @@ export function Securities({ isin }: { isin?: string | undefined }) {
               it as dated reference data.
             </p>
           )}
+          <IdentitySelection isin={detail.isin} />
           {detail.candidates.map((candidate) => (
             <dl className="security-facts" key={candidate.figi}>
               <dt>Name</dt>

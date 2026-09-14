@@ -225,6 +225,17 @@ export function ReportSchedules() {
         </p>
       )}
       {error && <p role="alert">{error}</p>}
+      {data?.consent && (
+        <p>
+          Scheduled saved-record review purpose:{' '}
+          <strong>{data.consent.status.replaceAll('-', ' ')}</strong>.{' '}
+          <a href="#privacy">
+            Review, renew or revoke in Privacy → Purpose consent
+          </a>
+          . A revoked or expired purpose blocks future captures; existing
+          reports and pause/delete remain available.
+        </p>
+      )}
       {pending.current && (
         <div className="panel">
           <p>
@@ -421,6 +432,11 @@ export function ReportSchedules() {
                 Each report stores your actual saved goals, holdings and
                 allocations at capture time. It excludes research notes.
                 Existing reports remain if you pause or delete this schedule.
+                Confirming the first active schedule records the scheduled
+                saved-record review purpose with no expiry. You can choose an
+                expiry or revoke it in Privacy → Purpose consent. An expired or
+                revoked purpose must be renewed there before enabling this
+                schedule again.
               </p>
               <label>
                 <input

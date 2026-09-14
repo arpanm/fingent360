@@ -55,6 +55,10 @@ As of 2026-09-14. This register supports DELIVERY-RECONCILE-002; [TODO](../../TO
 
 ## Clarifications and remaining tracker work
 
+The subsequent “finish all Partial/Planned items” request is tracked in ROADMAP-COMPLETE-003. Authored children now cover goal downside capacity, mapped CSV imports, source-bound explanation layers, protected quality diagnostics, named operator review and material-change alerts. ECB numerical rates, reviewed source-bound events, World Bank monthly oil and opt-in automatic material checks are also authored. Four-purpose consent and ECB reference FX are also authored; reviewed event merge/split and editorial identity adjudication are authored; source-bound candidate extraction is authored; their exact state is in the [ongoing handoff](roadmap-completion-handoff.md). No new test pass, migration activation or commit follows from authoring.
+
+The user's reply “one by one do all, decide yourself on order... figure out formats ... using browser skills” is recorded under MAPPED-IMPORT-001 and BROKER-DIALECTS-001. Research order is Zerodha, Groww, Upstox, Angel One and ICICI Direct. Public export instructions and available format evidence must support each named parser; trading API fields or personal third-party statements are not substituted for authorized export fixtures. This decision no longer needs to be asked again.
+
 No additional product task is needed merely to duplicate the themes above. The missing ASSIST-001 and MEDIA-001 aliases are now recorded in root TODO under the ad hoc coverage section, with existing implementation scope and pending live-provider verification. They do not duplicate development work. Existing broad DEV/SRC parents retain real engineering gaps; [roadmap gaps](roadmap-gaps.md) is the compact remaining-work register. The later child IDs in TEAM-003–008 are implementations of those requests, not evidence that every parent has finished.
 
 The current reconciliation addresses the following historical wording; later user/physical/production evidence remains separate:

@@ -429,11 +429,33 @@ test('E2E-API-586 cancelled owned grant wait rolls back a newly created role and
     const { provisionRuntimeRole } = await databaseRoleTools();
     const { waitForQueryBlocked } =
       await import('../../helpers/withdrawal-fixture');
+    const readAcl = () =>
+      observer.query<{ acl: string; runtime_select: boolean }>(
+        "SELECT relacl::text AS acl,has_table_privilege($1,oid,'SELECT') AS runtime_select FROM pg_class WHERE oid='app_users'::regclass",
+        [db.role],
+      );
+    const originalAcl = (await readAcl()).rows;
+    expect(originalAcl).toHaveLength(1);
+    expect(originalAcl[0]?.runtime_select).toBe(true);
     await db.owner.query('BEGIN');
     const blocker = Number(
       (await db.owner.query('SELECT pg_backend_pid() AS pid')).rows[0]?.pid,
     );
-    await db.owner.query('LOCK TABLE app_users IN ACCESS EXCLUSIVE MODE');
+    // GRANT changes pg_class's ACL tuple without locking the target table.
+    // This uncommitted change holds the actual catalog-write conflict and
+    // touches only the fixture role's SELECT grant on its owned app_users.
+    // Always roll it back; no revoked runtime privilege is ever committed.
+    await db.owner.query(
+      `REVOKE SELECT ON TABLE "${feedbackSandbox.schema}".app_users FROM "${db.role}"`,
+    );
+    expect(
+      (
+        await db.owner.query<{ runtime_select: boolean }>(
+          "SELECT has_table_privilege($1,'app_users','SELECT') AS runtime_select",
+          [db.role],
+        )
+      ).rows,
+    ).toEqual([{ runtime_select: false }]);
     const provisioning = provisionRuntimeRole(
       feedbackSandbox.databaseUrl,
       candidate.href,
@@ -453,7 +475,8 @@ test('E2E-API-586 cancelled owned grant wait rolls back a newly created role and
       ).rows,
     ).toEqual([{ cancelled: true }]);
     await expect(provisioning).rejects.toThrow('transaction rolled back');
-    await db.owner.query('COMMIT');
+    await db.owner.query('ROLLBACK');
+    expect((await readAcl()).rows).toEqual(originalAcl);
     expect(
       (
         await observer.query('SELECT rolname FROM pg_roles WHERE rolname=$1', [

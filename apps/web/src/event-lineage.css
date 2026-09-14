@@ -1,0 +1,34 @@
+.event-lineage,
+.event-lineage * {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.event-lineage {
+  display: grid;
+  gap: 1rem;
+}
+.event-lineage fieldset,
+.event-lineage article {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0.5rem 0;
+  padding: 1rem;
+}
+.event-lineage fieldset > label {
+  display: block;
+}
+.event-lineage input:not([type='checkbox']),
+.event-lineage textarea,
+.event-lineage select {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+.event-lineage pre {
+  white-space: pre-wrap;
+  max-width: 100%;
+}
+.event-lineage blockquote {
+  margin: 0.5rem 0;
+  padding-inline-start: 0.75rem;
+}

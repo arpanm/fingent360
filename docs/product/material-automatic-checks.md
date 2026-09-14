@@ -1,0 +1,13 @@
+# Opt-in automatic material checks
+
+MATERIAL-AUTO-001 extends the saved annual India observation policy. It does not fetch providers, predict releases, send email/push, or recommend financial action. Existing accounts stay manual. Users must separately opt into background use after saving a threshold.
+
+Enabling or resuming resets each configured baseline to a fresh stored observation (or waits for one), retains immutable prior receipts, and schedules the first check 24 hours later. There is no historical backlog. A due check compares only the latest stored edition using the same exact percentage-point reducer and seven-day source freshness rule as manual checks. Its receipt says automatic; a delayed worker performs one check and schedules the next 24 hours from completion, without replaying missed days.
+
+The account row serializes settings, consent, watchlist, pause and automatic checks. A bounded worker batch selects due accounts with SKIP LOCKED. Each check is one PostgreSQL transaction, with no external I/O; commit atomically records the receipt and advances due state. Restart and multiple instances cannot duplicate a due occurrence. Failure rolls back financial/material writes and defers that account for retry, without blocking other accounts. Worker health is aggregate only. Disabling remains available without background consent and preserves historical notices.
+
+The on-device runtime checks only the signed-in local account while the app is open, against the dated installed bundle. It uses the existing serialized state transaction; no OS scheduling, network refresh or cross-account background processing is promised. Complete material privacy history already includes every settings/check receipt; account deletion removes all owned state and history.
+
+Each enable records the exact active background-purpose version. Revocation, expiry or a later renewal prevents the old binding from performing checks. The current view immediately labels changed permission as blocked; a due worker stores an explicit automatic-paused receipt. Renewal does not resume the prior baseline: the user must explicitly enable/resume again. Manual threshold/check/acknowledgement and disable actions remain available without that background grant.
+
+Acceptance: explicit enable/review/back/disable; no immediate backlog; exact due boundary; two concurrent workers produce one receipt; restart preserves next due; failed account does not starve another; consent denial/expiry prevents future use; manual checks remain available; real stored changes produce the same outcomes locally and on API; dated receipt replay never claims current settings. API/browser/offline cases are authored under790–809 and require user execution.

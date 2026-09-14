@@ -1,3 +1,8 @@
+import { INTERNAL_OPERATOR } from './operator-internal.js';
+import {
+  NamedOperatorStore,
+  type OperatorPermission,
+} from './named-operator-store.js';
 import {
   createHash,
   randomBytes,
@@ -29,7 +34,20 @@ const hash = (value: string) =>
   createHash('sha256').update(value).digest('hex');
 export class OperatorStore {
   private readonly pool: pg.Pool;
+  readonly named: NamedOperatorStore;
+  get namedMode() {
+    return this.config.OPS_AUTH_MODE === 'named';
+  }
+  async permission(
+    cookie: string | undefined,
+    permission: OperatorPermission,
+    client?: pg.PoolClient,
+  ) {
+    if (this.namedMode) return this.named.require(cookie, permission, client);
+    return this.require(cookie);
+  }
   constructor(private readonly config: AppConfig) {
+    this.named = new NamedOperatorStore(config);
     this.pool = new pg.Pool({
       connectionString: config.DATABASE_URL,
       max: 3,
@@ -40,8 +58,10 @@ export class OperatorStore {
   }
   async onApplicationShutdown() {
     await this.pool.end();
+    await this.named.close();
   }
   serverAuthorization() {
+    if (this.namedMode) return INTERNAL_OPERATOR;
     if (!this.config.RESEARCH_ADMIN_TOKEN)
       throw new ServiceUnavailableException('Operator key unavailable.');
     return `Bearer ${this.config.RESEARCH_ADMIN_TOKEN}`;
@@ -62,11 +82,12 @@ export class OperatorStore {
       : null;
   }
   async session(cookie?: string) {
+    if (this.namedMode) return this.named.session(cookie);
     const token = this.token(cookie);
     if (!token) return { authenticated: false, expiresAt: null };
     try {
       const r = await this.pool.query<{ expires_at: Date }>(
-        'SELECT expires_at FROM operator_sessions WHERE token_hash=$1 AND expires_at>now()',
+        'SELECT expires_at FROM operator_sessions WHERE token_hash=$1 AND operator_id IS NULL AND expires_at>clock_timestamp()',
         [hash(token)],
       );
       return {
@@ -92,6 +113,7 @@ export class OperatorStore {
     );
   }
   async login(body: unknown, client: string) {
+    if (this.namedMode) return this.named.login(body, client);
     const input = z
       .strictObject({ key: z.string().regex(/^[a-f0-9]{64}$/) })
       .safeParse(body);

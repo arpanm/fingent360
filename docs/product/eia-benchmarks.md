@@ -1,0 +1,46 @@
+# EIA-BENCHMARKS-001 — monthly oil benchmarks
+
+Implementation is authored; execution and production acceptance are pending. The selected initial source is the World Bank Pink Sheet's monthly Brent and WTI series. EIA daily series are not enabled. This child provides global oil-price context; it does not complete SRC009's EOD/FX scope or DEV010's India-impact chain. Existing work and user-owned execution boundaries remain unchanged.
+
+Primary documentation inspected on 14 September 2026:
+
+- [API technical documentation](https://www.eia.gov/opendata/documentation.php) documents a free registered key, versioned routes, explicit frequencies/facets, string-valued numerical data and pagination. A key belongs in private server configuration; no key is created or supplied by the application.
+- [Official petroleum spot-price API browser](https://www.eia.gov/opendata/browser/petroleum/pri/spt?data=value&facets=series&frequency=daily&series=RBRTE%3B) identifies a candidate route and daily Brent facet. This is not yet a complete accepted wire schema.
+- [WTI series page](https://www.eia.gov/dnav/pet/hist/rwtcd.htm) identifies Cushing WTI spot FOB in US dollars per barrel. It is not an Indian landed-cost, exchange-traded instrument or currency-converted price.
+- [Copyright and reuse](https://www.eia.gov/about/copyrights_reuse.php) permits attributed reuse of EIA government information while excluding protected third-party contributions and logos. Source-specific attribution and any restrictions must be checked before enabling the selected numeric series; generic API availability is insufficient evidence.
+
+The [EIA spot definitions](https://www.eia.gov/dnav/pet/tbldefs/pet_pri_spt_tbldef2.asp) identify Refinitiv/LSEG as the source. EIA's [STEO methodology](https://www.eia.gov/analysis/handbook/pdf/STEO_Crude_Oil_Price.pdf) explains that EIA buys the Brent/WTI history and republishes it with permission. Its government-information reuse grant does not establish this app's right to redistribute those series. No EIA key registration, data request or credential configuration is required.
+
+## Selected distribution and reuse evidence
+
+The [World Bank dataset0038238](https://datacatalog.worldbank.org/search/dataset/0038238/commodity-prices-history-and-projections) expressly labels Commodity Prices — History and Projections Public and CC BY4.0. Its linked [Commodity Markets distribution page](https://www.worldbank.org/en/research/commodity-markets) directly provides the monthly workbook and links the applicable [dataset terms](https://www.worldbank.org/ext/en/legal/terms-conditions/datasets). Those terms permit extraction and sharing, require attribution to the World Bank and known providers, and place applicable third-party exceptions in dataset/indicator metadata. No selected-series exclusion was found in those pages or the workbook. This is affirmative evidence for attributed numerical reuse, not an inference from public access alone. No logo, supplier narrative or report prose is redistributed.
+
+The workbook and current PDF contain an “Official Use Only” sensitivity label/footer, while the catalogue says Public/CC BY4. That discrepancy is recorded; a sensitivity label is not treated as a separate licence prohibition. The catalogue's Annual periodicity describes a broader dataset: this implementation follows the explicitly labelled monthly distribution. No World Bank endorsement is claimed. Recheck controlling terms if the distribution changes.
+
+Required attribution: World Bank: Commodity Prices — History and Projections (Pink Sheet): Bloomberg Finance L.P.; Energy Intelligence Group; OPEC; World Bank. Link the dataset, original, CC BY4 and dataset terms. Disclose extraction of two monthly series and conversion to displayed decimal precision.
+
+## Inspected format and provenance
+
+Fixed source: [CMO-Historical-Data-Monthly.xlsx](https://thedocs.worldbank.org/en/doc/74e8be41ceb20fa0da750cda2f6b9e4e-0050012026/related/CMO-Historical-Data-Monthly.xlsx). The research copy was retrieved at2026-09-14T10:20:41.325138Z,586735bytes, SHA256 `9fdcfa8a2aed9a1bb545a10c1a5ce036c6a0acd4766f450424ca800b4b5a0225`; HTTP last-modified2026-09-02T20:17:37Z. It exists only in ignored `artifacts/source-research/eia-benchmarks/`; its values and bytes are not product fixtures or bundle data.
+
+Five sheets include hidden Mismatch Details and visible Monthly Prices, Monthly Indices, Description, Index Weights. Monthly Prices!A1:A4 identifies monthly nominal USD and an English updated date. C5/E5 identify Brent/WTI; C6/E6 contain `($/bbl)`; A7 onward contains `YYYYMmm` calendar months. Description!B8/T8 and B10/T10 bind definitions and suppliers. The inspected file has800 periods1960M01–2026M08, no formulas or external-link parts. Early WTI history has explicit ellipsis missing values. This is layout evidence, not accepted production observations.
+
+Oil number cells use display format `0.0`, while OOXML text may have15–16 fractional digits from spreadsheet storage. Parse lexical decimals with integer arithmetic and round half away from zero to one decimal; preserve lexical values in selected numerical evidence. Storage tails are not economic precision. Missing `…`/`...` or empty selected cells become explicit null, never zero/carry-forward. Negative prices remain valid. Goldens use labelled synthetic numbers, not copied research values.
+
+## Bounded workflow
+
+- Fixed HTTPS only; no redirects, credentials, arbitrary URLs, key or automatic refresh. Explicit connected capture is paced60seconds apart. The dated URL requires review when the publisher replaces the distribution.
+- Canonical scope is Brent and WTI monthly nominal USD/barrel from2000-01 through the latest reported completed month. Require contiguous months for both series, at most1200months/2400observations. No forecasts, indices, other commodities, EOD, Indian basket/landed cost or currency conversion.
+- Observation month, reported update date, retrieval timestamp, immutable edition and publication time remain separate. Historical as-of vintages are unknown. A reported update date is not an invented release timestamp.
+- Bounded ZIP directory/header/CRC/decompression/path checks precede XML parsing. Reject macros, external links, DTD/entities, malformed XML, selected formulas and unexpected selected headers/units/precision. No formula executes.
+- Retain complete private source bytes in Mongo before canonical PostgreSQL writes. Hash binds fixed URL, retrieval time and bytes. Equal canonical values retain the edition and advance checked-at; changed history appends an immutable edition including A→B→A. Disappearing previously accepted months reject capture. Failed storage preserves facts/publication and records a durable safe outcome.
+- Explicit versioned review publishes the latest edition or withdraws the published source. Stable request IDs return historical receipts without reapplying. Named mode uses a different reviewer and atomic proposal consumption. Source withdrawal retires all earlier public history/evidence; later publication admits only reviewed editions after withdrawal.
+- Public current/history/evidence expose selected numbers and attribution. Original bytes/failed captures require authenticated operator reads; authorization is checked after storage waits and before commit. No personal financial tables change.
+- More → Oil benchmarks and a macro context link connect current values, history, edition evidence and source links. Editions open on the latest year in a compact month/Brent/WTI table; every year and an explicit full-record option remain reachable. Source lexical precision is disclosed inside evidence details, including operator inspection. Operations covers loading/empty/error/retry, retained capture evidence, confirm/cancel, historical receipts and authoritative refresh. Late replies cannot reopen closed evidence, revive signed-out UI or claim a historical receipt is current.
+- Offline snapshots contain admitted reviewed numerical editions only, with no workbook. Device reads make no API requests; refresh/review explain connected Operations. An old disconnected bundle cannot learn later withdrawal until replaced.
+
+## Acceptance and layers
+
+Goldens cover exact positive/negative/tie rounding, binary tails, nulls, source binding, month continuity, update-date semantics, ZIP/XML/relationship/precision rejection and immutable receipt reconciliation. API740–759 reserve actual isolated Mongo/PostgreSQL capture, rollback, replay, withdrawal, post-wait auth, named approval, private evidence and paging. WEB740–759 reserve desktop/mobile keyboard navigation, loading/retry, current versus historical state, response loss and Close/401 races. OFFLINE740–759 reserve local/bundle reads, withdrawal admission and zero network. Exact assigned cases and user commands belong in the handoff.
+
+Migration042 adds only benchmark head, immutable editions/observations, capture outcomes and review receipts. Existing named proposals provide independent review. No dependency, personal schema, notification worker or credential is added. Root owns task/source trackers and migration registration. No test, build, installation, migration, app verification, provider ingestion or commit has been run by the author.

@@ -1,3 +1,5 @@
+import { namedSessionCondition } from './named-operator-store.js';
+import { OperatorRead, OperatorAction } from './operator-permissions.js';
 import { randomUUID } from 'node:crypto';
 import {
   BadRequestException,
@@ -140,7 +142,7 @@ export class RetentionStore {
     // Hold the admitted session until commit; a concurrent sign-out cannot
     // revoke it between this check and the authorized cleanup operation.
     const active = await c.query(
-      'SELECT 1 FROM operator_sessions WHERE token_hash=$1 AND expires_at>clock_timestamp() FOR SHARE',
+      `SELECT 1 FROM operator_sessions WHERE token_hash=$1 AND expires_at>clock_timestamp() AND ${namedSessionCondition} FOR SHARE`,
       [actor],
     );
     if (!active.rowCount)
@@ -342,6 +344,7 @@ export class RetentionStore {
     });
   }
 }
+@OperatorRead()
 @Controller('ops/retention')
 export class RetentionController {
   constructor(
@@ -362,7 +365,9 @@ export class RetentionController {
     await this.operator.require(cookie);
     return this.store.get(id);
   }
-  @Post('previews') async preview(
+  @OperatorAction('administer')
+  @Post('previews')
+  async preview(
     @Body() body: unknown,
     @Headers('origin') origin?: string,
     @Headers('cookie') cookie?: string,
@@ -370,7 +375,9 @@ export class RetentionController {
     this.operator.origin(origin);
     return this.store.preview(body, await this.operator.require(cookie));
   }
-  @Post('runs/:id/execute') async execute(
+  @OperatorAction('administer')
+  @Post('runs/:id/execute')
+  async execute(
     @Param('id') id: string,
     @Body() body: unknown,
     @Headers('origin') origin?: string,

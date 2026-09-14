@@ -31,7 +31,13 @@ export function sectionFor(route: string) {
   )
     return 'money';
   if (key === 'saved' || key === 'reading-follow') return 'saved';
-  if (key === 'explore' || key.startsWith('macro') || key === 'sources')
+  if (
+    key === 'explore' ||
+    key === 'events' ||
+    key.startsWith('events/') ||
+    key.startsWith('macro') ||
+    key === 'sources'
+  )
     return 'explore';
   if (key.startsWith('read/')) {
     const state = window.history.state;

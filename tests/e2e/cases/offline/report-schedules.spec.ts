@@ -55,11 +55,20 @@ test('E2E-OFFLINE-360 device schedule opt-in persistence export and deletion wit
     const signedOut = await fetch('/api/v1/account/report-schedules');
     return {
       count: exported.reportSchedules.editions.length,
+      purpose: exported.consents.current.purposes.find(
+        (value: { record: { purpose: string } }) =>
+          value.record.purpose === 'scheduled-record-reviews',
+      ).status,
       removed: removed.status,
       signedOut: signedOut.status,
     };
   });
-  expect(result).toEqual({ count: 1, removed: 200, signedOut: 401 });
+  expect(result).toEqual({
+    count: 1,
+    purpose: 'active',
+    removed: 200,
+    signedOut: 401,
+  });
   expect(api).toEqual([]);
 });
 test('E2E-OFFLINE-361 next-open latest-due capture is durable exact and not duplicated @REPORT-SCHEDULES-001', async ({

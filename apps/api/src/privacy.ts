@@ -1,3 +1,6 @@
+import { exportGoalFeasibility } from './goal-feasibility.js';
+import { exportMaterial } from './material-alert-store.js';
+import { readConsentList, exportConsents } from './consent-store.js';
 import { exportReportSchedules } from './report-schedules.js';
 import { exportReadingFollow } from './reading-follow.js';
 import { exportGoalScenarios } from './goal-scenarios.js';
@@ -251,8 +254,14 @@ export class PrivacyController {
         reportSchedules: await exportReportSchedules(client, user.id),
         researchConnections: await exportResearchConnections(client, user.id),
         goalScenarios: await exportGoalScenarios(client, user.id),
+        goalFeasibility: await exportGoalFeasibility(client, user.id),
         connectionReviews: await exportConnectionReviews(client, user.id),
         readingFollow: await exportReadingFollow(client, user.id),
+        materialAlerts: await exportMaterial(client, user.id),
+        consents: {
+          current: await readConsentList(client, user.id),
+          history: await exportConsents(client, user.id),
+        },
         formatVersion: 'account-export-v1',
         exportedAt: new Date().toISOString(),
         account: {

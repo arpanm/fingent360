@@ -1,0 +1,17 @@
+.reviewed-events {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.reviewed-events blockquote {
+  margin-inline: 0;
+  padding-inline-start: 1rem;
+  border-inline-start: 3px solid var(--accent, #25624f);
+}
+.reviewed-events details > summary {
+  cursor: pointer;
+  padding-block: 0.75rem;
+}
+.reviewed-events :is(a, summary):focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+}

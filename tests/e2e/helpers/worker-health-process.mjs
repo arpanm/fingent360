@@ -51,6 +51,11 @@ async function command(message) {
     return true;
   }
   if (!account) throw Error('Worker not initialized.');
+  if (message.action === 'material') {
+    const { MaterialWorker } =
+      await import('../../../apps/api/dist/material-worker.js');
+    return new MaterialWorker(account).workOne();
+  }
   if (message.action === 'claim') {
     claim = await reports.claim();
     return !!claim;

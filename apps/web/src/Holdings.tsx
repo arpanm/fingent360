@@ -1,4 +1,7 @@
 import { HoldingsChangeReview } from './HoldingsChangeReview';
+import { MappedCsvImport } from './MappedCsvImport';
+import { BrokerImportGuide } from './BrokerImportGuide';
+import { SupplementalCostReceipt } from './SupplementalCostReceipt';
 import { useLayoutEffect, useEffect, useRef, useState } from 'react';
 import { parseWorkbook } from './workbook';
 import { saveDownload } from './runtime';
@@ -23,6 +26,7 @@ import {
   type Holding,
   type HoldingsSnapshot,
   type HoldingsPreview,
+  type MappedHoldingsInput,
 } from '@fingent360/contracts';
 class SignInRequired extends Error {}
 class PreviewConflict extends Error {}
@@ -71,7 +75,16 @@ export function Holdings() {
       ?.querySelector<HTMLInputElement | HTMLButtonElement>('input,button')
       ?.focus({ preventScroll: true });
   }, [rowStep]);
-  const [mode, setMode] = useState<'manual' | 'csv'>('manual');
+  const [mode, setMode] = useState<'manual' | 'csv' | 'mapped'>('manual');
+  const [mapped, setMapped] = useState<MappedHoldingsInput | null>(null);
+  const [mappingDirty, setMappingDirty] = useState(false);
+  const [mappingReading, setMappingReading] = useState(false);
+  const beforeMapping = useRef<{
+    mode: 'manual' | 'csv';
+    csv: string;
+    workbook: string | null;
+    draft: Holding[];
+  } | null>(null);
   const [draft, setDraft] = useState<Holding[]>([]);
   const [row, setRow] = useState({ isin: '', quantity: '', cost: '' });
   const [editingRow, setEditingRow] = useState<number | null>(null);
@@ -100,6 +113,10 @@ export function Holdings() {
       setCsv('isin,quantity,total_cost_paise');
       setRow({ isin: '', quantity: '', cost: '' });
       setConsent(false);
+      setWorkbook(null);
+      setMapped(null);
+      setMappingDirty(false);
+      beforeMapping.current = null;
       setError('');
     } else
       setError(e instanceof Error ? e.message : 'Holdings request failed.');
@@ -122,8 +139,9 @@ export function Holdings() {
     window.confirm('Discard the unsaved holding you are editing?');
   const draftDirty = () =>
     !!saved &&
-    (rowDirty() ||
-      (mode === 'csv' ? csv : holdingsCsv(draft)) !==
+    (mappingDirty ||
+      rowDirty() ||
+      (mode !== 'manual' ? csv : holdingsCsv(draft)) !==
         holdingsCsv(saved.holdings));
   useDraftGuard(
     draftDirty(),
@@ -163,6 +181,10 @@ export function Holdings() {
       return;
     }
     setWorkbook(null);
+    setMapped(null);
+    setMappingDirty(false);
+    beforeMapping.current = null;
+    if (mode === 'mapped') setMode('csv');
     setSaved(result);
     setDraft(result.holdings);
     setRow({ isin: '', quantity: '', cost: '' });
@@ -263,6 +285,7 @@ export function Holdings() {
               <h3>Your saved record</h3>
               <span className="badge">Entered by you</span>
             </div>
+            <SupplementalCostReceipt imported={saved.import} />
             {saved.holdings.length === 0 ? (
               <div className="empty-state">
                 <h3>No holdings saved.</h3>
@@ -347,7 +370,7 @@ export function Holdings() {
           aria-label="Entry method"
         >
           <button
-            disabled={busy || !saved}
+            disabled={busy || !saved || mode === 'mapped'}
             aria-pressed={mode === 'manual'}
             onClick={() => {
               if (mode === 'manual') return;
@@ -366,7 +389,7 @@ export function Holdings() {
             Enter manually
           </button>
           <button
-            disabled={busy || !saved}
+            disabled={busy || !saved || mode === 'mapped'}
             aria-pressed={mode === 'csv'}
             onClick={() => {
               if (mode === 'csv') return;
@@ -381,7 +404,24 @@ export function Holdings() {
           >
             Import CSV or XLSX
           </button>
+          <button
+            disabled={busy || !saved || !currentReady}
+            aria-pressed={mode === 'mapped'}
+            onClick={() => {
+              if (mode === 'mapped' || !discardRow()) return;
+              beforeMapping.current = { mode, csv, workbook, draft };
+              setRow({ isin: '', quantity: '', cost: '' });
+              setEditingRow(null);
+              setMode('mapped');
+              setPreview(null);
+              setMapped(null);
+              setMappingDirty(false);
+            }}
+          >
+            Map CSV columns
+          </button>
         </div>
+        <BrokerImportGuide />
         {mode === 'manual' && (
           <>
             <SmartHelp scope="holdings" />
@@ -767,31 +807,119 @@ export function Holdings() {
             />
           </>
         )}
+        {mode === 'mapped' && (
+          <>
+            <MappedCsvImport
+              disabled={busy || !saved || !currentReady}
+              onDirty={setMappingDirty}
+              onReading={setMappingReading}
+              onInvalidate={() => {
+                setMapped(null);
+                setPreview(null);
+              }}
+              onPrepared={(input, holdings) => {
+                if (authDenied.current) return;
+                setMapped(input);
+                setCsv(holdingsCsv(holdings));
+                setWorkbook(null);
+                setPreview(null);
+                setConsent(false);
+                setError('');
+              }}
+              onCancel={() => {
+                const prior = beforeMapping.current;
+                if (
+                  mappingDirty &&
+                  !window.confirm(
+                    'Discard this mapping and restore your previous holdings draft?',
+                  )
+                )
+                  return;
+                setMode(prior?.mode ?? 'manual');
+                if (prior) {
+                  setCsv(prior.csv);
+                  setWorkbook(prior.workbook);
+                  setDraft(prior.draft);
+                }
+                beforeMapping.current = null;
+                setMapped(null);
+                setMappingDirty(false);
+                setPreview(null);
+              }}
+            />
+            {mapped && (
+              <>
+                <label htmlFor="mapped-normalized">
+                  Normalized mapped holdings
+                </label>
+                <textarea
+                  id="mapped-normalized"
+                  data-feedback-private
+                  readOnly
+                  rows={6}
+                  value={csv}
+                />
+                <button
+                  type="button"
+                  disabled={busy}
+                  onClick={() => {
+                    if (
+                      !window.confirm(
+                        'Edit as standard CSV and discard the source mapping and reconciliation metadata?',
+                      )
+                    )
+                      return;
+                    setMode('csv');
+                    setMapped(null);
+                    setMappingDirty(false);
+                    beforeMapping.current = null;
+                    setPreview(null);
+                  }}
+                >
+                  Edit normalized rows as standard CSV
+                </button>
+              </>
+            )}
+          </>
+        )}
         <form
           onSubmit={(event) => {
             event.preventDefault();
             void action(async () => {
               if (!saved) throw new Error('Sign in and reload holdings first.');
+              if (mode === 'mapped' && !mapped)
+                throw Error(
+                  'Prepare and reconcile your mapping before previewing.',
+                );
               if (mode === 'manual' && (row.isin || row.quantity || row.cost))
                 throw new Error(
                   'Add the holding to your draft or cancel its edit before reviewing.',
                 );
               setRemovalConsent(false);
-              setPreview(
-                HoldingsPreviewSchema.parse(
-                  await api('/preview', {
-                    ...(mode === 'csv' && workbook
+              const result = HoldingsPreviewSchema.parse(
+                await api('/preview', {
+                  ...(mode === 'mapped' && mapped
+                    ? mapped
+                    : mode === 'csv' && workbook
                       ? { format: 'xlsx', workbookBase64: workbook }
                       : { csv: mode === 'manual' ? holdingsCsv(draft) : csv }),
-                    expectedVersion: saved.version,
-                    storageConsent: consent,
-                  }),
-                ),
+                  expectedVersion: saved.version,
+                  storageConsent: consent,
+                }),
               );
+              if (!authDenied.current) setPreview(result);
             });
           }}
         >
-          <fieldset disabled={busy || !saved || !currentReady}>
+          <fieldset
+            disabled={
+              busy ||
+              mappingReading ||
+              !saved ||
+              !currentReady ||
+              (mode === 'mapped' && !mapped)
+            }
+          >
             <label className="check-label">
               <input
                 type="checkbox"
@@ -829,6 +957,16 @@ export function Holdings() {
       )}
       {preview && (
         <section aria-label="Holdings preview" className="panel">
+          <SupplementalCostReceipt imported={preview.import} />
+          {preview.import?.parserVersion === 'user-mapped-holdings-csv-v1' && (
+            <p>
+              User-mapped CSV totals reconciled:{' '}
+              {preview.import.declaredRowCount} source rows,
+              {preview.import.consolidatedRowCount} holdings;{' '}
+              {preview.import.declaredTotalMinor} paise. Mapping selected by
+              you; raw source columns and files are not stored.
+            </p>
+          )}
           {preview.import?.parserVersion === 'standard-holdings-xlsx-v1' && (
             <p>
               Workbook totals reconciled: {preview.import.declaredRowCount}{' '}
@@ -877,6 +1015,7 @@ export function Holdings() {
                     expectedVersion: preview.expectedVersion,
                   }),
                 );
+                if (authDenied.current) return;
                 setPreview(null);
                 setCurrentReady(false);
                 setConsent(false);
@@ -920,6 +1059,7 @@ export function Holdings() {
                 Total acquisition cost INR{' '}
                 {goalMinorToRupees(revision.totalCostMinor)}
               </p>
+              <SupplementalCostReceipt imported={revision.import} />
               <pre style={{ whiteSpace: 'pre-wrap', overflowWrap: 'anywhere' }}>
                 {holdingsCsv(revision.holdings)}
               </pre>

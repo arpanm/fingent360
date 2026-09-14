@@ -1,0 +1,37 @@
+{
+  "provenance": {
+    "kind": "synthetic",
+    "description": "Deliberately artificial numerical inputs for parser, storage and UI tests. Only the XML shape follows the inspected official ECB distribution. These are not copied market observations or an ingested provider capture."
+  },
+  "xml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<gesmes:Envelope xmlns:gesmes=\"http://www.gesmes.org/xml/2002-08-01\" xmlns=\"http://www.ecb.int/vocabulary/2002-08-01/eurofxref\">\n  <gesmes:subject>Reference rates</gesmes:subject>\n  <gesmes:Sender><gesmes:name>European Central Bank</gesmes:name></gesmes:Sender>\n  <Cube>\n    <Cube time=\"2026-08-03\">\n      <Cube currency=\"INR\" rate=\"1.00000000\"/>\n      <Cube currency=\"JPY\" rate=\"5.125\"/>\n      <Cube currency=\"USD\" rate=\"3.0000\"/>\n    </Cube>\n    <Cube time=\"2026-07-31\">\n      <Cube currency=\"USD\" rate=\"2.0000\"/>\n      <Cube currency=\"CHF\" rate=\"0.1000\"/>\n      <Cube currency=\"INR\" rate=\"5.00000000\"/>\n    </Cube>\n  </Cube>\n</gesmes:Envelope>\n",
+  "expected": {
+    "observations": [
+      {
+        "date": "2026-07-31",
+        "usdPerEur": "2.0000",
+        "inrPerEur": "5.00000000",
+        "derivedInrPerUsd": {
+          "value": "2.50000000",
+          "numerator": "5",
+          "denominator": "2",
+          "precision": 8,
+          "rounding": "half-away-from-zero",
+          "methodVersion": "f360-inr-per-usd-v1"
+        }
+      },
+      {
+        "date": "2026-08-03",
+        "usdPerEur": "3.0000",
+        "inrPerEur": "1.00000000",
+        "derivedInrPerUsd": {
+          "value": "0.33333333",
+          "numerator": "1",
+          "denominator": "3",
+          "precision": 8,
+          "rounding": "half-away-from-zero",
+          "methodVersion": "f360-inr-per-usd-v1"
+        }
+      }
+    ]
+  }
+}

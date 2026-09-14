@@ -42,12 +42,15 @@ for (const [id, table, tab] of [
             return Number(
               (
                 await observer.query(
-                  "SELECT count(*) AS n FROM pg_stat_activity WHERE wait_event_type='Lock' AND $1=ANY(pg_blocking_pids(pid)) AND query LIKE $2",
+                  // pg_stat_activity may truncate long statements. Match the queue's
+                  // opening join and the actual waiting relation, not its LIMIT tail.
+                  "SELECT count(*) AS n FROM pg_stat_activity a WHERE a.datname=current_database() AND a.wait_event_type='Lock' AND $1=ANY(pg_blocking_pids(a.pid)) AND a.query LIKE $2 AND EXISTS (SELECT 1 FROM pg_locks l WHERE l.pid=a.pid AND l.locktype='relation' AND NOT l.granted AND l.relation=$3::regclass)",
                   [
                     pid,
                     table === 'discovery_items'
-                      ? 'SELECT v.data,to_char(v.created_at%FROM discovery_items%LIMIT 21'
+                      ? 'SELECT v.data,to_char(v.created_at%FROM discovery_items i JOIN discovery_versions v%'
                       : 'SELECT r.* FROM research_sources s JOIN research_source_revisions r ON r.source_id=s.id AND r.revision=s.revision  ORDER BY r.recorded_at DESC,s.id',
+                    `"${feedbackSandbox.schema}"."${table}"`,
                   ],
                 )
               ).rows[0].n,

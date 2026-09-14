@@ -1,3 +1,4 @@
+import { OperatorRead, OperatorAction } from './operator-permissions.js';
 import {
   beaHistory,
   beaValidation,
@@ -554,6 +555,7 @@ export class DiscoveryStore {
     id: string,
     body: unknown,
     authorize: () => Promise<unknown> = async () => undefined,
+    complete?: (client: pg.PoolClient) => Promise<void>,
   ) {
     validId(id);
     const parsed = DiscoveryReviewSchema.safeParse(body);
@@ -589,6 +591,8 @@ export class DiscoveryStore {
         id,
         item.version,
       ]);
+      await authorize();
+      await complete?.(c);
       return item;
     });
   }
@@ -622,7 +626,11 @@ export class DiscoveryStore {
       ]);
     return 1;
   }
-  async refresh(sourceIds?: string[]) {
+  async refresh(
+    sourceIds?: string[],
+    authorize: () => Promise<unknown> = async () => undefined,
+  ) {
+    await authorize();
     const selected =
       sourceIds ??
       researchSources.filter((s) => s.access === 'enabled').map((s) => s.id);
@@ -801,6 +809,7 @@ export class DiscoveryStore {
                 'staged',
                 'Parsed drafts committed atomically with this receipt.',
               );
+            await authorize();
             await client.query('COMMIT');
           } catch (error) {
             await client.query('ROLLBACK');
@@ -900,6 +909,7 @@ export class DiscoveryController {
     return this.store.evidence(id);
   }
 }
+@OperatorRead()
 @Controller('ops/discovery')
 export class OpsDiscoveryController {
   constructor(
@@ -951,7 +961,9 @@ export class OpsDiscoveryController {
       this.operator.require(cookie),
     );
   }
-  @Post('bea-attempts/:id/revalidate') async beaValidate(
+  @OperatorAction('prepare')
+  @Post('bea-attempts/:id/revalidate')
+  async beaValidate(
     @Param('id') id: string,
     @Body() body: unknown,
     @Headers('origin') origin: string | undefined,
@@ -962,7 +974,9 @@ export class OpsDiscoveryController {
       this.operator.require(cookie),
     );
   }
-  @Post('bea-staging') async beaStage(
+  @OperatorAction('prepare')
+  @Post('bea-staging')
+  async beaStage(
     @Body() body: unknown,
     @Headers('origin') origin: string | undefined,
     @Headers('cookie') cookie?: string,
@@ -1013,7 +1027,9 @@ export class OpsDiscoveryController {
     await this.operator.require(cookie);
     return result;
   }
-  @Post('refresh') async refresh(
+  @OperatorAction('prepare')
+  @Post('refresh')
+  async refresh(
     @Body() body: unknown,
     @Headers('cookie') cookie?: string,
     @Headers('origin') origin?: string,
@@ -1030,9 +1046,13 @@ export class OpsDiscoveryController {
       'fixed-provider',
       cookie,
     );
-    return this.store.refresh(input.data.sourceIds);
+    return this.store.refresh(input.data.sourceIds, () =>
+      this.operator.permission(cookie, 'prepare'),
+    );
   }
-  @Put('items/:id') async review(
+  @OperatorAction('blocked')
+  @Put('items/:id')
+  async review(
     @Param('id') id: string,
     @Body() body: unknown,
     @Headers('cookie') cookie?: string,

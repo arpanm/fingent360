@@ -1,4 +1,27 @@
 import {
+  IdentitySelectionController,
+  OpsIdentitySelectionController,
+  identitySelectionProvider,
+} from './identity-selection.js';
+import {
+  EventLineageController,
+  OpsEventLineageController,
+  eventLineageProvider,
+} from './event-lineage.js';
+import { MaterialWorker, MaterialWorkerController } from './material-worker.js';
+import { ConsentsController } from './consents.js';
+import {
+  EventsController,
+  OpsEventsController,
+  eventProvider,
+} from './events.js';
+import { NamedOperatorsController } from './named-operators.js';
+import { PublicationProposalsController } from './publication-proposals.js';
+import { OperatorPermissionGuard } from './operator-permissions.js';
+import { requestObservation } from './request-observability.js';
+import { QualityOverviewController } from './quality-overview.js';
+import { GoalFeasibilityController } from './goal-feasibility.js';
+import {
   ReportSchedulesController,
   ReportSchedulesStore,
 } from './report-schedules.js';
@@ -12,13 +35,23 @@ import {
 import { MediaController, OpsMediaController, mediaProvider } from './media.js';
 import { AssistanceController, assistanceProvider } from './assistance.js';
 import {
+  EventExtractionController,
+  eventExtractionProvider,
+} from './event-extraction.js';
+import {
   DiscoveryController,
   OpsDiscoveryController,
   discoveryProvider,
 } from './discovery.js';
-import { OperatorController, operatorProvider } from './operator.js';
+import {
+  OPERATOR_STORE,
+  OperatorController,
+  operatorProvider,
+} from './operator.js';
 import { OperatorAuditController } from './operator-audit.js';
 import { PublishingQueueController } from './publishing-queue.js';
+import { EvidenceExplanationsController } from './evidence-explanations.js';
+import { MaterialAlertsController } from './material-alerts.js';
 import { OpsLegacyController } from './ops-legacy.js';
 import { LibraryController } from './library.js';
 import { LibraryReminderWorker } from './library-worker.js';
@@ -38,6 +71,21 @@ import type { DependencyProbe } from './readiness.js';
 import type { AppConfig } from './config.js';
 import { JourneyController, journeyProvider } from './journey.js';
 import { MacroController, macroProvider } from './macro.js';
+import {
+  EcbRateController,
+  OpsEcbRateController,
+  ecbRateProvider,
+} from './ecb-rates.js';
+import {
+  OilBenchmarkController,
+  OpsOilBenchmarkController,
+  oilBenchmarkProvider,
+} from './oil-benchmarks.js';
+import {
+  EcbFxController,
+  OpsEcbFxController,
+  ecbFxProvider,
+} from './ecb-fx.js';
 import { AccountController, accountProvider } from './accounts.js';
 import { GoalScenariosController } from './goal-scenarios.js';
 import { ConnectionReviewsController } from './connection-reviews.js';
@@ -97,14 +145,29 @@ export async function createApp(
       module: AppModule,
       controllers: [
         HealthController,
+        EventsController,
+        EventLineageController,
+        IdentitySelectionController,
+        OpsIdentitySelectionController,
+        OpsEventLineageController,
+        OpsEventsController,
+        EventExtractionController,
+        QualityOverviewController,
         WorkerHealthController,
         FeedbackController,
         OpsFeedbackController,
         JourneyController,
         MacroController,
+        EcbRateController,
+        OpsEcbRateController,
+        OilBenchmarkController,
+        OpsOilBenchmarkController,
+        EcbFxController,
+        OpsEcbFxController,
         AccountController,
         GoalsController,
         GoalScenariosController,
+        GoalFeasibilityController,
         ConnectionReviewsController,
         ReadingFollowController,
         PrivacyController,
@@ -118,6 +181,7 @@ export async function createApp(
         RetentionController,
         ReportsController,
         ReportSchedulesController,
+        ConsentsController,
         ReportComparisonController,
         SecuritiesController,
         OpsSecuritiesController,
@@ -125,8 +189,13 @@ export async function createApp(
         DiscoveryController,
         OpsDiscoveryController,
         OperatorController,
+        NamedOperatorsController,
+        PublicationProposalsController,
         OperatorAuditController,
         PublishingQueueController,
+        EvidenceExplanationsController,
+        MaterialAlertsController,
+        MaterialWorkerController,
         OpsLegacyController,
         LibraryController,
         LearningController,
@@ -135,10 +204,16 @@ export async function createApp(
         OpsMediaController,
       ],
       providers: [
+        eventProvider,
+        eventLineageProvider,
+        identitySelectionProvider,
         { provide: DEPENDENCY_PROBE, useValue: probe },
         feedbackProvider(config),
         journeyProvider(config),
         macroProvider(config),
+        ecbRateProvider(config),
+        oilBenchmarkProvider(config),
+        ecbFxProvider(config),
         accountProvider(config),
         retentionProvider(config),
         securitiesProvider(config),
@@ -149,16 +224,20 @@ export async function createApp(
         ReportSchedulesStore,
         ReportComparisonStore,
         ReportWorker,
+        MaterialWorker,
         WorkerHealthStore,
         mediaProvider(config),
         sourcesProvider(config),
         assistanceProvider(config),
+        eventExtractionProvider(config),
       ],
     },
     { logger: ['error', 'warn', 'log'], bodyParser: false },
   );
   // The Express adapter mounts its not-found router with this exact prefix.
+  app.useGlobalGuards(new OperatorPermissionGuard(app.get(OPERATOR_STORE)));
   app.setGlobalPrefix('/api/v1');
+  app.use(requestObservation());
   // Parse only feedback with the larger explicit upload bound. Other routes retain Nest's default.
   const requireExpress = createRequire(
     import.meta.resolve('@nestjs/platform-express'),

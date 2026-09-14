@@ -1,0 +1,59 @@
+.bea-recovery,
+.bea-recovery-panel,
+.bea-recovery-record {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-content: start;
+  gap: 16px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.bea-recovery > *,
+.bea-recovery-panel > *,
+.bea-recovery-record > * {
+  min-width: 0;
+  max-width: 100%;
+  margin: 0;
+}
+.bea-recovery-record,
+.bea-recovery-panel {
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: white;
+}
+.bea-recovery .bea-attempt-events {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+  padding-inline-start: 24px;
+}
+.bea-attempt-events > li {
+  min-width: 0;
+}
+.bea-attempt-events p {
+  margin: 8px 0 0;
+}
+.bea-recovery button {
+  justify-self: start;
+  max-width: 100%;
+  min-width: 0;
+  margin: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.bea-recovery-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 8px;
+}
+.bea-recovery-actions > p {
+  flex-basis: 100%;
+  margin: 0;
+}
+.bea-recovery [aria-label='Draft staging receipt'] {
+  padding: 14px;
+  border-left: 3px solid var(--green);
+  background: var(--soft);
+}

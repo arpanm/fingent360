@@ -8,6 +8,7 @@ import {
   type BeaValidation,
 } from '@fingent360/contracts';
 import { json, RequestError } from './net';
+import './bea-quarantine.css';
 export function BeaQuarantine({
   request,
   onUnauthorized,
@@ -27,7 +28,7 @@ export function BeaQuarantine({
     [validation, setValidation] = useState<BeaValidation | null>(null),
     [receipt, setReceipt] = useState(''),
     [error, setError] = useState(''),
-    [busy, setBusy] = useState(false),
+    [progress, setProgress] = useState(''),
     [pending, setPending] = useState<{
       path: string;
       body: unknown;
@@ -39,6 +40,7 @@ export function BeaQuarantine({
   const live = useRef(false),
     epoch = useRef(0),
     denied = useRef(false);
+  const busy = progress !== '';
   function fail(e: unknown) {
     if (!live.current) return;
     if (e instanceof RequestError && e.status === 401) {
@@ -57,7 +59,7 @@ export function BeaQuarantine({
   }
   async function load(after?: string) {
     const ticket = ++epoch.current;
-    setBusy(true);
+    setProgress('Loading recovery attempts…');
     setError('');
     try {
       const value = BeaAttemptPageSchema.parse(
@@ -70,7 +72,7 @@ export function BeaQuarantine({
     } catch (e) {
       fail(e);
     } finally {
-      if (live.current && ticket === epoch.current) setBusy(false);
+      if (live.current && ticket === epoch.current) setProgress('');
     }
   }
   useEffect(() => {
@@ -83,7 +85,7 @@ export function BeaQuarantine({
   }, []);
   async function evidence(id: string) {
     const ticket = ++epoch.current;
-    setBusy(true);
+    setProgress('Loading the protected retained response…');
     try {
       const value = BeaRetainedSchema.parse(
         await request(`/ops/discovery/bea-attempts/${id}/evidence`),
@@ -93,12 +95,12 @@ export function BeaQuarantine({
     } catch (e) {
       fail(e);
     } finally {
-      if (live.current && ticket === epoch.current) setBusy(false);
+      if (live.current && ticket === epoch.current) setProgress('');
     }
   }
   async function readHistory(after?: string) {
     const ticket = ++epoch.current;
-    setBusy(true);
+    setProgress('Loading saved recovery history…');
     try {
       const value = BeaHistorySchema.parse(
         await request(
@@ -110,29 +112,33 @@ export function BeaQuarantine({
     } catch (e) {
       fail(e);
     } finally {
-      if (live.current && ticket === epoch.current) setBusy(false);
+      if (live.current && ticket === epoch.current) setProgress('');
     }
   }
   async function openValidation(id: string) {
     const ticket = ++epoch.current;
-    setBusy(true);
+    setProgress('Loading the historical validation…');
     try {
       const value = BeaValidationSchema.parse(
         await request(`/ops/discovery/bea-validations/${id}`),
       );
       if (live.current && !denied.current && ticket === epoch.current) {
         setValidation(value);
-        setReceipt('Historical validation; staging checks current heads.');
+        setReceipt('');
       }
     } catch (e) {
       fail(e);
     } finally {
-      if (live.current && ticket === epoch.current) setBusy(false);
+      if (live.current && ticket === epoch.current) setProgress('');
     }
   }
   async function act(action: NonNullable<typeof pending>) {
     const ticket = ++epoch.current;
-    setBusy(true);
+    setProgress(
+      action.kind === 'validate'
+        ? 'Revalidating the stored response…'
+        : 'Staging reviewed drafts…',
+    );
     setPending(action);
     setError('');
     try {
@@ -140,9 +146,7 @@ export function BeaQuarantine({
       if (!live.current || denied.current || ticket !== epoch.current) return;
       if (action.kind === 'validate') {
         setValidation(BeaValidationSchema.parse(value));
-        setReceipt(
-          'Historical validation receipt. Stage will recheck all captured source heads.',
-        );
+        setReceipt('');
       } else {
         const saved = BeaStageSchema.parse(value);
         setValidation(null);
@@ -158,29 +162,41 @@ export function BeaQuarantine({
       }
       fail(e);
     } finally {
-      if (live.current && ticket === epoch.current) setBusy(false);
+      if (live.current && ticket === epoch.current) setProgress('');
     }
   }
   return (
-    <section aria-label="BEA retained response recovery" data-feedback-private>
+    <section
+      className="bea-recovery"
+      aria-label="BEA retained response recovery"
+      data-feedback-private
+    >
       <h2>BEA retained response recovery</h2>
       <p>
         Revalidate complete stored RSS without contacting the provider. Staging
         creates drafts only; publication requires source review.
       </p>
       <button onClick={onBack}>Back to Operations</button>
-      {busy && <p role="status">Loading recovery records…</p>}
+      {busy && (
+        <p role="status" aria-label="Recovery progress">
+          {progress}
+        </p>
+      )}
       {error && <p role="alert">{error}</p>}
-      {receipt && <p role="status">{receipt}</p>}
-      {receipt.startsWith('Draft staging saved') && (
+      {receipt && (
+        <p role="status" aria-label="Draft staging receipt">
+          {receipt}
+        </p>
+      )}
+      {receipt && (
         <button
           disabled={busy}
           onClick={() => {
-            setBusy(true);
+            setProgress('Opening Publishing review…');
             void onReview()
               .catch(fail)
               .finally(() => {
-                if (live.current) setBusy(false);
+                if (live.current) setProgress('');
               });
           }}
         >
@@ -229,10 +245,10 @@ export function BeaQuarantine({
                 </p>
               )}
               {page.attempts.map((a) => (
-                <article key={a.id}>
+                <article className="bea-recovery-record" key={a.id}>
                   <h3>BEA attempt {a.startedAt}</h3>
                   <p>{a.id}</p>
-                  <ol>
+                  <ol className="bea-attempt-events">
                     {a.events.map((e) => (
                       <li key={e.id}>
                         {e.kind} · {e.at} · {e.message}
@@ -257,7 +273,7 @@ export function BeaQuarantine({
                     Inspect attempt
                   </button>
                   {selected === a.id && (
-                    <div>
+                    <div className="bea-recovery-actions">
                       <button
                         disabled={busy || !!pending}
                         onClick={() => void readHistory()}
@@ -311,11 +327,14 @@ export function BeaQuarantine({
             </>
           )}
           {history && (
-            <section aria-label="Recovery history">
+            <section
+              className="bea-recovery-panel"
+              aria-label="Recovery history"
+            >
               <h3>Saved recovery history</h3>
               {history.entries.length === 0 && <p>No saved revalidations.</p>}
               {history.entries.map((entry) => (
-                <article key={entry.id}>
+                <article className="bea-recovery-record" key={entry.id}>
                   <p>
                     {entry.at} · {entry.outcome}
                   </p>
@@ -347,8 +366,16 @@ export function BeaQuarantine({
             </section>
           )}
           {validation && (
-            <section aria-label="Review BEA candidates">
+            <section
+              className="bea-recovery-panel"
+              aria-label="Review BEA candidates"
+            >
               <h3>Review candidates</h3>
+              <p>
+                Historical validation receipt. Staging rechecks all captured
+                source heads; this validation does not confirm draft staging or
+                publication.
+              </p>
               <p>
                 {validation.outcome}: {validation.message}
               </p>

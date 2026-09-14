@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { ConsentViewSchema } from './consents.js';
 export const AssistanceProviderSchema = z.enum([
   'auto',
   'query',
@@ -13,6 +14,7 @@ export const AssistanceInputSchema = z.strictObject({
   useHistory: z.boolean(),
 });
 export const AssistanceOptionsSchema = z.strictObject({
+  privateContextConsent: ConsentViewSchema.optional(),
   defaultProvider: AssistanceProviderSchema,
   providers: z.array(
     z.strictObject({

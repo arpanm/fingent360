@@ -1,6 +1,12 @@
 import { announceSessionChange } from './session';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { AlertPreferences } from './AlertPreferences';
+import { MaterialAlerts } from './MaterialAlerts';
+import {
+  AccountRequestError,
+  StaleAccountRead,
+  type AccountRequest,
+} from './account-request';
 import { accountDestination } from './AccountGate';
 import {
   InboxSchema,
@@ -13,7 +19,7 @@ import {
   type MacroDashboard,
   type MacroIndicator,
 } from '@fingent360/contracts';
-async function api(
+async function rawApi(
   path = '',
   body?: unknown,
   method = body === undefined ? 'GET' : 'POST',
@@ -29,9 +35,12 @@ async function api(
         }),
     signal: AbortSignal.timeout(20000),
   });
+  if (response.status === 401)
+    throw new AccountRequestError(401, 'Sign in again to access your account.');
   const payload: unknown = await response.json();
   if (!response.ok)
-    throw new Error(
+    throw new AccountRequestError(
+      response.status,
       typeof payload === 'object' && payload && 'message' in payload
         ? String(payload.message)
         : 'Account request failed.',
@@ -65,18 +74,50 @@ export function Account() {
   const [message, setMessage] = useState('');
   const [busy, setBusy] = useState(false);
   const [deletePassword, setDeletePassword] = useState('');
+  const [materialRefresh, setMaterialRefresh] = useState(0);
+  const generation = useRef(0);
+  const clearPrivate = useCallback(() => {
+    generation.current++;
+    setUser(null);
+    setSelection([]);
+    setSaved([]);
+    setMacro(null);
+    setInbox([]);
+    setPassword('');
+    setDeletePassword('');
+    setMessage('');
+    setLoaded(true);
+  }, []);
+  const api = useCallback<AccountRequest>(
+    async (path = '', body, method) => {
+      const epoch = generation.current;
+      try {
+        const result = await rawApi(path, body, method);
+        if (epoch !== generation.current) throw new StaleAccountRead();
+        return result;
+      } catch (error) {
+        if (epoch !== generation.current) throw new StaleAccountRead();
+        if (error instanceof AccountRequestError && error.status === 401)
+          clearPrivate();
+        throw error;
+      }
+    },
+    [clearPrivate],
+  );
   async function load(active: () => boolean = () => true) {
+    const epoch = generation.current;
+    const valid = () => active() && epoch === generation.current;
     const current = CurrentAccountSchema.parse(await api());
-    if (!active()) return;
+    if (!valid()) return;
     setUser(current.user);
     setLoaded(true);
     if (current.user) {
       const list = WatchlistSchema.parse(await api('/watchlist'));
-      if (!active()) return;
+      if (!valid()) return;
       setSelection(list.indicators);
       setSaved(list.indicators);
       const messages = InboxSchema.parse(await api('/inbox'));
-      if (!active()) return;
+      if (!valid()) return;
       setInbox(messages.items);
       const response = await fetch('/api/v1/macro', {
         signal: AbortSignal.timeout(15000),
@@ -86,7 +127,7 @@ export function Account() {
           'Your account is loaded, but macro data is unavailable. Retry shortly.',
         );
       const dashboard = MacroDashboardSchema.parse(await response.json());
-      if (active()) setMacro(dashboard);
+      if (valid()) setMacro(dashboard);
     } else {
       setSelection([]);
       setSaved([]);
@@ -97,7 +138,7 @@ export function Account() {
   useEffect(() => {
     let active = true;
     void load(() => active).catch((error: unknown) => {
-      if (active) {
+      if (active && !(error instanceof StaleAccountRead)) {
         setError(
           error instanceof Error ? error.message : 'Account unavailable',
         );
@@ -106,6 +147,7 @@ export function Account() {
     });
     return () => {
       active = false;
+      generation.current++;
     };
   }, []);
   async function action(work: () => Promise<void>) {
@@ -116,7 +158,8 @@ export function Account() {
     try {
       await work();
     } catch (error) {
-      setError(error instanceof Error ? error.message : 'Operation failed');
+      if (!(error instanceof StaleAccountRead))
+        setError(error instanceof Error ? error.message : 'Operation failed');
     } finally {
       setBusy(false);
     }
@@ -315,6 +358,7 @@ export function Account() {
                 onClick={() =>
                   void action(async () => {
                     AccountActionSchema.parse(await api('/logout', {}));
+                    clearPrivate();
                     setUser(null);
                     setSelection([]);
                     setSaved([]);
@@ -370,6 +414,7 @@ export function Account() {
                         );
                         setSaved(result.indicators);
                         setSelection(result.indicators);
+                        setMaterialRefresh((value) => value + 1);
                         setInbox(InboxSchema.parse(await api('/inbox')).items);
                         setMessage('Watchlist saved.');
                       })
@@ -422,13 +467,20 @@ export function Account() {
               </section>
               <AlertPreferences
                 key={saved.join(',')}
-                onChanged={async () =>
-                  setInbox(InboxSchema.parse(await api('/inbox')).items)
-                }
+                request={api}
+                onChanged={async () => {
+                  setMaterialRefresh((value) => value + 1);
+                  setInbox(InboxSchema.parse(await api('/inbox')).items);
+                }}
               />
             </div>
             <section aria-label="Observation inbox" className="panel">
               <h3>Observation inbox</h3>
+              <MaterialAlerts
+                key={user.id}
+                request={api}
+                refreshKey={materialRefresh}
+              />
               <p>
                 Review the latest updates to the indicators you follow. Mark
                 each one as read when you have finished; revised figures will
@@ -512,6 +564,7 @@ export function Account() {
                   AccountActionSchema.parse(
                     await api('', { password: deletePassword }, 'DELETE'),
                   );
+                  clearPrivate();
                   setDeletePassword('');
                   setUser(null);
                   setSelection([]);

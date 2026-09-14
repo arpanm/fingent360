@@ -1,4 +1,10 @@
+import { captureIdentitySelections } from './identity-selection-snapshot.mjs';
+import { captureEvents } from './event-snapshot.mjs';
+import { captureEventLineage } from './event-lineage-snapshot.mjs';
 import { finalizePublicSnapshot } from './lib/finalize-public-snapshot.mjs';
+import { captureEcbRates } from './ecb-rate-snapshot.mjs';
+import { captureOilBenchmarks } from './oil-benchmark-snapshot.mjs';
+import { captureEcbFx } from './ecb-fx-snapshot.mjs';
 import { writeFile, mkdir, rename } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { parseEnv } from 'node:util';
@@ -136,6 +142,12 @@ bundle = finalizePublicSnapshot(
   bundle,
   await get('/discovery/publication-manifest'),
 );
+Object.assign(bundle, await captureEcbRates(get));
+Object.assign(bundle, await captureOilBenchmarks(get));
+Object.assign(bundle, await captureEcbFx(get));
+Object.assign(bundle, await captureIdentitySelections(get, bundle.securities));
+Object.assign(bundle, await captureEvents(get, bundle));
+bundle.eventLineage = await captureEventLineage(get, bundle.events);
 const directory = fileURLToPath(
   new URL('../apps/web/src/offline/', import.meta.url),
 );

@@ -1,4 +1,6 @@
-import { createHmac, timingSafeEqual } from 'node:crypto';
+import { namedSessionCondition } from './named-operator-store.js';
+import { OperatorRead } from './operator-permissions.js';
+import { createHmac, randomBytes, timingSafeEqual } from 'node:crypto';
 import {
   BadRequestException,
   Controller,
@@ -40,14 +42,19 @@ const position = (entry: { item: { id: string }; changedAt: string }) => ({
   id: entry.item.id,
   changedAt: entry.changedAt,
 });
+@OperatorRead()
 @Controller('ops/discovery/queue')
 export class PublishingQueueController {
+  private readonly namedCursorKey = randomBytes(32);
   constructor(
     @Inject(STORE) private readonly account: AccountStore,
     @Inject(OPERATOR_STORE) private readonly ops: OperatorStore,
   ) {}
   private signature(body: string) {
-    return createHmac('sha256', this.ops.serverAuthorization())
+    const authorization = this.ops.serverAuthorization();
+    const key =
+      typeof authorization === 'string' ? authorization : this.namedCursorKey;
+    return createHmac('sha256', key)
       .update(`publishing-queue-v1:${body}`)
       .digest();
   }
@@ -169,7 +176,7 @@ export class PublishingQueueController {
           [actor],
         );
         const active = await c.query(
-          'SELECT 1 FROM operator_sessions WHERE token_hash=$1 AND expires_at>clock_timestamp()',
+          `SELECT 1 FROM operator_sessions WHERE token_hash=$1 AND expires_at>clock_timestamp() AND ${namedSessionCondition}`,
           [actor],
         );
         if (!active.rowCount)

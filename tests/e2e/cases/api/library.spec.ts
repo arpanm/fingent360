@@ -294,6 +294,18 @@ test('E2E-API-121 library saves preferences isolation and durable in-app reminde
     expect(exported.library.available).toBe(true);
     expect(exported.library.data?.saved[0]?.itemId).toBe(id);
     expect(exported.library.data?.reminders).toHaveLength(2);
+    const readingConsent = exported.consents.current.purposes.find(
+      (value) => value.record.purpose === 'reading-personalization',
+    );
+    expect(readingConsent?.status).toBe('active');
+    expect(readingConsent?.record.basis?.kind).toBe(
+      'reading-preference-opt-in',
+    );
+    expect(
+      exported.consents.current.purposes.find(
+        (value) => value.record.purpose === 'external-ai-private-context',
+      )?.status,
+    ).toBe('not-granted');
     expect(
       (await request.get('/api/v1/account/library')).headers()['cache-control'],
     ).toContain('no-store');

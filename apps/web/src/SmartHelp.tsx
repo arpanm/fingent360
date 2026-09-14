@@ -1,7 +1,8 @@
-import { useEffect, useId, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import {
   AssistanceOptionsSchema,
   AssistanceResultSchema,
+  consentActive,
   type AssistanceInput,
   type AssistanceResult,
 } from '@fingent360/contracts';
@@ -24,26 +25,63 @@ export function SmartHelp({
   const [result, setResult] = useState<AssistanceResult | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
-  useEffect(() => {
-    let active = true;
-    void fetch('/api/v1/account/assistance/options', {
-      credentials: 'same-origin',
-      signal: AbortSignal.timeout(15000),
-    })
-      .then(async (response) => {
-        if (!response.ok) return;
-        const value = AssistanceOptionsSchema.parse(await response.json());
-        if (active) {
-          setOptions(value.providers);
-          setProvider(value.defaultProvider);
-        }
-      })
-      .catch(() => {})
-      .finally(() => {
-        if (active) setLoaded(true);
+  const [privateConsent, setPrivateConsent] =
+    useState<
+      ReturnType<typeof AssistanceOptionsSchema.parse>['privateContextConsent']
+    >();
+  const live = useRef(false),
+    generation = useRef(0),
+    denied = useRef(false);
+  function signInAgain() {
+    denied.current = true;
+    generation.current++;
+    setQuery('');
+    setHistory(false);
+    setResult(null);
+    setOptions([]);
+    setPrivateConsent(undefined);
+    setProvider('query');
+    setError('Sign in to get help with saved information.');
+  }
+  async function loadOptions(resetProvider = false) {
+    const turn = generation.current;
+    try {
+      const response = await fetch('/api/v1/account/assistance/options', {
+        credentials: 'same-origin',
+        signal: AbortSignal.timeout(15000),
       });
+      if (response.status === 401) {
+        if (live.current && turn === generation.current) signInAgain();
+        return;
+      }
+      if (!response.ok)
+        throw Error(
+          'Provider choices could not be refreshed. Query-based help remains available.',
+        );
+      const value = AssistanceOptionsSchema.parse(await response.json());
+      if (!live.current || denied.current || turn !== generation.current)
+        return;
+      setOptions(value.providers);
+      setPrivateConsent(value.privateContextConsent);
+      setError('');
+      if (resetProvider) setProvider(value.defaultProvider);
+    } catch (cause) {
+      if (live.current && turn === generation.current)
+        setError(
+          cause instanceof Error
+            ? cause.message
+            : 'Provider choices are unavailable.',
+        );
+    } finally {
+      if (live.current) setLoaded(true);
+    }
+  }
+  useEffect(() => {
+    live.current = true;
+    void loadOptions(true);
     return () => {
-      active = false;
+      live.current = false;
+      generation.current++;
     };
   }, []);
   async function ask() {
@@ -51,6 +89,7 @@ export function SmartHelp({
     setBusy(true);
     setError('');
     setResult(null);
+    const turn = generation.current;
     try {
       const response = await fetch('/api/v1/account/assistance', {
         method: 'POST',
@@ -59,6 +98,10 @@ export function SmartHelp({
         body: JSON.stringify({ query, provider, scope, useHistory: history }),
         signal: AbortSignal.timeout(20000),
       });
+      if (response.status === 401) {
+        if (live.current && turn === generation.current) signInAgain();
+        return;
+      }
       if (!response.ok)
         throw new Error(
           response.status === 401
@@ -67,11 +110,16 @@ export function SmartHelp({
               ? 'Please wait a minute before asking again.'
               : 'Help is unavailable. Please try again.',
         );
-      setResult(AssistanceResultSchema.parse(await response.json()));
+      const value = AssistanceResultSchema.parse(await response.json());
+      if (live.current && !denied.current && turn === generation.current)
+        setResult(value);
     } catch (error) {
-      setError(error instanceof Error ? error.message : 'Help is unavailable.');
+      if (live.current && turn === generation.current)
+        setError(
+          error instanceof Error ? error.message : 'Help is unavailable.',
+        );
     } finally {
-      setBusy(false);
+      if (live.current) setBusy(false);
     }
   }
   return (
@@ -108,7 +156,14 @@ export function SmartHelp({
         disabled={busy || !loaded}
         value={provider}
         onChange={(event) => {
-          setProvider(event.target.value as AssistanceInput['provider']);
+          const next = event.target.value as AssistanceInput['provider'];
+          setProvider(next);
+          if (
+            next !== 'query' &&
+            (!privateConsent ||
+              !consentActive(privateConsent.record, new Date().toISOString()))
+          )
+            setHistory(false);
           setResult(null);
         }}
       >
@@ -128,7 +183,15 @@ export function SmartHelp({
       <label className="check-label">
         <input
           type="checkbox"
-          disabled={busy}
+          disabled={
+            busy ||
+            (provider !== 'query' &&
+              (!privateConsent ||
+                !consentActive(
+                  privateConsent.record,
+                  new Date().toISOString(),
+                )))
+          }
           checked={history}
           onChange={(event) => {
             setHistory(event.target.checked);
@@ -147,6 +210,27 @@ export function SmartHelp({
           : ''}
         .
       </label>
+      <p>
+        Saved history in external AI requires the separate{' '}
+        <a href="#privacy">Privacy → Purpose consent</a> grant and this
+        per-request choice. Query-based help with your own records does not
+        require that external-sharing grant.
+      </p>
+      {privateConsent && (
+        <p>
+          External private context: {privateConsent.status.replaceAll('-', ' ')}
+          . Permission is checked again before dispatch; a later change discards
+          the remote result.
+        </p>
+      )}
+      <button
+        type="button"
+        className="secondary"
+        disabled={busy || denied.current}
+        onClick={() => void loadOptions()}
+      >
+        Refresh assistance permissions
+      </button>
       <button
         type="button"
         disabled={busy || !loaded || query.trim().length < 2}

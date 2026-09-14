@@ -31,17 +31,202 @@ export const HoldingRowsSchema = z
     (rows) => new Set(rows.map((r) => r.isin)).size === rows.length,
     'Duplicate ISINs must be consolidated before import.',
   );
-export const HoldingsImportSchema = z.strictObject({
-  parserVersion: z.enum([
-    'standard-holdings-csv-v1',
-    'standard-holdings-xlsx-v1',
-  ]),
-  declaredRowCount: z.number().int().min(0).max(200).optional(),
-  declaredTotalMinor: z
-    .string()
-    .regex(/^(0|[1-9][0-9]*)$/)
-    .optional(),
+export const HoldingsMappingSchema = z
+  .strictObject({
+    isinColumn: z.number().int().min(0).max(31),
+    quantityColumn: z.number().int().min(0).max(31),
+    costColumn: z.number().int().min(0).max(31),
+    costUnit: z.enum(['INR-rupees', 'INR-paise']),
+    duplicates: z.enum(['reject', 'combine']),
+  })
+  .refine(
+    (v) => new Set([v.isinColumn, v.quantityColumn, v.costColumn]).size === 3,
+    'Choose three different columns.',
+  );
+export const MappedHoldingsInputSchema = z.strictObject({
+  format: z.literal('mapped-csv'),
+  csv: z.string().min(1).max(50000),
+  mapping: HoldingsMappingSchema,
+  declaredRowCount: z.number().int().min(0).max(200),
+  declaredTotal: z.string().min(1).max(24),
 });
+export const SupplementalCostBasisSchema = z.enum([
+  'trade-confirmations',
+  'prior-broker-records',
+  'personal-acquisition-records',
+]);
+export const SupplementalMappingSchema = z
+  .strictObject({
+    isinColumn: z.number().int().min(0).max(31),
+    quantityColumn: z.number().int().min(0).max(31),
+    costUnit: z.enum(['INR-rupees', 'INR-paise']),
+    duplicates: z.enum(['reject', 'combine']),
+  })
+  .refine(
+    (v) => v.isinColumn !== v.quantityColumn,
+    'Choose two different columns.',
+  );
+export const SupplementedHoldingsInputSchema = z.strictObject({
+  format: z.literal('supplemented-csv'),
+  csv: z.string().min(1).max(50000),
+  mapping: SupplementalMappingSchema,
+  declaredRowCount: z.number().int().min(0).max(200),
+  declaredTotal: z.string().min(1).max(24),
+  supplement: z.strictObject({
+    origin: z.literal('user-attested-acquisition-cost'),
+    basis: SupplementalCostBasisSchema,
+    attested: z.literal(true),
+    rows: z
+      .array(
+        z.strictObject({
+          sourceRow: z.number().int().min(2).max(201),
+          isin: AccountHoldingSchema.shape.isin,
+          quantity: AccountHoldingSchema.shape.quantity,
+          totalCost: z.string().min(1).max(24),
+        }),
+      )
+      .max(200),
+  }),
+});
+const SupplementalReceiptSchema = z.strictObject({
+  origin: z.literal('user-attested-acquisition-cost'),
+  basis: SupplementalCostBasisSchema,
+  attested: z.literal(true),
+  mapping: SupplementalMappingSchema,
+  rows: z
+    .array(
+      AccountHoldingSchema.extend({
+        sourceRow: z.number().int().min(2).max(201),
+      }),
+    )
+    .max(200),
+});
+export const HoldingsImportSchema = z
+  .strictObject({
+    parserVersion: z.enum([
+      'standard-holdings-csv-v1',
+      'standard-holdings-xlsx-v1',
+      'user-mapped-holdings-csv-v1',
+      'user-supplemented-holdings-csv-v1',
+    ]),
+    declaredRowCount: z.number().int().min(0).max(200).optional(),
+    declaredTotalMinor: z
+      .string()
+      .regex(/^(0|[1-9][0-9]*)$/)
+      .optional(),
+    mapping: HoldingsMappingSchema.optional(),
+    sourceColumns: z.number().int().min(2).max(32).optional(),
+    consolidatedRowCount: z.number().int().min(0).max(200).optional(),
+    supplement: SupplementalReceiptSchema.optional(),
+  })
+  .superRefine((v, c) => {
+    const mapped = v.parserVersion === 'user-mapped-holdings-csv-v1';
+    const supplied = v.parserVersion === 'user-supplemented-holdings-csv-v1';
+    if (supplied) {
+      if (
+        !v.supplement ||
+        v.mapping !== undefined ||
+        v.sourceColumns === undefined ||
+        v.declaredRowCount === undefined ||
+        v.declaredTotalMinor === undefined ||
+        v.consolidatedRowCount === undefined
+      )
+        c.addIssue({
+          code: 'custom',
+          message:
+            'Supplemental provenance must include its complete reconciled receipt.',
+        });
+      const supplement = v.supplement;
+      if (supplement) {
+        if (
+          supplement.rows.length !== v.declaredRowCount ||
+          supplement.rows.some((r, i) => r.sourceRow !== i + 2) ||
+          (v.sourceColumns !== undefined &&
+            Math.max(
+              supplement.mapping.isinColumn,
+              supplement.mapping.quantityColumn,
+            ) >= v.sourceColumns)
+        )
+          c.addIssue({
+            code: 'custom',
+            message:
+              'Supplemental rows and mapped source columns do not reconcile.',
+          });
+        if (
+          supplement.rows.every((r) =>
+            /^(0|[1-9][0-9]{0,15})$/.test(r.totalCostMinor),
+          ) &&
+          supplement.rows
+            .reduce((total, r) => total + BigInt(r.totalCostMinor), 0n)
+            .toString() !== v.declaredTotalMinor
+        )
+          c.addIssue({
+            code: 'custom',
+            message:
+              'Supplemental acquisition costs do not match the declared total.',
+          });
+        if (
+          new Set(supplement.rows.map((r) => r.isin)).size !==
+            v.consolidatedRowCount ||
+          (supplement.mapping.duplicates === 'reject' &&
+            v.consolidatedRowCount !== v.declaredRowCount)
+        )
+          c.addIssue({
+            code: 'custom',
+            message:
+              'Supplemental holdings do not match the consolidation policy.',
+          });
+      }
+      return;
+    }
+    if (
+      v.supplement !== undefined ||
+      (mapped && v.sourceColumns !== undefined && v.sourceColumns < 3)
+    )
+      c.addIssue({
+        code: 'custom',
+        message: 'Supplemental provenance does not match this parser version.',
+      });
+    if (
+      mapped
+        ? !v.mapping ||
+          v.sourceColumns === undefined ||
+          v.consolidatedRowCount === undefined ||
+          v.declaredRowCount === undefined ||
+          v.declaredTotalMinor === undefined
+        : v.mapping !== undefined ||
+          v.sourceColumns !== undefined ||
+          v.consolidatedRowCount !== undefined
+    )
+      c.addIssue({
+        code: 'custom',
+        message: 'Import mapping metadata does not match its parser version.',
+      });
+    if (
+      v.mapping &&
+      v.sourceColumns !== undefined &&
+      Math.max(
+        v.mapping.isinColumn,
+        v.mapping.quantityColumn,
+        v.mapping.costColumn,
+      ) >= v.sourceColumns
+    )
+      c.addIssue({
+        code: 'custom',
+        message: 'Mapped column is absent from the source.',
+      });
+    if (
+      v.consolidatedRowCount !== undefined &&
+      v.declaredRowCount !== undefined &&
+      (v.consolidatedRowCount > v.declaredRowCount ||
+        (v.mapping?.duplicates === 'reject' &&
+          v.consolidatedRowCount !== v.declaredRowCount))
+    )
+      c.addIssue({
+        code: 'custom',
+        message: 'Mapped source row counts do not reconcile.',
+      });
+  });
 export const HoldingsSnapshotSchema = z.strictObject({
   version: z.number().int().nonnegative(),
   holdings: HoldingRowsSchema,
@@ -66,6 +251,14 @@ export const HoldingsWorkbookSchema = z.strictObject({
 export const HoldingsImportRequestSchema = z.union([
   HoldingsCsvSchema,
   HoldingsWorkbookSchema,
+  MappedHoldingsInputSchema.extend({
+    expectedVersion: z.number().int().nonnegative(),
+    storageConsent: z.literal(true),
+  }),
+  SupplementedHoldingsInputSchema.extend({
+    expectedVersion: z.number().int().nonnegative(),
+    storageConsent: z.literal(true),
+  }),
 ]);
 export const HoldingsTemplateSchema = z.strictObject({
   filename: z.string(),
@@ -164,6 +357,8 @@ export const HoldingsPreviewSchema = z.strictObject({
   parserVersion: z.enum([
     'standard-holdings-csv-v1',
     'standard-holdings-xlsx-v1',
+    'user-mapped-holdings-csv-v1',
+    'user-supplemented-holdings-csv-v1',
   ]),
   import: HoldingsImportSchema.optional(),
 });

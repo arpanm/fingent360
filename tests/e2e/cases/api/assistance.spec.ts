@@ -45,7 +45,8 @@ test('E2E-API-150 query assistance respects auth origin history and ownership @A
       '/api/v1/account/assistance/options',
     );
     expect(optionsResponse.status()).toBe(200);
-    AssistanceOptionsSchema.parse(await optionsResponse.json());
+    const options = AssistanceOptionsSchema.parse(await optionsResponse.json());
+    expect(options.privateContextConsent?.status).toBe('not-granted');
     expect(await optionsResponse.text()).not.toMatch(
       /API_KEY|password_hash|token_hash/,
     );
@@ -111,6 +112,12 @@ test('E2E-API-150 query assistance respects auth origin history and ownership @A
       ).json(),
     );
     expect(own.usedHistory).toBe(true);
+    // Query-based own-record assistance does not require an external-sharing grant.
+    expect(
+      AssistanceOptionsSchema.parse(
+        await (await request.get('/api/v1/account/assistance/options')).json(),
+      ).privateContextConsent?.status,
+    ).toBe('not-granted');
     expect(
       own.suggestions.some(
         (value) => value.text === name && value.source.private,

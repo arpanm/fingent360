@@ -1,3 +1,4 @@
+import { OperatorRead, OperatorAction } from './operator-permissions.js';
 import { createHash } from 'node:crypto';
 import { setTimeout as delay } from 'node:timers/promises';
 import {
@@ -148,7 +149,10 @@ export class SecuritiesStore {
     );
     return SecurityRunsSchema.parse({ runs: rows.rows.map((r) => r.payload) });
   }
-  async refresh(raw: unknown) {
+  async refresh(
+    raw: unknown,
+    authorize: () => Promise<unknown> = async () => undefined,
+  ) {
     const request = input(SecurityRefreshInputSchema, raw);
     const c = await this.pool.connect();
     let locked = false;
@@ -161,6 +165,7 @@ export class SecuritiesStore {
         throw new ConflictException(
           'An identity refresh is already running. Check its progress, then retry.',
         );
+      await authorize();
       const previous = await c.query<{ payload: SecurityRun }>(
         'SELECT payload FROM security_refresh_runs WHERE id=$1',
         [request.requestId],
@@ -313,6 +318,7 @@ export class SecuritiesStore {
                 'INSERT INTO security_identity_revisions(isin,version,fingerprint,payload) VALUES($1,$2,$3,$4)',
                 [isin, version, fingerprint, JSON.stringify(value)],
               );
+              await authorize();
               await c.query('COMMIT');
             } catch (error) {
               await c.query('ROLLBACK');
@@ -372,6 +378,7 @@ export class SecuritiesController {
     return this.store.evidence(isin, hash);
   }
 }
+@OperatorRead()
 @Controller('ops/securities')
 export class OpsSecuritiesController {
   constructor(
@@ -382,7 +389,9 @@ export class OpsSecuritiesController {
     await this.operator.require(cookie);
     return this.store.runs();
   }
-  @Post('refresh') async refresh(
+  @OperatorAction('prepare')
+  @Post('refresh')
+  async refresh(
     @Body() body: unknown,
     @Headers('origin') origin?: string,
     @Headers('cookie') cookie?: string,
@@ -395,7 +404,9 @@ export class OpsSecuritiesController {
       request.requestId,
       cookie,
     );
-    return this.store.refresh(request);
+    return this.store.refresh(request, () =>
+      this.operator.permission(cookie, 'prepare'),
+    );
   }
 }
 export const securitiesProvider = (config: AppConfig) => ({

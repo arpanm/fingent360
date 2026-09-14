@@ -1,6 +1,12 @@
 import { currentPublications, publicLibrary } from '@fingent360/contracts';
 import { z } from 'zod';
 import {
+  readLocalConsent,
+  recordLocalConsentOptIn,
+  requireLocalConsent,
+} from './consents';
+import { consentActive } from '@fingent360/contracts';
+import {
   LibrarySchema,
   LibraryItemIdSchema,
   LibrarySaveInputSchema,
@@ -120,7 +126,10 @@ export async function handleLibrary(
         );
       }, 0) +
       (lib.saved.some((s) => s.itemId === item.id) ? 1 : 0);
-    const chronological = lib.preferences.mode === 'chronological';
+    const consent = readLocalConsent(state, user.id, 'reading-personalization');
+    const chronological =
+      lib.preferences.mode === 'chronological' ||
+      !consentActive(consent, now());
     const candidates = filtered(req, published(bundle))
       .filter(
         (v) => !v.topics.some((t) => lib.preferences.mutedTopics.includes(t)),
@@ -148,11 +157,16 @@ export async function handleLibrary(
       [
         bundle.generatedAt,
         user.id,
+        consent.version,
+        chronological,
         lib.preferences,
         lib.reactions,
         lib.saved.map((v) => [v.itemId, v.version]),
       ],
     );
+    requireUser(state);
+    if (!chronological)
+      requireLocalConsent(state, user.id, 'reading-personalization');
     return {
       body: FeedRankingSchema.parse({
         ...selected,
@@ -162,7 +176,9 @@ export async function handleLibrary(
           selected.items.map((v) => [
             v.id,
             chronological
-              ? 'Dated offline snapshot, newest first.'
+              ? lib.preferences.mode === 'for_you'
+                ? 'Dated snapshot, newest first. Personalization consent is inactive; review Purpose consent in Privacy.'
+                : 'Dated offline snapshot, newest first.'
               : 'Your explicit topics and reading preferences; dated offline snapshot.',
           ]),
         ),
@@ -213,7 +229,15 @@ export async function handleLibrary(
     }
   }
   if (req.method === 'PUT' && p === '/preferences') {
-    lib.preferences = LibraryPreferencesSchema.parse(req.body);
+    const preferences = LibraryPreferencesSchema.parse(req.body);
+    if (preferences.mode === 'for_you')
+      recordLocalConsentOptIn(state, user.id, 'reading-personalization', {
+        kind: 'reading-preference-opt-in',
+        recordedAt: now(),
+      });
+    lib.preferences = preferences;
+    if (preferences.mode === 'for_you')
+      requireLocalConsent(state, user.id, 'reading-personalization');
     return { body: lib.preferences };
   }
   if (req.method === 'POST' && p === '/preferences/reset') {

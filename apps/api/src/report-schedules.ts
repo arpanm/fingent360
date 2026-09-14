@@ -27,7 +27,15 @@ import {
   ReportSnapshotSchema,
   HoldingsSnapshotSchema,
   emptyAllocation,
+  consentStatus,
+  consentActive,
 } from '@fingent360/contracts';
+import {
+  readConsent,
+  recordConsentOptIn,
+  requireConsent,
+  ConsentUnavailable,
+} from './consent-store.js';
 import { AccountStore, STORE } from './accounts.js';
 import { admitWorker } from './worker-control.js';
 export async function exportReportSchedules(
@@ -90,6 +98,8 @@ export class ReportSchedulesStore {
   async list(cookie?: string) {
     return this.account.transaction(async (c) => {
       const u = await this.account.require(c, cookie);
+      await c.query('SELECT id FROM app_users WHERE id=$1 FOR SHARE', [u.id]);
+      await this.account.require(c, cookie);
       const rows = await c.query(
         "SELECT payload FROM report_schedules WHERE user_id=$1 ORDER BY (status='deleted'),payload->>'savedAt' DESC,id LIMIT 105",
         [u.id],
@@ -98,10 +108,17 @@ export class ReportSchedulesStore {
         'SELECT payload FROM report_schedule_occurrences WHERE user_id=$1 ORDER BY due_at DESC,id LIMIT 100',
         [u.id],
       );
+      const consent = await readConsent(c, u.id, 'scheduled-record-reviews');
+      await this.account.require(c, cookie);
+      const evaluatedAt = new Date().toISOString();
       return ReportSchedulesSchema.parse({
+        consent: {
+          record: consent,
+          status: consentStatus(consent, evaluatedAt),
+        },
         schedules: rows.rows.map((r) => r.payload),
         occurrences: occurrences.rows.map((r) => r.payload),
-        evaluatedAt: new Date().toISOString(),
+        evaluatedAt,
         mode: 'connected',
       });
     });
@@ -205,6 +222,14 @@ export class ReportSchedulesStore {
         requestId: input.requestId,
         schedule,
       });
+      if (status === 'active')
+        await recordConsentOptIn(c, user.id, 'scheduled-record-reviews', {
+          kind: 'schedule-opt-in',
+          recordedAt: savedAt,
+          scheduleId: id,
+          scheduleVersion: schedule.version,
+          requestId: input.requestId,
+        });
       await c.query(
         'INSERT INTO report_schedules(id,user_id,version,status,next_due_at,payload) VALUES($1,$2,$3,$4,$5,$6) ON CONFLICT(id) DO UPDATE SET version=EXCLUDED.version,status=EXCLUDED.status,next_due_at=EXCLUDED.next_due_at,payload=EXCLUDED.payload WHERE report_schedules.user_id=EXCLUDED.user_id',
         [id, user.id, schedule.version, status, schedule.nextDueAt, schedule],
@@ -217,119 +242,152 @@ export class ReportSchedulesStore {
         'INSERT INTO report_schedule_requests(user_id,request_id,fingerprint,payload) VALUES($1,$2,$3,$4)',
         [user.id, input.requestId, fingerprint, receipt],
       );
+      const finalConsent =
+        status === 'active'
+          ? await requireConsent(c, user.id, 'scheduled-record-reviews')
+          : null;
+      await this.account.require(c, cookie);
+      if (
+        finalConsent &&
+        !consentActive(finalConsent, new Date().toISOString())
+      )
+        throw new ConsentUnavailable();
       return receipt;
     });
   }
   async workOne() {
-    return this.account.transaction(async (c) => {
-      if (!(await admitWorker(c, 'reports'))) return false;
-      // Lock account first, matching all owned edits/deletion. Concurrent workers skip admitted owners.
-      const owner = await c.query(
-        "SELECT u.id FROM app_users u WHERE EXISTS(SELECT 1 FROM report_schedules s WHERE s.user_id=u.id AND s.status='active' AND s.next_due_at<=clock_timestamp()) ORDER BY u.id LIMIT 1 FOR UPDATE SKIP LOCKED",
-      );
-      if (!owner.rows[0]) return false;
-      const userId = owner.rows[0].id;
-      const found = await c.query(
-        "SELECT payload FROM report_schedules WHERE user_id=$1 AND status='active' AND next_due_at<=clock_timestamp() ORDER BY next_due_at,id LIMIT 1 FOR UPDATE",
-        [userId],
-      );
-      if (!found.rows[0]) return false;
-      const schedule = ReportScheduleSchema.parse(found.rows[0].payload),
-        now = new Date().toISOString();
-      const due = latestScheduleDue(schedule.config, schedule.nextDueAt!, now);
-      const prior = await c.query(
-        'SELECT id FROM report_schedule_occurrences WHERE schedule_id=$1 AND schedule_version=$2 AND due_at=$3',
-        [schedule.id, schedule.version, due.dueAt],
-      );
-      if (prior.rows[0]) throw new Error('Occurrence cursor invariant failed.');
-      const id = randomUUID();
-      let status: 'queued' | 'capacity' | 'failed' = 'queued',
-        message =
-          'Actual saved records captured; report preparation is queued.';
-      const count = await c.query(
-        'SELECT count(*)::int AS n FROM record_report_jobs WHERE user_id=$1',
-        [userId],
-      );
-      const budget = await c.query(
-        'SELECT used,window_start FROM record_report_request_limits WHERE user_id=$1',
-        [userId],
-      );
-      if (
-        count.rows[0].n >= 100 ||
-        (budget.rows[0] &&
-          budget.rows[0].used >= 100 &&
-          Date.parse(budget.rows[0].window_start) > Date.now() - 3600000)
-      ) {
-        status = 'capacity';
-        message =
-          'Skipped: report history or hourly new-report capacity was full. No snapshot captured.';
-      }
-      if (status === 'queued') {
-        const goals = await c.query(
-          'SELECT r.payload FROM app_goals g JOIN app_goal_revisions r ON r.goal_id=g.id AND r.version=g.version WHERE g.user_id=$1 AND g.deleted_at IS NULL ORDER BY g.id',
+    try {
+      return await this.account.transaction(async (c) => {
+        if (!(await admitWorker(c, 'reports'))) return false;
+        // Lock account first, matching all owned edits/deletion. Concurrent workers skip admitted owners.
+        const owner = await c.query(
+          `SELECT u.id FROM app_users u WHERE EXISTS(SELECT 1 FROM report_schedules s WHERE s.user_id=u.id AND s.status='active' AND s.next_due_at<=clock_timestamp())
+        AND (EXISTS(SELECT 1 FROM account_consent_heads ch WHERE ch.user_id=u.id AND ch.purpose='scheduled-record-reviews'
+          AND ch.payload->>'decision'='granted' AND (ch.payload->>'grantedAt')::timestamptz<=clock_timestamp()
+          AND (ch.payload->>'changedAt')::timestamptz<=clock_timestamp()
+          AND (ch.payload->'basis'->>'recordedAt')::timestamptz<=clock_timestamp()
+          AND ((ch.payload->>'expiresAt') IS NULL OR (ch.payload->>'expiresAt')::timestamptz>clock_timestamp()))
+        OR (NOT EXISTS(SELECT 1 FROM account_consent_heads ch WHERE ch.user_id=u.id AND ch.purpose='scheduled-record-reviews')
+          AND EXISTS(SELECT 1 FROM report_schedule_requests r JOIN report_schedules s ON s.id=(r.payload->'schedule'->>'id')::uuid AND s.user_id=r.user_id
+            WHERE r.user_id=u.id AND s.status<>'deleted' AND r.payload->'schedule'->>'status'='active' AND (r.payload->'schedule'->>'savedAt')::timestamptz<=clock_timestamp())))
+        ORDER BY u.id LIMIT 1 FOR UPDATE SKIP LOCKED`,
+        );
+        if (!owner.rows[0]) return false;
+        const userId = owner.rows[0].id;
+        const found = await c.query(
+          "SELECT payload FROM report_schedules WHERE user_id=$1 AND status='active' AND next_due_at<=clock_timestamp() ORDER BY next_due_at,id LIMIT 1 FOR UPDATE",
           [userId],
         );
-        const holdings = await c.query(
-          'SELECT r.payload FROM app_holdings h JOIN app_holdings_revisions r ON r.user_id=h.user_id AND r.version=h.version WHERE h.user_id=$1',
-          [userId],
+        if (!found.rows[0]) return false;
+        await requireConsent(c, userId, 'scheduled-record-reviews');
+        const schedule = ReportScheduleSchema.parse(found.rows[0].payload),
+          now = new Date().toISOString();
+        const due = latestScheduleDue(
+          schedule.config,
+          schedule.nextDueAt!,
+          now,
         );
-        const allocations = await c.query(
-          'SELECT r.payload FROM app_goal_allocations a JOIN app_goal_allocation_revisions r ON r.user_id=a.user_id AND r.version=a.version WHERE a.user_id=$1',
-          [userId],
+        const prior = await c.query(
+          'SELECT id FROM report_schedule_occurrences WHERE schedule_id=$1 AND schedule_version=$2 AND due_at=$3',
+          [schedule.id, schedule.version, due.dueAt],
         );
-        const snapshot = ReportSnapshotSchema.safeParse({
-          capturedAt: now,
-          goals: goals.rows.map((r) => r.payload),
-          holdings:
-            holdings.rows[0]?.payload ??
-            HoldingsSnapshotSchema.parse({
-              version: 0,
-              holdings: [],
-              totalCostMinor: '0',
-              currency: 'INR',
-              scale: 2,
-              provenance: 'user-entered-unverified',
-              updatedAt: null,
-            }),
-          allocations: allocations.rows[0]?.payload ?? emptyAllocation(),
-        });
-        if (!snapshot.success) {
-          status = 'failed';
+        if (prior.rows[0])
+          throw new Error('Occurrence cursor invariant failed.');
+        const id = randomUUID();
+        let status: 'queued' | 'capacity' | 'failed' = 'queued',
           message =
-            'Saved record validation failed. Review your records before the next occurrence; no snapshot was stored.';
-        } else {
-          await c.query(
-            "INSERT INTO record_report_request_limits(user_id,window_start,used) VALUES($1,clock_timestamp(),1) ON CONFLICT(user_id) DO UPDATE SET window_start=CASE WHEN record_report_request_limits.window_start<=clock_timestamp()-interval '1 hour' THEN clock_timestamp() ELSE record_report_request_limits.window_start END,used=CASE WHEN record_report_request_limits.window_start<=clock_timestamp()-interval '1 hour' THEN 1 ELSE record_report_request_limits.used+1 END",
+            'Actual saved records captured; report preparation is queued.';
+        const count = await c.query(
+          'SELECT count(*)::int AS n FROM record_report_jobs WHERE user_id=$1',
+          [userId],
+        );
+        const budget = await c.query(
+          'SELECT used,window_start FROM record_report_request_limits WHERE user_id=$1',
+          [userId],
+        );
+        if (
+          count.rows[0].n >= 100 ||
+          (budget.rows[0] &&
+            budget.rows[0].used >= 100 &&
+            Date.parse(budget.rows[0].window_start) > Date.now() - 3600000)
+        ) {
+          status = 'capacity';
+          message =
+            'Skipped: report history or hourly new-report capacity was full. No snapshot captured.';
+        }
+        if (status === 'queued') {
+          await requireConsent(c, userId, 'scheduled-record-reviews');
+          const goals = await c.query(
+            'SELECT r.payload FROM app_goals g JOIN app_goal_revisions r ON r.goal_id=g.id AND r.version=g.version WHERE g.user_id=$1 AND g.deleted_at IS NULL ORDER BY g.id',
             [userId],
           );
-          await c.query(
-            'INSERT INTO record_report_jobs(id,user_id,label,snapshot) VALUES($1,$2,$3,$4)',
-            [id, userId, schedule.config.label, snapshot.data],
+          const holdings = await c.query(
+            'SELECT r.payload FROM app_holdings h JOIN app_holdings_revisions r ON r.user_id=h.user_id AND r.version=h.version WHERE h.user_id=$1',
+            [userId],
           );
+          const allocations = await c.query(
+            'SELECT r.payload FROM app_goal_allocations a JOIN app_goal_allocation_revisions r ON r.user_id=a.user_id AND r.version=a.version WHERE a.user_id=$1',
+            [userId],
+          );
+          await requireConsent(c, userId, 'scheduled-record-reviews');
+          const snapshot = ReportSnapshotSchema.safeParse({
+            capturedAt: now,
+            goals: goals.rows.map((r) => r.payload),
+            holdings:
+              holdings.rows[0]?.payload ??
+              HoldingsSnapshotSchema.parse({
+                version: 0,
+                holdings: [],
+                totalCostMinor: '0',
+                currency: 'INR',
+                scale: 2,
+                provenance: 'user-entered-unverified',
+                updatedAt: null,
+              }),
+            allocations: allocations.rows[0]?.payload ?? emptyAllocation(),
+          });
+          if (!snapshot.success) {
+            status = 'failed';
+            message =
+              'Saved record validation failed. Review your records before the next occurrence; no snapshot was stored.';
+          } else {
+            await c.query(
+              "INSERT INTO record_report_request_limits(user_id,window_start,used) VALUES($1,clock_timestamp(),1) ON CONFLICT(user_id) DO UPDATE SET window_start=CASE WHEN record_report_request_limits.window_start<=clock_timestamp()-interval '1 hour' THEN clock_timestamp() ELSE record_report_request_limits.window_start END,used=CASE WHEN record_report_request_limits.window_start<=clock_timestamp()-interval '1 hour' THEN 1 ELSE record_report_request_limits.used+1 END",
+              [userId],
+            );
+            await c.query(
+              'INSERT INTO record_report_jobs(id,user_id,label,snapshot) VALUES($1,$2,$3,$4)',
+              [id, userId, schedule.config.label, snapshot.data],
+            );
+          }
         }
-      }
-      const occurrence = ScheduleOccurrenceSchema.parse({
-        id,
-        scheduleId: schedule.id,
-        scheduleVersion: schedule.version,
-        dueAt: due.dueAt,
-        capturedAt: now,
-        skipped: due.skipped,
-        status,
-        reportId: status === 'queued' ? id : null,
-        message,
+        const occurrence = ScheduleOccurrenceSchema.parse({
+          id,
+          scheduleId: schedule.id,
+          scheduleVersion: schedule.version,
+          dueAt: due.dueAt,
+          capturedAt: now,
+          skipped: due.skipped,
+          status,
+          reportId: status === 'queued' ? id : null,
+          message,
+        });
+        await c.query(
+          'INSERT INTO report_schedule_occurrences(id,schedule_id,user_id,schedule_version,due_at,payload) VALUES($1,$2,$3,$4,$5,$6)',
+          [id, schedule.id, userId, schedule.version, due.dueAt, occurrence],
+        );
+        const updated = { ...schedule, nextDueAt: due.nextDueAt, message };
+        await c.query(
+          'UPDATE report_schedules SET next_due_at=$2,payload=$3 WHERE id=$1',
+          [schedule.id, due.nextDueAt, updated],
+        );
+        await requireConsent(c, userId, 'scheduled-record-reviews');
+        return true;
       });
-      await c.query(
-        'INSERT INTO report_schedule_occurrences(id,schedule_id,user_id,schedule_version,due_at,payload) VALUES($1,$2,$3,$4,$5,$6)',
-        [id, schedule.id, userId, schedule.version, due.dueAt, occurrence],
-      );
-      const updated = { ...schedule, nextDueAt: due.nextDueAt, message };
-      await c.query(
-        'UPDATE report_schedules SET next_due_at=$2,payload=$3 WHERE id=$1',
-        [schedule.id, due.nextDueAt, updated],
-      );
-      return true;
-    });
+    } catch (error) {
+      if (error instanceof ConsentUnavailable) return false;
+      throw error;
+    }
   }
 }
 @Controller('account/report-schedules')

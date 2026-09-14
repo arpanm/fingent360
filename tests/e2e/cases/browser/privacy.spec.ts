@@ -60,7 +60,8 @@ test('E2E-WEB-050 download private data and end other sessions @PRIVACY-001', as
     await expect(
       page
         .getByRole('region', { name: 'Privacy and sessions', exact: true })
-        .getByRole('status'),
+        .getByRole('status')
+        .filter({ hasText: '1 other sessions ended.' }),
     ).toHaveText('1 other sessions ended.');
     expect((await second.get('/api/v1/account/privacy/export')).status()).toBe(
       401,

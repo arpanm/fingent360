@@ -43,6 +43,20 @@ export interface OfflineBundle {
   securities?: unknown;
   securityHistories?: Record<string, unknown>;
   securityEvidence?: Record<string, unknown>;
+  events?: unknown[];
+  eventHistories?: Record<string, unknown>;
+  identitySelections?: Record<string, unknown>;
+  identitySelectionHistories?: Record<string, unknown>;
+  eventLineage?: Record<string, unknown>;
+  policyRates?: unknown;
+  policyRateHistory?: unknown[];
+  policyRateAdmittedEditions?: number[];
+  oilBenchmarks?: unknown;
+  oilBenchmarkHistory?: unknown[];
+  oilBenchmarkAdmittedEditions?: number[];
+  ecbFx?: unknown;
+  ecbFxHistory?: unknown[];
+  ecbFxAdmittedEditions?: number[];
 }
 export class OfflineError extends Error {
   constructor(

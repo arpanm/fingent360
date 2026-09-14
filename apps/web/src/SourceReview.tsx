@@ -4,6 +4,7 @@ import {
   SourceReviewComparisonSchema,
   DiscoveryEvidenceSchema,
   FeedItemSchema,
+  type PublicationProposalInput,
   type SourceReviewComparison,
 } from '@fingent360/contracts';
 import { Dialog } from './Dialog';
@@ -15,6 +16,7 @@ export function SourceReview({
   onClose,
   onDenied,
   onSaved,
+  onPropose,
 }: {
   id: string;
   version: number;
@@ -22,6 +24,8 @@ export function SourceReview({
   onClose: () => void;
   onDenied: () => void;
   onSaved: () => void;
+  onPropose?:
+    ((input: PublicationProposalInput) => Promise<unknown>) | undefined;
 }) {
   const [data, setData] = useState<SourceReviewComparison | null>(null),
     [error, setError] = useState(''),
@@ -119,6 +123,24 @@ export function SourceReview({
     setBusy(true);
     setError('');
     try {
+      if (onPropose) {
+        await onPropose({
+          kind: 'discovery',
+          target: id,
+          body: {
+            expectedVersion: data.head.version,
+            status,
+            correctionNote: note,
+          },
+        });
+        if (live.current && !denied.current && ticket === generation.current) {
+          setData(null);
+          setReceipt(
+            'Publication proposal saved. Public state is unchanged until another named reviewer approves it in Named operators and proposals.',
+          );
+        }
+        return;
+      }
       const result = FeedItemSchema.parse(
         await request(
           `/ops/discovery/items/${id}`,
@@ -234,13 +256,15 @@ export function SourceReview({
                   disabled={busy || !note.trim()}
                   onClick={() => void publish('published')}
                 >
-                  Publish reviewed edition
+                  {onPropose
+                    ? 'Propose publication'
+                    : 'Publish reviewed edition'}
                 </button>
                 <button
                   disabled={busy || !note.trim()}
                   onClick={() => void publish('withdrawn')}
                 >
-                  Withdraw item
+                  {onPropose ? 'Propose withdrawal' : 'Withdraw item'}
                 </button>
               </div>
             </>

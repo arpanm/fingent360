@@ -27,6 +27,7 @@ import {
   HoldingsHistorySchema,
   holdingsTotal,
   parseHoldingsCsv,
+  parseMappedHoldings,
 } from '@fingent360/contracts';
 import { parseWorkbook } from './workbook.js';
 import { AccountStore, STORE } from './accounts.js';
@@ -106,7 +107,23 @@ export class HoldingsController {
       parserVersion: 'standard-holdings-csv-v1',
     };
     try {
-      if ('format' in input) {
+      if (
+        'format' in input &&
+        (input.format === 'mapped-csv' || input.format === 'supplemented-csv')
+      ) {
+        const parsed = parseMappedHoldings({
+          format: input.format,
+          csv: input.csv,
+          mapping: input.mapping,
+          declaredRowCount: input.declaredRowCount,
+          declaredTotal: input.declaredTotal,
+          ...(input.format === 'supplemented-csv'
+            ? { supplement: input.supplement }
+            : {}),
+        });
+        holdings = parsed.holdings;
+        imported = parsed.import;
+      } else if ('format' in input) {
         const parsed = await parseWorkbook(workbookBytes(input.workbookBase64));
         holdings = parsed.holdings;
         imported = {

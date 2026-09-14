@@ -1,0 +1,40 @@
+.mapped-import,
+.mapped-import fieldset,
+.mapped-import .field {
+  min-width: 0;
+}
+.mapped-import select,
+.mapped-import input:not([type='checkbox']):not([type='radio']) {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  min-height: 44px;
+}
+.mapped-import button {
+  min-height: 44px;
+  max-width: 100%;
+  white-space: normal;
+}
+.mapped-import p,
+.mapped-import label {
+  overflow-wrap: anywhere;
+}
+.broker-import-guide {
+  margin-block: 1rem;
+  overflow-wrap: anywhere;
+}
+.broker-import-guide summary {
+  min-height: 44px;
+  cursor: pointer;
+}
+.broker-import-guide a {
+  display: inline-block;
+  min-height: 44px;
+}
+.supplemental-cost-rows {
+  padding-inline-start: 1.5rem;
+}
+.supplemental-cost-rows li {
+  min-width: 0;
+  margin-block: 1rem;
+}

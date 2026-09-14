@@ -402,7 +402,7 @@ export function ReportComparison() {
           </button>
         </div>
       )}
-      {loaded && options.length < 2 && (
+      {loaded && !loading && options.length < 2 && (
         <p role="status">
           {options.length === 0
             ? 'No issued reports yet.'

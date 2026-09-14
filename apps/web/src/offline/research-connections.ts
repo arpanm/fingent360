@@ -33,6 +33,19 @@ function records(state: LocalState, userId: string): Records {
     )?.[userId] ?? { revisions: [], requests: {} }
   );
 }
+export function localHoldingConnectionCount(state: LocalState, userId: string) {
+  const revisions = records(state, userId).revisions,
+    seen = new Set<string>();
+  let count = 0;
+  for (let index = revisions.length - 1; index >= 0; index--) {
+    const revision = revisions[index]!;
+    if (seen.has(revision.id)) continue;
+    seen.add(revision.id);
+    if (!revision.removed && revision.target.binding.kind === 'holding')
+      count++;
+  }
+  return count;
+}
 export function exportLocalConnections(state: LocalState, userId: string) {
   return ResearchConnectionHistorySchema.parse({
     revisions: records(state, userId).revisions,

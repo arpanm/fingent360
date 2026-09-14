@@ -1,5 +1,11 @@
 # End-to-end case catalogue
 
+## HOLDINGS-RECONCILE-001 — exact before/after holdings
+
+API400–403 exercise actual owned baseline categories/consent/privacy/replay; stale/expired/legacy/corrupt reviews and concurrent confirmation; real allocation/research dependencies; expiry during observed cleanup DELETE. WEB400–402 (desktop/mobile) cover responsive keyboard review/removal, competing revisions and saved-then-read failure, all-initial-read races and preserved drafts. OFFLINE410 covers actual large/fractional local replacement, consent/reload/export/replay/deletion/isolation with zero API traffic. Exact contract units cover arithmetic beyond floating-point precision. Existing API090/240/242/268, WEB090 and offline research cases retain their assertions with required explicit review/consent.
+
+Tag @HOLDINGS-RECONCILE-001:10connected plus1offline execution. Actual storage/API successes; synthetic owned data/locks/faults labelled. Execution and hardware limits are recorded in status.
+
 ## SOURCE-WITHDRAWAL-001 — admission and retained originals
 
 API370–383 cover actual publication/withdrawal/republication; scoped sibling evidence; saved/reminder/export projection and unchanged underlying records; public/source waits; private expiry; owned connection/report/inbox compatibility; final snapshot manifest; protected access; async assistance revalidation; operator review/media waits; recovery/export admission in both orders; new-source exclusion; exact reminder/withdrawal/cancellation PID ordering. WEB370–374 (desktop/mobile) cover reader/history/media/evidence/Back, late reads, Saved controls, protected escaped originals/sign-out and related/learning fault recovery. OFFLINE390–393 cover genuine dated reading/save/export/deletion and explicitly synthetic higher-history withdrawal/republication/private parity with zero API traffic.

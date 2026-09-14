@@ -117,6 +117,14 @@ test('E2E-WEB-090 review, save, reload, export and clear entered holdings @PORTF
     await expect(
       page.getByRole('region', { name: 'Holdings preview' }),
     ).toContainText('0 rows');
+    await expect(
+      page.getByRole('button', { name: 'Confirm replacement', exact: true }),
+    ).toBeDisabled();
+    await page
+      .getByRole('checkbox', {
+        name: /I acknowledge removing all 1 listed holdings/,
+      })
+      .check();
     await page
       .getByRole('button', { name: 'Confirm replacement', exact: true })
       .click();

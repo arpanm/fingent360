@@ -1,3 +1,4 @@
+import { HoldingsChangeReview } from './HoldingsChangeReview';
 import { useLayoutEffect, useEffect, useRef, useState } from 'react';
 import { parseWorkbook } from './workbook';
 import { saveDownload } from './runtime';
@@ -24,6 +25,7 @@ import {
   type HoldingsPreview,
 } from '@fingent360/contracts';
 class SignInRequired extends Error {}
+class PreviewConflict extends Error {}
 async function api(path = '', body?: unknown): Promise<unknown> {
   const response = await fetch(`/api/v1/account/holdings${path}`, {
     method: body === undefined ? 'GET' : 'POST',
@@ -43,6 +45,12 @@ async function api(path = '', body?: unknown): Promise<unknown> {
       'Holdings service returned an unreadable response. Please retry.',
     );
   });
+  if (response.status === 409)
+    throw new PreviewConflict(
+      typeof payload === 'object' && payload && 'message' in payload
+        ? String(payload.message)
+        : 'Preview unavailable.',
+    );
   if (!response.ok)
     throw new Error(
       typeof payload === 'object' && payload && 'message' in payload
@@ -53,6 +61,8 @@ async function api(path = '', body?: unknown): Promise<unknown> {
 }
 export function Holdings() {
   const rowEditor = useRef<HTMLFormElement>(null);
+  const loadGeneration = useRef(0),
+    authDenied = useRef(false);
   const [rowStep, setRowStep] = useState(0);
   // Commit step focus before typing can begin in the next input. A deferred
   // frame can otherwise redirect cost input back into quantity.
@@ -68,6 +78,8 @@ export function Holdings() {
   const [saved, setSaved] = useState<HoldingsSnapshot | null>(null);
   const [workbook, setWorkbook] = useState<string | null>(null);
   const [csv, setCsv] = useState('isin,quantity,total_cost_paise');
+  const [removalConsent, setRemovalConsent] = useState(false);
+  const [currentReady, setCurrentReady] = useState(false);
   const [preview, setPreview] = useState<HoldingsPreview | null>(null);
   const [history, setHistory] = useState<HoldingsSnapshot[]>([]);
   const [consent, setConsent] = useState(false);
@@ -77,6 +89,9 @@ export function Holdings() {
   const [message, setMessage] = useState('');
   function failure(e: unknown) {
     if (e instanceof SignInRequired) {
+      authDenied.current = true;
+      loadGeneration.current++;
+      setCurrentReady(false);
       setSignedOut(true);
       setSaved(null);
       setDraft([]);
@@ -114,11 +129,39 @@ export function Holdings() {
     draftDirty(),
     'Leave this page and discard your unsaved holdings draft?',
   );
-  async function load(active: () => boolean = () => true) {
-    const result = HoldingsSnapshotSchema.parse(await api());
+  async function load(
+    active: () => boolean = () => true,
+    preserveDraft = false,
+  ) {
+    if (authDenied.current) return;
+    const ticket = ++loadGeneration.current;
+    setCurrentReady(false);
+    let result: HoldingsSnapshot;
+    try {
+      result = HoldingsSnapshotSchema.parse(await api());
+    } catch (error) {
+      if (
+        active() &&
+        (error instanceof SignInRequired || ticket === loadGeneration.current)
+      )
+        throw error;
+      return;
+    }
+
     // StrictMode may finish its discarded effect after the active load.
     // A stale initial response must never reset an editable draft.
-    if (!active()) return;
+    if (!active() || authDenied.current || ticket !== loadGeneration.current)
+      return;
+    setCurrentReady(true);
+    if (preserveDraft) {
+      setSaved(result);
+      setPreview(null);
+      setRemovalConsent(false);
+      setMessage(
+        'Current baseline loaded. Your proposed draft is preserved; create and review a fresh preview before saving.',
+      );
+      return;
+    }
     setWorkbook(null);
     setSaved(result);
     setDraft(result.holdings);
@@ -144,6 +187,7 @@ export function Holdings() {
     try {
       await work();
     } catch (e) {
+      if (e instanceof PreviewConflict) setCurrentReady(false);
       failure(e);
     } finally {
       setBusy(false);
@@ -397,7 +441,7 @@ export function Holdings() {
                 }
               }}
             >
-              <fieldset disabled={busy || !saved}>
+              <fieldset disabled={busy || !saved || !currentReady}>
                 <legend>
                   {editingRow === null ? 'Add a holding' : 'Edit holding'}
                 </legend>
@@ -732,6 +776,7 @@ export function Holdings() {
                 throw new Error(
                   'Add the holding to your draft or cancel its edit before reviewing.',
                 );
+              setRemovalConsent(false);
               setPreview(
                 HoldingsPreviewSchema.parse(
                   await api('/preview', {
@@ -746,7 +791,7 @@ export function Holdings() {
             });
           }}
         >
-          <fieldset disabled={busy || !saved}>
+          <fieldset disabled={busy || !saved || !currentReady}>
             <label className="check-label">
               <input
                 type="checkbox"
@@ -764,6 +809,24 @@ export function Holdings() {
           </fieldset>
         </form>
       </section>
+      {!currentReady && saved && (
+        <aside className="panel">
+          <p role="status">
+            Shown records are historical until Reload holdings succeeds. New
+            previews are disabled.
+          </p>
+          <button
+            disabled={busy}
+            onClick={() =>
+              void action(async () => {
+                await load(() => true, true);
+              })
+            }
+          >
+            Refresh baseline and keep draft
+          </button>
+        </aside>
+      )}
       {preview && (
         <section aria-label="Holdings preview" className="panel">
           {preview.import?.parserVersion === 'standard-holdings-xlsx-v1' && (
@@ -774,6 +837,11 @@ export function Holdings() {
             </p>
           )}
           <h3>Review before replacing</h3>
+          <HoldingsChangeReview
+            preview={preview}
+            acknowledged={removalConsent}
+            onAcknowledge={setRemovalConsent}
+          />
           <p>
             {preview.holdings.length} rows · total acquisition cost INR{' '}
             {goalMinorToRupees(preview.totalCostMinor)} · replacing revision{' '}
@@ -791,18 +859,33 @@ export function Holdings() {
             This is not an independently reconciled broker statement.
           </p>
           <button
-            disabled={busy}
+            disabled={
+              busy ||
+              !currentReady ||
+              !preview.reconciliation ||
+              (preview.reconciliation.changes.some(
+                (c) => c.status === 'removed',
+              ) &&
+                !removalConsent)
+            }
             onClick={() =>
               void action(async () => {
-                HoldingsSnapshotSchema.parse(
+                const receipt = HoldingsSnapshotSchema.parse(
                   await api('/confirm', {
+                    ...(removalConsent ? { acknowledgeRemovals: true } : {}),
                     previewId: preview.previewId,
                     expectedVersion: preview.expectedVersion,
                   }),
                 );
-                await load();
-                setHistory([]);
+                setPreview(null);
+                setCurrentReady(false);
                 setConsent(false);
+                setRemovalConsent(false);
+                setHistory([]);
+                setMessage(
+                  `Holdings saved as revision ${receipt.version}. Reload is needed to confirm current records.`,
+                );
+                await load();
                 setMessage('Holdings saved.');
               })
             }

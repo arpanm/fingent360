@@ -58,6 +58,8 @@ test('E2E-API-240 workbook template preview exact confirmation replay ownership 
   expect(response.status()).toBe(201);
   const preview = HoldingsPreviewSchema.parse(await response.json());
   expect(preview.import?.declaredTotalMinor).toBe('10001');
+  expect(preview.reconciliation?.baseline.version).toBe(0);
+  expect(preview.reconciliation?.changes[0]?.status).toBe('added');
   const pendingExport = PrivacyExportSchema.parse(
     await (await request.get('/api/v1/account/privacy/export')).json(),
   );
@@ -209,12 +211,24 @@ test('E2E-API-242 privacy export supports legacy array and new CSV preview recei
         data: { previewId: legacy.previewId, expectedVersion: 0 },
       })
     ).status(),
+  ).toBe(409);
+  expect(
+    (
+      await request.post('/api/v1/account/holdings/confirm', {
+        headers,
+        data: { previewId: current.previewId, expectedVersion: 0 },
+      })
+    ).status(),
   ).toBe(201);
   const after = PrivacyExportSchema.parse(
     await (await request.get('/api/v1/account/privacy/export')).json(),
   );
   expect(
     after.holdings.previews.find((p) => p.id === legacy.previewId)
+      ?.confirmedVersion,
+  ).toBeNull();
+  expect(
+    after.holdings.previews.find((p) => p.id === current.previewId)
       ?.confirmedVersion,
   ).toBe(1);
   expect(

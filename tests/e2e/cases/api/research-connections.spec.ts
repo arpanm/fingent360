@@ -529,7 +529,11 @@ test('E2E-API-268 holdings version changes and removal leave quantities and goal
     (
       await request.post('/api/v1/account/holdings/confirm', {
         headers,
-        data: { previewId: preview.previewId, expectedVersion: 1 },
+        data: {
+          previewId: preview.previewId,
+          expectedVersion: 1,
+          acknowledgeRemovals: true,
+        },
       })
     ).status(),
   ).toBe(201);

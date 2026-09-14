@@ -1,3 +1,9 @@
+import {
+  HoldingsReconciliationSchema,
+  reconcileHoldings,
+} from '@fingent360/contracts';
+import { localAllocation } from './allocations';
+import { localHoldingConnectionCount } from './research-connections';
 import { parseWorkbook } from '../workbook';
 import { z } from 'zod';
 import {
@@ -252,7 +258,17 @@ export async function handleFinance(
         .length >= 20
     )
       return fail(400, 'Too many previews. Wait for older previews to expire.');
+    const reconciliation = reconcileHoldings(
+      localHoldings(state, user.id),
+      holdings,
+      {
+        allocationRows: localAllocation(state, user.id).rows.length,
+        holdingConnections: localHoldingConnectionCount(state, user.id),
+        checkedAt: new Date().toISOString(),
+      },
+    );
     const preview = HoldingsPreviewSchema.parse({
+      reconciliation,
       previewId: crypto.randomUUID(),
       expectedVersion: input.expectedVersion,
       expiresAt: new Date(Date.now() + 1800000).toISOString(),
@@ -289,6 +305,42 @@ export async function handleFinance(
       return fail(409, 'Preview expired. Create a new preview.');
     if (localHoldings(state, user.id).version !== input.expectedVersion)
       return fail(409, 'Holdings changed. Reload and preview again.');
+    const review = HoldingsReconciliationSchema.safeParse(
+      item.preview.reconciliation,
+    );
+    if (!review.success)
+      return fail(
+        409,
+        'This preview has no readable change review. Create a fresh preview.',
+      );
+    let reconciles: boolean;
+    try {
+      const baseline = localHoldings(state, user.id);
+      reconciles =
+        JSON.stringify(baseline) === JSON.stringify(review.data.baseline) &&
+        JSON.stringify(
+          reconcileHoldings(
+            baseline,
+            item.preview.holdings,
+            review.data.dependencies,
+          ),
+        ) === JSON.stringify(review.data);
+    } catch {
+      reconciles = false;
+    }
+    if (!reconciles)
+      return fail(
+        409,
+        'Preview change review no longer reconciles. Create a fresh preview.',
+      );
+    if (
+      review.data.changes.some((change) => change.status === 'removed') &&
+      !input.acknowledgeRemovals
+    )
+      return fail(
+        400,
+        'Acknowledge removal of the listed holdings before confirming.',
+      );
     const saved = HoldingsSnapshotSchema.parse({
       version: input.expectedVersion + 1,
       holdings: item.preview.holdings,

@@ -325,6 +325,7 @@ test('E2E-OFFLINE-305 replaced holdings and removed goals stay reviewable withou
       await call(page, '/api/v1/account/holdings/confirm', 'POST', {
         previewId: preview.body.previewId,
         expectedVersion: 1,
+        acknowledgeRemovals: true,
       })
     ).status,
   ).toBe(201);

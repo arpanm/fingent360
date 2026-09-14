@@ -12,6 +12,9 @@ import {
 } from '@nestjs/common';
 import { z } from 'zod';
 import {
+  HoldingsReconciliationSchema,
+  storedHoldingsPreview,
+  reconcileHoldings,
   HoldingsImportRequestSchema,
   HoldingsImportSchema,
   holdingsWorkbookTemplate,
@@ -22,7 +25,6 @@ import {
   HoldingsPreviewSchema,
   HoldingsSnapshotSchema,
   HoldingsHistorySchema,
-  HoldingRowsSchema,
   holdingsTotal,
   parseHoldingsCsv,
 } from '@fingent360/contracts';
@@ -141,6 +143,8 @@ export class HoldingsController {
         'DELETE FROM app_holdings_previews WHERE user_id=$1 AND confirmed_version IS NULL AND expires_at < now()',
         [account.id],
       );
+      // Retention can hold an expired preview row while this DELETE waits.
+      await this.store.require(c, cookie);
       const pending = await c.query(
         'SELECT count(*)::integer AS count FROM app_holdings_previews WHERE user_id=$1 AND confirmed_version IS NULL',
         [account.id],
@@ -149,6 +153,30 @@ export class HoldingsController {
         throw new BadRequestException(
           'Too many previews. Retry after existing previews expire in 30 minutes.',
         );
+      const baselineRows = await c.query(
+        'SELECT payload FROM app_holdings_revisions WHERE user_id=$1 AND version=$2',
+        [account.id, input.expectedVersion],
+      );
+      if (input.expectedVersion > 0 && !baselineRows.rows[0])
+        throw new ConflictException(
+          'Saved baseline unavailable. Reload your holdings.',
+        );
+      const baseline = HoldingsSnapshotSchema.parse(
+        baselineRows.rows[0]?.payload ?? empty(),
+      );
+      const allocation = await c.query(
+        "SELECT jsonb_array_length(r.payload->'rows') AS count FROM app_goal_allocations a JOIN app_goal_allocation_revisions r ON r.user_id=a.user_id AND r.version=a.version WHERE a.user_id=$1",
+        [account.id],
+      );
+      const connections = await c.query(
+        "SELECT count(*)::int AS count FROM app_research_connections h JOIN app_research_connection_revisions r ON r.connection_id=h.id AND r.version=h.version WHERE h.user_id=$1 AND NOT h.removed AND r.payload->'target'->'binding'->>'kind'='holding'",
+        [account.id],
+      );
+      const reconciliation = reconcileHoldings(baseline, holdings, {
+        allocationRows: allocation.rows[0]?.count ?? 0,
+        holdingConnections: connections.rows[0].count,
+        checkedAt: new Date().toISOString(),
+      });
       const previewId = randomUUID();
       const expiresAt = new Date(Date.now() + 1800000).toISOString();
       await c.query(
@@ -157,7 +185,7 @@ export class HoldingsController {
           previewId,
           account.id,
           input.expectedVersion,
-          JSON.stringify({ holdings, import: imported }),
+          JSON.stringify({ holdings, import: imported, reconciliation }),
           expiresAt,
         ],
       );
@@ -167,6 +195,7 @@ export class HoldingsController {
         expectedVersion: input.expectedVersion,
         holdings,
         totalCostMinor: holdingsTotal(holdings),
+        reconciliation,
         parserVersion: imported.parserVersion,
         import: imported,
       });
@@ -216,14 +245,55 @@ export class HoldingsController {
         throw new ConflictException(
           'Holdings changed. Reload and preview again.',
         );
-      const holdings = HoldingRowsSchema.parse(
+      let decoded: ReturnType<typeof storedHoldingsPreview>;
+      try {
+        decoded = storedHoldingsPreview(preview.payload);
+      } catch {
+        throw new ConflictException(
+          'This preview is unreadable. Create a fresh preview.',
+        );
+      }
+      const holdings = decoded.holdings,
+        imported = decoded.import;
+      const review = HoldingsReconciliationSchema.safeParse(
         Array.isArray(preview.payload)
-          ? preview.payload
-          : preview.payload.holdings,
+          ? undefined
+          : preview.payload.reconciliation,
       );
-      const imported = Array.isArray(preview.payload)
-        ? undefined
-        : HoldingsImportSchema.parse(preview.payload.import);
+      if (!review.success)
+        throw new ConflictException(
+          'This preview has no readable change review. Create a fresh preview.',
+        );
+      if (preview.expires_at.getTime() <= Date.now())
+        throw new ConflictException('Preview expired. Create a fresh preview.');
+      const baselineRows = await c.query(
+        'SELECT payload FROM app_holdings_revisions WHERE user_id=$1 AND version=$2',
+        [account.id, input.expectedVersion],
+      );
+      const baseline = HoldingsSnapshotSchema.parse(
+        baselineRows.rows[0]?.payload ?? empty(),
+      );
+      let reconciles: boolean;
+      try {
+        reconciles =
+          JSON.stringify(baseline) === JSON.stringify(review.data.baseline) &&
+          JSON.stringify(
+            reconcileHoldings(baseline, holdings, review.data.dependencies),
+          ) === JSON.stringify(review.data);
+      } catch {
+        reconciles = false;
+      }
+      if (!reconciles)
+        throw new ConflictException(
+          'Preview change review no longer reconciles. Create a fresh preview.',
+        );
+      if (
+        review.data.changes.some((change) => change.status === 'removed') &&
+        !input.acknowledgeRemovals
+      )
+        throw new BadRequestException(
+          'Acknowledge removal of the listed holdings before confirming.',
+        );
       const version = input.expectedVersion + 1;
       const result = HoldingsSnapshotSchema.parse({
         version,

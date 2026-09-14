@@ -1,5 +1,11 @@
 # Fingent360
 
+## Review holdings replacements — HOLDINGS-RECONCILE-001
+
+Every manual, CSV or standard XLSX replacement now shows the actual saved baseline and proposed added, removed, changed and unchanged holdings before confirmation. Quantities and acquisition-cost differences use exact arithmetic. Removing rows requires an explicit acknowledgement. These are changes to recorded inputs, not market returns or valuations.
+
+A changed baseline disables stale confirmation. **Refresh baseline and keep draft** retains your proposed input for a fresh review. Successful retries preserve the original receipt; failed current reads keep that receipt dated and prevent another preview until reload. The review also shows how many saved allocation and research connections may need your attention, without modifying them. Privacy export includes the reviewed baseline and differences; account deletion removes owned records. Real local storage uses the same workflow without an API. No dependency or migration is added; rebuild/reinstall the APK for phone changes. [Specification](docs/product/holdings-reconciliation.md), [verification](docs/development/status.md). Arbitrary broker formats, market prices and tax accounting remain separate. Verified:31/31 connected checks and14/14 packaged offline checks passed; physical-phone acceptance remains separate.
+
 ## Consistent withdrawn-source handling — SOURCE-WITHDRAWAL-001
 
 When a reviewed reading item is withdrawn, its public reader and history show a dated unavailable notice. Source, evidence, visual and new-connection actions disappear. Saved reading, reminder responses and privacy exports also hide that item's provider text while retaining your saved state and controls. Explicit republication makes permitted published editions available again. Your own notes, minimal connection receipts and separately consented issued report copies remain preserved.

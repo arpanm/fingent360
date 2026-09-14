@@ -75,7 +75,87 @@ export const HoldingsTemplateSchema = z.strictObject({
   base64: z.string().max(87384),
   synthetic: z.boolean(),
 });
+export const HoldingChangeSchema = z.strictObject({
+  isin: AccountHoldingSchema.shape.isin,
+  status: z.enum(['added', 'removed', 'changed', 'unchanged']),
+  before: AccountHoldingSchema.nullable(),
+  after: AccountHoldingSchema.nullable(),
+  quantityDelta: z.string().regex(/^-?(0|[1-9][0-9]*)(\.[0-9]{1,6})?$/),
+  costDeltaMinor: z.string().regex(/^-?(0|[1-9][0-9]*)$/),
+});
+export const HoldingsReconciliationSchema = z.strictObject({
+  policy: z.literal('holdings-replacement-v1'),
+  baseline: HoldingsSnapshotSchema,
+  changes: z.array(HoldingChangeSchema).max(400),
+  totalCostDeltaMinor: z.string().regex(/^-?(0|[1-9][0-9]*)$/),
+  dependencies: z.strictObject({
+    allocationRows: z.number().int().nonnegative(),
+    holdingConnections: z.number().int().nonnegative(),
+    checkedAt: z.iso.datetime(),
+  }),
+});
+export function holdingQuantityUnits(value: string): bigint {
+  const [whole, fraction = ''] = value.split('.');
+  return BigInt(whole!) * 1000000n + BigInt(fraction.padEnd(6, '0'));
+}
+export function signedHoldingQuantity(units: bigint): string {
+  const negative = units < 0n,
+    absolute = negative ? -units : units,
+    fraction = (absolute % 1000000n)
+      .toString()
+      .padStart(6, '0')
+      .replace(/0+$/, '');
+  return `${negative ? '-' : ''}${absolute / 1000000n}${fraction ? '.' + fraction : ''}`;
+}
+export function reconcileHoldings(
+  baseline: HoldingsSnapshot,
+  proposed: Holding[],
+  dependencies: z.infer<typeof HoldingsReconciliationSchema>['dependencies'],
+) {
+  const original = HoldingsSnapshotSchema.parse(baseline),
+    next = HoldingRowsSchema.parse(proposed),
+    ids = [
+      ...new Set([...original.holdings, ...next].map((r) => r.isin)),
+    ].sort();
+  if (holdingsTotal(original.holdings) !== original.totalCostMinor)
+    throw Error('Baseline acquisition costs do not reconcile.');
+  return HoldingsReconciliationSchema.parse({
+    policy: 'holdings-replacement-v1',
+    baseline: original,
+    dependencies,
+    totalCostDeltaMinor: (
+      BigInt(holdingsTotal(next)) - BigInt(original.totalCostMinor)
+    ).toString(),
+    changes: ids.map((isin) => {
+      const before = original.holdings.find((r) => r.isin === isin) ?? null,
+        after = next.find((r) => r.isin === isin) ?? null,
+        quantityDelta = signedHoldingQuantity(
+          (after ? holdingQuantityUnits(after.quantity) : 0n) -
+            (before ? holdingQuantityUnits(before.quantity) : 0n),
+        ),
+        costDeltaMinor = (
+          BigInt(after?.totalCostMinor ?? '0') -
+          BigInt(before?.totalCostMinor ?? '0')
+        ).toString();
+      return {
+        isin,
+        before,
+        after,
+        quantityDelta,
+        costDeltaMinor,
+        status: !before
+          ? 'added'
+          : !after
+            ? 'removed'
+            : quantityDelta === '0' && costDeltaMinor === '0'
+              ? 'unchanged'
+              : 'changed',
+      };
+    }),
+  });
+}
 export const HoldingsPreviewSchema = z.strictObject({
+  reconciliation: HoldingsReconciliationSchema.optional(),
   previewId: z.uuid(),
   expiresAt: z.iso.datetime(),
   expectedVersion: z.number().int().nonnegative(),
@@ -88,6 +168,7 @@ export const HoldingsPreviewSchema = z.strictObject({
   import: HoldingsImportSchema.optional(),
 });
 export const HoldingsConfirmSchema = z.strictObject({
+  acknowledgeRemovals: z.literal(true).optional(),
   previewId: z.uuid(),
   expectedVersion: z.number().int().nonnegative(),
 });
@@ -130,9 +211,14 @@ export function holdingsCsv(rows: Holding[]): string {
 export function storedHoldingsPreview(value: unknown): {
   holdings: Holding[];
   import?: z.infer<typeof HoldingsImportSchema>;
+  reconciliation?: z.infer<typeof HoldingsReconciliationSchema> | undefined;
 } {
   if (Array.isArray(value)) return { holdings: HoldingRowsSchema.parse(value) };
   return z
-    .strictObject({ holdings: HoldingRowsSchema, import: HoldingsImportSchema })
+    .strictObject({
+      holdings: HoldingRowsSchema,
+      import: HoldingsImportSchema,
+      reconciliation: HoldingsReconciliationSchema.optional(),
+    })
     .parse(value);
 }

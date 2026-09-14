@@ -1,5 +1,9 @@
 # Planned end-to-end coverage
 
+## HOLDINGS-RECONCILE-001 acceptance
+
+Bind proposed rows to the actual immutable owned baseline; compute exact added/removed/changed/unchanged quantity/acquisition-cost differences; require removal acknowledgement; recompute before commit and preserve original successful replay. Verify no change to allocations/connections, truthful dated dependency counts, stale/expired/legacy/corrupt recovery and post-wait401 including cleanup. Exercise manual/CSV/XLSX review, keyboard/mobile/Back, draft-preserving refresh, saved-then-read failure and late initial response rejection. Mirror actual local storage/export/deletion/noAPI. New API400–403, WEB400–402, OFFLINE410 plus compatibility and exact arithmetic cases; physical spreadsheets, phone and market/tax interpretations remain separate.
+
 ## SOURCE-WITHDRAWAL-001 acceptance
 
 Fence public current/history/evidence/media/context/feed at consistent source admission; redact withdrawn provider text across saved/reminder/replay/export outputs without mutating originals or user notes. Scope shared-RSS evidence to one permitted edition. Preserve protected originals and post-wait operator/private authorization, coherent recovery/export ordering and final async assistance revalidation. Worker control → sorted eligible accounts → sorted sources → still-due reminder claims must not deadlock with cancellation/withdrawal. Exercise reader/Saved/Operations/learning loading/error/Retry/Back/keyboard/mobile and late responses. Actual local highest non-draft resolution, final snapshot manifest, dated disconnected limitation, private persistence/export/deletion and noAPI are required. API370–383, WEB370–374, OFFLINE390–393 plus projection units/compatibility; no invented source approval or physical acceptance.

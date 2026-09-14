@@ -102,7 +102,11 @@ test('E2E-API-090 holdings preview, confirm, isolate, replay and revisions @PORT
       (
         await request.post('/api/v1/account/holdings/confirm', {
           headers,
-          data: { previewId: empty.previewId, expectedVersion: 1 },
+          data: {
+            previewId: empty.previewId,
+            expectedVersion: 1,
+            acknowledgeRemovals: true,
+          },
         })
       ).status(),
     ).toBe(201);

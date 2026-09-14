@@ -104,3 +104,7 @@ Reports → Schedules → Create → frequency/timezone/time/weekday → Review 
 ## Source withdrawal
 
 Reader → Refresh reading → current unavailable notice → safe history/Back; known withdrawal removes original-source/evidence/visual/create-connection actions. Saved → Refresh → unavailable snapshot with retained Remove/Cancel controls. Operations → protected history/evidence dialogs retain escaped originals, then sign-out clears protected state. Related/learning context excludes withdrawn items; explicit Retry recovers failed current reads. WEB370–374 and OFFLINE390–393 cover races, keyboard/mobile and dated offline behavior.
+
+## Holdings replacement review
+
+Manual/CSV/XLSX → Preview → added/removed/changed/unchanged baseline comparison → explicit removal acknowledgement → Confirm → immutable saved receipt/current reload. Changed baseline → disabled confirmation → Refresh baseline and keep draft → fresh Preview. Saved response followed by failed GET retains the dated saved result and disables new previews until Reload. Dependency links open existing allocations/connections for explicit review. WEB400–402 and OFFLINE410 cover keyboard/mobile, late reads, persistence and private deletion.

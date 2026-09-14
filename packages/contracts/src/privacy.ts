@@ -9,6 +9,7 @@ import { ResearchConnectionHistorySchema } from './research-connections.js';
 import { LibrarySchema } from './library.js';
 import { LearningAttemptSchema, LearningVoteSchema } from './learning.js';
 import {
+  HoldingsReconciliationSchema,
   HoldingsImportSchema,
   HoldingRowsSchema,
   HoldingsSnapshotSchema,
@@ -75,6 +76,7 @@ export const PrivacyExportSchema = z.strictObject({
         expectedVersion: z.number().int().nonnegative(),
         holdings: HoldingRowsSchema,
         import: HoldingsImportSchema.optional(),
+        reconciliation: HoldingsReconciliationSchema.optional(),
         expiresAt: z.iso.datetime(),
         confirmedVersion: z.number().int().positive().nullable(),
       }),

@@ -125,3 +125,9 @@ Specification: docs/product/connection-reviews.md. UI/UX: Check/filter/owned rec
 ## BEA-001 boundary
 
 Spec: docs/product/bea-releases.md. API/contracts/data: fixed RSS, strict bounded metadata, actual raw hash/provenance, existing immutable PostgreSQL/Mongo publication model with no migration. UI/UX: source selection, Scan/Stories, reader/history/excerpt/Back, existing learning links and personal record connections; failed/empty/withdrawn states and keyboard/mobile. Workflow: manual refresh/review/publish, durable independent failures/replay/revisions. Privacy: minimal owned connections/reports/inbox preserve actual receipt semantics; no economic impact calculation. Offline: real dated snapshot and same local workflow with zeroAPI. Evidence: API320–328/WEB320–324/OFFLINE350–353 and status. General withdrawal, canonical economic time series, Indian prices and broader SRC008 gates remain separate.
+
+## WORKER-HEALTH-001 boundary
+
+Spec docs/product/worker-health.md. Contracts/API/storage: strict redacted aggregate data, additive030 controls/observations/audit and post-wait operator auth. Workflow: shared claim admission, pause/resume/lease/restart/receipt/version retention; original worker timings and job semantics remain. UI/UX: Operations health/details/review/confirmation/reload/error/401, keyboard/mobile. Data is actual queue/control observations, no provider or financial mutation. Offline: explicit connected-only notice/noAPI. API350–362/WEB350–354/OFFLINE380 and actual status evidence. Production observability, external notifications and complete DEV015/021 remain open.
+
+Worker-health parent verification:39/39 connected checks and19/19 packaged offline regressions passed; full run IDs, earlier UUID-fixture correction,401 body-boundary regression, preserved-record audits and phone limits are recorded in docs/development/status.md.

@@ -23,6 +23,11 @@ export async function json(
           body: JSON.stringify(body),
         }),
   });
+  // Authentication denial must not depend on an error body arriving or parsing.
+  if (response.status === 401) {
+    void response.body?.cancel().catch(() => {});
+    throw new RequestError('Please sign in to continue.', 401);
+  }
   const data: unknown = await response.json().catch(() => null);
   if (!response.ok)
     throw new RequestError(

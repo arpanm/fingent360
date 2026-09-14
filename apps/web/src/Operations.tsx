@@ -24,6 +24,7 @@ import { shortDate } from './ui';
 import { FeedbackInbox } from './FeedbackInbox';
 import { SecurityOperations } from './Securities';
 import { RetentionOperations } from './RetentionOperations';
+import { WorkerHealth } from './WorkerHealth';
 const blank: SourceInput = {
   name: '',
   category: '',
@@ -194,6 +195,7 @@ export function Operations() {
                 ['feedback', 'Feedback inbox'],
                 ['securities', 'Security identities'],
                 ['retention', 'Expired data cleanup'],
+                ['workers', 'Worker health'],
               ].map(([value, label]) => (
                 <button
                   key={value}
@@ -275,6 +277,18 @@ export function Operations() {
                   setAuthenticated(false);
                   setError(
                     'Operations session ended. Sign in again to reopen saved cleanup history.',
+                  );
+                }}
+              />
+            ) : tab === 'workers' ? (
+              <WorkerHealth
+                onSessionExpired={() => {
+                  setAuthenticated(false);
+                  setItems([]);
+                  setReview(null);
+                  setMedia(null);
+                  setError(
+                    'Operations session ended. Sign in again to reopen worker health.',
                   );
                 }}
               />

@@ -45,6 +45,7 @@ import { AllocationsController } from './allocations.js';
 import { RecoveryController } from './recovery.js';
 import { ReportsController, ReportsStore } from './reports.js';
 import { ReportWorker } from './report-worker.js';
+import { WorkerHealthController, WorkerHealthStore } from './worker-health.js';
 import { RetentionController, retentionProvider } from './retention.js';
 import {
   SecuritiesController,
@@ -85,6 +86,7 @@ export async function createApp(
       module: AppModule,
       controllers: [
         HealthController,
+        WorkerHealthController,
         FeedbackController,
         OpsFeedbackController,
         JourneyController,
@@ -129,6 +131,7 @@ export async function createApp(
         LibraryReminderWorker,
         ReportsStore,
         ReportWorker,
+        WorkerHealthStore,
         mediaProvider(config),
         sourcesProvider(config),
         assistanceProvider(config),

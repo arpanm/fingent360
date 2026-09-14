@@ -1,6 +1,7 @@
 import { randomUUID } from 'node:crypto';
 import { Inject, Injectable } from '@nestjs/common';
 import { AccountStore, STORE } from './accounts.js';
+import { admitWorker, recordWorkerObservation } from './worker-control.js';
 /** In-app delivery only. Row locks + unique reminder_id make crashed/retried batches atomic. */
 @Injectable()
 export class LibraryReminderWorker {
@@ -10,13 +11,9 @@ export class LibraryReminderWorker {
   onApplicationBootstrap() {
     this.timer = setInterval(() => {
       if (!this.running) {
-        this.running = this.deliver()
-          .catch(() => {
-            /* Retry next interval; never expose private data in logs. */
-          })
-          .finally(() => {
-            this.running = undefined;
-          });
+        this.running = this.tick().finally(() => {
+          this.running = undefined;
+        });
       }
     }, 5000);
     this.timer.unref();
@@ -27,6 +24,7 @@ export class LibraryReminderWorker {
   }
   async deliver() {
     await this.store.transaction(async (client) => {
+      if (!(await admitWorker(client, 'reminders'))) return;
       const due = await client.query<{
         id: string;
         user_id: string;
@@ -67,6 +65,20 @@ export class LibraryReminderWorker {
           [row.id],
         );
       }
+      if (due.rows.length)
+        await recordWorkerObservation(client, 'reminders', 'success');
     });
+  }
+  async tick() {
+    try {
+      await this.store.transaction((c) =>
+        recordWorkerObservation(c, 'reminders', 'heartbeat'),
+      );
+      await this.deliver();
+    } catch {
+      await this.store
+        .transaction((c) => recordWorkerObservation(c, 'reminders', 'storage'))
+        .catch(() => {});
+    }
   }
 }

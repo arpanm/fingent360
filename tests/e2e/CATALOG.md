@@ -1,5 +1,16 @@
 # End-to-end case catalogue
 
+## WORKER-HEALTH-001 — actual worker controls
+
+| Cases      | Projects       | Acceptance                                                                                                                                                                       |
+| ---------- | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| API350–359 | api            | Real aggregate observation, pause fencing across workers, restart/lease/reminder behavior, safe counts/errors, auth/Origin/version/replay/retention and optional schedule schema |
+| API360–362 | api            | Actual finish-write rejection classified storage/recovery, unchanged financial/source data, wall-clock lease expiry during held row then fresh reclaim                           |
+| WEB350–354 | desktop/mobile | Current health/detail/confirmation/history, initial fault/retry, uncertain receipt/current reload, conflict and401 cleanup, keyboard/mobile                                      |
+| OFFLINE380 | offline        | Connected-operator explanation without server requests                                                                                                                           |
+
+Tag @WORKER-HEALTH-001:23connected plus1offline executions. Selected actual worker IPC fixture is opt-in/defaultfalse; simulations are only explicit faults/time/leases in isolated databases. Successful worker behavior uses actual stores. Status records execution and separate hardware limits.
+
 ## BEA-001 — official release metadata
 
 | Cases          | Projects       | Acceptance                                                                                                                                                           |
@@ -403,3 +414,5 @@ These are implemented bounded workflows, not a claim that the complete roadmap o
 | E2E-OFFLINE-271 | Offline search miss and unsupported refresh preserve stored identities                                                           | offline         |
 
 Use tags `@ALLOCATIONS-001`, `@RECOVERY-001`, `@REPORTS-001`, `@IDENTITY-001`. Connected cases use the real isolated application fixture described in [test setup](README.md#team-002-isolated-application-cases). `@real-provider` requires ordinary OpenFIGI availability; `@simulated` explicitly marks controlled interruption scenarios and is not provider-success evidence. Offline identity cases require a fresh bundle containing at least five actual stored identities. Physical Android install, keyboard, native Back/file export, airplane-mode and same-key update acceptance remain separate from Playwright coverage.
+
+Worker-health parent verification:39/39 connected checks and19/19 packaged offline regressions passed; full run IDs, earlier UUID-fixture correction,401 body-boundary regression, preserved-record audits and phone limits are recorded in docs/development/status.md.

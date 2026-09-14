@@ -133,6 +133,16 @@ async function start() {
   if (cancelled) return;
   // Let the OS reserve the port atomically; never race a find-free-port probe.
   await app.listen(0, '127.0.0.1');
+  if (process.env.F360_TEST_MANUAL_WORKERS === '1') {
+    // Selected worker-control tests drive real instances explicitly, only in this
+    // owned API/schema. Ordinary fixtures keep their production timers.
+    const { ReportWorker } =
+      await import('../../../apps/api/dist/report-worker.js');
+    const { LibraryReminderWorker } =
+      await import('../../../apps/api/dist/library-worker.js');
+    await app.get(ReportWorker).onApplicationShutdown();
+    await app.get(LibraryReminderWorker).onApplicationShutdown();
+  }
   if (!cancelled)
     notify({
       apiOrigin: await app.getUrl(),

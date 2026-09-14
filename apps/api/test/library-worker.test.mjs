@@ -7,6 +7,8 @@ test('reminder delivery snapshots current published title instead of outdated sc
   const client = {
     query: async (sql, params) => {
       calls.push({ sql, params });
+      if (sql.includes('FROM worker_controls'))
+        return { rows: [{ paused: false }] };
       if (sql.includes('FROM library_reminders'))
         return {
           rows: [
@@ -30,7 +32,13 @@ test('reminder delivery snapshots current published title instead of outdated sc
     call.sql.startsWith('INSERT INTO library_notifications'),
   );
   assert.equal(insert.params[4], 'Corrected title');
-  assert.ok(calls.find((call) => call.sql.includes('FOR SHARE')));
+  assert.ok(
+    calls.find(
+      (call) =>
+        call.sql.includes('FROM discovery_items') &&
+        call.sql.includes('FOR SHARE'),
+    ),
+  );
   assert.ok(calls.some((call) => call.sql.includes("status='delivered'")));
 });
 test('withdrawn source cancels a pending reminder without creating notification', async () => {
@@ -38,6 +46,8 @@ test('withdrawn source cancels a pending reminder without creating notification'
   const client = {
     query: async (sql, params) => {
       calls.push({ sql, params });
+      if (sql.includes('FROM worker_controls'))
+        return { rows: [{ paused: false }] };
       if (sql.includes('FROM library_reminders'))
         return {
           rows: [

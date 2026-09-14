@@ -349,6 +349,11 @@ export function OfflineOperationsNotice() {
     <section className="account">
       <h1>Operations need a connected server</h1>
       <p>
+        Worker health and pause/resume control connected server report
+        preparation, scheduled reports and reading reminders. They are
+        unavailable here; on-device work is unchanged.
+      </p>
+      <p>
         Expired data cleanup applies to server records and requires an
         operations sign-in. It is unavailable in this device workspace. Your
         local accounts and financial records stay on this device.

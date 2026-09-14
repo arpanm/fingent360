@@ -6,22 +6,45 @@ export interface FeedbackSandbox {
   databaseUrl: string;
   schema: string;
 }
-export const test = base.extend<{ feedbackSandbox: FeedbackSandbox }>({
+export const test = base.extend<{
+  feedbackSandbox: FeedbackSandbox;
+  manualWorkers: boolean;
+}>({
+  manualWorkers: [false, { option: true }],
   feedbackSandbox: [
-    // Playwright requires destructuring even when a fixture has no dependencies.
-    // eslint-disable-next-line no-empty-pattern
-    async ({}, use, testInfo) => {
+    async ({ manualWorkers }, use, testInfo) => {
       const child = fork(
         new URL('./feedback-api-process.mjs', import.meta.url),
         [],
         {
           stdio: ['ignore', 'ignore', 'ignore', 'ipc'],
           execArgv: [],
-          env: { ...process.env, E2E_WEB_URL: process.env.E2E_WEB_URL },
+          env: {
+            ...process.env,
+            E2E_WEB_URL: process.env.E2E_WEB_URL,
+            F360_TEST_MANUAL_WORKERS: manualWorkers ? '1' : '0',
+          },
         },
       );
       let cleanupError = '';
+      let annotatedOwnedSchema = false;
       child.on('message', (message) => {
+        if (
+          !annotatedOwnedSchema &&
+          message &&
+          typeof message === 'object' &&
+          'phase' in message &&
+          message.phase === 'schema-created' &&
+          'schema' in message &&
+          typeof message.schema === 'string' &&
+          /^e2e_feedback_[a-f0-9]{32}$/.test(message.schema)
+        ) {
+          annotatedOwnedSchema = true;
+          testInfo.annotations.push({
+            type: 'feedback-owned-schema',
+            description: message.schema,
+          });
+        }
         if (message && typeof message === 'object' && 'error' in message)
           cleanupError = String(message.error);
       });

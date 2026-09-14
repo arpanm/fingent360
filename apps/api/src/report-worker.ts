@@ -8,20 +8,22 @@ export class ReportWorker {
   onApplicationBootstrap() {
     this.timer = setInterval(() => {
       if (!this.active)
-        this.active = this.store
-          .workOne()
-          .then(() => {})
-          .catch(() => {
-            /* Missing migration or temporary storage failure retries next interval. */
-          })
-          .finally(() => {
-            this.active = undefined;
-          });
+        this.active = this.tick().finally(() => {
+          this.active = undefined;
+        });
     }, 2000);
     this.timer.unref();
   }
   async onApplicationShutdown() {
     if (this.timer) clearInterval(this.timer);
     await this.active;
+  }
+  async tick() {
+    try {
+      await this.store.observe('heartbeat');
+      await this.store.workOne();
+    } catch {
+      await this.store.observe('storage').catch(() => {});
+    }
   }
 }

@@ -54,3 +54,4 @@ export * from './goal-scenarios.js';
 
 export * from './connection-reviews.js';
 export * from './bea.js';
+export * from './worker-health.js';

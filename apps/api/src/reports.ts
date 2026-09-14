@@ -14,6 +14,7 @@ import {
   NotFoundException,
   Param,
   Post,
+  ServiceUnavailableException,
 } from '@nestjs/common';
 import type pg from 'pg';
 import { z } from 'zod';
@@ -35,6 +36,7 @@ import {
 } from '@fingent360/contracts';
 import { AccountStore, STORE } from './accounts.js';
 import { captureReportConnections } from './report-research.js';
+import { admitWorker, recordWorkerObservation } from './worker-control.js';
 const emptyHoldings = () =>
   HoldingsSnapshotSchema.parse({
     version: 0,
@@ -328,6 +330,7 @@ export class ReportsStore {
   }
   async claim() {
     return this.account.transaction(async (c) => {
+      if (!(await admitWorker(c, 'reports'))) return null;
       await c.query(
         "UPDATE record_report_jobs SET status='failed',version=version+1,updated_at=now(),next_attempt_at=NULL,lease_id=NULL,lease_until=NULL,message='Preparation stopped after three attempts. Retry explicitly when ready.' WHERE status='running' AND lease_until<=now() AND attempts>=3",
       );
@@ -352,10 +355,17 @@ export class ReportsStore {
   async finish(id: string, lease: string, report: RecordReport) {
     return this.account.transaction(async (c) => {
       const row = await c.query(
-        "SELECT id FROM record_report_jobs WHERE id=$1 AND lease_id=$2 AND status='running' AND lease_until>now() FOR UPDATE",
+        "SELECT id FROM record_report_jobs WHERE id=$1 AND lease_id=$2 AND status='running' FOR UPDATE",
         [id, lease],
       );
       if (!row.rows[0]) return;
+      // Completion may wait behind another transaction. A lease valid when the
+      // transaction started must still be live after the final job-row lock.
+      const validLease = await c.query(
+        "SELECT 1 FROM record_report_jobs WHERE id=$1 AND lease_id=$2 AND status='running' AND lease_until>clock_timestamp()",
+        [id, lease],
+      );
+      if (!validLease.rowCount) return;
       await c.query(
         'INSERT INTO record_reports(job_id,payload) VALUES($1,$2) ON CONFLICT(job_id) DO NOTHING',
         [id, JSON.stringify(report)],
@@ -364,15 +374,27 @@ export class ReportsStore {
         "UPDATE record_report_jobs SET status='succeeded',version=version+1,updated_at=now(),lease_id=NULL,lease_until=NULL,next_attempt_at=NULL,message='Your immutable saved-record review is ready.' WHERE id=$1",
         [id],
       );
+      await recordWorkerObservation(c, 'reports', 'success');
     });
   }
-  async fail(id: string, lease: string) {
+  async fail(
+    id: string,
+    lease: string,
+    category: 'storage' | 'preparation' = 'preparation',
+  ) {
     return this.account.transaction(async (c) => {
-      await c.query(
+      const changed = await c.query(
         "UPDATE record_report_jobs SET status=CASE WHEN attempts>=3 THEN 'failed' ELSE 'queued' END,version=version+1,updated_at=now(),next_attempt_at=CASE WHEN attempts>=3 THEN NULL ELSE now()+interval '10 seconds' END,lease_id=NULL,lease_until=NULL,message='Preparation interrupted; bounded retry preserves the original snapshot.' WHERE id=$1 AND lease_id=$2 AND status='running'",
         [id, lease],
       );
+      if (changed.rowCount)
+        await recordWorkerObservation(c, 'reports', category);
     });
+  }
+  async observe(outcome: 'heartbeat' | 'storage') {
+    await this.account.transaction((c) =>
+      recordWorkerObservation(c, 'reports', outcome),
+    );
   }
   async workOne() {
     const claim = await this.claim();
@@ -388,8 +410,14 @@ export class ReportsStore {
           new Date().toISOString(),
         ),
       );
-    } catch {
-      await this.fail(claim.id, claim.lease);
+    } catch (error) {
+      await this.fail(
+        claim.id,
+        claim.lease,
+        error instanceof ServiceUnavailableException
+          ? 'storage'
+          : 'preparation',
+      );
     }
     return true;
   }

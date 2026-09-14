@@ -1,5 +1,11 @@
 # Fingent360
 
+## Worker health and controls — WORKER-HEALTH-001
+
+**Operations → Worker health** shows report/reminder heartbeats, last successful work, safe failure categories and bounded queue counts. Stale, not observed and unavailable states are distinct. An operator can review and confirm Pause or Resume, then inspect its dated audit receipt and reload current status. A pause blocks new work across instances; already claimed report jobs may finish. Resume preserves ordinary leases and duplicate protection.
+
+No private report content, reminder titles or raw database errors are displayed. Migration030 adds minimal controls/observations/audit records. Scheduled-report counts say not enabled until the separate schedule migration exists. On-device mode explains that these controls require the connected server; no network request is attempted. [Specification](docs/product/worker-health.md), [verification](docs/development/status.md). Shared web changes require a rebuilt/reinstalled APK to reach an offline phone.
+
 ## BEA release reading — BEA-001
 
 Today and Explore include reviewed US Bureau of Economic Analysis release headlines. Choose BEA in Explore to switch between Scan and Stories, open a dated release, inspect history and its permitted evidence excerpt, or connect it to your own saved records. Learning links use existing educational content. The release headline and date are factual source metadata; the app does not infer portfolio impact or extract economic figures from this feed.

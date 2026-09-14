@@ -1,5 +1,16 @@
 # End-to-end case catalogue
 
+## BEA-001 — official release metadata
+
+| Cases          | Projects       | Acceptance                                                                                                                                                           |
+| -------------- | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| API320–324     | api            | Ordinary live RSS and actual raw/hash/draft/publication; captured replay dedup; independent failure; withdrawal/redaction/republication; corrected editions          |
+| API325–328     | api            | Owned connection/replay/privacy and unchanged finances; actual report/inbox compatibility; ops/Origin/input denial; source-lock withdrawal/evidence race             |
+| WEB320–324     | desktop/mobile | Real source filter/Scan/Stories/reader/history/evidence/Back, Operations publication/withdrawal, empty/fault retry, owned connection workflow and withdrawn controls |
+| OFFLINE350–353 | offline        | Genuine dated BEA bundle and zeroAPI reading; durable connection/report/inbox/export/deletion; explicit synthetic withdrawn and pre-BEA bundle behavior              |
+
+Tag @BEA-001:19connected and4offline executions. Only API320 is @external; simulations are explicitly labelled and successful application responses remain actual. Four parser unit cases retain captured provenance. Status records execution; native hardware acceptance is separate.
+
 ## CONNECTION-REVIEWS-001 — private review inbox
 
 | Cases          | Projects       | Acceptance                                                                                                                                                                                             |

@@ -1,0 +1,11 @@
+{
+  "file": "bea-rss.xml",
+  "url": "https://apps.bea.gov/rss/rss.xml",
+  "retrievedAt": "2026-09-13T23:47:04.397755Z",
+  "sha256": "446cb4078349673864407af824f8a6f54c1ec9fc54d10d076451ae5c179915f7",
+  "bytes": 88601,
+  "capture": "Exact ordinary HTTP200 text/xml response captured by the parent; no agent provider request. Full response retained for parser acceptance; only headline/link/pubDate fields may be displayed.",
+  "termsUrl": "https://www.bea.gov/help/faq/147",
+  "termsCheckedAt": "2026-09-13",
+  "termsEvidence": "Parent checked BEA FAQ: information generally public domain unless otherwise stated; attribution requested. No third-party media or descriptions displayed."
+}

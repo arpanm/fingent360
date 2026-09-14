@@ -1,3 +1,10 @@
+import {
+  BEA_FEED,
+  BEA_NAME,
+  BEA_TERMS,
+  BEA_RIGHTS,
+} from '@fingent360/contracts';
+import { parseBeaRss } from './bea-provider.js';
 import { parseProviderJson, normalizeDecimal } from './world-bank.js';
 import { z } from 'zod';
 import {
@@ -61,6 +68,18 @@ function descriptor(
   };
 }
 export const researchSources: ResearchSource[] = [
+  descriptor(
+    'bea',
+    BEA_NAME,
+    'global',
+    'https://www.bea.gov',
+    BEA_FEED,
+    BEA_TERMS,
+    BEA_RIGHTS,
+    ['Global economy', 'Growth', 'Trade'],
+    'enabled',
+    'First-party /news/ release headlines only. Descriptions, numerical fields, media and legacy archive links are excluded; publication requires review.',
+  ),
   descriptor(
     'fed',
     'Federal Reserve Board',
@@ -452,6 +471,10 @@ export async function fetchResearchSource(
     await persistRaw(raw);
     return raw;
   };
+  if (id === 'bea') {
+    const raw = await fetchAndRetain(BEA_FEED);
+    return [{ ...raw, items: parseBeaRss(raw.body, raw.retrievedAt) }];
+  }
   if (id === 'fed') {
     const raw = await fetchAndRetain(FED_FEED);
     return [{ ...raw, items: parseFedRss(raw.body, raw.retrievedAt) }];

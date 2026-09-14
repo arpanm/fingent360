@@ -53,3 +53,4 @@ export * from './research-connections.js';
 export * from './goal-scenarios.js';
 
 export * from './connection-reviews.js';
+export * from './bea.js';

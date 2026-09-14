@@ -53,6 +53,7 @@ export const DiscoveryReviewSchema = z.strictObject({
   correctionNote: z.string().trim().min(1).max(2000),
 });
 export const DiscoveryEvidenceSchema = z.strictObject({
+  scope: z.literal('release-metadata').optional(),
   hash: z.string(),
   url: PublicUrl,
   retrievedAt: z.iso.datetime(),

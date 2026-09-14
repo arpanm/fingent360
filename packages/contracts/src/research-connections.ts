@@ -1,3 +1,4 @@
+import { isBeaReleaseUrl } from './bea.js';
 import { z } from 'zod';
 import { DiscoveryIdSchema, type FeedItem } from './discovery.js';
 import { AccountHoldingSchema, type HoldingsSnapshot } from './holdings.js';
@@ -132,9 +133,15 @@ export function connectionSource(
     !item ||
     item.status !== 'published' ||
     !item.sourceHash ||
-    !['fed', 'ecb-press', 'ecb-statistics', 'pib', 'world-bank'].includes(
-      sourceIdFor(item),
-    )
+    (item.id.startsWith('bea-') && !isBeaReleaseUrl(item.source.url)) ||
+    ![
+      'fed',
+      'ecb-press',
+      'ecb-statistics',
+      'pib',
+      'world-bank',
+      'bea',
+    ].includes(sourceIdFor(item))
   )
     return null;
   return ConnectionSourceReceiptSchema.parse({

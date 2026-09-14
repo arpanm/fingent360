@@ -1,5 +1,9 @@
 # Planned end-to-end coverage
 
+## BEA-001 acceptance
+
+Validate ordinary fixed official RSS → bounded metadata parse → raw Mongo hash/provenance → immutable draft → explicit review/publication → source filters/Scan/Stories/reader/history/evidence/learning. No invented economics, media rights or financial impact. Exercise independent faults/replay/corrections, authenticated Operations and source-lock withdrawal admission. Actual owned connection/report/inbox flows must retain minimal dated receipts without exposing withdrawn text. API320–328, WEB320–324 desktop/mobile and OFFLINE350–353 use actual persistence/bundled source metadata, with explicit captured-transport/fault simulations. No-network old-bundle states remain dated; phone upgrades require rebuilding/reinstalling.
+
 ## CONNECTION-REVIEWS-001 acceptance
 
 Check actual saved personal research connections against permitted stored editions and owned financial versions. Prove one notice per connection, preserved same-state acknowledgement, reopen on material state change and resolution on removal/reaffirmation. No financial or source mutation. Strict ownership/version/replay/capacity/post-lock authorization, bounded removed-history turnover and dated expiry must hold on actual APIs/database/local storage. WEB310–313 verifies real check/receipt/ack/retry/filter/navigation and response races on desktop/mobile; API310–314 and OFFLINE340–343 prove persistence/privacy/no-network. Historical operation receipts never establish current state, and closing a pending receipt cannot reopen it later. Native physical acceptance remains explicit.

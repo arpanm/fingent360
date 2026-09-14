@@ -1,3 +1,8 @@
+import {
+  beaReleaseFields,
+  publicBeaEdition,
+  BEA_FEED,
+} from '@fingent360/contracts';
 import { createHash, randomUUID } from 'node:crypto';
 import {
   BadRequestException,
@@ -30,7 +35,7 @@ import {
 } from '@fingent360/contracts';
 import type { AppConfig } from './config.js';
 import { OPERATOR_STORE, OperatorStore } from './operator.js';
-import { glossaryItems } from './discovery-provider.js';
+import { glossaryItems, sourceHash } from './discovery-provider.js';
 import { fetchResearchSource, researchSources } from './research-providers.js';
 import {
   enrichResearchItem,
@@ -281,20 +286,28 @@ export class DiscoveryStore {
       const item = FeedItemSchema.parse(r.rows[0].data);
       if (item.status === 'draft')
         throw new NotFoundException('Published item not found.');
-      return item;
+      return publicBeaEdition(item);
     });
   }
   async history(id: string) {
     await this.item(id);
     return this.transaction(async (c) => {
+      if (id.startsWith('bea-'))
+        await c.query('SELECT id FROM discovery_items WHERE id=$1 FOR SHARE', [
+          id,
+        ]);
       const r = await c.query<VersionRow>(
         "SELECT data FROM discovery_versions WHERE item_id=$1 AND data->>'status' IN ('published','withdrawn') ORDER BY version DESC",
         [id],
       );
-      return r.rows.map((v) => FeedItemSchema.parse(v.data));
+      const editions = r.rows.map((v) => FeedItemSchema.parse(v.data));
+      return editions.map((v) =>
+        publicBeaEdition(v, editions[0]?.status === 'withdrawn'),
+      );
     });
   }
   async evidence(id: string) {
+    if (id.startsWith('bea-')) return this.beaEvidence(id);
     const item = await this.item(id);
     if (!item.sourceHash)
       throw new NotFoundException(
@@ -318,6 +331,60 @@ export class DiscoveryStore {
       if (error instanceof HttpException) throw error;
       throw new ServiceUnavailableException('Evidence storage unavailable.');
     }
+  }
+  private async beaEvidence(id: string) {
+    validId(id);
+    return this.transaction(async (c) => {
+      await c.query('SELECT id FROM discovery_items WHERE id=$1 FOR SHARE', [
+        id,
+      ]);
+      const rows = await c.query<VersionRow>(
+        "SELECT data FROM discovery_versions WHERE item_id=$1 AND data->>'status'<>'draft' ORDER BY version DESC LIMIT 1",
+        [id],
+      );
+      const item = rows.rows[0]
+        ? FeedItemSchema.parse(rows.rows[0].data)
+        : null;
+      if (!item || item.status !== 'published' || !item.sourceHash)
+        throw new NotFoundException(
+          'BEA release evidence is unavailable or withdrawn.',
+        );
+      try {
+        const raw = await this.mongo
+          .db()
+          .collection<Raw>('discovery_raw')
+          .findOne({ _id: item.sourceHash });
+        if (
+          !raw ||
+          raw.url !== BEA_FEED ||
+          sourceHash(raw.url, raw.body) !== item.sourceHash
+        )
+          throw new NotFoundException('Stored BEA evidence unavailable.');
+        const release = beaReleaseFields(raw.body, raw.retrievedAt).find(
+          (r) => r.url === item.source.url,
+        );
+        if (
+          !release ||
+          release.title !== item.title ||
+          release.publishedAt !== item.publishedAt
+        )
+          throw new NotFoundException(
+            'Stored BEA evidence does not match this edition.',
+          );
+        return DiscoveryEvidenceSchema.parse({
+          hash: raw._id,
+          url: raw.url,
+          retrievedAt: raw.retrievedAt,
+          body: release.excerpt,
+          scope: 'release-metadata',
+        });
+      } catch (error) {
+        if (error instanceof HttpException) throw error;
+        throw new ServiceUnavailableException(
+          'BEA evidence storage or metadata unavailable.',
+        );
+      }
+    });
   }
   async operations() {
     return this.transaction(async (c) => {

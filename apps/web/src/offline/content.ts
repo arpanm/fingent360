@@ -1,3 +1,4 @@
+import { publicBeaEdition } from '@fingent360/contracts';
 import { learningContentItems } from '@fingent360/contracts';
 import {
   ResearchFiltersSchema,
@@ -135,9 +136,18 @@ export async function handleContent(
     );
     if (!current) fail(404, 'Published item is not included in this snapshot.');
     const action = item[2];
-    if (!action) return { body: current };
+    if (!action) return { body: publicBeaEdition(current) };
     if (action === 'history')
-      return { body: bundle.histories[id] ?? [current] };
+      return {
+        body: (bundle.histories[id] ?? [current]).map((v) =>
+          publicBeaEdition(
+            FeedItemSchema.parse(v),
+            current.status === 'withdrawn',
+          ),
+        ),
+      };
+    if (id.startsWith('bea-') && current.status !== 'published')
+      fail(404, 'BEA release evidence is unavailable or withdrawn.');
     if (
       (action === 'media' || action === 'context') &&
       current.status !== 'published'

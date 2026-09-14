@@ -88,7 +88,7 @@ export const ResearchRunsSchema = z.strictObject({
   runs: z.array(ResearchSourceRunSchema),
 });
 export function sourceIdFor(item: FeedItem): string {
-  for (const id of ['ecb-statistics', 'ecb-press', 'fed', 'pib'])
+  for (const id of ['ecb-statistics', 'ecb-press', 'fed', 'pib', 'bea'])
     if (item.id.startsWith(`${id}-`)) return id;
   if (
     item.id.startsWith('annual-') ||

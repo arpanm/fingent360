@@ -1,5 +1,11 @@
 # Fingent360
 
+## BEA release reading — BEA-001
+
+Today and Explore include reviewed US Bureau of Economic Analysis release headlines. Choose BEA in Explore to switch between Scan and Stories, open a dated release, inspect history and its permitted evidence excerpt, or connect it to your own saved records. Learning links use existing educational content. The release headline and date are factual source metadata; the app does not infer portfolio impact or extract economic figures from this feed.
+
+Operations refreshes the fixed official RSS, retains original evidence, creates immutable drafts and requires explicit publication. Failures preserve existing editions. Public evidence shows only the selected release metadata and identifies that its hash covers the complete original RSS. BEA withdrawal removes public text and source/evidence actions while preserving protected originals and minimal private receipts. General withdrawal handling for other sources remains a separately tracked task. No dependency or migration is added. The dated Android bundle is updated explicitly and a rebuilt APK must be reinstalled to update a phone. [Source scope and provenance](docs/product/bea-releases.md), [actual verification and bundle availability](docs/development/status.md). Verified:19/19 connected BEA cases and11/11 source regressions; all19 selected offline scenarios have passing evidence across correction runs. The dated public bundle contains179items, including43BEA releases. Physical-phone acceptance remains separate.
+
 ## Your connection review inbox — CONNECTION-REVIEWS-001
 
 **More → Review inbox**, also linked from Research connections, checks your saved research connections when you choose **Check for updates**. Changed or withdrawn source editions and changed or removed financial records create one dated notice per connection. Acknowledge marks that evaluated state as seen; it does not reaffirm the connection. A later change reopens the notice, and removing or explicitly reaffirming the connection resolves it on the next check.

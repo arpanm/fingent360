@@ -1168,6 +1168,13 @@ export function Reader({ id }: { id: string }) {
       {!withdrawn && (
         <>
           <MediaSummary itemId={item.id} />
+          {item.id.startsWith('bea-') && (
+            <p className="panel">
+              BEA headline only. Open the original release for its reference
+              period, units and estimates. This reading does not establish an
+              effect on your holdings or goals.
+            </p>
+          )}
           <div className="reading-body">
             {(item.body === item.title ? [] : item.body.split(/\n\n+/)).map(
               (p, i) => (
@@ -1221,10 +1228,12 @@ export function Reader({ id }: { id: string }) {
           <a href={`#explore?source=${encodeURIComponent(sourceIdFor(item))}`}>
             More from this source
           </a>
-          <a href={item.source.url} target="_blank" rel="noreferrer">
-            Original source <Icon name="arrow" size={16} />
-          </a>
-          {item.sourceHash && (
+          {!(withdrawn && item.id.startsWith('bea-')) && (
+            <a href={item.source.url} target="_blank" rel="noreferrer">
+              Original source <Icon name="arrow" size={16} />
+            </a>
+          )}
+          {item.sourceHash && !(withdrawn && item.id.startsWith('bea-')) && (
             <button
               className="text-link"
               onClick={() => void openDetail('evidence')}
@@ -1534,8 +1543,19 @@ function Evidence({
       <a href={data.url} target="_blank" rel="noreferrer">
         Open original provider record
       </a>
+      {data.scope === 'release-metadata' && (
+        <p>
+          Selected release metadata only: title, link and publication date. The
+          hash identifies the full stored RSS document; descriptions, numerical
+          fields and media are excluded from this excerpt.
+        </p>
+      )}
       <details>
-        <summary>Advanced: original response</summary>
+        <summary>
+          {data.scope === 'release-metadata'
+            ? 'Advanced: permitted metadata excerpt'
+            : 'Advanced: original response'}
+        </summary>
         <p className="hash">{data.hash}</p>
         <pre>{data.body}</pre>
       </details>

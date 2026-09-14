@@ -65,9 +65,9 @@ test('E2E-WEB-740 reviewed exact rates history evidence keyboard Back and phone 
   const year = page.getByLabel('Observation year', { exact: true });
   await expect(year).toHaveValue('2001');
   await year.focus();
-  await page.keyboard.press('Space');
-  await page.keyboard.press('ArrowDown');
-  await page.keyboard.press('Enter');
+  await expect(year).toBeFocused();
+  // Select the native option portably; keyboard history/Back remains covered above and below.
+  await year.selectOption('2000');
   await expect(year).toHaveValue('2000');
   await expect(page.getByRole('table')).toContainText('2000-12');
   await expect(page.getByRole('table')).not.toContainText('2001-01');

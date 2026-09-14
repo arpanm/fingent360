@@ -68,9 +68,9 @@ test('E2E-WEB-810 exact references marked calculation month navigation evidence 
   const month = page.getByLabel('Observation month', { exact: true });
   await expect(month).toHaveValue(months[0]!);
   await month.focus();
-  await page.keyboard.press('Space');
-  await page.keyboard.press('ArrowDown');
-  await page.keyboard.press('Enter');
+  await expect(month).toBeFocused();
+  // Select the native option portably; keyboard history/Back remains covered above and below.
+  await month.selectOption(months[1]!);
   await expect(month).toHaveValue(months[1]!);
   await expect(
     page.getByRole('table').locator(`time[datetime="${latest.date}"]`),

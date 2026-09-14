@@ -86,7 +86,27 @@ try {
   process.stdout.write(
     JSON.stringify({ phase: 'result', calls, network, result }) + '\n',
   );
-} catch {
+} catch (error) {
+  process.stdout.write(
+    JSON.stringify({
+      phase: 'failure',
+      kind: error?.name ?? 'Error',
+      fields: Array.isArray(error?.issues)
+        ? error.issues.map((issue) => issue.path.join('.'))
+        : [],
+      frames:
+        typeof error?.stack === 'string'
+          ? error.stack
+              .split('\n')
+              .slice(1)
+              .filter(
+                (line) =>
+                  line.includes('/apps/api/') ||
+                  line.includes('/packages/contracts/'),
+              )
+          : [],
+    }) + '\n',
+  );
   // Never print database credentials, session cookies or driver diagnostics.
   process.exitCode = 1;
 } finally {

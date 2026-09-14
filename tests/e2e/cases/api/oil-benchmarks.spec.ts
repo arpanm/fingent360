@@ -424,8 +424,8 @@ test('E2E-API-748 bounded public edition and protected review pages preserve int
       'INSERT INTO oil_benchmark_observations(edition,series,period,value,source_value) SELECT n,series,period,value,source_value FROM oil_benchmark_observations CROSS JOIN generate_series(2,51) n WHERE edition=1',
     );
     await pool.query(
-      "INSERT INTO oil_benchmark_reviews(request_id,fingerprint,edition,status,head_version,reviewed_at,payload) SELECT id,repeat('a',64),n,'published',n*2,$1::timestamptz,jsonb_build_object('requestId',id,'sourceId','world-bank-oil-benchmarks','headVersion',n*2,'edition',n,'status','published','correctionNote','Synthetic pagination fixture only','reviewedAt',$1::text) FROM (SELECT n,gen_random_uuid() AS id FROM generate_series(1,51) n) x",
-      [first.retrievedAt],
+      "INSERT INTO oil_benchmark_reviews(request_id,fingerprint,edition,status,head_version,reviewed_at,payload) SELECT id,repeat('a',64),n,'published',n*2,$1::timestamptz,jsonb_build_object('requestId',id,'sourceId','world-bank-oil-benchmarks','headVersion',n*2,'edition',n,'status','published','correctionNote','Synthetic pagination fixture only','reviewedAt',$2::text) FROM (SELECT n,gen_random_uuid() AS id FROM generate_series(1,51) n) x",
+      [first.retrievedAt, first.retrievedAt],
     );
     await pool.query(
       "UPDATE oil_benchmark_head SET version=102,edition=51,published_edition=51,status='published',reviewed_at=$1",

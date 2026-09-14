@@ -87,6 +87,11 @@ async function admitPrivateReferences(
   }
   return admitted;
 }
+class ReferencesChanged extends HttpException {
+  constructor() {
+    super('References changed before dispatch.', 409);
+  }
+}
 const fieldHelp: Record<AssistanceInput['scope'], AssistanceCandidate[]> = {
   goals: [
     {
@@ -446,7 +451,7 @@ export class AssistanceController {
             if (consent && !consentActive(consent, new Date().toISOString()))
               throw new ConsentUnavailable();
             if (!permitted.length || permitted.length !== candidates.length)
-              throw new Error('References changed before dispatch.');
+              throw new ReferencesChanged();
             // Calling the async dispatcher starts fixed-host fetch before releasing
             // account/source admission. Its network response is awaited outside this transaction.
             const response = this.dispatch(
@@ -488,7 +493,8 @@ export class AssistanceController {
         } catch (error) {
           if (
             error instanceof HttpException &&
-            !(error instanceof ConsentUnavailable)
+            !(error instanceof ConsentUnavailable) &&
+            !(error instanceof ReferencesChanged)
           )
             throw error;
           message =

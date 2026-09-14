@@ -783,6 +783,7 @@ test('E2E-API-767 actual controller dispatch admission blocks revoked sharing an
         if (value.phase === 'dispatched') dispatch();
         if (value.phase === 'loaded') loaded();
         if (value.phase === 'result') complete(value);
+        if (value.phase === 'failure') failed(Error(JSON.stringify(value)));
       }
     });
     const exited = new Promise<void>((resolve) => {

@@ -431,8 +431,8 @@ test('E2E-API-818 bounded public edition and protected review pages preserve int
       'INSERT INTO ecb_fx_observations(edition,observed_on,usd_per_eur,inr_per_eur,usd_source,inr_source,derived_inr_per_usd) SELECT n,observed_on,usd_per_eur,inr_per_eur,usd_source,inr_source,derived_inr_per_usd FROM ecb_fx_observations CROSS JOIN generate_series(2,51) n WHERE edition=1',
     );
     await pool.query(
-      "INSERT INTO ecb_fx_reviews(request_id,fingerprint,edition,status,head_version,reviewed_at,payload) SELECT id,repeat('a',64),n,'published',n*2,$1::timestamptz,jsonb_build_object('requestId',id,'sourceId','ecb-reference-fx','headVersion',n*2,'edition',n,'status','published','correctionNote','Synthetic pagination fixture only','reviewedAt',$1::text) FROM (SELECT n,gen_random_uuid() AS id FROM generate_series(1,51) n) x",
-      [first.retrievedAt],
+      "INSERT INTO ecb_fx_reviews(request_id,fingerprint,edition,status,head_version,reviewed_at,payload) SELECT id,repeat('a',64),n,'published',n*2,$1::timestamptz,jsonb_build_object('requestId',id,'sourceId','ecb-reference-fx','headVersion',n*2,'edition',n,'status','published','correctionNote','Synthetic pagination fixture only','reviewedAt',$2::text) FROM (SELECT n,gen_random_uuid() AS id FROM generate_series(1,51) n) x",
+      [first.retrievedAt, first.retrievedAt],
     );
     await pool.query(
       "UPDATE ecb_fx_head SET version=102,edition=51,published_edition=51,status='published',reviewed_at=$1",

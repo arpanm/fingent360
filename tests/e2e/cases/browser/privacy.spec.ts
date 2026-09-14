@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import { test, expect } from '@playwright/test';
-import { PrivacyExportSchema } from '../../../../packages/contracts/src/index';
+import { CompletePrivacyExportSchema } from '../../../../packages/contracts/src/index';
 test.use({ trace: 'off', video: 'off', screenshot: 'off' });
 test('E2E-WEB-050 download private data and end other sessions @PRIVACY-001', async ({
   page,
@@ -49,7 +49,7 @@ test('E2E-WEB-050 download private data and end other sessions @PRIVACY-001', as
     const stream = await download.createReadStream();
     const chunks: Buffer[] = [];
     for await (const chunk of stream) chunks.push(Buffer.from(chunk));
-    const exported = PrivacyExportSchema.parse(
+    const exported = CompletePrivacyExportSchema.parse(
       JSON.parse(Buffer.concat(chunks).toString('utf8')),
     );
     expect(exported.account.username).toBe(username);

@@ -1,3 +1,4 @@
+import { exportOfflineReportSchedules } from './report-schedules';
 import { exportLocalGoalScenarios } from './goal-scenarios';
 import { exportLocalConnectionReviews } from './connection-reviews';
 import { z } from 'zod';
@@ -288,6 +289,7 @@ export async function handleAccounts(
       'localGoalScenarios',
       'localConnectionReviews',
       'localReports',
+      'localReportSchedules',
       'localReportTombstones',
       'localReportLimits',
       'localAccounts',
@@ -403,6 +405,7 @@ export async function handleAccounts(
       body: PrivacyExportSchema.parse({
         allocations: { revisions: localAllocationRevisions(detached, user.id) },
         reports: exportOfflineReports(detached, user.id),
+        reportSchedules: exportOfflineReportSchedules(detached, user.id),
         researchConnections: exportLocalConnections(detached, user.id),
         goalScenarios: exportLocalGoalScenarios(detached, user.id),
         connectionReviews: exportLocalConnectionReviews(detached, user.id),

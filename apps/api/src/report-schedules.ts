@@ -1,0 +1,362 @@
+import { randomUUID, createHash } from 'node:crypto';
+import {
+  Controller,
+  Get,
+  Post,
+  Param,
+  Query,
+  Body,
+  Headers,
+  Inject,
+  Injectable,
+  BadRequestException,
+  ConflictException,
+  NotFoundException,
+} from '@nestjs/common';
+import type pg from 'pg';
+import {
+  ScheduleExportQuerySchema,
+  ReportScheduleSchema,
+  ReportSchedulesSchema,
+  ScheduleWriteSchema,
+  ScheduleReceiptSchema,
+  ScheduleExportSchema,
+  ScheduleOccurrenceSchema,
+  nextScheduleDue,
+  latestScheduleDue,
+  ReportSnapshotSchema,
+  HoldingsSnapshotSchema,
+  emptyAllocation,
+} from '@fingent360/contracts';
+import { AccountStore, STORE } from './accounts.js';
+import { admitWorker } from './worker-control.js';
+export async function exportReportSchedules(
+  c: pg.PoolClient,
+  userId: string,
+  query: unknown = {},
+) {
+  const parsed = ScheduleExportQuerySchema.safeParse(query);
+  if (!parsed.success) throw new BadRequestException('Invalid history cursor.');
+  const q = parsed.data;
+  const bounds = await c.query(
+    'SELECT (SELECT coalesce(max(seq),0) FROM report_schedule_editions WHERE user_id=$1) AS e,(SELECT coalesce(max(seq),0) FROM report_schedule_requests WHERE user_id=$1) AS r,(SELECT coalesce(max(seq),0) FROM report_schedule_occurrences WHERE user_id=$1) AS o',
+    [userId],
+  );
+  const editionUntil = q.editionUntil ?? Number(bounds.rows[0].e),
+    receiptUntil = q.receiptUntil ?? Number(bounds.rows[0].r),
+    occurrenceUntil = q.occurrenceUntil ?? Number(bounds.rows[0].o);
+  const [editions, receipts, occurrences] = await Promise.all([
+    c.query(
+      'SELECT seq,payload FROM report_schedule_editions WHERE user_id=$1 AND seq>$2 AND seq<=$3 ORDER BY seq LIMIT 101',
+      [userId, q.editionAfter, editionUntil],
+    ),
+    c.query(
+      'SELECT seq,payload FROM report_schedule_requests WHERE user_id=$1 AND seq>$2 AND seq<=$3 ORDER BY seq LIMIT 101',
+      [userId, q.receiptAfter, receiptUntil],
+    ),
+    c.query(
+      'SELECT seq,payload FROM report_schedule_occurrences WHERE user_id=$1 AND seq>$2 AND seq<=$3 ORDER BY seq LIMIT 101',
+      [userId, q.occurrenceAfter, occurrenceUntil],
+    ),
+  ]);
+  const rows = [editions.rows, receipts.rows, occurrences.rows],
+    more = rows.some((r) => r.length > 100);
+  return ScheduleExportSchema.parse({
+    ownerId: userId,
+    editions: editions.rows.slice(0, 100).map((r) => r.payload),
+    receipts: receipts.rows.slice(0, 100).map((r) => r.payload),
+    occurrences: occurrences.rows.slice(0, 100).map((r) => r.payload),
+    next: more
+      ? {
+          editionUntil,
+          receiptUntil,
+          occurrenceUntil,
+          editionAfter: Number(
+            editions.rows.slice(0, 100).at(-1)?.seq ?? q.editionAfter,
+          ),
+          receiptAfter: Number(
+            receipts.rows.slice(0, 100).at(-1)?.seq ?? q.receiptAfter,
+          ),
+          occurrenceAfter: Number(
+            occurrences.rows.slice(0, 100).at(-1)?.seq ?? q.occurrenceAfter,
+          ),
+        }
+      : null,
+  });
+}
+@Injectable()
+export class ReportSchedulesStore {
+  constructor(@Inject(STORE) private readonly account: AccountStore) {}
+  async list(cookie?: string) {
+    return this.account.transaction(async (c) => {
+      const u = await this.account.require(c, cookie);
+      const rows = await c.query(
+        "SELECT payload FROM report_schedules WHERE user_id=$1 ORDER BY (status='deleted'),payload->>'savedAt' DESC,id LIMIT 105",
+        [u.id],
+      );
+      const occurrences = await c.query(
+        'SELECT payload FROM report_schedule_occurrences WHERE user_id=$1 ORDER BY due_at DESC,id LIMIT 100',
+        [u.id],
+      );
+      return ReportSchedulesSchema.parse({
+        schedules: rows.rows.map((r) => r.payload),
+        occurrences: occurrences.rows.map((r) => r.payload),
+        evaluatedAt: new Date().toISOString(),
+        mode: 'connected',
+      });
+    });
+  }
+  async save(id: string, body: unknown, cookie?: string) {
+    const parsed = ScheduleWriteSchema.safeParse(body);
+    if (
+      !parsed.success ||
+      !ScheduleReceiptSchema.shape.requestId.safeParse(id).success
+    )
+      throw new BadRequestException('Review the schedule and confirm consent.');
+    const input = parsed.data,
+      fingerprint = createHash('sha256')
+        .update(JSON.stringify({ id, input }))
+        .digest('hex');
+    return this.account.transaction(async (c) => {
+      const user = await this.account.require(c, cookie);
+      await c.query('SELECT id FROM app_users WHERE id=$1 FOR UPDATE', [
+        user.id,
+      ]);
+      await this.account.require(c, cookie);
+      const replay = await c.query(
+        'SELECT fingerprint,payload FROM report_schedule_requests WHERE user_id=$1 AND request_id=$2',
+        [user.id, input.requestId],
+      );
+      if (replay.rows[0]) {
+        if (replay.rows[0].fingerprint !== fingerprint)
+          throw new ConflictException(
+            'Request ID belongs to a different schedule change.',
+          );
+        return ScheduleReceiptSchema.parse(replay.rows[0].payload);
+      }
+      await c.query('SELECT pg_advisory_xact_lock(hashtext($1))', [id]);
+      await this.account.require(c, cookie);
+      const owner = await c.query(
+        'SELECT user_id FROM report_schedules WHERE id=$1',
+        [id],
+      );
+      if (owner.rows[0] && owner.rows[0].user_id !== user.id)
+        throw new NotFoundException('Schedule not found.');
+      const previous = await c.query(
+        'SELECT payload FROM report_schedules WHERE id=$1 AND user_id=$2 FOR UPDATE',
+        [id, user.id],
+      );
+      await this.account.require(c, cookie);
+      const old = previous.rows[0]
+        ? ReportScheduleSchema.parse(previous.rows[0].payload)
+        : null;
+      if (!old && input.expectedVersion !== 0)
+        throw new NotFoundException('Schedule not found.');
+      if (
+        old?.status === 'deleted' ||
+        (old?.version ?? 0) !== input.expectedVersion
+      )
+        throw new ConflictException(
+          'Schedule changed. Reload before changing it.',
+        );
+      if (!old && input.action !== 'save')
+        throw new NotFoundException('Schedule not found.');
+      if (
+        (input.action === 'pause' && old?.status !== 'active') ||
+        (input.action === 'resume' && old?.status !== 'paused')
+      )
+        throw new ConflictException(
+          'This schedule cannot perform that action.',
+        );
+      if (!old) {
+        const active = await c.query(
+          "SELECT count(*)::int AS n FROM report_schedules WHERE user_id=$1 AND status<>'deleted'",
+          [user.id],
+        );
+        if (active.rows[0].n >= 5)
+          throw new BadRequestException(
+            'Keep at most five schedules. Delete one before creating another.',
+          );
+      }
+      const config = input.config ?? old!.config,
+        status =
+          input.action === 'delete'
+            ? 'deleted'
+            : input.action === 'pause'
+              ? 'paused'
+              : 'active',
+        savedAt = new Date().toISOString();
+      const schedule = ReportScheduleSchema.parse({
+        id,
+        version: (old?.version ?? 0) + 1,
+        config,
+        status,
+        savedAt,
+        nextDueAt:
+          status === 'active' ? nextScheduleDue(config, savedAt) : null,
+        message:
+          status === 'active'
+            ? 'Next future occurrence; no immediate catch-up.'
+            : status === 'paused'
+              ? 'Paused. Existing reports remain.'
+              : 'Deleted. Existing reports remain.',
+      });
+      const receipt = ScheduleReceiptSchema.parse({
+        requestId: input.requestId,
+        schedule,
+      });
+      await c.query(
+        'INSERT INTO report_schedules(id,user_id,version,status,next_due_at,payload) VALUES($1,$2,$3,$4,$5,$6) ON CONFLICT(id) DO UPDATE SET version=EXCLUDED.version,status=EXCLUDED.status,next_due_at=EXCLUDED.next_due_at,payload=EXCLUDED.payload WHERE report_schedules.user_id=EXCLUDED.user_id',
+        [id, user.id, schedule.version, status, schedule.nextDueAt, schedule],
+      );
+      await c.query(
+        'INSERT INTO report_schedule_editions(schedule_id,user_id,version,payload) VALUES($1,$2,$3,$4)',
+        [id, user.id, schedule.version, schedule],
+      );
+      await c.query(
+        'INSERT INTO report_schedule_requests(user_id,request_id,fingerprint,payload) VALUES($1,$2,$3,$4)',
+        [user.id, input.requestId, fingerprint, receipt],
+      );
+      return receipt;
+    });
+  }
+  async workOne() {
+    return this.account.transaction(async (c) => {
+      if (!(await admitWorker(c, 'reports'))) return false;
+      // Lock account first, matching all owned edits/deletion. Concurrent workers skip admitted owners.
+      const owner = await c.query(
+        "SELECT u.id FROM app_users u WHERE EXISTS(SELECT 1 FROM report_schedules s WHERE s.user_id=u.id AND s.status='active' AND s.next_due_at<=clock_timestamp()) ORDER BY u.id LIMIT 1 FOR UPDATE SKIP LOCKED",
+      );
+      if (!owner.rows[0]) return false;
+      const userId = owner.rows[0].id;
+      const found = await c.query(
+        "SELECT payload FROM report_schedules WHERE user_id=$1 AND status='active' AND next_due_at<=clock_timestamp() ORDER BY next_due_at,id LIMIT 1 FOR UPDATE",
+        [userId],
+      );
+      if (!found.rows[0]) return false;
+      const schedule = ReportScheduleSchema.parse(found.rows[0].payload),
+        now = new Date().toISOString();
+      const due = latestScheduleDue(schedule.config, schedule.nextDueAt!, now);
+      const prior = await c.query(
+        'SELECT id FROM report_schedule_occurrences WHERE schedule_id=$1 AND schedule_version=$2 AND due_at=$3',
+        [schedule.id, schedule.version, due.dueAt],
+      );
+      if (prior.rows[0]) throw new Error('Occurrence cursor invariant failed.');
+      const id = randomUUID();
+      let status: 'queued' | 'capacity' | 'failed' = 'queued',
+        message =
+          'Actual saved records captured; report preparation is queued.';
+      const count = await c.query(
+        'SELECT count(*)::int AS n FROM record_report_jobs WHERE user_id=$1',
+        [userId],
+      );
+      const budget = await c.query(
+        'SELECT used,window_start FROM record_report_request_limits WHERE user_id=$1',
+        [userId],
+      );
+      if (
+        count.rows[0].n >= 100 ||
+        (budget.rows[0] &&
+          budget.rows[0].used >= 100 &&
+          Date.parse(budget.rows[0].window_start) > Date.now() - 3600000)
+      ) {
+        status = 'capacity';
+        message =
+          'Skipped: report history or hourly new-report capacity was full. No snapshot captured.';
+      }
+      if (status === 'queued') {
+        const goals = await c.query(
+          'SELECT r.payload FROM app_goals g JOIN app_goal_revisions r ON r.goal_id=g.id AND r.version=g.version WHERE g.user_id=$1 AND g.deleted_at IS NULL ORDER BY g.id',
+          [userId],
+        );
+        const holdings = await c.query(
+          'SELECT r.payload FROM app_holdings h JOIN app_holdings_revisions r ON r.user_id=h.user_id AND r.version=h.version WHERE h.user_id=$1',
+          [userId],
+        );
+        const allocations = await c.query(
+          'SELECT r.payload FROM app_goal_allocations a JOIN app_goal_allocation_revisions r ON r.user_id=a.user_id AND r.version=a.version WHERE a.user_id=$1',
+          [userId],
+        );
+        const snapshot = ReportSnapshotSchema.safeParse({
+          capturedAt: now,
+          goals: goals.rows.map((r) => r.payload),
+          holdings:
+            holdings.rows[0]?.payload ??
+            HoldingsSnapshotSchema.parse({
+              version: 0,
+              holdings: [],
+              totalCostMinor: '0',
+              currency: 'INR',
+              scale: 2,
+              provenance: 'user-entered-unverified',
+              updatedAt: null,
+            }),
+          allocations: allocations.rows[0]?.payload ?? emptyAllocation(),
+        });
+        if (!snapshot.success) {
+          status = 'failed';
+          message =
+            'Saved record validation failed. Review your records before the next occurrence; no snapshot was stored.';
+        } else {
+          await c.query(
+            "INSERT INTO record_report_request_limits(user_id,window_start,used) VALUES($1,clock_timestamp(),1) ON CONFLICT(user_id) DO UPDATE SET window_start=CASE WHEN record_report_request_limits.window_start<=clock_timestamp()-interval '1 hour' THEN clock_timestamp() ELSE record_report_request_limits.window_start END,used=CASE WHEN record_report_request_limits.window_start<=clock_timestamp()-interval '1 hour' THEN 1 ELSE record_report_request_limits.used+1 END",
+            [userId],
+          );
+          await c.query(
+            'INSERT INTO record_report_jobs(id,user_id,label,snapshot) VALUES($1,$2,$3,$4)',
+            [id, userId, schedule.config.label, snapshot.data],
+          );
+        }
+      }
+      const occurrence = ScheduleOccurrenceSchema.parse({
+        id,
+        scheduleId: schedule.id,
+        scheduleVersion: schedule.version,
+        dueAt: due.dueAt,
+        capturedAt: now,
+        skipped: due.skipped,
+        status,
+        reportId: status === 'queued' ? id : null,
+        message,
+      });
+      await c.query(
+        'INSERT INTO report_schedule_occurrences(id,schedule_id,user_id,schedule_version,due_at,payload) VALUES($1,$2,$3,$4,$5,$6)',
+        [id, schedule.id, userId, schedule.version, due.dueAt, occurrence],
+      );
+      const updated = { ...schedule, nextDueAt: due.nextDueAt, message };
+      await c.query(
+        'UPDATE report_schedules SET next_due_at=$2,payload=$3 WHERE id=$1',
+        [schedule.id, due.nextDueAt, updated],
+      );
+      return true;
+    });
+  }
+}
+@Controller('account/report-schedules')
+export class ReportSchedulesController {
+  constructor(
+    @Inject(ReportSchedulesStore) private readonly store: ReportSchedulesStore,
+    @Inject(STORE) private readonly account: AccountStore,
+  ) {}
+  @Get('export') history(
+    @Query() query: unknown,
+    @Headers('cookie') cookie?: string,
+  ) {
+    return this.account.transaction(async (c) => {
+      const user = await this.account.require(c, cookie);
+      return exportReportSchedules(c, user.id, query);
+    });
+  }
+  @Get() list(@Headers('cookie') cookie?: string) {
+    return this.store.list(cookie);
+  }
+  @Post(':id') save(
+    @Param('id') id: string,
+    @Body() body: unknown,
+    @Headers('origin') origin?: string,
+    @Headers('cookie') cookie?: string,
+  ) {
+    this.account.origin(origin);
+    return this.store.save(id, body, cookie);
+  }
+}

@@ -1,5 +1,9 @@
 # Planned end-to-end coverage
 
+## REPORT-SCHEDULES-001 acceptance
+
+Specify opt-in cadence and actual capture; validate strict contracts and additive immutable history; preserve account-first ownership, worker pause admission, report capacity/idempotency/tombstones and exact owned snapshots; verify real competing workers, DST/missed occurrences and post-wait auth. Exercise configure/review/Back/consent/save/edit/conflict/pause/resume/delete/history/original report navigation on keyboard and mobile. Failed or partial reads cannot fabricate current state; later401 clears private controls and prevents incomplete export. Complete all bounded history pages without lifetime feature shutdown. Actual local serialized parity includes export/deletion/no API and open-app-only execution. Broader scheduled market monitoring, external delivery, physical-phone and production uptime acceptance remain open.
+
 ## WORKER-HEALTH-001 acceptance
 
 Observe actual report/reminder work, bounded queue ages/counts and heartbeat freshness without exposing private content. Prove committed Pause fences new claims across independent instances while previously admitted work follows documented completion; resume/restart cannot duplicate jobs or reminders. Exercise operator post-wait expiry, conflicting versions, retained/evicted intent replay and current-versus-historical receipts. Storage failure and preparation failure remain distinct; finish expiry is checked after row lock. API350–362, WEB350–354 desktop/mobile and OFFLINE380 cover actual isolated stores/workers/UI and connected-only device messaging. Default fixture timers remain unchanged outside opted-in worker tests.
@@ -748,3 +752,5 @@ TEAM-001 acceptance evidence: full run `2026-09-12T16-09-40-894Z-64656` passed 5
 The user now explicitly authorizes a native Android feedback build of the current app without a server. Versioned local storage, contract-compatible account/finance/reading/learning/library behavior, shared exact journey calculations, dated real public snapshot, native file/navigation interactions and future isolated CDN/API configuration are implemented. E2E-OFFLINE-010–012/201–204 and E2E-API-006 cover the executable boundaries. [Native acceptance](android-acceptance.md) covers install, airplane-mode cold launch, persistence, native Back, CSV/document export, connection recovery and device accessibility. Keep iOS/WhatsApp, production signing/release, sync and background push as separate remaining DEV-029 acceptance.
 
 Worker-health parent verification:39/39 connected checks and19/19 packaged offline regressions passed; full run IDs, earlier UUID-fixture correction,401 body-boundary regression, preserved-record audits and phone limits are recorded in docs/development/status.md.
+
+Report-schedule parent verification:18/18 connected feature cases,26 worker/privacy regressions and20/20 packaged offline cases passed; configured-timezone display additionally passed2browser/2offline checks. Run IDs, fixture-cast correction, full-export validation, gates and physical limits are in status.

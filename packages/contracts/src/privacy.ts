@@ -1,3 +1,7 @@
+import {
+  CompleteScheduleExportSchema,
+  ScheduleExportSchema,
+} from './report-schedules.js';
 import { GoalScenarioExportSchema } from './goal-scenarios.js';
 import { ConnectionReviewExportSchema } from './connection-reviews.js';
 import { z } from 'zod';
@@ -90,6 +94,12 @@ export const PrivacyExportSchema = z.strictObject({
   goalScenarios: GoalScenarioExportSchema,
   connectionReviews: ConnectionReviewExportSchema,
   reports: ReportJobsSchema,
+  reportSchedules: ScheduleExportSchema,
   researchConnections: ResearchConnectionHistorySchema,
 });
 export type PrivacySession = z.infer<typeof PrivacySessionSchema>;
+
+/** Download artifact after all bounded schedule pages have been collected successfully. */
+export const CompletePrivacyExportSchema = PrivacyExportSchema.extend({
+  reportSchedules: CompleteScheduleExportSchema,
+});

@@ -42,6 +42,7 @@ try {
     '024_research_connections.sql',
     '025_goal_scenarios.sql',
     '027_connection_reviews.sql',
+    '029_report_schedules.sql',
     '030_worker_health.sql',
   ]) {
     await applyMigration(

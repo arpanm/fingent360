@@ -63,7 +63,16 @@ export function Reports() {
   }
 
   const deleted = useRef(new Set<string>());
-  const [selected, setSelected] = useState<string | null>(null);
+  const [selected, setSelected] = useState<string | null>(() =>
+    new URLSearchParams(window.location.hash.split('?')[1] ?? '').get(
+      'selected',
+    ),
+  );
+  const requestedReport = useRef(
+    new URLSearchParams(window.location.hash.split('?')[1] ?? '').get(
+      'selected',
+    ),
+  );
   const pending = useRef<ReportRequest | null>(null);
   const historyHeading = useRef<HTMLHeadingElement>(null);
   const signOut = useCallback(() => {
@@ -90,6 +99,13 @@ export function Reports() {
   }, []);
   function merge(incoming: ReportJob[], authoritative = false) {
     if (authoritative) {
+      if (requestedReport.current) {
+        if (!incoming.some((j) => j.id === requestedReport.current))
+          setMessage(
+            'The linked report is unavailable. It may have been deleted or belong to another account.',
+          );
+        requestedReport.current = null;
+      }
       setSelected((current) =>
         current && incoming.some((j) => j.id === current) ? current : null,
       );
@@ -365,6 +381,7 @@ export function Reports() {
     return (
       <section className="reports-page">
         <h1>Record reports</h1>
+        <a href="#report-schedules">Report schedules</a>
         <AccountGate
           next="reports"
           title="Keep a private saved-record review"
@@ -377,6 +394,7 @@ export function Reports() {
       <header className="page-header">
         <p className="page-kicker">Your records</p>
         <h1>Record reports</h1>
+        <a href="#report-schedules">Report schedules</a>
         <p className="page-description">
           Keep a dated review of your goals, entered holdings cost and
           allocations. This is not a valuation or investment recommendation.

@@ -12,6 +12,7 @@ export type AccountDestination =
   | 'comparisons'
   | 'connection-reviews'
   | 'allocations'
+  | 'report-schedules'
   | 'reports'
   | `read/${string}`;
 export function accountDestination(hash: string): AccountDestination | null {
@@ -33,6 +34,7 @@ export function accountDestination(hash: string): AccountDestination | null {
       )) ||
     next === 'comparisons' ||
     next === 'connection-reviews' ||
+    next === 'report-schedules' ||
     next === 'reports' ||
     (next !== null && /^read\/[a-z0-9-]{1,100}$/.test(next))
     ? (next as AccountDestination)

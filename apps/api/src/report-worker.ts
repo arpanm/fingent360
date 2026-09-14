@@ -1,10 +1,15 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ReportsStore } from './reports.js';
+import { ReportSchedulesStore } from './report-schedules.js';
 @Injectable()
 export class ReportWorker {
   private timer: ReturnType<typeof setInterval> | undefined;
   private active: Promise<void> | undefined;
-  constructor(@Inject(ReportsStore) private readonly store: ReportsStore) {}
+  constructor(
+    @Inject(ReportsStore) private readonly store: ReportsStore,
+    @Inject(ReportSchedulesStore)
+    private readonly schedules: ReportSchedulesStore,
+  ) {}
   onApplicationBootstrap() {
     this.timer = setInterval(() => {
       if (!this.active)
@@ -21,6 +26,7 @@ export class ReportWorker {
   async tick() {
     try {
       await this.store.observe('heartbeat');
+      await this.schedules.workOne();
       await this.store.workOne();
     } catch {
       await this.store.observe('storage').catch(() => {});

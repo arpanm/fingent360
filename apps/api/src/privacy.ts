@@ -1,3 +1,4 @@
+import { exportReportSchedules } from './report-schedules.js';
 import { exportGoalScenarios } from './goal-scenarios.js';
 import { exportConnectionReviews } from './connection-reviews.js';
 import {
@@ -226,6 +227,7 @@ export class PrivacyController {
           ).rows.map((r) => r.payload),
         },
         reports: await exportRecordReports(client, user.id),
+        reportSchedules: await exportReportSchedules(client, user.id),
         researchConnections: await exportResearchConnections(client, user.id),
         goalScenarios: await exportGoalScenarios(client, user.id),
         connectionReviews: await exportConnectionReviews(client, user.id),

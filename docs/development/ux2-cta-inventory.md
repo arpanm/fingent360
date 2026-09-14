@@ -96,3 +96,7 @@ CONNECTION-REVIEWS-001: My money/More/Research connections→Review inbox→Chec
 BEA-001: Operations source checkbox→refresh→outcome/draft→review/publish; Explore BEA filter→Scan/Stories→reader→metadata excerpt/history/context/learning→Back; eligible edition→Connect to my records→owned connection/report/review inbox. Withdrawn BEA readers omit original/evidence/connect actions and show a tombstone. Fault/empty/retry/keyboard/mobile acceptance is WEB320–324, shared device reading OFFLINE350–353.
 
 WORKER-HEALTH-001: Operations→Worker health→Reload/details→Review Pause/Resume→Confirm or Cancel→historical audit receipt→Reload current state. Unavailable/stale/unobserved and not-enabled schedule counts are explicit. Conflicts/401 and keyboard focus have dedicated cases; local mode explains connected access without attempting a server.
+
+## Saved-record schedules
+
+Reports → Schedules → Create → frequency/timezone/time/weekday → Review → Back or consent/Confirm → dated receipt and current next run. Schedule card → Pause/Resume or Edit → review/confirm; competing edits → explicit Discard stale draft and reload → fresh Edit. History → actual report deep link → missing/deleted explanation when necessary. Delete preserves separately issued reports. Download history follows every owned page and refuses a partial file on failure/401. Privacy401 clears private controls. Device mode explains open-app-only execution; keyboard/Back/mobile and source-independent exact snapshots are covered by WEB330–335/OFFLINE360–361.

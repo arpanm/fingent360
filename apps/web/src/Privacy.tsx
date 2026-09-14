@@ -1,15 +1,25 @@
+import { completeScheduleExport } from './schedule-export';
 import { RecoverySettings } from './Recovery';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { saveDownload } from './runtime';
 import { AccountGate } from './AccountGate';
 import {
   CurrentAccountSchema,
   PrivacyExportSchema,
+  CompletePrivacyExportSchema,
   SessionsSchema,
   RevocationSchema,
   type PrivacySession,
 } from '@fingent360/contracts';
-async function api(path: string, body?: unknown) {
+class PrivacyRequestError extends Error {
+  constructor(
+    public status: number,
+    message: string,
+  ) {
+    super(message);
+  }
+}
+async function rawApi(path: string, body?: unknown) {
   const response = await fetch(`/api/v1/account${path}`, {
     method: body === undefined ? 'GET' : 'POST',
     credentials: 'same-origin',
@@ -21,9 +31,20 @@ async function api(path: string, body?: unknown) {
         }),
     signal: AbortSignal.timeout(20000),
   });
-  const data: unknown = await response.json();
+  if (response.status === 401)
+    throw new PrivacyRequestError(401, 'Sign in again to manage private data.');
+  let data: unknown;
+  try {
+    data = await response.json();
+  } catch {
+    throw new PrivacyRequestError(
+      response.status,
+      'Privacy response could not be read. Retry.',
+    );
+  }
   if (!response.ok)
-    throw new Error(
+    throw new PrivacyRequestError(
+      response.status,
       typeof data === 'object' && data && 'message' in data
         ? String(data.message)
         : 'Privacy request failed.',
@@ -31,19 +52,47 @@ async function api(path: string, body?: unknown) {
   return data;
 }
 export function Privacy() {
+  const exportActive = useRef(true),
+    denied = useRef(false),
+    generation = useRef(0);
+  useEffect(() => {
+    exportActive.current = true;
+    return () => {
+      exportActive.current = false;
+      generation.current++;
+    };
+  }, []);
   const [signedIn, setSignedIn] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [sessions, setSessions] = useState<PrivacySession[]>([]);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
+  async function api(path: string, body?: unknown) {
+    try {
+      return await rawApi(path, body);
+    } catch (cause) {
+      if (cause instanceof PrivacyRequestError && cause.status === 401) {
+        denied.current = true;
+        generation.current++;
+        exportActive.current = false;
+        setSignedIn(false);
+        setSessions([]);
+        setMessage('');
+        setLoaded(true);
+      }
+      throw cause;
+    }
+  }
   async function load(active: () => boolean = () => true) {
+    if (denied.current) return;
+    const ticket = ++generation.current;
     const account = CurrentAccountSchema.parse(await api(''));
-    if (!active()) return;
+    if (!active() || denied.current || ticket !== generation.current) return;
     const currentSessions = account.user
       ? SessionsSchema.parse(await api('/privacy/sessions')).sessions
       : [];
-    if (!active()) return;
+    if (!active() || denied.current || ticket !== generation.current) return;
     setSignedIn(Boolean(account.user));
     setSessions(currentSessions);
     setLoaded(true);
@@ -127,9 +176,25 @@ export function Privacy() {
                   );
                   setMessage(
                     await saveDownload(
-                      new Blob([JSON.stringify(exported, null, 2)], {
-                        type: 'application/json',
-                      }),
+                      new Blob(
+                        [
+                          JSON.stringify(
+                            CompletePrivacyExportSchema.parse({
+                              ...exported,
+                              reportSchedules: await completeScheduleExport(
+                                exported.reportSchedules,
+                                api,
+                                () => exportActive.current,
+                              ),
+                            }),
+                            null,
+                            2,
+                          ),
+                        ],
+                        {
+                          type: 'application/json',
+                        },
+                      ),
                       'fingent360-account.json',
                       'Account export downloaded.',
                     ),

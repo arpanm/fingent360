@@ -1,3 +1,7 @@
+import {
+  ReportSchedulesController,
+  ReportSchedulesStore,
+} from './report-schedules.js';
 import { createRequire } from 'node:module';
 import {
   FeedbackController,
@@ -105,6 +109,7 @@ export async function createApp(
         RecoveryController,
         RetentionController,
         ReportsController,
+        ReportSchedulesController,
         SecuritiesController,
         OpsSecuritiesController,
         AssistanceController,
@@ -130,6 +135,7 @@ export async function createApp(
         operatorProvider(config),
         LibraryReminderWorker,
         ReportsStore,
+        ReportSchedulesStore,
         ReportWorker,
         WorkerHealthStore,
         mediaProvider(config),

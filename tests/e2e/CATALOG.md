@@ -1,5 +1,13 @@
 # End-to-end case catalogue
 
+## REPORT-SCHEDULES-001 — actual scheduled reports
+
+- API330–335: consent/version/replay/foreign/export; two real workers and latest-due capture; capacity; session expiry during account wait; continued history beyond1000 outcomes; paged101-edition export.
+- WEB330–335 (desktop/mobile): weekly configuration/review/Back/pause/reload; actual issued/deleted deep link; initial failure and exact response-loss retry; competing edits with explicit stale-draft discard; complete paged download; later-page401 prevents partial private download.
+- OFFLINE360–361: actual serialized opt-in/reload/export/account deletion, aged owned cursor and single exact local capture with zero API requests.
+
+Tag @REPORT-SCHEDULES-001:18connected plus2offline executions; meaningful timezone units cover DST, weekday, future and missed occurrence resolution. Synthetic times/locks are labelled, successful data/storage/issuance is actual. See status for executed evidence and hardware limits.
+
 ## WORKER-HEALTH-001 — actual worker controls
 
 | Cases      | Projects       | Acceptance                                                                                                                                                                       |
@@ -416,3 +424,5 @@ These are implemented bounded workflows, not a claim that the complete roadmap o
 Use tags `@ALLOCATIONS-001`, `@RECOVERY-001`, `@REPORTS-001`, `@IDENTITY-001`. Connected cases use the real isolated application fixture described in [test setup](README.md#team-002-isolated-application-cases). `@real-provider` requires ordinary OpenFIGI availability; `@simulated` explicitly marks controlled interruption scenarios and is not provider-success evidence. Offline identity cases require a fresh bundle containing at least five actual stored identities. Physical Android install, keyboard, native Back/file export, airplane-mode and same-key update acceptance remain separate from Playwright coverage.
 
 Worker-health parent verification:39/39 connected checks and19/19 packaged offline regressions passed; full run IDs, earlier UUID-fixture correction,401 body-boundary regression, preserved-record audits and phone limits are recorded in docs/development/status.md.
+
+Report-schedule parent verification:18/18 connected feature cases,26 worker/privacy regressions and20/20 packaged offline cases passed; configured-timezone display additionally passed2browser/2offline checks. Run IDs, fixture-cast correction, full-export validation, gates and physical limits are in status.

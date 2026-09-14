@@ -29,6 +29,7 @@ import { GoalScenarios } from './GoalScenarios';
 import { ConnectionReviews } from './ConnectionReviews';
 import { GoalAllocations } from './GoalAllocations';
 import { Recovery } from './Recovery';
+import { ReportSchedules } from './ReportSchedules';
 import { Reports } from './Reports';
 import { Securities } from './Securities';
 import { OfflineOperationsNotice } from './RetentionOperations';
@@ -83,6 +84,12 @@ const moreLinks = [
     'reports',
     'Saved record reviews',
     'Keep an immutable version of your plan',
+    'overview',
+  ],
+  [
+    'report-schedules',
+    'Report schedules',
+    'Choose recurring saved-record captures',
     'overview',
   ],
   [
@@ -369,6 +376,8 @@ export function App() {
             <ConnectionReviews />
           ) : base === 'allocations' ? (
             <GoalAllocations />
+          ) : base === 'report-schedules' ? (
+            <ReportSchedules />
           ) : base === 'reports' ? (
             <Reports />
           ) : base === 'securities' || base.startsWith('securities/') ? (

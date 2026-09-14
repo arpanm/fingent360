@@ -1,10 +1,18 @@
 # Fingent360
 
+## Optional saved-record schedules — REPORT-SCHEDULES-001
+
+**Saved record reviews → Schedules** creates up to five daily or weekly schedules with your chosen IANA timezone, local time and weekday. Review and consent before saving. Create, edit and resume start at the next future occurrence. A missed active schedule captures only its latest due occurrence, records skipped dates and labels the actual capture time. Scheduled reports contain ordinary saved financial records; research notes are not included automatically.
+
+Pause, resume, edit and delete retain dated configuration and outcome receipts. Existing reports remain separately owned and deletable. Full report history or hourly capacity records a skipped outcome without creating a hidden snapshot. Current state and historical replay remain distinct; conflicting drafts require explicit discard and reload. Full privacy and schedule-history downloads follow every bounded page. Device mode creates due reports only while the app is open or revisited; a disconnected APK cannot run a server worker. No email, push or provider request is added.
+
+Additive migration029 supplies schedules/history;030 controls worker admission. No dependency added. [Specification](docs/product/report-schedules.md), [verification and APK availability](docs/development/status.md). Rebuild/reinstall the APK for phone changes. Verified:18/18 connected feature cases,26 worker/privacy regressions and20/20 packaged offline regressions passed; the timezone correction also passed2/2 browser and2/2 rebuilt offline cases. Physical-phone and operational uptime acceptance remain separate.
+
 ## Worker health and controls — WORKER-HEALTH-001
 
 **Operations → Worker health** shows report/reminder heartbeats, last successful work, safe failure categories and bounded queue counts. Stale, not observed and unavailable states are distinct. An operator can review and confirm Pause or Resume, then inspect its dated audit receipt and reload current status. A pause blocks new work across instances; already claimed report jobs may finish. Resume preserves ordinary leases and duplicate protection.
 
-No private report content, reminder titles or raw database errors are displayed. Migration030 adds minimal controls/observations/audit records. Scheduled-report counts say not enabled until the separate schedule migration exists. On-device mode explains that these controls require the connected server; no network request is attempted. [Specification](docs/product/worker-health.md), [verification](docs/development/status.md). Shared web changes require a rebuilt/reinstalled APK to reach an offline phone.
+No private report content, reminder titles or raw database errors are displayed. Migration030 adds minimal controls/observations/audit records. Scheduled-report counts say not enabled until the separate schedule migration exists. On-device mode explains that these controls require the connected server; no network request is attempted. [Specification](docs/product/worker-health.md), [verification](docs/development/status.md). Shared web changes require a rebuilt/reinstalled APK to reach an offline phone. Verified:39/39 connected worker checks and19/19 packaged offline regressions passed.
 
 ## BEA release reading — BEA-001
 

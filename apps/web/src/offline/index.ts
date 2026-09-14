@@ -1,3 +1,7 @@
+import {
+  reportSchedulesHandler,
+  materializeLocalSchedules,
+} from './report-schedules';
 import { ZodError } from 'zod';
 import snapshot from './content-bundle.json';
 import {
@@ -32,7 +36,15 @@ const handlers: OfflineHandler[] = [
   handleRecovery,
   handleSecurities,
   handleAccounts,
-  reportsHandler,
+  reportSchedulesHandler,
+  async (request, state, bundle) => {
+    if (
+      request.method === 'GET' &&
+      /^\/api\/v1\/account\/reports(?:\/|$)/.test(request.path)
+    )
+      await materializeLocalSchedules(state, bundle);
+    return reportsHandler(request, state, bundle);
+  },
   handleAllocations,
   handleResearchConnections,
   handleFinance,

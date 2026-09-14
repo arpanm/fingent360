@@ -62,3 +62,4 @@ export * from './publication.js';
 export * from './report-comparison.js';
 
 export * from './reading-follow.js';
+export * from './operator-audit.js';

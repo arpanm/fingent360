@@ -157,3 +157,9 @@ Specification: docs/product/report-comparison.md. UI/UX: explicit pair/date revi
 Spec: docs/product/reading-follow.md. UI/UX: Saved/More, reviewed settings, dated inbox/history and complete export with mobile/keyboard/error recovery. API/workflow: account-owned source/topic baseline/check/ack/replay and publication-aware link projection. Data: additive032 immutable minimal ledger and cascade; exact versions, no article copy. Real data: existing reviewed stored publications; no provider refresh. Automation: explicit user checks only. Tests: API440–445, WEB440–445, OFFLINE450–451 and5 domain cases; status records execution. Docs: TODO/README/spec/handoff/catalog/coverage/CTA. Continuous alerts, email/push, physical acceptance and broader DEV018 remain open.
 
 READING-FOLLOW-001 verification:25/25 connected and10/10 selected packaged offline scenarios passed; final Saved-navigation reruns passed2/2 connected and2/2 offline. See development status for exact runs, corrections and separate physical-device acceptance.
+
+## OPS-AUDIT-001 boundary
+
+Spec: docs/product/operator-audit.md. UI/UX: Operations activity filters/pages/current request labels with full recovery, keyboard/mobile and shared session guard. API/workflow: safe projection, signed cursor, fixed50-row reads and final post-wait auth. Data: existing immutable010 table, no migration/private copy. Real data: actual recorded operator requests, no named-actor/completion inference. Automation: explicit read only. Tests: API480–487, WEB480–486, OFFLINE490 and4 units; status records execution. Docs: README/TODO/spec/handoff/catalog/coverage/CTA. Named roles, complete completion attribution and production audit acceptance remain open.
+
+OPS-AUDIT-001 has passing evidence for all34 selected connected scenarios across the initial run and corrected four-case rerun, plus packaged offline acceptance. See development status for run identities, gate counts and separate hardware/production limits.

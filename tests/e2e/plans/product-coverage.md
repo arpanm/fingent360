@@ -1,5 +1,9 @@
 # Planned end-to-end coverage
 
+## OPS-AUDIT-001 acceptance
+
+Expose only allowlisted request/cleanup event metadata through protected fixed filters and exact50-row keyset pages; no raw targets, actors/hashes, private bodies or completion inference. Verify signed cursor/upper boundary, SQL ordering, real expiry/revocation after waits, immutable storage and unchanged goals. Exercise keyboard/mobile pages/Back/Retry/Reset, invalid-filter recovery, incomplete-page notice, late-response generation invalidation and401 after child unmount. Device Operations must remain connected-only/noAPI. API480–487, WEB480–486, OFFLINE490 and4 units; chronological boundary is not a full snapshot/export.
+
 ## READING-FOLLOW-001 acceptance
 
 Follow explicit sources/topics with consent/review and fresh baseline; retain overlapping observations, freeze on mute, reset backlog on unmute, coalesce changed editions and acknowledge exact observed versions. Preserve immutable minimal event history, actual publication admission and atomic bounded scans with final auth. Exercise complete paginated exports, later-page401/no partial download, ownership/cascade, request replay/conflicts, UI draft/read races, empty/filter/history states and keyboard/mobile navigation. API440–445, WEB440–445, OFFLINE450–451 and domain units. Actual device state uses dated bundle/noAPI; physical phone and external delivery separate.
@@ -774,3 +778,5 @@ Report-schedule parent verification:18/18 connected feature cases,26 worker/priv
 Source-withdrawal parent verification:27/27 connected withdrawal/media executions and27 earlier worker/source regressions passed; all26selected offline scenarios have passing evidence across correction runs. The actual179-item bundle was rebuilt with final admission. Status records exact runs, receipt/locator corrections,124unit gates, preserved records and physical/disconnected limits.
 
 READING-FOLLOW-001 verification:25/25 connected and10/10 selected packaged offline scenarios passed; final Saved-navigation reruns passed2/2 connected and2/2 offline. See development status for exact runs, corrections and separate physical-device acceptance.
+
+OPS-AUDIT-001 has passing evidence for all34 selected connected scenarios across the initial run and corrected four-case rerun, plus packaged offline acceptance. See development status for run identities, gate counts and separate hardware/production limits.

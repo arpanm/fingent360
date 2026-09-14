@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   MediaAssetSchema,
   DiscoveryEvidenceSchema,
@@ -26,6 +26,8 @@ import { FeedbackInbox } from './FeedbackInbox';
 import { SecurityOperations } from './Securities';
 import { RetentionOperations } from './RetentionOperations';
 import { WorkerHealth } from './WorkerHealth';
+import { OperatorAudit } from './OperatorAudit';
+class StaleOperationsRead extends Error {}
 const blank: SourceInput = {
   name: '',
   category: '',
@@ -54,9 +56,54 @@ export function Operations() {
     text: string;
   } | null>(null);
   const [media, setMedia] = useState<MediaAsset | null>(null);
+  const sessionGeneration = useRef(0),
+    live = useRef(true),
+    sessionEnded = useRef(false);
+  const clearProtected = useCallback(() => {
+    setItems([]);
+    setRetained(null);
+    setReview(null);
+    setMedia(null);
+    setNote('');
+    setLatest('');
+    setNotice('');
+    setKey('');
+  }, []);
+  const sessionExpired = useCallback(() => {
+    if (!live.current) return;
+    sessionGeneration.current++;
+    sessionEnded.current = true;
+    clearProtected();
+    setAuthenticated(false);
+    setBusy(false);
+    setChecking(false);
+    setError(
+      'Operations session ended. Sign in again to read protected activity.',
+    );
+  }, [clearProtected]);
+  async function request(...args: Parameters<typeof json>) {
+    if (!live.current || (sessionEnded.current && args[0] !== '/ops/session'))
+      throw new StaleOperationsRead();
+    const ticket = sessionGeneration.current;
+    try {
+      const value = await json(...args);
+      if (!live.current || ticket !== sessionGeneration.current)
+        throw new StaleOperationsRead();
+      return value;
+    } catch (cause) {
+      if (
+        live.current &&
+        ticket === sessionGeneration.current &&
+        cause instanceof RequestError &&
+        cause.status === 401
+      )
+        sessionExpired();
+      throw cause;
+    }
+  }
   const load = async () => {
     const value = DiscoveryOperationsSchema.parse(
-      await json('/ops/discovery/items'),
+      await request('/ops/discovery/items'),
     );
     setItems(value.items);
     setLatest(
@@ -67,13 +114,18 @@ export function Operations() {
   };
   useEffect(() => {
     let active = true;
-    void json('/ops/session')
+    live.current = true;
+    void request('/ops/session')
       .then((v) => {
         if (active)
           setAuthenticated(OperatorSessionSchema.parse(v).authenticated);
       })
       .catch((e: unknown) => {
-        if (active)
+        if (
+          active &&
+          !(e instanceof StaleOperationsRead) &&
+          !sessionEnded.current
+        )
           setError(e instanceof Error ? e.message : 'Operations unavailable.');
       })
       .finally(() => {
@@ -81,34 +133,42 @@ export function Operations() {
       });
     return () => {
       active = false;
+      live.current = false;
+      sessionGeneration.current++;
     };
   }, []);
   useEffect(() => {
     if (authenticated)
-      void load().catch((e: unknown) =>
-        setError(
-          e instanceof Error ? e.message : 'Could not load publications.',
-        ),
-      );
+      void load().catch((e: unknown) => {
+        if (
+          live.current &&
+          !sessionEnded.current &&
+          !(e instanceof StaleOperationsRead)
+        )
+          setError(
+            e instanceof Error ? e.message : 'Could not load publications.',
+          );
+      });
   }, [authenticated]);
   const action = async (work: () => Promise<void>) => {
     if (busy) return;
+    const ticket = sessionGeneration.current;
     setBusy(true);
     setError('');
     setNotice('');
     try {
       await work();
     } catch (e) {
-      if (e instanceof RequestError && e.status === 401) {
-        setAuthenticated(false);
-        setRetained(null);
-        setReview(null);
-        setMedia(null);
-        setItems([]);
-      }
-      setError(e instanceof Error ? e.message : 'Operation failed.');
+      if (
+        ticket !== sessionGeneration.current ||
+        !live.current ||
+        e instanceof StaleOperationsRead
+      )
+        return;
+      if (e instanceof RequestError && e.status === 401) sessionExpired();
+      else setError(e instanceof Error ? e.message : 'Operation failed.');
     } finally {
-      setBusy(false);
+      if (live.current && ticket === sessionGeneration.current) setBusy(false);
     }
   };
   return (
@@ -122,12 +182,12 @@ export function Operations() {
             disabled={busy}
             onClick={() =>
               void action(async () => {
-                await json('/ops/session', undefined, 'DELETE');
+                await request('/ops/session', undefined, 'DELETE');
+                sessionGeneration.current++;
+                sessionEnded.current = true;
+                clearProtected();
                 setAuthenticated(false);
-                setItems([]);
-                setRetained(null);
-                setReview(null);
-                setMedia(null);
+                setBusy(false);
                 setNotice('Operations session ended.');
               })
             }
@@ -155,9 +215,10 @@ export function Operations() {
               e.preventDefault();
               void action(async () => {
                 const session = OperatorSessionSchema.parse(
-                  await json('/ops/session', { key }, 'POST'),
+                  await request('/ops/session', { key }, 'POST'),
                 );
-                setKey('');
+                clearProtected();
+                sessionEnded.current = !session.authenticated;
                 setAuthenticated(session.authenticated);
               });
             }}
@@ -209,6 +270,7 @@ export function Operations() {
                 ['securities', 'Security identities'],
                 ['retention', 'Expired data cleanup'],
                 ['workers', 'Worker health'],
+                ['audit', 'Audit activity'],
               ].map(([value, label]) => (
                 <button
                   key={value}
@@ -222,6 +284,7 @@ export function Operations() {
             {tab === 'news' ? (
               <>
                 <SourceRefresh
+                  request={request}
                   action={action}
                   busy={busy}
                   afterRefresh={load}
@@ -246,7 +309,7 @@ export function Operations() {
                         onClick={() =>
                           void action(async () => {
                             const rows = FeedItemSchema.array().parse(
-                              await json(
+                              await request(
                                 `/ops/discovery/items/${item.id}/history`,
                               ),
                             );
@@ -264,7 +327,7 @@ export function Operations() {
                         onClick={() =>
                           void action(async () => {
                             const raw = DiscoveryEvidenceSchema.parse(
-                              await json(
+                              await request(
                                 `/ops/discovery/items/${item.id}/evidence?version=${item.version}`,
                               ),
                             );
@@ -282,7 +345,7 @@ export function Operations() {
                         onClick={() =>
                           void action(async () => {
                             const asset = MediaAssetSchema.parse(
-                              await json(`/ops/media/${item.id}`),
+                              await request(`/ops/media/${item.id}`),
                             );
                             setRetained({
                               title: 'Retained visual record',
@@ -315,7 +378,7 @@ export function Operations() {
                             void action(async () =>
                               setMedia(
                                 MediaAssetSchema.parse(
-                                  await json(
+                                  await request(
                                     `/ops/media/${item.id}`,
                                     {},
                                     'POST',
@@ -332,6 +395,13 @@ export function Operations() {
                   ))}
                 </div>
               </>
+            ) : tab === 'audit' ? (
+              <OperatorAudit
+                request={request}
+                onUnauthorized={sessionExpired}
+                onBack={() => setTab('news')}
+                onSection={setTab}
+              />
             ) : tab === 'macro' ? (
               <MacroOperations action={action} busy={busy} />
             ) : tab === 'securities' ? (
@@ -339,28 +409,18 @@ export function Operations() {
             ) : tab === 'retention' ? (
               <RetentionOperations
                 onSessionExpired={() => {
-                  setAuthenticated(false);
+                  sessionExpired();
                   setError(
                     'Operations session ended. Sign in again to reopen saved cleanup history.',
                   );
                 }}
               />
             ) : tab === 'workers' ? (
-              <WorkerHealth
-                onSessionExpired={() => {
-                  setAuthenticated(false);
-                  setItems([]);
-                  setReview(null);
-                  setMedia(null);
-                  setError(
-                    'Operations session ended. Sign in again to reopen worker health.',
-                  );
-                }}
-              />
+              <WorkerHealth onSessionExpired={sessionExpired} />
             ) : tab === 'feedback' ? (
               <FeedbackInbox />
             ) : (
-              <SourceEditor />
+              <SourceEditor request={request} />
             )}
           </>
         )}
@@ -405,7 +465,7 @@ export function Operations() {
                 disabled={busy}
                 onClick={() =>
                   void action(async () => {
-                    await json(
+                    await request(
                       `/ops/media/${media.itemId}`,
                       { assetId: media.id, publish: true },
                       'PUT',
@@ -422,7 +482,7 @@ export function Operations() {
                 disabled={busy}
                 onClick={() =>
                   void action(async () => {
-                    await json(
+                    await request(
                       `/ops/media/${media.itemId}`,
                       { assetId: media.id, publish: false },
                       'PUT',
@@ -464,7 +524,7 @@ export function Operations() {
                 onClick={() =>
                   void action(async () => {
                     FeedItemSchema.parse(
-                      await json(
+                      await request(
                         `/ops/discovery/items/${review.id}`,
                         {
                           expectedVersion: review.version,
@@ -487,7 +547,7 @@ export function Operations() {
                 disabled={busy || !note.trim()}
                 onClick={() =>
                   void action(async () => {
-                    await json(
+                    await request(
                       `/ops/discovery/items/${review.id}`,
                       {
                         expectedVersion: review.version,
@@ -564,7 +624,7 @@ function MacroOperations({
     </section>
   );
 }
-function SourceEditor() {
+function SourceEditor({ request }: { request: typeof json }) {
   const [sources, setSources] = useState<SourceRecord[]>([]),
     [form, setForm] = useState(blank),
     [editing, setEditing] = useState<SourceRecord | null>(null),
@@ -573,7 +633,7 @@ function SourceEditor() {
     [notice, setNotice] = useState(''),
     [busy, setBusy] = useState(false);
   const load = async () =>
-    setSources(SourceListSchema.parse(await json('/ops/sources')));
+    setSources(SourceListSchema.parse(await request('/ops/sources')));
   useEffect(() => {
     void load().catch(() => setError('Registry unavailable.'));
   }, []);
@@ -600,7 +660,7 @@ function SourceEditor() {
           void action(async () => {
             const data = SourceInputSchema.parse(form);
             const record = SourceRecordSchema.parse(
-              await json(
+              await request(
                 `/ops/sources${editing ? `/${editing.id}` : ''}`,
                 editing ? { data, expectedRevision: editing.revision } : data,
                 editing ? 'PUT' : 'POST',
@@ -715,7 +775,7 @@ function SourceEditor() {
                   void action(async () =>
                     setHistory(
                       SourceListSchema.parse(
-                        await json(`/ops/sources/${s.id}/history`),
+                        await request(`/ops/sources/${s.id}/history`),
                       ),
                     ),
                   )
@@ -748,11 +808,13 @@ function SourceEditor() {
 }
 
 function SourceRefresh({
+  request,
   action,
   busy,
   afterRefresh,
   latest,
 }: {
+  request: typeof json;
   action: (work: () => Promise<void>) => Promise<void>;
   busy: boolean;
   afterRefresh: () => Promise<void>;
@@ -769,7 +831,10 @@ function SourceRefresh({
   useEffect(() => {
     let active = true;
     setError('');
-    void Promise.all([json('/discovery/catalog'), json('/ops/discovery/runs')])
+    void Promise.all([
+      request('/discovery/catalog'),
+      request('/ops/discovery/runs'),
+    ])
       .then(([c, r]) => {
         const next = ResearchCatalogSchema.parse(c);
         const history = ResearchRunsSchema.parse(r);
@@ -848,7 +913,7 @@ function SourceRefresh({
               );
               try {
                 const run = DiscoveryRunSchema.parse(
-                  await json(
+                  await request(
                     '/ops/discovery/refresh',
                     { sourceIds: selected },
                     'POST',

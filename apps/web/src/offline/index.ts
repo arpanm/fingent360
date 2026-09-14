@@ -30,10 +30,12 @@ import { reportsHandler } from './reports';
 import { handleReportComparison } from './report-comparison';
 import { handleRetention } from './retention';
 import { handleWorkerHealth } from './worker-health';
+import { handleOperatorAudit } from './operator-audit';
 
 const bundle = snapshot as OfflineBundle;
 const handlers: OfflineHandler[] = [
   handleWorkerHealth,
+  handleOperatorAudit,
   handleRetention,
   handleRecovery,
   handleSecurities,

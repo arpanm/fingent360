@@ -116,3 +116,7 @@ Reports/More → Compare reports → two labelled selections → Review capture 
 ## Reading updates
 
 Saved/More → Reading updates → choose sources/topics → consent → review/Back → save baseline. Check stored updates → dated notices → acknowledge/Open current reading → reload; mute/unmute/unfollow review states backlog effects. More notices/history, per-page filters and complete private export use bounded pages. Failed or uncertain action retains retryable request and dated receipt; current context resumes only after successful reload. WEB440–445/OFFLINE450–451 cover keyboard/mobile, races and noAPI device behavior.
+
+## Operator audit activity
+
+Operations → Audit activity → fixed filters → Apply → Older entries → exact failed-page Retry or Reset for new boundary → Open relevant module/Back. Recorded requests are visibly distinct from completion receipts. Invalid drafts cannot retry older filters invisibly. Real401 after Back clears protected parent state; delayed success/sign-out cannot restore it. WEB480–486/OFFLINE490 cover keyboard/mobile, pages, recovery and connected-only device mode.

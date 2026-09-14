@@ -1,5 +1,11 @@
 # Fingent360
 
+## Operator activity history — OPS-AUDIT-001
+
+**Operations → Audit activity** shows recorded requests and specific existing cleanup events with UTC filters and50-row pages. Request entries show that an action was requested; they do not prove it completed. Use the relevant module's saved results to inspect completion. Actor/session hashes, raw targets, credentials and private request bodies are excluded.
+
+Reset starts a fresh chronological boundary; Retry repeats the failed page and filters. Signed cursors preserve exact ordering and reject altered filters. A late401 ends the protected parent session even after leaving the audit tab, and older successful reads cannot restore its contents. Existing immutable audit storage is reused without a migration or dependency. Device mode explains that Operations requires a connection and makes no API call. [Specification](docs/product/operator-audit.md), [verification](docs/development/status.md). Named operator identities, complete action attribution and production audit acceptance remain separate.
+
 ## Follow reading updates — READING-FOLLOW-001
 
 **Saved → Reading updates** lets you follow reviewed sources or topics and explicitly check stored editions. New follows and unmuting start from a fresh baseline, without an old-news backlog. Later checks create one dated notice per changed item; acknowledge marks that version as seen and a later change reopens it. Retained overlapping follows preserve existing notices. Mute pauses checking; unfollow resolves the related notices without erasing history.
@@ -1703,3 +1709,5 @@ Account/macro/inbox specs now declare worker-scoped capture settings at file sco
 Restored a missing closing brace in AccountStore. If formatting/checks previously failed at accounts.ts before remove(), stop the existing dev terminal and rerun `pnpm format`, then `pnpm check`. Only after those succeed, run `pnpm db:migrate` and `pnpm dev` so the migration uses the rebuilt output. Existing containers and data are preserved. Manual verification is pending; Codex did not execute these commands.
 
 READING-FOLLOW-001 verification:25/25 connected and10/10 selected packaged offline scenarios passed; final Saved-navigation reruns passed2/2 connected and2/2 offline. See development status for exact runs, corrections and separate physical-device acceptance.
+
+OPS-AUDIT-001 has passing evidence for all34 selected connected scenarios across the initial run and corrected four-case rerun, plus packaged offline acceptance. See development status for run identities, gate counts and separate hardware/production limits.

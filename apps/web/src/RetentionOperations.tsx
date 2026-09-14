@@ -349,6 +349,10 @@ export function OfflineOperationsNotice() {
     <section className="account">
       <h1>Operations need a connected server</h1>
       <p>
+        Audit activity requires a connected server and an operations sign-in. No
+        server audit history is stored in this device workspace.
+      </p>
+      <p>
         Worker health and pause/resume control connected server report
         preparation, scheduled reports and reading reminders. They are
         unavailable here; on-device work is unchanged.

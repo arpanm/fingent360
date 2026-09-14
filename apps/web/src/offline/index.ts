@@ -2,6 +2,7 @@ import {
   reportSchedulesHandler,
   materializeLocalSchedules,
 } from './report-schedules';
+import { handleReadingFollow } from './reading-follow';
 import { ZodError } from 'zod';
 import snapshot from './content-bundle.json';
 import {
@@ -52,6 +53,7 @@ const handlers: OfflineHandler[] = [
   handleFinance,
   handleGoalScenarios,
   handleConnectionReviews,
+  handleReadingFollow,
   handleLibrary,
   handleLearning,
   handleContent,

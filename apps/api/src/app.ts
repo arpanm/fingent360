@@ -2,6 +2,7 @@ import {
   ReportSchedulesController,
   ReportSchedulesStore,
 } from './report-schedules.js';
+import { ReadingFollowController } from './reading-follow.js';
 import { createRequire } from 'node:module';
 import {
   FeedbackController,
@@ -103,6 +104,7 @@ export async function createApp(
         GoalsController,
         GoalScenariosController,
         ConnectionReviewsController,
+        ReadingFollowController,
         PrivacyController,
         SourcesController,
         AlertPreferencesController,

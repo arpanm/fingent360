@@ -210,6 +210,7 @@ export function Saved() {
           <p className="page-description">
             Return to ideas you saved. Read at your pace.
           </p>
+          <a href="#reading-follow">Reading updates</a>
         </div>
         <a href="#today" className="button secondary">
           Find something to read

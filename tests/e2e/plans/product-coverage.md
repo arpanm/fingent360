@@ -1,5 +1,9 @@
 # Planned end-to-end coverage
 
+## READING-FOLLOW-001 acceptance
+
+Follow explicit sources/topics with consent/review and fresh baseline; retain overlapping observations, freeze on mute, reset backlog on unmute, coalesce changed editions and acknowledge exact observed versions. Preserve immutable minimal event history, actual publication admission and atomic bounded scans with final auth. Exercise complete paginated exports, later-page401/no partial download, ownership/cascade, request replay/conflicts, UI draft/read races, empty/filter/history states and keyboard/mobile navigation. API440–445, WEB440–445, OFFLINE450–451 and domain units. Actual device state uses dated bundle/noAPI; physical phone and external delivery separate.
+
 ## REPORT-COMPARE-001 acceptance
 
 Read two owned immutable originals under account/sorted-job admission and final authorization, calculate exact input differences without new storage, preserve cost-versus-return and capture-versus-current disclosure. Verify strict malformed/foreign/queued/cancelled/deleted denial, reset/expiry/deletion races and unchanged financial/report digests. Complete keyboard/mobile choose/review/cancel/compare/original dialog/Back/reload/deep-link flows, fewer-than-two/error/retry, late-response invalidation and immediate401 clearing. Actual serialized local parity must not issue queued jobs or call an API; original exports/deletions remain authoritative. API420–426, WEB420–425, OFFLINE430–432 and exact units; physical hardware acceptance separate.
@@ -768,3 +772,5 @@ Worker-health parent verification:39/39 connected checks and19/19 packaged offli
 Report-schedule parent verification:18/18 connected feature cases,26 worker/privacy regressions and20/20 packaged offline cases passed; configured-timezone display additionally passed2browser/2offline checks. Run IDs, fixture-cast correction, full-export validation, gates and physical limits are in status.
 
 Source-withdrawal parent verification:27/27 connected withdrawal/media executions and27 earlier worker/source regressions passed; all26selected offline scenarios have passing evidence across correction runs. The actual179-item bundle was rebuilt with final admission. Status records exact runs, receipt/locator corrections,124unit gates, preserved records and physical/disconnected limits.
+
+READING-FOLLOW-001 verification:25/25 connected and10/10 selected packaged offline scenarios passed; final Saved-navigation reruns passed2/2 connected and2/2 offline. See development status for exact runs, corrections and separate physical-device acceptance.

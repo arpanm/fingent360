@@ -1,3 +1,4 @@
+import { completeReadingFollowExport } from './reading-follow-export';
 import { completeScheduleExport } from './schedule-export';
 import { RecoverySettings } from './Recovery';
 import { useEffect, useRef, useState } from 'react';
@@ -181,6 +182,11 @@ export function Privacy() {
                           JSON.stringify(
                             CompletePrivacyExportSchema.parse({
                               ...exported,
+                              readingFollow: await completeReadingFollowExport(
+                                exported.readingFollow,
+                                api,
+                                () => exportActive.current,
+                              ),
                               reportSchedules: await completeScheduleExport(
                                 exported.reportSchedules,
                                 api,

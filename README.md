@@ -1,5 +1,11 @@
 # Fingent360
 
+## Follow reading updates — READING-FOLLOW-001
+
+**Saved → Reading updates** lets you follow reviewed sources or topics and explicitly check stored editions. New follows and unmuting start from a fresh baseline, without an old-news backlog. Later checks create one dated notice per changed item; acknowledge marks that version as seen and a later change reopens it. Retained overlapping follows preserve existing notices. Mute pauses checking; unfollow resolves the related notices without erasing history.
+
+Review and consent before changing settings. Retry a lost response safely, reload current status, inspect paginated notices/history and download your complete private history. Withdrawn sources lose current-reading links; notices retain only identifiers, versions and your choices, without copied article text. No provider refresh, background monitoring, email or push is added. Migration032 adds owned settings, notices and immutable events. Shared offline storage follows the same rules using its dated bundle with no API calls; rebuild/reinstall the APK for phone updates. [Specification](docs/product/reading-follow.md), [verification](docs/development/status.md).
+
 ## Compare two saved reports — REPORT-COMPARE-001
 
 **Saved record reviews → Compare reports** lets you choose two of your issued originals, review their capture dates and compare recorded goals, contribution plans, holdings and allocation bindings. Differences use exact arithmetic and always run from the older capture to the newer one, regardless of selection order. Missing values stay unknown; changes in acquisition cost are not investment returns. Optional research receipts remain dated personal context.
@@ -1695,3 +1701,5 @@ Account/macro/inbox specs now declare worker-scoped capture settings at file sco
 ### API syntax correction (BUG-005)
 
 Restored a missing closing brace in AccountStore. If formatting/checks previously failed at accounts.ts before remove(), stop the existing dev terminal and rerun `pnpm format`, then `pnpm check`. Only after those succeed, run `pnpm db:migrate` and `pnpm dev` so the migration uses the rebuilt output. Existing containers and data are preserved. Manual verification is pending; Codex did not execute these commands.
+
+READING-FOLLOW-001 verification:25/25 connected and10/10 selected packaged offline scenarios passed; final Saved-navigation reruns passed2/2 connected and2/2 offline. See development status for exact runs, corrections and separate physical-device acceptance.

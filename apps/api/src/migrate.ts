@@ -44,6 +44,7 @@ try {
     '027_connection_reviews.sql',
     '029_report_schedules.sql',
     '030_worker_health.sql',
+    '032_reading_follow.sql',
   ]) {
     await applyMigration(
       client,

@@ -151,3 +151,9 @@ Specification: docs/product/holdings-reconciliation.md. UI/UX: shared four-group
 ## REPORT-COMPARE-001 boundary
 
 Specification: docs/product/report-comparison.md. UI/UX: explicit pair/date review, exact grouped changes, original reader and full-route recovery. API/workflow: read-only owned originals, account/sorted-job locks, final authorization, unavailable/foreign/queued/deleted denial and race-safe UI. Data: no new persistence/migration; exact existing v1/v2 originals. Real data: actual owned issued records and dated research receipts; no market-performance inference. Automation: explicit calculation only, no worker/polling/provider call. Tests: API420–426, WEB420–425 desktop/mobile, OFFLINE430–432 and five units; status records execution. Docs: README/TODO/spec/handoff/catalog/coverage/CTA inventory. Physical phone/TalkBack remain separate; broad analytical advice gates remain open.
+
+## READING-FOLLOW-001 boundary
+
+Spec: docs/product/reading-follow.md. UI/UX: Saved/More, reviewed settings, dated inbox/history and complete export with mobile/keyboard/error recovery. API/workflow: account-owned source/topic baseline/check/ack/replay and publication-aware link projection. Data: additive032 immutable minimal ledger and cascade; exact versions, no article copy. Real data: existing reviewed stored publications; no provider refresh. Automation: explicit user checks only. Tests: API440–445, WEB440–445, OFFLINE450–451 and5 domain cases; status records execution. Docs: TODO/README/spec/handoff/catalog/coverage/CTA. Continuous alerts, email/push, physical acceptance and broader DEV018 remain open.
+
+READING-FOLLOW-001 verification:25/25 connected and10/10 selected packaged offline scenarios passed; final Saved-navigation reruns passed2/2 connected and2/2 offline. See development status for exact runs, corrections and separate physical-device acceptance.

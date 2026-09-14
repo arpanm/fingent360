@@ -30,7 +30,7 @@ export function sectionFor(route: string) {
     key.startsWith('securities')
   )
     return 'money';
-  if (key === 'saved') return 'saved';
+  if (key === 'saved' || key === 'reading-follow') return 'saved';
   if (key === 'explore' || key.startsWith('macro') || key === 'sources')
     return 'explore';
   if (key.startsWith('read/')) {

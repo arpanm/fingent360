@@ -1,4 +1,8 @@
 import {
+  ReadingFollowExportSchema,
+  CompleteReadingFollowExportSchema,
+} from './reading-follow.js';
+import {
   CompleteScheduleExportSchema,
   ScheduleExportSchema,
 } from './report-schedules.js';
@@ -95,13 +99,15 @@ export const PrivacyExportSchema = z.strictObject({
   allocations: AllocationHistorySchema,
   goalScenarios: GoalScenarioExportSchema,
   connectionReviews: ConnectionReviewExportSchema,
+  readingFollow: ReadingFollowExportSchema,
   reports: ReportJobsSchema,
   reportSchedules: ScheduleExportSchema,
   researchConnections: ResearchConnectionHistorySchema,
 });
 export type PrivacySession = z.infer<typeof PrivacySessionSchema>;
 
-/** Download artifact after all bounded schedule pages have been collected successfully. */
+/** Download artifact after all bounded schedule and reading-history pages have been collected successfully. */
 export const CompletePrivacyExportSchema = PrivacyExportSchema.extend({
   reportSchedules: CompleteScheduleExportSchema,
+  readingFollow: CompleteReadingFollowExportSchema,
 });

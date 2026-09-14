@@ -4,6 +4,7 @@ export type AccountDestination =
   | 'holdings'
   | 'privacy'
   | 'saved'
+  | 'reading-follow'
   | 'today'
   | 'explore'
   | 'learning'
@@ -25,6 +26,7 @@ export function accountDestination(hash: string): AccountDestination | null {
     next === 'holdings' ||
     next === 'privacy' ||
     next === 'saved' ||
+    next === 'reading-follow' ||
     next === 'today' ||
     next === 'explore' ||
     next === 'learning' ||

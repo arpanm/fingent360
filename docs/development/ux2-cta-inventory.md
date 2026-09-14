@@ -112,3 +112,7 @@ Manual/CSV/XLSX → Preview → added/removed/changed/unchanged baseline compari
 ## Compare saved reports
 
 Reports/More → Compare reports → two labelled selections → Review capture dates → Cancel or Compare → exact older-to-newer changes → Open original → Close/Escape → Back. Refresh/reload validates original availability; deletion or401 clears private results and late reads cannot restore them. Full-route keys protect changed original URLs. WEB420–425/OFFLINE430–432 cover keyboard/mobile/escaping/recovery and actual local no-network behavior.
+
+## Reading updates
+
+Saved/More → Reading updates → choose sources/topics → consent → review/Back → save baseline. Check stored updates → dated notices → acknowledge/Open current reading → reload; mute/unmute/unfollow review states backlog effects. More notices/history, per-page filters and complete private export use bounded pages. Failed or uncertain action retains retryable request and dated receipt; current context resumes only after successful reload. WEB440–445/OFFLINE450–451 cover keyboard/mobile, races and noAPI device behavior.

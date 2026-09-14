@@ -1,4 +1,5 @@
 import { exportOfflineReportSchedules } from './report-schedules';
+import { exportLocalReadingFollow } from './reading-follow';
 import { exportLocalGoalScenarios } from './goal-scenarios';
 import { exportLocalConnectionReviews } from './connection-reviews';
 import { z } from 'zod';
@@ -288,6 +289,7 @@ export async function handleAccounts(
       'localResearchConnections',
       'localGoalScenarios',
       'localConnectionReviews',
+      'localReadingFollow',
       'localReports',
       'localReportSchedules',
       'localReportTombstones',
@@ -409,6 +411,7 @@ export async function handleAccounts(
         researchConnections: exportLocalConnections(detached, user.id),
         goalScenarios: exportLocalGoalScenarios(detached, user.id),
         connectionReviews: exportLocalConnectionReviews(detached, user.id),
+        readingFollow: exportLocalReadingFollow(detached, user.id),
         formatVersion: 'account-export-v1',
         exportedAt: new Date().toISOString(),
         account: account(user),

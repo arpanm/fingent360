@@ -1,3 +1,4 @@
+import { ReadingFollow } from './ReadingFollow';
 import { onOtherTabSessionChange } from './session';
 import {
   lazy,
@@ -57,6 +58,12 @@ const destinations = [
   ['more', 'More', 'more'],
 ];
 const moreLinks = [
+  [
+    'reading-follow',
+    'Reading updates',
+    'Check reviewed sources and topics when you choose',
+    'bookmark',
+  ],
   [
     'report-compare',
     'Compare issued reports',
@@ -379,6 +386,8 @@ export function App() {
             <ResearchConnections key={route} />
           ) : base === 'comparisons' ? (
             <GoalScenarios />
+          ) : base === 'reading-follow' ? (
+            <ReadingFollow key={route} />
           ) : base === 'connection-reviews' ? (
             <ConnectionReviews />
           ) : base === 'allocations' ? (

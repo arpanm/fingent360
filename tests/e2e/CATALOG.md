@@ -1,5 +1,11 @@
 # End-to-end case catalogue
 
+## READING-FOLLOW-001 — source/topic update receipts
+
+API440–445 cover actual baseline/check/ack/reopen/withdraw/mute, replay/concurrency/isolation/deletion, publication-lock expiry rollback, overlapping retained follows/config receipt parity, more than200 source IDs, bounded pages and frozen history cutoffs. WEB440–445 cover keyboard review/Back, vanished-topic removal, uncertain receipt/current-read recovery, complete export/later401, pending history and late200, first-load/readability failures, disabled pending controls and multi-page filters. OFFLINE450–451 exercise shared keyboard UI and actual serialized bundle transitions, histories/deletion/noAPI. Five domain cases verify transition rules and receipt parity.
+
+Tag @READING-FOLLOW-001:18 connected and2 offline instances. Synthetic later editions/pagination/faults are labelled; successful calls use actual owned storage/API. See status for execution and separate hardware acceptance.
+
 ## REPORT-COMPARE-001 — actual immutable originals
 
 API420–426 cover exact issued changes/deterministic direction/unchanged originals; malformed/foreign/deleted denial; queued/cancelled exclusion; actual recovery reset and final job/account wait expiry; dated v2 receipts after withdrawal; deletion winning a lock race. WEB420–425 (desktop/mobile) cover keyboard selection/review/cancel/reverse/original/Back/reload, exact escaping/mobile capture, empty/fault recovery, deletion, delayed reads, actual401 and foreign same-mounted routes. OFFLINE430–432 cover real local issuance/exact comparison, unavailable/queued/deleted/foreign denial and dated v2/account deletion with zero API traffic. Five independent exact-domain units accompany these cases.
@@ -446,3 +452,5 @@ Worker-health parent verification:39/39 connected checks and19/19 packaged offli
 Report-schedule parent verification:18/18 connected feature cases,26 worker/privacy regressions and20/20 packaged offline cases passed; configured-timezone display additionally passed2browser/2offline checks. Run IDs, fixture-cast correction, full-export validation, gates and physical limits are in status.
 
 Source-withdrawal parent verification:27/27 connected withdrawal/media executions and27 earlier worker/source regressions passed; all26selected offline scenarios have passing evidence across correction runs. The actual179-item bundle was rebuilt with final admission. Status records exact runs, receipt/locator corrections,124unit gates, preserved records and physical/disconnected limits.
+
+READING-FOLLOW-001 verification:25/25 connected and10/10 selected packaged offline scenarios passed; final Saved-navigation reruns passed2/2 connected and2/2 offline. See development status for exact runs, corrections and separate physical-device acceptance.

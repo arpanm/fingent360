@@ -1,5 +1,9 @@
 # Fingent360
 
+A failed manual SDLC stage starts a scoped Codex repair attempt. For E2E, it receives only one failed case's error/location; the script rebuilds and reruns that exact file, title and project, never the full suite. Other command failures retry that command. Agents edit only. Default repair budget:3 attempts per invocation (`SDLC_REPAIR_LIMIT`, range1–10); opt out with `SDLC_AUTO_REPAIR=0`. Codex must be installed and signed in (`SDLC_CODEX_BIN` overrides its path). Post-commit repairs remain uncommitted until new format/check gates pass. Launcher changes are authored; execution validation is pending.
+
+For a user-operated format/check/gated commit without E2E: `pnpm sdlc "Describe change" --checks-only`. For a scoped SDLC run: `pnpm sdlc "Describe change" -- --grep TASK-ID`. The existing unfiltered command still runs all E2E cases. Agents author changes and affected test IDs; deterministic execution remains user-operated. The new checks-only option is authored and awaits validation.
+
 REGRESSION-015 is validating the full SDLC under explicit user authorization. Web/E2E typing corrections and UTF-16 excerpt validation are implemented. Additive migrations037–048 and runtime grants were applied locally; existing data was preserved. Validation results are recorded in docs/development/regression-015.md. No push is authorized.
 
 REGRESSION-014 corrects provider receipt URL typing and named-mode cursor signing after format/lint passed. Named audit/publishing cursors use a random server-only key and require resetting the page after an API restart; bootstrap cursor compatibility is preserved. Four codec regression cases are authored. Rerun the original `pnpm sdlc` invocation with its existing filters; typechecks, tests and commit remain pending.

@@ -45,3 +45,29 @@ The reusable UI runner lists cases; only the user's Run action executes them. Ke
 ## Handoff record
 
 State: task and per-layer implementation status; verified versus unverified acceptance; run IDs/cases/targets; format/check gate evidence; local commit hash or awaiting-gate reason; uncommitted scope; manual commands with services/migrations and printed URLs; failure report path. Use docs/product/experience.md review scenarios and docs/development/delivery-matrix.md to avoid overstating parent completion.
+
+## Execution cost and scoped manual runs
+
+The September14 full run selected766 cases serially and took40.3minutes. Summed case durations were API4.7minutes, desktop10.0 and mobile9.6; roughly16minutes remained outside reported case durations (runner/fixture/teardown overhead needs separate profiling). This is measured runtime, not a model-token measurement.
+
+- Agents author code, meaningful tests, documentation and exact affected task/test filters. Do not run or monitor deterministic validation under the default boundary.
+- `pnpm sdlc "Change" --checks-only`: format/check then gated commit; deliberately no E2E. Does not overwrite or claim new E2E evidence.
+- `pnpm sdlc "Change" -- --grep TASK-ID`: same gates and selected E2E.
+- `pnpm e2e:run --grep TASK-ID`: rerun selected E2E alone when existing built code and services remain current; no redundant commit/check loop.
+- Existing `pnpm sdlc "Release validation"` retains full-suite behavior. Reserve it for explicitly chosen broad regression/release checks.
+- After an authorized full run, diagnose saved artifacts and rerun affected cases, not another full suite. Never poll each test or copy passing-test output into the agent context.
+- Do not enable parallel workers blindly: shared-service, provider and deliberate locking cases need an isolation audit first. Do not remove correctness assertions or replace real paths with mocks to shorten runs.
+
+The checks-only option and its unit cases are authored; user validation is pending.
+
+## Failure-scoped agent repair and deterministic retry
+
+A user-operated SDLC command streams stdout/stderr and retains per-stage logs in ignored `artifacts/sdlc/<run>/`. Format/check/staging/commit failures stop that stage. The script sends its error excerpt to a local `codex exec --sandbox workspace-write` repair agent, then retries the failed command after the agent returns. It resumes the unfinished workflow rather than restarting earlier stages. Git-stage repair revalidates format/check before retrying staging or commit, because the agent may have changed files since the earlier gates.
+
+For E2E, the script reads only the JSON report associated with the failed command's run ID. Each repair request contains one failed case's error, source location and project. Passing cases and other failures are excluded from that prompt. After repair, the script rebuilds the application because API fixtures execute compiled code, then reruns the exact file/project/escaped title. No unfiltered suite retry occurs. It requires exactly one recorded pass; absent/ambiguous reports or skipped/no-test results cannot count as success. Combined evidence remains in the original report plus scoped retry reports; latest.md describes only the latest selected run.
+
+The agent may inspect relevant code and edit the reported defect, its regression cases and associated documentation. It must not fix unrelated TODO items, run commands for validation, commit, push, delegate or schedule anything. Nested SDLC invocation is blocked by `F360_SDLC_REPAIR_ACTIVE`. Deterministic rebuilding/retry belongs to the parent script. The default shared budget is3 agent attempts per SDLC invocation; `SDLC_REPAIR_LIMIT` accepts1–10. Exhaustion or a launcher error stops for user review. There is no indefinite loop.
+
+Set `SDLC_AUTO_REPAIR=0` to disable repair. Set `SDLC_CODEX_BIN=/absolute/path/to/codex` when needed. The CLI uses the existing configured model/login; nothing is installed automatically. Malformed command arguments and user cancellation do not launch an agent. Earlier commits are retained; repair edits made after the commit remain uncommitted until format/check are run again. Nothing pushes.
+
+Manual acceptance in a disposable checkout: a controlled failed check must receive only that stage's error, while E2E repair must receive only one failed case and rerun that same project/file/title. Confirm unrelated passing cases are absent from retry commands and prompts, recursion is blocked, budget exhaustion stops, and a missing report never triggers a full-suite fallback. Unit tests use injected executors/report readers/launchers and never invoke a model. These launcher changes are authored, not executed.

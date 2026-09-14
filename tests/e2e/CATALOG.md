@@ -545,3 +545,7 @@ REGRESSION-013: lint corrections preserve existing numerical/event rollback, nam
 REGRESSION-014: fixed-URL provider annotations reuse existing transport cases. Four operator-cursor unit cases cover named signing round-trip, tampering, rejection of public Symbol-derived signatures, controller-instance reset, bootstrap compatibility and domain separation. Existing API481/561 exercise strict/tampered cursor rejection; paging/auth tests remain applicable. No new E2E ID or agent-run validation. User reruns the original pnpm sdlc command and filters.
 
 REGRESSION-015 reuses API-767/688/748/792/818 and WEB-062/223/224/681/740/810/850–855/873 for final admission, exact retry timestamp, fixture teardown, pagination and keyboard/recovery corrections. Full API/desktop/mobile run and focused reruns are recorded in docs/development/regression-015.md.
+
+SDLC-COST-001 changes the manual launcher only: unit cases cover explicit checks-only parsing, rejection of contradictory filters and mandatory pre-commit gates. Manual acceptance: checks-only runs no E2E and claims no fresh report; existing unfiltered/filtered modes retain their behavior. No application API/browser behavior changes.
+
+SDLC-REPAIR-001: injected unit coverage for failure-only handoff, exact file/title/project retry, exclusion of passing cases, opt-out, bounded attempts, recursion/cancellation suppression and launcher failure. Manual disposable-checkout acceptance is documented in docs/development/sdlc.md; no real agent invocation or E2E was run for this launcher change.

@@ -72,3 +72,7 @@ pnpm e2e:report
 Node 24 LTS is the CI baseline; Node 26 is allowed locally. pnpm is pinned. The test UI starts at port 9323 and selects a free alternative; use the URL printed by the launcher. Root pnpm dev/db:up select ports and propagate them through .env when the user invokes those commands. See `tests/e2e/README.md` for usage and prerequisites. `pnpm db:down` preserves named volumes; no volume removal/database reset without explicit data-loss authorization.
 
 Use `codex/` branch names when creating branches. Inspect Git status first; preserve unrelated changes. Historical instructions in product/reference documents to run gates do not override this SDLC execution boundary. A working skeleton does not complete a product gate.
+
+## Validation cost discipline
+
+Use the manual execution boundary above. Every implementation handoff lists affected test IDs/tags and the smallest meaningful user-run command. Use `pnpm sdlc "message" --checks-only` when the user wants only format/check/gated commit; use explicit E2E filters for feature validation. An unfiltered run selects the entire suite and is for deliberate broad validation. Do not run or monitor commands as an agent by default. For a later explicit execution exception, use saved reports, one broad run only when requested, then affected-case reruns; do not repeatedly poll passing cases or narrate unchanged progress. Do not infer authorization for future tasks from a completed exception.

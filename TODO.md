@@ -1,8 +1,20 @@
 # TODO — Fingent360 delivery tracker
 
+## SDLC-REPAIR-001 — failure-scoped agent repair and exact-case retry
+
+- **Implementation:** Authored; user validation and gated commit pending. User explicitly requests an agent on any failing stage/test. Deterministic execution remains outside the repair agent.
+- **Scope / acceptance:** Stream and retain per-stage logs in ignored artifacts/sdlc; preserve format/check-before-commit and failed exit status; launch one configured local Codex CLI attempt with the exact failed stage/log; preserve completed commits and unrelated changes. Agent repairs only this failure, with no validation, commits, pushes or delegation. Parent script retries the exact failed case/project (rebuilding as a prerequisite), never the full E2E suite. Non-E2E failures retry their command. Default3 shared attempts; stop on exhaustion or missing exact report. Block recursive SDLC invocation. Respect SDLC_AUTO_REPAIR=0, preserve handoff if CLI is unavailable, and do not launch agents for argument errors or user cancellation. No new dependency, API, UI or migration.
+- **Reusable Codex prompt:** Inspect scripts/sdlc.mjs and its injected-executor unit cases. Implement streaming command logs and one author-only failure handoff through the installed Codex CLI, without shell interpolation, model overrides, whole-suite retries or weakened gates. Add exact-case selection and bounded parent-controlled retry coverage. Add parser/gate/recursion/launch-failure cases. Update README, SDLC docs, catalog and status. Do not invoke tests or a real agent during authoring; the user runs the command manually.
+
+## SDLC-COST-001 — keep deterministic validation user-operated and scoped
+
+- **Implementation:** Authored; validation and commit pending user-run gates. The user reinstated the manual execution boundary after the expensive full run. No agent-driven checks/tests/builds/commits for this optimization.
+- **Acceptance:** Existing full SDLC and selected-filter semantics remain unchanged. Explicit `--checks-only` performs format/check and gated commit, never E2E or push, rejects contradictory test filters and clearly states no fresh E2E evidence. Regression cases cover parsing, gate failure and commit ordering.
+- **Reusable Codex prompt:** Read the saved REGRESSION-015 run timings. Preserve full manual validation but author an explicit checks-only option; document affected-case handoffs and E2E-only reruns to avoid repeating gates when code is unchanged. Keep test isolation and assertions; do not raise concurrency or remove coverage without measured evidence. Update tests, README, SDLC docs and status; leave execution to the user.
+
 ## REGRESSION-015 — complete SDLC validation and repair
 
-- **Status:** In progress. User explicitly authorizes running the whole SDLC, checks and E2E for this repair. Preserve pending roadmap work; never push.
+- **Status:** Implemented and validated within recorded scope. Full766-case run:739 passed,26 failed,1 intentional manual-outage skip. After fixes, all31 affected API/desktop/mobile cases passed in2.3minutes; format/check and268 unit tests passed. Fix commits a9ca213 and5fc0907. User subsequently restored the manual execution boundary; no ongoing execution authorization. No push.
 - **Scope / acceptance:** Fix reported web typing and any subsequent check/test failures without weakening contracts or tests. Run format/check, gated local commit and full E2E; record actual results and remaining limitations.
 - **Reusable Codex prompt:** Read the supplied September14 web typecheck log and latest E2E artifacts; repair underlying typing/workflow defects, add relevant regression coverage, run the authorized SDLC, update README and trackers with actual evidence, and retain all unrelated pending changes.
 

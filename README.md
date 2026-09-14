@@ -1,5 +1,11 @@
 # Fingent360
 
+## Your connection review inbox — CONNECTION-REVIEWS-001
+
+**More → Review inbox**, also linked from Research connections, checks your saved research connections when you choose **Check for updates**. Changed or withdrawn source editions and changed or removed financial records create one dated notice per connection. Acknowledge marks that evaluated state as seen; it does not reaffirm the connection. A later change reopens the notice, and removing or explicitly reaffirming the connection resolves it on the next check.
+
+Open a notice to read your owned connection receipt, then visit Research connections to load current context. Failed refreshes retain dated notices and historical operation receipts without calling them current. There is no background monitoring, provider fetch, email or push. The on-device workflow uses its dated bundle and durable local storage without a server. Additive migration027 adds bounded private inbox and replay records; private export/account deletion includes them. No new dependency. [Specification and retention limits](docs/product/connection-reviews.md), [verification and APK availability](docs/development/status.md). Rebuild/reinstall the APK to update a phone. Verified:54/54 connected cases and7/7 packaged offline regressions passed; physical-phone acceptance remains separate.
+
 ## Research receipts in saved reports — REPORTS-003
 
 **Saved record reviews** can now optionally include up to20 of your research connections. Select the exact connection revisions, review the captured notes/source dates and warnings, then request the report. Existing reports and requests without research keep their original v1 shape; optional research produces an immutable v2 report. Capture-time context stays dated, and current source availability requires opening your connections again.

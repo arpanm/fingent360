@@ -1,4 +1,5 @@
 import { GoalScenarioExportSchema } from './goal-scenarios.js';
+import { ConnectionReviewExportSchema } from './connection-reviews.js';
 import { z } from 'zod';
 import { ResearchConnectionHistorySchema } from './research-connections.js';
 import { LibrarySchema } from './library.js';
@@ -87,6 +88,7 @@ export const PrivacyExportSchema = z.strictObject({
   exclusions: z.array(z.string()),
   allocations: AllocationHistorySchema,
   goalScenarios: GoalScenarioExportSchema,
+  connectionReviews: ConnectionReviewExportSchema,
   reports: ReportJobsSchema,
   researchConnections: ResearchConnectionHistorySchema,
 });

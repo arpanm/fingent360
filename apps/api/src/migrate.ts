@@ -41,6 +41,7 @@ try {
     '022_retention.sql',
     '024_research_connections.sql',
     '025_goal_scenarios.sql',
+    '027_connection_reviews.sql',
   ]) {
     await applyMigration(
       client,

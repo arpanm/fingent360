@@ -1,0 +1,13 @@
+# Private connection review inbox — CONNECTION-REVIEWS-001
+
+Users explicitly choose Check for updates. A check compares the latest owned research connection receipts with existing published source editions and current owned goal/holding versions. It never fetches a provider, calculates financial impact or edits a financial record. Checks are not automatic and no email/push is sent.
+
+One notice is coalesced per connection. A changed/withdrawn source or changed/removed record produces an open notice. Acknowledgement marks that evaluated state as seen; it does not reaffirm the connection. Rechecking the same state preserves acknowledgement. A different connection/source/target state reopens a notice. A removed connection, or a now-current reaffirmed connection, resolves its existing notice. Original connection receipts remain immutable and owned.
+
+Each evaluation records checked-at and, offline, bundle-generated-at. Notice context describes the last successful check, not continuous monitoring. Opening the connection loads its authoritative current state; source links are not copied into the inbox. A failed check or refresh preserves old dated notices without calling them current. API check/ack results are immutable request receipts and must be followed by a current inbox GET before UI status is treated as current.
+
+Bounds: at most200 active connections from the parent feature; retain at most200 resolved notices plus active notices (400 total). Keep100 recent check receipts. Request IDs provide duplicate-safe replay for30days, with1000 request receipts per account inside that window; hitting the limit asks the user to retry after receipts expire. Pruning affects only old resolved notices/evaluation metadata, never source/financial/connection records. Account deletion removes the complete private inbox and receipts; privacy export contains the retained notices, evaluations and operation receipts.
+
+Acceptance: repeated check coalesces, ack persists, changed state reopens, withdrawal/removed goal produces truthful reason, removal resolves, stale ack409, foreign notice404, exact financial records unchanged, post-lock authentication, offline zero-network durable parity, keyboard/mobile/filter/reload/error and receipt versus reaffirmation distinction.
+
+Bounded turnover: already-resolved removed connections do not enter a new evaluation. Only active connection heads and removed heads with unresolved notices are loaded (maximum 400), so retained historical resolutions cannot prevent a later 200-connection cohort from being checked. A request ID reused after its 30-day receipt has expired starts a new check; both evaluations may remain in the recent history and are identified by request ID plus checked-at time.

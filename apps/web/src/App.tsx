@@ -26,6 +26,7 @@ import { runtime } from './runtime';
 import { FeedbackPage, FeedbackWidget } from './Feedback';
 import { ResearchConnections } from './ResearchConnections';
 import { GoalScenarios } from './GoalScenarios';
+import { ConnectionReviews } from './ConnectionReviews';
 import { GoalAllocations } from './GoalAllocations';
 import { Recovery } from './Recovery';
 import { Reports } from './Reports';
@@ -54,6 +55,12 @@ const destinations = [
   ['more', 'More', 'more'],
 ];
 const moreLinks = [
+  [
+    'connection-reviews',
+    'Connection review inbox',
+    'Check changes to your own research connections',
+    'goals',
+  ],
   [
     'comparisons',
     'Compare contribution plans',
@@ -358,6 +365,8 @@ export function App() {
             <ResearchConnections key={route} />
           ) : base === 'comparisons' ? (
             <GoalScenarios />
+          ) : base === 'connection-reviews' ? (
+            <ConnectionReviews />
           ) : base === 'allocations' ? (
             <GoalAllocations />
           ) : base === 'reports' ? (

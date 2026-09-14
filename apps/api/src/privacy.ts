@@ -1,4 +1,5 @@
 import { exportGoalScenarios } from './goal-scenarios.js';
+import { exportConnectionReviews } from './connection-reviews.js';
 import {
   Body,
   Controller,
@@ -227,6 +228,7 @@ export class PrivacyController {
         reports: await exportRecordReports(client, user.id),
         researchConnections: await exportResearchConnections(client, user.id),
         goalScenarios: await exportGoalScenarios(client, user.id),
+        connectionReviews: await exportConnectionReviews(client, user.id),
         formatVersion: 'account-export-v1',
         exportedAt: new Date().toISOString(),
         account: {

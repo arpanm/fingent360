@@ -33,6 +33,7 @@ import { JourneyController, journeyProvider } from './journey.js';
 import { MacroController, macroProvider } from './macro.js';
 import { AccountController, accountProvider } from './accounts.js';
 import { GoalScenariosController } from './goal-scenarios.js';
+import { ConnectionReviewsController } from './connection-reviews.js';
 import { GoalsController } from './goals.js';
 import { PrivacyController } from './privacy.js';
 import { SourcesController, sourcesProvider } from './sources.js';
@@ -91,6 +92,7 @@ export async function createApp(
         AccountController,
         GoalsController,
         GoalScenariosController,
+        ConnectionReviewsController,
         PrivacyController,
         SourcesController,
         AlertPreferencesController,

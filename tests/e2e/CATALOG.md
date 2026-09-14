@@ -1,5 +1,17 @@
 # End-to-end case catalogue
 
+## CONNECTION-REVIEWS-001 — private review inbox
+
+| Cases          | Projects       | Acceptance                                                                                                                                                                                             |
+| -------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| API310–311     | api            | Actual owned evaluation/coalescing/ack/reopen/resolution, exact unchanged finances, privacy and concurrent replay                                                                                      |
+| API312–314     | api            | 600-head turnover preserving1000immutable revisions; actual source-wait expiry401/zero writes;1000-operation capacity, dated expiry, replay and cross-action conflict                                  |
+| WEB310         | desktop/mobile | Manual check, dated notices/filter/ack/reload, actual owned receipt, failed current refresh, keyboard/mobile                                                                                           |
+| WEB311–313     | desktop/mobile | Actual committed check/ack response loss and historical-only replay during GET outage/TTL reuse; actual receipt401 versus held old successful inbox; Close pending receipt fences late reopening/focus |
+| OFFLINE340–343 | offline        | Real dated bundle/local owned notices, reload/export/delete/noAPI; actual600-head turnover; historical replay after later changes;1000-operation capacity/expiry with actual local handlers            |
+
+Tag @CONNECTION-REVIEWS-001:13connected and4offline executions. Synthetic publication, faults and dated receipt states are explicit. Selected execution evidence is in status; physical-phone/screen-reader acceptance remains separate.
+
 ## REPORTS-003 — optional report research receipts
 
 | Cases          | Projects       | Acceptance                                                                                                                                                                                                                       |

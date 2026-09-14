@@ -1,5 +1,9 @@
 # Planned end-to-end coverage
 
+## CONNECTION-REVIEWS-001 acceptance
+
+Check actual saved personal research connections against permitted stored editions and owned financial versions. Prove one notice per connection, preserved same-state acknowledgement, reopen on material state change and resolution on removal/reaffirmation. No financial or source mutation. Strict ownership/version/replay/capacity/post-lock authorization, bounded removed-history turnover and dated expiry must hold on actual APIs/database/local storage. WEB310–313 verifies real check/receipt/ack/retry/filter/navigation and response races on desktop/mobile; API310–314 and OFFLINE340–343 prove persistence/privacy/no-network. Historical operation receipts never establish current state, and closing a pending receipt cannot reopen it later. Native physical acceptance remains explicit.
+
 ## REPORTS-003 acceptance
 
 Prove optional explicit connection selection creates a v2 snapshot while plain requests and historical v1 reports keep exact existing shapes/math. Capture only owned exact revisions, personal reasons and minimal dated source receipts, with current-at-capture warnings under consistent locks. Never include article text or infer current publication from an old receipt. Actual canonical replay cannot recapture; different selection/label conflicts. Worker retry/late finish/cancel/delete/quota/export/account cascade retain existing semantics. Verify UI selection/review/Back/errors, actual committed-response loss, conflicting edits, immutable downloads/escaped print, and immediate401 private-state clearing despite old polls. API290–299, WEB290–299/301 desktop/mobile and OFFLINE330–339 cover actual APIs/storage/bundle with explicit synthetic faults. Physical native printing/TalkBack/phone acceptance remains separate.

@@ -51,3 +51,5 @@ export * from './retention.js';
 export * from './research-connections.js';
 
 export * from './goal-scenarios.js';
+
+export * from './connection-reviews.js';

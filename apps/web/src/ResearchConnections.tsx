@@ -338,7 +338,8 @@ export function ResearchConnections() {
         </p>
         <p>
           <a href="#holdings">My holdings</a> · <a href="#my-goals">My goals</a>{' '}
-          · <a href="#explore">Explore published reading</a>
+          · <a href="#explore">Explore published reading</a> ·{' '}
+          <a href="#connection-reviews">Review inbox</a>
         </p>
       </header>
       {error && (

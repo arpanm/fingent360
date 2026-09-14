@@ -22,6 +22,7 @@ export function sectionFor(route: string) {
       'allocations',
       'connections',
       'comparisons',
+      'connection-reviews',
       'reports',
     ].includes(key) ||
     key.startsWith('securities')

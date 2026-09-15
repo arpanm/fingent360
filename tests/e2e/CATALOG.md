@@ -218,6 +218,8 @@ WEB060/194 retain their original save/edit and actual receipt/retry assertions. 
 
 The timing fixtures reproduce application bugs; they do not fabricate successful API responses or bypass validation. WEB067/095 delete only their owned synthetic accounts. Existing offline cases exercise the rebuilt shared UI without a server. Exact execution evidence is in [status](../../docs/development/status.md).
 
+**E2E-API-120 scoped regression (2026-09-15):** Public item GET asserts HTTP200 before strict schema parsing, exact reviewed-edition equality after stale-review rejection, and unchanged content on a repeated GET after evaluation capture. Real source/evidence and authorization assertions remain. The latest supplied failure confirms HTTP503; the underlying transaction cause remains unresolved. Coverage is authored, not passed. See [UX-002C blocker](../../docs/tasks/UX-002C.md#scoped-failure-repair--2026-09-15).
+
 **UX-002 implemented coverage:** The cases below exercise the new persisted discovery, library, money, assistance, learning and media flows. See [CTA inventory](../../docs/development/ux2-cta-inventory.md) for actual UI/API paths. The broader [acceptance plan](plans/mobile-experience-acceptance.md) still includes physical-device, user-research and release gates that automated cases cannot establish.
 
 | Cases                             | Projects       | Implemented acceptance                                                                                                                       |
@@ -575,3 +577,11 @@ SDLC-REPAIR-003 extends E2E-WEB-195 with populated inbox rendering before select
 Launcher-only change: no product API/browser case is manufactured. Authored `tests/unit/sdlc-impact.test.mjs` covers deterministic selection with injected Git/executors. In a disposable checkout, preview a changed browser spec (exact file, desktop/mobile), shared web code (browser/offline), a contract/migration/helper (full fallback), deleted spec (full fallback), docs-only edit (no E2E), clean tree (full fallback) and explicit `--base HEAD~1` (committed changes retained). Confirm preview executes no command beyond read-only Git/file inspection; format/check still gate commit, final selection includes repairs, offline assets rebuild, and no native APK pass is claimed. See docs/development/sdlc.md for exact commands and prerequisites. Status: authored, not executed.
 
 SDLC-REPAIR-006: E2E-OFFLINE-1021 (@EVENT-SCENARIOS-001, offline) uses a stable narrowed numeric model in rejection callbacks and additionally checks that the original prior-change result survives invalid variants. Existing token, expectation-time, family, regulatory and hypothetical assertions remain intact. Test-only change; API/browser behavior and fixtures are unchanged. Compiler acceptance: `pnpm e2e:typecheck` exits 0. Runtime acceptance remains pending; no validation executed.
+
+## TRACKER-001 — task index documentation acceptance
+
+Manual documentation review only: open every index link, confirm former task IDs/child briefs are preserved, confirm the nine-workstream summary distinguishes implementation gaps from unrun validation, and check the task-maintenance rule requires updates to both files. No new API/browser behavior or executable E2E case is introduced. See [task records](../../docs/tasks/README.md) and [migration inventory](../../docs/tasks/migration-inventory.md). No tests were run.
+
+## INPUT-TRIAGE-001 — readiness documentation acceptance
+
+Manual review: all 126 targeted task rows link to input/readiness decisions; no task becomes verified solely from triage; repeated user answers are reused; running reports remain incomplete; research-ready does not claim source rights or verified layouts. No runtime behavior or executable E2E case was added. See [pickup queue](../../docs/tasks/pickup-queue.md).

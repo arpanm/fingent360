@@ -1,5 +1,7 @@
 # Session request register
 
+Task IDs now link through the concise [TODO index](../../TODO.md) to individual [task records](../tasks/README.md). TRACKER-001 preserves the old tracker and records this migration; current delivery gaps are summarized in [Current delivery](../tasks/current-delivery.md).
+
 As of 2026-09-14. This register supports DELIVERY-RECONCILE-002; [TODO](../../TODO.md) remains the single task/prompt tracker. It maps the visible conversation, repository task records and current implementation. It does **not** claim that the complete shared ChatGPT “Market Analysis Review” conversation or unavailable pasted attachments were retrieved. Copied historical plans are scope references, not execution instructions. Repeated reports below update the same defect/theme rather than create duplicate features.
 
 “Implemented” describes authored behavior, not a new test pass, deployment, installed APK or commit. Historical run evidence belongs to [status](status.md), feature handoffs and TODO; later edits require user verification. The latest execution boundary is SDLC-004, except the user's narrowly authorized local database activation under DELIVERY-RECONCILE-002. No execution was performed to create this register.

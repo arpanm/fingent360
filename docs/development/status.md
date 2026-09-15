@@ -1,5 +1,9 @@
 # Current implementation and verification status
 
+## Current task-status navigation — 2026-09-15
+
+Use [Current delivery](../tasks/current-delivery.md) for the nine-workstream implemented/missing breakdown and [TODO](../../TODO.md) for the task index. Detailed records now live in docs/tasks; seven recent workstreams are partial, two have bounded implementation authored with acceptance pending. The previous TODO was preserved under docs/archive. This documentation reconciliation does not apply migrations, run tests or establish a new commit/pass. Historical entries below retain their original scope.
+
 ## SDLC-REPAIR-004 — feedback delivery formatting
 
 The supplied `pnpm check` failure stopped at Prettier before later gates. Manually corrected saved review-status assertion wrapping in E2E-WEB-195, preserving its value and all existing real-path cases. Manual regression acceptance in TODO.md requires a targeted Prettier pass and preservation of every assertion in the repair diff. No behavior change requires new executable cases or fixtures. No formatter, check, test, service, SDLC or commit was run; verification remains pending. Existing HEAD is efd28d3; prior pending changes remain uncommitted. The full suite report was not inspected under this scoped repair instruction.

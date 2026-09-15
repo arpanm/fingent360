@@ -90,13 +90,23 @@ test('E2E-API-120 real feed review, withdrawal and protected operations @UX-002 
           })
         ).status(),
       ).toBe(409);
+      const publicResponse = await request.get(
+        `/api/v1/discovery/items/${item.id}`,
+      );
+      expect(publicResponse.status(), 'Public item GET after review').toBe(200);
+      const publicItem = FeedItemSchema.parse(await publicResponse.json());
+      expect(publicItem.status).toBe('published');
+      expect(publicItem).toEqual(published);
+      const repeatedResponse = await request.get(
+        `/api/v1/discovery/items/${item.id}`,
+      );
       expect(
-        FeedItemSchema.parse(
-          await (
-            await request.get(`/api/v1/discovery/items/${item.id}`)
-          ).json(),
-        ).status,
-      ).toBe('published');
+        repeatedResponse.status(),
+        'Repeated public item GET after evaluation capture',
+      ).toBe(200);
+      expect(FeedItemSchema.parse(await repeatedResponse.json())).toEqual(
+        publicItem,
+      );
       expect(
         (
           await request.get(`/api/v1/discovery/items/${item.id}/evidence`)

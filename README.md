@@ -1,5 +1,11 @@
 # Fingent360
 
+E2E-API-120 has an unresolved public-item GET failure after review. Status-first and repeated-read regression assertions are authored; production behavior is unchanged. The repeated supplied error confirms HTTP 503 but adds no underlying transaction cause; read-only inspection cannot establish a safe production fix. See [scoped blocker and exact validation command](docs/tasks/UX-002C.md#scoped-failure-repair--2026-09-15). Validation is pending.
+
+[Task pickup readiness](docs/tasks/pickup-queue.md) now separates 126 active records into agent-ready work, research-first work, parent rollups and validation/activation evidence. Existing user answers are recorded in each task; the next independent steps need no new questionnaire. Source/format/regulatory research belongs to the agent. Readiness does not authorize test execution, provider spending or regulated activation.
+
+For a clear implemented-versus-pending breakdown, read [Current delivery](docs/tasks/current-delivery.md). **The latest nine-workstream batch is not complete: seven workstreams retain functional gaps; evaluation logging and image stories are authored but await validation.** [TODO.md](TODO.md) is now a concise task index. Every task links to its own specification, reusable prompt, history, evidence and remaining actions under [docs/tasks](docs/tasks/README.md). Update the task record and its index row together after every implementation; do not add long prompts or summaries back to TODO.
+
 SDLC-REPAIR-008 updates the media reservation unit fixture for pool-level evaluation recording and adds recording lifecycle/replay assertions. Production behavior is unchanged; validation is pending. See [focused validation](docs/development/media-reservation-repair.md).
 
 SDLC-REPAIR-007 replaces inconsistently padded Markdown tables with equivalent labelled lists and removes a surplus blank line after the supplied README/SDLC Prettier warnings. Validation is pending; see [manual regression acceptance](docs/development/sdlc.md#sdlc-repair-007--markdown-formatting). No dependencies or services are needed.

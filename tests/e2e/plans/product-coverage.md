@@ -1,5 +1,9 @@
 # Planned end-to-end coverage
 
+## UX-002C scoped public-read regression
+
+E2E-API-120 (@UX-002 @external, api project): after real Fed refresh and review, require stale mutation409, public GET200 with the exact published edition, and a repeated GET200 with unchanged content despite existing evaluation capture. Keep strict response schemas, evidence/feed checks, operations protection and cleanup. The latest supplied status assertion confirms HTTP503; a sanitized underlying transaction cause remains required for diagnosis. No production fix or validation pass is claimed. See [task handoff](../../../docs/tasks/UX-002C.md#scoped-failure-repair--2026-09-15).
+
 ## BEA-QUARANTINE-001 acceptance
 
 Link only actual complete verified retained BEA bytes to immutable attempts; record original retrieval/hash/size/parser and actual state transitions. Revalidate stored bytes without network; inspect candidates/baselines before exact idempotent staging, with atomic draft receipts, conflicts and final auth after waits. Preserve legacy/unavailable/corrupt evidence states honestly. Verify bounded Mongo/PostgreSQL operations, invalid UTF8/streams, actual finalization failure after commit, full paged receipt history, lost acknowledgement and401 after Back. API500–506/WEB500–503/OFFLINE510, existing BEA/provider parser regressions. Normal accepted source data must remain separate from labelled isolated faults. No auto-publication or new rights claim.

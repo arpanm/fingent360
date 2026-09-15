@@ -207,6 +207,11 @@ test('E2E-WEB-195 operator review reaches the original user receipt through actu
     .click();
   const inbox = page.getByRole('region', { name: 'Feedback inbox' });
   const report = inbox.getByRole('article').filter({ hasText: text });
+  // A populated inbox must render before any report has been selected.
+  await expect(report).toBeVisible();
+  await expect(
+    page.getByRole('dialog', { name: 'Review feedback', exact: true }),
+  ).toHaveCount(0);
   await report
     .getByRole('button', {
       name: `Review feedback ${entry.submission.id.slice(0, 8)}`,
@@ -226,6 +231,21 @@ test('E2E-WEB-195 operator review reaches the original user receipt through actu
   await expect(
     review.getByText('Feedback status saved.', { exact: true }),
   ).toBeVisible();
+  await review.getByRole('button', { name: 'Close', exact: true }).click();
+  await expect(review).toHaveCount(0);
+  // Closing clears the selected report; the list must remain usable.
+  await expect(report).toBeVisible();
+  await expect(report.getByText('reviewing', { exact: true })).toBeVisible();
+  await report
+    .getByRole('button', {
+      name: `Review feedback ${entry.submission.id.slice(0, 8)}`,
+      exact: true,
+    })
+    .click();
+  await expect(review).toContainText(entry.submission.id);
+  await expect(review.getByLabel('Review status', { exact: true })).toHaveValue(
+    'reviewing',
+  );
   await review.getByRole('button', { name: 'Close', exact: true }).click();
   await expect(review).toHaveCount(0);
   await page.goto('/#feedback');

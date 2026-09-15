@@ -1,3 +1,4 @@
+import { EvaluationLineage } from './EvaluationLineage';
 import { useEffect, useState } from 'react';
 import {
   FeedbackListSchema,
@@ -110,6 +111,14 @@ export function FeedbackInbox() {
               <span className="feedback-status">{item.status}</span>
               <time>{new Date(item.receivedAt).toLocaleString()}</time>
             </header>
+            {item.context.publicView && (
+              <details>
+                <summary>Inspect source and generation trace</summary>
+                <EvaluationLineage
+                  initialSource={item.context.publicView.item.id}
+                />
+              </details>
+            )}
             <p className="feedback-body-text">
               {item.text || 'Voice feedback'}
             </p>
@@ -157,6 +166,14 @@ export function FeedbackInbox() {
               Receipt {report.id} · {report.context.screen} · App{' '}
               {report.context.appVersion}
             </p>
+            {report.context.publicView && (
+              <details>
+                <summary>Inspect source and generation trace</summary>
+                <EvaluationLineage
+                  initialSource={report.context.publicView.item.id}
+                />
+              </details>
+            )}
             <p className="feedback-body-text">
               {report.text || 'Voice feedback'}
             </p>

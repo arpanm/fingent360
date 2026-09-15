@@ -1,12 +1,15 @@
+import { rememberPublicMedia } from './eval-lineage-view';
 import { useEffect, useRef, useState } from 'react';
 import { saveDownload } from './runtime';
 import { MediaAssetSchema, type MediaAsset } from '@fingent360/contracts';
 export function MediaSummary({
   itemId,
   itemVersion,
+  compact = false,
 }: {
   itemId: string;
   itemVersion: number;
+  compact?: boolean;
 }) {
   const [asset, setAsset] = useState<MediaAsset | null>(null),
     [error, setError] = useState(''),
@@ -15,6 +18,7 @@ export function MediaSummary({
     [elapsed, setElapsed] = useState(0),
     [recording, setRecording] = useState(false),
     [notice, setNotice] = useState('');
+  const [retry, setRetry] = useState(0);
   const recorder = useRef<MediaRecorder | null>(null);
   const canceled = useRef(false);
   useEffect(() => {
@@ -46,7 +50,10 @@ export function MediaSummary({
         return value;
       })
       .then((value) => {
-        if (active) setAsset(value);
+        if (active) {
+          setAsset(value);
+          if (value) rememberPublicMedia(value);
+        }
       })
       .catch((failure) => {
         if (active)
@@ -62,7 +69,7 @@ export function MediaSummary({
       canceled.current = true;
       if (recorder.current?.state === 'recording') recorder.current.stop();
     };
-  }, [itemId, itemVersion]);
+  }, [itemId, itemVersion, retry]);
   useEffect(() => {
     if (!playing || !asset) return;
     const start = performance.now() - elapsed;
@@ -195,8 +202,34 @@ export function MediaSummary({
     }
   }
   if (loading) return <p className="muted">Loading visual…</p>;
-  if (error) return <p role="status">{error}</p>;
+  if (error)
+    return (
+      <p role="status">
+        {error}{' '}
+        <button onClick={() => setRetry((v) => v + 1)}>Retry visual</button>
+      </p>
+    );
   if (!asset) return null;
+  if (compact)
+    return asset.image ? (
+      <figure>
+        <img
+          className="story-image"
+          onError={() =>
+            setError(
+              'Image could not decode. Source reading remains available.',
+            )
+          }
+          src={`data:image/png;base64,${asset.image.base64}`}
+          alt={`Conceptual illustration for ${asset.title}`}
+          width={asset.image.width}
+          height={asset.image.height}
+        />
+        <figcaption className="story-image-note">
+          AI illustration · not a photograph of the event
+        </figcaption>
+      </figure>
+    ) : null;
   const caption =
     asset.captions.find((c) => elapsed >= c.startMs && elapsed < c.endMs)
       ?.text ?? asset.captions.at(-1)!.text;
@@ -207,14 +240,23 @@ export function MediaSummary({
       style={{ minWidth: 0, overflowWrap: 'anywhere' }}
     >
       <img
-        src={`data:image/svg+xml;charset=utf-8,${encodeURIComponent(asset.svg)}`}
+        onError={() =>
+          setError('Visual could not decode. Source reading remains available.')
+        }
+        className={asset.image ? 'generated-image' : undefined}
+        src={
+          asset.image
+            ? `data:image/png;base64,${asset.image.base64}`
+            : `data:image/svg+xml;charset=utf-8,${encodeURIComponent(asset.svg)}`
+        }
         alt={`Source-based visual summary: ${asset.title}`}
         width={960}
         height={640}
         style={{ display: 'block', width: '100%', height: 'auto' }}
       />
       <p className="data-note">
-        {asset.label} Based on source edition {asset.itemVersion}.
+        {asset.image?.label ?? asset.label} Based on source edition{' '}
+        {asset.itemVersion}.
       </p>
       <p className="media-caption" aria-live={playing ? 'off' : 'polite'}>
         {caption}

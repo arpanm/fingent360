@@ -1,3 +1,7 @@
+import {
+  startPrivateAiHistory,
+  finishPrivateAiHistory,
+} from './private-ai-history.js';
 import { admitPublications } from './publication.js';
 import type pg from 'pg';
 import {
@@ -400,6 +404,8 @@ export class AssistanceController {
     let fallback = requested !== 'query';
     let suggestions = defaults;
     let dispatchConsentVersion: number | null = null;
+    let privateHistoryId: string | null = null;
+    let historyText: string | undefined;
     let message =
       requested === 'query'
         ? 'Matched your question to saved references.'
@@ -454,19 +460,48 @@ export class AssistanceController {
               throw new ReferencesChanged();
             // Calling the async dispatcher starts fixed-host fetch before releasing
             // account/source admission. Its network response is awaited outside this transaction.
+            const material = JSON.stringify({
+              query: input.query,
+              scope: input.scope,
+              references: permitted.map((value) => ({
+                sourceId: value.id,
+                text: value.text,
+                type: value.type,
+              })),
+            });
+            privateHistoryId = await startPrivateAiHistory(
+              c,
+              user.id,
+              selected.provider,
+              selected.model,
+              instructions,
+              material,
+            );
+            await this.store.require(c, cookie);
+            if (consent && !consentActive(consent, new Date().toISOString()))
+              throw new ConsentUnavailable();
             const response = this.dispatch(
               this.config,
               selected.provider,
               instructions,
-              JSON.stringify({
-                query: input.query,
-                scope: input.scope,
-                references: permitted.map((value) => ({
-                  sourceId: value.id,
-                  text: value.text,
-                  type: value.type,
-                })),
-              }),
+              material,
+              fetch,
+              privateHistoryId
+                ? async (raw) => {
+                    await this.store.transaction(async (traceClient) => {
+                      const owner = await this.store.require(
+                        traceClient,
+                        cookie,
+                      );
+                      await finishPrivateAiHistory(
+                        traceClient,
+                        owner.id,
+                        privateHistoryId,
+                        { raw },
+                      );
+                    });
+                  }
+                : undefined,
             ).then(
               (text) => ({ ok: true as const, text }),
               () => ({ ok: false as const }),
@@ -480,6 +515,7 @@ export class AssistanceController {
           dispatchConsentVersion = started.consentVersion;
           const response = await started.response;
           if (!response.ok) throw new Error('Provider request failed.');
+          historyText = response.text;
           suggestions = validateModelAssistance(
             response.text,
             started.permitted,
@@ -550,6 +586,15 @@ export class AssistanceController {
               v.status === 'published',
           )
         );
+      });
+      await finishPrivateAiHistory(c, user.id, privateHistoryId, {
+        ...(historyText === undefined ? {} : { text: historyText }),
+        status: fallback ? 'failed' : 'succeeded',
+        outcome: fallback
+          ? 'Provider output rejected or unavailable; query fallback returned.'
+          : admittedSuggestions.length === suggestions.length
+            ? 'Grounded references returned.'
+            : 'Changed references excluded from final result.',
       });
       return AssistanceResultSchema.parse({
         provider,

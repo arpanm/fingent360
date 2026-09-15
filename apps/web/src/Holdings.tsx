@@ -421,7 +421,19 @@ export function Holdings() {
             Map CSV columns
           </button>
         </div>
-        <BrokerImportGuide />
+        <BrokerImportGuide
+          disabled={busy || !saved || !currentReady}
+          onMap={() => {
+            if (mode === 'mapped' || !discardRow()) return;
+            beforeMapping.current = { mode, csv, workbook, draft };
+            setRow({ isin: '', quantity: '', cost: '' });
+            setEditingRow(null);
+            setMode('mapped');
+            setPreview(null);
+            setMapped(null);
+            setMappingDirty(false);
+          }}
+        />
         {mode === 'manual' && (
           <>
             <SmartHelp scope="holdings" />

@@ -1,3 +1,4 @@
+import { PrivateAiHistory } from './PrivateAiHistory';
 import { completeReadingFollowExport } from './reading-follow-export';
 import { completeMaterialExport } from './material-alert-export';
 import { completeConsentExport } from './consent-export';
@@ -165,6 +166,7 @@ export function Privacy() {
         <>
           <RecoverySettings />
           <PurposeConsents request={api} />
+          <PrivateAiHistory />
           <section className="card" aria-label="Account export">
             <h3>Download your account data</h3>
             <p>

@@ -1,5 +1,15 @@
 # Current implementation and verification status
 
+## SDLC-REPAIR-004 — feedback delivery formatting
+
+The supplied `pnpm check` failure stopped at Prettier before later gates. Manually corrected saved review-status assertion wrapping in E2E-WEB-195, preserving its value and all existing real-path cases. Manual regression acceptance in TODO.md requires a targeted Prettier pass and preservation of every assertion in the repair diff. No behavior change requires new executable cases or fixtures. No formatter, check, test, service, SDLC or commit was run; verification remains pending. Existing HEAD is efd28d3; prior pending changes remain uncommitted. The full suite report was not inspected under this scoped repair instruction.
+
+## DELIVERY-TEAM-004 — current authored batch
+
+Nine workstreams are integrated across shared web/Android, API/contracts, additive migrations049 and051–057, offline readers/private storage, test authoring and documentation. [Exact implementation and remaining gaps](team-004/README.md) is the current handoff. It includes verified-schema NSE UDiFF parsing, approved automatic news publication, source/model/composite-view/feedback lineage, opt-in private AI history and transient story gesture guidance. Parent source/policy requirements remain partial where specified; five named broker parsers remain0/5.
+
+No format/check/build/test/migration/provider jobs/service changes/APK generation/commit/push were executed for this batch. HEAD at authoring was efd28d3; pending changes do not inherit earlier test passes. User-run pnpm sdlc owns validation and gated commit. Historical entries below retain their original revision context.
+
 ## SDLC-COST-001 — scoped manual validation
 
 User restored the manual execution boundary. Explicit checks-only SDLC mode and gate/order regression cases are authored, not executed or committed. Full-run behavior remains unchanged; selected E2E filters are preferred for feature validation. Measured full-run timing and commands are in development/sdlc.md. REGRESSION-015 fixes are committed through5fc0907; its fresh31-case affected rerun passed in2.3minutes, after the full run exposed26 failures (739 passed,1 skipped). This is combined full-run plus targeted correction evidence, not a second full-suite run. SDLC-REPAIR-001 adds failure-only CLI handoffs and bounded parent-script exact-case retries (no whole E2E rerun); the launcher changes remain unexecuted and uncommitted.
@@ -467,3 +477,7 @@ The initial foundation was tested locally on Node26.7.0/pnpm11.23.0 before later
 OPS-READ-ADMISSION-001 is integrated as authored, unexecuted work: four final wall-clock authorization checks after existing legacy discovery/source storage reads. API520–523 exercise exact actual table waits with expiry/revocation and nonempty stored controls; WEB520–522 cover settled initial reads, sign-in recovery and drained late200 responses; OFFLINE530 checks unchanged connected-only behavior/noAPI. Existing contracts/UI/data are reused; no migration/dependency/provider. The user runs pnpm sdlc for gates/commit/selected E2E. Broader parent security acceptance is open.
 
 LEGACY-FIXTURE-ISOLATION-001 is integrated as authored/unverified work in six files. API070/WEB070/WEB181 use the actual owned API/schema/Mongo fixture, exact additional public source/catalogue routes and read-only normal-source digest checks. Full successful API/UI/revision/history assertions remain, with private traces/video/screenshots disabled. Five connected selections use @LEGACY-FIXTURE-ISOLATION-001; no new migration/dependency/offline behavior. The remaining global mutator/provider inventory is recorded in docs/development/legacy-fixture-isolation-handoff.md; an unrestricted suite is not claimed isolated. No commands were executed for this child.
+
+## SDLC-REPAIR-003 — feedback selection (2026-09-15)
+
+Authored correction for user-reported TS18047 at FeedbackInbox.tsx:114/118: list cards use item context, while selected-report access remains inside the guarded dialog. E2E-WEB-195 adds populated initial rendering and close/reopen saved-status assertions using the existing real API sandbox. No execution or commit performed; parent/user must rerun `pnpm check`. Browser acceptance remains pending: `pnpm e2e:run --grep E2E-WEB-195` with existing E2E prerequisites and app services; use the launcher’s configured web URL. Check keyboard close/reopen and mobile layout separately. On failure report the command, case/project and first error; do not include credentials or private feedback.

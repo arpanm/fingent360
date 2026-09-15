@@ -1,3 +1,4 @@
+import { preparePublicAi } from './eval-lineage-recording.js';
 import { createHash, randomUUID } from 'node:crypto';
 import pg from 'pg';
 import { z } from 'zod';
@@ -355,11 +356,25 @@ export class EventExtractionStore {
         const beforeDispatch = await this.source(c, attempt);
         await authorize(c);
         if (beforeDispatch.currentSource === 'current') {
-          modelReply = this.dispatch(
-            this.config,
-            selected.provider as RemoteProvider,
+          const traced = await preparePublicAi(
+            this.pool,
+            source,
+            'event-extraction',
+            selected.provider,
+            selected.model,
             instructions,
             material,
+          );
+          await authorize(c);
+          modelReply = traced((observe) =>
+            this.dispatch(
+              this.config,
+              selected.provider as RemoteProvider,
+              instructions,
+              material,
+              fetch,
+              observe,
+            ),
           ).then(
             (text) => ({ ok: true as const, text }),
             () => ({ ok: false as const }),

@@ -1,0 +1,59 @@
+.impact-traces {
+  max-width: 52rem;
+  margin: 0 auto;
+  padding: 1.2rem;
+  overflow-wrap: anywhere;
+}
+.impact-traces nav {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+.impact-traces fieldset {
+  display: grid;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid #9baaa0;
+  border-radius: 1rem;
+}
+.impact-traces label {
+  display: grid;
+  gap: 0.5rem;
+}
+.impact-traces select {
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+}
+.impact-traces button,
+.impact-traces summary {
+  min-height: 44px;
+  cursor: pointer;
+}
+.impact-traces article {
+  border-top: 1px solid #9baaa0;
+  padding-block: 1rem;
+}
+.impact-receipt ol {
+  list-style: none;
+  padding: 0 0 0 1rem;
+  border-left: 2px solid #276450;
+}
+.impact-receipt ol li {
+  padding: 0.75rem;
+}
+.impact-receipt h3 {
+  margin: 0.2rem 0;
+}
+.impact-receipt small {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.impact-receipt code {
+  font-size: 0.75rem;
+}
+.impact-traces :focus-visible {
+  outline: 3px solid #b95e00;
+  outline-offset: 3px;
+}

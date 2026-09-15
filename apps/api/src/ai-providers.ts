@@ -45,8 +45,10 @@ const GeminiResponse = z.object({
 const AnthropicResponse = z.object({
   content: z.array(z.object({ type: z.string(), text: z.string().optional() })),
 });
-async function boundedJson(response: Response) {
-  if (!response.ok) throw new Error('Provider request failed.');
+async function boundedJson(
+  response: Response,
+  observe?: (raw: string) => Promise<void>,
+) {
   const reader = response.body?.getReader();
   if (!reader) throw new Error('Provider response missing.');
   let length = 0;
@@ -62,7 +64,10 @@ async function boundedJson(response: Response) {
   } finally {
     await reader.cancel().catch(() => {});
   }
-  return JSON.parse(Buffer.concat(chunks).toString('utf8')) as unknown;
+  const raw = Buffer.concat(chunks).toString('utf8');
+  await observe?.(raw);
+  if (!response.ok) throw new Error('Provider request failed.');
+  return JSON.parse(raw) as unknown;
 }
 /** Fixed provider hosts; never a user-supplied URL, no tools, retries or chat storage. */
 export async function generateAssistance(
@@ -71,6 +76,7 @@ export async function generateAssistance(
   instructions: string,
   input: string,
   fetcher: typeof fetch = fetch,
+  observe?: (raw: string) => Promise<void>,
 ): Promise<string> {
   const prefix = provider.toUpperCase() as 'OPENAI' | 'GEMINI' | 'ANTHROPIC';
   const key = config[`${prefix}_API_KEY`];
@@ -112,6 +118,7 @@ export async function generateAssistance(
       signal: AbortSignal.timeout(12000),
       redirect: 'error',
     }),
+    observe,
   );
   if (provider === 'openai')
     return OpenAIResponse.parse(data)

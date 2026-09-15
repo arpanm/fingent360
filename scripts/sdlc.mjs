@@ -1,10 +1,16 @@
+import { impactBaseline, makeImpactPlan, caseFilters } from './sdlc-impact.mjs';
 import { spawn } from 'node:child_process';
 import {
   mkdirSync,
   appendFileSync,
   writeFileSync,
   readFileSync,
+  accessSync,
+  constants,
+  realpathSync,
+  statSync,
 } from 'node:fs';
+import { homedir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -31,11 +37,31 @@ export class SdlcStageFailure extends Error {
 
 export function parseArguments(input) {
   const args = [...input];
-  const separator = args.indexOf('--');
-  const optionIndex = args.indexOf('--checks-only');
-  const checksOnly =
-    optionIndex >= 0 && (separator < 0 || optionIndex < separator);
-  if (checksOnly) args.splice(optionIndex, 1);
+  const takeFlag = (flag) => {
+    const index = args.indexOf(flag);
+    const separator = args.indexOf('--');
+    if (index < 0 || (separator >= 0 && index > separator)) return false;
+    args.splice(index, 1);
+    return true;
+  };
+  const checksOnly = takeFlag('--checks-only');
+  const preview = takeFlag('--affected-plan');
+  const affected = takeFlag('--affected') || preview;
+  const baseIndex = args.indexOf('--base');
+  let base;
+  if (
+    baseIndex >= 0 &&
+    (args.indexOf('--') < 0 || baseIndex < args.indexOf('--'))
+  ) {
+    base = args[baseIndex + 1];
+    if (!base || base.startsWith('-'))
+      throw Error('--base requires a Git ref.');
+    args.splice(baseIndex, 2);
+  }
+  if (base && !affected)
+    throw Error('--base requires --affected or --affected-plan.');
+  if (affected && checksOnly)
+    throw Error('--affected cannot be combined with --checks-only.');
   let message = 'chore: validated local changes';
   if (args[0] === '--message') {
     args.shift();
@@ -55,9 +81,14 @@ export function parseArguments(input) {
   }
   if (checksOnly && args.length)
     throw new Error('--checks-only cannot be combined with E2E filters.');
+  if (affected && args.length)
+    throw Error('--affected cannot be combined with manual E2E filters.');
   return {
     message,
     filters: args,
+    ...(affected ? { affected: true } : {}),
+    ...(preview ? { preview: true } : {}),
+    ...(base ? { base } : {}),
     ...(checksOnly ? { checksOnly: true } : {}),
   };
 }
@@ -95,7 +126,26 @@ export async function workflow(
       lastLog,
     );
   }
-  if (!options.checksOnly) await step('pnpm', ['e2e:run', ...filters]);
+  if (options.impactPlan) {
+    // Read after gates/commit so formatter and repair edits are included against the original baseline.
+    const plan = options.impactPlan();
+    options.recordImpact?.(plan);
+    if (plan.connected.length)
+      await step('pnpm', ['e2e:run', ...caseFilters(plan.connected)]);
+    if (plan.offline.length) {
+      await step('pnpm', ['android:web']);
+      // Offline runner does not yet emit the connected runner's scoped repair receipt.
+      // Stop with its exact output rather than dispatching a broad test repair.
+      const args = ['android:test', ...caseFilters(plan.offline)];
+      const status = await execute('pnpm', args);
+      if (status !== 0)
+        throw new SdlcStageFailure('pnpm', args, status, lastLog);
+    }
+    if (!plan.connected.length && !plan.offline.length)
+      console.log(
+        'Impact plan requires no E2E; checks passed. Prior E2E evidence is unchanged.',
+      );
+  } else if (!options.checksOnly) await step('pnpm', ['e2e:run', ...filters]);
 }
 
 function executeCommand(command, args) {
@@ -206,6 +256,76 @@ function stageText(failure) {
     ? readFileSync(failure.logPath, 'utf8')
     : failure.message;
 }
+
+export function formattingFiles(text, directory = root) {
+  if (!text.includes('Code style issues found') || text.includes('[error]'))
+    return [];
+  const warnings = [...text.matchAll(/^\[warn\] (.+)$/gm)]
+    .map((match) => match[1].trim())
+    .filter((line) => !line.startsWith('Code style issues found'));
+  if (!warnings.length || warnings.length > 200) return [];
+  const files = [];
+  for (const file of warnings) {
+    // Logs are untrusted. Never interpret warning text as flags or globs.
+    if (!/^[a-zA-Z0-9_][a-zA-Z0-9_./-]*\.[a-zA-Z0-9]+$/.test(file)) return [];
+    if (file.split('/').some((part) => part === '..' || part === '.git'))
+      return [];
+    try {
+      const resolved = realpathSync(path.resolve(directory, file));
+      if (
+        !resolved.startsWith(realpathSync(directory) + path.sep) ||
+        !statSync(resolved).isFile()
+      )
+        return [];
+      files.push(file);
+    } catch {
+      return [];
+    }
+  }
+  return [...new Set(files)];
+}
+
+function executable(file) {
+  try {
+    accessSync(file, constants.X_OK);
+    return statSync(file).isFile();
+  } catch {
+    return false;
+  }
+}
+
+export function resolveCodexBinary(
+  env = process.env,
+  platform = process.platform,
+  home = homedir(),
+  available = executable,
+) {
+  const override = env.SDLC_CODEX_BIN;
+  const name = override || 'codex';
+  const candidates =
+    name.includes('/') || name.includes('\\')
+      ? [path.resolve(root, name)]
+      : (env.PATH ?? '')
+          .split(path.delimiter)
+          .filter(path.isAbsolute)
+          .map((directory) => path.join(directory, name));
+  if (!override && platform === 'darwin') {
+    for (const directory of [
+      '/Applications',
+      path.join(home, 'Applications'),
+    ]) {
+      for (const app of ['Codex.app', 'ChatGPT.app']) {
+        candidates.push(path.join(directory, app, 'Contents/Resources/codex'));
+      }
+    }
+  }
+  const found = candidates.find(available);
+  if (!found)
+    throw Error(
+      'Codex executable not found or not executable. Set SDLC_CODEX_BIN to an executable CLI path; no agent was launched.',
+    );
+  return found;
+}
 function stageReport(failure) {
   const id = stageText(failure).match(/Manual run: ([a-zA-Z0-9-]+)\./)?.[1];
   if (!id)
@@ -232,6 +352,45 @@ export async function repairFailure(
     env.F360_SDLC_REPAIR_ACTIVE === '1'
   )
     return false;
+  // Whitespace is deterministic; the user-run script owns this, never an LLM.
+  for (let attempt = 0; attempt < 2; attempt++) {
+    const files =
+      failure.command === 'pnpm' &&
+      ['check', 'format:check'].includes(failure.args[0])
+        ? formattingFiles(stageText(failure))
+        : [];
+    if (!files.length) break;
+    console.log(
+      `Formatting only ${files.length} reported files; no repair agent.`,
+    );
+    const formatted = await execute('pnpm', [
+      'exec',
+      'prettier',
+      '--write',
+      '--',
+      ...files,
+    ]);
+    if (formatted !== 0)
+      throw new SdlcStageFailure(
+        'pnpm',
+        ['exec', 'prettier'],
+        formatted,
+        lastLog,
+      );
+    const status = await execute(failure.command, failure.args);
+    if (status === 0) return true;
+    if (status === 130) return false;
+    failure = new SdlcStageFailure(
+      failure.command,
+      failure.args,
+      status,
+      lastLog ?? failure.logPath,
+    );
+    if (attempt === 1 && formattingFiles(stageText(failure)).length)
+      throw Error(
+        'Formatting changed again after two scoped retries. Stop concurrent file writers and rerun; no agent or commit was started.',
+      );
+  }
   const limit = Number(env.SDLC_REPAIR_LIMIT ?? '3');
   if (!Number.isInteger(limit) || limit < 1 || limit > 10)
     throw Error('SDLC_REPAIR_LIMIT must be 1–10.');
@@ -349,12 +508,20 @@ function launchRepair(prompt) {
   const handoff = path.join(runDirectory, `repair-${repairNumber}-request.txt`);
   const result = path.join(runDirectory, `repair-${repairNumber}-result.md`);
   writeFileSync(handoff, prompt, { mode: 0o600 });
+  let binary;
+  try {
+    binary = resolveCodexBinary();
+  } catch (error) {
+    throw new Error(`${error.message} Saved handoff: ${handoff}`, {
+      cause: error,
+    });
+  }
   console.log(
-    `Starting one Codex repair agent. It will edit only; this script retries only the failed case/check afterward. No agent commit. Handoff: ${handoff}`,
+    `Starting one Codex repair agent. It will edit only; this script retries only the failed case/check afterward. No agent commit. CLI: ${binary}. Handoff: ${handoff}`,
   );
   return new Promise((resolve, reject) => {
     const child = spawn(
-      process.env.SDLC_CODEX_BIN || 'codex',
+      binary,
       ['exec', '--sandbox', 'workspace-write', '-C', root, '-o', result, '-'],
       {
         cwd: root,
@@ -368,10 +535,11 @@ function launchRepair(prompt) {
       },
     );
     child.stdin.on('error', () => {});
-    child.once('error', () =>
+    child.once('error', (error) =>
       reject(
         Error(
-          `Could not launch Codex. Install/sign in to the CLI or set SDLC_CODEX_BIN. Saved handoff: ${handoff}`,
+          `Could not launch Codex at ${binary} (${error.code ?? 'spawn error'}). Check executable permissions or SDLC_CODEX_BIN. This is a launch failure, not an authentication diagnosis. Saved handoff: ${handoff}`,
+          { cause: error },
         ),
       ),
     );
@@ -394,6 +562,9 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
       message,
       filters,
       checksOnly = false,
+      affected = false,
+      preview = false,
+      base,
     } = parseArguments(process.argv.slice(2));
     console.log(
       checksOnly
@@ -408,9 +579,30 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
       throw Error(
         'SDLC execution is prohibited inside a repair agent. Return changes to the user.',
       );
+    const baseline = affected ? impactBaseline(root, base) : undefined;
+    const planImpact = affected
+      ? () => makeImpactPlan(root, baseline)
+      : undefined;
+    const recordImpact = (plan) => {
+      mkdirSync(runDirectory, { recursive: true, mode: 0o700 });
+      const file = path.join(runDirectory, 'impact-plan.json');
+      writeFileSync(file, JSON.stringify(plan, null, 2), { mode: 0o600 });
+      console.log(
+        `Impact: ${plan.connected.length} connected case files (API or desktop/mobile), ${plan.offline.length} offline case files. Reasons and paths: ${file}`,
+      );
+    };
+    if (preview) {
+      console.log(JSON.stringify(planImpact(), null, 2));
+      console.log(
+        'Preview only: no format, checks, tests, commit or repair agent.',
+      );
+      process.exit(0);
+    }
     const budget = { used: 0 };
     await workflow(message, filters, executeCommand, {
       checksOnly,
+      impactPlan: planImpact,
+      recordImpact,
       recover: (failure) =>
         repairFailure(
           failure,

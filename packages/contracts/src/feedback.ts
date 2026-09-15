@@ -1,3 +1,4 @@
+import { PublicViewContextSchema } from './eval-lineage.js';
 import { z } from 'zod';
 
 export const feedbackLimits = {
@@ -35,6 +36,7 @@ export const FeedbackContextSchema = z.strictObject({
     height: z.number().int().min(1).max(10000),
   }),
   capturedAt: z.iso.datetime(),
+  publicView: PublicViewContextSchema.optional(),
 });
 export const FeedbackSubmissionSchema = z
   .strictObject({

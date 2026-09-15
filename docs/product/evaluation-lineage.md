@@ -1,0 +1,17 @@
+# EVAL-LINEAGE-001 — inspect what produced a public reading
+
+Persist exact public source-version payloads at the reader/feed response boundary, deduplicated by SHA-256 of canonical parsed JSON. This is a server response record, not proof of pixels viewed. The browser retains its latest public reader/story payload in session storage; submitting feedback includes that bounded public snapshot in the existing durable feedback queue, including offline eventual delivery. No account screens, DOM, goals or holdings are copied. Legacy feedback without this optional field remains accepted. A client snapshot is untrusted client-reported context, not verified source evidence.
+
+For actual public caption/extraction provider calls, store public instructions/input, provider/model, source ID/version, start/finish, raw response, returned text and transport/parsing outcome. Keys and authorization headers are never logged. Provider success does not mean valid extraction/publication. Existing event extraction attempts and media records retain consumer validation decisions; source/call/view/feedback records can be reconstructed by exact source version. Image prompts/output already live in immutable story image attempts; retain links instead of duplicate image bytes. Existing Mongo discovery_raw remains source-of-truth for raw captures.
+
+Operations Research evaluation filters/paginates source view records, opens bounded trace details, inspects raw provider text/final view and live linked feedback, and downloads a fresh export or retained evidence. Source withdrawal hides retained content from this viewer. Recheck operator admission after storage. Deleted/expired feedback is excluded at query time rather than copied to another eternal training set. Exports are deliberate local downloads; do not automatically train or send feedback to providers.
+
+Private transcripts are isolated from this operator corpus in the separately opted-in user-owned history described below.
+
+Acceptance includes actual stored provider transport fixtures, current-source gating, response deduplication, feedback deletion disappearance, offline context survival, access denial, filter/retry/export, readable mobile records and keyboard navigation. Provider transport substitution is labelled; no live provider execution is claimed.
+
+## Implemented extension: composed views and private opt-in history
+
+Public composition records now connect the exact source edition to an immutable caption asset and reviewed image attempt/hash. Feedback includes these small references plus runtime and reader/story kind. Media bytes remain once in retained image attempts; the inspector reconstructs the caption/source view using original assets.
+
+The private ledger is implemented behind new separate `private-ai-history` purpose consent. Existing external-sharing consent does not enroll a user. Users can explicitly permit owner-only retention of up to50 provider requests/answers for seven days, inspect/export/delete it in Privacy, revoke to erase contents, or delete their account. The actual assistance boundary logs bounded input/raw/returned output, checks permission version before late writes and records the final grounded/fallback outcome. An expiry worker removes expired rows; reads exclude them immediately. Offline mode retains the consent choice but does not fabricate provider transcripts. Operators cannot query this ledger. Query-based help remains available with logging disabled. No model training/scoring is implied.

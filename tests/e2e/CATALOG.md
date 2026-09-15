@@ -549,3 +549,29 @@ REGRESSION-015 reuses API-767/688/748/792/818 and WEB-062/223/224/681/740/810/85
 SDLC-COST-001 changes the manual launcher only: unit cases cover explicit checks-only parsing, rejection of contradictory filters and mandatory pre-commit gates. Manual acceptance: checks-only runs no E2E and claims no fresh report; existing unfiltered/filtered modes retain their behavior. No application API/browser behavior changes.
 
 SDLC-REPAIR-001: injected unit coverage for failure-only handoff, exact file/title/project retry, exclusion of passing cases, opt-out, bounded attempts, recursion/cancellation suppression and launcher failure. Manual disposable-checkout acceptance is documented in docs/development/sdlc.md; no real agent invocation or E2E was run for this launcher change.
+
+## DELIVERY-TEAM-004 authored acceptance
+
+These cases are authored, not executed. API/browser financial inputs are explicitly synthetic fixtures over actual owned storage; they do not verify provider download availability or source rights.
+
+| Workstream          | Authored IDs                                           | Coverage                                                                                                 |
+| ------------------- | ------------------------------------------------------ | -------------------------------------------------------------------------------------------------------- |
+| EQUITY-COVERAGE-001 | API900–902, WEB900–902, OFFLINE900                     | Five-family retention/review/withdrawal, public provenance, shared device reader                         |
+| BROKER-PARSERS-002  | API930–931, WEB930, OFFLINE930                         | Capability disclosure, unsupported-format rejection and actual mapped-import continuation                |
+| IMPACT-TRACE-001    | API960–961, WEB960, OFFLINE960–961                     | Owned version-bound evidence/equity/holding/goal traces, invalidation, export and offline parity         |
+| RESEARCH-AUTO-002   | API1050–1052/1056–1060, WEB1053, OFFLINE1054–1055      | Schedule controls, owned real staging, calendar revisions and device capture reader                      |
+| ACTION-CENTRE-001   | API990–991, WEB990, OFFLINE990–991                     | Exact educational disposal/no-action, guard outcomes, immutable owned receipts and stale records         |
+| FUNDS-BONDS-001     | API1080–1082, WEB1080–1081, OFFLINE1080–1081           | Retained NAV review and private cash-flow/XIRR/deposit comparisons                                       |
+| STORY-MEDIA-002     | API1140–1141, WEB1142–1143, OFFLINE1144                | Exact-image admission/withdrawal, PNG validation and one-time gesture UI                                 |
+| EVENT-SCENARIOS-001 | API1020–1021, WEB1020, OFFLINE1020–1022                | Evidence-token numeric scenarios, independent review/admission, golden outcomes and offline views        |
+| EVAL-LINEAGE-001    | API1110–1111/1114–1115, WEB1112/1116, OFFLINE1113/1117 | Actual public call/view/feedback linkage, composed media references and opt-in private history lifecycle |
+
+Focused user execution uses `pnpm sdlc "Describe change" -- --grep '@WORKSTREAM-ID'`. See each [team handoff](../../docs/development/team-004/README.md) for prerequisites and limitations. Offline projects require the documented offline build/server; these changes do not update an installed APK automatically.
+
+SDLC-REPAIR-003 extends E2E-WEB-195 with populated inbox rendering before selection and after closing, plus reopening the same receipt with its saved status. Uses the existing actual feedback API fixture; execution pending.
+
+## SDLC-AFFECTED-001 — manual selector acceptance
+
+Launcher-only change: no product API/browser case is manufactured. Authored `tests/unit/sdlc-impact.test.mjs` covers deterministic selection with injected Git/executors. In a disposable checkout, preview a changed browser spec (exact file, desktop/mobile), shared web code (browser/offline), a contract/migration/helper (full fallback), deleted spec (full fallback), docs-only edit (no E2E), clean tree (full fallback) and explicit `--base HEAD~1` (committed changes retained). Confirm preview executes no command beyond read-only Git/file inspection; format/check still gate commit, final selection includes repairs, offline assets rebuild, and no native APK pass is claimed. See docs/development/sdlc.md for exact commands and prerequisites. Status: authored, not executed.
+
+SDLC-REPAIR-006: E2E-OFFLINE-1021 (@EVENT-SCENARIOS-001, offline) uses a stable narrowed numeric model in rejection callbacks and additionally checks that the original prior-change result survives invalid variants. Existing token, expectation-time, family, regulatory and hypothetical assertions remain intact. Test-only change; API/browser behavior and fixtures are unchanged. Compiler acceptance: `pnpm e2e:typecheck` exits 0. Runtime acceptance remains pending; no validation executed.

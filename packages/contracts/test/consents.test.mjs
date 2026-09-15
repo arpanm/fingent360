@@ -26,12 +26,12 @@ const input = (action, expectedVersion, extra = {}) =>
     ...(action === 'revoke' ? {} : { expiresAt: null }),
     ...extra,
   });
-test('four purposes start without an invented grant; strict list has one of each', () => {
+test('five purposes start without an invented grant; strict list has one of each', () => {
   const purposes = consentPurposes.map((p) => ({
     record: emptyConsent(p),
     status: 'not-granted',
   }));
-  assert.equal(purposes.length, 4);
+  assert.equal(purposes.length, 5);
   assert.ok(purposes.every((p) => !consentActive(p.record, at)));
   const value = { ownerId: randomUUID(), evaluatedAt: at, purposes };
   assert.equal(ConsentListSchema.safeParse(value).success, true);

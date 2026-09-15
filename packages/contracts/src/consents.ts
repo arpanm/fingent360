@@ -2,6 +2,7 @@ import { z } from 'zod';
 
 export const ConsentPurposeSchema = z.enum([
   'external-ai-private-context',
+  'private-ai-history',
   'reading-personalization',
   'scheduled-record-reviews',
   'automatic-material-checks',
@@ -12,6 +13,12 @@ export const consentDescriptions: Record<
   ConsentPurpose,
   { title: string; use: string; preserved: string }
 > = {
+  'private-ai-history': {
+    title: 'My private AI request history',
+    use: 'Keep up to 50 requests, public or private reference text sent to the provider, and raw/returned answers for seven days in your account. Only you can view or export this history. This is separate from permission to send private context to external AI.',
+    preserved:
+      'Assistance and query-based suggestions work without history. Revoking this purpose deletes saved request contents; you can also delete history directly. Account deletion removes it. Already downloaded exports cannot be recalled.',
+  },
   'external-ai-private-context': {
     title: 'Private context in external AI assistance',
     use: 'Share relevant saved goal names, holding identifiers or saved-reading references with the configured AI provider only when you also choose saved history for that request.',

@@ -39,8 +39,16 @@ export function finalizePublicSnapshot(bundle, input) {
       asset.id === current.get(item.id).mediaId &&
       asset.itemVersion === item.version &&
       asset.status === 'published'
-    )
-      media[item.id] = asset;
+    ) {
+      const admittedImage = current.get(item.id).imageAttemptId;
+      if (asset.image && asset.image.attemptId !== admittedImage) {
+        const captionsOnly = { ...asset };
+        delete captionsOnly.image;
+        media[item.id] = captionsOnly;
+      } else {
+        media[item.id] = asset;
+      }
+    }
   }
   return {
     ...bundle,

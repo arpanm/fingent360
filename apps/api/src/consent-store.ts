@@ -114,6 +114,11 @@ export async function saveConsent(
     'INSERT INTO account_consent_heads(user_id,purpose,payload) VALUES($1,$2,$3) ON CONFLICT(user_id,purpose) DO UPDATE SET payload=excluded.payload',
     [userId, receipt.state.purpose, receipt.state],
   );
+  if (
+    receipt.state.purpose === 'private-ai-history' &&
+    !consentActive(receipt.state, new Date().toISOString())
+  )
+    await c.query('DELETE FROM private_ai_history WHERE user_id=$1', [userId]);
   await c.query(
     'INSERT INTO account_consent_events(user_id,request_id,request,payload) VALUES($1,$2,$3,$4)',
     [userId, receipt.requestId, request, receipt],

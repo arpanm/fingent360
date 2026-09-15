@@ -1,3 +1,4 @@
+import { recordPublicView } from './eval-lineage-recording.js';
 import { OperatorRead, OperatorAction } from './operator-permissions.js';
 import {
   beaHistory,
@@ -233,7 +234,14 @@ export class DiscoveryStore {
     const filters = parsed.data;
     const all = researchSelection(await this.publishedItems(), filters),
       page = discoveryFeedPage(all, filters, cursor);
-    return FeedSchema.parse({ ...page, evaluatedAt: new Date().toISOString() });
+    const rendered = FeedSchema.parse({
+      ...page,
+      evaluatedAt: new Date().toISOString(),
+    });
+    await this.transaction(async (c) => {
+      for (const item of rendered.items) await recordPublicView(c, item);
+    });
+    return rendered;
   }
   async context(id: string) {
     validId(id);
@@ -261,11 +269,29 @@ export class DiscoveryStore {
         'SELECT DISTINCT ON(asset_id) asset_id,published FROM discovery_media_reviews WHERE asset_id=ANY($1::uuid[]) ORDER BY asset_id,reviewed_at DESC,id DESC',
         [assets.rows.map((v) => v.id)],
       );
+      const images = await c.query(
+        `SELECT DISTINCT ON(a.asset_id) a.asset_id,a.id,(SELECT published FROM story_image_reviews WHERE attempt_id=a.id ORDER BY reviewed_at DESC,id DESC LIMIT 1) AS published FROM story_image_attempts a WHERE a.asset_id=ANY($1::uuid[]) AND a.status='succeeded' AND EXISTS(SELECT 1 FROM story_image_reviews WHERE attempt_id=a.id) ORDER BY a.asset_id,a.started_at DESC`,
+        [assets.rows.map((a) => a.id)],
+      );
       return PublicationManifestSchema.parse({
         admittedAt: new Date().toISOString(),
         items: items.map((item) => ({
           id: item.id,
           version: item.version,
+          imageAttemptId:
+            images.rows.find(
+              (image) =>
+                image.published &&
+                assets.rows.some(
+                  (a) =>
+                    a.id === image.asset_id &&
+                    a.item_id === item.id &&
+                    a.item_version === item.version,
+                ) &&
+                published.rows.some(
+                  (p) => p.asset_id === image.asset_id && p.published,
+                ),
+            )?.id ?? null,
           mediaId:
             assets.rows.find(
               (a) =>
@@ -335,7 +361,9 @@ export class DiscoveryStore {
     return this.transaction(async (c) => {
       const item = (await admitPublications(c, [id]))[0];
       if (!item) throw new NotFoundException('Published item not found.');
-      return publicEdition(item);
+      const rendered = publicEdition(item);
+      await recordPublicView(c, rendered);
+      return rendered;
     });
   }
   async history(id: string) {

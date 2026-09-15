@@ -70,7 +70,11 @@ export const PublicationProposalInputSchema = z.discriminatedUnion('kind', [
   z.strictObject({
     kind: z.literal('media'),
     target: z.string().min(1).max(180),
-    body: z.strictObject({ assetId: z.uuid(), publish: z.boolean() }),
+    body: z.strictObject({
+      assetId: z.uuid(),
+      publish: z.boolean(),
+      imageAttemptId: z.uuid().optional(),
+    }),
   }),
   z.strictObject({
     kind: z.literal('source-create'),

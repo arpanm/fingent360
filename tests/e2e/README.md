@@ -1,5 +1,7 @@
 # Manual end-to-end testing
 
+For format/check/gated commit plus test selection, see the [complete SDLC option reference](../../README.md#sdlc-command-options) and [repair settings](../../README.md#sdlc-repair-settings-and-results). Preview with `pnpm sdlc --affected-plan`; execute with `pnpm sdlc "Change" --affected`; use `--base HEAD~1` for committed changes. All check/unit gates still run. Explicit test filters instead use `pnpm sdlc "Change" -- --project=desktop --grep FEEDBACK-001`. Do not combine explicit filters with affected/checks-only modes. The default SDLC suite is connected API/desktop/mobile; affected mode additionally builds/tests offline web when selected, without claiming native APK validation.
+
 This is the reusable test tool: a pinned Playwright runner, API/browser test projects and the Playwright test dashboard. No LLM is used when the user runs tests. Codex maintains case definitions and documentation; the user starts services, chooses tests and examines results.
 
 ## One-time preparation — user runs

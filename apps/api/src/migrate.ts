@@ -62,6 +62,14 @@ try {
     '046_event_lineage.sql',
     '047_event_extraction.sql',
     '048_identity_adjudication.sql',
+    '049_equity_coverage.sql',
+    '051_impact_trace.sql',
+    '052_action_centre.sql',
+    '053_event_scenarios.sql',
+    '054_research_automation.sql',
+    '055_funds_bonds.sql',
+    '056_evaluation_lineage.sql',
+    '057_story_images.sql',
   ]) {
     await applyMigration(
       client,

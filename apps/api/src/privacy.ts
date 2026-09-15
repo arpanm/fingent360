@@ -1,3 +1,7 @@
+import { exportPrivateAiHistory } from './private-ai-history.js';
+import { exportActionCentre } from './action-centre.js';
+import { exportBondComparisons } from './funds-bonds.js';
+import { exportImpactTraces } from './impact-trace.js';
 import { exportGoalFeasibility } from './goal-feasibility.js';
 import { exportMaterial } from './material-alert-store.js';
 import { readConsentList, exportConsents } from './consent-store.js';
@@ -255,6 +259,10 @@ export class PrivacyController {
         researchConnections: await exportResearchConnections(client, user.id),
         goalScenarios: await exportGoalScenarios(client, user.id),
         goalFeasibility: await exportGoalFeasibility(client, user.id),
+        privateAiHistory: await exportPrivateAiHistory(client, user.id),
+        actionCentre: await exportActionCentre(client, user.id),
+        bondComparisons: await exportBondComparisons(client, user.id),
+        impactTraces: await exportImpactTraces(client, user.id),
         connectionReviews: await exportConnectionReviews(client, user.id),
         readingFollow: await exportReadingFollow(client, user.id),
         materialAlerts: await exportMaterial(client, user.id),

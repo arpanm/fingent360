@@ -1,5 +1,11 @@
 import { z } from 'zod';
 const ConfigSchema = z.object({
+  STORY_IMAGE_PROVIDER: z.enum(['off', 'openai', 'gemini']).optional(),
+  STORY_IMAGE_MODEL: z.string().min(1).max(120).optional(),
+  RESEARCH_AUTO_ENABLED: z
+    .enum(['true', 'false'])
+    .transform((value) => value === 'true')
+    .optional(),
   OPS_AUTH_MODE: z.enum(['bootstrap', 'named']).default('bootstrap'),
   AI_PROVIDER: z
     .enum(['auto', 'query', 'openai', 'gemini', 'anthropic'])

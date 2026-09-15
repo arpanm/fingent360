@@ -21,6 +21,9 @@ export function sectionFor(route: string) {
       'overview',
       'allocations',
       'connections',
+      'impact-traces',
+      'action-centre',
+      'funds-bonds',
       'comparisons',
       'connection-reviews',
       'reports',
@@ -33,6 +36,10 @@ export function sectionFor(route: string) {
   if (key === 'saved' || key === 'reading-follow') return 'saved';
   if (
     key === 'explore' ||
+    key === 'equities' ||
+    key === 'research-calendar' ||
+    key === 'event-scenarios' ||
+    key.startsWith('event-scenarios/') ||
     key === 'events' ||
     key.startsWith('events/') ||
     key.startsWith('macro') ||

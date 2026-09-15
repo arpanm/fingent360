@@ -1,0 +1,97 @@
+.funds-bonds {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 24px 18px 110px;
+}
+.funds-bonds h1 {
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  line-height: 1.1;
+  max-width: 25ch;
+}
+.funds-bonds nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px 0;
+}
+.funds-bonds button,
+.funds-bonds input,
+.funds-bonds select,
+.funds-bonds textarea {
+  font: inherit;
+  min-height: 44px;
+}
+.funds-bonds input:not([type='checkbox']),
+.funds-bonds textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
+.funds-bonds label {
+  display: block;
+  margin: 12px 0;
+}
+.funds-list,
+.funds-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: 14px;
+}
+.funds-list button {
+  text-align: left;
+  display: grid;
+  gap: 10px;
+  padding: 20px;
+  color: #143c31;
+  background: #f7faf7;
+  border: 1px solid #c3d3c9;
+  border-radius: 16px;
+}
+.funds-bonds article {
+  border-bottom: 1px solid #cdd9d1;
+  padding: 20px 0;
+}
+.funds-bonds code {
+  overflow-wrap: anywhere;
+  font-size: 0.75rem;
+}
+.funds-cashflow {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: end;
+}
+.funds-cashflow label {
+  flex: 1 1 160px;
+  min-width: 0;
+}
+.funds-result {
+  border: 1px solid #b6cbbf;
+  border-radius: 16px;
+  padding: 20px;
+  margin: 20px 0;
+  background: #f6faf7;
+}
+.funds-result dl {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 12px;
+}
+.funds-result dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+  font-variant-numeric: tabular-nums;
+}
+.funds-bonds button:focus-visible,
+.funds-bonds summary:focus-visible {
+  outline: 3px solid #166b50;
+  outline-offset: 3px;
+}
+@media (max-width: 480px) {
+  .funds-result dl {
+    grid-template-columns: 1fr;
+  }
+  .funds-result dd {
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+}

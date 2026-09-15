@@ -9,6 +9,8 @@ let available = true;
 before(async () => {
   app = await createApp(
     {
+      RESEARCH_AUTO_ENABLED: false,
+      STORY_IMAGE_PROVIDER: 'off',
       API_PORT: 4100,
       API_HOST: '127.0.0.1',
       WEB_ORIGIN: 'http://localhost:5173',

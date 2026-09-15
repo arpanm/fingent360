@@ -1,4 +1,7 @@
 export type AccountDestination =
+  | 'funds-bonds'
+  | 'action-centre'
+  | 'impact-traces'
   | 'overview'
   | 'my-goals'
   | 'holdings'
@@ -21,7 +24,10 @@ export type AccountDestination =
 export function accountDestination(hash: string): AccountDestination | null {
   const query = hash.split('?')[1] ?? '';
   const next = new URLSearchParams(query).get('next');
-  return next === 'overview' ||
+  return next === 'funds-bonds' ||
+    next === 'impact-traces' ||
+    next === 'action-centre' ||
+    next === 'overview' ||
     next === 'my-goals' ||
     next === 'holdings' ||
     next === 'privacy' ||

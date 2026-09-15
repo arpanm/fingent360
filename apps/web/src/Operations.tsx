@@ -1,3 +1,9 @@
+import { EventScenarioOperations } from './EventScenarioOperations';
+import { EvaluationLineage } from './EvaluationLineage';
+import { FundsBondsOperations } from './FundsBondsOperations';
+import { StoryImageOperations } from './StoryImageOperations';
+import { ResearchAutomation } from './ResearchAutomation';
+import { EquityCoverageOperations } from './EquityCoverageOperations';
 import { IdentitySelectionOperations } from './IdentitySelectionOperations';
 import { EventLineageOperations } from './EventLineageOperations';
 import { EventOperations } from './EventOperations';
@@ -313,9 +319,12 @@ export function Operations() {
             >
               {[
                 ['news', 'Publishing'],
+                ['evaluations', 'Research evaluation'],
+                ['research-auto', 'Automatic research'],
                 ['bea-recovery', 'BEA recovery'],
                 ['macro', 'Macro ingestion'],
                 ['events', 'Event review'],
+                ['event-scenarios', 'Event scenarios'],
                 ['event-lineage', 'Merge/split events'],
                 ['ecb-rates', 'ECB policy rates'],
                 ['oil-benchmarks', 'Oil benchmarks'],
@@ -323,6 +332,8 @@ export function Operations() {
                 ['sources', 'Source registry'],
                 ['feedback', 'Feedback inbox'],
                 ['securities', 'Security identities'],
+                ['funds-bonds', 'Fund data'],
+                ['equity-coverage', 'Indian equity data'],
                 ['identity-selections', 'Identity selections'],
                 ['retention', 'Expired data cleanup'],
                 ['workers', 'Worker health'],
@@ -490,6 +501,8 @@ export function Operations() {
                 request={request}
                 onPropose={namedMode ? submitProposal : undefined}
               />
+            ) : tab === 'event-scenarios' ? (
+              <EventScenarioOperations request={request} />
             ) : tab === 'event-lineage' ? (
               <EventLineageOperations request={request} named={namedMode} />
             ) : tab === 'ecb-rates' ? (
@@ -512,6 +525,20 @@ export function Operations() {
               />
             ) : tab === 'macro' ? (
               <MacroOperations action={action} busy={busy} />
+            ) : tab === 'evaluations' ? (
+              <EvaluationLineage request={request} />
+            ) : tab === 'research-auto' ? (
+              <ResearchAutomation request={request} />
+            ) : tab === 'funds-bonds' ? (
+              <FundsBondsOperations
+                request={request}
+                onDenied={sessionExpired}
+              />
+            ) : tab === 'equity-coverage' ? (
+              <EquityCoverageOperations
+                request={request}
+                onDenied={sessionExpired}
+              />
             ) : tab === 'securities' ? (
               <SecurityOperations />
             ) : tab === 'identity-selections' ? (
@@ -564,9 +591,18 @@ export function Operations() {
             <img
               alt={media.title}
               style={{ width: '100%', height: 'auto' }}
-              src={`data:image/svg+xml;charset=utf-8,${encodeURIComponent(media.svg)}`}
+              src={
+                media.image
+                  ? `data:${media.image.mime};base64,${media.image.base64}`
+                  : `data:image/svg+xml;charset=utf-8,${encodeURIComponent(media.svg)}`
+              }
             />
-            <p>{media.label}</p>
+            <p>{media.image?.label ?? media.label}</p>
+            <StoryImageOperations
+              asset={media}
+              request={request}
+              onUpdated={setMedia}
+            />
             <p>
               Caption preparation: {media.generation.provider}
               {media.generation.model
@@ -593,12 +629,24 @@ export function Operations() {
                       await submitProposal({
                         kind: 'media',
                         target: media.itemId,
-                        body: { assetId: media.id, publish: true },
+                        body: {
+                          assetId: media.id,
+                          publish: true,
+                          ...(media.image
+                            ? { imageAttemptId: media.image.attemptId }
+                            : {}),
+                        },
                       });
                     else
                       await request(
                         `/ops/media/${media.itemId}`,
-                        { assetId: media.id, publish: true },
+                        {
+                          assetId: media.id,
+                          publish: true,
+                          ...(media.image
+                            ? { imageAttemptId: media.image.attemptId }
+                            : {}),
+                        },
                         'PUT',
                       );
                     setMedia(null);
@@ -623,12 +671,24 @@ export function Operations() {
                       await submitProposal({
                         kind: 'media',
                         target: media.itemId,
-                        body: { assetId: media.id, publish: false },
+                        body: {
+                          assetId: media.id,
+                          publish: false,
+                          ...(media.image
+                            ? { imageAttemptId: media.image.attemptId }
+                            : {}),
+                        },
                       });
                     else
                       await request(
                         `/ops/media/${media.itemId}`,
-                        { assetId: media.id, publish: false },
+                        {
+                          assetId: media.id,
+                          publish: false,
+                          ...(media.image
+                            ? { imageAttemptId: media.image.attemptId }
+                            : {}),
+                        },
                         'PUT',
                       );
                     setMedia(null);

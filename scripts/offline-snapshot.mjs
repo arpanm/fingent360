@@ -10,6 +10,10 @@ import { fileURLToPath } from 'node:url';
 import { parseEnv } from 'node:util';
 import { readFileSync, existsSync } from 'node:fs';
 import {
+  EquitySnapshotSchema,
+  EventScenarioSnapshotSchema,
+  FundsSnapshotSchema,
+  ReleaseCalendarSchema,
   FeedSchema,
   ResearchCatalogSchema,
   FeedItemSchema,
@@ -145,6 +149,22 @@ bundle = finalizePublicSnapshot(
 Object.assign(bundle, await captureEcbRates(get));
 Object.assign(bundle, await captureOilBenchmarks(get));
 Object.assign(bundle, await captureEcbFx(get));
+Object.assign(bundle, {
+  eventScenarios: EventScenarioSnapshotSchema.parse(
+    await get('/event-scenarios/snapshot'),
+  ),
+});
+Object.assign(bundle, {
+  fundsBonds: FundsSnapshotSchema.parse(await get('/funds/snapshot')),
+});
+Object.assign(bundle, {
+  researchCalendar: ReleaseCalendarSchema.parse(
+    await get('/research-calendar'),
+  ),
+});
+Object.assign(bundle, {
+  equityCoverage: EquitySnapshotSchema.parse(await get('/equities/snapshot')),
+});
 Object.assign(bundle, await captureIdentitySelections(get, bundle.securities));
 Object.assign(bundle, await captureEvents(get, bundle));
 bundle.eventLineage = await captureEventLineage(get, bundle.events);

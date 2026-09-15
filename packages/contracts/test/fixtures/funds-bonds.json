@@ -1,0 +1,21 @@
+{
+  "navText": "Scheme Code;ISIN Div Payout/ ISIN Growth;ISIN Div Reinvestment;Scheme Name;Net Asset Value;Date\n\nOpen Ended Schemes (Debt Scheme - Synthetic Test Category)\n\nSynthetic Test Asset Management\n108001;INF000000001;;Synthetic Test Fund Direct Growth;123.456700;31-Jan-2025\n108002;;;Synthetic Test Fund Regular Growth;N.A.;31-Jan-2025\n",
+  "comparison": {
+    "title": "Synthetic bond comparison",
+    "sourceReference": "TEST-SIMULATION generated terms, not a market quote",
+    "settlementOn": "2025-04-01",
+    "cleanPricePaise": "100000",
+    "previousCouponOn": "2025-01-01",
+    "nextCouponOn": "2025-07-01",
+    "couponAmountPaise": "10000",
+    "feesPaise": "100",
+    "creditDescription": "Synthetic instrument; no verified credit rating",
+    "cashflows": [
+      { "date": "2025-07-01", "amountPaise": "10000" },
+      { "date": "2026-01-01", "amountPaise": "110000" }
+    ],
+    "depositAnnualBps": 500,
+    "depositDeductionBps": 1000,
+    "consent": true
+  }
+}

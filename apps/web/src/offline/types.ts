@@ -40,6 +40,10 @@ export interface OfflineBundle {
   learningCatalog: unknown;
   journeyCatalog: unknown;
   media: Record<string, unknown>;
+  equityCoverage?: unknown;
+  eventScenarios?: unknown;
+  fundsBonds?: unknown;
+  researchCalendar?: unknown;
   securities?: unknown;
   securityHistories?: Record<string, unknown>;
   securityEvidence?: Record<string, unknown>;

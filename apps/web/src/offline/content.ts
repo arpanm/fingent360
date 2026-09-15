@@ -113,6 +113,12 @@ export async function handleContent(
           return {
             id: v.id,
             version: v.version,
+            imageAttemptId:
+              asset?.itemId === v.id &&
+              asset.itemVersion === v.version &&
+              asset.status === 'published'
+                ? (asset.image?.attemptId ?? null)
+                : null,
             mediaId:
               asset?.itemId === v.id &&
               asset.itemVersion === v.version &&

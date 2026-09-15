@@ -1,4 +1,43 @@
 import {
+  RESEARCH_AUTO_POLICY,
+  ResearchAutoPolicyStore,
+  ResearchAutoPolicyController,
+} from './research-auto-policy.js';
+import {
+  PrivateAiHistoryController,
+  PrivateAiHistoryExpiry,
+} from './private-ai-history.js';
+import {
+  EventScenariosController,
+  OpsEventScenariosController,
+  eventScenarioProvider,
+} from './event-scenarios.js';
+import {
+  EVAL_LINEAGE_STORE,
+  EvalLineageStore,
+  EvalLineageController,
+} from './eval-lineage.js';
+import { ActionCentreController } from './action-centre.js';
+import {
+  FundsController,
+  OpsFundsController,
+  BondComparisonsController,
+  fundsBondsProvider,
+} from './funds-bonds.js';
+import {
+  RESEARCH_AUTO_STORE,
+  ResearchAutoStore,
+  ResearchAutoWorker,
+  ResearchAutoController,
+  ResearchCalendarController,
+} from './research-auto.js';
+import { ImpactTraceController } from './impact-trace.js';
+import {
+  EquityCoverageController,
+  OpsEquityCoverageController,
+  equityCoverageProvider,
+} from './equity-coverage.js';
+import {
   IdentitySelectionController,
   OpsIdentitySelectionController,
   identitySelectionProvider,
@@ -39,6 +78,8 @@ import {
   eventExtractionProvider,
 } from './event-extraction.js';
 import {
+  DISCOVERY_STORE,
+  DiscoveryStore,
   DiscoveryController,
   OpsDiscoveryController,
   discoveryProvider,
@@ -145,6 +186,20 @@ export async function createApp(
       module: AppModule,
       controllers: [
         HealthController,
+        ResearchAutoPolicyController,
+        PrivateAiHistoryController,
+        EventScenariosController,
+        OpsEventScenariosController,
+        EvalLineageController,
+        ActionCentreController,
+        FundsController,
+        OpsFundsController,
+        BondComparisonsController,
+        ResearchAutoController,
+        ResearchCalendarController,
+        ImpactTraceController,
+        EquityCoverageController,
+        OpsEquityCoverageController,
         EventsController,
         EventLineageController,
         IdentitySelectionController,
@@ -204,6 +259,35 @@ export async function createApp(
         OpsMediaController,
       ],
       providers: [
+        equityCoverageProvider(config),
+        {
+          provide: RESEARCH_AUTO_POLICY,
+          inject: [DISCOVERY_STORE],
+          useFactory: (discovery: DiscoveryStore) =>
+            new ResearchAutoPolicyStore(config, discovery),
+        },
+        {
+          provide: RESEARCH_AUTO_STORE,
+          inject: [DISCOVERY_STORE, RESEARCH_AUTO_POLICY],
+          useFactory: (
+            discovery: DiscoveryStore,
+            policies: ResearchAutoPolicyStore,
+          ) =>
+            new ResearchAutoStore(
+              config,
+              discovery,
+              config.RESEARCH_AUTO_ENABLED !== false,
+              policies,
+            ),
+        },
+        ResearchAutoWorker,
+        fundsBondsProvider(config),
+        {
+          provide: EVAL_LINEAGE_STORE,
+          useFactory: () => new EvalLineageStore(config),
+        },
+        eventScenarioProvider,
+        PrivateAiHistoryExpiry,
         eventProvider,
         eventLineageProvider,
         identitySelectionProvider,
@@ -246,6 +330,8 @@ export async function createApp(
     json: (options: { limit: number }) => unknown;
     urlencoded: (options: { limit: number; extended: boolean }) => unknown;
   };
+  app.use('/api/v1/ops/equities/import', express.json({ limit: 3_000_000 }));
+  app.use('/api/v1/ops/funds/import', express.json({ limit: 10_000_000 }));
   app.use('/api/v1/feedback', express.json({ limit: 8_500_000 }));
   // Explicitly mount the defaults: Nest detects any named jsonParser as global,
   // even a path-scoped one, and would otherwise skip parsing every other route.

@@ -1,0 +1,61 @@
+{
+  "format": "f360-equity-evidence-v1",
+  "observations": [
+    {
+      "kind": "identity",
+      "isin": "INE002A01018",
+      "effectiveOn": "2025-01-31",
+      "sourceRow": 2,
+      "exchange": "NSE",
+      "symbol": "SYNTHETIC",
+      "name": "Synthetic coverage company",
+      "series": "EQ",
+      "listedOn": "2000-01-01",
+      "faceValue": "10"
+    },
+    {
+      "kind": "price",
+      "isin": "INE002A01018",
+      "effectiveOn": "2025-01-31",
+      "sourceRow": 3,
+      "exchange": "NSE",
+      "currency": "INR",
+      "close": "123.4500",
+      "volume": "9007199254740993",
+      "adjusted": false
+    },
+    {
+      "kind": "corporate-action",
+      "isin": "INE002A01018",
+      "effectiveOn": "2025-01-31",
+      "sourceRow": 4,
+      "purpose": "Synthetic dividend notice",
+      "recordOn": "2025-02-01",
+      "adjustment": "not-applied"
+    },
+    {
+      "kind": "fundamental",
+      "isin": "INE002A01018",
+      "effectiveOn": "2025-01-31",
+      "sourceRow": 5,
+      "metric": "profit-after-tax",
+      "periodStart": "2024-04-01",
+      "periodEnd": "2024-12-31",
+      "basis": "consolidated",
+      "currency": "INR",
+      "scale": "crores",
+      "value": "-12.00000001",
+      "audited": false
+    },
+    {
+      "kind": "classification",
+      "isin": "INE002A01018",
+      "effectiveOn": "2025-01-31",
+      "sourceRow": 6,
+      "sector": "Synthetic industry",
+      "index": "Synthetic index",
+      "membership": "included",
+      "weightPercent": null
+    }
+  ]
+}

@@ -1,3 +1,9 @@
+import { handleEventScenarios } from './event-scenarios';
+import { handleActionCentre } from './action-centre';
+import { handleFundsBonds } from './funds-bonds';
+import { handleResearchCalendar } from './research-calendar';
+import { handleImpactTraces } from './impact-trace';
+import { handleEquityCoverage } from './equity-coverage';
 import { handleEvents } from './events';
 import { handleConsents } from './consents';
 import {
@@ -48,6 +54,12 @@ const handlers: OfflineHandler[] = [
   handleEcbRates,
   handleOilBenchmarks,
   handleEcbFx,
+  handleEventScenarios,
+  handleActionCentre,
+  handleFundsBonds,
+  handleResearchCalendar,
+  handleImpactTraces,
+  handleEquityCoverage,
   handleWorkerHealth,
   handleOperatorAudit,
   handleRetention,

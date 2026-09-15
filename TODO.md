@@ -1,5 +1,137 @@
 # TODO — Fingent360 delivery tracker
 
+## SDLC-REPAIR-008 — media reservation fixture and evaluation recording
+
+- **Context/scope:** Supplied `pnpm check` failed at media.test.mjs:175 with a missing concurrent-request rejection. The existing pool fixture lacks the pool-level query method now required by evaluation recording, causing an immediate template fallback before the second request. Repair this fixture only; retain production paths and all assertions.
+- **Implementation:** Authored the missing pool query surface and explicit recording-order, source-binding, completion and immutable-replay assertions in the existing durable reservation case.
+- **Verification:** Pending parent/user retry; no commands for validation, services, commits or delegation executed. No suite report inspected.
+- **Dependencies/layers:** Existing synthetic media fixture and compiled API; no dependency changes. Test specification/workflow and documentation apply. Production UI/UX, contracts, database schema, provenance policy and automation remain unchanged; new browser/API E2E cases are not applicable to this unit-fixture defect.
+- **Acceptance:** Concurrent generation still rejects with409, exactly one provider call occurs, its evaluation reservation precedes invocation, raw and selected output are retained under the same call ID, and replay reuses the immutable asset without another evaluation call. See docs/development/media-reservation-repair.md for the focused command and failure evidence.
+- **Reusable prompt:** Repair only the supplied durable media reservation unit failure by tracing the real recording/provider path and updating the existing synthetic pool fixture to its required interface. Preserve rejection and provider-count assertions; add recording lifecycle and replay regression coverage. Update TODO/README and relevant documentation. Author/read only; do not execute validation, commit, delegate or expand scope.
+
+## SDLC-REPAIR-007 — Markdown table formatting
+
+- **Context/scope:** Supplied `pnpm check` stopped at Prettier warnings for README.md and docs/development/sdlc.md before later gates. Repair Markdown layout only, with this tracking entry and manual acceptance documentation; preserve unrelated changes and completed commits.
+- **Implementation:** Replaced inconsistently padded tables with equivalent labelled lists and removed a surplus blank line in the flagged documents; retained commands and requirements.
+- **Verification:** Pending parent/user retry; no formatting, checks, tests, services or commits executed. No suite report inspected.
+- **Dependencies/layers:** Existing pinned Prettier, no dependency changes. Documentation and manual regression acceptance apply; product specification, UI/UX, API/contracts, runtime workflow, database, provenance, automation and executable E2E changes are not applicable to Markdown whitespace.
+- **Acceptance:** SDLC-REPAIR-007-A checks all three edited Markdown files with Prettier and expects no warnings; SDLC-REPAIR-007-B reviews former table contents and command examples for preservation. See docs/development/sdlc.md for the exact command and failure evidence. Parent retries `pnpm check`; later gates remain unverified.
+- **Reusable prompt:** Repair only the supplied README/SDLC Markdown formatting failure through manual layout edits, using equivalent labelled lists for inconsistently padded tables and removing surplus blank lines. Preserve content, examples, validation rules, unrelated changes and commits. Update TODO/README/SDLC manual regression scenarios. Author and inspect only; do not run formatting, checks, tests, SDLC, services, commits, delegation or follow-ups.
+
+## SDLC-REPAIR-006 — event scenario callback type narrowing
+
+- **Context/scope:** Supplied `pnpm check` exits 2 at E2E typechecking: OFFLINE1021 accesses numeric-only observed/reference fields through a mutable union property inside assertion callbacks. Repair only this test and its documentation; preserve unrelated pending work and completed commits.
+- **Implementation:** Authored: captured and narrowed a local constant model, preserving all golden and rejection assertions; extended the case to confirm negative variants leave the original comparison unchanged.
+- **Verification:** Pending parent/user retry. No validation, services, commits or delegation authorized or performed. Supplied output reports preceding gates passed for that earlier revision only; no whole-suite report inspected.
+- **Dependencies/layers:** Existing contracts and synthetic fixture reused; no dependency changes. Specification/test acceptance: callbacks compile without casts or suppression, invalid numeric tokens and same-release expectations still reject, original prior comparison remains intact. Product UI/UX, API/contracts, workflow, database, provenance and automation changes are not applicable to this test-only narrowing repair.
+- **Acceptance:** `pnpm e2e:typecheck` exits 0; E2E-OFFLINE-1021 under @EVENT-SCENARIOS-001 retains all family, regulatory, no-reference and hypothetical assertions plus fixture-preservation coverage. Parent retries exact `pnpm check`. No services or UI URL needed for typechecking. On failure report command, exit status and compiler diagnostics.
+- **Reusable prompt:** Repair only the supplied event-scenarios.spec.ts callback union errors using a stable narrowed model binding. Preserve strict schemas and all real calculation assertions; extend existing regression coverage without mocks, casts, skips or weaker validation. Update TODO, README and relevant scenario/test documentation. Author and inspect only; do not execute checks, tests, SDLC, commits or delegate.
+
+## SDLC-DOCS-001 — complete command option reference
+
+- **Status:** Documentation authored; manual acceptance pending. No commands/tests/commits run.
+- **Scope:** Document every SDLC parser option, defaults, incompatible combinations, forwarded test filters, repair environment settings, baseline behavior and evidence locations in README, with links from SDLC/test usage. Product UI/API/DB and executable tests are not applicable to documentation-only work.
+- **Acceptance:** Compare reference against scripts/sdlc.mjs and scripts/sdlc-impact.mjs; all accepted options and repair settings have examples/defaults; preview is distinguished from execution, complete check gates from selected E2E, and offline from native APK coverage.
+- **Reusable prompt:** Keep the SDLC command reference aligned with the parser and repair settings; update README, development/test usage and this tracker without changing runtime behavior or executing deterministic validation. Preserve other pending changes; commit only after user-run gates.
+
+## SDLC-REPAIR-005 — SDLC script formatting
+
+- **Context/scope:** Supplied `pnpm check` failure stops at Prettier warnings for `scripts/sdlc-impact.mjs` and `scripts/sdlc.mjs`. Manually correct layout only; preserve pending launcher work and completed commits.
+- **Implementation/verification:** Blocked by concurrent source edits; no script repair applied. The inventory guard in `scripts/sdlc-impact.mjs` changed between inspection and patching, causing the patch to reject. Stabilize writers before a new scoped repair. Parent/user validation remains pending; no deterministic commands or commits executed.
+- **Dependencies/layers:** Existing pinned Prettier; no dependency change. Runtime workflow, selection, API/contracts, UI/UX, database, provenance and automation behavior remain unchanged. Application E2E and new fixtures are not applicable to whitespace alone; existing launcher unit assertions remain intact.
+- **Regression acceptance (SDLC-REPAIR-005-A/B):** A: `pnpm exec prettier --check scripts/sdlc-impact.mjs scripts/sdlc.mjs` exits 0 without warnings. B: review this repair's changes for layout-only edits and unchanged validation/selection expressions. Parent retries `pnpm check`; subsequent stages are unverified. No services or UI URL needed. Report exact command, exit code and flagged-file diagnostics on failure.
+- **Reusable prompt:** Repair only the supplied two-script Prettier failure through manual layout edits under the existing configuration. Preserve all behavior, assertions, unrelated edits and commits. Update TODO, README and SDLC documentation with manual regression scenarios. Do not run formatting, checks, tests, SDLC, services, commits or delegates.
+
+## SDLC-REPAIR-004 — Feedback delivery assertion formatting
+
+- **Context/scope:** User-operated `pnpm check` stopped at Prettier on `tests/e2e/cases/browser/feedback-delivery.spec.ts`. Correct only saved review-status assertion wrapping in E2E-WEB-195; preserve prior work.
+- **Implementation/verification:** Whitespace repair authored; verification pending parent/user retry. No validation commands or commits executed.
+- **Dependencies/layers:** Reuse pinned Prettier and E2E-WEB-194/195. Specification, UI/UX, API/contracts, workflow, database, provenance and automation behavior are unchanged; new executable cases or fixtures are not applicable to whitespace alone.
+- **Manual regression acceptance:** Run `pnpm exec prettier --check tests/e2e/cases/browser/feedback-delivery.spec.ts`; expect exit 0 without style warnings. Review the repair diff to confirm the `reviewing` assertion and initial/close/reopen checks remain intact. Parent retries `pnpm check`; later gates remain unverified. No services or UI URL needed. Report command, exit status and flagged-file diagnostics if it fails.
+- **Reusable prompt:** Repair only the supplied feedback-delivery Prettier failure by manually correcting assertion wrapping under the existing configuration. Preserve all assertions and prior changes/commits; update TODO/README/status with manual regression acceptance. Do not execute formatting, checks, tests, services, SDLC, commits, delegation or follow-ups.
+
+## SDLC-AFFECTED-001 — deterministic impacted E2E selection
+
+- **Implementation:** Authored; verification pending. Added conservative layer/file selection, explicit baseline and preview. No formatter/check/build/tests/commit executed. Feature-level backend dependency selection remains a documented limitation; shared/unknown changes run full coverage. User requests an option selecting tests affected by current changes rather than always executing all E2E.
+- **Spec/dependencies:** Add `--affected`, optional `--base <git-ref>` and read-only `--affected-plan`. Capture baseline before format/check/commit; include staged, unstaged, untracked and deleted paths, including repairs. Conservative layer selection: individual changed specs, browser/offline for shared web, full fallback for shared/unknown code. Keep all existing checks/unit tests and gated commit. No LLM used for selection.
+- **Acceptance:** Preview shows reasons, changed paths and exact selections without tests/commit. Empty/unknown impact never silently passes; documentation-only skips E2E explicitly. Offline selections rebuild packaged web before offline tests; do not claim native APK validation. Author injected unit cases for CLI conflicts, baselines, deleted paths, selections and commit ordering; document manual acceptance in catalogue/coverage plan. No product UI/API/DB change is needed for this CLI feature.
+- **Reusable prompt:** Implement deterministic conservative E2E impact selection in the user-operated SDLC launcher with explicit baseline and preview, preserving full check gates, failure-scoped repairs and unrelated working changes. Author tests/docs without running deterministic commands. Record limitations and user-run commands.
+
+## SDLC-REPAIR-003 — Feedback inbox nullable selection
+
+- **Implementation:** Authored; scoped repair of user-reported `pnpm check` TS18047 at FeedbackInbox.tsx:114/118.
+- **Verification:** Pending parent/user execution; no checks or tests run by the repair agent.
+- **Scope/dependencies:** Existing feedback list context and E2E-WEB-195 real feedback sandbox. List cards must use their own item context before selection, during review and after closing; the detail dialog keeps its guarded selected report. No API/contracts, database, provenance or automation change is needed.
+- **Acceptance:** Web typecheck accepts nullable selection without assertions or weakened validation; populated inbox remains usable with no selected report; per-card trace availability matches that card's context; close/reopen preserves the same receipt and saved status. Existing keyboard/mobile/browser projects apply; visual acceptance remains manual.
+- **Reusable prompt:** Repair only the supplied FeedbackInbox nullable-report compiler failure. Inspect list and selected-detail data ownership, use each list item's validated context, extend E2E-WEB-195 through initial render and close/reopen, and update README/catalogue/coverage/status. Preserve unrelated changes and commits. Author only; do not run gates, services, tests, commit or delegate. Return `pnpm check` for the parent/user retry.
+
+## SDLC-REPAIR-002 — formatting-only retry and repair CLI discovery
+
+- **Status:** Fix authored, execution validation pending; user run1789445576136-52339 stopped at format:check before lint/tests. Installed CLI responds as codex-cli 0.153.4; no repair agent, formatter, checks or tests were run. Commit remains gated on user-run format/check.
+- **Scope/spec:** Keep deterministic whitespace recovery in the user-run launcher, formatting only safely resolved warning paths and retrying the stopped check, with a bounded retry. Resolve explicit CLI override, PATH and installed macOS app binary; preserve launch error code and executable path. Never launch an LLM for whitespace-only failure or bypass commit gates.
+- **Acceptance:** Authored injected tests cover safe path rejection, zero agent calls for whitespace, repeated drift stops, executable precedence/missing executable. No app/API/DB change; harness tests replace browser cases for this launcher-only fix.
+- **Reusable prompt:** Fix only the reported SDLC formatting/CLI launch failures; preserve the pending feature batch. Author launcher and focused tests/docs without running formatting/checks/tests or launching a repair agent. User pnpm sdlc owns execution and gated commit.
+
+## DELIVERY-TEAM-004 — nine end-to-end workstreams
+
+- **Status:** Authored batch integrated; broader requirements remain partial as listed below; verification not run. User requests nine agents, each covering spec, web/Android-shared UX, contracts/API, storage/migrations, real sources, test authoring and docs. Run in waves under the session concurrency limit. Additional thread creation was rejected after the first four workers; completed workers are reused for separately scoped workstreams. No tests, builds, migrations, ingestion jobs or commits are executed by agents.
+- **Acceptance:** Each child delivers connected UI/loading/error/recovery paths, strict persisted contracts and replay/provenance, authored real-path E2E/fixtures and explicit source/format evidence. No invented live data, guessed broker formats or synthetic-only completion claims. Shared integration and root trackers owned by parent.
+- **Reusable Codex prompt:** Implement the nine requested scopes below end to end in coordinated isolated file ownership. Research official source formats and rights using read-only web tools. Preserve existing flows and privacy, separate fact/scenario/inference, author golden cases, and supply focused manual validation commands. Do not execute deterministic work or claim unverified completion.
+
+### EQUITY-COVERAGE-001 — Indian equity reference, prices, actions, fundamentals and sectors
+
+- **Status:** Partial: five-family storage/review/public/offline workflow authored; automated NSE master/Nifty50 constituents plus official versioned UDiFF price ZIP parser/fetch. Corporate-action/fundamental parsers and broader historical coverage still pending. Verification not run; migration049 authored.
+- **Scope:** Spec → shared web/app UI/UX → API/contracts → durable data/provenance → offline behavior → test cases → documentation. Record missing external access/format evidence explicitly; implement all independently possible layers.
+- **Reusable prompt:** Deliver indian equity reference, prices, actions, fundamentals and sectors with real-source evidence, strict versioned data, complete navigation/recovery and authored API/browser/offline tests. Follow DELIVERY-TEAM-004 boundaries and provide precise integration notes.
+
+### BROKER-PARSERS-002 — Five verified broker import formats and reconciliation
+
+- **Status:** Partial: shared five-broker capability catalogue and connected mapped-import guidance authored. Named parsers 0/5: complete official export layouts and acquisition-cost reconciliation remain unverified. Verification not run; no migration050 needed.
+- **Scope:** Spec → shared web/app UI/UX → API/contracts → durable data/provenance → offline behavior → test cases → documentation. Record missing external access/format evidence explicitly; implement all independently possible layers.
+- **Reusable prompt:** Deliver five verified broker import formats and reconciliation with real-source evidence, strict versioned data, complete navigation/recovery and authored API/browser/offline tests. Follow DELIVERY-TEAM-004 boundaries and provide precise integration notes.
+
+### IMPACT-TRACE-001 — Real evidence to factor, sector, company, holding and goal trace
+
+- **Status:** Partial: owned evidence/context/equity/holding/goal receipts and actual revision/conflict checks authored. Causal elasticities and full impact policy remain pending. Verification not run; migration051 authored.
+- **Scope:** Spec → shared web/app UI/UX → API/contracts → durable data/provenance → offline behavior → test cases → documentation. Record missing external access/format evidence explicitly; implement all independently possible layers.
+- **Reusable prompt:** Deliver real evidence to factor, sector, company, holding and goal trace with real-source evidence, strict versioned data, complete navigation/recovery and authored API/browser/offline tests. Follow DELIVERY-TEAM-004 boundaries and provide precise integration notes.
+
+### ACTION-CENTRE-001 — Deterministic educational action comparison and suitability constraints
+
+- **Status:** Partial: exact educational disposal/no-action comparison with constraints, receipts and offline flow authored. Broader buy/rebalance and actual tax-lot policies pending. Verification not run; migration052 authored.
+- **Scope:** Spec → shared web/app UI/UX → API/contracts → durable data/provenance → offline behavior → test cases → documentation. Record missing external access/format evidence explicitly; implement all independently possible layers.
+- **Reusable prompt:** Deliver deterministic educational action comparison and suitability constraints with real-source evidence, strict versioned data, complete navigation/recovery and authored API/browser/offline tests. Follow DELIVERY-TEAM-004 boundaries and provide precise integration notes.
+
+### EVENT-SCENARIOS-001 — Verified policy, macro, company and liquidity event scenarios
+
+- **Status:** Partial: seven family-specific evidence-bound scenario workflows, review/history/offline and goldens authored. One BLS historical numeric golden independently sourced; broader verified live event packs/causal effects pending. Verification not run; migration053 authored.
+- **Scope:** Spec → shared web/app UI/UX → API/contracts → durable data/provenance → offline behavior → test cases → documentation. Record missing external access/format evidence explicitly; implement all independently possible layers.
+- **Reusable prompt:** Deliver verified policy, macro, company and liquidity event scenarios with real-source evidence, strict versioned data, complete navigation/recovery and authored API/browser/offline tests. Follow DELIVERY-TEAM-004 boundaries and provide precise integration notes.
+
+### RESEARCH-AUTO-002 — Automatic source ingestion, release calendar and historical vintages
+
+- **Status:** Partial: automatic enabled-source capture, schedule controls, approved automatic news-publication policies and BEA calendar capture history authored. Other calendars and original numerical vintages pending. Verification not run; migration054 authored.
+- **Scope:** Spec → shared web/app UI/UX → API/contracts → durable data/provenance → offline behavior → test cases → documentation. Record missing external access/format evidence explicitly; implement all independently possible layers.
+- **Reusable prompt:** Deliver automatic source ingestion, release calendar and historical vintages with real-source evidence, strict versioned data, complete navigation/recovery and authored API/browser/offline tests. Follow DELIVERY-TEAM-004 boundaries and provide precise integration notes.
+
+### FUNDS-BONDS-001 — Indian mutual funds, bonds, XIRR and deposit comparisons
+
+- **Status:** Partial: permission-gated AMFI NAV workflow and owned cash-flow/accrual/XIRR/duration/deposit comparisons authored; source activation, AMC look-through and bond quotes/ratings pending. Verification not run; migration055 authored.
+- **Scope:** Spec → shared web/app UI/UX → API/contracts → durable data/provenance → offline behavior → test cases → documentation. Record missing external access/format evidence explicitly; implement all independently possible layers.
+- **Reusable prompt:** Deliver indian mutual funds, bonds, xirr and deposit comparisons with real-source evidence, strict versioned data, complete navigation/recovery and authored API/browser/offline tests. Follow DELIVERY-TEAM-004 boundaries and provide precise integration notes.
+
+### EVAL-LINEAGE-001 — Retained source, LLM call/output, final-view and feedback evaluation lineage
+
+- **Status:** Authored: actual public source/model/raw-output/composite-view/feedback lineage plus separately opted-in owner-only private request history, seven-day expiry/export/delete/offline consent. Verification not run; migration056 authored.
+- **Scope:** Spec → shared web/app UI/UX → API/contracts → durable data/provenance → offline behavior → test cases → documentation. Record missing external access/format evidence explicitly; implement all independently possible layers.
+- **Reusable prompt:** Deliver retained source, llm call/output, final-view and feedback evaluation lineage with real-source evidence, strict versioned data, complete navigation/recovery and authored API/browser/offline tests. Follow DELIVERY-TEAM-004 boundaries and provide precise integration notes.
+
+### STORY-MEDIA-002 — One-time animated gesture help and generated story media
+
+- **Status:** Authored: source-bound image generation/retention/review, shared story rendering and one-time gesture onboarding; tests not run. Migration057 authored. Generated video not implemented.
+- **Scope:** Spec → shared web/app UI/UX → API/contracts → durable data/provenance → offline behavior → test cases → documentation. Record missing external access/format evidence explicitly; implement all independently possible layers.
+- **Reusable prompt:** Deliver one-time animated gesture help and generated story media with real-source evidence, strict versioned data, complete navigation/recovery and authored API/browser/offline tests. Follow DELIVERY-TEAM-004 boundaries and provide precise integration notes.
+
 ## SDLC-REPAIR-001 — failure-scoped agent repair and exact-case retry
 
 - **Implementation:** Authored; user validation and gated commit pending. User explicitly requests an agent on any failing stage/test. Deterministic execution remains outside the repair agent.

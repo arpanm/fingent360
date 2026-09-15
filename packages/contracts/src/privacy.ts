@@ -1,3 +1,7 @@
+import { PrivateAiHistorySchema } from './eval-lineage.js';
+import { ActionCentreReceiptSchema } from './action-centre.js';
+import { BondComparisonsSchema } from './funds-bonds.js';
+import { ImpactTraceReceiptSchema } from './impact-trace.js';
 import { GoalFeasibilityExportSchema } from './goal-feasibility.js';
 import {
   ConsentPrivacySchema,
@@ -108,6 +112,18 @@ export const PrivacyExportSchema = z.strictObject({
   allocations: AllocationHistorySchema,
   goalScenarios: GoalScenarioExportSchema,
   goalFeasibility: GoalFeasibilityExportSchema,
+  privateAiHistory: PrivateAiHistorySchema.default({
+    enabled: false,
+    entries: [],
+    retentionDays: 7,
+  }),
+  actionCentre: z
+    .strictObject({ assessments: z.array(ActionCentreReceiptSchema) })
+    .default({ assessments: [] }),
+  bondComparisons: BondComparisonsSchema.default({ comparisons: [] }),
+  impactTraces: z
+    .strictObject({ traces: z.array(ImpactTraceReceiptSchema) })
+    .default({ traces: [] }),
   connectionReviews: ConnectionReviewExportSchema,
   readingFollow: ReadingFollowExportSchema,
   materialAlerts: MaterialExportSchema,

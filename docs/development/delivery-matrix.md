@@ -179,3 +179,16 @@ LEGACY-FIXTURE-ISOLATION-001: specification/acceptance and reused layers in docs
 ## ROADMAP-COMPLETE-003 current additions
 
 The current batch extends the earlier bounded deliveries with saved-goal downside receipts, explicit mapped/supplemental imports, source explanation layers, named publication review, event context, ECB numerical rates, World Bank monthly oil, material threshold/daily checks and process diagnostics. These are authored implementations, not fresh validation or activation. Purpose-consent, daily reference FX, event merge/split and editorial identity adjudication are authored; source-bound candidate extraction is active. See [the current layer/case inventory](roadmap-completion-handoff.md). New migrations037 onward are authored separately from the recorded035/036 activation; installed APKs and source bundles are unchanged until the user rebuilds them.
+
+## DELIVERY-TEAM-004 implementation additions (unverified)
+
+| Child               | Authored implementation                                                                                                                     | Remaining parent scope                                                                |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| EQUITY-COVERAGE-001 | Immutable five-family observations/review, NSE master/constituents and versioned UDiFF price adapters, company details and device snapshots | Corporate-action/fundamental parsers, adjusted-price and complete historical coverage |
+| BROKER-PARSERS-002  | Five-broker capability disclosure and direct actual mapped-import workflow                                                                  | All five complete versioned export/cost schemas and named parsers                     |
+| IMPACT-TRACE-001    | Actual retained evidence/equity/owned holding/goal receipts and revision/conflict checks                                                    | Proven causal transmission, quantified elasticities and exhaustive conflict analysis  |
+| ACTION-CENTRE-001   | Exact disposal/no-action model with explicit assumptions, ten constraints, owned receipts/offline                                           | Broader buy/rebalance policies, actual tax-lot and trading-history calculations       |
+| RESEARCH-AUTO-002   | Default automatic enabled-source capture, durable controls, BEA calendar/capture editions                                                   | RBI/MoSPI/Fed calendars and original numerical publication vintages                   |
+| STORY-MEDIA-002     | Configured provider images, retained output and exact-image review, shared rendered images and gesture overlay                              | Generated video, live provider and physical-device acceptance                         |
+
+Funds/bonds, event scenarios and evaluation lineage are integrated with exact scope in the [nine-workstream handoff](team-004/README.md). Automatic publication now has reviewed per-source policies; private AI history has separate opt-in and owner lifecycle. Tests are authored only. No historical verification transfers to this batch.

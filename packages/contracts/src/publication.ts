@@ -124,6 +124,7 @@ export const PublicationManifestSchema = z.strictObject({
         id: DiscoveryIdSchema,
         version: z.number().int().positive(),
         mediaId: z.uuid().nullable(),
+        imageAttemptId: z.uuid().nullable().optional(),
       }),
     )
     .max(2000),

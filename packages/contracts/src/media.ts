@@ -8,6 +8,26 @@ export const MediaAssetSchema = z.strictObject({
   sourceUrl: z.url(),
   sourceIds: z.array(DiscoveryIdSchema).min(1).max(12),
   svg: z.string().max(100000),
+  image: z
+    .strictObject({
+      attemptId: z.uuid(),
+      base64: z
+        .string()
+        .min(1)
+        .max(5400000)
+        .regex(/^[A-Za-z0-9+/]*={0,2}$/),
+      mime: z.literal('image/png'),
+      width: z.number().int().min(1).max(4096),
+      height: z.number().int().min(1).max(4096),
+      sha256: z.string().regex(/^[a-f0-9]{64}$/),
+      provider: z.enum(['openai', 'gemini']),
+      model: z.string().max(120),
+      createdAt: z.iso.datetime(),
+      label: z.literal(
+        'AI-generated conceptual illustration; not evidence or a real event photograph.',
+      ),
+    })
+    .optional(),
   captions: z
     .array(
       z.strictObject({

@@ -108,6 +108,7 @@ test('durable prepare reservation prevents a second charged call and reuses immu
   let attempts = [];
   let asset = null;
   let calls = 0;
+  const recordingQueries = [];
   let release;
   const gate = new Promise((resolve) => {
     release = resolve;
@@ -144,10 +145,22 @@ test('durable prepare reservation prevents a second charged call and reuses immu
     OPENAI_MODEL: 'synthetic-model',
   });
   const originalPool = store.pool;
-  store.pool = { connect: async () => client, end: async () => {} };
+  store.pool = {
+    connect: async () => client,
+    query: async (sql, params) => {
+      recordingQueries.push({ sql, params });
+      return { rows: [] };
+    },
+    end: async () => {},
+  };
   const originalFetch = globalThis.fetch;
   globalThis.fetch = async () => {
     calls++;
+    assert.equal(recordingQueries.length, 1);
+    assert.match(
+      recordingQueries[0].sql,
+      /INSERT INTO evaluation_public_calls/,
+    );
     await gate;
     return new Response(
       JSON.stringify({
@@ -177,12 +190,37 @@ test('durable prepare reservation prevents a second charged call and reuses immu
       (error) => error.getStatus() === 409,
     );
     assert.equal(calls, 1);
+    assert.equal(asset, null);
+    assert.equal(recordingQueries.length, 1);
+    const callId = recordingQueries[0].params[0];
+    assert.deepEqual(recordingQueries[0].params.slice(1, 6), [
+      item.id,
+      item.version,
+      'media-caption',
+      'openai',
+      'synthetic-model',
+    ]);
     release();
     const result = await first;
     assert.equal(result.generation.provider, 'openai');
     assert.equal(result.generation.model, 'synthetic-model');
+    assert.equal(recordingQueries.length, 3);
+    assert.match(recordingQueries[1].sql, /SET raw_output=\$2/);
+    assert.match(recordingQueries[2].sql, /status='succeeded'/);
+    assert.ok(recordingQueries.every(({ params }) => params[0] === callId));
+    const selectedOutput = JSON.parse(recordingQueries[2].params[1]);
+    assert.deepEqual(selectedOutput, {
+      sourceId: item.id,
+      sourceVersion: item.version,
+      captions: [item.summary],
+    });
+    assert.equal(
+      JSON.parse(recordingQueries[1].params[1]).output[0].content[0].text,
+      recordingQueries[2].params[1],
+    );
     assert.equal((await store.generate(item.id)).id, result.id);
     assert.equal(calls, 1);
+    assert.equal(recordingQueries.length, 3);
   } finally {
     release();
     globalThis.fetch = originalFetch;

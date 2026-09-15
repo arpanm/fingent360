@@ -28,6 +28,7 @@ import {
   holdingsTotal,
   parseHoldingsCsv,
   parseMappedHoldings,
+  brokerCapabilities,
 } from '@fingent360/contracts';
 import { parseWorkbook } from './workbook.js';
 import { AccountStore, STORE } from './accounts.js';
@@ -63,6 +64,9 @@ export class HoldingsController {
         ? HoldingsSnapshotSchema.parse(rows.rows[0].payload)
         : empty();
     });
+  }
+  @Get('broker-capabilities') brokerCapabilities() {
+    return brokerCapabilities();
   }
   @Get('history') history(@Headers('cookie') cookie?: string) {
     return this.store.transaction(async (c) => {

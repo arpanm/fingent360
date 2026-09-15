@@ -75,7 +75,7 @@ test('E2E-API-760 consent strict review ownership Origin and exact replay preser
   expect((await request.get(consentPath)).status()).toBe(401);
   await prepareConnectionAccount(request);
   const before = await consentView(request);
-  expect(before.purposes).toHaveLength(4);
+  expect(before.purposes).toHaveLength(5);
   expect(before.purposes.every((p) => p.status === 'not-granted')).toBe(true);
   const financial = {
     goals: await (await request.get('/api/v1/account/goals')).json(),

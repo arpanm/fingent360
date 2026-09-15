@@ -1,5 +1,8 @@
+import { exportLocalActionCentre } from './action-centre';
+import { exportLocalBondComparisons } from './funds-bonds';
+import { exportLocalImpactTraces } from './impact-trace';
 import { exportLocalGoalFeasibility } from './goal-feasibility';
-import { exportLocalConsents } from './consents';
+import { exportLocalConsents, readLocalConsent } from './consents';
 import { exportLocalMaterial, syncLocalMaterial } from './material-alerts';
 import { exportOfflineReportSchedules } from './report-schedules';
 import { exportLocalReadingFollow } from './reading-follow';
@@ -7,6 +10,8 @@ import { exportLocalGoalScenarios } from './goal-scenarios';
 import { exportLocalConnectionReviews } from './connection-reviews';
 import { z } from 'zod';
 import {
+  PrivateAiHistorySchema,
+  consentActive,
   RegistrationSchema,
   CredentialsSchema,
   DeleteAccountSchema,
@@ -274,11 +279,26 @@ export async function handleAccounts(
       '/privacy/sessions/revoke',
       '/privacy/sessions/revoke-others',
       '/privacy/export',
+      '/ai-history',
     ].some((p) => req.path === base + p);
   const user = requireUser(state);
   if (!current(state))
     return fail(401, 'Your local session expired. Sign in again.');
   if (!known) return null;
+  if (req.path === base + '/ai-history') {
+    if (req.method !== 'GET' && req.method !== 'DELETE')
+      return fail(405, 'Use GET or DELETE for request history.');
+    return {
+      body: PrivateAiHistorySchema.parse({
+        enabled: consentActive(
+          readLocalConsent(state, user.id, 'private-ai-history'),
+          new Date().toISOString(),
+        ),
+        entries: [],
+        retentionDays: 7,
+      }),
+    };
+  }
   const data = accountData(state, user.id);
   if (req.path === base && req.method === 'DELETE') {
     const input = parseLocal(DeleteAccountSchema, req.body);
@@ -292,6 +312,9 @@ export async function handleAccounts(
       'localResearchConnections',
       'localGoalScenarios',
       'localGoalFeasibility',
+      'localImpactTraces',
+      'localActionCentre',
+      'localBondComparisons',
       'localConnectionReviews',
       'localReadingFollow',
       'localMaterialAlerts',
@@ -419,6 +442,17 @@ export async function handleAccounts(
         researchConnections: exportLocalConnections(detached, user.id),
         goalScenarios: exportLocalGoalScenarios(detached, user.id),
         goalFeasibility: exportLocalGoalFeasibility(detached, user.id),
+        privateAiHistory: {
+          enabled: consentActive(
+            readLocalConsent(detached, user.id, 'private-ai-history'),
+            new Date().toISOString(),
+          ),
+          entries: [],
+          retentionDays: 7,
+        },
+        actionCentre: exportLocalActionCentre(detached, user.id),
+        bondComparisons: exportLocalBondComparisons(detached, user.id),
+        impactTraces: exportLocalImpactTraces(detached, user.id),
         connectionReviews: exportLocalConnectionReviews(detached, user.id),
         readingFollow: exportLocalReadingFollow(detached, user.id),
         materialAlerts: exportLocalMaterial(detached, user.id),

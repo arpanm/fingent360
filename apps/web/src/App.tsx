@@ -1,3 +1,9 @@
+import { EventScenarios } from './EventScenarios';
+import { ActionCentre } from './ActionCentre';
+import { FundsBonds } from './FundsBonds';
+import { ResearchCalendar } from './ResearchAutomation';
+import { ImpactTrace } from './ImpactTrace';
+import { EquityCoverage } from './EquityCoverage';
 import { Events } from './Events';
 import { ReadingFollow } from './ReadingFollow';
 import { onOtherTabSessionChange } from './session';
@@ -62,6 +68,42 @@ const destinations = [
   ['more', 'More', 'more'],
 ];
 const moreLinks = [
+  [
+    'event-scenarios',
+    'Understand a release',
+    'Reviewed observations, expectations and scenario comparisons',
+    'market',
+  ],
+  [
+    'action-centre',
+    'Explore a change',
+    'Compare your assumptions with taking no action',
+    'overview',
+  ],
+  [
+    'funds-bonds',
+    'Funds and bonds',
+    'Retained fund NAVs and cash-flow comparisons',
+    'holdings',
+  ],
+  [
+    'research-calendar',
+    'Release calendar',
+    'Official scheduled releases and saved calendar editions',
+    'market',
+  ],
+  [
+    'impact-traces',
+    'Evidence and my plans',
+    'Trace reviewed context to your holdings and goals',
+    'sources',
+  ],
+  [
+    'equities',
+    'Indian companies',
+    'Prices, company facts and source history',
+    'search',
+  ],
   [
     'reading-follow',
     'Reading updates',
@@ -400,6 +442,15 @@ export function App() {
             <Discovery key="explore" explore />
           ) : base.startsWith('read/') ? (
             <Reader key={base} id={base.slice(5)} />
+          ) : base === 'research-calendar' ? (
+            <ResearchCalendar />
+          ) : base === 'funds-bonds' ? (
+            <FundsBonds />
+          ) : base === 'equities' ? (
+            <EquityCoverage />
+          ) : base === 'event-scenarios' ||
+            base.startsWith('event-scenarios/') ? (
+            <EventScenarios route={route} />
           ) : base === 'events' || base.startsWith('events/') ? (
             <Events key={route} route={route} />
           ) : base === 'policy-rates' || base.startsWith('policy-rates/') ? (
@@ -425,6 +476,10 @@ export function App() {
             <Account key={route} />
           ) : base === 'recovery' ? (
             <Recovery />
+          ) : base === 'action-centre' ? (
+            <ActionCentre />
+          ) : base === 'impact-traces' ? (
+            <ImpactTrace />
           ) : base === 'connections' ? (
             <ResearchConnections key={route} />
           ) : base === 'comparisons' ? (

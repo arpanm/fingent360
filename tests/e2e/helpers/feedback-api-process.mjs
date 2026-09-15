@@ -134,6 +134,8 @@ async function start() {
   if (!isolation.rows[0]?.isolated)
     throw Error('Fixture schema isolation failed.');
   Object.assign(process.env, env, {
+    RESEARCH_AUTO_ENABLED: 'false',
+    STORY_IMAGE_PROVIDER: 'off',
     DATABASE_URL: database.href,
     MIGRATION_DATABASE_URL: database.href,
     MONGODB_URI: mongo.href,

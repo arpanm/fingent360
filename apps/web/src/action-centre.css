@@ -1,0 +1,68 @@
+.action-centre {
+  max-width: 60rem;
+  margin: auto;
+  padding: 1rem;
+  overflow-wrap: anywhere;
+}
+.action-centre nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-block: 1rem;
+}
+.action-centre fieldset {
+  border: 1px solid #8b9c91;
+  padding: 1rem;
+  border-radius: 1rem;
+  display: grid;
+  gap: 1rem;
+  min-width: 0;
+}
+.action-centre label {
+  display: grid;
+  gap: 0.4rem;
+}
+.action-centre input:not([type='checkbox']),
+.action-centre select,
+.action-centre textarea {
+  width: 100%;
+  min-height: 44px;
+  min-width: 0;
+  box-sizing: border-box;
+}
+.action-inputs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+.action-centre button,
+.action-centre summary {
+  min-height: 44px;
+  cursor: pointer;
+}
+.action-table {
+  overflow-x: auto;
+}
+.action-table table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+.action-table th,
+.action-table td {
+  padding: 0.65rem;
+  border-bottom: 1px solid #bac5bc;
+}
+.action-centre article {
+  border-top: 1px solid #bac5bc;
+  padding-block: 1rem;
+}
+.action-centre :focus-visible {
+  outline: 3px solid #b95e00;
+  outline-offset: 3px;
+}
+@media (max-width: 540px) {
+  .action-inputs {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

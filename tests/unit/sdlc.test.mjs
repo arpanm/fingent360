@@ -1,5 +1,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { mkdtempSync, writeFileSync, rmSync, symlinkSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import path from 'node:path';
 import {
   workflow,
   parseArguments,
@@ -7,7 +10,152 @@ import {
   SdlcStageFailure,
   repairPrompt,
   failedCases,
+  formattingFiles,
+  resolveCodexBinary,
 } from '../../scripts/sdlc.mjs';
+
+test('repair CLI finds installed app when shell PATH lacks Codex', () => {
+  const bundled = '/Applications/ChatGPT.app/Contents/Resources/codex';
+  const available = (file) => file === bundled || file === '/tools/codex';
+  assert.equal(
+    resolveCodexBinary(
+      { PATH: '/usr/bin' },
+      'darwin',
+      '/users/test',
+      available,
+    ),
+    bundled,
+  );
+  assert.equal(
+    resolveCodexBinary({ PATH: '/tools' }, 'darwin', '/users/test', available),
+    '/tools/codex',
+  );
+  assert.equal(
+    resolveCodexBinary(
+      { PATH: '/tools', SDLC_CODEX_BIN: bundled },
+      'darwin',
+      '/users/test',
+      available,
+    ),
+    bundled,
+  );
+  assert.throws(
+    () =>
+      resolveCodexBinary(
+        { SDLC_CODEX_BIN: '/missing' },
+        'darwin',
+        '/users/test',
+        available,
+      ),
+    /not found/,
+  );
+  assert.throws(
+    () =>
+      resolveCodexBinary(
+        { PATH: '/usr/bin' },
+        'linux',
+        '/users/test',
+        available,
+      ),
+    /not found/,
+  );
+});
+
+test('format warning paths reject traversal, globs, flags and escaping symlinks', () => {
+  const directory = mkdtempSync(path.join(tmpdir(), 'sdlc-paths-'));
+  const outside = mkdtempSync(path.join(tmpdir(), 'sdlc-outside-'));
+  const warning = (file) =>
+    `[warn] ${file}\n[warn] Code style issues found in 1 file.`;
+  try {
+    writeFileSync(path.join(directory, 'safe.ts'), 'const x=1');
+    writeFileSync(path.join(outside, 'external.ts'), 'const x=1');
+    symlinkSync(outside, path.join(directory, 'outside'));
+    assert.deepEqual(formattingFiles(warning('safe.ts'), directory), [
+      'safe.ts',
+    ]);
+    for (const file of [
+      '../bad.ts',
+      '*.ts',
+      '--config.js',
+      '/tmp/bad.ts',
+      'outside/external.ts',
+    ]) {
+      assert.deepEqual(formattingFiles(warning(file), directory), []);
+    }
+    assert.deepEqual(
+      formattingFiles(warning('safe.ts') + '\n[error] parse failed', directory),
+      [],
+    );
+  } finally {
+    rmSync(directory, { recursive: true, force: true });
+    rmSync(outside, { recursive: true, force: true });
+  }
+});
+
+test('format-only failure uses the formatter then stopped check without an agent or repair budget', async () => {
+  const directory = mkdtempSync(path.join(tmpdir(), 'sdlc-format-'));
+  const log = path.join(directory, 'check.log');
+  try {
+    writeFileSync(
+      log,
+      '[warn] scripts/sdlc.mjs\n[warn] Code style issues found in 1 file.',
+    );
+    const calls = [],
+      budget = { used: 0 };
+    assert.equal(
+      await repairFailure(
+        new SdlcStageFailure('pnpm', ['check'], 1, log),
+        () => {
+          throw Error('Unexpected agent');
+        },
+        {},
+        async (command, args) => {
+          calls.push([command, ...args]);
+          return 0;
+        },
+        undefined,
+        budget,
+      ),
+      true,
+    );
+    assert.deepEqual(calls, [
+      ['pnpm', 'exec', 'prettier', '--write', '--', 'scripts/sdlc.mjs'],
+      ['pnpm', 'check'],
+    ]);
+    assert.equal(budget.used, 0);
+  } finally {
+    rmSync(directory, { recursive: true, force: true });
+  }
+});
+
+test('repeated formatting drift stops after two retries without launching an agent', async () => {
+  const directory = mkdtempSync(path.join(tmpdir(), 'sdlc-drift-'));
+  const log = path.join(directory, 'check.log');
+  try {
+    writeFileSync(
+      log,
+      '[warn] scripts/sdlc.mjs\n[warn] Code style issues found in 1 file.',
+    );
+    const calls = [];
+    await assert.rejects(
+      repairFailure(
+        new SdlcStageFailure('pnpm', ['check'], 1, log),
+        () => {
+          throw Error('Unexpected agent');
+        },
+        {},
+        async (command, args) => {
+          calls.push([command, ...args]);
+          return args[0] === 'check' ? 1 : 0;
+        },
+      ),
+      /two scoped retries/,
+    );
+    assert.equal(calls.length, 4);
+  } finally {
+    rmSync(directory, { recursive: true, force: true });
+  }
+});
 
 test('positional commit message never becomes an E2E file filter', async () => {
   assert.deepEqual(parseArguments(['sdlc script']), {

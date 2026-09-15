@@ -1,0 +1,88 @@
+.equity-coverage {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px 18px 110px;
+}
+.equity-coverage h1 {
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  max-width: 24ch;
+  line-height: 1.12;
+}
+.equity-coverage button,
+.equity-coverage input,
+.equity-coverage select,
+.equity-coverage textarea {
+  min-height: 44px;
+  font: inherit;
+}
+.equity-search {
+  display: flex;
+  gap: 8px;
+  margin: 8px 0 24px;
+}
+.equity-search input {
+  min-width: 0;
+  flex: 1;
+}
+.equity-company-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: 12px;
+}
+.equity-company-list button {
+  text-align: left;
+  border: 1px solid #bccdc4;
+  border-radius: 16px;
+  padding: 20px;
+  background: #f7faf7;
+  color: #123e31;
+  display: grid;
+  gap: 12px;
+}
+.equity-company-list span,
+.equity-family time,
+.equity-missing {
+  color: #536b61;
+}
+.equity-family {
+  margin-top: 28px;
+  border-top: 1px solid #c4d0c9;
+}
+.equity-family article {
+  border-bottom: 1px solid #dfe6e1;
+  padding: 16px 0;
+}
+.equity-family details {
+  font-size: 0.9rem;
+}
+.equity-coverage code {
+  overflow-wrap: anywhere;
+  font-size: 0.75rem;
+}
+.equity-coverage nav {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+.equity-coverage form label {
+  display: block;
+  margin-top: 16px;
+}
+.equity-coverage form textarea,
+.equity-coverage form input:not([type='checkbox']),
+.equity-coverage form select {
+  max-width: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}
+.equity-coverage button:focus-visible,
+.equity-coverage a:focus-visible,
+.equity-coverage summary:focus-visible {
+  outline: 3px solid #166b50;
+  outline-offset: 3px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .equity-coverage * {
+    scroll-behavior: auto;
+  }
+}

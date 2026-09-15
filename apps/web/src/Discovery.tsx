@@ -1,3 +1,5 @@
+import { rememberPublicView, clearPublicView } from './eval-lineage-view';
+import { StoryGestureHint } from './StoryGestureHint';
 import './research.css';
 import { TermLink } from './TermLink';
 import {
@@ -304,6 +306,11 @@ export function Discovery({ explore = false }: { explore?: boolean }) {
   const visible = items;
   const selected = Math.min(index, Math.max(0, visible.length - 1));
   const story = visible[selected];
+  useEffect(() => {
+    if (story && mode === 'stories' && !loading)
+      rememberPublicView(story, 'story');
+    else clearPublicView();
+  }, [story, mode, loading]);
   const step = (delta: number) =>
     setIndex((n) => Math.max(0, Math.min(visible.length - 1, n + delta)));
   const prepareReader = (at: number) => {
@@ -640,7 +647,9 @@ export function Discovery({ explore = false }: { explore?: boolean }) {
             if (
               !e.isPrimary ||
               e.button !== 0 ||
-              !(e.target as HTMLElement).closest('.story-swipe-area') ||
+              !!(e.target as HTMLElement).closest(
+                'button,a,input,select,textarea',
+              ) ||
               e.clientX < 24 ||
               e.clientX > innerWidth - 24
             )
@@ -667,16 +676,25 @@ export function Discovery({ explore = false }: { explore?: boolean }) {
           <span className="story-number" role="status">
             {selected + 1} / {visible.length}
           </span>
-          <span className="story-glyph" aria-hidden="true">
-            {story.kind === 'term' ? 'Aa' : story.kind === 'annual' ? '%' : '↗'}
-          </span>
-          <span className="eyebrow">
-            {labels[story.kind]} · {story.effectiveLabel}
-          </span>
-          <h2>{story.title}</h2>
-          <p className="story-excerpt">
-            {story.summary !== story.title ? story.summary : null}
-          </p>
+          <StoryGestureHint kind="stories" />
+          <div
+            className="story-swipe-area"
+            aria-label="Story swipe area"
+            style={{ padding: 0, border: 0, touchAction: 'pan-x' }}
+          >
+            <MediaSummary
+              itemId={story.id}
+              itemVersion={story.version}
+              compact
+            />
+            <span className="eyebrow">
+              {labels[story.kind]} · {story.effectiveLabel}
+            </span>
+            <h2>{story.title}</h2>
+            <p className="story-excerpt">
+              {story.summary !== story.title ? story.summary : null}
+            </p>
+          </div>
           <a
             className="button"
             href={`#read/${story.id}`}
@@ -685,10 +703,6 @@ export function Discovery({ explore = false }: { explore?: boolean }) {
           >
             Read the story <Icon name="arrow" />
           </a>
-          <div className="story-swipe-area" aria-label="Story swipe area">
-            <span aria-hidden="true">↑ ↓</span>
-            Swipe up for next · down for previous
-          </div>
           <div className="story-controls">
             <button
               className="secondary"
@@ -792,6 +806,7 @@ export function Reader({ id }: { id: string }) {
     let active = true;
     resumed.current = false;
     setItem(null);
+    clearPublicView();
     setError('');
     setNotice('');
     setModal(null);
@@ -799,7 +814,11 @@ export function Reader({ id }: { id: string }) {
     setLibraryState('loading');
     void json(`/discovery/items/${encodeURIComponent(id)}`)
       .then((v) => {
-        if (active) setItem(FeedItemSchema.parse(v));
+        if (active) {
+          const loaded = FeedItemSchema.parse(v);
+          setItem(loaded);
+          rememberPublicView(loaded, 'reader');
+        }
       })
       .catch((e: unknown) => {
         if (active)
@@ -1158,7 +1177,7 @@ export function Reader({ id }: { id: string }) {
             className="reading-gesture-area"
             aria-label="Swipe for reading preferences"
           >
-            Swipe right for more like this · left for less
+            <StoryGestureHint kind="reading" />
           </div>
         )}
         {swipe !== 0 && (

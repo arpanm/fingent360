@@ -1,3 +1,4 @@
+import { currentPublicView } from './eval-lineage-view';
 import { useEffect, useRef, useState } from 'react';
 import {
   feedbackLimits,
@@ -64,6 +65,7 @@ function context(): z.infer<typeof FeedbackContextSchema> {
     appVersion: '0.4.0-planning',
     viewport: { width: innerWidth, height: innerHeight },
     capturedAt: new Date().toISOString(),
+    ...(currentPublicView() ? { publicView: currentPublicView() } : {}),
   };
 }
 function token() {

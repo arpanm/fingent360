@@ -147,7 +147,7 @@ test('workflow selects after gated commit, then runs selected connected and fres
   ]);
 });
 
-test('check failure prevents selection/commit and offline failure cannot dispatch a broad repair', async () => {
+test('check failure prevents selection/commit and offline failure reaches receipt-scoped recovery', async () => {
   await assert.rejects(
     workflow('bad', [], async () => 1, {
       impactPlan: () => {
@@ -164,13 +164,14 @@ test('check failure prevents selection/commit and offline failure cannot dispatc
       async (command, args) => (args[0] === 'android:test' ? 1 : 0),
       {
         impactPlan: () => ({ connected: [], offline: [offline] }),
-        recover: async () => {
+        recover: async (failure) => {
           repaired = true;
-          return true;
+          assert.equal(failure.args[0], 'android:test');
+          return false;
         },
       },
     ),
     /android:test failed/,
   );
-  assert.equal(repaired, false);
+  assert.equal(repaired, true);
 });

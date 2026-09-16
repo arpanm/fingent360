@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "cases": {
+    "99cc743e4a8bae69eef4ff21bf73efe5479f25c1aa9cb22429f3efd4653fbe82": {
+      "key": "99cc743e4a8bae69eef4ff21bf73efe5479f25c1aa9cb22429f3efd4653fbe82",
+      "caseId": "E2E-API-030",
+      "project": "api",
+      "title": "E2E-API-030 register, save, isolate, login and delete",
+      "file": "api/account.spec.ts",
+      "stories": ["ACCOUNT-001"],
+      "status": "failed",
+      "details": "Registration expected HTTP 201 and received HTTP 503. Local private-data key configuration was absent; exact running-server cause was not confirmed. User subsequently confirmed a fresh installation. No passing rerun recorded.",
+      "run": "2026-09-16T06-37-46-458Z-27790",
+      "time": "2026-09-16T06:37:46.922Z",
+      "fingerprint": "historical-unverified",
+      "log": "artifacts/e2e/2026-09-16T06-37-46-458Z-27790/results.json",
+      "report": "artifacts/e2e/2026-09-16T06-37-46-458Z-27790/results.json"
+    }
+  },
+  "bugs": {
+    "BUG-99cc743e4a8bae69": {
+      "key": "99cc743e4a8bae69eef4ff21bf73efe5479f25c1aa9cb22429f3efd4653fbe82",
+      "caseId": "E2E-API-030",
+      "project": "api",
+      "title": "E2E-API-030 register, save, isolate, login and delete",
+      "file": "api/account.spec.ts",
+      "stories": ["ACCOUNT-001"],
+      "status": "Open",
+      "details": "Registration expected HTTP 201 and received HTTP 503. Local private-data key configuration was absent; exact running-server cause was not confirmed. User subsequently confirmed a fresh installation. No passing rerun recorded.",
+      "run": "2026-09-16T06-37-46-458Z-27790",
+      "time": "2026-09-16T06:37:46.922Z",
+      "fingerprint": "historical-unverified",
+      "log": "artifacts/e2e/2026-09-16T06-37-46-458Z-27790/results.json",
+      "report": "artifacts/e2e/2026-09-16T06-37-46-458Z-27790/results.json",
+      "id": "BUG-99cc743e4a8bae69",
+      "firstSeen": "2026-09-16T06:37:46.922Z"
+    }
+  },
+  "gates": {}
+}

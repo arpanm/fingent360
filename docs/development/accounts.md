@@ -36,3 +36,9 @@ Apply migration 004 via the normal db:migrate command. E2E-API-040 and E2E-WEB-0
 The account page offers explicit sign-in/create-account choices, watchlist selection, saved indicators and a separate inbox. Privacy/session controls are linked from account navigation; deletion remains inside a disclosure with password confirmation. Storage implementation details appear under “What information is saved?” rather than interrupting the main form.
 
 Personal pages can use `AccountGate` with a return destination. `#account?next=privacy`, `holdings`, `my-goals` and `overview` are the only accepted destinations. Successful sign-in/create returns to that hash; unknown or external values are ignored. E2E-WEB-033 covers a successful privacy return and rejection of an external redirect value across browser projects. Existing E2E-WEB-030 retains account/watchlist persistence coverage. Source authored; parent integration verification supplies evidence.
+
+## Account acceptance closure — 2026-09-16
+
+The user confirmed a fresh installation. First-time `pnpm privacy:keys`, followed by restarting `pnpm dev`, supplies the server key prerequisites without replacing existing encrypted data. Existing installations must restore their original keys instead. Run `pnpm sdlc "Complete account workflow" --story ACCOUNT-001` for connected plus offline acceptance. The prior documentation-only --affected run did not retest registration.
+
+Confirmed watchlist saves retain their acknowledgment if inbox refresh fails. Failed account/watchlist reloads disable edits until successful reload, and unchanged selection cannot be resubmitted. Shared web/Android account UI presents a plain-language service error without operator configuration details. The existing API, contracts and per-owner database storage are unchanged. WEB034 injects only read outages around actual persistence; OFFLINE034 checks on-device persistence with zero API network traffic. Authored, not executed.

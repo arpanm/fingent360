@@ -37,6 +37,11 @@ async function rawApi(
   });
   if (response.status === 401)
     throw new AccountRequestError(401, 'Sign in again to access your account.');
+  if (response.status === 503)
+    throw new AccountRequestError(
+      503,
+      'Your account is temporarily unavailable. Please try again shortly.',
+    );
   const payload: unknown = await response.json();
   if (!response.ok)
     throw new AccountRequestError(
@@ -69,6 +74,7 @@ export function Account() {
   const [consent, setConsent] = useState(false);
   const [selection, setSelection] = useState<MacroIndicator[]>([]);
   const [saved, setSaved] = useState<MacroIndicator[]>([]);
+  const [watchlistLoaded, setWatchlistLoaded] = useState(false);
   const [inbox, setInbox] = useState<InboxItem[]>([]);
   const [macro, setMacro] = useState<MacroDashboard | null>(null);
   const [error, setError] = useState('');
@@ -82,6 +88,7 @@ export function Account() {
     setUser(null);
     setSelection([]);
     setSaved([]);
+    setWatchlistLoaded(false);
     setMacro(null);
     setInbox([]);
     setPassword('');
@@ -107,6 +114,7 @@ export function Account() {
     [clearPrivate],
   );
   async function load(active: () => boolean = () => true) {
+    setWatchlistLoaded(false);
     const epoch = generation.current;
     const valid = () => active() && epoch === generation.current;
     const current = CurrentAccountSchema.parse(await api());
@@ -118,6 +126,7 @@ export function Account() {
       if (!valid()) return;
       setSelection(list.indicators);
       setSaved(list.indicators);
+      setWatchlistLoaded(true);
       const messages = InboxSchema.parse(await api('/inbox'));
       if (!valid()) return;
       setInbox(messages.items);
@@ -266,12 +275,12 @@ export function Account() {
                 );
                 setUser(result.user);
                 setPassword('');
+                setMessage(signup ? 'Account created.' : 'Signed in.');
                 if (result.user && next) {
                   window.location.hash = next;
                   return;
                 }
                 await load();
-                setMessage(signup ? 'Account created.' : 'Signed in.');
               });
             }}
           >
@@ -401,7 +410,7 @@ export function Account() {
                     Follow an indicator to keep its latest update close at hand.
                   </p>
                 </div>
-                <fieldset disabled={busy || !macro}>
+                <fieldset disabled={busy || !macro || !watchlistLoaded}>
                   <legend>Indicators to follow</legend>
                   {macro?.sources.map((source) => (
                     <label key={source.indicator} className="check-label">
@@ -422,6 +431,10 @@ export function Account() {
                     </label>
                   ))}
                   <button
+                    disabled={
+                      selection.length === saved.length &&
+                      selection.every((indicator) => saved.includes(indicator))
+                    }
                     onClick={() =>
                       void action(async () => {
                         const result = WatchlistSchema.parse(
@@ -434,8 +447,8 @@ export function Account() {
                         setSaved(result.indicators);
                         setSelection(result.indicators);
                         setMaterialRefresh((value) => value + 1);
-                        setInbox(InboxSchema.parse(await api('/inbox')).items);
                         setMessage('Watchlist saved.');
+                        setInbox(InboxSchema.parse(await api('/inbox')).items);
                       })
                     }
                   >
@@ -445,7 +458,13 @@ export function Account() {
               </section>
               <section aria-label="Saved watchlist" className="panel">
                 <h3>Your saved indicators</h3>
-                {saved.length === 0 && (
+                {!watchlistLoaded && (
+                  <p>
+                    Your saved watchlist has not loaded. Reload your account to
+                    try again.
+                  </p>
+                )}
+                {watchlistLoaded && saved.length === 0 && (
                   <div className="empty-state">
                     <p>No indicators selected yet.</p>
                     <p>

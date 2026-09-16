@@ -1,0 +1,165 @@
+{
+  "ACCOUNT-001": [
+    {
+      "caseId": "E2E-API-030",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-031",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-030",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-033",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-034",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-034",
+      "projects": ["offline"]
+    }
+  ],
+  "GOALS-001": [
+    {
+      "caseId": "E2E-API-060",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-061",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-060",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-062",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-066",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-067",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-010",
+      "projects": ["offline"]
+    }
+  ],
+  "XLSX-001": [
+    {
+      "caseId": "E2E-API-240",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-241",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-242",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-240",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-290",
+      "projects": ["offline"]
+    }
+  ],
+  "WORKER-HEALTH-001": [
+    {
+      "caseId": "E2E-API-350",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-351",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-352",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-353",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-354",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-355",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-356",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-357",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-358",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-359",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-360",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-361",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-362",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-350",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-351",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-352",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-353",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-354",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-380",
+      "projects": ["offline"]
+    }
+  ],
+  "_completion": {
+    "ACCOUNT-001": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Account registration, owner isolation, watchlists, bounded sign-in navigation, recovery from unavailable reads, deletion and shared on-device watchlist persistence. Native release certification is separate."
+    }
+  }
+}

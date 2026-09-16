@@ -530,3 +530,89 @@ test('unresolved repair stops at the explicit budget and cannot broaden test sco
   report.suites[0].specs[0].file = '../../unrelated.spec.ts';
   assert.throws(() => failedCases(report), /Unexpected test identity/);
 });
+
+test('story mode keeps complete gates and selects connected then offline acceptance without a whole-suite run', async () => {
+  assert.deepEqual(parseArguments(['Account', '--story', 'ACCOUNT-001']), {
+    message: 'Account',
+    filters: [],
+    story: 'ACCOUNT-001',
+  });
+  for (const extra of [
+    ['--affected'],
+    ['--checks-only'],
+    ['--', '--grep', 'unrelated'],
+  ]) {
+    assert.throws(
+      () => parseArguments(['Account', '--story', 'ACCOUNT-001', ...extra]),
+      /cannot be combined/,
+    );
+  }
+  assert.throws(
+    () => parseArguments(['--story', '../escape']),
+    /requires a task ID/,
+  );
+  const calls = [];
+  await workflow(
+    'Account',
+    [],
+    async (command, args) => {
+      calls.push([command, ...args]);
+      return 0;
+    },
+    { storyPlan: { connected: 'E2E-API-030', offline: 'E2E-OFFLINE-034' } },
+  );
+  assert.deepEqual(calls.slice(0, 2), [
+    ['pnpm', 'format'],
+    ['pnpm', 'check'],
+  ]);
+  assert.deepEqual(calls.slice(-3), [
+    ['pnpm', 'e2e:run', '--grep', 'E2E-API-030'],
+    ['pnpm', 'android:web'],
+    ['pnpm', 'android:test', '--grep', 'E2E-OFFLINE-034'],
+  ]);
+});
+
+test('offline failed-case repair rebuilds its package and retries only the exact case/project', async () => {
+  const report = {
+    suites: [
+      {
+        specs: [
+          {
+            file: 'offline/account.spec.ts',
+            line: 4,
+            title: 'E2E-OFFLINE-034 private account @ACCOUNT-001',
+            tests: [
+              {
+                status: 'unexpected',
+                projectName: 'offline',
+                expectedStatus: 'passed',
+                results: [
+                  {
+                    status: 'failed',
+                    errors: [{ message: 'Synthetic failure' }],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  };
+  const calls = [];
+  await repairFailure(
+    new SdlcStageFailure('pnpm', ['android:test'], 1),
+    async () => {},
+    {},
+    async (command, args) => {
+      calls.push([command, ...args]);
+      return 0;
+    },
+    () => report,
+  );
+  assert.deepEqual(calls[0], ['pnpm', 'android:web']);
+  assert.equal(calls[1][1], 'android:test');
+  assert.ok(calls[1].includes('--project=offline'));
+  assert.match(calls[1].at(-1), /E2E-OFFLINE-034/);
+  assert.equal(calls.length, 2);
+});

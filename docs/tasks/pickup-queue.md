@@ -18,6 +18,10 @@ Broker public research covered all five official download paths without discover
 
 Completed implementation now includes DEV-006 public briefs, DEV-010 educational scope, DEV-015, DEV-016 reading layers, DEV-017 supported privacy, DEV-021 initial operational implementation, DEV-029 initial channels, SRC-014 registry, SRC-012, ACTION-CENTRE-001/DEV-019 and initial SRC-007/SRC-008/SRC-010/SRC-011; manual gates and real activation remain pending. Supported privacy/key lifecycle and reviewed simple corporate-action windows are now authored. Next independent implementation: remaining financial fields/history, broader company financial statements, source-linked analytical reading and outstanding source coverage; causal/policy work follows exact evidence. Deployment hosting, physical-device results and live-source activation remain distinct external/manual steps. Do not automatically pick validation-only items as new coding work.
 
+## Functional closure order — 2026-09-16
+
+Current story: ACCOUNT-001. User confirmed fresh installation; key setup/restart and explicit story acceptance remain. Save/reload recovery fixes and connected/offline cases are authored. Use user-run SDLC --story ACCOUNT-001, not a documentation-only affected selection. Next bounded stories after account acceptance: GOALS-001, XLSX-001, WORKER-HEALTH-001, then the remaining started functional stories. Do not start new scope or call authored work verified; close unresolved bugs from docs/bugs and maintain each acceptance matrix.
+
 ## Pickup order
 
 1. Official NSE RSS discovery, historical original watch, daily EIA observations, rights/stock-swap terms, CCIL curve originals, sovereign settlement and source-linked credit comparisons are now authored. Keep their completed status separate from manual validation. Next SRC-004 development requires original XML/taxonomy and exact discovery-to-financial identity mapping; reuse the recorded access question and source evidence.

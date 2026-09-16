@@ -114,3 +114,95 @@ test('E2E-WEB-033 sign-in returns to a known destination and rejects external re
     });
   }
 });
+
+test('E2E-WEB-034 confirmed watchlist save survives inbox outage and unreadable reload cannot overwrite it @ACCOUNT-001 @TEST-SIMULATION', async ({
+  page,
+}) => {
+  const password = 'Synthetic-watchlist-2026';
+  const headers = {
+    Origin: process.env.E2E_WEB_URL || 'http://localhost:5173',
+  };
+  await page.goto('/#account');
+  const created = await page.request.post('/api/v1/account/register', {
+    headers,
+    data: {
+      username: `watch_${randomUUID().slice(0, 12)}`,
+      password,
+      consent: true,
+    },
+  });
+  expect(created.status()).toBe(201);
+  try {
+    await page.reload();
+    const save = page.getByRole('button', {
+      name: 'Save watchlist',
+      exact: true,
+    });
+    const indicator = page.getByRole('checkbox', {
+      name: 'India GDP growth',
+      exact: true,
+    });
+    await expect(indicator).toBeEnabled();
+    let writes = 0;
+    page.on('request', (request) => {
+      if (
+        request.method() === 'PUT' &&
+        new URL(request.url()).pathname === '/api/v1/account/watchlist'
+      )
+        writes++;
+    });
+    // Simulate only the secondary read; registration and saving use the actual API/database.
+    await page.route('**/api/v1/account/inbox', (route) =>
+      route.fulfill({
+        status: 503,
+        json: { message: 'Synthetic inbox outage' },
+      }),
+    );
+    await indicator.check();
+    await save.click();
+    await expect(
+      page.getByText('Watchlist saved.', { exact: true }),
+    ).toBeVisible();
+    await expect(page.getByRole('alert')).toContainText(
+      'temporarily unavailable',
+    );
+    await expect(save).toBeDisabled();
+    expect(writes).toBe(1);
+    const persisted = await page.request.get('/api/v1/account/watchlist');
+    expect(persisted.status()).toBe(200);
+    expect((await persisted.json()).indicators).toEqual(['NY.GDP.MKTP.KD.ZG']);
+    await page.unroute('**/api/v1/account/inbox');
+    await page.route('**/api/v1/account/watchlist', (route) =>
+      route.fulfill({
+        status: 503,
+        json: {
+          message:
+            'Private data encryption is unavailable. Configure PRIVATE_DATA_KEYS.',
+        },
+      }),
+    );
+    await page
+      .getByRole('button', { name: 'Reload account', exact: true })
+      .click();
+    await expect(save).toBeDisabled();
+    await expect(page.getByRole('alert')).not.toContainText(
+      'PRIVATE_DATA_KEYS',
+    );
+    await expect(
+      page.getByRole('region', { name: 'Saved watchlist' }),
+    ).toContainText('has not loaded');
+    await page.unroute('**/api/v1/account/watchlist');
+    await page
+      .getByRole('button', { name: 'Reload account', exact: true })
+      .click();
+    await expect(indicator).toBeChecked();
+    await expect(indicator).toBeEnabled();
+    expect(writes).toBe(1);
+  } finally {
+    await page.unrouteAll({ behavior: 'wait' });
+    await page.request.delete('/api/v1/account', {
+      headers,
+      data: { password },
+    });
+  }
+});

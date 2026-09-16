@@ -1,6 +1,10 @@
 # Fingent360
 
-E2E-API-030 registration currently has a configuration blocker: local `.env` lacks the three private identity/payload key settings required by registration. The supplied503 alone does not confirm the running API’s cause. See [ACCOUNT-001 recovery and exact rerun](docs/tasks/ACCOUNT-001.md#registration503-blocker--2026-09-16). Restore existing keys when encrypted data already exists; use [first-time key setup](docs/development/private-key-setup.md) only for a new installation. No runtime changes or validation were performed in this scoped attempt.
+Functional completion now uses story-specific acceptance: `pnpm sdlc "Complete account workflow" --story ACCOUNT-001` runs gates, a gated local commit, that story's connected cases and its rebuilt offline cases. It then updates [story validation](docs/validation/README.md), each observed task and TODO's validation column, and the separate [bug tracker](docs/bugs/README.md), including when a repair fails. For the reviewed ACCOUNT-001 scope, complete passing acceptance automatically marks it Done; failure or stale coverage reopens it. Other stories need their completion scope reviewed before opting in. No push occurs. Story mode exits nonzero if required acceptance remains incomplete, even when selected tests alone exited zero. Post-test result documents remain uncommitted. Account, goals, standard XLSX and worker-health matrices are defined initially; other tagged stories receive selected-result status until their complete acceptance matrix is reviewed.
+
+The user confirmed this is a fresh installation with no private data to preserve. Run `pnpm privacy:keys`, then restart `pnpm dev` before account acceptance. The latest supplied run.log passed checks and committed218f3a5, but selected zero E2E files because its changes were documentation-only; that run did not clear registration503. The account UI now preserves a confirmed watchlist save across downstream inbox errors and disables writes after an unreadable reload. These fixes and WEB034/OFFLINE034 cases are authored; current acceptance is pending.
+
+Earlier E2E-API-030 registration evidence recorded a configuration blocker: local `.env` lacks the three private identity/payload key settings required by registration. The supplied503 alone does not confirm the running API’s cause. See [ACCOUNT-001 recovery and exact rerun](docs/tasks/ACCOUNT-001.md#registration503-blocker--2026-09-16). Restore existing keys when encrypted data already exists; use [first-time key setup](docs/development/private-key-setup.md) only for a new installation. No runtime changes or validation were performed in this scoped attempt.
 
 Account deletion unit fixtures now exercise real cookie/session admission before checking the owner rate limit, including malformed-cookie and post-lock revocation regressions. The password-salt guard now explicitly returns its throwing assertion to satisfy ESLint, with a direct guard regression. These repairs are authored, not validated; see [ACCOUNT-001](docs/tasks/ACCOUNT-001.md#getter-lint-repair--2026-09-16). Smallest lint validation: `pnpm exec eslint apps/api/test/account-security.test.mjs`.
 
@@ -416,6 +420,7 @@ Place SDLC options before the `--` separator. Everything after it is forwarded t
 
 - **No option:** Format → full checks → local commit → all connected E2E (API, desktop, mobile). Example: `pnpm sdlc "Change"`.
 - **`--message <text>`:** Explicit commit message. Example: `pnpm sdlc --message "Change"`.
+- **`--story <task-id>`:** Run the reviewed connected and offline acceptance matrix for one story, even when changes are already committed. Example: `pnpm sdlc "Complete account workflow" --story ACCOUNT-001`. Requires a matrix in docs/tasks/acceptance.json; cannot combine with affected mode, checks-only or manual filters.
 - **`--checks-only`:** Format, full checks and gated commit; skip E2E. Example: `pnpm sdlc "Change" --checks-only`.
 - **`--affected`:** Full gates and commit, then conservative affected E2E selection. Example: `pnpm sdlc "Change" --affected`.
 - **`--affected-plan`:** Print changed paths, selection and reasons; no gates, tests, commit or agent. Example: `pnpm sdlc --affected-plan`.
@@ -435,7 +440,7 @@ Changed test files select those files; web changes select desktop/mobile and off
 - **`SDLC_CODEX_BIN=/absolute/path/to/codex`:** Explicit executable override. Otherwise search PATH, then installed macOS Codex/ChatGPT app binaries. Invalid override stops rather than falling back.
 - **`E2E_BROWSER=chrome`:** Installed Chrome; `chromium` selects managed Chromium. macOS defaults to Chrome; see test setup for other platforms.
 
-`F360_SDLC_REPAIR_ACTIVE` is an internal recursion guard set by the launcher, not a user option. CLI login/model configuration is reused; the script does not install or sign in automatically. Formatting-only failures get up to two scoped deterministic retries. Connected E2E repair receives one failed case and retries that case; offline test failures stop with output because their automatic scoped repair receipt is not yet implemented.
+`F360_SDLC_REPAIR_ACTIVE` is an internal recursion guard set by the launcher, not a user option. CLI login/model configuration is reused; the script does not install or sign in automatically. Formatting-only failures get up to two scoped deterministic retries. Connected and offline E2E repair receive one failed case and retry only its file/title/project. Offline retries rebuild the offline web package first. Missing or malformed run-specific reports stop recovery without a broad rerun.
 
 ```bash
 # Disable agents and automatic formatting recovery for this invocation

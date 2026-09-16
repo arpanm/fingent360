@@ -2,7 +2,7 @@
 
 - **Status:** Completed implementation; validation pending
 - **Implemented / recorded:** - Implementation: Implemented
-- **Pending:** E2E-API-030 registration503 is blocked on operator key configuration/confirmation; no runtime repair or pass claimed. Earlier deletion regressions still await validation.
+- **Pending:** Fresh key setup, API restart and story acceptance. User confirmed no existing private data. Save/reload recovery fixes and WEB034/OFFLINE034 are authored; no passing rerun claimed.
 - **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
@@ -78,3 +78,12 @@ Read AGENTS.md, the task-maintenance guide and this task’s current summary. Wo
 - **Prerequisites / failure evidence:** Existing dependencies unchanged; current API, configured PostgreSQL and matching web Origin required. No browser UI needed for the API command; optional account UI uses the dev launcher's web URL plus /#account. If503 persists, report only case/project, time, HTTP status and the fixed server error message, excluding credentials and response headers. No whole-suite report requested.
 - **Reusable prompt:** Inspect only this supplied registration failure and account configuration/code. Obtain safe evidence distinguishing key unavailability from database errors before proposing a code change. Preserve encryption and real-storage assertions. Author/read only; do not run commands that validate, mutate configuration, restart services or commit.
 - **Verification / Git:** Nothing executed for validation; blocker remains open. Initial working tree was clean; HEAD0cffecc remains unchanged. This attempt changes documentation only and leaves it uncommitted.
+
+## Functional completion pass — 2026-09-16
+
+- **Recorded user answer:** “Fresh installation: no private data to preserve.” First-time `pnpm privacy:keys` is appropriate; the user must restart the API afterward. No key generation or service restart was executed by this authoring agent.
+- **Actual gaps fixed:** An inbox refresh error after a committed watchlist update previously suppressed its saved acknowledgment. The acknowledgment now appears immediately after the validated save receipt. An unreadable account/watchlist reload now disables edits rather than allowing writes from stale selection state. Unchanged selections cannot be submitted again. Public account errors no longer expose operator key/setup instructions. The shared React implementation serves web and packaged Android.
+- **Scope / existing backend and database:** Existing authenticated watchlist GET/PUT, CurrentAccount/Watchlist schemas, encrypted account identities and persisted per-owner rows are retained. These bugs need no new schema or migration. Account creation similarly retains its confirmed success message if a later reader fails. No simulated account or storage replaces the actual API.
+- **Acceptance:** API030/031; browser030/033/034 on desktop/mobile; offline034. WEB034 commits through the real API and injects only downstream read outages, verifies one PUT, actual persisted choices, denied edits during unavailable reads and successful reload. Offline034 creates and persists a local account/watchlist with no API network traffic. The explicit matrix is docs/tasks/acceptance.json.
+- **Validation:** Authored only. Run `pnpm sdlc "Complete account workflow" --story ACCOUNT-001` after fresh key setup and API restart. For the packaged shared UI, `pnpm android:web` then `pnpm android:test --grep ACCOUNT-001`; SDLC affected mode also captures selected offline reports. Native APK installation is separate and is not certified by a browser test.
+- **Remaining:** Actual selected-run acceptance, then proceed to the next functional story. Do not mark this story fully Done from authored code or a checks-only run.

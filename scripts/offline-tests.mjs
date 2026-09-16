@@ -56,6 +56,11 @@ if (!address || typeof address === 'string')
 const base = `http://127.0.0.1:${address.port}`;
 const ui = process.argv.includes('--ui');
 const extra = process.argv.slice(2).filter((v) => v !== '--ui');
+const runId = `offline-${Date.now()}-${process.pid}`;
+if (!ui)
+  console.log(
+    `Manual run: ${runId}. Reports will be written under artifacts/e2e/${runId}.`,
+  );
 console.log(
   `Offline bundled app: ${base}. No API or database is used.${ui ? ' Select tests and click Run; leave watch off.' : ''}`,
 );
@@ -71,7 +76,12 @@ const child = spawn(
   ],
   {
     cwd: root,
-    env: { ...process.env, E2E_OFFLINE_URL: base, E2E_WEB_URL: base },
+    env: {
+      ...process.env,
+      E2E_OFFLINE_URL: base,
+      E2E_WEB_URL: base,
+      E2E_RUN_ID: runId,
+    },
     stdio: 'inherit',
   },
 );

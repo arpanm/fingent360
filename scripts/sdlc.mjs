@@ -1,4 +1,9 @@
 import { impactBaseline, makeImpactPlan, caseFilters } from './sdlc-impact.mjs';
+import {
+  createValidationRecorder,
+  sourceFingerprint,
+  storyPlan,
+} from './sdlc-validation.mjs';
 import { spawn } from 'node:child_process';
 import {
   mkdirSync,
@@ -24,6 +29,8 @@ const runDirectory = path.join(
 let stageNumber = 0;
 let lastLog;
 let repairNumber = 0;
+let validationRecorder;
+let requestedStory;
 
 export class SdlcStageFailure extends Error {
   constructor(command, args, status, logPath) {
@@ -47,6 +54,17 @@ export function parseArguments(input) {
   const checksOnly = takeFlag('--checks-only');
   const preview = takeFlag('--affected-plan');
   const affected = takeFlag('--affected') || preview;
+  let story;
+  const storyIndex = args.indexOf('--story');
+  if (
+    storyIndex >= 0 &&
+    (args.indexOf('--') < 0 || storyIndex < args.indexOf('--'))
+  ) {
+    story = args[storyIndex + 1];
+    if (!story || !/^[A-Z][A-Z0-9]*(?:-[A-Z0-9]+)+$/.test(story))
+      throw Error('--story requires a task ID, for example ACCOUNT-001.');
+    args.splice(storyIndex, 2);
+  }
   const baseIndex = args.indexOf('--base');
   let base;
   if (
@@ -83,6 +101,10 @@ export function parseArguments(input) {
     throw new Error('--checks-only cannot be combined with E2E filters.');
   if (affected && args.length)
     throw Error('--affected cannot be combined with manual E2E filters.');
+  if (story && (affected || checksOnly || args.length))
+    throw Error(
+      '--story cannot be combined with affected mode, checks-only or manual E2E filters.',
+    );
   return {
     message,
     filters: args,
@@ -90,6 +112,7 @@ export function parseArguments(input) {
     ...(preview ? { preview: true } : {}),
     ...(base ? { base } : {}),
     ...(checksOnly ? { checksOnly: true } : {}),
+    ...(story ? { story } : {}),
   };
 }
 
@@ -126,7 +149,15 @@ export async function workflow(
       lastLog,
     );
   }
-  if (options.impactPlan) {
+  if (options.storyPlan) {
+    const plan = options.storyPlan;
+    if (plan.connected)
+      await step('pnpm', ['e2e:run', '--grep', plan.connected]);
+    if (plan.offline) {
+      await step('pnpm', ['android:web']);
+      await step('pnpm', ['android:test', '--grep', plan.offline]);
+    }
+  } else if (options.impactPlan) {
     // Read after gates/commit so formatter and repair edits are included against the original baseline.
     const plan = options.impactPlan();
     options.recordImpact?.(plan);
@@ -134,12 +165,7 @@ export async function workflow(
       await step('pnpm', ['e2e:run', ...caseFilters(plan.connected)]);
     if (plan.offline.length) {
       await step('pnpm', ['android:web']);
-      // Offline runner does not yet emit the connected runner's scoped repair receipt.
-      // Stop with its exact output rather than dispatching a broad test repair.
-      const args = ['android:test', ...caseFilters(plan.offline)];
-      const status = await execute('pnpm', args);
-      if (status !== 0)
-        throw new SdlcStageFailure('pnpm', args, status, lastLog);
+      await step('pnpm', ['android:test', ...caseFilters(plan.offline)]);
     }
     if (!plan.connected.length && !plan.offline.length)
       console.log(
@@ -155,6 +181,12 @@ function executeCommand(command, args) {
     `${String(++stageNumber).padStart(2, '0')}-${command}-${args[0].replaceAll(/[^a-zA-Z0-9-]/g, '_')}.log`,
   );
   const log = lastLog;
+  const fingerprint =
+    validationRecorder &&
+    command === 'pnpm' &&
+    ['check', 'e2e:run', 'android:test'].includes(args[0])
+      ? sourceFingerprint(root)
+      : undefined;
   writeFileSync(log, '', { mode: 0o600 });
   const started = Date.now();
   console.log(`Stage ${stageNumber}: ${command} ${args[0]} (log: ${log})`);
@@ -171,17 +203,40 @@ function executeCommand(command, args) {
     };
     child.stdout.on('data', forward(process.stdout));
     child.stderr.on('data', forward(process.stderr));
+    let completed = false;
+    const complete = (status) => {
+      if (completed) return;
+      completed = true;
+      console.log(
+        `Stage ${stageNumber} finished in ${((Date.now() - started) / 1000).toFixed(1)}s (${status}).`,
+      );
+      try {
+        const recorded = validationRecorder?.observe({
+          command,
+          args,
+          status,
+          log,
+          fingerprint:
+            fingerprint && fingerprint === sourceFingerprint(root)
+              ? fingerprint
+              : undefined,
+        });
+        resolve(status || (recorded === false ? 1 : 0));
+      } catch (error) {
+        console.error(
+          `Validation receipt could not be saved: ${error.message}`,
+        );
+        resolve(status || 1);
+      }
+    };
     child.once('error', (error) => {
       const message = `Unable to start ${command}: ${error.code ?? 'launch error'}\n`;
       appendFileSync(log, message);
       process.stderr.write(message);
-      resolve(127);
+      complete(127);
     });
     child.once('close', (code, signal) => {
-      console.log(
-        `Stage ${stageNumber} finished in ${((Date.now() - started) / 1000).toFixed(1)}s (${signal ?? code}).`,
-      );
-      resolve(code ?? (signal === 'SIGINT' ? 130 : 1));
+      complete(code ?? (signal === 'SIGINT' ? 130 : 1));
     });
   });
 }
@@ -227,7 +282,7 @@ export function failedCases(report) {
         cases.push({
           command: 'pnpm',
           args: [
-            'e2e:run',
+            test.projectName === 'offline' ? 'android:test' : 'e2e:run',
             escapePattern(file),
             `--project=${test.projectName}`,
             '--grep',
@@ -394,20 +449,19 @@ export async function repairFailure(
   const limit = Number(env.SDLC_REPAIR_LIMIT ?? '3');
   if (!Number.isInteger(limit) || limit < 1 || limit > 10)
     throw Error('SDLC_REPAIR_LIMIT must be 1–10.');
-  const scopes =
-    failure.args[0] === 'e2e:run'
-      ? failedCases(reportReader(failure))
-      : [
-          {
-            ...failure,
-            details: stageText(failure)
-              .split('\n')
-              .filter((line) => !/[✓✔]/.test(line))
-              .slice(-100)
-              .join('\n')
-              .slice(-16000),
-          },
-        ];
+  const scopes = ['e2e:run', 'android:test'].includes(failure.args[0])
+    ? failedCases(reportReader(failure))
+    : [
+        {
+          ...failure,
+          details: stageText(failure)
+            .split('\n')
+            .filter((line) => !/[✓✔]/.test(line))
+            .slice(-100)
+            .join('\n')
+            .slice(-16000),
+        },
+      ];
   if (!scopes.length)
     throw Error(
       'No exact failed case found. Inspect this run; no broad rerun was started.',
@@ -438,11 +492,13 @@ export async function repairFailure(
       }
       if (scope.test) {
         // API fixtures load compiled code; rebuilding is a prerequisite, never a test-suite rerun.
-        const built = await execute('pnpm', ['build']);
+        const buildCommand =
+          scope.args[0] === 'android:test' ? 'android:web' : 'build';
+        const built = await execute('pnpm', [buildCommand]);
         if (built !== 0) {
           const buildFailure = new SdlcStageFailure(
             'pnpm',
-            ['build'],
+            [buildCommand],
             built,
             lastLog,
           );
@@ -570,7 +626,9 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
       affected = false,
       preview = false,
       base,
+      story,
     } = parseArguments(process.argv.slice(2));
+    requestedStory = story;
     console.log(
       checksOnly
         ? 'Format → check → stage all non-ignored changes → local commit. E2E explicitly excluded; no push.'
@@ -585,6 +643,7 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
         'SDLC execution is prohibited inside a repair agent. Return changes to the user.',
       );
     const baseline = affected ? impactBaseline(root, base) : undefined;
+    const selectedStory = story ? storyPlan(root, story) : undefined;
     const planImpact = affected
       ? () => makeImpactPlan(root, baseline)
       : undefined;
@@ -604,8 +663,10 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
       process.exit(0);
     }
     const budget = { used: 0 };
+    validationRecorder = createValidationRecorder(root, runDirectory);
     await workflow(message, filters, executeCommand, {
       checksOnly,
+      storyPlan: selectedStory,
       impactPlan: planImpact,
       recordImpact,
       recover: (failure) =>
@@ -629,5 +690,22 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
       'Fix the failed stage and rerun. Any completed commit is retained; nothing was pushed.',
     );
     process.exitCode = 1;
+  } finally {
+    try {
+      const statuses = validationRecorder?.finish();
+      if (
+        requestedStory &&
+        statuses &&
+        statuses.get(requestedStory) !== 'Passed — automated acceptance'
+      ) {
+        console.error(
+          `Story ${requestedStory} acceptance is incomplete: ${statuses.get(requestedStory) ?? 'Not run'}. See docs/validation/README.md and docs/bugs/README.md.`,
+        );
+        process.exitCode = 1;
+      }
+    } catch (error) {
+      console.error(`Story/bug tracker update failed: ${error.message}`);
+      process.exitCode = 1;
+    }
   }
 }

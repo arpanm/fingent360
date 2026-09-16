@@ -1,3 +1,4 @@
+import { DeploymentMonitoring } from './DeploymentMonitoring';
 import { useEffect, useRef, useState } from 'react';
 import {
   OperationalQualitySchema,
@@ -52,6 +53,7 @@ export function QualityOverview({
   return (
     <section aria-label="Data quality" className="panel">
       <h2>Data quality</h2>
+      <DeploymentMonitoring onSessionExpired={onSessionExpired} />
       <p>
         Current stored reading-publication heads. Numerical datasets have their
         own source review/history. These checks describe completeness and

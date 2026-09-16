@@ -1,3 +1,4 @@
+import { decryptGoalRows, encryptGoal } from './private-goals.js';
 import { randomUUID } from 'node:crypto';
 import {
   BadRequestException,
@@ -43,8 +44,14 @@ export class GoalsController {
     return this.store.transaction(async (c) => {
       const account = await this.store.require(c, cookie);
       const result = await c.query(
-        'SELECT r.payload FROM app_goals g JOIN app_goal_revisions r ON r.goal_id=g.id AND r.version=g.version WHERE g.user_id=$1 AND g.deleted_at IS NULL ORDER BY g.created_at,g.id',
+        'SELECT r.goal_id,r.version,r.payload,r.encrypted_payload FROM app_goals g JOIN app_goal_revisions r ON r.goal_id=g.id AND r.version=g.version WHERE g.user_id=$1 AND g.deleted_at IS NULL ORDER BY g.created_at,g.id',
         [account.id],
+      );
+      await decryptGoalRows(
+        c,
+        account.id,
+        result.rows,
+        this.store.privateDataKeys,
       );
       return SavedGoalsSchema.parse({
         goals: result.rows.map((r) => r.payload),
@@ -85,8 +92,8 @@ export class GoalsController {
         [id, account.id, now],
       );
       await c.query(
-        'INSERT INTO app_goal_revisions(goal_id,version,payload) VALUES($1,1,$2)',
-        [id, result],
+        'INSERT INTO app_goal_revisions(goal_id,version,encrypted_payload) VALUES($1,1,$2)',
+        [id, encryptGoal(account.id, result, this.store.privateDataKeys)],
       );
       return result;
     });
@@ -104,8 +111,14 @@ export class GoalsController {
       );
       if (!found.rowCount) throw new NotFoundException('Goal not found.');
       const rows = await c.query(
-        'SELECT payload FROM app_goal_revisions WHERE goal_id=$1 ORDER BY version DESC',
+        'SELECT goal_id,version,payload,encrypted_payload FROM app_goal_revisions WHERE goal_id=$1 ORDER BY version DESC',
         [id],
+      );
+      await decryptGoalRows(
+        c,
+        account.id,
+        rows.rows,
+        this.store.privateDataKeys,
       );
       return SavedGoalHistorySchema.parse({
         revisions: rows.rows.map((r) => r.payload),
@@ -154,8 +167,12 @@ export class GoalsController {
         updatedAt: now,
       });
       await c.query(
-        'INSERT INTO app_goal_revisions(goal_id,version,payload) VALUES($1,$2,$3)',
-        [id, version + 1, result],
+        'INSERT INTO app_goal_revisions(goal_id,version,encrypted_payload) VALUES($1,$2,$3)',
+        [
+          id,
+          version + 1,
+          encryptGoal(account.id, result, this.store.privateDataKeys),
+        ],
       );
       await c.query(
         'UPDATE app_goals SET version=$2,updated_at=$3 WHERE id=$1',

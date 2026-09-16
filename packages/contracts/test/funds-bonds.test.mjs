@@ -101,3 +101,22 @@ test('bond settlement and future cashflow boundaries reject impossible assumptio
     false,
   );
 });
+
+test('AMFI eight-column layout preserves plan/option and never shifts them into NAV', async () => {
+  const body = await readFile(
+    new URL('./fixtures/amfi-nav-v2.txt', import.meta.url),
+    'utf8',
+  );
+  const rows = parseAmfiNav(body);
+  assert.equal(rows[0].nav, '123.4500');
+  assert.equal(rows[0].plan, 'Direct Plan');
+  assert.equal(rows[1].option, 'IDCW Option');
+  assert.equal(rows[2].plan, null);
+  assert.equal(rows[2].nav, null);
+  assert.throws(() =>
+    parseAmfiNav(body.replace(';Plan;Option;', ';Unknown;Option;')),
+  );
+  assert.throws(() =>
+    parseAmfiNav(body.replace(';Direct Plan;Growth Option;', ';Direct Plan;')),
+  );
+});

@@ -1,6 +1,6 @@
 # SDLC-REPAIR-007 — Markdown table formatting
 
-- **Status:** Implemented; validation pending
+- **Status:** Completed implementation; validation pending
 - **Implemented / recorded:** - Implementation: Replaced inconsistently padded tables with equivalent labelled lists and removed a surplus blank line in the flagged documents; retained commands and requirements.
 - **Pending:** User: run the task’s documented validation; implementation is not a test pass.
 - **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.

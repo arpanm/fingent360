@@ -1,3 +1,11 @@
+import { downloadedResearchPolicies } from './governance-policies';
+import { contextBindsEdition } from '@fingent360/contracts';
+import { handleEventScenarios } from './event-scenarios';
+import {
+  EventScenarioSnapshotSchema,
+  EventScenarioPublicSchema,
+} from '@fingent360/contracts';
+import { publicBeaGdpSeries } from '@fingent360/contracts';
 import {
   currentPublications,
   publicEdition,
@@ -87,11 +95,27 @@ export async function page(
 }
 export async function handleContent(
   req: OfflineRequest,
-  _state: LocalState,
+  state: LocalState,
   bundle: OfflineBundle,
 ): Promise<OfflineResult | undefined> {
   if (req.method !== 'GET') return undefined;
   const p = req.path.replace(/^\/api\/v1/, '');
+  if (p === '/discovery/gdp-vintages') {
+    try {
+      return {
+        body: publicBeaGdpSeries(
+          published(bundle),
+          bundle.generatedAt,
+          req.query.get('period') ?? undefined,
+        ),
+      };
+    } catch {
+      return fail(
+        400,
+        'Invalid GDP period or downloaded vintage. Refresh the snapshot while connected.',
+      );
+    }
+  }
   if (p === '/discovery/feed')
     return {
       body: FeedSchema.parse({
@@ -212,12 +236,56 @@ export async function handleContent(
               v.status !== 'draft',
           )
           .sort((a, b) => b.version - a.version)[0] ?? null;
+      const snapshot = EventScenarioSnapshotSchema.parse(
+        bundle.eventScenarios ?? {
+          capturedAt: bundle.generatedAt,
+          items: [],
+          histories: {},
+        },
+      );
+      const matching = snapshot.items.filter(
+        (s) =>
+          s.state === 'published' &&
+          s.receipt?.event.event?.editorial.citations.some(
+            (c) =>
+              c.sourceId === current.id &&
+              c.version === current.version &&
+              c.hash === current.sourceHash,
+          ),
+      );
+      if (matching.length > 20)
+        fail(
+          503,
+          'More than20 reviewed analyses reference this edition. Open the scenario library.',
+        );
+      const contexts = (
+        await downloadedResearchPolicies(bundle, state, req, 'causal-context')
+      ).filter((revision) => contextBindsEdition(revision, current));
+      if (contexts.length > 20)
+        fail(503, 'More than20 released contexts reference this edition.');
+      const reviewed = [];
+      for (const candidate of matching) {
+        const result = await handleEventScenarios(
+          {
+            ...req,
+            path: '/api/v1/event-scenarios/' + candidate.id,
+            query: new URLSearchParams(),
+          },
+          state,
+          bundle,
+        );
+        const admitted = EventScenarioPublicSchema.parse(result?.body);
+        if (admitted.state === 'published' && admitted.reviewedAt)
+          reviewed.push(admitted);
+      }
       return {
         body: explainEdition(
           current,
           previous,
           new Date().toISOString(),
           bundle.generatedAt,
+          reviewed,
+          contexts,
         ),
       };
     }

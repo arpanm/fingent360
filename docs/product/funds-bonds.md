@@ -41,3 +41,13 @@ Operations exposes queue, original text, capture/import and publication/withdraw
 The Android app shares this React UI and contracts. `handleFundsBonds` uses the dated public snapshot; owned comparisons are stored through the existing IndexedDB workspace dispatcher and survive restart. Device export/deletion use `localBondComparisons`; no private inputs or provider calls are sent while offline. Rebuilding/reinstalling is required to update an installed APK. Existing snapshots are not silently live-validated after a source withdrawal.
 
 No LLM is invoked by this feature, so LLM call/output storage is not applicable here. The source text, normalized versions, saved user input and final calculated comparison are durable and can be referenced by the separate evaluation system without treating financial estimates as facts.
+
+## AMFI current eight-column NAV format — 2026-09-15
+
+AMFI's current NAVAll download separates **Plan** and **Option** from Scheme Name. The version2 parser preserves these fields rather than confusing them with NAV/date. Legacy six-column stored records remain readable; missing plan/option is shown as “not supplied,” never inferred from name. New imports detect an exact versioned header, retain raw text and record the matching canonical current/legacy download URL and parser. Existing review, withdrawal and source evidence are reused.
+
+Fund lists/detail and search include plan/option in connected and offline Android/web modes. A freshly exported/rebuilt package carries those fields; installed packages do not silently update. No new database migration or dependency is needed because immutable JSONB records/snapshots already hold per-scheme facts.
+
+[Official download page](https://www.amfiindia.com/net-asset-value/nav-download) lists the current [eight-column report](https://portal.amfiindia.com/spages/NAVAll.txt) and [legacy report](https://portal.amfiindia.com/spages/Original_NAVAll.txt); AMFI states old-format downloads end 30 September 2026. Public access does not replace written deployment permission. Source pages were read for format research; no source was imported or published by the agent.
+
+Manual acceptance: under Operations → Fund data retain/review a permission-cleared current file; inspect parser v2, source receipt and precise NAV; search “Direct Plan”; confirm similarly named plans remain separate by scheme code and visible plan/option. Rebuild Android snapshot and repeat offline. Old records should display unknown plan/option without corruption. Authored E2E-API/WEB/OFFLINE-1084 and contract rejection/golden cases await manual execution.

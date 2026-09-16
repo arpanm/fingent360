@@ -86,3 +86,23 @@ test('E2E-WEB-1081 review save reload and remove exact private bond comparison @
     .click();
   await expect(panel.getByText('No saved comparisons yet.')).toBeVisible();
 });
+
+test('E2E-WEB-1084 current NAV plan and option distinguish similar scheme names in list and detail @FUNDS-BONDS-001 @TEST-SIMULATION', async ({
+  page,
+  request,
+}) => {
+  const { publishNavV2 } = await import('../../helpers/funds-bonds');
+  await publishNavV2(request);
+  await page.goto('/#funds-bonds');
+  await page
+    .getByRole('button', { name: /Synthetic new format fund.*Direct Plan/ })
+    .click();
+  await expect(
+    page.getByRole('heading', {
+      name: 'Synthetic new format fund',
+      exact: true,
+    }),
+  ).toBeVisible();
+  await expect(page.getByText(/Direct Plan.*Growth Option/)).toBeVisible();
+  await expect(page.getByText(/123.4500/)).toBeVisible();
+});

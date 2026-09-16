@@ -1,6 +1,6 @@
 # SOURCE-REVIEW-DIFF-001 — Compare source revisions before publication
 
-- **Status:** Implemented; validation pending
+- **Status:** Completed implementation; validation pending
 - **Implemented / recorded:** - SOURCE-REVIEW-DIFF-001 (DEV-015/016): Implemented;23 prior connected passes, final offline locator fix and commit await user-run SDLC. Detailed Codex prompt: specify and implement an operator's comparison of one actual stored draft/head and its prior published edition, including first publication, corrections and withdrawn predecessors. Read current discovery immutable editions, protected operator sessions, source-withdrawal history/evidence and explicit publish/withdraw version rules. Add
 - **Pending:** User: run the task’s documented validation; implementation is not a test pass.
 - **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.

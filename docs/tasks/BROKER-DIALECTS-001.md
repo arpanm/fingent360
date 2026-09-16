@@ -1,6 +1,6 @@
 # BROKER-DIALECTS-001 — resolve named platform import formats
 
-- **Status:** Implemented; validation pending
+- **Status:** Completed implementation; validation pending
 - **Implemented / recorded:** - Implementation: Supplemental-cost fallback and primary research implemented; user validation pending. Named broker formats remain unproved. Parent: DEV008/SRC013; extends MAPPED-IMPORT-001. User authorizes choosing every platform's order and researching formats independently. Start Zerodha, Groww, Upstox, Angel One and ICICI Direct; inspect first-party export samples/layout specifications and public demonstrations, without private account access. Implement versioned named parsers only when actual columns/sheets/quantity/cost meanings are established, using the existing owned preview/confirmation/metadata/export/offline workflow. Missing or rounded average costs must never become zero or fabricated exact total cost; an explicit supplementary user-attested cost can be supported with distinct provenance and exact reconciliation. Author representative synthetic fixtures derived from documented structure, failure/recovery/mobile/keyboard cases and documentation; preserve remaining precise evidence gates. Reserve API/WEB/OFFLINE720–739. No tests, builds, provider ingestion, installs, migration/service operations or commits by agents.
 - **Pending:** User: run the task’s documented validation; implementation is not a test pass.
 - **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.

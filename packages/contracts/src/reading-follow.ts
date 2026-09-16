@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { ReadingCalendarContextSchema } from './reading-calendar.js';
 import type { FeedItem } from './discovery.js';
 import { DiscoveryIdSchema, FeedItemSchema } from './discovery.js';
 const Seq = z
@@ -77,6 +78,7 @@ export const ReadingFollowEventSchema = z.strictObject({
   ]),
 });
 export const ReadingFollowViewSchema = z.strictObject({
+  calendarContext: ReadingCalendarContextSchema.optional(),
   availableIds: z.array(DiscoveryIdSchema).max(100),
   publishedReading: z
     .array(

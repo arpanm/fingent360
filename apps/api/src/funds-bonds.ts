@@ -1,3 +1,9 @@
+import { admittedCorporateRating } from './corporate-rating-admission.js';
+import {
+  decryptBondReceipts,
+  encryptBondReceipt,
+} from './private-bond-receipts.js';
+import type { PrivateDataKeys } from './private-data-crypto.js';
 import { createHash } from 'node:crypto';
 import { MongoClient } from 'mongodb';
 import {
@@ -21,6 +27,8 @@ import {
 import { z } from 'zod';
 import {
   AMFI_NAV_URL,
+  AMFI_HISTORY_CATALOG,
+  FundNavSchema,
   FundNavCaptureSchema,
   FundNavEditionSchema,
   FundNavQueueSchema,
@@ -29,6 +37,7 @@ import {
   FundsSnapshotSchema,
   FundDetailSchema,
   parseAmfiNav,
+  amfiNavFormat,
   BondComparisonInputSchema,
   BondComparisonsSchema,
   SavedBondComparisonSchema,
@@ -96,7 +105,7 @@ export class FundsController {
     if (after !== undefined) input(z.string().regex(/^[0-9]{5,8}$/), after);
     return this.store.transaction(async (c) => {
       const rows = await c.query(
-        `SELECT * FROM (${currentSql}) current WHERE ($1::text IS NULL OR scheme_code>$1) AND ($2::text IS NULL OR position(lower($2) in lower((observation->>'name')||' '||(observation->>'amc')||' '||scheme_code))>0) ORDER BY scheme_code LIMIT 51`,
+        `SELECT * FROM (${currentSql}) current WHERE ($1::text IS NULL OR scheme_code>$1) AND ($2::text IS NULL OR position(lower($2) in lower((observation->>'name')||' '||(observation->>'amc')||' '||coalesce(observation->>'plan','')||' '||coalesce(observation->>'option','')||' '||scheme_code))>0) ORDER BY scheme_code LIMIT 51`,
         [after ?? null, q?.trim() || null],
       );
       return FundsListSchema.parse({
@@ -114,12 +123,18 @@ export class FundsController {
         `SELECT *,count(*) OVER()::integer AS total FROM (${currentSql}) current ORDER BY scheme_code LIMIT 5000`,
       );
       const total = rows.rows[0]?.total ?? 0;
+      const history = await c.query(
+        `SELECT o.payload AS observation,e.payload-'permissionReference' AS edition FROM fund_nav_observations o JOIN fund_nav_editions e ON e.id=o.edition_id WHERE o.scheme_code=ANY($1::text[]) AND ${admitted} ORDER BY o.observed_on DESC,e.created_at DESC,e.id,o.scheme_code LIMIT 5001`,
+        [rows.rows.map((row) => row.scheme_code)],
+      );
       return FundsSnapshotSchema.parse({
         capturedAt: new Date().toISOString(),
         funds: rows.rows.map((r) => ({
           observation: r.observation,
           edition: r.edition,
         })),
+        history: history.rows.slice(0, 5000),
+        historyTruncated: history.rows.length > 5000,
         totalSchemeCount: total,
         truncated: total > rows.rows.length,
       });
@@ -217,13 +232,17 @@ export class OpsFundsController {
     });
     if (old) {
       const edition = FundNavEditionSchema.parse(old);
-      if (edition.permissionReference !== data.permissionReference)
+      if (
+        edition.permissionReference !== data.permissionReference ||
+        edition.sourceUrl !== (data.sourceUrl ?? AMFI_NAV_URL)
+      )
         throw new ConflictException(
           'Request ID reused with different permission.',
         );
       return edition;
     }
-    const response = await fetch(AMFI_NAV_URL, {
+    const sourceUrl = data.sourceUrl ?? AMFI_NAV_URL;
+    const response = await fetch(sourceUrl, {
       redirect: 'error',
       signal: AbortSignal.timeout(20000),
       headers: { Accept: 'text/plain' },
@@ -260,11 +279,13 @@ export class OpsFundsController {
         ),
       },
       cookie,
+      sourceUrl,
     );
   }
   private async retain(
     data: z.infer<typeof FundNavCaptureSchema>,
     cookie?: string,
+    fetchedFrom?: string,
   ) {
     const actor = await this.actor(cookie, 'prepare'),
       hash = sha(data.body),
@@ -273,7 +294,7 @@ export class OpsFundsController {
     await this.raw.retain(hash, data.body, retrievedAt);
     let rows;
     try {
-      rows = parseAmfiNav(data.body);
+      rows = parseAmfiNav(data.body, data.sourceUrl);
     } catch {
       throw new BadRequestException(
         'Retained AMFI source does not match the documented parser.',
@@ -283,12 +304,23 @@ export class OpsFundsController {
       throw new BadRequestException('Future NAV dates are not accepted.');
     const edition = FundNavEditionSchema.parse({
       id: data.requestId,
-      sourceUrl: AMFI_NAV_URL,
+      sourceUrl:
+        fetchedFrom ?? data.sourceUrl ?? amfiNavFormat(data.body).sourceUrl,
       hash,
       retrievedAt,
       permissionReference: data.permissionReference,
       count: rows.length,
-      parser: 'amfi-navall-v1',
+      parser: amfiNavFormat(data.body).parser,
+      ...(data.sourceUrl
+        ? {
+            historyCatalog: {
+              version: AMFI_HISTORY_CATALOG.version,
+              observedOn: AMFI_HISTORY_CATALOG.observedOn,
+              sourceUrl: AMFI_HISTORY_CATALOG.sourceUrl,
+              sourceHash: AMFI_HISTORY_CATALOG.sourceHash,
+            },
+          }
+        : {}),
     });
     return this.store.transaction(async (c) => {
       await c.query('SELECT pg_advisory_xact_lock(hashtextextended($1,0))', [
@@ -358,11 +390,33 @@ export class OpsFundsController {
           'Another named operator must review this NAV edition.',
         );
       if (data.decision === 'publish') {
+        const parsedEdition = FundNavEditionSchema.parse(rows.rows[0].payload);
+        if (parsedEdition.parser === 'amfi-history-v1' && !this.ops.namedMode)
+          throw new ForbiddenException(
+            'Historical NAV publication requires independent named review.',
+          );
         const raw = await this.raw.read(rows.rows[0].payload.hash);
         if (!raw || sha(raw.body) !== rows.rows[0].payload.hash)
           throw new ConflictException(
             'Original NAV source is missing or changed.',
           );
+        if (parsedEdition.parser === 'amfi-history-v1') {
+          const original = parseAmfiNav(raw.body, parsedEdition.sourceUrl);
+          const stored = await c.query(
+            "SELECT payload FROM fund_nav_observations WHERE edition_id=$1 ORDER BY (payload->>'sourceRow')::integer",
+            [data.editionId],
+          );
+          if (
+            original.length !== parsedEdition.count ||
+            JSON.stringify(original) !==
+              JSON.stringify(
+                stored.rows.map((row) => FundNavSchema.parse(row.payload)),
+              )
+          )
+            throw new ConflictException(
+              'Historical NAV observations no longer match retained source.',
+            );
+        }
       }
       await c.query(
         'INSERT INTO fund_nav_reviews(request_id,edition_id,actor_id,decision,reason) VALUES($1,$2,$3,$4,$5)',
@@ -373,11 +427,16 @@ export class OpsFundsController {
     });
   }
 }
-export async function exportBondComparisons(c: pg.PoolClient, userId: string) {
+export async function exportBondComparisons(
+  c: pg.PoolClient,
+  userId: string,
+  keys: PrivateDataKeys,
+) {
   const rows = await c.query(
-    'SELECT payload FROM app_bond_comparisons WHERE user_id=$1 AND deleted_at IS NULL ORDER BY created_at DESC,id LIMIT 100',
+    'SELECT * FROM app_bond_comparisons WHERE user_id=$1 AND deleted_at IS NULL ORDER BY created_at DESC,id LIMIT 100',
     [userId],
   );
+  await decryptBondReceipts(c, userId, rows.rows, keys);
   return BondComparisonsSchema.parse({
     comparisons: rows.rows.map((r) => r.payload),
   });
@@ -393,7 +452,11 @@ export class BondComparisonsController {
   @Get() list(@Headers('cookie') cookie?: string) {
     return this.store.transaction(async (c) => {
       const user = await this.owner(c, cookie),
-        result = await exportBondComparisons(c, user.id);
+        result = await exportBondComparisons(
+          c,
+          user.id,
+          this.store.privateDataKeys,
+        );
       await this.store.require(c, cookie);
       return result;
     });
@@ -408,24 +471,10 @@ export class BondComparisonsController {
     const id = input(z.uuid(), rawId),
       data = input(BondComparisonInputSchema, body),
       fingerprint = sha(JSON.stringify(data));
-    let result;
-    try {
-      result = calculateBondComparison(data);
-    } catch {
-      throw new BadRequestException(
-        'Comparison amounts or dates exceed supported bounds.',
-      );
-    }
-    const saved = SavedBondComparisonSchema.parse({
-      id,
-      createdAt: new Date().toISOString(),
-      input: data,
-      result,
-    });
     return this.store.transaction(async (c) => {
       const user = await this.owner(c, cookie),
         old = await c.query(
-          'SELECT payload,fingerprint,deleted_at FROM app_bond_comparisons WHERE user_id=$1 AND id=$2',
+          'SELECT * FROM app_bond_comparisons WHERE user_id=$1 AND id=$2',
           [user.id, id],
         );
       await this.store.require(c, cookie);
@@ -438,8 +487,37 @@ export class BondComparisonsController {
           throw new GoneException(
             'Comparison was removed. Save a new comparison.',
           );
-        return SavedBondComparisonSchema.parse(old.rows[0].payload);
+        await decryptBondReceipts(
+          c,
+          user.id,
+          old.rows,
+          this.store.privateDataKeys,
+        );
+        const receipt = SavedBondComparisonSchema.parse(old.rows[0].payload);
+        await this.store.require(c, cookie);
+        return receipt;
       }
+      const rating = data.creditEvidence
+        ? await admittedCorporateRating(c, data.creditEvidence.editionId)
+        : undefined;
+      let result;
+      try {
+        result = calculateBondComparison(data, rating);
+      } catch {
+        if (data.creditEvidence)
+          throw new ConflictException(
+            'Comparison credit evidence is unavailable, withdrawn, outside its historical assessment window, or inputs exceed supported bounds.',
+          );
+        throw new BadRequestException(
+          'Comparison amounts or dates exceed supported bounds.',
+        );
+      }
+      const saved = SavedBondComparisonSchema.parse({
+        id,
+        createdAt: new Date().toISOString(),
+        input: data,
+        result,
+      });
       const count = await c.query(
         'SELECT count(*)::integer AS count FROM app_bond_comparisons WHERE user_id=$1 AND deleted_at IS NULL',
         [user.id],
@@ -449,8 +527,13 @@ export class BondComparisonsController {
           'Remove a saved comparison before adding more.',
         );
       await c.query(
-        'INSERT INTO app_bond_comparisons(user_id,id,fingerprint,payload) VALUES($1,$2,$3,$4)',
-        [user.id, id, fingerprint, saved],
+        'INSERT INTO app_bond_comparisons(user_id,id,fingerprint,encrypted_payload) VALUES($1,$2,$3,$4)',
+        [
+          user.id,
+          id,
+          fingerprint,
+          encryptBondReceipt(user.id, id, saved, this.store.privateDataKeys),
+        ],
       );
       await this.store.require(c, cookie);
       return saved;
@@ -466,7 +549,7 @@ export class BondComparisonsController {
     return this.store.transaction(async (c) => {
       const user = await this.owner(c, cookie);
       const row = await c.query(
-        'UPDATE app_bond_comparisons SET payload=NULL,deleted_at=COALESCE(deleted_at,clock_timestamp()) WHERE user_id=$1 AND id=$2 RETURNING id',
+        'UPDATE app_bond_comparisons SET payload=NULL,encrypted_payload=NULL,deleted_at=COALESCE(deleted_at,clock_timestamp()) WHERE user_id=$1 AND id=$2 RETURNING id',
         [user.id, id],
       );
       if (!row.rowCount) throw new NotFoundException('Comparison unavailable.');

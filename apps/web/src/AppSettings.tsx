@@ -137,7 +137,7 @@ export function AppSettings() {
         )}
         <a href="#privacy">Export my account data</a>
       </div>
-      {runtime.native && (
+      {window.FingentAndroid && (
         <form
           className="device-card"
           onSubmit={(event) => {

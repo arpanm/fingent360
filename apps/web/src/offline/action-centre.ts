@@ -1,3 +1,4 @@
+import { downloadedResearchPolicies } from './governance-policies';
 import { z } from 'zod';
 import {
   ActionCentreInputSchema,
@@ -8,6 +9,7 @@ import {
   EquitySnapshotSchema,
   equityTraceWarnings,
   actionPriceBindingCurrent,
+  actionComparisonTimeReview,
   calculateActionCentre,
   type ActionCentreReceipt,
   type ActionCentreInput,
@@ -84,12 +86,18 @@ export const handleActionCentre: OfflineHandler = async (
       fail(400, 'Trace does not match the chosen holding and goal.');
     return { trace: trace.receipt, warnings: trace.reviewReasons };
   };
+  const researchPolicies = await downloadedResearchPolicies(
+    bundle,
+    state,
+    request,
+  );
   if (request.path === base + '/choices' && request.method === 'GET')
     return {
       body: ActionCentreChoicesSchema.parse({
         holdings,
         goals,
         traces: exportLocalImpactTraces(state, user.id).traces,
+        researchPolicies,
         bundleGeneratedAt: bundle.generatedAt,
       }),
     };
@@ -111,11 +119,24 @@ export const handleActionCentre: OfflineHandler = async (
         reasons.push('Your goal changed or was removed.');
       if (!actionPriceBindingCurrent(receipt.input, equity))
         reasons.push('The bound published price is withdrawn or unavailable.');
-      if (
-        Date.now() - Date.parse(receipt.input.price.asOf + 'T00:00:00Z') >
-        7 * 86400000
-      )
-        reasons.push('Price is beyond the seven-day review window.');
+      reasons.push(...actionComparisonTimeReview(receipt.input, now));
+      if (receipt.input.researchPolicy) {
+        const policy = researchPolicies.find(
+          (item) =>
+            item.id === receipt.input.researchPolicy?.id &&
+            item.version === receipt.input.researchPolicy.version,
+        );
+        if (
+          !policy ||
+          JSON.stringify(policy) !== JSON.stringify(receipt.researchPolicy)
+        )
+          reasons.push(
+            'Bound policy is unavailable, expired or no longer admitted in this downloaded snapshot.',
+          );
+        reasons.push(
+          'Offline policy status is limited to the downloaded snapshot; reconnect for newer withdrawals.',
+        );
+      }
       assessments.push({ receipt, reviewReasons: [...new Set(reasons)] });
     }
     return { body: ActionCentreListSchema.parse({ assessments }) };
@@ -151,24 +172,43 @@ export const handleActionCentre: OfflineHandler = async (
       equity = equityFor(input.isin);
     if (!actionPriceBindingCurrent(input, equity))
       fail(409, 'Published price receipt changed.');
+    const researchPolicy = input.researchPolicy
+      ? researchPolicies.find(
+          (item) =>
+            item.id === input.researchPolicy?.id &&
+            item.version === input.researchPolicy.version,
+        )
+      : undefined;
+    if (input.researchPolicy && !researchPolicy)
+      fail(
+        409,
+        'Download a current admitted policy and its source event before using it offline.',
+      );
     let result;
     try {
-      result = calculateActionCentre(input, holdings, goal, now, [
-        ...context.warnings,
-        ...equityTraceWarnings(equity),
-      ]);
+      result = calculateActionCentre(
+        input,
+        holdings,
+        goal,
+        now,
+        [...context.warnings, ...equityTraceWarnings(equity)],
+        researchPolicy,
+      );
     } catch (e) {
       fail(409, e instanceof Error ? e.message : 'Comparison changed.');
     }
     const value = ActionCentreReceiptSchema.parse({
       id,
       createdAt: now,
-      policy: 'proposed-disposal-education-v1',
+      policy: input.plan
+        ? 'proposed-trades-education-v2'
+        : 'proposed-disposal-education-v1',
       input,
       holdings,
       goal,
       trace: context.trace,
       equity,
+      ...(researchPolicy ? { researchPolicy } : {}),
       contextWarnings: [...context.warnings, ...equityTraceWarnings(equity)],
       result,
     });

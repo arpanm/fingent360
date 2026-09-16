@@ -1,6 +1,6 @@
 # PRIVACY-001 — Export and delete private data
 
-- **Status:** Implemented; validation pending
+- **Status:** Completed implementation; validation pending
 - **Implemented / recorded:** - PRIVACY-001 (DEV-017): Own-data JSON export and session listing/revocation, with Origin checks and no secrets in exports. Prompt: implement safe session identifiers/additive migration 006, authenticated API and UI, cross-account/session tests and docs. Preserve account deletion and consent history. Implemented.
 - **Pending:** User: run the task’s documented validation; implementation is not a test pass.
 - **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.

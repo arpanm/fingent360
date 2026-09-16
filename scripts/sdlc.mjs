@@ -478,21 +478,26 @@ export async function repairFailure(
         fixed = true;
       } else {
         if (status === 130) return false;
-        scope.details = scope.test
-          ? (failedCases(
-              reportReader(
-                new SdlcStageFailure(
-                  scope.command,
-                  scope.args,
-                  status,
-                  lastLog,
-                ),
-              ),
-            )[0]?.details ??
-            'Exact retry failed before a case result. Stop and inspect setup.')
-          : stageText(
-              new SdlcStageFailure(scope.command, scope.args, status, lastLog),
-            ).slice(-16000);
+        const retryFailure = new SdlcStageFailure(
+          scope.command,
+          scope.args,
+          status,
+          lastLog ?? failure.logPath,
+        );
+        // A code repair can expose whitespace failures. Classify again before
+        // spending another agent attempt, even when its budget is exhausted.
+        if (!scope.test)
+          return repairFailure(
+            retryFailure,
+            launch,
+            env,
+            execute,
+            reportReader,
+            budget,
+          );
+        scope.details =
+          failedCases(reportReader(retryFailure))[0]?.details ??
+          'Exact retry failed before a case result. Stop and inspect setup.';
       }
     }
     if (!fixed)

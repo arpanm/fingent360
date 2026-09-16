@@ -9,6 +9,10 @@ export const PasswordSchema = z.string().min(12).max(128);
 export const CredentialsSchema = z.strictObject({
   username: UsernameSchema,
   password: PasswordSchema,
+  code: z
+    .string()
+    .regex(/^[0-9]{6}$/)
+    .optional(),
 });
 export const RegistrationSchema = z.strictObject({
   username: UsernameSchema,

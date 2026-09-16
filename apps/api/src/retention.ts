@@ -245,7 +245,7 @@ export class RetentionStore {
           const candidate = `WITH eligible AS (SELECT ${rule.key} FROM ${rule.table} WHERE ${rule.where} ORDER BY ${rule.expiry},${rule.key} LIMIT $2 FOR UPDATE)`;
           const sql =
             scope.action === 'scrub'
-              ? `${candidate} UPDATE ${rule.table} target SET deleted_at=clock_timestamp(),updated_at=clock_timestamp(),text=NULL,context=NULL,image_meta=NULL,image_bytes=NULL,audio_meta=NULL,audio_bytes=NULL FROM eligible WHERE target.${rule.key}=eligible.${rule.key} AND ${rule.where} RETURNING 1`
+              ? `${candidate} UPDATE ${rule.table} target SET deleted_at=clock_timestamp(),updated_at=clock_timestamp(),text=NULL,context=NULL,image_meta=NULL,image_bytes=NULL,audio_meta=NULL,audio_bytes=NULL,encrypted_payload=NULL,public_source_id=NULL FROM eligible WHERE target.${rule.key}=eligible.${rule.key} AND ${rule.where} RETURNING 1`
               : `${candidate} DELETE FROM ${rule.table} target USING eligible WHERE target.${rule.key}=eligible.${rule.key} AND ${rule.where} RETURNING 1`;
           const changed = await c.query(sql, [before.cutoffAt, scope.limit]);
           const remaining = await c.query<{ more: boolean }>(

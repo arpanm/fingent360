@@ -1,6 +1,6 @@
 # SDLC-REPAIR-008 — media reservation fixture and evaluation recording
 
-- **Status:** Implemented; validation pending
+- **Status:** Completed implementation; validation pending
 - **Implemented / recorded:** - Implementation: Authored the missing pool query surface and explicit recording-order, source-binding, completion and immutable-replay assertions in the existing durable reservation case.
 - **Pending:** User: run the task’s documented validation; implementation is not a test pass.
 - **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.

@@ -10,6 +10,7 @@ import './recovery.css';
 import { useDraftGuard } from './useDraftGuard';
 import { announceSessionChange } from './session';
 export function RecoverySettings() {
+  const [authenticator, setAuthenticator] = useState('');
   const [status, setStatus] = useState<ReturnType<
       typeof RecoveryStatusSchema.parse
     > | null>(null),
@@ -133,13 +134,20 @@ export function RecoverySettings() {
                 const result = RecoveryCreatedSchema.parse(
                   await json(
                     '/account/recovery/code',
-                    { currentPassword: password, confirm },
+                    {
+                      currentPassword: password,
+                      confirm,
+                      ...(authenticator
+                        ? { authenticatorCode: authenticator }
+                        : {}),
+                    },
                     'POST',
                   ),
                 );
                 setCode(result.code);
                 setStatus({ configured: true, createdAt: result.createdAt });
                 setPassword('');
+                setAuthenticator('');
                 setConfirm(false);
               } catch (e) {
                 setError(
@@ -153,6 +161,23 @@ export function RecoverySettings() {
             }}
           >
             <fieldset disabled={busy || !status}>
+              <p>
+                Recovery resets your password, authenticator and all sessions.
+                Keep the saved code private and offline.
+              </p>
+              {runtime.mode !== 'offline' && (
+                <label>
+                  Authenticator code for recovery (if enabled)
+                  <input
+                    inputMode="numeric"
+                    autoComplete="one-time-code"
+                    pattern="[0-9]{6}"
+                    maxLength={6}
+                    value={authenticator}
+                    onChange={(event) => setAuthenticator(event.target.value)}
+                  />
+                </label>
+              )}
               <label>
                 Current password for recovery
                 <input
@@ -207,9 +232,9 @@ export function Recovery() {
         <div className="panel">
           <h2>Password reset</h2>
           <p>
-            All sessions for this account have ended. Your saved data is still
-            there. Sign in with the new password, then create a new recovery
-            code.
+            All sessions for this account have ended and any server
+            authenticator was disabled. Your saved data is still there. Sign in
+            with the new password, then create a new recovery code.
           </p>
           <a className="button" href="#account">
             Sign in with new password

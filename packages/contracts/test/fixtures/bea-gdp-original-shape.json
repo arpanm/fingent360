@@ -1,0 +1,26 @@
+{
+  "provenance": "Reconstructed minimal official HTML layout with actual release facts; not original complete source bytes. Read-only source research 2026-09-15. BEA first-party public-domain information, attribution required.",
+  "releases": [
+    {
+      "url": "https://www.bea.gov/news/2025/gross-domestic-product-2nd-quarter-2025-second-estimate-and-corporate-profits-preliminary",
+      "title": "Gross Domestic Product, 2nd Quarter 2025 (Second Estimate) and Corporate Profits (Preliminary)",
+      "release": "EMBARGOED UNTIL RELEASE AT 8:30 a.m. EDT, Thursday, August 28, 2025",
+      "quote": "Real gross domestic product (GDP) increased at an annual rate of 3.3 percent in the second quarter of 2025",
+      "expectedPublishedAt": "2025-08-28T12:30:00.000Z"
+    },
+    {
+      "url": "https://www.bea.gov/news/2025/gross-domestic-product-2nd-quarter-2025-third-estimate-gdp-industry-corporate-profits",
+      "title": "Gross Domestic Product, 2nd Quarter 2025 (Third Estimate), GDP by Industry, and Corporate Profits (Revised)",
+      "release": "EMBARGOED UNTIL RELEASE AT 8:30 a.m. EDT, Thursday, September 25, 2025",
+      "quote": "Real gross domestic product (GDP) increased at an annual rate of 3.8 percent in the second quarter of 2025",
+      "expectedPublishedAt": "2025-09-25T12:30:00.000Z"
+    },
+    {
+      "url": "https://www.bea.gov/news/2026/gdp-second-estimate-and-corporate-profits-2nd-quarter-2026",
+      "title": "GDP (Second Estimate) and Corporate Profits, 2nd Quarter 2026",
+      "release": "EMBARGOED UNTIL RELEASE AT 8:30 a.m. EDT, Wednesday, August 26, 2026",
+      "quote": "Real gross domestic product (GDP) increased at an annual rate of 1.5 percent in the second quarter of 2026",
+      "expectedPublishedAt": "2026-08-26T12:30:00.000Z"
+    }
+  ]
+}

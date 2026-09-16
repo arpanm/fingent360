@@ -1,3 +1,22 @@
+import { BEA_GDP_INDEX, discoverBeaGdpOriginals } from '@fingent360/contracts';
+import {
+  originalGdpItem,
+  BEA_GDP_ORIGINAL_RIGHTS,
+} from './bea-gdp-original-provider.js';
+import {
+  FED_POLICY_HISTORY_URLS,
+  FED_POLICY_HISTORY_RIGHTS,
+  parseHistoricalFedPolicy,
+} from './fed-policy-provider.js';
+import {
+  BEA_GDP_HISTORY_URLS,
+  BEA_GDP_HISTORY_RIGHTS,
+  parseHistoricalBeaGdp,
+} from './bea-gdp-history-provider.js';
+import {
+  FIU_HISTORY_URLS,
+  parseHistoricalFiu,
+} from './fiu-history-provider.js';
 import {
   BEA_FEED,
   BEA_NAME,
@@ -68,6 +87,54 @@ function descriptor(
   };
 }
 export const researchSources: ResearchSource[] = [
+  descriptor(
+    'pib-fiu-history',
+    'PIB historical FIU enforcement disclosure',
+    'india',
+    'https://www.pib.gov.in',
+    FIU_HISTORY_URLS[0]!,
+    PIB_TERMS,
+    pibRights,
+    ['Governance', 'India'],
+    'enabled',
+    'Fixed2024 government release; historical subject-specific context, drafts require review.',
+  ),
+  descriptor(
+    'bea-gdp-original',
+    'BEA original GDP publications',
+    'global',
+    'https://www.bea.gov',
+    BEA_GDP_INDEX,
+    'https://www.bea.gov/help/faq/147',
+    BEA_GDP_ORIGINAL_RIGHTS,
+    ['GDP', 'United States'],
+    'enabled',
+    'Discovers original releases; retains exact publication vintages for review.',
+  ),
+  descriptor(
+    'bea-gdp-history',
+    'BEA original GDP estimate vintages',
+    'global',
+    'https://www.bea.gov',
+    BEA_GDP_HISTORY_URLS[0]!,
+    'https://www.bea.gov/about/policies-and-information',
+    BEA_GDP_HISTORY_RIGHTS,
+    ['GDP', 'United States'],
+    'enabled',
+    'Two fixed2025Q2 releases; historical vintage revision, drafts require review.',
+  ),
+  descriptor(
+    'fed-policy-history',
+    'Federal Reserve historical policy decisions',
+    'global',
+    'https://www.federalreserve.gov',
+    FED_POLICY_HISTORY_URLS[0],
+    'https://www.federalreserve.gov/disclaimer.htm',
+    FED_POLICY_HISTORY_RIGHTS,
+    ['Federal Reserve releases', 'Historical policy decisions'],
+    'enabled',
+    'Two fixed 2024 statements; historical context only, drafts require review.',
+  ),
   descriptor(
     'bea',
     BEA_NAME,
@@ -512,6 +579,39 @@ export async function fetchResearchSource(
     await persistRaw(raw);
     return raw;
   };
+  if (id === 'fed-policy-history') {
+    const records: ResearchRaw[] = [];
+    for (const url of FED_POLICY_HISTORY_URLS) {
+      const raw = await fetchAndRetain(url);
+      records.push({ ...raw, items: [parseHistoricalFedPolicy(raw)] });
+    }
+    return records;
+  }
+  if (id === 'bea-gdp-original') {
+    const index = await fetchAndRetain(BEA_GDP_INDEX);
+    const records: ResearchRaw[] = [{ ...index, items: [] }];
+    for (const url of discoverBeaGdpOriginals(index.body)) {
+      const raw = await fetchAndRetain(url);
+      records.push({ ...raw, items: [originalGdpItem(raw)] });
+    }
+    return records;
+  }
+  if (id === 'bea-gdp-history') {
+    const records: ResearchRaw[] = [];
+    for (const url of BEA_GDP_HISTORY_URLS) {
+      const raw = await fetchAndRetain(url);
+      records.push({ ...raw, items: [parseHistoricalBeaGdp(raw)] });
+    }
+    return records;
+  }
+  if (id === 'pib-fiu-history') {
+    const records: ResearchRaw[] = [];
+    for (const url of FIU_HISTORY_URLS) {
+      const raw = await fetchAndRetain(url);
+      records.push({ ...raw, items: [parseHistoricalFiu(raw)] });
+    }
+    return records;
+  }
   if (id === 'bea') {
     const raw = await fetchAndRetain(BEA_FEED);
     return [{ ...raw, items: parseBeaRss(raw.body, raw.retrievedAt) }];

@@ -8,6 +8,9 @@
     "node": ">=24 <27"
   },
   "scripts": {
+    "uptime:monitor": "node scripts/uptime-monitor.mjs",
+    "ios:package": "node scripts/ios-package.mjs",
+    "privacy:keys": "node scripts/privacy-keys.mjs",
     "ops:provision": "node --env-file=.env scripts/operator-provision.mjs",
     "android:setup": "node scripts/android-setup.mjs",
     "android:snapshot": "node scripts/offline-snapshot.mjs",
@@ -49,6 +52,7 @@
     "concurrently": "10.0.5",
     "@types/node": "24.13.4",
     "globals": "17.4.0",
+    "fflate": "0.8.3",
     "@playwright/test": "1.58.2"
   }
 }

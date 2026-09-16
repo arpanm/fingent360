@@ -310,20 +310,135 @@ export function EvidenceExplanation({
                 independent confirmation.
               </dd>
               <dt>Expectations</dt>
-              <dd>Unavailable as a separately validated expectation.</dd>
+              <dd>
+                {value.analysis.expectations === 'reviewed'
+                  ? 'A reviewed published-expectation comparison is retained below.'
+                  : 'Unavailable as a separately validated expectation.'}
+              </dd>
               <dt>Scenarios</dt>
-              <dd>Unavailable as a reviewed scenario.</dd>
+              <dd>
+                {value.analysis.scenarios === 'reviewed'
+                  ? 'Reviewed source-bound scenarios are retained below.'
+                  : 'Unavailable as a reviewed scenario.'}
+              </dd>
               <dt>Causal inference and quantified portfolio impact</dt>
               <dd>
-                Unavailable. No approved mapping supports either for this
-                edition.
+                {value.analysis.causalInference === 'reviewed-qualitative'
+                  ? 'Released qualitative interpretations are shown below. No numerical portfolio effect is established.'
+                  : 'Unavailable. No approved mapping supports either for this edition.'}
               </dd>
               <dt>Cross-source conflicts</dt>
               <dd>
-                Not assessed. Absence of a recorded comparison does not
-                establish agreement.
+                {value.conflictAssessment === 'opposing-reviewed-directions'
+                  ? 'Opposing reviewed directions exist for the same sector, company and horizon. Both interpretations are retained; no resolution or net effect is inferred.'
+                  : 'Not assessed. Absence of a recorded comparison does not establish agreement.'}
               </dd>
             </dl>
+            {value.reviewedScenarios.map((scenario) => {
+              const receipt = scenario.receipt!,
+                event = receipt.event.event!;
+              return (
+                <article key={scenario.id} aria-label="Reviewed scenario">
+                  <h4>{event.editorial.title}</h4>
+                  <p>
+                    {receipt.result.comparison} · {receipt.result.meaning}
+                  </p>
+                  <p>
+                    {receipt.result.delta === null
+                      ? 'Not quantified'
+                      : `${receipt.result.delta} ${receipt.result.unit}`}{' '}
+                    · {receipt.result.direction}
+                  </p>
+                  <p>
+                    Scenario edition {receipt.version} · reviewed{' '}
+                    {scenario.reviewedAt}
+                  </p>
+                  {[...scenario.reviewReasons, ...receipt.result.warnings].map(
+                    (warning, index) => (
+                      <p key={index}>{warning}</p>
+                    ),
+                  )}
+                  <p>{receipt.result.noAction}</p>
+                  {event.editorial.citations.map((citation, index) => {
+                    const source = event.sources.find(
+                      (s) => s.id === citation.sourceId,
+                    )!;
+                    return (
+                      <div key={index}>
+                        <blockquote>{citation.quote}</blockquote>
+                        <a href={'#read/' + source.id}>
+                          {source.source.name} · source edition{' '}
+                          {citation.version}
+                        </a>
+                        <p>
+                          {source.effectiveLabel} · retrieved{' '}
+                          {source.source.retrievedAt}
+                        </p>
+                      </div>
+                    );
+                  })}
+                  <a href={'#event-scenarios/' + scenario.id}>
+                    Open reviewed scenario
+                  </a>{' '}
+                  · <a href={'#events/' + event.id}>Open reviewed event</a>
+                </article>
+              );
+            })}
+            {value.reviewedContexts.map((revision) => {
+              const content = revision.input.content;
+              if (content.kind !== 'causal-context') return null;
+              const event = revision.event.event!;
+              return (
+                <article
+                  key={revision.id}
+                  aria-label="Released qualitative context"
+                >
+                  <h4>{revision.input.title}</h4>
+                  <p>
+                    Qualitative inference · {content.direction} ·{' '}
+                    {content.sector}
+                    {content.isin ? ' · ' + content.isin : ''} ·{' '}
+                    {content.horizon}
+                  </p>
+                  <p>{revision.input.rationale}</p>
+                  <p>{content.limitations}</p>
+                  <p>
+                    Release edition {revision.version} · review by{' '}
+                    {revision.input.reviewBy}. No quantified impact.
+                  </p>
+                  {event.sources.some(
+                    (source) =>
+                      Date.parse(value.evaluatedAt) -
+                        Date.parse(source.publishedAt) >
+                      30 * 86400000,
+                  ) && (
+                    <p>Historical evidence beyond the 30-day context window.</p>
+                  )}
+                  {revision.input.citations.map((index) => {
+                    const citation = event.editorial.citations[index]!,
+                      source = event.sources.find(
+                        (s) => s.id === citation.sourceId,
+                      )!;
+                    return (
+                      <div key={index}>
+                        <blockquote>{citation.quote}</blockquote>
+                        <a href={'#read/' + source.id}>
+                          {source.source.name} · source edition{' '}
+                          {citation.version}
+                        </a>
+                        <p>
+                          {source.effectiveLabel} · retrieved{' '}
+                          {source.source.retrievedAt}
+                        </p>
+                      </div>
+                    );
+                  })}
+                  <a href={'#events/' + event.id}>
+                    Open reviewed context event
+                  </a>
+                </article>
+              );
+            })}
             {value.previous ? (
               <p>
                 Preceding reviewed edition {value.previous.version} ·{' '}

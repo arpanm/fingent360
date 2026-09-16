@@ -1,3 +1,7 @@
+import {
+  transmissionFor,
+  ResearchGovernanceRevisionSchema,
+} from '../../../../packages/contracts/src/index';
 import { test, expect } from '@playwright/test';
 import { readFile } from 'node:fs/promises';
 import { randomUUID } from 'node:crypto';
@@ -19,7 +23,7 @@ import type {
   LocalState,
   OfflineBundle,
 } from '../../../../apps/web/src/offline/types';
-async function fixture() {
+async function fixture(family = 'Oil input context') {
   const bundle = JSON.parse(
     await readFile(
       new URL(
@@ -70,7 +74,7 @@ async function fixture() {
       revisionReason: 'Synthetic golden contextual trace',
       editorial: {
         title: 'Synthetic evidence trace',
-        family: 'Oil input context',
+        family,
         geography: ['India'],
         claimKind: 'inference',
         explanation:
@@ -319,4 +323,82 @@ test('E2E-OFFLINE-961 golden equity conflict values and exact edition binding re
       now,
     ),
   ).toThrow(/same source excerpt/);
+});
+
+test('E2E-OFFLINE-1700 exact downloaded mechanism binds local receipt and removed release rejects new trace @IMPACT-TRACE-001 @TEST-SIMULATION', async () => {
+  const { handleImpactTraces } =
+    await import('../../../../apps/web/src/offline/impact-trace');
+  const f = await fixture('earnings'),
+    id = randomUUID();
+  const revision = ResearchGovernanceRevisionSchema.parse({
+    id,
+    version: 1,
+    recordedAt: f.now,
+    event: f.publicEvent,
+    input: {
+      requestId: randomUUID(),
+      expectedVersion: 0,
+      eventId: f.input.eventId,
+      eventVersion: 1,
+      title: 'Synthetic released earnings channel',
+      reviewBy: new Date(Date.now() + 86400000).toISOString().slice(0, 10),
+      rationale:
+        'Synthetic company mapping independently reviewed for offline acceptance.',
+      citations: [0],
+      content: {
+        kind: 'causal-context',
+        transmission: transmissionFor('earnings'),
+        sector: f.input.sector,
+        isin: f.input.isin,
+        direction: 'mixed',
+        horizon: 'Next reporting period',
+        limitations:
+          'No actual measured stock response or earnings sensitivity.',
+        quantifiedImpact: null,
+      },
+    },
+  });
+  f.bundle.researchGovernance = {
+    capturedAt: f.now,
+    policies: [],
+    contexts: [revision],
+  };
+  const request = {
+    path: '/api/v1/account/impact-traces/' + randomUUID(),
+    method: 'PUT',
+    headers: new Headers(),
+    query: new URLSearchParams(),
+    body: { ...f.input, causalContext: { id, version: 1 } },
+  };
+  const receipt = ImpactTraceReceiptSchema.parse(
+    (await handleImpactTraces(request, f.state, f.bundle))!.body,
+  );
+  expect(receipt.transmission).toMatchObject({
+    reviewId: id,
+    binding: { family: 'earnings' },
+    holdingAction: 'unchanged',
+    goalAction: 'unchanged',
+    numericalImpact: null,
+  });
+  expect(() =>
+    ImpactTraceReceiptSchema.parse({
+      ...receipt,
+      transmission: {
+        ...receipt.transmission!,
+        outcome: 'qualitative-context-only',
+      },
+    }),
+  ).toThrow();
+  f.bundle.researchGovernance = {
+    capturedAt: f.now,
+    policies: [],
+    contexts: [],
+  };
+  await expect(
+    handleImpactTraces(
+      { ...request, path: '/api/v1/account/impact-traces/' + randomUUID() },
+      f.state,
+      f.bundle,
+    ),
+  ).rejects.toThrow();
 });

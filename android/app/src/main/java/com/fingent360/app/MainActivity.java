@@ -29,6 +29,12 @@ import org.json.JSONObject;
 public class MainActivity extends ComponentActivity {
   private static final String LOCAL = "https://appassets.androidplatform.net";
   private WebView web;
+  private JSONObject pendingKiteCallback;
+  private long pendingKiteUntil;
+  private JSONObject pendingUpstoxCallback;
+  private long pendingUpstoxUntil;
+  private JSONObject pendingAngelCallback;
+  private long pendingAngelUntil;
   private FeedbackBridge feedback;
   private PermissionRequest microphone;
   private Uri microphoneOrigin;
@@ -60,6 +66,7 @@ public class MainActivity extends ComponentActivity {
       } catch (Exception ignored) {
       }
     }
+    acceptKiteIntent(getIntent());
     androidx.core.view.WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
     FrameLayout root = new FrameLayout(this);
     setContentView(root);
@@ -283,7 +290,7 @@ public class MainActivity extends ComponentActivity {
                     });
               }
             });
-    web.loadUrl(startUrl());
+    web.loadUrl((pendingKiteCallback==null&&pendingUpstoxCallback==null&&pendingAngelCallback==null)?startUrl():startUrl().split("#")[0]+"#holdings");
   }
 
   private byte[] readAsset(String name) throws IOException {
@@ -346,6 +353,28 @@ public class MainActivity extends ComponentActivity {
       }
   }
 
+  private void acceptKiteIntent(Intent intent) {
+    if (intent == null) return;
+    Uri uri=intent.getData();
+    intent.setData(null);
+    if (uri==null || !connected() || !"fingent360".equals(uri.getScheme()) || (!"broker-kite".equals(uri.getHost())&&!"broker-upstox".equals(uri.getHost())&&!"broker-angel".equals(uri.getHost())) || uri.getPort()!=-1 || uri.getUserInfo()!=null || uri.getFragment()!=null || (uri.getPath()!=null&&!uri.getPath().isEmpty()) || uri.toString().length()>4500) return;
+    try {
+      boolean upstox="broker-upstox".equals(uri.getHost()),angel="broker-angel".equals(uri.getHost());
+      String parameter=angel?"auth_token":upstox?"code":"request_token";
+      Set<String> names=uri.getQueryParameterNames();
+      if(names.size()!=2||!names.contains("state")||!names.contains(parameter)||uri.getQueryParameters("state").size()!=1||uri.getQueryParameters(parameter).size()!=1) return;
+      String state=uri.getQueryParameter("state"), token=uri.getQueryParameter(parameter);
+      if(state==null||token==null||!state.matches("[a-f0-9]{64}")||!token.matches(angel?"[A-Za-z0-9._~-]{8,4096}":upstox?"[A-Za-z0-9._~-]{1,512}":"[A-Za-z0-9_-]{8,256}"))return;
+      JSONObject callback=new JSONObject().put("state",state).put(angel?"authToken":upstox?"code":"requestToken",token);
+      if(angel){pendingAngelCallback=callback;pendingAngelUntil=System.currentTimeMillis()+600000;}
+      else if(upstox){pendingUpstoxCallback=callback;pendingUpstoxUntil=System.currentTimeMillis()+600000;}
+      else {pendingKiteCallback=callback;pendingKiteUntil=System.currentTimeMillis()+600000;}
+    } catch(Exception ignored) { pendingKiteCallback=null;pendingUpstoxCallback=null;pendingAngelCallback=null; }
+  }
+  @Override protected void onNewIntent(Intent intent){
+    super.onNewIntent(intent);acceptKiteIntent(intent);
+    if((pendingKiteCallback!=null||pendingUpstoxCallback!=null||pendingAngelCallback!=null)&&web!=null&&web.getUrl()!=null&&trusted(Uri.parse(web.getUrl())))web.evaluateJavascript("location.hash='holdings';window.dispatchEvent(new Event('f360-kite-ready'));window.dispatchEvent(new Event('f360-upstox-ready'));window.dispatchEvent(new Event('f360-angel-ready'));",null);
+  }
   private void installBridge() {
     String trustedOrigin = connected() ? origin(Uri.parse(config.optString("webUrl"))) : LOCAL;
     Set<String> origins = Collections.singleton(trustedOrigin);
@@ -372,6 +401,33 @@ public class MainActivity extends ComponentActivity {
                 catch (Exception captureError) {deliver.accept(new JSONObject().put("requestId", requestId).put("ok", false).put("error", captureError.getMessage()));}
               } else feedback.handle(data, deliver);
             }
+            else if (action.equals("takeKiteCallback")) {
+              String requestId=data.getString("requestId");
+              if(!requestId.matches("[A-Za-z0-9_-]{1,100}"))throw new Exception();
+              Object result=connected()&&pendingKiteCallback!=null&&pendingKiteUntil>System.currentTimeMillis()?pendingKiteCallback:JSONObject.NULL;
+              pendingKiteCallback=null;pendingKiteUntil=0;
+              reply.postMessage(new JSONObject().put("requestId",requestId).put("ok",true).put("result",result).toString());
+            }
+            else if (action.equals("takeUpstoxCallback")) {
+              String requestId=data.getString("requestId");
+              if(!requestId.matches("[A-Za-z0-9_-]{1,100}"))throw new Exception();
+              Object result=connected()&&pendingUpstoxCallback!=null&&pendingUpstoxUntil>System.currentTimeMillis()?pendingUpstoxCallback:JSONObject.NULL;
+              pendingUpstoxCallback=null;pendingUpstoxUntil=0;
+              reply.postMessage(new JSONObject().put("requestId",requestId).put("ok",true).put("result",result).toString());
+            }
+            else if (action.equals("takeAngelCallback")) {
+              String requestId=data.getString("requestId");
+              if(!requestId.matches("[A-Za-z0-9_-]{1,100}"))throw new Exception();
+              Object result=connected()&&pendingAngelCallback!=null&&pendingAngelUntil>System.currentTimeMillis()?pendingAngelCallback:JSONObject.NULL;
+              pendingAngelCallback=null;pendingAngelUntil=0;
+              reply.postMessage(new JSONObject().put("requestId",requestId).put("ok",true).put("result",result).toString());
+            }
+            else if (action.equals("sharePublicLink")) {
+              String requestId = data.getString("requestId");
+              if (!requestId.matches("[A-Za-z0-9_-]{1,100}")) throw new Exception();
+              sharePublicLink(data.getString("url"));
+              reply.postMessage(new JSONObject().put("requestId",requestId).put("ok",true).put("result",new JSONObject().put("opened",true)).toString());
+            }
             else if (action.equals("saveFile")) saveFile(data);
             else if (action.equals("setConnection")) setConnection(data);
           } catch (Exception e) {
@@ -387,7 +443,7 @@ public class MainActivity extends ComponentActivity {
             + "FingentNative.onmessage=function(event){var value;try{value=JSON.parse(event.data);}catch(e){return;}var item=pending.get(value.requestId);if(!item)return;clearTimeout(item.timer);pending.delete(value.requestId);if(value.ok)item.resolve(value.result);else item.reject(new Error(value.error||'Native feedback failed.'));};"
             + "function call(action,args){return new Promise(function(resolve,reject){var requestId='feedback_'+Date.now()+'_'+(++counter);var timer=setTimeout(function(){pending.delete(requestId);reject(new Error('Native feedback timed out. Reload history before retrying.'));},120000);pending.set(requestId,{resolve:resolve,reject:reject,timer:timer});try{FingentNative.postMessage(JSON.stringify(Object.assign({},args,{action:action,requestId:requestId})));}catch(error){clearTimeout(timer);pending.delete(requestId);reject(error);}});}"
             + "window.addEventListener('pagehide',function(){pending.forEach(function(item){clearTimeout(item.timer);item.reject(new Error('App page changed. Reopen feedback history.'));});pending.clear();});"
-            + "window.FingentAndroid=Object.freeze({feedbackRead:function(){return call('feedbackRead',{});},feedbackWrite:function(expectedRevision,state){return call('feedbackWrite',{expectedRevision:expectedRevision,state:state});},captureFeedback:function(){return call('captureFeedback',{});},sendFeedback:function(apiOrigin,method,id,receiptToken,body){return call('sendFeedback',{apiOrigin:apiOrigin,method:method,id:id,receiptToken:receiptToken,body:body});},getConfig:function(){return "
+            + "window.FingentAndroid=Object.freeze({takeAngelCallback:function(){return call('takeAngelCallback',{});},takeUpstoxCallback:function(){return call('takeUpstoxCallback',{});},takeKiteCallback:function(){return call('takeKiteCallback',{});},sharePublicLink:function(url){return call('sharePublicLink',{url:url});},feedbackRead:function(){return call('feedbackRead',{});},feedbackWrite:function(expectedRevision,state){return call('feedbackWrite',{expectedRevision:expectedRevision,state:state});},captureFeedback:function(){return call('captureFeedback',{});},sendFeedback:function(apiOrigin,method,id,receiptToken,body){return call('sendFeedback',{apiOrigin:apiOrigin,method:method,id:id,receiptToken:receiptToken,body:body});},getConfig:function(){return "
             + JSONObject.quote(config.toString())
             + ";},getBuildInfo:function(){return "
             + JSONObject.quote(
@@ -427,6 +483,20 @@ public class MainActivity extends ComponentActivity {
         .setNegativeButton(
             "Cancel", (d, w) -> event("setConnection", "cancelled", "Connection unchanged."))
         .show();
+  }
+
+  private void sharePublicLink(String value) throws Exception {
+    Uri uri = Uri.parse(value);
+    String host = uri.getHost();
+    if (host != null) host = host.toLowerCase(java.util.Locale.ROOT).replaceAll("\\.$", "");
+    if (!connected() || value.length()>2000 || !"https".equals(uri.getScheme()) || host==null ||
+        !host.contains(".") || host.matches("[0-9.]+") || host.contains(":") ||
+        host.equals("appassets.androidplatform.net") || host.endsWith(".localhost") || host.endsWith(".local") || host.endsWith(".internal") || host.endsWith(".test") || host.endsWith(".invalid") ||
+        !origin(uri).equals(origin(Uri.parse(config.getString("webUrl")))) ||
+        uri.getUserInfo()!=null || uri.getQuery()!=null || !"/".equals(uri.getPath()) ||
+        uri.getFragment()==null || !uri.getFragment().matches("read/[a-z0-9][a-z0-9-]{0,99}")) throw new Exception();
+    Intent share = new Intent(Intent.ACTION_SEND).setType("text/plain").putExtra(Intent.EXTRA_TEXT,value);
+    startActivity(Intent.createChooser(share,"Share public reading"));
   }
 
   private void saveFile(JSONObject data) throws Exception {

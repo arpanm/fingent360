@@ -27,7 +27,14 @@ import {
   EventScenarioHistorySchema,
   EventScenarioSnapshotSchema,
   calculateEventScenario,
+  extractFedPolicyDraft,
+  extractInstitutionalFlowDraft,
+  extractRbiPolicyDraft,
+  extractBeaGdpDraft,
+  extractCompanyPackDraft,
+  extractGovernancePackDraft,
   type EventScenarioReceipt,
+  type FeedItem,
 } from '@fingent360/contracts';
 import { AccountStore, STORE } from './accounts.js';
 import { EventStore, EVENT_STORE } from './events.js';
@@ -110,6 +117,22 @@ export class EventScenarioStore {
         ? ['Historical evidence beyond the 30-day context window.']
         : [],
     });
+  }
+  async forSource(c: pg.PoolClient, source: FeedItem) {
+    const rows = await c.query(
+      "SELECT h.* FROM event_scenarios h JOIN event_scenario_versions v ON v.scenario_id=h.id AND v.version=h.published_version WHERE h.state='published' AND EXISTS(SELECT 1 FROM jsonb_array_elements(v.payload->'event'->'event'->'editorial'->'citations') citation WHERE citation->>'sourceId'=$1 AND citation->>'version'=$2 AND citation->>'hash'=$3) ORDER BY h.id LIMIT 21 FOR SHARE OF h",
+      [source.id, String(source.version), source.sourceHash],
+    );
+    if (rows.rows.length > 20)
+      throw new ServiceUnavailableException(
+        'More than20 reviewed analyses reference this edition. Open the scenario library until paginated explanation is available.',
+      );
+    const items = [];
+    for (const row of rows.rows) {
+      const item = await this.publicOne(c, row);
+      if (item.state === 'published' && item.reviewedAt) items.push(item);
+    }
+    return items;
   }
   list(raw: unknown, cookie?: string, operations = false) {
     const query = parse(
@@ -230,6 +253,126 @@ export class EventScenarioStore {
           'Scenario snapshot exceeds its explicit 4 MiB share of the app bundle. Scope the snapshot before rebuilding.',
         );
       return EventScenarioSnapshotSchema.parse(snapshot);
+    });
+  }
+  flowsDraft(raw: string, cookie?: string) {
+    const id = parse(z.uuid(), raw);
+    return this.account.transaction(async (c) => {
+      await this.actor(c, cookie, 'read');
+      const event = await this.event(c, id);
+      if (!event) throw new NotFoundException('Reviewed event is unavailable.');
+      let result;
+      try {
+        result = extractInstitutionalFlowDraft(event);
+      } catch (error) {
+        throw new BadRequestException(
+          error instanceof Error
+            ? error.message
+            : 'Institutional flow extraction unavailable.',
+        );
+      }
+      await this.actor(c, cookie, 'read');
+      return result;
+    });
+  }
+  fedDraft(raw: string, cookie?: string) {
+    const id = parse(z.uuid(), raw);
+    return this.account.transaction(async (c) => {
+      await this.actor(c, cookie, 'read');
+      const event = await this.event(c, id);
+      if (!event) throw new NotFoundException('Reviewed event is unavailable.');
+      let result;
+      try {
+        result = extractFedPolicyDraft(event);
+      } catch (error) {
+        throw new BadRequestException(
+          error instanceof Error
+            ? error.message
+            : 'FOMC range extraction unavailable.',
+        );
+      }
+      await this.actor(c, cookie, 'read');
+      return result;
+    });
+  }
+  rbiDraft(raw: string, cookie?: string) {
+    const id = parse(z.uuid(), raw);
+    return this.account.transaction(async (c) => {
+      await this.actor(c, cookie, 'read');
+      const event = await this.event(c, id);
+      if (!event) throw new NotFoundException('Reviewed event is unavailable.');
+      let result;
+      try {
+        result = extractRbiPolicyDraft(event);
+      } catch (error) {
+        throw new BadRequestException(
+          error instanceof Error
+            ? error.message
+            : 'RBI repo extraction unavailable.',
+        );
+      }
+      await this.actor(c, cookie, 'read');
+      return result;
+    });
+  }
+  beaDraft(raw: string, cookie?: string) {
+    const id = parse(z.uuid(), raw);
+    return this.account.transaction(async (c) => {
+      await this.actor(c, cookie, 'read');
+      const event = await this.event(c, id);
+      if (!event) throw new NotFoundException('Reviewed event is unavailable.');
+      let result;
+      try {
+        result = extractBeaGdpDraft(event);
+      } catch (error) {
+        throw new BadRequestException(
+          error instanceof Error
+            ? error.message
+            : 'BEA GDP extraction unavailable.',
+        );
+      }
+      await this.actor(c, cookie, 'read');
+      return result;
+    });
+  }
+  companyDraft(raw: string, cookie?: string) {
+    const id = parse(z.uuid(), raw);
+    return this.account.transaction(async (c) => {
+      await this.actor(c, cookie, 'read');
+      const event = await this.event(c, id);
+      if (!event) throw new NotFoundException('Reviewed event is unavailable.');
+      let result;
+      try {
+        result = extractCompanyPackDraft(event);
+      } catch (error) {
+        throw new BadRequestException(
+          error instanceof Error
+            ? error.message
+            : 'Company source extraction unavailable.',
+        );
+      }
+      await this.actor(c, cookie, 'read');
+      return result;
+    });
+  }
+  governanceDraft(raw: string, cookie?: string) {
+    const id = parse(z.uuid(), raw);
+    return this.account.transaction(async (c) => {
+      await this.actor(c, cookie, 'read');
+      const event = await this.event(c, id);
+      if (!event) throw new NotFoundException('Reviewed event is unavailable.');
+      let result;
+      try {
+        result = extractGovernancePackDraft(event);
+      } catch (error) {
+        throw new BadRequestException(
+          error instanceof Error
+            ? error.message
+            : 'Governance source extraction unavailable.',
+        );
+      }
+      await this.actor(c, cookie, 'read');
+      return result;
     });
   }
   save(raw: string, body: unknown, cookie?: string) {
@@ -413,6 +556,42 @@ export class OpsEventScenariosController {
   ) {}
   @Get() list(@Query() query: unknown, @Headers('cookie') cookie?: string) {
     return this.store.list(query, cookie, true);
+  }
+  @Get('company-draft/:eventId') companyDraft(
+    @Param('eventId') id: string,
+    @Headers('cookie') cookie?: string,
+  ) {
+    return this.store.companyDraft(id, cookie);
+  }
+  @Get('governance-draft/:eventId') governanceDraft(
+    @Param('eventId') id: string,
+    @Headers('cookie') cookie?: string,
+  ) {
+    return this.store.governanceDraft(id, cookie);
+  }
+  @Get('bea-draft/:eventId') beaDraft(
+    @Param('eventId') id: string,
+    @Headers('cookie') cookie?: string,
+  ) {
+    return this.store.beaDraft(id, cookie);
+  }
+  @Get('rbi-draft/:eventId') rbiDraft(
+    @Param('eventId') id: string,
+    @Headers('cookie') cookie?: string,
+  ) {
+    return this.store.rbiDraft(id, cookie);
+  }
+  @Get('flows-draft/:eventId') flowsDraft(
+    @Param('eventId') id: string,
+    @Headers('cookie') cookie?: string,
+  ) {
+    return this.store.flowsDraft(id, cookie);
+  }
+  @Get('fed-draft/:eventId') fedDraft(
+    @Param('eventId') id: string,
+    @Headers('cookie') cookie?: string,
+  ) {
+    return this.store.fedDraft(id, cookie);
   }
   @OperatorAction('prepare') @Put(':id') save(
     @Param('id') id: string,

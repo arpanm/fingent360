@@ -111,7 +111,10 @@ export async function reviseConnectionSourceFixture(
   }
   return next;
 }
-export async function prepareConnectionAccount(request: APIRequestContext) {
+export async function prepareConnectionAccount(
+  request: APIRequestContext,
+  isin = 'INE002A01018',
+) {
   const registered = await request.post('/api/v1/account/register', {
     headers: connectionHeaders,
     data: {
@@ -133,7 +136,7 @@ export async function prepareConnectionAccount(request: APIRequestContext) {
     await request.post('/api/v1/account/holdings/preview', {
       headers: connectionHeaders,
       data: {
-        csv: 'isin,quantity,total_cost_paise\nINE002A01018,3.000001,10000',
+        csv: `isin,quantity,total_cost_paise\n${isin},3.000001,10000`,
         expectedVersion: 0,
         storageConsent: true,
       },
@@ -147,9 +150,12 @@ export async function prepareConnectionAccount(request: APIRequestContext) {
     throw Error(`Connection holdings fixture: ${confirmed.status()}`);
   return goal;
 }
-export async function prepareConnectionBrowser(page: Page) {
+export async function prepareConnectionBrowser(
+  page: Page,
+  isin = 'INE002A01018',
+) {
   await page.evaluate(
-    async ({ username, password, goal }) => {
+    async ({ username, password, goal, isin }) => {
       const post = async (path: string, body: unknown) => {
         const r = await fetch(`/api/v1/account/${path}`, {
           method: 'POST',
@@ -162,7 +168,7 @@ export async function prepareConnectionBrowser(page: Page) {
       await post('register', { username, password, consent: true });
       await post('goals', goal);
       const preview = await post('holdings/preview', {
-        csv: 'isin,quantity,total_cost_paise\nINE002A01018,3.000001,10000',
+        csv: `isin,quantity,total_cost_paise\n${isin},3.000001,10000`,
         expectedVersion: 0,
         storageConsent: true,
       });
@@ -175,6 +181,7 @@ export async function prepareConnectionBrowser(page: Page) {
       username: `rc_${randomUUID().slice(0, 12)}`,
       password: connectionPassword,
       goal: connectionGoal,
+      isin,
     },
   );
 }

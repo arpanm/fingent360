@@ -1,6 +1,6 @@
 # OPS-READ-ADMISSION-001 — Protect Operations reads
 
-- **Status:** Implemented; validation pending
+- **Status:** Completed implementation; validation pending
 - **Implemented / recorded:** - OPS-READ-ADMISSION-001 (DEV-017/021): Implemented; verification and commit await user-run SDLC. Detailed Codex prompt: inspect all existing protected Operations read paths for authentication performed only before potentially waiting storage queries. Bound this child to legacy discovery items/runs and source registry list/history, plus directly related protected read paths only if evidence identifies the same defect. Specify read→storage wait→session expiry/revocation→denial and preserved o
 - **Pending:** User: run the task’s documented validation; implementation is not a test pass.
 - **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.

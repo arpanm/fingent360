@@ -185,7 +185,7 @@ test('E2E-API-242 privacy export supports legacy array and new CSV preview recei
   const pool = new Pool({ connectionString: feedbackSandbox.databaseUrl });
   try {
     await pool.query(
-      'UPDATE app_holdings_previews SET payload=$2::jsonb WHERE id=$1',
+      'UPDATE app_holdings_previews SET payload=$2::jsonb,encrypted_payload=NULL WHERE id=$1',
       [legacy.previewId, JSON.stringify(legacy.holdings)],
     );
   } finally {

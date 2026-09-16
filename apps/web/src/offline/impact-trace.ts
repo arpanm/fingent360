@@ -1,3 +1,4 @@
+import { downloadedResearchPolicies } from './governance-policies';
 import { z } from 'zod';
 import {
   EquitySnapshotSchema,
@@ -101,6 +102,12 @@ export const handleImpactTraces: OfflineHandler = async (
     }
     return {
       body: ImpactTraceChoicesSchema.parse({
+        contexts: await downloadedResearchPolicies(
+          bundle,
+          state,
+          request,
+          'causal-context',
+        ),
         events: admitted,
         next: events.next,
         holdings,
@@ -114,14 +121,37 @@ export const handleImpactTraces: OfflineHandler = async (
     for (const receipt of exportLocalImpactTraces(state, user.id).traces)
       traces.push({
         receipt,
-        reviewReasons: impactReviewReasons(
-          receipt,
-          await current(receipt.input.eventId),
-          holdings,
-          goals,
-          now,
-          equityFor(receipt.input.isin),
-        ),
+        reviewReasons: [
+          ...(receipt.input.causalContext
+            ? [
+                'Downloaded causal context may have been withdrawn on the server since this snapshot.',
+                ...((
+                  await downloadedResearchPolicies(
+                    bundle,
+                    state,
+                    request,
+                    'causal-context',
+                  )
+                ).some(
+                  (item) =>
+                    item.id === receipt.input.causalContext!.id &&
+                    item.version === receipt.input.causalContext!.version,
+                )
+                  ? []
+                  : [
+                      'Released causal context is expired or unavailable in this snapshot.',
+                    ]),
+              ]
+            : []),
+          ...impactReviewReasons(
+            receipt,
+            await current(receipt.input.eventId),
+            holdings,
+            goals,
+            now,
+            equityFor(receipt.input.isin),
+          ),
+        ],
       });
     return { body: ImpactTraceListSchema.parse({ traces }) };
   }
@@ -156,6 +186,25 @@ export const handleImpactTraces: OfflineHandler = async (
         409,
         'The event is unavailable or superseded in the installed snapshot.',
       );
+    const context = input.causalContext
+      ? (
+          await downloadedResearchPolicies(
+            bundle,
+            state,
+            request,
+            'causal-context',
+          )
+        ).find(
+          (item) =>
+            item.id === input.causalContext!.id &&
+            item.version === input.causalContext!.version,
+        )
+      : undefined;
+    if (input.causalContext && !context)
+      fail(
+        409,
+        'Released causal context is unavailable in the installed snapshot.',
+      );
     let value;
     try {
       value = buildImpactTrace(
@@ -166,6 +215,7 @@ export const handleImpactTraces: OfflineHandler = async (
         goals,
         now,
         equityFor(input.isin),
+        context,
       );
     } catch (error) {
       fail(409, error instanceof Error ? error.message : 'Trace changed.');

@@ -50,6 +50,8 @@ export async function captureViewport(): Promise<string> {
     await new Promise<void>((resolve) =>
       requestAnimationFrame(() => requestAnimationFrame(() => resolve())),
     );
+    if (window.FingentIOS?.captureFeedback)
+      return await window.FingentIOS.captureFeedback();
     if (window.FingentAndroid?.captureFeedback)
       return await window.FingentAndroid.captureFeedback();
     const { default: html2canvas } = await import('html2canvas');

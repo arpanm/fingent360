@@ -1,6 +1,6 @@
 # REGRESSION-013 — roadmap lint gate corrections
 
-- **Status:** Implemented; validation pending
+- **Status:** Completed implementation; validation pending
 - **Implemented / recorded:** - Implementation: Corrections authored; user verification pending. User confirms format:check passed, then lint stopped on11 errors before typechecks, commit or E2E. Remove dead initial/reset assignments without removing rollback or post-commit state guards; retain caught provisioning failure as Error.cause while keeping CLI output redacted; replace the CSV control-character regex with equivalent character-code validation; correct the consent-worker exit branch and immutable test receipt declaration. Preserve all prior roadmap changes and the gated SDLC sequence.
 - **Pending:** The implementation is recorded; user-run validation remains separate.
 - **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.

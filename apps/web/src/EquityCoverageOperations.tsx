@@ -8,6 +8,13 @@ import {
   EQUITY_INDEX_URL,
   parseEquitySource,
   NSE_UDIFF_PARSER,
+  NSE_ACTIONS_PARSER,
+  NSE_ACTIONS_URL,
+  NSE_INDAS_HTML_PARSER,
+  NSE_INDAS_STATEMENTS_PARSER,
+  NSE_BANKING_PARSER,
+  NSE_GI_PARSER,
+  NSE_LI_PARSER,
   nseUdiffUrl,
 } from '@fingent360/contracts';
 import { json, RequestError } from './net';
@@ -26,7 +33,7 @@ export function EquityCoverageOperations({
     [error, setError] = useState(''),
     [busy, setBusy] = useState(false),
     [notice, setNotice] = useState('');
-  const [parser, setParser] = useState<Parser>('nse-equity-master-v1'),
+  const [parser, setParser] = useState<Parser>('nse-equity-master-v2'),
     [body, setBody] = useState(''),
     [sourceFileName, setSourceFileName] = useState(''),
     [sourceUrl, setSourceUrl] = useState(''),
@@ -80,13 +87,15 @@ export function EquityCoverageOperations({
         rightsConfirmed: confirmed,
       };
       const source =
-        parser === 'nse-equity-master-v1'
+        parser === 'nse-equity-master-v2'
           ? EQUITY_MASTER_URL
           : parser === 'nifty50-constituents-v1'
             ? EQUITY_INDEX_URL
-            : parser === NSE_UDIFF_PARSER
-              ? nseUdiffUrl(effectiveOn)
-              : sourceUrl;
+            : parser === NSE_ACTIONS_PARSER
+              ? NSE_ACTIONS_URL
+              : parser === NSE_UDIFF_PARSER
+                ? nseUdiffUrl(effectiveOn)
+                : sourceUrl;
       if (!fetchSource) {
         EquityImportSchema.parse({
           ...common,
@@ -94,7 +103,9 @@ export function EquityCoverageOperations({
           body,
           ...(parser === NSE_UDIFF_PARSER ? { sourceFileName } : {}),
         });
-        parseEquitySource(parser, body, effectiveOn, sourceFileName);
+        // Action identity resolution uses reviewed server records, never browser guesses.
+        if (parser !== NSE_ACTIONS_PARSER)
+          parseEquitySource(parser, body, effectiveOn, sourceFileName);
       }
       const result = EquityEditionSchema.parse(
         await request(
@@ -192,9 +203,27 @@ export function EquityCoverageOperations({
               setRequestId(crypto.randomUUID());
             }}
           >
-            <option value="nse-equity-master-v1">NSE securities CSV</option>
+            <option value="nse-equity-master-v2">NSE securities CSV</option>
             <option value="nifty50-constituents-v1">
               Nifty 50 constituents CSV
+            </option>
+            <option value={NSE_LI_PARSER}>
+              NSE life-insurance dual-account results (v1)
+            </option>
+            <option value={NSE_GI_PARSER}>
+              NSE general-insurance operating results (v1)
+            </option>
+            <option value={NSE_BANKING_PARSER}>
+              NSE Banking rendered financial results (v1)
+            </option>
+            <option value={NSE_INDAS_STATEMENTS_PARSER}>
+              NSE Ind AS balance sheet and cash flow (v2)
+            </option>
+            <option value={NSE_INDAS_HTML_PARSER}>
+              NSE Integrated Ind AS financial HTML
+            </option>
+            <option value={NSE_ACTIONS_PARSER}>
+              NSE corporate actions CSV
             </option>
             <option value={NSE_UDIFF_PARSER}>
               NSE UDiFF final cash-market prices
@@ -216,7 +245,12 @@ export function EquityCoverageOperations({
             }}
           />
         </label>
-        {parser === 'f360-equity-evidence-v1' && (
+        {(parser === 'f360-equity-evidence-v1' ||
+          parser === NSE_INDAS_HTML_PARSER ||
+          parser === NSE_INDAS_STATEMENTS_PARSER ||
+          parser === NSE_BANKING_PARSER ||
+          parser === NSE_GI_PARSER ||
+          parser === NSE_LI_PARSER) && (
           <label>
             Original HTTPS source URL
             <input
@@ -249,9 +283,66 @@ export function EquityCoverageOperations({
             checked={confirmed}
             onChange={(e) => setConfirmed(e.target.checked)}
           />{' '}
-          I verified permission to ingest, retain and display this source for
-          this deployment.
+          I verified permission to ingest, retain, display on the web and
+          distribute in offline app snapshots for this deployment.
         </label>
+        {parser === NSE_INDAS_STATEMENTS_PARSER && (
+          <p>
+            Upload the original rendered NSE Integrated Ind AS HTML. Exact
+            balance-sheet and indirect cash-flow totals must reconcile, in the
+            stated INR units. A different named operator must publish this
+            edition. Cash-flow cash can include overdrafts and is not
+            substituted for balance-sheet cash.
+          </p>
+        )}
+        {parser === NSE_LI_PARSER && (
+          <p>
+            Upload saved official NSE life-insurance HTML. Policyholder surplus
+            and shareholder profit remain separate, with inter-account transfers
+            reconciled. This version does not interpret insurance ratios or
+            nonzero extraordinary items. Another named operator must review and
+            publish the source.
+          </p>
+        )}
+        {parser === NSE_GI_PARSER && (
+          <p>
+            Upload saved official NSE general-insurance HTML. Operating
+            premiums, claims and underwriting are kept separate from shareholder
+            profit. Ratios require the report's explicit solvency-times and
+            percentage note. Duplicate first-quarter/YTD columns must reconcile.
+            Another named operator must publish this source.
+          </p>
+        )}
+        {parser === NSE_BANKING_PARSER && (
+          <p>
+            Upload saved HTML of the official NSE Banking rendered report. Bank
+            income and NPA amounts retain INR units; capital and NPA ratios
+            remain percentages. Two reporting columns and zero exceptional items
+            are supported. Board approval is not a publication timestamp.
+            Another named operator must review the retained report before
+            publication.
+          </p>
+        )}
+        {parser === NSE_INDAS_HTML_PARSER && (
+          <p>
+            Save the official rendered Integrated Ind AS financial report as
+            HTML. Revenue from operations and total period profit retain each
+            period, basis and exact INR scale. Other metrics and XBRL instance
+            files are not accepted by this version.
+          </p>
+        )}
+        {parser === NSE_ACTIONS_PARSER && (
+          <p>
+            Download the corporate-actions CSV from the{' '}
+            <a href={NSE_ACTIONS_URL} target="_blank" rel="noreferrer">
+              official NSE page
+            </a>
+            . Publish NSE security identities first. The server joins exact
+            symbol and series; unknown or ambiguous identities must be resolved
+            before capture. Announced ex-dates are preserved separately from the
+            source capture date. This does not adjust prices or holdings.
+          </p>
+        )}
         {parser === NSE_UDIFF_PARSER && (
           <p>
             Choose the final dated CSV extracted from the NSE cash-market
@@ -264,7 +355,17 @@ export function EquityCoverageOperations({
           Source file
           <input
             type="file"
-            accept={parser === 'f360-equity-evidence-v1' ? '.json' : '.csv'}
+            accept={
+              parser === 'f360-equity-evidence-v1'
+                ? '.json'
+                : parser === NSE_INDAS_HTML_PARSER ||
+                    parser === NSE_INDAS_STATEMENTS_PARSER ||
+                    parser === NSE_BANKING_PARSER ||
+                    parser === NSE_GI_PARSER ||
+                    parser === NSE_LI_PARSER
+                  ? '.html'
+                  : '.csv'
+            }
             onChange={(e) => {
               const file = e.target.files?.[0];
               setBody('');
@@ -286,20 +387,26 @@ export function EquityCoverageOperations({
         <button type="submit" disabled={busy || !confirmed || !body}>
           Retain and validate file
         </button>
-        {parser !== 'f360-equity-evidence-v1' && (
-          <button
-            type="button"
-            disabled={
-              busy ||
-              !confirmed ||
-              !effectiveOn ||
-              rightsBasis.trim().length < 12
-            }
-            onClick={() => void capture(true)}
-          >
-            Fetch official source now
-          </button>
-        )}
+        {parser !== 'f360-equity-evidence-v1' &&
+          parser !== NSE_ACTIONS_PARSER &&
+          parser !== NSE_INDAS_HTML_PARSER &&
+          parser !== NSE_INDAS_STATEMENTS_PARSER &&
+          parser !== NSE_BANKING_PARSER &&
+          parser !== NSE_GI_PARSER &&
+          parser !== NSE_LI_PARSER && (
+            <button
+              type="button"
+              disabled={
+                busy ||
+                !confirmed ||
+                !effectiveOn ||
+                rightsBasis.trim().length < 12
+              }
+              onClick={() => void capture(true)}
+            >
+              Fetch official source now
+            </button>
+          )}
       </form>
       <label>
         Publication or withdrawal reason

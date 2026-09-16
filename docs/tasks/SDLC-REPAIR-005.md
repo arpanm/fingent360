@@ -1,10 +1,14 @@
 # SDLC-REPAIR-005 — SDLC script formatting
 
-- **Status:** Partial
-- **Implemented / recorded:** The recorded repair attempt did not change the scripts.
-- **Pending:** Formatting repair stopped when the source changed during the attempt.
-- **Next action / inputs:** Agent: inspect current formatting/error evidence; the old concurrent-edit incident needs no product decision.
-- **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
+Current evidence reconciliation (2026-09-15): the summary below supersedes the historical source-edit collision. Closure applies only to that saved formatting failure, not this batch or E2E acceptance.
+
+- **Status:** Done (recorded failure)
+- **Implemented / recorded:** Saved user-run SDLC log1789457453614-67049 passed formatting and all check stages and advanced to git-add. The earlier concurrent-edit formatting blocker is no longer current.
+- **Pending:** None for the recorded two-script formatting failure. New working-tree changes still need their own manual gates.
+- **Next action / inputs:** No repeat repair needed. Use the normal user-owned SDLC workflow for new changes.
+- **Verification:** Read existing artifacts/sdlc/1789457453614-67049/02-pnpm-check.log: all files matched Prettier; later checks reached51 root unit passes/0fails. Following03-git-add.log exists. No new commands were executed; no new-batch pass is inferred.
+
+Status reconciliation (2026-09-16): Done refers to the previously recorded bounded delivery, not fresh validation of the current working tree. No new implementation or test pass is claimed.
 
 ## Implementation handoff rule
 

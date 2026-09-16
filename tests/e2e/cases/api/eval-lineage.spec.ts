@@ -175,6 +175,7 @@ test('E2E-API-1115 private AI retention is separately opted in owned and erased 
         'synthetic',
         'Synthetic instructions',
         'Synthetic private input',
+        feedbackSandbox.privateDataKeys,
       ),
     ).toBeNull();
     await consentWrite(request, 'private-ai-history', 'grant');
@@ -185,14 +186,21 @@ test('E2E-API-1115 private AI retention is separately opted in owned and erased 
       'synthetic',
       'Synthetic instructions',
       'Synthetic private input',
+      feedbackSandbox.privateDataKeys,
     );
     expect(id).toBeTruthy();
-    await finishPrivateAiHistory(pool, user.id, id, {
-      raw: 'Synthetic raw output',
-      text: 'Synthetic answer',
-      status: 'succeeded',
-      outcome: 'Synthetic helper acceptance',
-    });
+    await finishPrivateAiHistory(
+      pool,
+      user.id,
+      id,
+      {
+        raw: 'Synthetic raw output',
+        text: 'Synthetic answer',
+        status: 'succeeded',
+        outcome: 'Synthetic helper acceptance',
+      },
+      feedbackSandbox.privateDataKeys,
+    );
     const own = PrivateAiHistorySchema.parse(
       await (await request.get('/api/v1/account/ai-history')).json(),
     );
@@ -217,9 +225,15 @@ test('E2E-API-1115 private AI retention is separately opted in owned and erased 
         await (await request.get('/api/v1/account/ai-history')).json(),
       ).entries,
     ).toHaveLength(0);
-    await finishPrivateAiHistory(pool, user.id, id, {
-      text: 'Late response must not recreate data',
-    });
+    await finishPrivateAiHistory(
+      pool,
+      user.id,
+      id,
+      {
+        text: 'Late response must not recreate data',
+      },
+      feedbackSandbox.privateDataKeys,
+    );
     expect(
       (
         await pool.query(

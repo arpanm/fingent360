@@ -1,6 +1,6 @@
 # SDLC-003 — One manual format/check/commit/E2E command
 
-- **Status:** Implemented; validation pending
+- **Status:** Completed implementation; validation pending
 - **Implemented / recorded:** - Implementation: Implemented; verification not run.
 - **Pending:** User: run the task’s documented validation; implementation is not a test pass.
 - **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.

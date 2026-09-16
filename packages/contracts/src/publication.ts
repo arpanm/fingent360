@@ -21,6 +21,8 @@ export function publicEdition(
     title: item.id.startsWith('bea-')
       ? 'Withdrawn BEA release'
       : withdrawnTitle,
+    companyNews: undefined,
+    gdpOriginal: undefined,
     summary: '',
     body: '',
     topics: [],

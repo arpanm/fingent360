@@ -1,3 +1,14 @@
+import {
+  decryptConnectionRows,
+  sealConnection,
+} from './private-connections.js';
+import type { PrivateDataKeys } from './private-data-crypto.js';
+import { decryptHoldingsRows } from './private-holdings.js';
+import { decryptGoalRows } from './private-goals.js';
+import {
+  admitResearchPolicy,
+  releasedResearchPolicies,
+} from './research-governance.js';
 import { createHash } from 'node:crypto';
 import {
   Body,
@@ -35,11 +46,16 @@ function parse<T>(schema: z.ZodType<T>, raw: unknown): T {
     throw new BadRequestException('Invalid impact trace request.');
   return result.data;
 }
-export async function exportImpactTraces(c: pg.PoolClient, userId: string) {
+export async function exportImpactTraces(
+  c: pg.PoolClient,
+  userId: string,
+  keys: PrivateDataKeys,
+) {
   const rows = await c.query(
-    'SELECT payload FROM app_impact_traces WHERE user_id=$1 AND deleted_at IS NULL ORDER BY created_at,id LIMIT 100',
+    'SELECT * FROM app_impact_traces WHERE user_id=$1 AND deleted_at IS NULL ORDER BY created_at,id LIMIT 100',
     [userId],
   );
+  await decryptConnectionRows(c, 'impact-trace', userId, rows.rows, keys);
   return {
     traces: rows.rows.map((row) => ImpactTraceReceiptSchema.parse(row.payload)),
   };
@@ -57,13 +73,20 @@ export class ImpactTraceController {
   }
   private async finances(c: pg.PoolClient, userId: string) {
     const holdings = await c.query(
-      'SELECT r.payload FROM app_holdings h JOIN app_holdings_revisions r ON r.user_id=h.user_id AND r.version=h.version WHERE h.user_id=$1',
+      'SELECT r.user_id,r.version,r.payload,r.encrypted_payload FROM app_holdings h JOIN app_holdings_revisions r ON r.user_id=h.user_id AND r.version=h.version WHERE h.user_id=$1',
       [userId],
+    );
+    await decryptHoldingsRows(
+      c,
+      userId,
+      holdings.rows,
+      this.store.privateDataKeys,
     );
     const goals = await c.query(
-      'SELECT r.payload FROM app_goals g JOIN app_goal_revisions r ON r.goal_id=g.id AND r.version=g.version WHERE g.user_id=$1 AND g.deleted_at IS NULL ORDER BY g.id',
+      'SELECT r.goal_id,r.version,r.payload,r.encrypted_payload FROM app_goals g JOIN app_goal_revisions r ON r.goal_id=g.id AND r.version=g.version WHERE g.user_id=$1 AND g.deleted_at IS NULL ORDER BY g.id',
       [userId],
     );
+    await decryptGoalRows(c, userId, goals.rows, this.store.privateDataKeys);
     return {
       holdings: HoldingsSnapshotSchema.parse(
         holdings.rows[0]?.payload ?? {
@@ -121,9 +144,15 @@ export class ImpactTraceController {
         if (current?.status === 'published') events.push(current);
       }
       const finances = await this.finances(c, user.id);
+      const contexts = await releasedResearchPolicies(
+        c,
+        this.events,
+        'causal-context',
+      );
       await this.store.require(c, cookie);
       return ImpactTraceChoicesSchema.parse({
         events,
+        contexts,
         next: rows.rows.length > 50 ? rows.rows[49].id : null,
         ...finances,
         bundleGeneratedAt: null,
@@ -133,21 +162,53 @@ export class ImpactTraceController {
   @Get() list(@Headers('cookie') cookie?: string) {
     return this.store.transaction(async (c) => {
       const user = await this.owner(c, cookie);
-      const saved = await exportImpactTraces(c, user.id);
+      const saved = await exportImpactTraces(
+        c,
+        user.id,
+        this.store.privateDataKeys,
+      );
       const finances = await this.finances(c, user.id);
       const traces = [];
-      for (const receipt of saved.traces)
+      for (const receipt of saved.traces) {
+        const contextReasons: string[] = [];
+        if (receipt.input.causalContext) {
+          try {
+            const actual = await admitResearchPolicy(
+              c,
+              receipt.input.causalContext,
+              this.events,
+              'causal-context',
+            );
+            if (
+              JSON.stringify(actual) !== JSON.stringify(receipt.causalContext)
+            )
+              contextReasons.push('Released context snapshot changed.');
+          } catch (error) {
+            if (!(
+              error instanceof ConflictException ||
+              error instanceof BadRequestException
+            ))
+              throw error;
+            contextReasons.push(
+              'Released causal context is withdrawn, expired, superseded or lost source admission.',
+            );
+          }
+        }
         traces.push({
           receipt,
-          reviewReasons: impactReviewReasons(
-            receipt,
-            await this.current(c, receipt.input.eventId),
-            finances.holdings,
-            finances.goals,
-            new Date().toISOString(),
-            await this.equity(c, receipt.input.isin),
-          ),
+          reviewReasons: [
+            ...contextReasons,
+            ...impactReviewReasons(
+              receipt,
+              await this.current(c, receipt.input.eventId),
+              finances.holdings,
+              finances.goals,
+              new Date().toISOString(),
+              await this.equity(c, receipt.input.isin),
+            ),
+          ],
         });
+      }
       await this.store.require(c, cookie);
       return ImpactTraceListSchema.parse({ traces });
     });
@@ -167,7 +228,7 @@ export class ImpactTraceController {
     return this.store.transaction(async (c) => {
       const user = await this.owner(c, cookie);
       const old = await c.query(
-        'SELECT fingerprint,payload,deleted_at FROM app_impact_traces WHERE user_id=$1 AND id=$2',
+        'SELECT * FROM app_impact_traces WHERE user_id=$1 AND id=$2',
         [user.id, id],
       );
       if (old.rows[0]) {
@@ -177,6 +238,13 @@ export class ImpactTraceController {
           );
         if (old.rows[0].deleted_at)
           throw new GoneException('Receipt deleted. Start a new trace.');
+        await decryptConnectionRows(
+          c,
+          'impact-trace',
+          user.id,
+          old.rows,
+          this.store.privateDataKeys,
+        );
         return ImpactTraceReceiptSchema.parse(old.rows[0].payload);
       }
       const count = await c.query(
@@ -194,6 +262,14 @@ export class ImpactTraceController {
         );
       const finances = await this.finances(c, user.id);
       const equity = await this.equity(c, input.isin);
+      const context = input.causalContext
+        ? await admitResearchPolicy(
+            c,
+            input.causalContext,
+            this.events,
+            'causal-context',
+          )
+        : undefined;
       let receipt;
       try {
         receipt = buildImpactTrace(
@@ -204,6 +280,7 @@ export class ImpactTraceController {
           finances.goals,
           new Date().toISOString(),
           equity,
+          context,
         );
       } catch (error) {
         throw new ConflictException(
@@ -213,9 +290,16 @@ export class ImpactTraceController {
         );
       }
       await this.store.require(c, cookie);
+      const encrypted = sealConnection(
+        'impact-trace',
+        user.id,
+        id,
+        receipt,
+        this.store.privateDataKeys,
+      );
       await c.query(
-        'INSERT INTO app_impact_traces(user_id,id,fingerprint,payload) VALUES($1,$2,$3,$4)',
-        [user.id, id, fingerprint, receipt],
+        'INSERT INTO app_impact_traces(user_id,id,fingerprint,encrypted_payload,content_hash) VALUES($1,$2,$3,$4,$5)',
+        [user.id, id, fingerprint, encrypted.envelope, encrypted.hash],
       );
       return receipt;
     });
@@ -230,7 +314,7 @@ export class ImpactTraceController {
     return this.store.transaction(async (c) => {
       const user = await this.owner(c, cookie);
       const result = await c.query(
-        'UPDATE app_impact_traces SET payload=NULL,deleted_at=clock_timestamp() WHERE user_id=$1 AND id=$2 AND deleted_at IS NULL RETURNING id',
+        'UPDATE app_impact_traces SET payload=NULL,encrypted_payload=NULL,deleted_at=clock_timestamp() WHERE user_id=$1 AND id=$2 AND deleted_at IS NULL RETURNING id',
         [user.id, id],
       );
       if (!result.rows.length) {

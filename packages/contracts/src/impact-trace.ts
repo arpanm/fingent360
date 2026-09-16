@@ -1,3 +1,14 @@
+import {
+  TransmissionOutcomeSchema,
+  transmissionOutcome,
+} from './transmission-context.js';
+import { OilEducationProofSchema, oilEducationProof } from './oil-education.js';
+import {
+  ResearchPolicyBindingSchema,
+  ResearchGovernanceRevisionSchema,
+  governanceChecks,
+  type ResearchGovernanceRevision,
+} from './research-governance.js';
 import { z } from 'zod';
 import {
   EquityCompanySchema,
@@ -12,8 +23,10 @@ import {
 import { SavedGoalSchema, goalProjection, type SavedGoal } from './goals.js';
 
 export const ImpactTraceInputSchema = z.strictObject({
+  educationalPack: z.literal('indigo-atf-context-2026-v1').optional(),
   eventId: z.uuid(),
   eventVersion: z.number().int().positive(),
+  causalContext: ResearchPolicyBindingSchema.optional(),
   sector: z.string().min(1).max(100),
   isin: AccountHoldingSchema.shape.isin,
   holdingsVersion: z.number().int().positive(),
@@ -32,10 +45,13 @@ export const ImpactTraceInputSchema = z.strictObject({
 });
 export const ImpactTraceReceiptSchema = z
   .strictObject({
+    oilEducation: OilEducationProofSchema.optional(),
+    transmission: TransmissionOutcomeSchema.optional(),
     id: z.uuid(),
     createdAt: z.iso.datetime(),
     policy: z.literal('reviewed-context-trace-v1'),
     input: ImpactTraceInputSchema,
+    causalContext: ResearchGovernanceRevisionSchema.optional(),
     event: EventPublicSchema,
     holding: AccountHoldingSchema,
     goal: SavedGoalSchema,
@@ -77,6 +93,57 @@ export const ImpactTraceReceiptSchema = z
   })
   .superRefine((value, context) => {
     const expected = goalProjection(value.goal);
+    try {
+      if (
+        JSON.stringify(
+          traceTransmission(
+            value.event,
+            value.causalContext,
+            value.input,
+            value.createdAt,
+            value.equity,
+          ),
+        ) !== JSON.stringify(value.transmission)
+      )
+        throw Error();
+    } catch {
+      context.addIssue({
+        code: 'custom',
+        message:
+          'Transmission outcome does not reconstruct from its exact released context and evidence.',
+      });
+    }
+    try {
+      const proof = value.input.educationalPack
+        ? oilEducationProof(
+            value.event,
+            value.causalContext,
+            value.input.isin,
+            value.input.sector,
+          )
+        : undefined;
+      if (JSON.stringify(proof) !== JSON.stringify(value.oilEducation))
+        throw Error();
+    } catch {
+      context.addIssue({
+        code: 'custom',
+        message: 'Oil educational source proof does not reconstruct.',
+      });
+    }
+    try {
+      admittedTraceContext(
+        value.input,
+        value.event,
+        value.createdAt,
+        value.causalContext,
+      );
+    } catch {
+      context.addIssue({
+        code: 'custom',
+        message:
+          'Released causal context does not match trace evidence and mapping.',
+      });
+    }
     if (
       !value.event.event ||
       value.event.status !== 'published' ||
@@ -106,6 +173,7 @@ export const ImpactTraceListSchema = z.strictObject({
   traces: z.array(ImpactTraceViewSchema).max(100),
 });
 export const ImpactTraceChoicesSchema = z.strictObject({
+  contexts: z.array(ResearchGovernanceRevisionSchema).max(100).default([]),
   events: z.array(EventPublicSchema).max(50),
   next: z.uuid().nullable(),
   holdings: HoldingsSnapshotSchema,
@@ -190,8 +258,10 @@ export function buildImpactTrace(
   goals: SavedGoal[],
   now: string,
   equity: z.infer<typeof EquityCompanySchema> | null = null,
+  causalContext?: ResearchGovernanceRevision,
 ): ImpactTraceReceipt {
   const input = ImpactTraceInputSchema.parse(raw);
+  const context = admittedTraceContext(input, publicEvent, now, causalContext);
   if (equity && equity.isin !== input.isin)
     throw new Error('Company evidence identity does not match your holding.');
   if (
@@ -241,7 +311,29 @@ export function buildImpactTrace(
     id,
     createdAt: now,
     policy: 'reviewed-context-trace-v1',
+    ...(context?.transmission
+      ? {
+          transmission: traceTransmission(
+            admitted,
+            causalContext,
+            input,
+            now,
+            equity,
+          ),
+        }
+      : {}),
+    ...(input.educationalPack
+      ? {
+          oilEducation: oilEducationProof(
+            admitted,
+            causalContext,
+            input.isin,
+            input.sector,
+          ),
+        }
+      : {}),
     input,
+    ...(causalContext ? { causalContext } : {}),
     event: admitted,
     holding,
     goal,
@@ -263,7 +355,9 @@ export function buildImpactTrace(
         kind: 'sector',
         claimKind: 'inference',
         label: input.sector,
-        explanation: sector.rationale,
+        explanation: context
+          ? `${context.direction} over ${context.horizon}. ${causalContext!.input.rationale}`
+          : sector.rationale,
       },
       {
         kind: 'company',
@@ -287,12 +381,25 @@ export function buildImpactTrace(
       },
     ],
     uncertainties: [
+      ...(context
+        ? [
+            `Independent reviewed context: ${context.limitations}. Direction is an interpretation, not a measured sensitivity.`,
+          ]
+        : []),
       'Reviewed associations explain possible relevance; they do not establish causation or direction.',
       'No price response, portfolio loss, probability or goal change has been estimated.',
       'This source set is not an exhaustive conflict search; contrary evidence may exist.',
       'The comparator assumes unchanged contributions and no investment growth; taxes, inflation and sale proceeds are not modelled.',
     ],
-    warnings: [...impactWarnings(event, now), ...equityTraceWarnings(equity)],
+    warnings: [
+      ...impactWarnings(event, now),
+      ...equityTraceWarnings(equity),
+      ...(input.educationalPack
+        ? [
+            'Historical issuer report dated 2026-04-01; a later editorial publication does not establish current fuel prices or cost exposure.',
+          ]
+        : []),
+    ],
     quantifiedImpact: null,
     noAction: {
       currency: 'INR',
@@ -312,6 +419,11 @@ export function impactReviewReasons(
   equity: z.infer<typeof EquityCompanySchema> | null = null,
 ) {
   const reasons = [
+    ...(receipt.input.educationalPack
+      ? [
+          'Oil educational context remains historical; current fuel costs, mitigations and company conditions need new evidence before any decision.',
+        ]
+      : []),
     ...impactWarnings(receipt.event.event!, now),
     ...equityTraceWarnings(equity),
   ];
@@ -339,4 +451,65 @@ export function impactReviewReasons(
   )
     reasons.push('Your goal changed or was removed.');
   return [...new Set(reasons)];
+}
+
+export function admittedTraceContext(
+  input: ImpactTraceInput,
+  event: z.infer<typeof EventPublicSchema>,
+  at: string,
+  revision?: ResearchGovernanceRevision,
+) {
+  if (!input.causalContext) {
+    if (revision) throw Error('Unexpected causal context snapshot.');
+    return null;
+  }
+  if (!revision) throw Error('Released causal context snapshot required.');
+  const value = ResearchGovernanceRevisionSchema.parse(revision),
+    content = value.input.content;
+  if (governanceChecks(value).some((check) => !check.passed))
+    throw Error('Causal context has invalid retained mapping invariants.');
+  if (
+    value.id !== input.causalContext.id ||
+    value.version !== input.causalContext.version ||
+    content.kind !== 'causal-context' ||
+    content.isin !== input.isin ||
+    content.sector !== input.sector ||
+    value.input.reviewBy < at.slice(0, 10) ||
+    JSON.stringify(value.event.event) !== JSON.stringify(event.event)
+  )
+    throw Error(
+      'Causal context is expired or does not match this event, sector and company.',
+    );
+  return content;
+}
+
+function traceTransmission(
+  event: z.infer<typeof EventPublicSchema>,
+  revision: ResearchGovernanceRevision | undefined,
+  input: ImpactTraceInput,
+  at: string,
+  equity: z.infer<typeof EquityCompanySchema> | null,
+) {
+  const content = revision?.input.content;
+  if (!revision || content?.kind !== 'causal-context' || !content.transmission)
+    return undefined;
+  if (!event.event) throw Error('Reviewed event required.');
+  return transmissionOutcome(content.transmission, {
+    reviewId: revision.id,
+    reviewVersion: revision.version,
+    eventId: event.id,
+    eventVersion: event.event.version,
+    sector: input.sector,
+    isin: input.isin,
+    eventFamily: event.event.editorial.family,
+    direction: content.direction,
+    stale: event.event.sources.some(
+      (source) =>
+        Date.parse(at) - Date.parse(source.publishedAt) > 30 * 86400000,
+    ),
+    warnings: [
+      ...impactWarnings(event.event, at),
+      ...equityTraceWarnings(equity),
+    ],
+  });
 }

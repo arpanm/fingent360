@@ -1,3 +1,5 @@
+import { decryptConnectionRows } from './private-connections.js';
+import type { PrivateDataKeys } from './private-data-crypto.js';
 import type pg from 'pg';
 import {
   FeedItemSchema,
@@ -15,10 +17,18 @@ export async function captureReportConnections(
   userId: string,
   selected: ReportConnectionSelection[],
   financial: ReportSnapshot,
+  keys: PrivateDataKeys,
 ) {
   const result = await c.query(
-    'SELECT r.payload FROM app_research_connections h JOIN app_research_connection_revisions r ON r.connection_id=h.id AND r.version=h.version WHERE h.user_id=$1 AND h.id=ANY($2::uuid[]) AND NOT h.removed ORDER BY h.id',
+    'SELECT r.* FROM app_research_connections h JOIN app_research_connection_revisions r ON r.connection_id=h.id AND r.version=h.version WHERE h.user_id=$1 AND h.id=ANY($2::uuid[]) AND NOT h.removed ORDER BY h.id',
     [userId, selected.map((s) => s.id)],
+  );
+  await decryptConnectionRows(
+    c,
+    'connection-revision',
+    userId,
+    result.rows,
+    keys,
   );
   const revisions = result.rows.map((row) =>
     ResearchConnectionRevisionSchema.parse(row.payload),

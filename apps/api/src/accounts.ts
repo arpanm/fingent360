@@ -1,3 +1,9 @@
+import {
+  identityLookup,
+  encryptIdentity,
+  decodeIdentity,
+} from './private-account-identity.js';
+import { requireAuthenticator } from './account-mfa-crypto.js';
 import { randomBytes, randomUUID } from 'node:crypto';
 import { syncMaterialAccount } from './material-alert-store.js';
 import {
@@ -44,6 +50,8 @@ export const STORE = Symbol('ACCOUNT_STORE');
 interface UserRow {
   id: string;
   username: string;
+  username_lookup?: string | null;
+  encrypted_identity?: unknown;
   password_hash: string;
   password_salt: string;
   consent_version: string;
@@ -70,6 +78,12 @@ export class AccountStore {
   private readonly limits = new AccountRateLimit();
   private readonly deletionIpLimits = new AccountRateLimit();
   private readonly deletionOwnerLimits = new AccountRateLimit(5);
+  get privateDataKeys() {
+    return {
+      PRIVATE_DATA_KEYS: this.config.PRIVATE_DATA_KEYS,
+      PRIVATE_DATA_ACTIVE_KEY: this.config.PRIVATE_DATA_ACTIVE_KEY,
+    };
+  }
   constructor(private readonly config: AppConfig) {
     this.pool = new pg.Pool({
       connectionString: config.DATABASE_URL,
@@ -83,6 +97,44 @@ export class AccountStore {
   }
   async onApplicationShutdown() {
     await this.pool.end();
+  }
+  get angelConnectionEnabled() {
+    return !!(
+      this.config.ANGEL_ENABLED &&
+      this.config.ANGEL_API_KEY &&
+      this.config.ANGEL_REDIRECT_URL &&
+      this.config.ANGEL_PERMISSION_REFERENCE &&
+      this.config.ANGEL_CLIENT_LOCAL_IP &&
+      this.config.ANGEL_CLIENT_PUBLIC_IP &&
+      this.config.ANGEL_MAC_ADDRESS
+    );
+  }
+  get upstoxConnectionEnabled() {
+    return !!(
+      this.config.UPSTOX_ENABLED &&
+      this.config.UPSTOX_API_KEY &&
+      this.config.UPSTOX_API_SECRET &&
+      this.config.UPSTOX_REDIRECT_URL &&
+      this.config.UPSTOX_PERMISSION_REFERENCE
+    );
+  }
+  get kiteConnectionEnabled() {
+    return !!(
+      this.config.KITE_ENABLED &&
+      this.config.KITE_API_KEY &&
+      this.config.KITE_API_SECRET &&
+      this.config.KITE_REDIRECT_URL &&
+      this.config.KITE_PERMISSION_REFERENCE
+    );
+  }
+  identityLookup(username: string) {
+    return identityLookup(username, this.config.PRIVATE_IDENTITY_LOOKUP_KEY);
+  }
+  async identityUser(client: pg.PoolClient, username: string) {
+    return client.query<UserRow>(
+      'SELECT * FROM app_users WHERE username_lookup=$2 OR username=$1 FOR UPDATE',
+      [username, this.identityLookup(username)],
+    );
   }
   origin(value?: string) {
     checkOrigin(value, this.config.WEB_ORIGIN);
@@ -110,7 +162,7 @@ export class AccountStore {
       client?.release();
     }
   }
-  private async find(client: pg.PoolClient, cookie?: string) {
+  private async find(client: pg.PoolClient, cookie?: string, decrypt = true) {
     const hash = sessionFromCookie(cookie);
     if (!hash) return null;
     // Transactions can wait on private record locks; expiry uses current time.
@@ -118,7 +170,17 @@ export class AccountStore {
       'SELECT u.* FROM app_users u JOIN app_sessions s ON s.user_id=u.id WHERE s.token_hash=$1 AND s.expires_at > clock_timestamp()',
       [hash],
     );
-    return result.rows[0] ?? null;
+    const row = result.rows[0];
+    return row
+      ? decrypt
+        ? decodeIdentity(
+            client,
+            row,
+            this.privateDataKeys,
+            this.config.PRIVATE_IDENTITY_LOOKUP_KEY,
+          )
+        : row
+      : null;
   }
   async require(client: pg.PoolClient, cookie?: string) {
     const found = await this.find(client, cookie);
@@ -154,15 +216,31 @@ export class AccountStore {
     const salt = newSalt();
     const passwordHash = await derivePassword(input.password, salt);
     return this.transaction(async (c) => {
+      const lookup = this.identityLookup(input.username),
+        id = randomUUID();
+      await c.query('SELECT pg_advisory_xact_lock(hashtextextended($1,0))', [
+        lookup,
+      ]);
+      if ((await this.identityUser(c, input.username)).rowCount)
+        throw new BadRequestException(
+          'Username unavailable. Choose another username.',
+        );
       const result = await c.query<UserRow>(
-        'INSERT INTO app_users(id,username,password_hash,password_salt) VALUES ($1,$2,$3,$4) ON CONFLICT(username) DO NOTHING RETURNING *',
-        [randomUUID(), input.username, passwordHash, salt],
+        'INSERT INTO app_users(id,username_lookup,encrypted_identity,password_hash,password_salt) VALUES ($1,$2,$3,$4,$5) ON CONFLICT(username_lookup) DO NOTHING RETURNING *',
+        [
+          id,
+          lookup,
+          encryptIdentity(id, input.username, this.privateDataKeys),
+          passwordHash,
+          salt,
+        ],
       );
       const row = result.rows[0];
       if (!row)
         throw new BadRequestException(
           'Username unavailable. Choose another username.',
         );
+      row.username = input.username;
       await c.query('INSERT INTO app_watchlists(user_id) VALUES ($1)', [
         row.id,
       ]);
@@ -175,9 +253,16 @@ export class AccountStore {
     // The attempt counter commits separately so a failed login cannot roll it back.
     await this.transaction(async (c) => {
       await c.query('DELETE FROM app_login_limits WHERE reset_at <= now()');
+      await c.query(
+        'INSERT INTO app_login_limits(username,attempts,reset_at) SELECT $2,attempts,reset_at FROM app_login_limits WHERE username=$1 ON CONFLICT(username) DO UPDATE SET attempts=app_login_limits.attempts+excluded.attempts,reset_at=GREATEST(app_login_limits.reset_at,excluded.reset_at)',
+        [input.username, this.identityLookup(input.username)],
+      );
+      await c.query('DELETE FROM app_login_limits WHERE username=$1', [
+        input.username,
+      ]);
       const result = await c.query<{ attempts: number }>(
         "INSERT INTO app_login_limits(username,attempts,reset_at) VALUES ($1,1,now() + interval '15 minutes') ON CONFLICT(username) DO UPDATE SET attempts=app_login_limits.attempts+1 RETURNING attempts",
-        [input.username],
+        [this.identityLookup(input.username)],
       );
       if ((result.rows[0]?.attempts ?? 99) > 5)
         throw new HttpException(
@@ -186,10 +271,7 @@ export class AccountStore {
         );
     });
     return this.transaction(async (c) => {
-      const result = await c.query<UserRow>(
-        'SELECT * FROM app_users WHERE username=$1 FOR UPDATE',
-        [input.username],
-      );
+      const result = await this.identityUser(c, input.username);
       const row = result.rows[0];
       const computed = await derivePassword(
         input.password,
@@ -197,8 +279,15 @@ export class AccountStore {
       );
       if (!row || !matchesPassword(computed, row.password_hash))
         throw new UnauthorizedException('Username or password is incorrect.');
+      await requireAuthenticator(c, row.id, input.code, this.privateDataKeys);
+      await decodeIdentity(
+        c,
+        row,
+        this.privateDataKeys,
+        this.config.PRIVATE_IDENTITY_LOOKUP_KEY,
+      );
       await c.query('DELETE FROM app_login_limits WHERE username=$1', [
-        input.username,
+        this.identityLookup(input.username),
       ]);
       return { account: user(row), token: await this.issue(c, row.id) };
     });
@@ -308,11 +397,15 @@ export class AccountStore {
     this.deletionIpLimits.consume(ip);
     const input = parse(DeleteAccountSchema, body);
     return this.transaction(async (c) => {
-      const owner = await this.require(c, cookie);
+      const owner = await this.find(c, cookie, false);
+      if (!owner)
+        throw new UnauthorizedException('Sign in to access your account.');
       await c.query('SELECT id FROM app_users WHERE id=$1 FOR UPDATE', [
         owner.id,
       ]);
-      const account = await this.require(c, cookie);
+      const account = await this.find(c, cookie, false);
+      if (!account)
+        throw new UnauthorizedException('Sign in to access your account.');
       // In-memory attempts survive a failed password transaction.
       this.deletionOwnerLimits.consume(account.id);
       const computed = await derivePassword(
@@ -325,7 +418,7 @@ export class AccountStore {
         );
       await c.query('DELETE FROM app_users WHERE id=$1', [account.id]);
       await c.query('DELETE FROM app_login_limits WHERE username=$1', [
-        account.username,
+        account.username_lookup ?? account.username,
       ]);
       return { ok: true as const };
     });

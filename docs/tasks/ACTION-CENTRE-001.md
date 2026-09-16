@@ -1,14 +1,16 @@
 # ACTION-CENTRE-001 — Deterministic educational action comparison and suitability constraints
 
-- **Status:** Partial
-- **Implemented / recorded:** Disposal versus no-action calculations, constraints and saved receipts are authored.
-- **Pending:** Buy/rebalance policies and actual tax-lot/transaction-history calculations are missing.
-- **Next action / inputs:** Developer: implement buy/rebalance and verified cost/tax-lot inputs.
+- **Status:** Completed implementation; manual validation pending
+- **Implemented / recorded:** Versioned educational sell/FIFO/buy/rebalance comparisons, materiality and suitability guards, no-action baseline, independently released policy bounds, restricted source-documented disposal tax plus reviewed tax-input fallback, encrypted immutable receipts, API/web/Android-shared/offline workflows and authored tests.
+- **Pending:** User-run gates, migrations064/067/070/071 and configured private keys; physical-device acceptance. Unsupported tax profiles explicitly use reviewed tax assumptions; automatic filing, trade execution and regulated advice are outside this educational scope.
+- **Next action / inputs:** User follows action-plan-completion.md for focused validation. No missing user decision blocks the authored educational workflow.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 See [current delivery summary](current-delivery.md) for the batch-wide distinction between code, missing functionality and validation.
 
 ## Implementation handoff rule
+
+Static review follow-up, 2026-09-15: saved API/offline comparisons now recompute review flags for the rebalance purchase price as well as the primary price, and flag the restricted tax policy after its March2027 review boundary. The immutable historical calculation remains unchanged. Focused API/WEB/OFFLINE1280 assertions and contract date-boundary coverage are authored, not executed. The existing saved-comparison review UI displays these flags; no DB change or dependency is needed. Manual command: `pnpm sdlc "Review all saved action comparison price dates" -- --grep 'E2E-(API|WEB|OFFLINE)-1280'`; use the configured DB/API/web, printed development URL → #action-centre, and report failed ID/project plus saved artifact. No agent format/check/test/build/migration/commit ran.
 
 After each change, update the summary above and the matching [TODO row](../../TODO.md). Keep prompts, detailed scope, remaining work, verification evidence and handoff commands in this file. Follow [task maintenance](README.md); a parent stays partial while a child requirement is missing.
 
@@ -37,3 +39,15 @@ Read AGENTS.md, the task-maintenance guide and this task’s current summary. Wo
 - **Next action:** Developer: implement buy/rebalance and verified cost/tax-lot inputs.
 - **Research/evidence:** See [dated source checks and existing answers](input-research-2026-09-15.md). Source-specific permissions, complete parser layouts and legal classification are not claimed resolved by triage.
 - **Completion boundary:** This updates readiness only, not test passes, live activation or full feature completion. On later pickup, refresh saved evidence and update this record plus the TODO row.
+
+## Completion implementation — 2026-09-15
+
+Author buy/rebalance comparison alongside legacy disposal using immutable existing comparison receipts, actual saved holding/goal versions and explicit target purchase inputs. Exact source lots must reconcile quantity and cost to saved holdings before FIFO disposal; retained acquisition dates/cost/source references are user-supplied evidence, not invented broker facts. Apply whole-portfolio cost concentration, aggregate turnover, funding/settlement/cooldown/loss-capacity and no-action comparison. Do not turn cash spent on purchases into additional goal savings. Preserve API ownership/replay/export/delete and local parity. Legacy receipt reconstruction must remain unchanged.
+
+Primary tax research: Income Tax Department [capital gain overview](https://www.incometaxindia.gov.in/w/capital-gain) describes demat FIFO and special grandfathered costs; [sale of shares](https://www.incometaxindia.gov.in/en/sale-of-shares) describes the listed-security holding period. These do not establish the user's residency, STT eligibility, other gains/losses, surcharge or actual cost basis. The comparison must retain exact lot results and explicit tax/fee input provenance rather than silently calculate a filing liability from incomplete personal facts. Full statutory tax-return computation is not the educational action workflow.
+
+Tests to author cover exact buy funding, two-security rebalance and FIFO cost reconciliation, mismatched/duplicate/future lots, unchanged finances, replay/privacy/export/delete and shared offline results. Root owns action-centre files; governance agent owns independent reviewed policy releases. No deterministic execution.
+
+Detailed implementation and scoped cases: [action-plan completion](../development/action-plan-completion.md). API1280–1282/WEB1280/OFFLINE1280 plus contract goldens are authored, not run.
+
+Current completion boundary: [supported policy, explicit exclusions and manual tests](../development/action-plan-completion.md). Earlier broad missing buy/rebalance/FIFO statements are superseded; no test pass or universal tax filing is claimed.

@@ -1,0 +1,12 @@
+{
+  "fixture": "Reconstructed selected-cell XLSX layout, not original provider file",
+  "sourceUrl": "https://thedocs.worldbank.org/en/doc/74e8be41ceb20fa0da750cda2f6b9e4e-0050012026/related/CMO-Historical-Data-Monthly.xlsx",
+  "originalSha256": "9fdcfa8a2aed9a1bb545a10c1a5ce036c6a0acd4766f450424ca800b4b5a0225",
+  "inspectedOn": "2026-09-15",
+  "sourceUpdatedOn": "2026-09-02",
+  "selectedData": "Monthly Prices BM Copper, BR Gold, BT Silver; January 2000\u2013August 2026; exact lexical values copied; layout reconstructed; other source sheets omitted.",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "terms": "https://www.worldbank.org/ext/en/legal/terms-conditions/datasets",
+  "catalogue": "https://datacatalog.worldbank.org/search/dataset/0038238/commodity-prices-history-and-projections",
+  "attribution": "World Bank: Commodity Prices \u2014 History and Projections (Pink Sheet); original data providers identified in original workbook. Dataset catalogue explicitly CC BY4; applicable third-party exceptions remain subject to metadata review."
+}

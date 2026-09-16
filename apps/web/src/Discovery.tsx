@@ -1,3 +1,6 @@
+import { GdpVintages } from './GdpVintages';
+import { CompanyNewsEvidence } from './CompanyNewsEvidence';
+import { PublicReadingShare } from './PublicReadingShare';
 import { rememberPublicView, clearPublicView } from './eval-lineage-view';
 import { StoryGestureHint } from './StoryGestureHint';
 import './research.css';
@@ -351,6 +354,11 @@ export function Discovery({ explore = false }: { explore?: boolean }) {
               : 'A considered selection of news, ideas and economic context.'}
           </p>
         </div>
+        {!explore && (
+          <a href="#intelligence-briefs">
+            Read the reviewed intelligence brief →
+          </a>
+        )}
         <div className="view-switch" role="group" aria-label="Reading view">
           <button
             aria-pressed={mode === 'scan'}
@@ -1260,6 +1268,12 @@ export function Reader({ id }: { id: string }) {
           )}
         </>
       )}
+      {!withdrawn && item.gdpOriginal && (
+        <GdpVintages period={item.gdpOriginal.period} />
+      )}
+      {!withdrawn && item.companyNews && (
+        <CompanyNewsEvidence proof={item.companyNews} />
+      )}
       <section className="reader-source">
         <span className="eyebrow">CHECK THE BASIS</span>
         <h2>Follow the source.</h2>
@@ -1415,23 +1429,7 @@ export function Reader({ id }: { id: string }) {
                   </button>
                 </>
               )}
-              <button
-                onClick={() => {
-                  void navigator.clipboard
-                    .writeText(window.location.href)
-                    .then(() => {
-                      setNotice('Link copied.');
-                      closeModal();
-                    })
-                    .catch(() =>
-                      setDetailError(
-                        'Could not copy. Use the address bar to copy this link.',
-                      ),
-                    );
-                }}
-              >
-                Copy link
-              </button>
+              {!withdrawn && <PublicReadingShare id={id} />}
               {detailError && <p role="alert">{detailError}</p>}
             </div>
           ) : modal === 'remind' ? (

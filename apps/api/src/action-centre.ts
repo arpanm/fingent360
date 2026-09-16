@@ -1,5 +1,19 @@
+import { decryptHoldingsRows } from './private-holdings.js';
+import { decryptConnectionRows } from './private-connections.js';
+import { decryptGoalRows } from './private-goals.js';
+import {
+  sealPrivateJson,
+  openPrivateJson,
+  privatePayloadNeedsRotation,
+  type PrivateDataKeys,
+} from './private-data-crypto.js';
+import {
+  admitResearchPolicy,
+  releasedResearchPolicies,
+} from './research-governance.js';
 import { createHash } from 'node:crypto';
 import {
+  ServiceUnavailableException,
   BadRequestException,
   Body,
   ConflictException,
@@ -26,6 +40,7 @@ import {
   impactReviewReasons,
   equityTraceWarnings,
   actionPriceBindingCurrent,
+  actionComparisonTimeReview,
   calculateActionCentre,
   type ActionCentreInput,
 } from '@fingent360/contracts';
@@ -38,16 +53,77 @@ function parse<T>(schema: z.ZodType<T>, raw: unknown): T {
     throw new BadRequestException('Review valid explicit comparison inputs.');
   return value.data;
 }
-export async function exportActionCentre(c: pg.PoolClient, userId: string) {
-  const rows = await c.query(
-    'SELECT payload FROM app_action_centre WHERE user_id=$1 AND deleted_at IS NULL ORDER BY created_at,id LIMIT 100',
+type StoredComparison = {
+  id: string;
+  user_id: string;
+  payload: unknown;
+  encrypted_payload: unknown;
+  content_hash: string | null;
+};
+const receiptHash = (value: unknown) =>
+  createHash('sha256').update(JSON.stringify(value)).digest('hex');
+async function storedComparison(
+  c: pg.PoolClient,
+  userId: string,
+  row: StoredComparison,
+  keys: PrivateDataKeys,
+) {
+  if (row.user_id !== userId)
+    throw new ServiceUnavailableException(
+      'Stored comparison ownership could not be verified.',
+    );
+  const receipt = ActionCentreReceiptSchema.parse(
+    row.encrypted_payload === null
+      ? row.payload
+      : openPrivateJson(
+          'action-plan',
+          userId,
+          row.id,
+          row.encrypted_payload,
+          keys,
+        ),
+  );
+  const hash = receiptHash(receipt);
+  if (
+    receipt.id !== row.id ||
+    (row.encrypted_payload !== null && hash !== row.content_hash)
+  )
+    throw new ServiceUnavailableException(
+      'Stored comparison integrity could not be verified.',
+    );
+  if (
+    row.encrypted_payload === null ||
+    privatePayloadNeedsRotation(row.encrypted_payload, keys)
+  ) {
+    const updated = await c.query(
+      'UPDATE app_action_centre SET payload=NULL,encrypted_payload=$3,content_hash=$4 WHERE user_id=$1 AND id=$2 AND deleted_at IS NULL',
+      [
+        userId,
+        row.id,
+        sealPrivateJson('action-plan', userId, row.id, receipt, keys),
+        hash,
+      ],
+    );
+    if (updated.rowCount !== 1)
+      throw new ServiceUnavailableException(
+        'Stored comparison could not be secured.',
+      );
+  }
+  return receipt;
+}
+export async function exportActionCentre(
+  c: pg.PoolClient,
+  userId: string,
+  keys: PrivateDataKeys,
+) {
+  const rows = await c.query<StoredComparison>(
+    'SELECT id,user_id,payload,encrypted_payload,content_hash FROM app_action_centre WHERE user_id=$1 AND deleted_at IS NULL ORDER BY created_at,id LIMIT 100 FOR UPDATE',
     [userId],
   );
-  return {
-    assessments: rows.rows.map((row) =>
-      ActionCentreReceiptSchema.parse(row.payload),
-    ),
-  };
+  const assessments = [];
+  for (const row of rows.rows)
+    assessments.push(await storedComparison(c, userId, row, keys));
+  return { assessments };
 }
 @Controller('account/action-centre')
 export class ActionCentreController {
@@ -62,13 +138,20 @@ export class ActionCentreController {
   }
   private async finances(c: pg.PoolClient, userId: string) {
     const holdings = await c.query(
-      'SELECT r.payload FROM app_holdings h JOIN app_holdings_revisions r ON r.user_id=h.user_id AND r.version=h.version WHERE h.user_id=$1',
+      'SELECT r.user_id,r.version,r.payload,r.encrypted_payload FROM app_holdings h JOIN app_holdings_revisions r ON r.user_id=h.user_id AND r.version=h.version WHERE h.user_id=$1',
       [userId],
+    );
+    await decryptHoldingsRows(
+      c,
+      userId,
+      holdings.rows,
+      this.store.privateDataKeys,
     );
     const goals = await c.query(
-      'SELECT r.payload FROM app_goals g JOIN app_goal_revisions r ON r.goal_id=g.id AND r.version=g.version WHERE g.user_id=$1 AND g.deleted_at IS NULL ORDER BY g.id',
+      'SELECT r.goal_id,r.version,r.payload,r.encrypted_payload FROM app_goals g JOIN app_goal_revisions r ON r.goal_id=g.id AND r.version=g.version WHERE g.user_id=$1 AND g.deleted_at IS NULL ORDER BY g.id',
       [userId],
     );
+    await decryptGoalRows(c, userId, goals.rows, this.store.privateDataKeys);
     return {
       holdings: HoldingsSnapshotSchema.parse(
         holdings.rows[0]?.payload ?? {
@@ -104,13 +187,20 @@ export class ActionCentreController {
   ) {
     if (!input.traceId) return { trace: null, warnings: [] as string[] };
     const rows = await c.query(
-      'SELECT payload FROM app_impact_traces WHERE user_id=$1 AND id=$2 AND deleted_at IS NULL',
+      'SELECT * FROM app_impact_traces WHERE user_id=$1 AND id=$2 AND deleted_at IS NULL',
       [userId, input.traceId],
     );
     if (!rows.rows[0])
       throw new ConflictException(
         'Selected private trace is unavailable. Choose current context.',
       );
+    await decryptConnectionRows(
+      c,
+      'impact-trace',
+      userId,
+      rows.rows,
+      this.store.privateDataKeys,
+    );
     const trace = ImpactTraceReceiptSchema.parse(rows.rows[0].payload);
     if (trace.input.isin !== input.isin || trace.input.goalId !== input.goalId)
       throw new BadRequestException(
@@ -146,15 +236,24 @@ export class ActionCentreController {
       const user = await this.owner(c, cookie);
       const finances = await this.finances(c, user.id);
       const traces = await c.query(
-        'SELECT payload FROM app_impact_traces WHERE user_id=$1 AND deleted_at IS NULL ORDER BY created_at DESC,id LIMIT 100',
+        'SELECT * FROM app_impact_traces WHERE user_id=$1 AND deleted_at IS NULL ORDER BY created_at DESC,id LIMIT 100',
         [user.id],
       );
+      await decryptConnectionRows(
+        c,
+        'impact-trace',
+        user.id,
+        traces.rows,
+        this.store.privateDataKeys,
+      );
+      const researchPolicies = await releasedResearchPolicies(c, this.events);
       await this.store.require(c, cookie);
       return ActionCentreChoicesSchema.parse({
         ...finances,
         traces: traces.rows.map((row) =>
           ImpactTraceReceiptSchema.parse(row.payload),
         ),
+        researchPolicies,
         bundleGeneratedAt: null,
       });
     });
@@ -162,7 +261,11 @@ export class ActionCentreController {
   @Get() list(@Headers('cookie') cookie?: string) {
     return this.store.transaction(async (c) => {
       const user = await this.owner(c, cookie),
-        saved = await exportActionCentre(c, user.id),
+        saved = await exportActionCentre(
+          c,
+          user.id,
+          this.store.privateDataKeys,
+        ),
         finances = await this.finances(c, user.id),
         assessments = [];
       for (const receipt of saved.assessments) {
@@ -195,15 +298,40 @@ export class ActionCentreController {
           reasons.push(
             'The bound published price is withdrawn or unavailable.',
           );
-        if (
-          Date.now() - Date.parse(receipt.input.price.asOf + 'T00:00:00Z') >
-          7 * 86400000
-        )
-          reasons.push('Price is beyond the seven-day review window.');
+        reasons.push(
+          ...actionComparisonTimeReview(
+            receipt.input,
+            new Date().toISOString(),
+          ),
+        );
         reasons.push(
           ...(context?.warnings ?? []),
           ...equityTraceWarnings(equity),
         );
+        if (receipt.input.researchPolicy) {
+          try {
+            const policy = await admitResearchPolicy(
+              c,
+              receipt.input.researchPolicy,
+              this.events,
+            );
+            if (
+              JSON.stringify(policy) !== JSON.stringify(receipt.researchPolicy)
+            )
+              reasons.push(
+                'The released policy snapshot differs. Review a new comparison.',
+              );
+          } catch (error) {
+            if (!(
+              error instanceof ConflictException ||
+              error instanceof BadRequestException
+            ))
+              throw error;
+            reasons.push(
+              'Released policy was withdrawn, superseded, expired or lost source admission.',
+            );
+          }
+        }
         assessments.push({ receipt, reviewReasons: [...new Set(reasons)] });
       }
       await this.store.require(c, cookie);
@@ -225,7 +353,7 @@ export class ActionCentreController {
     return this.store.transaction(async (c) => {
       const user = await this.owner(c, cookie),
         previous = await c.query(
-          'SELECT fingerprint,payload,deleted_at FROM app_action_centre WHERE user_id=$1 AND id=$2',
+          'SELECT id,user_id,fingerprint,payload,encrypted_payload,content_hash,deleted_at FROM app_action_centre WHERE user_id=$1 AND id=$2 FOR UPDATE',
           [user.id, id],
         );
       if (previous.rows[0]) {
@@ -235,7 +363,12 @@ export class ActionCentreController {
           );
         if (previous.rows[0].deleted_at)
           throw new GoneException('Comparison deleted. Start a new review.');
-        return ActionCentreReceiptSchema.parse(previous.rows[0].payload);
+        return storedComparison(
+          c,
+          user.id,
+          previous.rows[0],
+          this.store.privateDataKeys,
+        );
       }
       const count = await c.query(
         'SELECT count(*)::integer AS n FROM app_action_centre WHERE user_id=$1 AND deleted_at IS NULL',
@@ -257,13 +390,20 @@ export class ActionCentreController {
         throw new ConflictException(
           'Published price receipt changed or was withdrawn. Review a current price.',
         );
+      const researchPolicy = input.researchPolicy
+        ? await admitResearchPolicy(c, input.researchPolicy, this.events)
+        : undefined;
       const now = new Date().toISOString();
       let result;
       try {
-        result = calculateActionCentre(input, finances.holdings, goal, now, [
-          ...context.warnings,
-          ...equityTraceWarnings(equity),
-        ]);
+        result = calculateActionCentre(
+          input,
+          finances.holdings,
+          goal,
+          now,
+          [...context.warnings, ...equityTraceWarnings(equity)],
+          researchPolicy,
+        );
       } catch (e) {
         throw new ConflictException(
           e instanceof Error
@@ -274,19 +414,34 @@ export class ActionCentreController {
       const receipt = ActionCentreReceiptSchema.parse({
         id,
         createdAt: now,
-        policy: 'proposed-disposal-education-v1',
+        policy: input.plan
+          ? 'proposed-trades-education-v2'
+          : 'proposed-disposal-education-v1',
         input,
         holdings: finances.holdings,
         goal,
         trace: context.trace,
         equity,
+        ...(researchPolicy ? { researchPolicy } : {}),
         contextWarnings: [...context.warnings, ...equityTraceWarnings(equity)],
         result,
       });
       await this.store.require(c, cookie);
       await c.query(
-        'INSERT INTO app_action_centre(user_id,id,fingerprint,payload) VALUES($1,$2,$3,$4)',
-        [user.id, id, fingerprint, receipt],
+        'INSERT INTO app_action_centre(user_id,id,fingerprint,encrypted_payload,content_hash) VALUES($1,$2,$3,$4,$5)',
+        [
+          user.id,
+          id,
+          fingerprint,
+          sealPrivateJson(
+            'action-plan',
+            user.id,
+            id,
+            receipt,
+            this.store.privateDataKeys,
+          ),
+          receiptHash(receipt),
+        ],
       );
       return receipt;
     });
@@ -301,7 +456,7 @@ export class ActionCentreController {
     return this.store.transaction(async (c) => {
       const user = await this.owner(c, cookie);
       const result = await c.query(
-        'UPDATE app_action_centre SET payload=NULL,deleted_at=clock_timestamp() WHERE user_id=$1 AND id=$2 AND deleted_at IS NULL RETURNING id',
+        'UPDATE app_action_centre SET payload=NULL,encrypted_payload=NULL,deleted_at=clock_timestamp() WHERE user_id=$1 AND id=$2 AND deleted_at IS NULL RETURNING id',
         [user.id, id],
       );
       if (!result.rows.length) {

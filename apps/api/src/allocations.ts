@@ -1,4 +1,11 @@
 import {
+  decryptAllocationRows,
+  encryptAllocation,
+} from './private-allocations.js';
+import { decryptHoldingsRows } from './private-holdings.js';
+import { decryptGoalRows } from './private-goals.js';
+import type { PrivateDataKeys } from './private-data-crypto.js';
+import {
   BadRequestException,
   Body,
   ConflictException,
@@ -20,19 +27,26 @@ import {
   makeAllocation,
 } from '@fingent360/contracts';
 import { AccountStore, STORE } from './accounts.js';
-async function context(c: pg.PoolClient, userId: string) {
+async function context(
+  c: pg.PoolClient,
+  userId: string,
+  keys: PrivateDataKeys,
+) {
   const holdings = await c.query(
-    'SELECT r.payload FROM app_holdings h JOIN app_holdings_revisions r ON r.user_id=h.user_id AND r.version=h.version WHERE h.user_id=$1',
+    'SELECT r.user_id,r.version,r.payload,r.encrypted_payload FROM app_holdings h JOIN app_holdings_revisions r ON r.user_id=h.user_id AND r.version=h.version WHERE h.user_id=$1',
     [userId],
   );
+  await decryptHoldingsRows(c, userId, holdings.rows, keys);
   const goals = await c.query(
-    'SELECT r.payload FROM app_goals g JOIN app_goal_revisions r ON r.goal_id=g.id AND r.version=g.version WHERE g.user_id=$1 AND g.deleted_at IS NULL ORDER BY g.created_at,g.id',
+    'SELECT r.goal_id,r.version,r.payload,r.encrypted_payload FROM app_goals g JOIN app_goal_revisions r ON r.goal_id=g.id AND r.version=g.version WHERE g.user_id=$1 AND g.deleted_at IS NULL ORDER BY g.created_at,g.id',
     [userId],
   );
+  await decryptGoalRows(c, userId, goals.rows, keys);
   const saved = await c.query(
-    'SELECT r.payload FROM app_goal_allocations a JOIN app_goal_allocation_revisions r ON r.user_id=a.user_id AND r.version=a.version WHERE a.user_id=$1',
+    'SELECT r.user_id,r.version,r.payload,r.encrypted_payload FROM app_goal_allocations a JOIN app_goal_allocation_revisions r ON r.user_id=a.user_id AND r.version=a.version WHERE a.user_id=$1',
     [userId],
   );
+  await decryptAllocationRows(c, userId, saved.rows, keys);
   return {
     holdings: HoldingsSnapshotSchema.parse(
       holdings.rows[0]?.payload ?? {
@@ -61,7 +75,7 @@ export class AllocationsController {
         user.id,
       ]);
       await this.store.require(c, cookie);
-      const data = await context(c, user.id);
+      const data = await context(c, user.id, this.store.privateDataKeys);
       return allocationState(data.snapshot, data.holdings, data.goals);
     });
   }
@@ -69,8 +83,14 @@ export class AllocationsController {
     return this.store.transaction(async (c) => {
       const user = await this.store.require(c, cookie);
       const rows = await c.query(
-        'SELECT payload FROM app_goal_allocation_revisions WHERE user_id=$1 ORDER BY version DESC',
+        'SELECT user_id,version,payload,encrypted_payload FROM app_goal_allocation_revisions WHERE user_id=$1 ORDER BY version DESC',
         [user.id],
+      );
+      await decryptAllocationRows(
+        c,
+        user.id,
+        rows.rows,
+        this.store.privateDataKeys,
       );
       return AllocationHistorySchema.parse({
         revisions: rows.rows.map((row) => row.payload),
@@ -95,7 +115,7 @@ export class AllocationsController {
         user.id,
       ]);
       await this.store.require(c, cookie);
-      const data = await context(c, user.id);
+      const data = await context(c, user.id, this.store.privateDataKeys);
       if (
         data.snapshot.version !== input.expectedVersion ||
         data.holdings.version !== input.expectedHoldingsVersion
@@ -130,8 +150,12 @@ export class AllocationsController {
         [user.id, saved.version],
       );
       await c.query(
-        'INSERT INTO app_goal_allocation_revisions(user_id,version,payload) VALUES($1,$2,$3)',
-        [user.id, saved.version, saved],
+        'INSERT INTO app_goal_allocation_revisions(user_id,version,encrypted_payload) VALUES($1,$2,$3)',
+        [
+          user.id,
+          saved.version,
+          encryptAllocation(user.id, saved, this.store.privateDataKeys),
+        ],
       );
       return allocationState(saved, data.holdings, data.goals);
     });

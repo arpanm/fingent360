@@ -1,3 +1,6 @@
+import { CcilYieldsOperations } from './CcilYields';
+import { AmfiHistorySelector } from './AmfiHistorySelector';
+import { SbiPortfolioOperations } from './SbiPortfolioOperations';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   FundNavCaptureSchema,
@@ -24,6 +27,7 @@ export function FundsBondsOperations({
     [permissionReference, setReference] = useState(''),
     [confirmed, setConfirmed] = useState(false),
     [body, setBody] = useState(''),
+    [historyUrl, setHistoryUrl] = useState(''),
     [id, setId] = useState(() => crypto.randomUUID()),
     [reason, setReason] = useState(''),
     [raw, setRaw] = useState<string | null>(null);
@@ -65,10 +69,11 @@ export function FundsBondsOperations({
         requestId: id,
         permissionReference,
         writtenPermissionConfirmed: confirmed,
+        ...(historyUrl.trim() ? { sourceUrl: historyUrl.trim() } : {}),
       };
       if (!fetchSource) {
         FundNavCaptureSchema.parse({ ...metadata, body });
-        parseAmfiNav(body);
+        parseAmfiNav(body, historyUrl.trim() || undefined);
       }
       const receipt = FundNavEditionSchema.parse(
         await request(
@@ -123,12 +128,26 @@ export function FundsBondsOperations({
   }
   return (
     <section className="funds-bonds" aria-label="Fund source operations">
+      <CcilYieldsOperations
+        request={request}
+        {...(onDenied === undefined ? {} : { onDenied })}
+      />
+      <SbiPortfolioOperations
+        request={request}
+        {...(onDenied === undefined ? {} : { onDenied })}
+      />
       <h2>Retain and review AMFI NAV evidence</h2>
       <p>
         AMFI's terms restrict electronic storage and redistribution. Record
         actual written permission covering this deployment before capture.
         Public accessibility alone is insufficient. Named publication requires
         another operator.
+      </p>
+      <p>
+        The current AMFI report includes separate Plan and Option columns. Both
+        current eight-column and legacy six-column files are recognized; missing
+        plan/option stays unknown. AMFI states its old-format download ends 30
+        September 2026. Fetch uses the current report.
       </p>
       {error && (
         <div role="alert">
@@ -171,10 +190,44 @@ export function FundsBondsOperations({
             onChange={(e) => setConfirmed(e.target.checked)}
           />{' '}
           I verified written permission for retention and display in this
-          deployment.
+          deployment, including offline device distribution.
         </label>
+        <AmfiHistorySelector
+          disabled={busy}
+          onChoose={(url) => {
+            setHistoryUrl(url);
+            setId(crypto.randomUUID());
+          }}
+        />
         <label>
-          AMFI NAVAll text file
+          Historical report URL (optional; leave empty for latest NAV)
+          <input
+            type="url"
+            value={historyUrl}
+            onChange={(event) => {
+              setHistoryUrl(event.target.value);
+              setId(crypto.randomUUID());
+            }}
+            placeholder="Paste the official current history download URL"
+          />
+        </label>
+        <p>
+          For history, open{' '}
+          <a
+            href="https://www.amfiindia.com/net-asset-value/nav-download"
+            target="_blank"
+            rel="noreferrer"
+          >
+            AMFI NAV Download
+          </a>
+          , select a published mutual fund and type in the current history form,
+          choose the permitted dates, then paste its report URL. Upload that
+          exact file or fetch it here. All 76 published AMC choices and all
+          scheme types are supported; legacy history is not admitted. A
+          requested range does not establish daily completeness.
+        </p>
+        <label>
+          AMFI NAV text file
           <input
             type="file"
             accept=".txt"
@@ -218,7 +271,8 @@ export function FundsBondsOperations({
       {queue?.editions.map(({ edition, state }) => (
         <article key={edition.id}>
           <h3>
-            {edition.retrievedAt.slice(0, 10)} · {edition.count} schemes
+            {edition.retrievedAt.slice(0, 10)} · {edition.count} dated
+            observations
           </h3>
           <p>
             {state} · {edition.id}

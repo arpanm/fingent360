@@ -78,3 +78,41 @@ export async function fundAccount(request: APIRequestContext) {
     ).status(),
   ).toBe(201);
 }
+
+export async function publishNavV2(request: APIRequestContext) {
+  await loginRetentionOperator(request);
+  const body = await readFile(
+    new URL(
+      '../../../packages/contracts/test/fixtures/amfi-nav-v2.txt',
+      import.meta.url,
+    ),
+    'utf8',
+  );
+  const data = {
+    requestId: randomUUID(),
+    permissionReference:
+      'TEST-SIMULATION generated version2 NAV only; no source licence claimed.',
+    writtenPermissionConfirmed: true,
+    body,
+  };
+  const response = await request.post('/api/v1/ops/funds/import', {
+    headers: retentionHeaders,
+    data,
+  });
+  expect(response.status()).toBe(201);
+  const edition = await response.json();
+  expect(
+    (
+      await request.post('/api/v1/ops/funds/review', {
+        headers: retentionHeaders,
+        data: {
+          requestId: randomUUID(),
+          editionId: data.requestId,
+          decision: 'publish',
+          reason: 'Synthetic current NAV layout reviewed.',
+        },
+      })
+    ).status(),
+  ).toBe(201);
+  return { data, edition };
+}

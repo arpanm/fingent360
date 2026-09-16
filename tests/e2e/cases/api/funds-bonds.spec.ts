@@ -144,3 +144,23 @@ test('E2E-API-1082 missing written permission and malformed NAV remain unpublish
       .funds,
   ).toEqual([]);
 });
+
+test('E2E-API-1084 current AMFI plan/option format retains v2 provenance and searchable distinct schemes @FUNDS-BONDS-001 @TEST-SIMULATION', async ({
+  request,
+}) => {
+  const { publishNavV2 } = await import('../../helpers/funds-bonds');
+  const { edition } = await publishNavV2(request);
+  expect(edition.parser).toBe('amfi-navall-v2');
+  expect(edition.sourceUrl).toBe(
+    'https://portal.amfiindia.com/spages/NAVAll.txt',
+  );
+  const list = await request.get('/api/v1/funds?q=Direct%20Plan');
+  expect(list.status()).toBe(200);
+  expect((await list.json()).funds).toHaveLength(1);
+  const detail = await request.get('/api/v1/funds/900001');
+  expect((await detail.json()).history[0].observation).toMatchObject({
+    plan: 'Direct Plan',
+    option: 'Growth Option',
+    nav: '123.4500',
+  });
+});

@@ -1,6 +1,6 @@
 # LEGACY-FIXTURE-ISOLATION-001 — Isolate legacy test data
 
-- **Status:** Implemented; validation pending
+- **Status:** Completed implementation; validation pending
 - **Implemented / recorded:** - LEGACY-FIXTURE-ISOLATION-001 (DEV-021): Implemented for API070/WEB070/WEB181; verification and commit await user-run SDLC. Detailed Codex prompt: audit legacy tests importing the global Playwright fixture for mutations to configured normal application data. At minimum move stable API070/WEB070 source-registry and WEB181 glossary operations to the existing actual isolated PostgreSQL/MongoDB/API fixture; include related source-registry cases and provider-triggering tests only where needed to
 - **Pending:** User: run the task’s documented validation; implementation is not a test pass.
 - **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.

@@ -1,3 +1,4 @@
+import { FeedbackAccess } from './FeedbackAccess';
 import { currentPublicView } from './eval-lineage-view';
 import { useEffect, useRef, useState } from 'react';
 import {
@@ -690,6 +691,7 @@ export function FeedbackPage() {
                   ).toLocaleString()}{' '}
                   · App {entry.submission.context.appVersion}
                 </p>
+                <FeedbackAccess receipt={entry.receipt} />
                 <p>Destination: {entry.destination || 'Not yet assigned'}</p>
                 {entry.receipt && (
                   <p>

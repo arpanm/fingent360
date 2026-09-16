@@ -1,3 +1,4 @@
+import { setSyntheticScheduleDue } from '../../helpers/private-schedule-fixture';
 import { randomUUID } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { spawn } from 'node:child_process';
@@ -446,10 +447,7 @@ test('E2E-API-763 real schedule worker denies expired purpose and renewal record
       [grantedAt, expiresAt, schedulePurpose],
     );
     const due = new Date(Date.now() - 86400000).toISOString();
-    await pool.query(
-      "UPDATE report_schedules SET next_due_at=$2::text::timestamptz,payload=jsonb_set(payload,'{nextDueAt}',to_jsonb($2::text)) WHERE id=$1",
-      [id, due],
-    );
+    await setSyntheticScheduleDue(pool, feedbackSandbox, id, due);
     await runWorker(feedbackSandbox);
     expect(
       (await pool.query('SELECT payload FROM report_schedule_occurrences'))
@@ -475,16 +473,12 @@ test('E2E-API-763 real schedule worker denies expired purpose and renewal record
     ).toEqual([]);
     expect(
       (
-        await pool.query(
-          'SELECT payload FROM report_schedule_editions WHERE schedule_id=$1',
-          [id],
-        )
-      ).rows[0].payload,
+        await (
+          await request.get('/api/v1/account/report-schedules/export')
+        ).json()
+      ).editions[0],
     ).toEqual(original.schedule);
-    await pool.query(
-      "UPDATE report_schedules SET next_due_at=$2::text::timestamptz,payload=jsonb_set(payload,'{nextDueAt}',to_jsonb($2::text)) WHERE id=$1",
-      [id, due],
-    );
+    await setSyntheticScheduleDue(pool, feedbackSandbox, id, due);
     await runWorker(feedbackSandbox);
     expect(
       (await pool.query('SELECT id FROM record_report_jobs')).rows,
@@ -682,10 +676,7 @@ test('E2E-API-768 actual schedule source-record wait followed by purpose expiry 
   let pending: Promise<void> | undefined;
   try {
     const due = new Date(Date.now() - 86400000).toISOString();
-    await pool.query(
-      "UPDATE report_schedules SET next_due_at=$2::text::timestamptz,payload=jsonb_set(payload,'{nextDueAt}',to_jsonb($2::text)) WHERE id=$1",
-      [id, due],
-    );
+    await setSyntheticScheduleDue(pool, feedbackSandbox, id, due);
     await pool.query('BEGIN');
     await pool.query('LOCK TABLE app_goal_revisions IN ACCESS EXCLUSIVE MODE');
     const pid = Number(
@@ -695,7 +686,7 @@ test('E2E-API-768 actual schedule source-record wait followed by purpose expiry 
     pending.catch(() => {});
     await waitForQueryBlocked(
       observer,
-      'SELECT r.payload FROM app_goals g JOIN app_goal_revisions r ON r.goal_id=g.id AND r.version=g.version WHERE g.user_id=$1 AND g.deleted_at IS NULL ORDER BY g.id',
+      'SELECT r.goal_id,r.version,r.payload,r.encrypted_payload FROM app_goals g JOIN app_goal_revisions r ON r.goal_id=g.id AND r.version=g.version WHERE g.user_id=$1 AND g.deleted_at IS NULL ORDER BY g.id',
       [pid],
     );
     // Test-only clock-state fault is independent of the held account lock.
@@ -810,6 +801,7 @@ test('E2E-API-767 actual controller dispatch admission blocks revoked sharing an
         cookie: `f360_session=${cookie.value}`,
         hold,
         holdBeforeDispatch,
+        privateDataKeys: feedbackSandbox.privateDataKeys,
       }) + '\n',
     );
     let released = false;

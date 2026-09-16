@@ -2,8 +2,11 @@
  <uses-permission android:name="android.permission.INTERNET" />
  <uses-permission android:name="android.permission.RECORD_AUDIO" />
  <application android:theme="@style/AppTheme" android:label="Fingent360" android:icon="@drawable/ic_launcher" android:roundIcon="@drawable/ic_launcher" android:allowBackup="false" android:fullBackupContent="false" android:usesCleartextTraffic="false" android:supportsRtl="true">
- <activity android:name=".MainActivity" android:exported="true" android:windowSoftInputMode="adjustResize" android:configChanges="orientation|screenSize|keyboardHidden" android:enableOnBackInvokedCallback="true">
+ <activity android:name=".MainActivity" android:launchMode="singleTask" android:exported="true" android:windowSoftInputMode="adjustResize" android:configChanges="orientation|screenSize|keyboardHidden" android:enableOnBackInvokedCallback="true">
  <intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter>
+ <intent-filter><action android:name="android.intent.action.VIEW"/><category android:name="android.intent.category.DEFAULT"/><category android:name="android.intent.category.BROWSABLE"/><data android:scheme="fingent360" android:host="broker-kite"/></intent-filter>
+ <intent-filter><action android:name="android.intent.action.VIEW"/><category android:name="android.intent.category.DEFAULT"/><category android:name="android.intent.category.BROWSABLE"/><data android:scheme="fingent360" android:host="broker-upstox"/></intent-filter>
+ <intent-filter><action android:name="android.intent.action.VIEW"/><category android:name="android.intent.category.DEFAULT"/><category android:name="android.intent.category.BROWSABLE"/><data android:scheme="fingent360" android:host="broker-angel"/></intent-filter>
  </activity>
  </application>
 </manifest>

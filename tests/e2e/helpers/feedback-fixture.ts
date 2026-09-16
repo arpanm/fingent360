@@ -3,6 +3,11 @@ import { test as base, expect, type Locator } from '@playwright/test';
 
 export interface FeedbackSandbox {
   apiOrigin: string;
+  privateDataKeys: {
+    PRIVATE_IDENTITY_LOOKUP_KEY: string;
+    PRIVATE_DATA_KEYS: string;
+    PRIVATE_DATA_ACTIVE_KEY: string;
+  };
   databaseUrl: string;
   schema: string;
   runtimeDatabaseUrl?: string;
@@ -14,13 +19,41 @@ export const test = base.extend<{
   manualWorkers: boolean;
   leastPrivilege: boolean;
   namedOperators: boolean;
+  whatsappSimulation: boolean;
+  indiaGdpArchiveSimulation: boolean;
+  regulatorySimulation: boolean;
+  ccilSimulation: boolean;
+  ccilZeroSimulation: boolean;
+  kiteSimulation: boolean;
+  upstoxSimulation: boolean;
+  angelSimulation: boolean;
 }>({
   manualWorkers: [false, { option: true }],
   leastPrivilege: [false, { option: true }],
   namedOperators: [false, { option: true }],
+  whatsappSimulation: [false, { option: true }],
+  indiaGdpArchiveSimulation: [false, { option: true }],
+  regulatorySimulation: [false, { option: true }],
+  ccilSimulation: [false, { option: true }],
+  ccilZeroSimulation: [false, { option: true }],
+  kiteSimulation: [false, { option: true }],
+  upstoxSimulation: [false, { option: true }],
+  angelSimulation: [false, { option: true }],
   feedbackSandbox: [
     async (
-      { manualWorkers, leastPrivilege, namedOperators },
+      {
+        manualWorkers,
+        leastPrivilege,
+        namedOperators,
+        indiaGdpArchiveSimulation,
+        regulatorySimulation,
+        whatsappSimulation,
+        ccilSimulation,
+        ccilZeroSimulation,
+        kiteSimulation,
+        upstoxSimulation,
+        angelSimulation,
+      },
       use,
       testInfo,
     ) => {
@@ -36,6 +69,14 @@ export const test = base.extend<{
             F360_TEST_MANUAL_WORKERS: manualWorkers ? '1' : '0',
             F360_TEST_LEAST_PRIVILEGE: leastPrivilege ? '1' : '0',
             F360_TEST_NAMED_OPERATORS: namedOperators ? '1' : '0',
+            F360_TEST_INDIA_GDP_ARCHIVE: indiaGdpArchiveSimulation ? '1' : '0',
+            F360_TEST_REGULATORY: regulatorySimulation ? '1' : '0',
+            F360_TEST_WHATSAPP: whatsappSimulation ? '1' : '0',
+            F360_TEST_CCIL: ccilSimulation ? '1' : '0',
+            F360_TEST_CCIL_ZERO: ccilZeroSimulation ? '1' : '0',
+            F360_TEST_KITE: kiteSimulation ? '1' : '0',
+            F360_TEST_UPSTOX: upstoxSimulation ? '1' : '0',
+            F360_TEST_ANGEL: angelSimulation ? '1' : '0',
           },
         },
       );

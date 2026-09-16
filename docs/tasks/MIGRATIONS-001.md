@@ -1,6 +1,6 @@
 # MIGRATIONS-001 — Ordered database migrations
 
-- **Status:** Implemented; validation pending
+- **Status:** Completed implementation; validation pending
 - **Implemented / recorded:** - MIGRATIONS-001 (DEV-004): Track applied SQL filenames and checksums under the existing advisory transaction lock. Prompt: bootstrap the ledger using existing idempotent SQL, skip unchanged migrations, reject edited applied migrations and retain atomic rollback. Add regression tests and verify repeat application preserves records. Implemented.
 - **Pending:** User: run the task’s documented validation; implementation is not a test pass.
 - **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.

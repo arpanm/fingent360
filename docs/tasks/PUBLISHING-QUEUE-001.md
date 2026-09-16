@@ -1,6 +1,6 @@
 # PUBLISHING-QUEUE-001 — Paginated publishing review queue
 
-- **Status:** Implemented; validation pending
+- **Status:** Completed implementation; validation pending
 - **Implemented / recorded:** - PUBLISHING-QUEUE-001 (DEV-015): Implemented; user validation and commit pending. Detailed Codex prompt: replace the Operations screen's unbounded rendering of publication heads with a complete paginated review queue over actual stored heads. Preserve the legacy items endpoint for existing clients. Add strict protected source/status/text filters and bounded cursor pages with deterministic order and clear snapshot limitations; validate unknown/repeated fields, mismatched cursors and source l
 - **Pending:** User: run the task’s documented validation; implementation is not a test pass.
 - **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.

@@ -1,6 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import {
   EventListSchema,
+  FedPolicyDraftSchema,
+  InstitutionalFlowDraftSchema,
+  RbiPolicyDraftSchema,
+  BeaGdpDraftSchema,
+  CompanyPackDraftSchema,
+  GovernancePackDraftSchema,
   EventScenarioInputSchema,
   EventScenarioQueueSchema,
   EventScenarioReceiptSchema,
@@ -66,12 +72,32 @@ const definitions: Record<
     fields: [
       ['metric', 'Reported metric', ['revenue', 'profit-after-tax', 'eps']],
       ['basis', 'Company reporting basis', ['consolidated', 'standalone']],
+      [
+        'accountingStandard',
+        'Accounting standard',
+        ['not-specified', 'IFRS', 'Ind-AS'],
+      ],
     ],
   },
   guidance: {
     label: 'Company forward guidance',
     fields: [
-      ['measure', 'Guidance measure', ['revenue-growth', 'margin', 'revenue']],
+      [
+        'measure',
+        'Guidance measure',
+        [
+          'revenue-growth',
+          'margin',
+          'revenue',
+          'revenue-growth-lower-bound',
+          'revenue-growth-upper-bound',
+        ],
+      ],
+      [
+        'growthBasis',
+        'Guidance growth basis',
+        ['not-specified', 'constant-currency', 'reported'],
+      ],
     ],
   },
   regulatory: {
@@ -99,7 +125,7 @@ const definitions: Record<
   flows: {
     label: 'FPI / liquidity flows',
     fields: [
-      ['participant', 'Participant', ['FPI', 'FII', 'DII']],
+      ['participant', 'Participant', ['FPI', 'FII', 'FII/FPI', 'DII']],
       [
         'segment',
         'Flow coverage',
@@ -173,6 +199,260 @@ export function EventScenarioOperations({
   const selectedFor = (key: string, options: string[]) => {
     const available = choicesFor(key, options);
     return available.includes(fields[key] ?? '') ? fields[key]! : available[0]!;
+  };
+  const extractFlows = async () => {
+    if (!selected) return;
+    setBusy(true);
+    setError('');
+    setNotice('');
+    try {
+      const result = InstitutionalFlowDraftSchema.parse(
+          await wire('ops/event-scenarios/flows-draft/' + selected),
+        ),
+        model = result.model;
+      if (
+        model.family !== 'flows' ||
+        event?.event?.version !== result.eventVersion
+      )
+        throw Error('Source event changed. Reload the workspace.');
+      setFamily('flows');
+      setFields({
+        participant: model.participant,
+        segment: model.segment,
+        observed: model.observed.value,
+        period: model.observed.period,
+        observedCitation: String(model.observed.citation),
+        reason:
+          'Exact independently reviewed institutional flow row; reporting and trade dates remain distinct.',
+      });
+      setReferenceKind('none');
+      pending.current = null;
+      setNotice(
+        'Exact scope, participant and reporting basis filled. This observation is not a forecast or portfolio action.',
+      );
+    } catch (cause) {
+      setError(
+        cause instanceof Error ? cause.message : 'Flow extraction unavailable.',
+      );
+    } finally {
+      setBusy(false);
+    }
+  };
+  const extractFed = async (bound: 'lower' | 'upper') => {
+    if (!selected) return;
+    setBusy(true);
+    setError('');
+    setNotice('');
+    try {
+      const result = FedPolicyDraftSchema.parse(
+        await wire('ops/event-scenarios/fed-draft/' + selected),
+      );
+      const model = result[bound];
+      if (model.family !== 'policy-rate')
+        throw Error('Unsupported extracted policy model.');
+      if (event?.event?.version !== result.eventVersion)
+        throw Error('Source event changed. Reload the workspace.');
+      setFamily('policy-rate');
+      setFields({
+        authority: model.authority,
+        measure: model.measure,
+        observed: model.observed.value,
+        period: model.observed.period,
+        observedCitation: String(model.observed.citation),
+        reference: model.reference?.value ?? '',
+        referencePeriod: model.reference?.period ?? '',
+        referenceCitation: String(model.reference?.citation ?? 0),
+        reason:
+          'Reviewed official FOMC target-range extraction; exact quarter-fraction conversion.',
+      });
+      setReferenceKind(model.reference?.kind ?? 'none');
+      pending.current = null;
+      setNotice(
+        'Official FOMC values filled from the retained excerpts. Review the source, bound and dates before saving.',
+      );
+    } catch (error) {
+      setError(
+        error instanceof Error ? error.message : 'FOMC extraction unavailable.',
+      );
+    } finally {
+      setBusy(false);
+    }
+  };
+  const extractRbi = async () => {
+    if (!selected) return;
+    setBusy(true);
+    setError('');
+    setNotice('');
+    try {
+      const result = RbiPolicyDraftSchema.parse(
+        await wire('ops/event-scenarios/rbi-draft/' + selected),
+      );
+      const model = result.model;
+      if (
+        model.family !== 'policy-rate' ||
+        event?.event?.version !== result.eventVersion
+      )
+        throw Error('Source event changed. Reload the workspace.');
+      setFamily('policy-rate');
+      setFields({
+        authority: model.authority,
+        measure: model.measure,
+        observed: model.observed.value,
+        period: model.observed.period,
+        observedCitation: String(model.observed.citation),
+        reference: model.reference?.value ?? '',
+        referencePeriod: model.reference?.period ?? '',
+        referenceCitation: String(model.reference?.citation ?? 0),
+        reason:
+          'Original RBI circular repo from/to comparison; date only, no consensus surprise.',
+      });
+      setReferenceKind(model.reference?.kind ?? 'none');
+      pending.current = null;
+      setNotice(
+        'RBI repo values filled from the retained circular. Review the source and release date before saving.',
+      );
+    } catch (error) {
+      setError(
+        error instanceof Error ? error.message : 'RBI extraction unavailable.',
+      );
+    } finally {
+      setBusy(false);
+    }
+  };
+  const extractBea = async () => {
+    if (!selected) return;
+    setBusy(true);
+    setError('');
+    setNotice('');
+    try {
+      const result = BeaGdpDraftSchema.parse(
+        await wire('ops/event-scenarios/bea-draft/' + selected),
+      );
+      const model = result.model;
+      if (
+        model.family !== 'gdp' ||
+        event?.event?.version !== result.eventVersion
+      )
+        throw Error('Source event changed. Reload the workspace.');
+      setFamily('gdp');
+      setFields({
+        basis: model.basis,
+        vintage: model.vintage,
+        observed: model.observed.value,
+        period: model.observed.period,
+        observedCitation: String(model.observed.citation),
+        reference: model.reference?.value ?? '',
+        referencePeriod: model.reference?.period ?? '',
+        referenceCitation: String(model.reference?.citation ?? 0),
+        reason:
+          'Original BEA same-quarter real annualized GDP vintage comparison; not a surprise.',
+      });
+      setReferenceKind(model.reference?.kind ?? 'none');
+      pending.current = null;
+      setNotice(
+        'BEA GDP vintages filled from the original retained releases. Review the quarter, basis and dates before saving.',
+      );
+    } catch (error) {
+      setError(
+        error instanceof Error ? error.message : 'GDP extraction unavailable.',
+      );
+    } finally {
+      setBusy(false);
+    }
+  };
+  const extractCompany = async (
+    kind: 'earnings' | 'guidanceLower' | 'guidanceUpper',
+  ) => {
+    if (!selected) return;
+    setBusy(true);
+    setError('');
+    setNotice('');
+    try {
+      const result = CompanyPackDraftSchema.parse(
+          await wire('ops/event-scenarios/company-draft/' + selected),
+        ),
+        model = result[kind];
+      if (
+        (model.family !== 'earnings' && model.family !== 'guidance') ||
+        event?.event?.version !== result.eventVersion
+      )
+        throw Error('Source event changed. Reload the workspace.');
+      setFamily(model.family);
+      setFields({
+        isin: model.isin,
+        unit: model.unit,
+        observed: model.observed.value,
+        period: model.observed.period,
+        observedCitation: String(model.observed.citation),
+        reference: model.reference?.value ?? '',
+        referencePeriod: model.reference?.period ?? '',
+        referenceCitation: String(model.reference?.citation ?? 0),
+        reason:
+          'Original issuer reported quarter and forward guidance remain distinct.',
+        ...(model.family === 'earnings'
+          ? {
+              metric: model.metric,
+              basis: model.basis,
+              accountingStandard: model.accountingStandard ?? 'not-specified',
+            }
+          : {
+              measure: model.measure,
+              growthBasis: model.growthBasis ?? 'not-specified',
+            }),
+      });
+      setReferenceKind(model.reference?.kind ?? 'none');
+      pending.current = null;
+      setNotice(
+        'Issuer values filled from separate reported and guided excerpts. Check IFRS, period and guidance bound.',
+      );
+    } catch (cause) {
+      setError(
+        cause instanceof Error
+          ? cause.message
+          : 'Company extraction unavailable.',
+      );
+    } finally {
+      setBusy(false);
+    }
+  };
+  const extractGovernance = async () => {
+    if (!selected) return;
+    setBusy(true);
+    setError('');
+    setNotice('');
+    try {
+      const result = GovernancePackDraftSchema.parse(
+          await wire('ops/event-scenarios/governance-draft/' + selected),
+        ),
+        model = result.model;
+      if (
+        model.family !== 'regulatory' ||
+        event?.event?.version !== result.eventVersion
+      )
+        throw Error('Source event changed. Reload the workspace.');
+      setFamily('regulatory');
+      setFields({
+        authority: model.authority,
+        category: model.category,
+        observedCitation: String(model.citation),
+        interpretation: model.interpretation,
+        reason:
+          'Original FIU-IND bank enforcement subject reviewed; no listed-parent inference.',
+      });
+      setReferenceKind('none');
+      pending.current = null;
+      setNotice(
+        'Original regulator and bank subject filled. No listed-parent or portfolio effect is inferred.',
+      );
+    } catch (cause) {
+      setError(
+        cause instanceof Error
+          ? cause.message
+          : 'Governance extraction unavailable.',
+      );
+    } finally {
+      setBusy(false);
+    }
   };
   const save = async () => {
     if (!event?.event) return;
@@ -351,6 +631,10 @@ export function EventScenarioOperations({
               value={selected}
               onChange={(e) => {
                 setSelected(e.target.value);
+                setSaved(null);
+                setFields({});
+                setReferenceKind('none');
+                setNotice('');
                 pending.current = null;
               }}
             >
@@ -370,6 +654,74 @@ export function EventScenarioOperations({
                 )}
             </select>
           </label>
+          <p>
+            For a reviewed event retaining official FOMC statement range
+            excerpts, extract the latest cited target bound and earlier cited
+            reference. This does not create an event or publish a scenario.
+          </p>
+          <button
+            type="button"
+            disabled={busy || !event?.event}
+            onClick={() => void extractCompany('earnings')}
+          >
+            Extract reported company revenue
+          </button>
+          <button
+            type="button"
+            disabled={busy || !event?.event}
+            onClick={() => void extractCompany('guidanceLower')}
+          >
+            Extract guidance lower bound
+          </button>
+          <button
+            type="button"
+            disabled={busy || !event?.event}
+            onClick={() => void extractCompany('guidanceUpper')}
+          >
+            Extract guidance upper bound
+          </button>
+          <button
+            type="button"
+            disabled={busy || !event?.event}
+            onClick={() => void extractGovernance()}
+          >
+            Extract FIU enforcement context
+          </button>
+          <button
+            type="button"
+            disabled={busy || !event?.event}
+            onClick={() => void extractBea()}
+          >
+            Extract BEA GDP vintages
+          </button>
+          <button
+            type="button"
+            disabled={busy || !event?.event}
+            onClick={() => void extractRbi()}
+          >
+            Extract RBI repo decision
+          </button>
+          <button
+            type="button"
+            disabled={!selected || busy}
+            onClick={() => void extractFlows()}
+          >
+            Extract institutional flow row
+          </button>
+          <button
+            type="button"
+            disabled={!selected || busy}
+            onClick={() => void extractFed('lower')}
+          >
+            Extract FOMC lower bound
+          </button>
+          <button
+            type="button"
+            disabled={!selected || busy}
+            onClick={() => void extractFed('upper')}
+          >
+            Extract FOMC upper bound
+          </button>
           {events?.next && (
             <button
               type="button"
@@ -510,6 +862,11 @@ export function EventScenarioOperations({
                   <option value="none">
                     No reference — no surprise inferred
                   </option>
+                  {family === 'gdp' && (
+                    <option value="prior-vintage">
+                      Earlier estimate of the same quarter
+                    </option>
+                  )}
                   <option value="prior-observation">
                     Sourced prior observation
                   </option>

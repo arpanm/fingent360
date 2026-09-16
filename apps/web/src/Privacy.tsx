@@ -1,4 +1,5 @@
 import { PrivateAiHistory } from './PrivateAiHistory';
+import { MfaSettings } from './MfaSettings';
 import { completeReadingFollowExport } from './reading-follow-export';
 import { completeMaterialExport } from './material-alert-export';
 import { completeConsentExport } from './consent-export';
@@ -165,6 +166,7 @@ export function Privacy() {
       {signedIn && (
         <>
           <RecoverySettings />
+          <MfaSettings />
           <PurposeConsents request={api} />
           <PrivateAiHistory />
           <section className="card" aria-label="Account export">

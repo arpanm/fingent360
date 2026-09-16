@@ -1,3 +1,12 @@
+import {
+  decryptReportJob,
+  encryptReportJob,
+  encryptIssuedReport,
+} from './private-reports.js';
+import type { PrivateDataKeys } from './private-data-crypto.js';
+import { decryptAllocationRows } from './private-allocations.js';
+import { decryptHoldingsRows } from './private-holdings.js';
+import { decryptGoalRows } from './private-goals.js';
 import { randomUUID } from 'node:crypto';
 import {
   Delete,
@@ -67,16 +76,18 @@ function mapJob(row: Record<string, unknown>): ReportJob {
   });
 }
 const selection =
-  'SELECT j.*,r.payload AS report FROM record_report_jobs j LEFT JOIN record_reports r ON r.job_id=j.id';
+  'SELECT j.*,r.payload AS report,r.encrypted_payload AS report_encrypted FROM record_report_jobs j LEFT JOIN record_reports r ON r.job_id=j.id';
 export async function exportRecordReports(
   c: pg.PoolClient,
   userId: string,
+  keys: PrivateDataKeys,
   includeDeletions = true,
 ) {
   const result = await c.query(
     `${selection} WHERE j.user_id=$1 ORDER BY j.requested_at DESC,j.id DESC`,
     [userId],
   );
+  for (const row of result.rows) await decryptReportJob(c, userId, row, keys);
   const removed = includeDeletions
     ? await c.query(
         'SELECT id,deleted_at FROM record_report_deletions WHERE user_id=$1 ORDER BY deleted_at,id',
@@ -102,7 +113,12 @@ export class ReportsStore {
         user.id,
       ]);
       await this.account.require(c, cookie);
-      return exportRecordReports(c, user.id, false);
+      return exportRecordReports(
+        c,
+        user.id,
+        this.account.privateDataKeys,
+        false,
+      );
     });
   }
   async get(id: string, cookie?: string) {
@@ -118,6 +134,12 @@ export class ReportsStore {
         user.id,
       ]);
       if (!r.rows[0]) throw new NotFoundException('Report not found.');
+      await decryptReportJob(
+        c,
+        user.id,
+        r.rows[0],
+        this.account.privateDataKeys,
+      );
       return mapJob(r.rows[0]);
     });
   }
@@ -154,6 +176,12 @@ export class ReportsStore {
       if (old.rows[0]) {
         if (old.rows[0].user_id !== user.id)
           throw new NotFoundException('Report not found.');
+        await decryptReportJob(
+          c,
+          user.id,
+          old.rows[0],
+          this.account.privateDataKeys,
+        );
         if (
           old.rows[0].label !== parsed.data.label ||
           JSON.stringify(
@@ -183,16 +211,34 @@ export class ReportsStore {
           429,
         );
       const goals = await c.query(
-        'SELECT r.payload FROM app_goals g JOIN app_goal_revisions r ON r.goal_id=g.id AND r.version=g.version WHERE g.user_id=$1 AND g.deleted_at IS NULL ORDER BY g.id',
+        'SELECT r.goal_id,r.version,r.payload,r.encrypted_payload FROM app_goals g JOIN app_goal_revisions r ON r.goal_id=g.id AND r.version=g.version WHERE g.user_id=$1 AND g.deleted_at IS NULL ORDER BY g.id',
         [user.id],
+      );
+      await decryptGoalRows(
+        c,
+        user.id,
+        goals.rows,
+        this.account.privateDataKeys,
       );
       const holdings = await c.query(
-        'SELECT r.payload FROM app_holdings h JOIN app_holdings_revisions r ON r.user_id=h.user_id AND r.version=h.version WHERE h.user_id=$1',
+        'SELECT r.user_id,r.version,r.payload,r.encrypted_payload FROM app_holdings h JOIN app_holdings_revisions r ON r.user_id=h.user_id AND r.version=h.version WHERE h.user_id=$1',
         [user.id],
       );
+      await decryptHoldingsRows(
+        c,
+        user.id,
+        holdings.rows,
+        this.account.privateDataKeys,
+      );
       const allocations = await c.query(
-        'SELECT r.payload FROM app_goal_allocations a JOIN app_goal_allocation_revisions r ON r.user_id=a.user_id AND r.version=a.version WHERE a.user_id=$1',
+        'SELECT r.user_id,r.version,r.payload,r.encrypted_payload FROM app_goal_allocations a JOIN app_goal_allocation_revisions r ON r.user_id=a.user_id AND r.version=a.version WHERE a.user_id=$1',
         [user.id],
+      );
+      await decryptAllocationRows(
+        c,
+        user.id,
+        allocations.rows,
+        this.account.privateDataKeys,
       );
       let snapshot = ReportSnapshotSchema.parse({
         capturedAt: new Date().toISOString(),
@@ -207,6 +253,7 @@ export class ReportsStore {
             user.id,
             parsed.data.researchConnections,
             snapshot,
+            this.account.privateDataKeys,
           );
           // Source publication may have held this request past session expiry.
           await this.account.require(c, cookie);
@@ -222,13 +269,24 @@ export class ReportsStore {
         }
       }
       const result = await c.query(
-        'INSERT INTO record_report_jobs(id,user_id,label,snapshot) VALUES($1,$2,$3,$4) RETURNING *',
+        'INSERT INTO record_report_jobs(id,user_id,encrypted_payload) VALUES($1,$2,$3) RETURNING *',
         [
           parsed.data.requestId,
           user.id,
-          parsed.data.label,
-          JSON.stringify(snapshot),
+          encryptReportJob(
+            user.id,
+            parsed.data.requestId,
+            parsed.data.label,
+            snapshot,
+            this.account.privateDataKeys,
+          ),
         ],
+      );
+      await decryptReportJob(
+        c,
+        user.id,
+        result.rows[0],
+        this.account.privateDataKeys,
       );
       return mapJob(result.rows[0]);
     });
@@ -273,6 +331,12 @@ export class ReportsStore {
             ? 'Cancelled before issuance.'
             : 'Retry requested for the original snapshot.',
         ],
+      );
+      await decryptReportJob(
+        c,
+        user.id,
+        result.rows[0],
+        this.account.privateDataKeys,
       );
       return mapJob(result.rows[0]);
     });
@@ -348,6 +412,8 @@ export class ReportsStore {
         id: row.id as string,
         label: row.label as string,
         snapshot: row.snapshot as unknown,
+        rawJob: row,
+        userId: row.user_id as string,
         lease,
       };
     });
@@ -355,7 +421,7 @@ export class ReportsStore {
   async finish(id: string, lease: string, report: RecordReport) {
     return this.account.transaction(async (c) => {
       const row = await c.query(
-        "SELECT id FROM record_report_jobs WHERE id=$1 AND lease_id=$2 AND status='running' FOR UPDATE",
+        "SELECT id,user_id FROM record_report_jobs WHERE id=$1 AND lease_id=$2 AND status='running' FOR UPDATE",
         [id, lease],
       );
       if (!row.rows[0]) return;
@@ -367,8 +433,16 @@ export class ReportsStore {
       );
       if (!validLease.rowCount) return;
       await c.query(
-        'INSERT INTO record_reports(job_id,payload) VALUES($1,$2) ON CONFLICT(job_id) DO NOTHING',
-        [id, JSON.stringify(report)],
+        'INSERT INTO record_reports(job_id,encrypted_payload) VALUES($1,$2) ON CONFLICT(job_id) DO NOTHING',
+        [
+          id,
+          encryptIssuedReport(
+            row.rows[0].user_id,
+            id,
+            report,
+            this.account.privateDataKeys,
+          ),
+        ],
       );
       await c.query(
         "UPDATE record_report_jobs SET status='succeeded',version=version+1,updated_at=now(),lease_id=NULL,lease_until=NULL,next_attempt_at=NULL,message='Your immutable saved-record review is ready.' WHERE id=$1",
@@ -400,13 +474,21 @@ export class ReportsStore {
     const claim = await this.claim();
     if (!claim) return false;
     try {
+      await this.account.transaction((c) =>
+        decryptReportJob(
+          c,
+          claim.userId,
+          claim.rawJob,
+          this.account.privateDataKeys,
+        ),
+      );
       await this.finish(
         claim.id,
         claim.lease,
         issueRecordReport(
           claim.id,
-          claim.label,
-          ReportSnapshotSchema.parse(claim.snapshot),
+          String(claim.rawJob.label),
+          ReportSnapshotSchema.parse(claim.rawJob.snapshot),
           new Date().toISOString(),
         ),
       );

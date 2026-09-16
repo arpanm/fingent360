@@ -75,16 +75,72 @@ test('deletion and sign-in have independent IP budgets with stricter owner limit
   );
 });
 
-test('account deletion enforces the authenticated owner budget before password work', async () => {
+// Synthetic storage fixture: keep the real cookie parser and session admission.
+async function deletionFixture({ revokeAfterLock = false } = {}) {
   const { AccountStore } = await import('../dist/accounts.js');
   const store = new AccountStore({
     DATABASE_URL: 'postgresql://fixture:fixture@127.0.0.1:1/fixture',
   });
+  const token = 'a'.repeat(64);
+  const events = [];
+  const owner = {
+    id: 'owner-fixture',
+    get password_salt() {
+      return assert.fail('Password work must not start before admission');
+    },
+  };
   store.transaction = async (work) =>
-    work({ query: async () => ({ rows: [{ id: 'owner-fixture' }] }) });
-  store.require = async () => ({ id: 'owner-fixture' });
-  for (let i = 0; i < 5; i++)
-    store.deletionOwnerLimits.consume('owner-fixture');
+    work({
+      query: async (sql, values) => {
+        if (sql.startsWith('SELECT u.* FROM app_users u JOIN app_sessions')) {
+          assert.deepEqual(values, [sessionHash(token)]);
+          assert.ok(sql.includes('s.expires_at > clock_timestamp()'));
+          const revoked = revokeAfterLock && events.includes('lock');
+          events.push('session');
+          return { rows: revoked ? [] : [owner] };
+        }
+        assert.equal(sql, 'SELECT id FROM app_users WHERE id=$1 FOR UPDATE');
+        assert.deepEqual(values, [owner.id]);
+        events.push('lock');
+        return { rows: [{ id: owner.id }] };
+      },
+    });
+  return { store, events, owner, cookie: `f360_session=${token}` };
+}
+
+test('account deletion fixture rejects premature password salt access', async () => {
+  const { store, owner } = await deletionFixture();
+  try {
+    assert.throws(() => owner.password_salt, {
+      name: 'AssertionError',
+      code: 'ERR_ASSERTION',
+      message: 'Password work must not start before admission',
+    });
+  } finally {
+    await store.onApplicationShutdown();
+  }
+});
+
+test('account deletion enforces the authenticated owner budget before password work', async () => {
+  const { store, events, owner, cookie } = await deletionFixture();
+  for (let i = 0; i < 5; i++) store.deletionOwnerLimits.consume(owner.id);
+  try {
+    await assert.rejects(
+      store.remove(
+        { password: 'test-only-passphrase-123' },
+        cookie,
+        'fixture-ip',
+      ),
+      (error) => error.getStatus() === 429,
+    );
+    assert.deepEqual(events, ['session', 'lock', 'session']);
+  } finally {
+    await store.onApplicationShutdown();
+  }
+});
+
+test('account deletion rejects malformed cookies before owner or password work', async () => {
+  const { store, events, owner } = await deletionFixture();
   try {
     await assert.rejects(
       store.remove(
@@ -92,8 +148,30 @@ test('account deletion enforces the authenticated owner budget before password w
         'fixture-cookie',
         'fixture-ip',
       ),
-      (error) => error.getStatus() === 429,
+      (error) => error.getStatus() === 401,
     );
+    assert.deepEqual(events, []);
+    for (let i = 0; i < 5; i++) store.deletionOwnerLimits.consume(owner.id);
+  } finally {
+    await store.onApplicationShutdown();
+  }
+});
+
+test('account deletion rechecks the session after locking before owner or password work', async () => {
+  const { store, events, owner, cookie } = await deletionFixture({
+    revokeAfterLock: true,
+  });
+  try {
+    await assert.rejects(
+      store.remove(
+        { password: 'test-only-passphrase-123' },
+        cookie,
+        'fixture-ip',
+      ),
+      (error) => error.getStatus() === 401,
+    );
+    assert.deepEqual(events, ['session', 'lock', 'session']);
+    for (let i = 0; i < 5; i++) store.deletionOwnerLimits.consume(owner.id);
   } finally {
     await store.onApplicationShutdown();
   }

@@ -1,6 +1,6 @@
 # EVENT-LINEAGE-001 — reviewed event merge and split
 
-- **Status:** Implemented; validation pending
+- **Status:** Completed implementation; validation pending
 - **Implemented / recorded:** - Implementation: Implemented; user validation pending. Parents: DEV015/020 retain causal-policy scope; extraction and entity adjudication are tracked as separate children; depends on EVENT-REVIEW-001 and NAMED-OPERATORS-001. Complete event merge/split with exact version-bound lineage, actual evidence and immutable reviews. Researcher selects two to five inputs/one output for merge, or one input/two to five outputs for split. Outputs use explicitly authored editorial text/citations, never inferred synthesis. Preserve originals and issued/private records. Publication atomically admits outputs and records input supersession, with final source/identity/version admission and independent named approval. Cancel/reject leaves public state unchanged. Public details expose safe reviewed replacement links/history/Back; offline retains the same dated relationships without stale or draft body disclosure. Define no-cycle/self-link, bounded membership, replay and concurrent-review rules before code. Migration046 and API/WEB/OFFLINE830–849 reserved. User owns gates/migrations/commit.
 - **Pending:** User: run the task’s documented validation; implementation is not a test pass.
 - **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.

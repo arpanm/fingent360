@@ -1,6 +1,6 @@
 # REGRESSION-014 — provider literal types and named cursor signing
 
-- **Status:** Implemented; validation pending
+- **Status:** Completed implementation; validation pending
 - **Implemented / recorded:** - Implementation: Corrections authored; user verification pending. User confirms formatting/lint/contracts typecheck passed; API typecheck reports widened provider URL literals and internal authorization Symbols passed to HMAC. Explicitly type the three captured provider records against their existing fixed-URL receipt shapes. Keep the internal capability unchanged: audit/publishing cursors use the existing bootstrap secret when available and an independent random server-only controller key in named mode. Never cast/stringify a Symbol into a signing secret. Named cursors reset after API restart; existing reset-page recovery applies. No new configuration, migration or dependency.
 - **Pending:** User: run the task’s documented validation; implementation is not a test pass.
 - **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.

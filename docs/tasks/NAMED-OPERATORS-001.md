@@ -1,6 +1,6 @@
 # NAMED-OPERATORS-001 — identities, permissions and independent publication approval
 
-- **Status:** Implemented; validation pending
+- **Status:** Completed implementation; validation pending
 - **Implemented / recorded:** - Implementation: Implemented; user validation pending. Parents: DEV015/017 retain broader gaps. Explicit named authentication mode with hashed personal operator credentials, role/session version admission, disable/revoke, default-deny server permissions on all operations and legacy protected mutation paths, and two distinct named identities for material publication/source-rights/media decisions. Preserve bootstrap local mode explicitly until named mode is configured. No shared-key bypass under named mode. Version-bound immutable proposals/receipts commit with their approved action, stale-head conflict and self-approval rejection even across two sessions. Add safe user-invoked first-admin setup, migration038, roster/review UI, actual role/lock/replay cases and documentation. Code must enforce controls, not merely hide UI. No agent provisioning or service/test execution.
 - **Pending:** User: run the task’s documented validation; implementation is not a test pass.
 - **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.

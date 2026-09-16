@@ -1,3 +1,8 @@
+import {
+  feedbackReport,
+  auditFeedbackSupportRead,
+  type FeedbackRow,
+} from './feedback.js';
 import { z } from 'zod';
 import {
   BadRequestException,
@@ -26,7 +31,7 @@ export const EVAL_LINEAGE_STORE = Symbol('EVAL_LINEAGE_STORE');
 export class EvalLineageStore {
   private readonly pool: pg.Pool;
   private readonly mongo: MongoClient;
-  constructor(config: AppConfig) {
+  constructor(private readonly config: AppConfig) {
     this.pool = new pg.Pool({
       connectionString: config.DATABASE_URL,
       max: 3,
@@ -90,7 +95,8 @@ export class EvalLineageStore {
   }
   async detail(
     sourceId: string,
-    authorize: () => Promise<unknown> = async () => undefined,
+    authorize: (c?: pg.PoolClient) => Promise<unknown> = async () => undefined,
+    actor?: string,
   ) {
     if (!EvalQuerySchema.safeParse({ sourceId }).success)
       throw new BadRequestException('Invalid source.');
@@ -145,16 +151,22 @@ export class EvalLineageStore {
         'SELECT * FROM evaluation_public_views WHERE source_id=$1 ORDER BY captured_at DESC LIMIT 25',
         [sourceId],
       );
-      const feedback = await c.query<{
-        id: string;
-        status: string;
-        received_at: Date;
-        text: string | null;
-        context: unknown;
-      }>(
-        "SELECT id,status,received_at,text,context FROM feedback_reports WHERE deleted_at IS NULL AND expires_at>now() AND context->'publicView'->'item'->>'id'=$1 ORDER BY received_at DESC LIMIT 25",
+      const feedback = await c.query<FeedbackRow>(
+        'SELECT * FROM feedback_reports WHERE deleted_at IS NULL AND expires_at>clock_timestamp() AND public_source_id=$1 ORDER BY received_at DESC LIMIT 25 FOR SHARE',
         [sourceId],
       );
+      const readableFeedback = [];
+      if (feedback.rows.length && actor) {
+        await auditFeedbackSupportRead(
+          c,
+          feedback.rows.map((row) => row.id),
+          'support:detail',
+          actor,
+          authorize,
+        );
+        for (const row of feedback.rows)
+          readableFeedback.push(feedbackReport(row, this.config));
+      }
       const compositions = await c.query<{
         id: string;
         item: unknown;
@@ -209,7 +221,7 @@ export class EvalLineageStore {
           capturedAt: r.captured_at.toISOString(),
           payload: r.payload,
         })),
-        feedback: feedback.rows.flatMap((r) => {
+        feedback: readableFeedback.flatMap((r) => {
           const context = r.context as { publicView?: unknown } | null;
           const view = PublicViewContextSchema.safeParse(context?.publicView);
           return view.success
@@ -217,7 +229,7 @@ export class EvalLineageStore {
                 {
                   id: r.id,
                   status: r.status,
-                  receivedAt: r.received_at.toISOString(),
+                  receivedAt: r.receivedAt,
                   text: r.text,
                   view: view.data,
                 },
@@ -272,9 +284,10 @@ export class EvalLineageStore {
   }
   async sourceEvidence(
     sourceId: string,
-    authorize: () => Promise<unknown> = async () => undefined,
+    authorize: (c?: pg.PoolClient) => Promise<unknown> = async () => undefined,
+    actor?: string,
   ) {
-    const detail = await this.detail(sourceId, authorize);
+    const detail = await this.detail(sourceId, authorize, actor);
     if (!detail.current) return { available: false, records: [] };
     const c = await this.pool.connect();
     try {
@@ -341,7 +354,13 @@ export class EvalLineageController {
     @Headers('cookie') cookie?: string,
   ) {
     await this.ops.require(cookie);
-    const value = await this.store.detail(id, () => this.ops.require(cookie));
+    await this.ops.permission(cookie, 'administer');
+    const actor = await this.ops.require(cookie);
+    const value = await this.store.detail(
+      id,
+      (c) => this.ops.permission(cookie, 'administer', c),
+      actor,
+    );
     await this.ops.require(cookie);
     return value;
   }
@@ -350,8 +369,12 @@ export class EvalLineageController {
     @Headers('cookie') cookie?: string,
   ) {
     await this.ops.require(cookie);
-    const value = await this.store.sourceEvidence(id, () =>
-      this.ops.require(cookie),
+    await this.ops.permission(cookie, 'administer');
+    const actor = await this.ops.require(cookie);
+    const value = await this.store.sourceEvidence(
+      id,
+      (c) => this.ops.permission(cookie, 'administer', c),
+      actor,
     );
     await this.ops.require(cookie);
     return value;

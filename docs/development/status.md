@@ -1,8 +1,18 @@
 # Current implementation and verification status
 
+## Continued implementation — 2026-09-15
+
+DEV-006 public briefs, DEV-010 educational source-to-goal flow, DEV-015, DEV-016 progressive evidence reading, DEV-017 supported server privacy, SRC-012, ACTION-CENTRE-001/DEV-019 and initial SRC-007/SRC-008/SRC-010/SRC-011/SRC-015 are now implementation-complete for their stated scope. Authored acceptance is API/WEB/OFFLINE1280–1283,1290–1291,1300–1301,1320–1323 and1350 as applicable; see the case catalogue for project-specific IDs. Broader equity/complex-action coverage, complete causal impact policies, AMC look-through variants and bond price/credit sources remain explicitly open. Private-storage lifecycle and simple action/classification support are authored; their manual acceptance remains. Source activation, deployment and manual checks remain distinct. No new gate pass, applied migration, APK or commit is claimed.
+
+Server encryption keys are now required for connected feedback/private financial records/MFA, not only optional AI history. Keep historical keys until all required records and backups have been rewrapped or expired. Registered migrations are listed in apps/api/src/migrate.ts; agents have not applied them. Baseline remains a2c53a0.
+
+## Pickup queue batch — 2026-09-15
+
+[DELIVERY-TEAM-005](../tasks/DELIVERY-TEAM-005.md) records authored source, privacy, monitoring and reader-diagnostic slices with exact functional gaps and manual commands. New additive migrations058,059,061,062 are registered but not applied by agents. No format/check/test/build/provider jobs/service changes/commit or push were run. Baseline HEADa2c53a0; current changes do not inherit any historical pass. The saved check log1789457453614-67049 closes only the older SDLC-REPAIR-005 formatting incident.
+
 ## Current task-status navigation — 2026-09-15
 
-Use [Current delivery](../tasks/current-delivery.md) for the nine-workstream implemented/missing breakdown and [TODO](../../TODO.md) for the task index. Detailed records now live in docs/tasks; seven recent workstreams are partial, two have bounded implementation authored with acceptance pending. The previous TODO was preserved under docs/archive. This documentation reconciliation does not apply migrations, run tests or establish a new commit/pass. Historical entries below retain their original scope.
+Use [Current delivery](../tasks/current-delivery.md) for the nine-workstream implemented/missing breakdown and [TODO](../../TODO.md) for the task index. Detailed records live in docs/tasks; the current-delivery rows separately identify implemented scope and remaining functional gaps. The previous TODO was preserved under docs/archive. This documentation reconciliation does not apply migrations, run tests or establish a new commit/pass. Historical entries below retain their original scope.
 
 ## SDLC-REPAIR-004 — feedback delivery formatting
 
@@ -468,11 +478,11 @@ Historical TEAM-001 run `2026-09-12T16-09-40-894Z-64656`: 51 passed, zero failed
 
 ## Remaining scope
 
-See [full delivery audit](delivery-matrix.md) for all DEV-001–030 and SRC-001–027 parents. Main gaps: verified Indian security master/prices/actions, real portfolio valuation, broader sources and event/company intelligence, durable jobs/reports, complete educational policy and operational/identity hardening. Full PWA/accessibility acceptance remains broader than the minimal offline worker. Advice requires legal/operating-model approval; brokers require actual provider entitlement/consent; later assets/channels and monetization have explicit gates. Many engineering tasks remain implementable independently and must not all be described as externally blocked.
+See [current delivery](../tasks/current-delivery.md) and [TODO](../../TODO.md) for exact authored versus pending scope. Remaining implementation includes verified named broker export formats, BSE/broader exchange and sector/index history, complex corporate-action adjustments, additional industry financial statements, broader AMC disclosures and bond price/credit originals, additional publication calendars/vintages, and any numerical causal forecasts beyond the explicitly qualitative/empirical methods. Source/operating-model permissions, provider/signing configuration, actual deployment and manual validation are separate gates. Do not describe already authored jobs, educational policies, privacy lifecycle or monitoring as unimplemented simply because their validation is pending.
 
 ## Verification rules
 
-A committed change is not proof of tests or user acceptance. Format/check must pass before commit. Default command execution is manual; this session's ongoing UX-002 implementation has explicit parent testing authorization. Handoffs state exactly what ran and did not run, run IDs/cases/targets, migration impact, commit scope and remaining uncommitted work. Do not carry old localhost ports forward: use current launcher output. No automatic push.
+A committed change is not proof of tests or user acceptance. Format/check must pass before commit. Command execution is manual; the latest user instruction leaves format/check/build/migrations/E2E and the gated commit to user-run SDLC. Earlier execution exceptions do not apply. Handoffs state exactly what ran and did not run, run IDs/cases/targets, migration impact, commit scope and remaining uncommitted work. Do not carry old localhost ports forward: use current launcher output. No automatic push.
 
 ## Historical foundation context
 
@@ -485,3 +495,9 @@ LEGACY-FIXTURE-ISOLATION-001 is integrated as authored/unverified work in six fi
 ## SDLC-REPAIR-003 — feedback selection (2026-09-15)
 
 Authored correction for user-reported TS18047 at FeedbackInbox.tsx:114/118: list cards use item context, while selected-report access remains inside the guarded dialog. E2E-WEB-195 adds populated initial rendering and close/reopen saved-status assertions using the existing real API sandbox. No execution or commit performed; parent/user must rerun `pnpm check`. Browser acceptance remains pending: `pnpm e2e:run --grep E2E-WEB-195` with existing E2E prerequisites and app services; use the launcher’s configured web URL. Check keyboard close/reopen and mobile layout separately. On failure report the command, case/project and first error; do not include credentials or private feedback.
+
+Source Operations submission coverage now includes actual form-to-API cases WEB1590–1596: India CPI, institutional flows, positioning, governance, company news, classification and normalization. Source prerequisites remain explicitly synthetic; the mutations and independent named reviewer checks use isolated real storage/API. Static fixes invalidate changed permission attestations, cancel stale file reads on authorization denial, clear changed-company mappings and retain selected governance events across pagination. Manual validation only: `pnpm sdlc "Validate source Operations submissions" -- --grep "E2E-WEB-159[0-6]"`. No execution or broad UI pass is claimed.
+
+SBI archive support now covers verified July/August original URLs with structural section discovery, variable positions, option premiums, tiny-weight bounds and cached-total reconciliation without formula execution (API1533–1534, WEB1531, OFFLINE1531). Old V1 receipts remain reconstructible. NSE identity reconciliation adds paid-up value/market lot, strict row widths and dated symbol/series ambiguity, with independent V2 review and shared reader/offline history (API1580–1581, WEB1580, OFFLINE1580). BSE acquisition and other AMC formats remain explicitly open. Source transport limits now match accepted larger originals at dedicated upload routes; API1630 covers large valid capture and retained generic/domain rejection bounds. All acceptance is authored, not run.
+
+SDLC-REPAIR-012 (2026-09-16): supplied API compiler boundary repairs and regression cases are authored. No validation or commit was performed. See the task record for exact scope and user-run commands; broader feature verification remains pending.

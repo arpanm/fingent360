@@ -1,3 +1,6 @@
+import { AngelConnection } from './AngelConnection';
+import { UpstoxConnection } from './UpstoxConnection';
+import { KiteConnection } from './KiteConnection';
 import { HoldingsChangeReview } from './HoldingsChangeReview';
 import { MappedCsvImport } from './MappedCsvImport';
 import { BrokerImportGuide } from './BrokerImportGuide';
@@ -421,6 +424,38 @@ export function Holdings() {
             Map CSV columns
           </button>
         </div>
+        <KiteConnection
+          expectedVersion={saved?.version ?? 0}
+          disabled={busy || !saved || !currentReady}
+          onPreview={(value) => {
+            setPreview(value);
+            setRemovalConsent(false);
+            setConsent(true);
+            setMessage('Broker capture ready. Review and confirm the changes.');
+          }}
+        />
+        <UpstoxConnection
+          expectedVersion={saved?.version ?? 0}
+          disabled={busy || !saved || !currentReady}
+          onPreview={(value) => {
+            setPreview(value);
+            setRemovalConsent(false);
+            setConsent(true);
+            setMessage('Upstox capture ready. Review and confirm the changes.');
+          }}
+        />
+        <AngelConnection
+          expectedVersion={saved?.version ?? 0}
+          disabled={busy || !saved || !currentReady}
+          onPreview={(value) => {
+            setPreview(value);
+            setRemovalConsent(false);
+            setConsent(true);
+            setMessage(
+              'Angel One capture ready. Review and confirm the changes.',
+            );
+          }}
+        />
         <BrokerImportGuide
           disabled={busy || !saved || !currentReady}
           onMap={() => {

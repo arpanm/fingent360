@@ -1,8 +1,14 @@
+import { CpiExpectations } from './CpiExpectations';
+import { RbiCalendar } from './RbiCalendar';
+import { GdpVintages } from './GdpVintages';
+import { PolicyCalendar } from './PolicyCalendar';
 import { ResearchAutoPublication } from './ResearchAutoPublication';
 import { useEffect, useState } from 'react';
 import {
   ResearchAutoStatusSchema,
   ReleaseCalendarSchema,
+  CalendarSourceSchema,
+  calendarSources,
 } from '@fingent360/contracts';
 import { json } from './net';
 export function ResearchAutomation({
@@ -13,6 +19,9 @@ export function ResearchAutomation({
   const [state, setState] = useState<ReturnType<
     typeof ResearchAutoStatusSchema.parse
   > | null>(null);
+  const [rightsEvidence, setRightsEvidence] = useState<Record<string, string>>(
+    {},
+  );
   const [busy, setBusy] = useState(false),
     [error, setError] = useState(''),
     [notice, setNotice] = useState('');
@@ -42,7 +51,17 @@ export function ResearchAutomation({
         ResearchAutoStatusSchema.parse(
           await request(
             '/ops/research-auto',
-            { sourceId, enabled, intervalMinutes },
+            {
+              sourceId,
+              enabled,
+              intervalMinutes,
+              ...((sourceId === 'rbi-mpc-calendar' ||
+                sourceId === 'commodity-benchmarks' ||
+                sourceId === 'india-gdp') &&
+              enabled
+                ? { rightsEvidence: rightsEvidence[sourceId] ?? '' }
+                : {}),
+            },
             'PUT',
           ),
         ),
@@ -71,6 +90,90 @@ export function ResearchAutomation({
       {state?.schedules.map((s) => (
         <article key={s.sourceId}>
           <h4>{s.sourceId}</h4>
+          {s.sourceId === 'equity-filing-discovery' && (
+            <p>
+              Capture the official new-release RSS into Filing discovery.
+              Discovered links require original-document access and exact
+              identity mapping before financial publication; they are not
+              verified accounts.
+            </p>
+          )}
+          {s.sourceId === 'equity-filing-watch' && (
+            <p>
+              Watch only the fixed registered original filings selected in
+              Original filing watch. Changed originals become drafts or
+              quarantine; this does not discover new release URLs.
+            </p>
+          )}
+          {s.sourceId === 'eia-daily-spot' && (
+            <p>
+              Enable the separate contributor-permission control in Daily oil
+              source before scheduling. Captures remain drafts for independent
+              review.
+            </p>
+          )}
+          {s.sourceId === 'india-gdp' && (
+            <label>
+              PIB and MoSPI GDP source permission evidence
+              <textarea
+                value={rightsEvidence[s.sourceId] ?? ''}
+                onChange={(event) =>
+                  setRightsEvidence((previous) => ({
+                    ...previous,
+                    [s.sourceId]: event.target.value,
+                  }))
+                }
+                maxLength={2000}
+              />
+              <span>
+                Checks the verified current-day release index; missed-day
+                releases require a separate original capture. New captures stay
+                drafts until independent review.
+              </span>
+            </label>
+          )}
+          {s.sourceId === 'commodity-benchmarks' && (
+            <label>
+              Commodity dataset attribution and retention/display/offline
+              evidence
+              <textarea
+                value={rightsEvidence[s.sourceId] ?? ''}
+                onChange={(event) =>
+                  setRightsEvidence((previous) => ({
+                    ...previous,
+                    [s.sourceId]: event.target.value,
+                  }))
+                }
+                maxLength={2000}
+              />
+              <span>
+                Automatic capture creates drafts or quarantine only; a different
+                named reviewer publishes. Defaults disabled.
+              </span>
+            </label>
+          )}
+          {s.sourceId === 'rbi-mpc-calendar' && (
+            <label>
+              RBI permission evidence for caching, display, internal links and
+              offline distribution
+              <textarea
+                value={rightsEvidence[s.sourceId] ?? ''}
+                onChange={(e) =>
+                  setRightsEvidence((previous) => ({
+                    ...previous,
+                    [s.sourceId]: e.target.value,
+                  }))
+                }
+                maxLength={2000}
+              />
+              <span>
+                Enter the actual permission reference before enabling or
+                changing an enabled interval. Public access alone does not
+                provide these rights. Pause stops future acquisition; saved
+                captures remain.
+              </span>
+            </label>
+          )}
           <p>
             {s.lastStatus} · Next check {new Date(s.nextAt).toLocaleString()}
           </p>
@@ -126,6 +229,9 @@ export function ResearchCalendar() {
     [edition, setEdition] = useState(''),
     [retry, setRetry] = useState(0);
   const [period, setPeriod] = useState('upcoming');
+  const [source, setSource] = useState<'bea-calendar' | 'bls-calendar'>(
+    'bea-calendar',
+  );
   const visible =
     state?.events.filter(
       (event) =>
@@ -136,7 +242,7 @@ export function ResearchCalendar() {
     setBusy(true);
     setError('');
     void json(
-      `/research-calendar${edition ? `?edition=${encodeURIComponent(edition)}` : ''}`,
+      `/research-calendar?source=${source}${edition ? `&edition=${encodeURIComponent(edition)}` : ''}`,
       undefined,
       'GET',
       abort.signal,
@@ -152,15 +258,32 @@ export function ResearchCalendar() {
         if (!abort.signal.aborted) setBusy(false);
       });
     return () => abort.abort();
-  }, [edition, retry]);
+  }, [edition, retry, source]);
   return (
     <section aria-label="Release calendar">
       <h1>Coming releases</h1>
+      <PolicyCalendar />
+      <RbiCalendar />
+      <GdpVintages />
+      <CpiExpectations />
       <p>
-        Official BEA scheduled times, shown in your time zone. A scheduled
-        release is not confirmation that data was published. Saved editions are
-        captures by this app, not original numerical data vintages.
+        Official BEA and BLS scheduled times, shown in your time zone. A
+        scheduled release is not confirmation that data was published. Saved
+        editions are captures by this app, not original numerical data vintages.
       </p>
+      <label>
+        Calendar source
+        <select
+          value={source}
+          onChange={(event) => {
+            setSource(CalendarSourceSchema.parse(event.target.value));
+            setEdition('');
+          }}
+        >
+          <option value="bea-calendar">BEA — economic output and income</option>
+          <option value="bls-calendar">BLS — jobs, inflation and labour</option>
+        </select>
+      </label>
       {busy && <p role="status">Loading release calendar…</p>}
       {error && (
         <p role="alert">
@@ -198,7 +321,7 @@ export function ResearchCalendar() {
               : 'Not captured yet'}
           </p>
           <a href={state.sourceUrl} target="_blank" rel="noreferrer">
-            Official BEA calendar
+            Official {calendarSources[state.sourceId].name} calendar
           </a>
           {state.events.length === 0 ? (
             <p>

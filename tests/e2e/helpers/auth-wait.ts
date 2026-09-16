@@ -146,7 +146,7 @@ export async function openAuthDatabase(sandbox: FeedbackSandbox) {
               [
                 blockers,
                 reset
-                  ? 'SELECT id FROM app_users WHERE username=$1 FOR UPDATE%'
+                  ? 'SELECT * FROM app_users WHERE username_lookup=$2 OR username=$1 FOR UPDATE%'
                   : 'SELECT%',
               ],
             );

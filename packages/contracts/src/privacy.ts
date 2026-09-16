@@ -1,3 +1,8 @@
+import { WhatsappExportSchema } from './whatsapp-channel.js';
+import { AngelExportSchema } from './angel-connection.js';
+import { UpstoxExportSchema } from './upstox-connection.js';
+import { KiteExportSchema } from './kite-connection.js';
+import { ImpactCalibrationListSchema } from './impact-calibration.js';
 import { PrivateAiHistorySchema } from './eval-lineage.js';
 import { ActionCentreReceiptSchema } from './action-centre.js';
 import { BondComparisonsSchema } from './funds-bonds.js';
@@ -51,6 +56,7 @@ export const RevocationSchema = z.strictObject({
   revoked: z.number().int().nonnegative(),
 });
 export const PrivacyExportSchema = z.strictObject({
+  whatsapp: WhatsappExportSchema.default({ connection: null, deliveries: [] }),
   formatVersion: z.literal('account-export-v1'),
   exportedAt: z.iso.datetime(),
   account: AccountSchema,
@@ -117,9 +123,13 @@ export const PrivacyExportSchema = z.strictObject({
     entries: [],
     retentionDays: 7,
   }),
+  impactCalibrations: ImpactCalibrationListSchema.default({ receipts: [] }),
   actionCentre: z
     .strictObject({ assessments: z.array(ActionCentreReceiptSchema) })
     .default({ assessments: [] }),
+  angelConnection: AngelExportSchema.optional(),
+  upstoxConnection: UpstoxExportSchema.optional(),
+  brokerConnections: KiteExportSchema.optional(),
   bondComparisons: BondComparisonsSchema.default({ comparisons: [] }),
   impactTraces: z
     .strictObject({ traces: z.array(ImpactTraceReceiptSchema) })

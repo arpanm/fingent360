@@ -1,0 +1,9 @@
+{
+  "intervalSeconds": 60,
+  "port": 9410,
+  "allowLoopback": true,
+  "targets": [
+    { "id": "local-api-health", "url": "http://127.0.0.1:4100/api/v1/health" },
+    { "id": "local-api-ready", "url": "http://127.0.0.1:4100/api/v1/ready" }
+  ]
+}

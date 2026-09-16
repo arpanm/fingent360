@@ -1,3 +1,5 @@
+import { decryptHoldingsRows } from './private-holdings.js';
+import { decryptGoalRows } from './private-goals.js';
 import { randomUUID } from 'node:crypto';
 import {
   BadRequestException,
@@ -189,12 +191,19 @@ export class AccountLearningController {
     return this.store.transaction(async (c) => {
       const user = await this.store.require(c, cookie);
       const goals = await c.query(
-        'SELECT r.payload FROM app_goals g JOIN app_goal_revisions r ON r.goal_id=g.id AND r.version=g.version WHERE g.user_id=$1 AND g.deleted_at IS NULL ORDER BY g.updated_at DESC LIMIT 1',
+        'SELECT r.goal_id,r.version,r.payload,r.encrypted_payload FROM app_goals g JOIN app_goal_revisions r ON r.goal_id=g.id AND r.version=g.version WHERE g.user_id=$1 AND g.deleted_at IS NULL ORDER BY g.updated_at DESC LIMIT 1',
         [user.id],
       );
+      await decryptGoalRows(c, user.id, goals.rows, this.store.privateDataKeys);
       const holdings = await c.query(
-        'SELECT r.payload FROM app_holdings h JOIN app_holdings_revisions r ON r.user_id=h.user_id AND r.version=h.version WHERE h.user_id=$1',
+        'SELECT r.user_id,r.version,r.payload,r.encrypted_payload FROM app_holdings h JOIN app_holdings_revisions r ON r.user_id=h.user_id AND r.version=h.version WHERE h.user_id=$1',
         [user.id],
+      );
+      await decryptHoldingsRows(
+        c,
+        user.id,
+        holdings.rows,
+        this.store.privateDataKeys,
       );
       const suggestions: unknown[] = [];
       if (goals.rows[0]) {

@@ -1,0 +1,31 @@
+# Institutional flows: source research and admission
+
+Researched 2026-09-15. Source content is evidence, not instructions. No provider activation, migration or tests were run.
+
+## Verified sources and boundaries
+
+[NSE FII/DII](https://www.nseindia.com/reports/fii-dii) renders two populated tables: `fiidiiTableNse` for NSE-only and `fiidiiTable` for combined NSE/BSE/MSEI. Both contain Category, Date, Buy Value, Sell Value and Net Value in INR crore. These scopes overlap. Official notes identify provisional PAN/member classification, possible custodial corrections and physical-settlement obligations. Capturing a script-only initial HTML does not capture the actual data: it is rejected. Ordinary source-browser research verified the rendered layout; an ordinary direct HTML request timed out. No guessed JSON endpoint or dynamic CSV contract is shipped.
+
+The [CDSL daily report](https://www.cdslindia.com/Publications/FIIDailyData.aspx), linked by [SEBI's FPI data directory](https://www.sebi.gov.in/curation/fpi.html), was retrieved as ordinary HTML. It has one investment and one derivatives table. Investment retains Equity, Debt, Debt-VRR and Hybrid, each with Stock Exchange, Primary market & others and Sub-total routes, then the provider total. INR crore and USD million are separate columns; the source's INR/USD conversion is retained rather than recomputed into an exact unrounded USD claim. Derivatives retain nine products, whole contract counts and separate buy/sell/open-interest amounts. Open interest is a stock; derivative turnover is not net cash investment.
+
+The investment heading actually read **30-Aug-2024**, while the derivative heading read **11-Sep-2026**. The parser preserves each heading separately. It does not manufacture a shared current date. Investment dates are custodian reporting dates and may refer to earlier trades; derivatives reporting refers to prior trading-day activity/positions. A recent capture is not proof of fresh observations.
+
+The production [NSDL latest page](https://www.fpi.nsdl.co.in/web/Reports/Latest.aspx) returned HTTP502. Indexed pilot-site output is not accepted as a production adapter. NSDL direct ingestion remains unavailable; the working CDSL alternative does not change that fact.
+
+## Permission and activation
+
+[NSE terms](https://www.nseindia.com/terms-of-use) and [CDSL copyright](https://www.cdslindia.com/Footer/CopyRightPolicy.html) do not establish unrestricted storage/republication/offline rights. CDSL's [link policy](https://www.cdslindia.com/Footer/HyperLinkingPolicy.html) permits direct links; this is not permission to copy the dataset. Existing question to the user about NSE/BSE agreement scope has no recorded answer. No CDSL permission document has been provided either. The UI requires a named independent reviewer and source-specific written retention/display/offline permission. This records a human attestation, not an automated legal finding. Licensed acquisition/scheduled pulls remain disabled. Do not upload original copyrighted source data merely because this implementation exists without the relevant permission.
+
+## Implementation and provenance
+
+Migration084 retains immutable captures and review history in PostgreSQL. MongoDB retains the exact submitted capture envelope under its canonical hash. Parsed editions also carry the SHA256 of original UTF-8 body bytes. Layout, source, scope, report-date and decimal arithmetic must reconstruct at review; unsupported input remains quarantined with its original. INR crore values use integer hundredths of a crore internally. A discrepancy exceeding 0.01 crore rejects; a one-hundredth source-rounding difference remains explicitly labelled. Provider subtotal and total cannot be silently repaired. Different named operators prepare and publish.
+
+Publishing also creates an original editorial reading item backed by the original source HTML in discovery evidence. Its publication timestamp is explicitly the editorial review time: no original release timestamp is invented. Today/Explore and event review use the existing publication admission workflow. A newer publication supersedes the older derived source; withdrawal removes it from current event/scenario admission. Existing issued receipts remain immutable. Offline bundles retain reviewed evidence and cannot discover a later withdrawal until refreshed.
+
+The scenario extractor accepts one exact quoted row for NSE cash or CDSL Equity/Debt subtotal. It retains source scope, FII/FPI/DII label and reporting/trade date in the model period. No reference/causal delta is invented; derivative open-interest arithmetic is not mislabeled as flow. Other CDSL assets remain visible but are not forced into the narrower generic scenario asset vocabulary. Select the reading source in Events, quote a complete row, save and independently publish; select that event in Event scenarios and choose **Extract institutional flow row**. Scenario save, review and immutable receipt reconstruction reject changed measure, scope or date. Rights-withdrawal propagates through source admission.
+
+## Fixtures and verification
+
+API1430/1431 test real isolated capture/review/quarantine/withdrawal with clearly synthetic structural HTML. WEB1432 and OFFLINE1432 cover distinct dates/scopes, keyboard navigation, narrow screens, read-only offline behavior and draft rejection. API1433 and OFFLINE1433 use **reconstructed HTML with actual dated numerical facts**, not byte-for-byte official originals: NSE 11-Sep-2026 combined FII/FPI purchases12616.89, sales13547.79, net−930.90 crore; NSE-only net−978.60 must not be substituted or added. Source provenance is the official NSE page observed during research. This is a numerical golden plus simulated source markup and isolated review, not evidence of licensed production ingestion.
+
+No authored case has been run. User next actions: `pnpm db:migrate`, then `pnpm sdlc "Add institutional flow capture and source-bound scenarios" -- --grep '@SRC-010'` after configured PostgreSQL, MongoDB and the dev API/web are available. Use the actual printed local web URL at `#institutional-flows` and Operations → Institutional flows. Keep test UI watch off. Report the saved run path, exact case/project and error if validation fails. No dependency installation is needed for this feature.

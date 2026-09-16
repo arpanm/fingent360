@@ -1,0 +1,20 @@
+{
+  "basis": "Official historical FOMC release excerpts; not application seed or current market data.",
+  "rights": "https://www.federalreserve.gov/disclaimer.htm",
+  "sources": [
+    {
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20240731a.htm",
+      "publishedAt": "2024-07-31T18:00:00.000Z",
+      "retrievedAt": "2026-09-15T07:47:32.293442+00:00",
+      "rawHash": "ccc45166e8d3e3bb187aaa887f8d33e9b9e39df9e3f25d66150cf6d4c393ae00",
+      "quote": "In support of its goals, the Committee decided to maintain the target range for the federal funds rate at 5-1/4 to 5-1/2 percent."
+    },
+    {
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20240918a.htm",
+      "publishedAt": "2024-09-18T18:00:00.000Z",
+      "retrievedAt": "2026-09-15T07:47:32.707738+00:00",
+      "rawHash": "f2d12366891de444b5448951725096e57501ca90a9f4232b2b3c65b764112725",
+      "quote": "In light of the progress on inflation and the balance of risks, the Committee decided to lower the target range for the federal funds rate by 1/2 percentage point to 4-3/4 to 5 percent."
+    }
+  ]
+}

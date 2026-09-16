@@ -1,10 +1,12 @@
 # WORKER-HEALTH-001 — Background worker health
 
-- **Status:** Completed (recorded scope)
+- **Status:** Done (recorded scope)
 - **Implemented / recorded:** - WORKER-HEALTH-001 (DEV-015/021): Implemented and selected verification passed; physical/production acceptance remains separate. Make existing report/reminder worker health and explicit pause/resume visible in Operations. Detailed Codex prompt: inspect the existing leased report worker and in-app reminder worker, then specify aggregate heartbeat/last-success/bounded safe failure classification, queue age/due/expired-lease counts, stale versus unavailable, and control semantics. Add strict c
 - **Pending:** No new action for the recorded scope; later changes need new validation.
 - **Next action / inputs:** No new action for the recorded scope; later changes need new validation.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
+
+Status reconciliation (2026-09-16): Done refers to the previously recorded bounded delivery, not fresh validation of the current working tree. No new implementation or test pass is claimed.
 
 ## Implementation handoff rule
 

@@ -1,6 +1,6 @@
 # ALERT-002 — Alert delivery controls
 
-- **Status:** Implemented; validation pending
+- **Status:** Completed implementation; validation pending
 - **Implemented / recorded:** - ALERT-002 (DEV-018): Persist account-owned indicator mute preferences and integrate actual inbox filtering/unmute restoration without deleting evidence or receipts. Prompt: contracts/migration008/API/UI, ownership and not-followed rejection, real inbox tests and privacy export integration. Implemented.
 - **Pending:** User: run the task’s documented validation; implementation is not a test pass.
 - **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.

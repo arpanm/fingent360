@@ -1,3 +1,5 @@
+import { BeaGdpOriginalSchema } from './bea-gdp-original.js';
+import { CompanyNewsProofSchema } from './company-news.js';
 import { OperatorIdentitySchema } from './operator-identity.js';
 import { z } from 'zod';
 export const DiscoveryIdSchema = z.string().regex(/^[a-z0-9][a-z0-9-]{0,99}$/);
@@ -5,32 +7,50 @@ const PublicUrl = z.url().refine((value) => {
   const url = new URL(value);
   return url.protocol === 'https:' && !url.username && !url.password;
 });
-export const FeedItemSchema = z.strictObject({
-  id: DiscoveryIdSchema,
-  version: z.number().int().positive(),
-  kind: z.enum(['news', 'term', 'annual']),
-  title: z.string().min(1).max(500),
-  summary: z.string().max(3000),
-  body: z.string().max(10000),
-  topics: z.array(z.string().max(80)).max(12),
-  publishedAt: z.iso.datetime(),
-  effectiveLabel: z.string().max(160),
-  source: z.strictObject({
-    name: z.string().max(200),
-    url: PublicUrl,
-    retrievedAt: z.iso.datetime(),
-    rights: z.string().max(2000),
-  }),
-  sourceHash: z
-    .string()
-    .regex(/^[a-f0-9]{64}$/)
-    .nullable(),
-  importance: z.number().int().min(1).max(3),
-  relatedIds: z.array(DiscoveryIdSchema).max(12),
-  status: z.enum(['draft', 'published', 'withdrawn']),
-  correctionNote: z.string().max(2000).nullable(),
-  reviewedAt: z.iso.datetime().nullable(),
-});
+export const FeedItemSchema = z
+  .strictObject({
+    companyNews: CompanyNewsProofSchema.optional(),
+    gdpOriginal: BeaGdpOriginalSchema.optional(),
+    id: DiscoveryIdSchema,
+    version: z.number().int().positive(),
+    kind: z.enum(['news', 'term', 'annual']),
+    title: z.string().min(1).max(500),
+    summary: z.string().max(3000),
+    body: z.string().max(10000),
+    topics: z.array(z.string().max(80)).max(12),
+    publishedAt: z.iso.datetime(),
+    effectiveLabel: z.string().max(160),
+    source: z.strictObject({
+      name: z.string().max(200),
+      url: PublicUrl,
+      retrievedAt: z.iso.datetime(),
+      rights: z.string().max(2000),
+    }),
+    sourceHash: z
+      .string()
+      .regex(/^[a-f0-9]{64}$/)
+      .nullable(),
+    importance: z.number().int().min(1).max(3),
+    relatedIds: z.array(DiscoveryIdSchema).max(12),
+    status: z.enum(['draft', 'published', 'withdrawn']),
+    correctionNote: z.string().max(2000).nullable(),
+    reviewedAt: z.iso.datetime().nullable(),
+  })
+  .superRefine((item, context) => {
+    const original = item.gdpOriginal;
+    if (
+      original &&
+      (original.url !== item.source.url ||
+        original.hash !== item.sourceHash ||
+        original.publishedAt !== item.publishedAt ||
+        original.retrievedAt !== item.source.retrievedAt ||
+        !item.id.startsWith('gdp-original-'))
+    )
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'Original GDP provenance must match its source edition.',
+      });
+  });
 export const FeedSchema = z.strictObject({
   items: z.array(FeedItemSchema),
   evaluatedAt: z.iso.datetime(),

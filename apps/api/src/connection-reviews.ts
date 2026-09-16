@@ -1,3 +1,10 @@
+import {
+  decryptConnectionRows,
+  sealConnection,
+} from './private-connections.js';
+import type { PrivateDataKeys } from './private-data-crypto.js';
+import { decryptHoldingsRows } from './private-holdings.js';
+import { decryptGoalRows } from './private-goals.js';
 import { createHash } from 'node:crypto';
 import {
   Body,
@@ -35,11 +42,12 @@ function parse<T>(schema: z.ZodType<T>, value: unknown): T {
   if (!r.success) throw new BadRequestException('Invalid review request.');
   return r.data;
 }
-async function inbox(c: pg.PoolClient, userId: string) {
+async function inbox(c: pg.PoolClient, userId: string, keys: PrivateDataKeys) {
   const r = await c.query(
-    'SELECT payload FROM app_connection_review_inboxes WHERE user_id=$1',
+    'SELECT * FROM app_connection_review_inboxes WHERE user_id=$1',
     [userId],
   );
+  await decryptConnectionRows(c, 'connection-inbox', userId, r.rows, keys);
   return ConnectionReviewInboxSchema.parse(
     r.rows[0]?.payload ?? emptyReviewInbox(),
   );
@@ -47,12 +55,14 @@ async function inbox(c: pg.PoolClient, userId: string) {
 export async function exportConnectionReviews(
   c: pg.PoolClient,
   userId: string,
+  keys: PrivateDataKeys,
 ) {
-  const value = await inbox(c, userId);
+  const value = await inbox(c, userId, keys);
   const rows = await c.query(
-    "SELECT payload FROM app_connection_review_requests WHERE user_id=$1 AND created_at>clock_timestamp()-interval '30 days' ORDER BY created_at DESC",
+    "SELECT * FROM app_connection_review_requests WHERE user_id=$1 AND created_at>clock_timestamp()-interval '30 days' ORDER BY created_at DESC",
     [userId],
   );
+  await decryptConnectionRows(c, 'connection-review', userId, rows.rows, keys);
   return ConnectionReviewExportSchema.parse({
     ...value,
     receipts: rows.rows.map((r) => r.payload),
@@ -69,7 +79,7 @@ export class ConnectionReviewsController {
   @Get() list(@Headers('cookie') cookie?: string) {
     return this.store.transaction(async (c) => {
       const user = await this.owner(c, cookie);
-      return inbox(c, user.id);
+      return inbox(c, user.id, this.store.privateDataKeys);
     });
   }
   private mutate(
@@ -95,7 +105,7 @@ export class ConnectionReviewsController {
         [user.id],
       );
       const prior = await c.query(
-        'SELECT fingerprint,payload FROM app_connection_review_requests WHERE user_id=$1 AND request_id=$2',
+        'SELECT * FROM app_connection_review_requests WHERE user_id=$1 AND request_id=$2',
         [user.id, input.requestId],
       );
       if (prior.rows[0]) {
@@ -103,6 +113,13 @@ export class ConnectionReviewsController {
           throw new ConflictException(
             'Request ID was already used for a different operation.',
           );
+        await decryptConnectionRows(
+          c,
+          'connection-review',
+          user.id,
+          prior.rows,
+          this.store.privateDataKeys,
+        );
         return ConnectionReviewReceiptSchema.parse(prior.rows[0].payload);
       }
       const count = await c.query(
@@ -113,12 +130,12 @@ export class ConnectionReviewsController {
         throw new BadRequestException(
           'Review request limit reached. Retry after older30-day receipts expire.',
         );
-      let current = await inbox(c, user.id);
+      let current = await inbox(c, user.id, this.store.privateDataKeys);
       const now = new Date().toISOString();
       let receipt;
       if (action === 'check') {
         const heads = await c.query(
-          'SELECT r.payload FROM app_research_connections h JOIN app_research_connection_revisions r ON r.connection_id=h.id AND r.version=h.version WHERE h.user_id=$1 AND (NOT h.removed OR h.id=ANY($2::uuid[])) ORDER BY h.id LIMIT 401',
+          'SELECT r.* FROM app_research_connections h JOIN app_research_connection_revisions r ON r.connection_id=h.id AND r.version=h.version WHERE h.user_id=$1 AND (NOT h.removed OR h.id=ANY($2::uuid[])) ORDER BY h.id LIMIT 401',
           [
             user.id,
             current.notices
@@ -130,6 +147,13 @@ export class ConnectionReviewsController {
           throw new BadRequestException(
             'Too many current notices to evaluate safely.',
           );
+        await decryptConnectionRows(
+          c,
+          'connection-revision',
+          user.id,
+          heads.rows,
+          this.store.privateDataKeys,
+        );
         const revisions = heads.rows.map((r) =>
           ResearchConnectionRevisionSchema.parse(r.payload),
         );
@@ -153,13 +177,20 @@ export class ConnectionReviewsController {
           return source ? [source] : [];
         });
         const h = await c.query(
-          'SELECT r.payload FROM app_holdings h JOIN app_holdings_revisions r ON r.user_id=h.user_id AND r.version=h.version WHERE h.user_id=$1',
+          'SELECT r.user_id,r.version,r.payload,r.encrypted_payload FROM app_holdings h JOIN app_holdings_revisions r ON r.user_id=h.user_id AND r.version=h.version WHERE h.user_id=$1',
           [user.id],
+        );
+        await decryptHoldingsRows(
+          c,
+          user.id,
+          h.rows,
+          this.store.privateDataKeys,
         );
         const g = await c.query(
-          'SELECT r.payload FROM app_goals g JOIN app_goal_revisions r ON r.goal_id=g.id AND r.version=g.version WHERE g.user_id=$1 AND g.deleted_at IS NULL',
+          'SELECT r.goal_id,r.version,r.payload,r.encrypted_payload FROM app_goals g JOIN app_goal_revisions r ON r.goal_id=g.id AND r.version=g.version WHERE g.user_id=$1 AND g.deleted_at IS NULL',
           [user.id],
         );
+        await decryptGoalRows(c, user.id, g.rows, this.store.privateDataKeys);
         const holdings = HoldingsSnapshotSchema.parse(
           h.rows[0]?.payload ?? {
             version: 0,
@@ -224,13 +255,33 @@ export class ConnectionReviewsController {
           evaluation: null,
         });
       }
+      const inboxCipher = sealConnection(
+          'connection-inbox',
+          user.id,
+          user.id,
+          current,
+          this.store.privateDataKeys,
+        ),
+        receiptCipher = sealConnection(
+          'connection-review',
+          user.id,
+          input.requestId,
+          receipt,
+          this.store.privateDataKeys,
+        );
       await c.query(
-        'INSERT INTO app_connection_review_inboxes(user_id,payload) VALUES($1,$2) ON CONFLICT(user_id) DO UPDATE SET payload=EXCLUDED.payload',
-        [user.id, current],
+        'INSERT INTO app_connection_review_inboxes(user_id,encrypted_payload,content_hash) VALUES($1,$2,$3) ON CONFLICT(user_id) DO UPDATE SET payload=NULL,encrypted_payload=EXCLUDED.encrypted_payload,content_hash=EXCLUDED.content_hash',
+        [user.id, inboxCipher.envelope, inboxCipher.hash],
       );
       await c.query(
-        'INSERT INTO app_connection_review_requests(user_id,request_id,fingerprint,payload) VALUES($1,$2,$3,$4)',
-        [user.id, input.requestId, fingerprint, receipt],
+        'INSERT INTO app_connection_review_requests(user_id,request_id,fingerprint,encrypted_payload,content_hash) VALUES($1,$2,$3,$4,$5)',
+        [
+          user.id,
+          input.requestId,
+          fingerprint,
+          receiptCipher.envelope,
+          receiptCipher.hash,
+        ],
       );
       return receipt;
     });

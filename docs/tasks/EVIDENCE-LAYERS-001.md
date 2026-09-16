@@ -1,6 +1,6 @@
 # EVIDENCE-LAYERS-001 — source-bound progressive reading
 
-- **Status:** Implemented; validation pending
+- **Status:** Completed implementation; validation pending
 - **Implemented / recorded:** - Implementation: Implemented for admitted edition layers; user validation pending. Parent: DEV016 remains partial for approved causal mappings. Expose one-line, beginner, portfolio-context, analytical and source layers bound to the precise admitted stored edition. Excerpts carry exact field offsets, hash, dates and correction/version context. Private context reads actual user connections with ownership and explicitly user-authored notes; unknown causal/impact/suitability claims remain unavailable. Public/API/local paths must agree on withdrawal and expected-version changes. Author contracts, reader UI, actual stored-data and offline cases and documentation. No generated source facts or fabricated claims.
 - **Pending:** Validate admitted-edition reader layers; broader causal mappings remain in DEV-016.
 - **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.

@@ -1,3 +1,4 @@
+import { transmissionFor } from '@fingent360/contracts';
 import { useEffect, useRef, useState } from 'react';
 import {
   EventScenarioPublicSchema,
@@ -39,8 +40,28 @@ export function EventScenarioBody({
   receipt: EventScenarioReceipt;
 }) {
   const model = receipt.input.model;
+  const mechanism = transmissionFor(model.family);
   return (
     <div>
+      {mechanism && (
+        <details>
+          <summary>How to interpret this event family</summary>
+          <p>{mechanism.mechanism}</p>
+          <p>
+            {mechanism.conditions.join(' ')}{' '}
+            {mechanism.countervailing.join(' ')}
+          </p>
+          <a href={mechanism.reference} target="_blank" rel="noreferrer">
+            Primary mechanism reference
+          </a>
+          <p>
+            This reference is not a released company mapping. An independently
+            released matching context is required before linking your holding
+            and goal.
+          </p>
+          <a href="#impact-traces">Review evidence to holding and goal</a>
+        </details>
+      )}
       <p>
         {model.family} · scenario edition {receipt.version} ·{' '}
         {receipt.result.comparison}
@@ -48,8 +69,14 @@ export function EventScenarioBody({
       <h2>{receipt.event.event!.editorial.title}</h2>
       {'observed' in model && (
         <p>
-          Reported value {model.observed.value} {model.unit} for{' '}
-          {model.observed.period}.
+          {model.family === 'guidance'
+            ? model.measure === 'revenue-growth-lower-bound'
+              ? 'Guided lower bound'
+              : model.measure === 'revenue-growth-upper-bound'
+                ? 'Guided upper bound'
+                : 'Guidance value'
+            : 'Reported value'}{' '}
+          {model.observed.value} {model.unit} for {model.observed.period}.
           {model.reference && (
             <>
               {' '}
@@ -57,6 +84,18 @@ export function EventScenarioBody({
               {model.reference.period} ({model.reference.kind}).
             </>
           )}
+        </p>
+      )}
+      {model.family === 'earnings' && (
+        <p>
+          Reporting basis: {model.basis}; accounting standard:{' '}
+          {model.accountingStandard ?? 'not specified'}; metric: {model.metric}.
+        </p>
+      )}
+      {model.family === 'guidance' && (
+        <p>
+          Forward guidance basis: {model.growthBasis ?? 'not specified'};
+          measure: {model.measure}. This is not realised revenue.
         </p>
       )}
       {model.family === 'regulatory' && (

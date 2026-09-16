@@ -104,6 +104,9 @@ const SupplementalReceiptSchema = z.strictObject({
 export const HoldingsImportSchema = z
   .strictObject({
     parserVersion: z.enum([
+      'kite-settled-holdings-v1',
+      'upstox-settled-holdings-v1',
+      'angel-settled-holdings-v1',
       'standard-holdings-csv-v1',
       'standard-holdings-xlsx-v1',
       'user-mapped-holdings-csv-v1',
@@ -233,7 +236,7 @@ export const HoldingsSnapshotSchema = z.strictObject({
   totalCostMinor: z.string().regex(/^(0|[1-9][0-9]*)$/),
   currency: z.literal('INR'),
   scale: z.literal(2),
-  provenance: z.literal('user-entered-unverified'),
+  provenance: z.enum(['user-entered-unverified', 'broker-reported-unverified']),
   updatedAt: z.iso.datetime().nullable(),
   import: HoldingsImportSchema.optional(),
 });
@@ -355,6 +358,9 @@ export const HoldingsPreviewSchema = z.strictObject({
   holdings: HoldingRowsSchema,
   totalCostMinor: z.string().regex(/^(0|[1-9][0-9]*)$/),
   parserVersion: z.enum([
+    'kite-settled-holdings-v1',
+    'upstox-settled-holdings-v1',
+    'angel-settled-holdings-v1',
     'standard-holdings-csv-v1',
     'standard-holdings-xlsx-v1',
     'user-mapped-holdings-csv-v1',

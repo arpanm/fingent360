@@ -65,6 +65,7 @@ export function Account() {
   );
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [authenticator, setAuthenticator] = useState('');
   const [consent, setConsent] = useState(false);
   const [selection, setSelection] = useState<MacroIndicator[]>([]);
   const [saved, setSaved] = useState<MacroIndicator[]>([]);
@@ -84,6 +85,7 @@ export function Account() {
     setMacro(null);
     setInbox([]);
     setPassword('');
+    setAuthenticator('');
     setDeletePassword('');
     setMessage('');
     setLoaded(true);
@@ -255,7 +257,11 @@ export function Account() {
                   await api(signup ? '/register' : '/login', {
                     username,
                     password,
-                    ...(signup ? { consent } : {}),
+                    ...(signup
+                      ? { consent }
+                      : authenticator
+                        ? { code: authenticator }
+                        : {}),
                   }),
                 );
                 setUser(result.user);
@@ -298,6 +304,19 @@ export function Account() {
                 Usernames use 3–32 letters, digits, underscores or hyphens,
                 starting with a letter. Passwords need 12–128 characters.
               </p>
+              {!signup && (
+                <label>
+                  Authenticator code (if enabled)
+                  <input
+                    value={authenticator}
+                    onChange={(event) => setAuthenticator(event.target.value)}
+                    inputMode="numeric"
+                    autoComplete="one-time-code"
+                    pattern="[0-9]{6}"
+                    maxLength={6}
+                  />
+                </label>
+              )}
               {signup && (
                 <label className="check-label">
                   <input

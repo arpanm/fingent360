@@ -1,3 +1,4 @@
+import { decryptScheduleRows, sealSchedule } from './private-schedules.js';
 import {
   Body,
   Controller,
@@ -131,8 +132,15 @@ export class ConsentsController {
         !consentActive(before, at)
       ) {
         const schedules = await c.query(
-          "SELECT payload FROM report_schedules WHERE user_id=$1 AND status='active' ORDER BY id FOR UPDATE",
+          "SELECT * FROM report_schedules WHERE user_id=$1 AND status='active' ORDER BY id FOR UPDATE",
           [user.id],
+        );
+        await decryptScheduleRows(
+          c,
+          'schedule-head',
+          user.id,
+          schedules.rows,
+          this.account.privateDataKeys,
         );
         for (const row of schedules.rows) {
           const schedule = ReportScheduleSchema.parse(row.payload),
@@ -140,18 +148,25 @@ export class ConsentsController {
               schedule.config,
               new Date().toISOString(),
             );
+          const encrypted = sealSchedule(
+            'schedule-head',
+            user.id,
+            {
+              ...schedule,
+              nextDueAt,
+              message:
+                'Purpose renewed; next future occurrence. No catch-up for the consent lapse.',
+            },
+            this.account.privateDataKeys,
+          );
           await c.query(
-            'UPDATE report_schedules SET next_due_at=$2,payload=$3 WHERE id=$1 AND user_id=$4',
+            'UPDATE report_schedules SET next_due_at=$2,payload=NULL,encrypted_payload=$3,content_hash=$5 WHERE id=$1 AND user_id=$4',
             [
               schedule.id,
               nextDueAt,
-              {
-                ...schedule,
-                nextDueAt,
-                message:
-                  'Purpose renewed; next future occurrence. No catch-up for the consent lapse.',
-              },
+              encrypted.envelope,
               user.id,
+              encrypted.hash,
             ],
           );
           receipt.scheduleEffects.push({ scheduleId: schedule.id, nextDueAt });

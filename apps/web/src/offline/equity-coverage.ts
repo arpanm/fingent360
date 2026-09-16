@@ -1,5 +1,7 @@
 import {
   EquitySnapshotSchema,
+  EquityPriceRangeSchema,
+  buildEquityPriceHistory,
   EquityCompaniesSchema,
 } from '@fingent360/contracts';
 import { fail, type OfflineHandler } from './types';
@@ -55,6 +57,36 @@ export const handleEquityCoverage: OfflineHandler = (
         companies: rows.slice(0, 50).map(({ isin, name }) => ({ isin, name })),
         nextAfter: rows.length > 50 ? rows[49]!.isin : null,
       }),
+    };
+  }
+  const prices = /^\/api\/v1\/equities\/(IN[A-Z0-9]{9}[0-9])\/prices$/.exec(
+    request.path,
+  );
+  if (prices) {
+    const range = EquityPriceRangeSchema.safeParse({
+      from: request.query.get('from'),
+      to: request.query.get('to'),
+      after: request.query.get('after'),
+      limit: request.query.has('limit')
+        ? Number(request.query.get('limit'))
+        : 15,
+    });
+    if (!range.success)
+      fail(400, 'Choose a valid price date range and cursor.');
+    const company = snapshot.companies.find((row) => row.isin === prices[1]);
+    if (company?.truncated)
+      fail(
+        503,
+        'This device price history is incomplete. Use connected history or a complete refreshed snapshot.',
+      );
+    return {
+      body: buildEquityPriceHistory(
+        prices[1]!,
+        company?.records.filter((row) => row.observation.kind === 'price') ??
+          [],
+        range.data,
+        snapshot.capturedAt,
+      ),
     };
   }
   const match = /^\/api\/v1\/equities\/(IN[A-Z0-9]{9}[0-9])$/.exec(

@@ -1,3 +1,5 @@
+import { publicBeaGdpSeries } from '@fingent360/contracts';
+import { readingFailure, type ReadingPhase } from './reading-diagnostics.js';
 import { recordPublicView } from './eval-lineage-recording.js';
 import { OperatorRead, OperatorAction } from './operator-permissions.js';
 import {
@@ -28,6 +30,7 @@ import {
   Headers,
   HttpException,
   Inject,
+  Logger,
   NotFoundException,
   Param,
   Post,
@@ -199,20 +202,36 @@ export class DiscoveryStore {
   async onApplicationShutdown() {
     await Promise.allSettled([this.pool.end(), this.mongo.close()]);
   }
-  private async transaction<T>(work: (c: pg.PoolClient) => Promise<T>) {
+  private async transaction<T>(
+    work: (c: pg.PoolClient) => Promise<T>,
+    trace: { phase: ReadingPhase } = { phase: 'work' },
+  ) {
     let c: pg.PoolClient | undefined;
+    const initialPhase = trace.phase;
+    trace.phase = 'connection';
     try {
       c = await this.pool.connect();
+      trace.phase = 'begin';
       await c.query('BEGIN');
+      trace.phase = initialPhase;
       const value = await work(c);
+      trace.phase = 'commit';
       await c.query('COMMIT');
       return value;
     } catch (error) {
       await c?.query('ROLLBACK').catch(() => {});
       if (error instanceof HttpException) throw error;
-      throw new ServiceUnavailableException(
-        'Reading is unavailable right now. Please try again shortly.',
-      );
+      const incident = randomUUID();
+      const diagnostic = readingFailure(error, incident, trace.phase);
+      Logger.warn(diagnostic, 'DiscoveryStore');
+      throw new ServiceUnavailableException({
+        statusCode: 503,
+        message: 'Reading is unavailable right now. Please try again shortly.',
+        error: 'Service Unavailable',
+        incident,
+        code: `READING_${diagnostic.category.toUpperCase()}`,
+        phase: trace.phase,
+      });
     } finally {
       c?.release();
     }
@@ -242,6 +261,22 @@ export class DiscoveryStore {
       for (const item of rendered.items) await recordPublicView(c, item);
     });
     return rendered;
+  }
+  async gdpVintages(period?: string) {
+    if (period !== undefined && !/^20\d{2}-Q[1-4]$/.test(period))
+      throw new BadRequestException('Choose a GDP quarter in YYYY-Qn format.');
+    return this.transaction(async (c) => {
+      const items = await admitPublications(c);
+      const result = publicBeaGdpSeries(
+        items,
+        new Date().toISOString(),
+        period,
+      );
+      const visible = new Set(result.items.map((item) => item.itemId));
+      for (const item of items)
+        if (visible.has(item.id)) await recordPublicView(c, item);
+      return result;
+    });
   }
   async context(id: string) {
     validId(id);
@@ -358,13 +393,16 @@ export class DiscoveryStore {
   }
   async item(id: string) {
     validId(id);
+    const trace: { phase: ReadingPhase } = { phase: 'admission' };
     return this.transaction(async (c) => {
       const item = (await admitPublications(c, [id]))[0];
       if (!item) throw new NotFoundException('Published item not found.');
+      trace.phase = 'edition';
       const rendered = publicEdition(item);
+      trace.phase = 'capture';
       await recordPublicView(c, rendered);
       return rendered;
-    });
+    }, trace);
   }
   async history(id: string) {
     validId(id);
@@ -586,6 +624,18 @@ export class DiscoveryStore {
     complete?: (client: pg.PoolClient) => Promise<void>,
   ) {
     validId(id);
+    if (id.startsWith('company-news-'))
+      throw new ConflictException(
+        'Use Company news verification to publish or withdraw this report.',
+      );
+    if (id.startsWith('oil-education-'))
+      throw new ConflictException(
+        'Use Oil disclosure review to publish or withdraw this report.',
+      );
+    if (id.startsWith('institutional-flow-'))
+      throw new ConflictException(
+        'Use Institutional activity review to publish or withdraw this report.',
+      );
     const parsed = DiscoveryReviewSchema.safeParse(body);
     if (!parsed.success)
       throw new BadRequestException(
@@ -917,6 +967,9 @@ export class DiscoveryController {
     @Query('view') view?: 'today' | 'explore',
   ) {
     return this.store.feed(cursor, kind, q, { source, topic, region, view });
+  }
+  @Get('gdp-vintages') gdpVintages(@Query('period') period?: string) {
+    return this.store.gdpVintages(period);
   }
   @Get('items/:id/context') context(@Param('id') id: string) {
     return this.store.context(id);

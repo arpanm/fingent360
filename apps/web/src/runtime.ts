@@ -1,39 +1,8 @@
+export type { NativeBridge, IOSFeedbackBridge } from './native-bridge';
 import { canNavigate, currentRoute, returnTo } from './navigation';
 // Explicit feedback destinations must not inherit account/API URL rewriting.
 export const networkFetch = window.fetch.bind(window);
 
-interface NativeBridge {
-  getConfig(): string;
-  getBuildInfo?(): string;
-  saveFile(filename: string, mime: string, base64: string): void;
-  setConnection(mode: string, webUrl: string, apiUrl: string): void;
-  captureFeedback?(): Promise<string>;
-  feedbackRead?(): Promise<{
-    revision: number;
-    records: unknown[];
-    config: { enabled: boolean; apiOrigin: string };
-  }>;
-  feedbackWrite?(
-    expectedRevision: number,
-    state: {
-      records: unknown[];
-      config: { enabled: boolean; apiOrigin: string };
-    },
-  ): Promise<{ revision: number }>;
-  sendFeedback?(
-    apiOrigin: string,
-    method: 'POST' | 'GET' | 'DELETE',
-    id: string | null,
-    receiptToken: string | null,
-    body: unknown,
-  ): Promise<{ status: number; body: unknown }>;
-}
-declare global {
-  interface Window {
-    FingentAndroid?: NativeBridge;
-    __fingentHandleBack?: () => boolean;
-  }
-}
 export interface AppRuntime {
   mode: 'web' | 'offline' | 'connected';
   native: boolean;
@@ -65,7 +34,7 @@ export function httpsOrigin(value: string): string {
 }
 export async function initializeRuntime() {
   const bridge = window.FingentAndroid;
-  runtime.native = !!bridge;
+  runtime.native = !!bridge || !!window.FingentIOS;
   if (bridge) {
     const config: unknown = JSON.parse(bridge.getConfig());
     if (
@@ -126,7 +95,7 @@ export async function initializeRuntime() {
       );
     };
   }
-  if (bridge) {
+  if (bridge || window.FingentIOS) {
     window.__fingentHandleBack = () => {
       const dialog = [
         ...document.querySelectorAll<HTMLDialogElement>('dialog[open]'),
@@ -151,7 +120,11 @@ export async function initializeRuntime() {
       if (!link || event.defaultPrevented) return;
       event.preventDefault();
       const url = new URL(link.href, location.href);
-      if (url.origin !== location.origin) return;
+      if (
+        url.origin !== location.origin &&
+        !(url.protocol === 'data:' && url.href.length <= 16_000_100)
+      )
+        return;
       void networkFetch(url)
         .then(async (response) => {
           if (!response.ok) throw Error('The download could not be opened.');
@@ -173,11 +146,11 @@ export async function saveDownload(
   filename: string,
   completedMessage = 'Export downloaded.',
 ): Promise<string> {
-  const bridge = window.FingentAndroid;
+  const bridge = window.FingentIOS ?? window.FingentAndroid;
   if (bridge) {
     if (blob.size > 12_000_000)
       throw Error(
-        'This export is too large for the Android file picker. Export a smaller selection.',
+        'This export is too large for the native file picker. Export a smaller selection.',
       );
     const base64 = await new Promise<string>((resolve, reject) => {
       const reader = new FileReader();
@@ -185,7 +158,25 @@ export async function saveDownload(
       reader.onerror = () => reject(Error('Export could not be read.'));
       reader.readAsDataURL(blob);
     });
-    bridge.saveFile(filename, blob.type || 'application/octet-stream', base64);
+    if (window.FingentIOS) {
+      if (!window.FingentIOS.saveFile)
+        throw Error(
+          'Reinstall the current iOS preview to enable private exports.',
+        );
+      const result = await window.FingentIOS.saveFile(
+        filename,
+        (blob.type || 'application/octet-stream').split(';')[0]!.trim(),
+        base64,
+      );
+      if (!result || result.completed !== true)
+        throw Error('Export cancelled. No destination was confirmed.');
+      return 'Export accepted by the selected destination.';
+    }
+    bridge.saveFile?.(
+      filename,
+      blob.type || 'application/octet-stream',
+      base64,
+    );
     return 'Choose where to save the export in the Android file picker.';
   }
   const url = URL.createObjectURL(blob);

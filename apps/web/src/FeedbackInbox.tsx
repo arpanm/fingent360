@@ -1,3 +1,4 @@
+import { FeedbackEncryption } from './FeedbackEncryption';
 import { EvaluationLineage } from './EvaluationLineage';
 import { useEffect, useState } from 'react';
 import {
@@ -76,8 +77,10 @@ export function FeedbackInbox() {
       <p>
         Submitted ideas and issues, including app screenshots and voice notes.
         Attachments are private; handle them as user data. The server retains
-        report content for 30 days.
+        report content for 30 days. Administrator access is required. Opening
+        the inbox or a report records access visible to its sender.
       </p>
+      <FeedbackEncryption />
       <div className="feedback-tools">
         <label htmlFor="feedback-status-filter">Feedback status</label>
         <select

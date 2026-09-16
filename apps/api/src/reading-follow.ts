@@ -1,3 +1,4 @@
+import { readFollowCalendar } from './reading-calendar.js';
 import {
   BadRequestException,
   ConflictException,
@@ -125,12 +126,15 @@ export class ReadingFollowController {
         c,
         items.map((i) => i.itemId),
       );
+      const observedAt = new Date().toISOString();
+      const calendarContext = await readFollowCalendar(c, value, observedAt);
       await this.store.require(c, cookie);
       return ReadingFollowViewSchema.parse({
+        calendarContext,
         config: value,
         items,
         next: found.length > 100 ? items.at(-1)!.itemId : null,
-        observedAt: new Date().toISOString(),
+        observedAt,
         bundleGeneratedAt: null,
         availableIds: current
           .filter((i) => i.status === 'published')

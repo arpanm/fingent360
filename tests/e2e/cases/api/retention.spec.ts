@@ -476,8 +476,15 @@ test('E2E-API-254 confirmed receipts survive ordinary preview expiry and draft c
     const fixture = await seedRetentionRows(request, pool);
     // Synthetic duplicate confirmed receipts test the pending-capacity boundary.
     await pool.query(
-      'INSERT INTO app_holdings_previews(id,user_id,expected_version,payload,expires_at,confirmed_version) SELECT gen_random_uuid(),user_id,expected_version,payload,expires_at,confirmed_version FROM app_holdings_previews CROSS JOIN generate_series(1,20) WHERE id=$1',
-      [fixture.confirmed.previewId],
+      'INSERT INTO app_holdings_previews(id,user_id,expected_version,payload,expires_at,confirmed_version) SELECT gen_random_uuid(),user_id,expected_version,$2::jsonb,expires_at,confirmed_version FROM app_holdings_previews CROSS JOIN generate_series(1,20) WHERE id=$1',
+      [
+        fixture.confirmed.previewId,
+        JSON.stringify({
+          holdings: fixture.confirmed.holdings,
+          import: fixture.confirmed.import,
+          reconciliation: fixture.confirmed.reconciliation,
+        }),
+      ],
     );
     expect(
       (
@@ -681,8 +688,15 @@ test('E2E-API-257 every allowlisted category caps truthful counts including the 
       "INSERT INTO feedback_rate_limits(bucket,count,window_start) SELECT 'synthetic-cap-'||n,1,now()-interval '3 days' FROM generate_series(1,100) n",
     );
     await pool.query(
-      'INSERT INTO app_holdings_previews(id,user_id,expected_version,payload,expires_at,confirmed_version) SELECT gen_random_uuid(),user_id,expected_version,payload,expires_at,confirmed_version FROM app_holdings_previews CROSS JOIN generate_series(1,100) WHERE id=$1',
-      [fixture.expiredPreview.previewId],
+      'INSERT INTO app_holdings_previews(id,user_id,expected_version,payload,expires_at,confirmed_version) SELECT gen_random_uuid(),user_id,expected_version,$2::jsonb,expires_at,confirmed_version FROM app_holdings_previews CROSS JOIN generate_series(1,100) WHERE id=$1',
+      [
+        fixture.expiredPreview.previewId,
+        JSON.stringify({
+          holdings: fixture.expiredPreview.holdings,
+          import: fixture.expiredPreview.import,
+          reconciliation: fixture.expiredPreview.reconciliation,
+        }),
+      ],
     );
     await pool.query(
       'INSERT INTO feedback_reports(id,token_hash,payload_hash,expires_at,text,image_meta,image_bytes,audio_meta,audio_bytes) SELECT gen_random_uuid(),token_hash,payload_hash,expires_at,text,image_meta,image_bytes,audio_meta,audio_bytes FROM feedback_reports CROSS JOIN generate_series(1,20) WHERE id=$1',

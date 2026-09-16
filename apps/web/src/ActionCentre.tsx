@@ -78,6 +78,63 @@ function Comparison({ receipt }: { receipt: ActionCentreReceipt }) {
         <strong>{result.classification.replaceAll('-', ' ')}</strong> ·
         educational comparison only
       </p>
+      {result.plan && (
+        <section aria-label="Proposed trade breakdown">
+          <p>
+            Comparison: {result.plan.kind}. Purchase cost{' '}
+            {money(result.plan.purchaseCostMinor)}; sale proceeds{' '}
+            {money(result.plan.saleGrossMinor)}; FIFO gross gain{' '}
+            {money(result.plan.realizedGainMinor)} before fees and tax
+            adjustments.
+          </p>
+          {result.plan.tax && (
+            <section aria-label="Calculated disposal tax">
+              <p>
+                Short-term gain {money(result.plan.tax.shortTermGainMinor)};
+                long-term gain {money(result.plan.tax.longTermGainMinor)};
+                remaining annual exemption applied{' '}
+                {money(result.plan.tax.longTermExemptionUsedMinor)}.
+              </p>
+              <p>
+                Basic tax {money(result.plan.tax.basicTaxMinor)} + cess{' '}
+                {money(result.plan.tax.cessMinor)} ={' '}
+                {money(result.plan.tax.taxMinor)}. Policy{' '}
+                {result.plan.tax.policy}.
+              </p>
+              <a href={result.plan.tax.source} target="_blank" rel="noreferrer">
+                Tax rule source
+              </a>
+            </section>
+          )}
+          {result.plan.purchaseIsin && (
+            <p>
+              Proposed purchase: {result.plan.purchaseQuantity} units of{' '}
+              {result.plan.purchaseIsin}.
+            </p>
+          )}
+          {result.plan.lotDisposals.length > 0 && (
+            <ul aria-label="FIFO lot allocation">
+              {result.plan.lotDisposals.map((lot) => (
+                <li key={lot.reference}>
+                  {lot.reference} · {lot.acquiredOn} · {lot.quantity} units ·
+                  cost {money(lot.costMinor)} · gross gain{' '}
+                  {money(lot.gainMinor)}
+                </li>
+              ))}
+            </ul>
+          )}
+          <details>
+            <summary>All proposed positions</summary>
+            <ul>
+              {result.plan.positions.map((p) => (
+                <li key={p.isin}>
+                  {p.isin}: {p.quantity} units; cost {money(p.costMinor)}
+                </li>
+              ))}
+            </ul>
+          </details>
+        </section>
+      )}
       <div className="action-table">
         <table>
           <caption>No action compared with your proposal</caption>
@@ -101,7 +158,8 @@ function Comparison({ receipt }: { receipt: ActionCentreReceipt }) {
       </div>
       <p>
         Gross proceeds {money(result.proposal.grossProceedsMinor)} − fees{' '}
-        {money(result.proposal.feeMinor)} − assumed tax{' '}
+        {money(result.proposal.feeMinor)} −{' '}
+        {result.plan?.tax ? 'calculated scenario tax' : 'assumed tax'}{' '}
         {money(result.proposal.taxMinor)}. Net available proceeds{' '}
         {money(result.proposal.netProceedsMinor)}.
       </p>
@@ -123,6 +181,12 @@ function Comparison({ receipt }: { receipt: ActionCentreReceipt }) {
       <details>
         <summary>Assumptions, sources and reconstruction</summary>
         <p>
+          {receipt.researchPolicy && (
+            <>
+              Released policy: {receipt.researchPolicy.input.title} · version{' '}
+              {receipt.researchPolicy.version}.{' '}
+            </>
+          )}
           Price {receipt.input.price.rupees} INR · {receipt.input.price.asOf} ·{' '}
           {receipt.input.price.basis}. Tax/fee basis: {receipt.input.costs.note}
           .
@@ -181,9 +245,17 @@ export function ActionCentre() {
     asOf: new Date().toISOString().slice(0, 10),
     lastDisposal: '',
   });
+  const [planKind, setPlanKind] = useState<
+    'legacy' | 'buy' | 'rebalance' | 'sell-fifo'
+  >('legacy');
+  const [taxConfirmed, setTaxConfirmed] = useState(false);
+  const [lots, setLots] = useState([
+    { reference: '', acquiredOn: '', quantity: '', cost: '' },
+  ]);
   const [isin, setIsin] = useState(''),
     [goalId, setGoalId] = useState(''),
     [traceId, setTraceId] = useState('');
+  const [researchPolicyId, setResearchPolicyId] = useState('');
   const [priceChoice, setPriceChoice] = useState('manual'),
     [equity, setEquity] = useState<ReturnType<
       typeof EquityCompanySchema.parse
@@ -263,7 +335,73 @@ export function ActionCentre() {
         (!row || row.observation.kind !== 'price')
       )
         throw Error('Published price changed. Reload prices.');
+      const researchPolicy = choices.researchPolicies.find(
+        (item) => item.id === researchPolicyId,
+      );
+      if (researchPolicyId && !researchPolicy)
+        throw Error(
+          'Released policy changed. Reload and explicitly choose a current policy or your own limits.',
+        );
       const input = ActionCentreInputSchema.parse({
+        ...(researchPolicy
+          ? {
+              researchPolicy: {
+                id: researchPolicy.id,
+                version: researchPolicy.version,
+              },
+            }
+          : {}),
+        ...(planKind === 'legacy'
+          ? {}
+          : {
+              plan: {
+                kind: planKind,
+                minimumCashChangeMinor: rupeesToGoalMinor(
+                  form.materiality ?? '0',
+                ),
+                ...(form.taxMode === 'calculated' && planKind !== 'buy'
+                  ? {
+                      taxProfile: {
+                        policy: 'resident-listed-equity-no-surcharge-2024-v1',
+                        residentIndividual: taxConfirmed,
+                        capitalAssetNotBusiness: taxConfirmed,
+                        sttConditionsMet: taxConfirmed,
+                        basicExemptionExhausted: taxConfirmed,
+                        noLossOffsetsOrSpecialReliefs: taxConfirmed,
+                        totalTaxableIncomeMinor: rupeesToGoalMinor(
+                          form.taxIncome ?? '',
+                        ),
+                        priorEligibleLongTermGainsMinor: rupeesToGoalMinor(
+                          form.priorLtcg ?? '',
+                        ),
+                        deductibleDisposalFeesMinor: rupeesToGoalMinor(
+                          form.deductibleFees ?? '',
+                        ),
+                      },
+                    }
+                  : {}),
+                purchase:
+                  planKind === 'rebalance'
+                    ? {
+                        isin: form.purchaseIsin,
+                        quantity: form.purchaseQuantity,
+                        rupees: form.purchasePrice,
+                        asOf: form.purchaseDate,
+                      }
+                    : null,
+                lots:
+                  planKind === 'buy'
+                    ? []
+                    : lots.map((lot, sequence) => ({
+                        reference: lot.reference,
+                        sequence,
+                        acquiredOn: lot.acquiredOn,
+                        quantity: lot.quantity,
+                        costMinor: rupeesToGoalMinor(lot.cost),
+                      })),
+                evidenceNote: form.lotNote,
+              },
+            }),
         isin,
         holdingsVersion: choices.holdings.version,
         goalId,
@@ -329,12 +467,15 @@ export function ActionCentre() {
       const receipt = ActionCentreReceiptSchema.parse({
         id,
         createdAt: now,
-        policy: 'proposed-disposal-education-v1',
+        policy: input.plan
+          ? 'proposed-trades-education-v2'
+          : 'proposed-disposal-education-v1',
         input,
         holdings: choices.holdings,
         goal,
         trace,
         equity: company,
+        ...(researchPolicy ? { researchPolicy } : {}),
         contextWarnings,
         result: calculateActionCentre(
           input,
@@ -342,6 +483,7 @@ export function ActionCentre() {
           goal,
           now,
           contextWarnings,
+          researchPolicy,
         ),
       });
       setPreview(receipt);
@@ -404,6 +546,30 @@ export function ActionCentre() {
               ? `On-device snapshot ${choices.bundleGeneratedAt}; comparisons remain local.`
               : 'Private account workspace.'}
           </p>
+          <label>
+            Released educational policy
+            <select
+              value={researchPolicyId}
+              onChange={(event) => {
+                setResearchPolicyId(event.target.value);
+                clear();
+              }}
+            >
+              <option value="">Use my explicit limits only</option>
+              {choices.researchPolicies.map((policy) => (
+                <option key={policy.id} value={policy.id}>
+                  {policy.input.title} · version {policy.version}
+                </option>
+              ))}
+            </select>
+          </label>
+          <p>
+            Released policies can only tighten your limits. Source/rule versions
+            are retained with the comparison.{' '}
+            {choices.bundleGeneratedAt
+              ? 'Device mode uses downloaded releases; reconnect to learn about newer withdrawals.'
+              : 'The server rechecks policy and source admission when saving.'}
+          </p>
           {!choices.holdings.holdings.length && (
             <p>Add holdings to compare an actual saved position.</p>
           )}
@@ -437,6 +603,234 @@ export function ActionCentre() {
                   ))}
                 </select>
               </label>
+              <label>
+                Comparison type
+                <select
+                  value={planKind}
+                  onChange={(e) => {
+                    setPlanKind(e.target.value as typeof planKind);
+                    clear();
+                  }}
+                >
+                  <option value="legacy">
+                    Sell using proportional average cost
+                  </option>
+                  <option value="sell-fifo">
+                    Sell using reconciled FIFO lots
+                  </option>
+                  <option value="buy">Buy more of this holding</option>
+                  <option value="rebalance">
+                    Sell and buy another security
+                  </option>
+                </select>
+              </label>
+              {planKind !== 'legacy' && (
+                <fieldset>
+                  <legend>Evidence for this comparison</legend>
+                  <label>
+                    Minimum absolute cash change (INR)
+                    <input
+                      inputMode="decimal"
+                      value={form.materiality ?? '0'}
+                      onChange={(e) => edit('materiality', e.target.value)}
+                    />
+                  </label>
+                  <label>
+                    Cost and transaction evidence explanation
+                    <textarea
+                      required
+                      minLength={5}
+                      maxLength={1000}
+                      value={form.lotNote ?? ''}
+                      onChange={(e) => edit('lotNote', e.target.value)}
+                    />
+                  </label>
+                  {planKind !== 'buy' && (
+                    <>
+                      <p>
+                        Enter all remaining open acquisition lots in transaction
+                        order. Same-day order matters. Their quantity and cost
+                        must match your saved holding exactly. Use adjusted open
+                        costs after previous disposals/corporate actions; do not
+                        paste account identifiers.
+                      </p>
+                      {lots.map((lot, index) => (
+                        <fieldset key={index}>
+                          <legend>Open lot {index + 1}</legend>
+                          {(
+                            [
+                              'reference',
+                              'acquiredOn',
+                              'quantity',
+                              'cost',
+                            ] as const
+                          ).map((key) => (
+                            <label key={key}>
+                              {
+                                {
+                                  reference: 'Lot reference',
+                                  acquiredOn: 'Acquisition date',
+                                  quantity: 'Open units',
+                                  cost: 'Open acquisition cost (INR)',
+                                }[key]
+                              }
+                              <input
+                                required
+                                type={key === 'acquiredOn' ? 'date' : 'text'}
+                                value={lot[key]}
+                                onChange={(e) => {
+                                  setLots((old) =>
+                                    old.map((row, i) =>
+                                      i === index
+                                        ? { ...row, [key]: e.target.value }
+                                        : row,
+                                    ),
+                                  );
+                                  clear();
+                                }}
+                              />
+                            </label>
+                          ))}
+                          <button
+                            type="button"
+                            disabled={lots.length === 1}
+                            onClick={() => {
+                              setLots((old) =>
+                                old.filter((_, i) => i !== index),
+                              );
+                              clear();
+                            }}
+                          >
+                            Remove lot {index + 1}
+                          </button>
+                        </fieldset>
+                      ))}
+                      <button
+                        type="button"
+                        disabled={lots.length >= 500}
+                        onClick={() => {
+                          setLots((old) => [
+                            ...old,
+                            {
+                              reference: '',
+                              acquiredOn: '',
+                              quantity: '',
+                              cost: '',
+                            },
+                          ]);
+                          clear();
+                        }}
+                      >
+                        Add acquisition lot
+                      </button>
+                    </>
+                  )}
+                  {planKind !== 'buy' && (
+                    <fieldset>
+                      <legend>Tax basis</legend>
+                      <label>
+                        Tax calculation
+                        <select
+                          value={form.taxMode ?? 'assumed'}
+                          onChange={(e) => {
+                            edit('taxMode', e.target.value);
+                            setTaxConfirmed(false);
+                            if (e.target.value === 'calculated')
+                              edit('tax', '0');
+                          }}
+                        >
+                          <option value="assumed">
+                            My reviewed tax assumption
+                          </option>
+                          <option value="calculated">
+                            Restricted listed-equity policy
+                          </option>
+                        </select>
+                      </label>
+                      {form.taxMode === 'calculated' && (
+                        <>
+                          <p>
+                            This calculates the incremental listed-equity
+                            disposal tax for a resident individual, with STT
+                            conditions met and basic exemption already
+                            exhausted, total taxable income no more than ₹50
+                            lakh, no losses or special relief, and lots acquired
+                            after January2018. It excludes business income and
+                            is not a tax return. Leave assumed tax at zero.
+                          </p>
+                          {(
+                            [
+                              [
+                                'taxIncome',
+                                'Total taxable income including these gains (INR)',
+                              ],
+                              [
+                                'priorLtcg',
+                                'Prior eligible long-term gains this financial year (INR)',
+                              ],
+                              [
+                                'deductibleFees',
+                                'Deductible disposal fees excluding STT (INR)',
+                              ],
+                            ] as const
+                          ).map(([key, label]) => (
+                            <label key={key}>
+                              {label}
+                              <input
+                                required
+                                inputMode="decimal"
+                                value={form[key] ?? ''}
+                                onChange={(e) => edit(key, e.target.value)}
+                              />
+                            </label>
+                          ))}
+                          <label>
+                            <input
+                              type="checkbox"
+                              required
+                              checked={taxConfirmed}
+                              onChange={(e) => {
+                                setTaxConfirmed(e.target.checked);
+                                clear();
+                              }}
+                            />
+                            I confirm every listed eligibility condition for
+                            this tax scenario.
+                          </label>
+                        </>
+                      )}
+                    </fieldset>
+                  )}
+                  {planKind === 'rebalance' && (
+                    <fieldset>
+                      <legend>Proposed purchase</legend>
+                      {(
+                        [
+                          ['purchaseIsin', 'Purchase ISIN'],
+                          ['purchaseQuantity', 'Purchase units'],
+                          ['purchasePrice', 'Assumed purchase price (INR)'],
+                          ['purchaseDate', 'Purchase price date'],
+                        ] as const
+                      ).map(([key, label]) => (
+                        <label key={key}>
+                          {label}
+                          <input
+                            required
+                            type={key === 'purchaseDate' ? 'date' : 'text'}
+                            value={form[key] ?? ''}
+                            onChange={(e) => edit(key, e.target.value)}
+                          />
+                        </label>
+                      ))}
+                      <p>
+                        The purchase is your explicit scenario, not an
+                        instrument recommendation. Cash funding assumes disposal
+                        proceeds have settled.
+                      </p>
+                    </fieldset>
+                  )}
+                </fieldset>
+              )}
               <label>
                 Saved goal
                 <select
@@ -532,7 +926,9 @@ export function ActionCentre() {
                   )
                   .map(([key, label]) => (
                     <label key={key}>
-                      {label}
+                      {key === 'quantity' && planKind === 'buy'
+                        ? 'Units to purchase'
+                        : label}
                       <input
                         required
                         inputMode="decimal"

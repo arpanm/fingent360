@@ -1,3 +1,10 @@
+import {
+  sealPrivateJson,
+  openPrivateJson,
+  privatePayloadNeedsRotation,
+  activePrivateKeyId,
+  type PrivateDataKeys,
+} from './private-data-crypto.js';
 import { OperatorRead, OperatorAction } from './operator-permissions.js';
 import { createHash, createHmac, timingSafeEqual } from 'node:crypto';
 import {
@@ -9,6 +16,8 @@ import {
   ForbiddenException,
   Get,
   GoneException,
+  Header,
+  UnauthorizedException,
   Headers,
   HttpException,
   Inject,
@@ -24,6 +33,8 @@ import pg from 'pg';
 import { z } from 'zod';
 import {
   FeedbackReceiptSchema,
+  FeedbackEncryptionRequestSchema,
+  FeedbackEncryptionResultSchema,
   FeedbackReportSchema,
   FeedbackReviewSchema,
   FeedbackListSchema,
@@ -31,11 +42,13 @@ import {
 } from '@fingent360/contracts';
 import type { AppConfig } from './config.js';
 import { OPERATOR_STORE, OperatorStore } from './operator.js';
+import { namedSessionCondition } from './named-operator-store.js';
 import { validateFeedbackSubmission } from './feedback-validation.js';
 export const FEEDBACK_STORE = Symbol('FEEDBACK_STORE');
 const hash = (value: string) =>
   createHash('sha256').update(value).digest('hex');
-interface FeedbackRow {
+export interface FeedbackRow {
+  encrypted_payload: unknown;
   id: string;
   token_hash: string;
   payload_hash: string;
@@ -63,7 +76,7 @@ const receipt = (row: FeedbackRow) =>
     updatedAt: row.updated_at.toISOString(),
     version: row.version,
   });
-const report = (row: FeedbackRow) =>
+const legacyReport = (row: FeedbackRow) =>
   FeedbackReportSchema.parse({
     ...receipt(row),
     text: row.text,
@@ -77,6 +90,23 @@ const report = (row: FeedbackRow) =>
         ? { ...row.audio_meta, base64: row.audio_bytes.toString('base64') }
         : null,
   });
+export function feedbackReport(row: FeedbackRow, keys: PrivateDataKeys) {
+  if (row.encrypted_payload === null) return legacyReport(row);
+  const content = openPrivateJson(
+    'feedback-report',
+    row.token_hash,
+    row.id,
+    row.encrypted_payload,
+    keys,
+  );
+  const fields = FeedbackReportSchema.pick({
+    text: true,
+    context: true,
+    image: true,
+    audio: true,
+  }).parse(content);
+  return FeedbackReportSchema.parse({ ...receipt(row), ...fields });
+}
 function validId(id: string) {
   if (!z.uuid().safeParse(id).success)
     throw new BadRequestException('Invalid feedback ID.');
@@ -96,6 +126,42 @@ function owns(row: FeedbackRow, token?: string) {
   )
     throw new NotFoundException('Feedback not found.');
 }
+export async function auditFeedbackSupportRead(
+  c: pg.PoolClient,
+  ids: string[],
+  action: 'support:list' | 'support:detail',
+  actor: string,
+  authorize: (c: pg.PoolClient) => Promise<unknown>,
+) {
+  // Keep admission locked through audit commit: session/role changes cannot race disclosure.
+  await c.query(
+    'SELECT token_hash FROM operator_sessions WHERE token_hash=$1 FOR SHARE',
+    [actor],
+  );
+  await c.query(
+    `SELECT identity.id FROM named_operators identity JOIN operator_sessions s ON s.operator_id=identity.id WHERE s.token_hash=$1 FOR SHARE OF identity`,
+    [actor],
+  );
+  await authorize(c);
+  const session = await c.query<{ identity: string }>(
+    `SELECT COALESCE(operator_id::text,'bootstrap:'||token_hash) AS identity FROM operator_sessions WHERE token_hash=$1 AND expires_at>clock_timestamp() AND ${namedSessionCondition}`,
+    [actor],
+  );
+  if (!session.rows[0])
+    throw new UnauthorizedException('Sign in to operations.');
+  await c.query(
+    `INSERT INTO feedback_audit(report_id,actor,action,version)
+      SELECT id,$2,$3,version FROM feedback_reports WHERE id=ANY($1::uuid[])`,
+    [ids, session.rows[0].identity, action],
+  );
+  const active = await c.query(
+    `SELECT 1 FROM operator_sessions WHERE token_hash=$1 AND expires_at>clock_timestamp() AND ${namedSessionCondition}`,
+    [actor],
+  );
+  if (!active.rowCount)
+    throw new UnauthorizedException('Sign in to operations.');
+}
+
 export class FeedbackStore {
   private readonly pool: pg.Pool;
   constructor(private readonly config: AppConfig) {
@@ -113,7 +179,8 @@ export class FeedbackStore {
   origin(origin?: string) {
     if (
       origin !== this.config.WEB_ORIGIN &&
-      origin !== 'https://appassets.androidplatform.net'
+      origin !== 'https://appassets.androidplatform.net' &&
+      origin !== 'https://ios.fingent360.invalid'
     )
       throw new ForbiddenException('Feedback origin is not allowed.');
   }
@@ -125,7 +192,7 @@ export class FeedbackStore {
     });
     try {
       await c.query(
-        'UPDATE feedback_reports SET deleted_at=now(),updated_at=now(),text=NULL,context=NULL,image_meta=NULL,image_bytes=NULL,audio_meta=NULL,audio_bytes=NULL WHERE deleted_at IS NULL AND expires_at<=now()',
+        'UPDATE feedback_reports SET deleted_at=now(),updated_at=now(),text=NULL,context=NULL,image_meta=NULL,image_bytes=NULL,audio_meta=NULL,audio_bytes=NULL,encrypted_payload=NULL,public_source_id=NULL WHERE deleted_at IS NULL AND expires_at<=now()',
       );
       await c.query('BEGIN');
       const result = await work(c);
@@ -170,8 +237,31 @@ export class FeedbackStore {
       "DELETE FROM feedback_rate_limits WHERE window_start<now()-interval '2 days'",
     );
   }
+  private async readable(c: pg.PoolClient, row: FeedbackRow) {
+    const value = feedbackReport(row, this.config);
+    if (
+      row.encrypted_payload === null ||
+      privatePayloadNeedsRotation(row.encrypted_payload, this.config)
+    ) {
+      const { text, context, image, audio } = value;
+      await c.query(
+        'UPDATE feedback_reports SET encrypted_payload=$2,text=NULL,context=NULL,image_meta=NULL,image_bytes=NULL,audio_meta=NULL,audio_bytes=NULL WHERE id=$1',
+        [
+          row.id,
+          sealPrivateJson(
+            'feedback-report',
+            row.token_hash,
+            row.id,
+            { text, context, image, audio },
+            this.config,
+          ),
+        ],
+      );
+    }
+    return value;
+  }
   async submit(body: unknown, address: string) {
-    const { submission, image, audio } = validateFeedbackSubmission(body);
+    const { submission } = validateFeedbackSubmission(body);
     const { receiptToken, ...payload } = submission;
     const digest = hash(JSON.stringify(payload));
     return this.transaction(async (c) => {
@@ -197,28 +287,24 @@ export class FeedbackStore {
       }
       await this.limit(c, address);
       const r = await c.query<FeedbackRow>(
-        'INSERT INTO feedback_reports(id,token_hash,payload_hash,text,context,image_meta,image_bytes,audio_meta,audio_bytes) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING *',
+        'INSERT INTO feedback_reports(id,token_hash,payload_hash,encrypted_payload,public_source_id) VALUES($1,$2,$3,$4,$5) RETURNING *',
         [
           submission.id,
           hash(receiptToken),
           digest,
-          submission.text,
-          JSON.stringify(submission.context),
-          submission.image
-            ? JSON.stringify({
-                mime: submission.image.mime,
-                width: submission.image.width,
-                height: submission.image.height,
-              })
-            : null,
-          image,
-          submission.audio
-            ? JSON.stringify({
-                mime: submission.audio.mime,
-                durationMs: submission.audio.durationMs,
-              })
-            : null,
-          audio,
+          sealPrivateJson(
+            'feedback-report',
+            hash(receiptToken),
+            submission.id,
+            {
+              text: submission.text,
+              context: submission.context,
+              image: submission.image,
+              audio: submission.audio,
+            },
+            this.config,
+          ),
+          submission.context.publicView?.item.id ?? null,
         ],
       );
       await c.query(
@@ -237,13 +323,33 @@ export class FeedbackStore {
       owns(row, token);
       if (row.deleted_at || row.expires_at <= new Date())
         throw new GoneException('Feedback was deleted or expired.');
-      return report(row);
+      const access = await c.query<{
+        action: 'support:list' | 'support:detail';
+        created_at: Date;
+        total: string;
+      }>(
+        `SELECT action,created_at,count(*) OVER() AS total FROM feedback_audit
+         WHERE report_id=$1 AND action IN ('support:list','support:detail')
+         ORDER BY created_at DESC,id DESC LIMIT 20`,
+        [id],
+      );
+      return FeedbackReportSchema.parse({
+        ...(await this.readable(c, row)),
+        supportAccess: {
+          checkedAt: new Date().toISOString(),
+          total: Number(access.rows[0]?.total ?? 0),
+          events: access.rows.map((event) => ({
+            action: event.action,
+            accessedAt: event.created_at.toISOString(),
+          })),
+        },
+      });
     });
   }
   private async erase(c: pg.PoolClient, row: FeedbackRow, actor: string) {
     if (!row.deleted_at) {
       await c.query(
-        'UPDATE feedback_reports SET deleted_at=now(),updated_at=now(),version=version+1,text=NULL,context=NULL,image_meta=NULL,image_bytes=NULL,audio_meta=NULL,audio_bytes=NULL WHERE id=$1',
+        'UPDATE feedback_reports SET deleted_at=now(),updated_at=now(),version=version+1,text=NULL,context=NULL,image_meta=NULL,image_bytes=NULL,audio_meta=NULL,audio_bytes=NULL,encrypted_payload=NULL,public_source_id=NULL WHERE id=$1',
         [row.id],
       );
       await c.query(
@@ -279,7 +385,12 @@ export class FeedbackStore {
     });
   }
 
-  async list(status?: string, cursor?: string) {
+  async list(
+    status: string | undefined,
+    cursor: string | undefined,
+    actor: string,
+    authorize: (c: pg.PoolClient) => Promise<unknown>,
+  ) {
     const selected = FeedbackStatusSchema.optional().safeParse(status);
     if (!selected.success)
       throw new BadRequestException('Invalid feedback status.');
@@ -304,18 +415,32 @@ export class FeedbackStore {
     }
     return this.transaction(async (c) => {
       const result = await c.query<FeedbackRow>(
-        'SELECT id,status,version,received_at,updated_at,text,context,image_meta,audio_meta FROM feedback_reports WHERE deleted_at IS NULL AND expires_at>now() AND ($1::text IS NULL OR status=$1) AND ($2::timestamptz IS NULL OR (received_at,id)<($2,$3::uuid)) ORDER BY received_at DESC,id DESC LIMIT 51',
+        'SELECT * FROM feedback_reports WHERE deleted_at IS NULL AND expires_at>now() AND ($1::text IS NULL OR status=$1) AND ($2::timestamptz IS NULL OR (received_at,id)<($2,$3::uuid)) ORDER BY received_at DESC,id DESC LIMIT 51 FOR UPDATE',
         [status ?? null, after?.at ?? null, after?.id ?? null],
       );
       const rows = result.rows.slice(0, 50),
         last = rows.at(-1);
+      await auditFeedbackSupportRead(
+        c,
+        rows.map((row) => row.id),
+        'support:list',
+        actor,
+        authorize,
+      );
+      const readable = [];
+      for (const row of rows) readable.push(await this.readable(c, row));
+      await auditFeedbackSupportRead(c, [], 'support:list', actor, authorize);
       return FeedbackListSchema.parse({
-        items: rows.map((row) => ({
-          ...receipt(row),
+        items: readable.map((row) => ({
+          id: row.id,
+          status: row.status,
+          version: row.version,
+          receivedAt: row.receivedAt,
+          updatedAt: row.updatedAt,
           text: row.text,
           context: row.context,
-          hasImage: row.image_meta !== null,
-          hasAudio: row.audio_meta !== null,
+          hasImage: row.image !== null,
+          hasAudio: row.audio !== null,
         })),
         nextCursor:
           result.rows.length > 50 && last
@@ -330,13 +455,60 @@ export class FeedbackStore {
       });
     });
   }
-  async operatorGet(id: string) {
+  async upgradeEncryption(
+    body: unknown,
+    actor: string,
+    authorize: (c: pg.PoolClient) => Promise<unknown>,
+  ) {
+    if (!FeedbackEncryptionRequestSchema.safeParse(body).success)
+      throw new BadRequestException(
+        'Confirm the bounded encryption maintenance.',
+      );
+    const keyId = activePrivateKeyId(this.config);
+    return this.transaction(async (c) => {
+      const rows = await c.query<FeedbackRow>(
+        "SELECT * FROM feedback_reports WHERE deleted_at IS NULL AND expires_at>clock_timestamp() AND (encrypted_payload IS NULL OR encrypted_payload->>'keyId'<>$1) ORDER BY received_at,id LIMIT 50 FOR UPDATE",
+        [keyId],
+      );
+      await auditFeedbackSupportRead(c, [], 'support:list', actor, authorize);
+      for (const row of rows.rows) {
+        await this.readable(c, row);
+        await c.query(
+          "INSERT INTO feedback_audit(report_id,actor,action,version) VALUES($1,$2,'maintenance:encryption',$3)",
+          [row.id, actor, row.version],
+        );
+      }
+      const remaining = await c.query<{ n: string }>(
+        "SELECT count(*) AS n FROM feedback_reports WHERE deleted_at IS NULL AND expires_at>clock_timestamp() AND (encrypted_payload IS NULL OR encrypted_payload->>'keyId'<>$1)",
+        [keyId],
+      );
+      await auditFeedbackSupportRead(c, [], 'support:list', actor, authorize);
+      return FeedbackEncryptionResultSchema.parse({
+        processed: rows.rowCount,
+        remaining: Number(remaining.rows[0]!.n),
+      });
+    });
+  }
+  async operatorGet(
+    id: string,
+    actor: string,
+    authorize: (c: pg.PoolClient) => Promise<unknown>,
+  ) {
     validId(id);
     return this.transaction(async (c) => {
       const row = await this.row(c, id);
       if (!row || row.deleted_at || row.expires_at <= new Date())
         throw new NotFoundException('Feedback not found.');
-      return report(row);
+      await auditFeedbackSupportRead(
+        c,
+        [id],
+        'support:detail',
+        actor,
+        authorize,
+      );
+      const result = await this.readable(c, row);
+      await auditFeedbackSupportRead(c, [], 'support:detail', actor, authorize);
+      return result;
     });
   }
   async review(
@@ -397,10 +569,9 @@ export class FeedbackController {
     this.store.origin(origin);
     return this.store.submit(body, request.socket.remoteAddress ?? 'unknown');
   }
-  @Get(':id') get(
-    @Param('id') id: string,
-    @Headers('x-feedback-token') token?: string,
-  ) {
+  @Get(':id')
+  @Header('Cache-Control', 'private, no-store')
+  get(@Param('id') id: string, @Headers('x-feedback-token') token?: string) {
     return this.store.get(id, token);
   }
   @Delete(':id') remove(
@@ -424,20 +595,41 @@ export class OpsFeedbackController {
     @Inject(FEEDBACK_STORE) private readonly store: FeedbackStore,
     @Inject(OPERATOR_STORE) private readonly operator: OperatorStore,
   ) {}
-  @Get() async list(
+  @Get()
+  @Header('Cache-Control', 'private, no-store')
+  async list(
     @Headers('cookie') cookie: string | undefined,
     @Query('status') status?: string,
     @Query('cursor') cursor?: string,
   ) {
-    await this.operator.require(cookie);
-    return this.store.list(status, cursor);
+    await this.operator.permission(cookie, 'administer');
+    const actor = await this.operator.require(cookie);
+    return this.store.list(status, cursor, actor, (c) =>
+      this.operator.permission(cookie, 'administer', c),
+    );
   }
-  @Get(':id') async get(
-    @Param('id') id: string,
-    @Headers('cookie') cookie?: string,
+  @Get(':id')
+  @Header('Cache-Control', 'private, no-store')
+  async get(@Param('id') id: string, @Headers('cookie') cookie?: string) {
+    await this.operator.permission(cookie, 'administer');
+    const actor = await this.operator.require(cookie);
+    return this.store.operatorGet(id, actor, (c) =>
+      this.operator.permission(cookie, 'administer', c),
+    );
+  }
+  @OperatorAction('administer')
+  @Post('encryption')
+  async upgrade(
+    @Body() body: unknown,
+    @Headers('cookie') cookie: string | undefined,
+    @Headers('origin') origin?: string,
   ) {
-    await this.operator.require(cookie);
-    return this.store.operatorGet(id);
+    this.operator.origin(origin);
+    await this.operator.permission(cookie, 'administer');
+    const actor = await this.operator.require(cookie);
+    return this.store.upgradeEncryption(body, actor, (c) =>
+      this.operator.permission(cookie, 'administer', c),
+    );
   }
   @OperatorAction('administer')
   @Patch(':id')

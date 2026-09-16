@@ -1,0 +1,5 @@
+CREATE TABLE classification_crosswalk_heads(id uuid PRIMARY KEY,version integer NOT NULL,state text NOT NULL CHECK(state IN ('draft','published','withdrawn')));
+CREATE TABLE classification_crosswalk_versions(id uuid NOT NULL REFERENCES classification_crosswalk_heads(id),version integer NOT NULL,request_id uuid NOT NULL UNIQUE,actor_hash text NOT NULL,payload jsonb NOT NULL,PRIMARY KEY(id,version));
+CREATE TABLE classification_crosswalk_reviews(request_id uuid PRIMARY KEY,id uuid NOT NULL,version integer NOT NULL,actor_hash text NOT NULL,decision text NOT NULL CHECK(decision IN ('publish','withdraw')),reason text NOT NULL,reviewed_at timestamptz NOT NULL DEFAULT clock_timestamp(),FOREIGN KEY(id,version) REFERENCES classification_crosswalk_versions(id,version));
+CREATE TRIGGER classification_crosswalk_versions_immutable BEFORE UPDATE OR DELETE ON classification_crosswalk_versions FOR EACH ROW EXECUTE FUNCTION prevent_discovery_revision_mutation();
+CREATE TRIGGER classification_crosswalk_reviews_immutable BEFORE UPDATE OR DELETE ON classification_crosswalk_reviews FOR EACH ROW EXECUTE FUNCTION prevent_discovery_revision_mutation();

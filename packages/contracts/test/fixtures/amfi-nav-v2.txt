@@ -1,0 +1,8 @@
+Scheme Code;ISIN Div Payout/ ISIN Growth;ISIN Div Reinvestment;Scheme Name;Plan;Option;Net Asset Value;Date
+
+Open Ended Schemes(Equity Scheme - Synthetic)
+
+Synthetic AMC
+900001;INF000000001;-;Synthetic new format fund;Direct Plan;Growth Option;123.4500;31-Jan-2025
+900002;INF000000002;-;Synthetic new format fund;Regular Plan;IDCW Option;101.1000;31-Jan-2025
+900003;INF000000003;-;Synthetic missing plan fund;;Growth;N.A.;31-Jan-2025

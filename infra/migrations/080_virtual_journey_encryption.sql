@@ -1,0 +1,15 @@
+ALTER TABLE virtual_workspaces ALTER COLUMN portfolio DROP NOT NULL;
+ALTER TABLE virtual_workspaces ADD COLUMN encrypted_payload jsonb;
+ALTER TABLE virtual_workspaces ADD CONSTRAINT virtual_workspaces_single_private_copy CHECK ((portfolio IS NULL) <> (encrypted_payload IS NULL));
+ALTER TABLE virtual_previews ALTER COLUMN payload DROP NOT NULL;
+ALTER TABLE virtual_previews ADD COLUMN encrypted_payload jsonb;
+ALTER TABLE virtual_previews ADD CONSTRAINT virtual_previews_single_private_copy CHECK ((payload IS NULL) <> (encrypted_payload IS NULL));
+ALTER TABLE virtual_mutations ALTER COLUMN response DROP NOT NULL;
+ALTER TABLE virtual_mutations ADD COLUMN encrypted_payload jsonb;
+ALTER TABLE virtual_mutations ADD CONSTRAINT virtual_mutations_single_private_copy CHECK ((response IS NULL) <> (encrypted_payload IS NULL));
+ALTER TABLE virtual_imports ALTER COLUMN response DROP NOT NULL;
+ALTER TABLE virtual_imports ADD COLUMN encrypted_payload jsonb;
+ALTER TABLE virtual_imports ADD CONSTRAINT virtual_imports_single_private_copy CHECK ((response IS NULL) <> (encrypted_payload IS NULL));
+ALTER TABLE virtual_reviews ALTER COLUMN payload DROP NOT NULL;
+ALTER TABLE virtual_reviews ADD COLUMN encrypted_payload jsonb;
+ALTER TABLE virtual_reviews ADD CONSTRAINT virtual_reviews_single_private_copy CHECK ((payload IS NULL) <> (encrypted_payload IS NULL));

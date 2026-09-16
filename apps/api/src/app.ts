@@ -1,4 +1,141 @@
 import {
+  FilingDiscoveryOperationsController,
+  filingDiscoveryProvider,
+} from './filing-discovery.js';
+import {
+  FilingWatchOperationsController,
+  filingWatchProvider,
+} from './filing-watch.js';
+import {
+  CcilZeroController,
+  OpsCcilZeroController,
+  CCIL_ZERO_GATE,
+} from './ccil-zero-curve.js';
+import {
+  CorporateRatingsController,
+  CorporateRatingsOperationsController,
+} from './corporate-rating.js';
+import {
+  EiaSpotController,
+  EiaSpotOperationsController,
+  eiaSpotProvider,
+} from './eia-spot.js';
+import {
+  EquityActionTermsController,
+  EquityActionTermsOperationsController,
+  actionTermsProvider,
+} from './equity-action-terms.js';
+import {
+  SovereignBondsController,
+  SovereignBondsOperationsController,
+} from './sovereign-bond.js';
+import {
+  FundFactsheetController,
+  OpsFundFactsheetController,
+} from './fund-factsheet.js';
+import {
+  FundMergersController,
+  FundMergersOperationsController,
+} from './fund-mergers.js';
+import {
+  EquityConsolidationsController,
+  EquityConsolidationOperationsController,
+  consolidationProvider,
+} from './equity-consolidation.js';
+import {
+  CommodityOperationsController,
+  CommodityPublicController,
+  commodityProvider,
+} from './commodity-benchmarks.js';
+import {
+  RegulatorySourcesController,
+  OpsRegulatorySourcesController,
+  REGULATORY_GATE,
+} from './regulatory-sources.js';
+import {
+  CpiExpectationsController,
+  CpiExpectationOperationsController,
+  cpiExpectationProvider,
+} from './cpi-expectations.js';
+import {
+  GdpExpectationsController,
+  GdpExpectationOperationsController,
+  gdpExpectationProvider,
+} from './gdp-expectations.js';
+import {
+  WhatsappAccountController,
+  WhatsappWebhookController,
+  whatsappProvider,
+} from './whatsapp-channel.js';
+import {
+  CcilYieldsController,
+  OpsCcilYieldsController,
+  CCIL_GATE,
+} from './ccil-yields.js';
+import {
+  IntelligenceBriefController,
+  IntelligenceBriefOperationsController,
+  intelligenceBriefProvider,
+} from './intelligence-brief.js';
+import {
+  FundLookthroughController,
+  OpsFundLookthroughController,
+} from './sbi-portfolio.js';
+import {
+  AngelConnectionController,
+  angelConnectionProvider,
+} from './angel-connection.js';
+import {
+  OilEducationController,
+  oilEducationProvider,
+} from './oil-education.js';
+import {
+  UpstoxConnectionController,
+  upstoxConnectionProvider,
+} from './upstox-connection.js';
+import {
+  IndiaMacroController,
+  IndiaMacroOperationsController,
+  indiaMacroProvider,
+} from './india-macro.js';
+import {
+  EquityAdjustmentsController,
+  EquityAdjustmentOperationsController,
+  equityAdjustmentProvider,
+} from './equity-adjustments.js';
+import {
+  ClassificationCrosswalkStore,
+  ClassificationCrosswalkController,
+  ClassificationCrosswalkPublicController,
+} from './classification-crosswalk.js';
+import {
+  ParticipantPositioningController,
+  ParticipantPositioningOperationsController,
+  participantPositioningProvider,
+} from './participant-positioning.js';
+import {
+  KiteConnectionController,
+  kiteConnectionProvider,
+} from './kite-connection.js';
+import {
+  InstitutionalFlowController,
+  InstitutionalFlowOperationsController,
+  institutionalFlowProvider,
+} from './institutional-flows.js';
+import { ImpactCalibrationController } from './impact-calibration.js';
+import { AccountMfaController } from './account-mfa.js';
+import {
+  ResearchGovernanceStore,
+  ResearchGovernanceController,
+  ResearchGovernancePublicController,
+} from './research-governance.js';
+import { CompanyNewsController, companyNewsProvider } from './company-news.js';
+import {
+  DeploymentMonitoringController,
+  DeploymentMonitoringStore,
+  DeploymentMonitoringWorker,
+} from './deployment-monitoring.js';
+import {
   RESEARCH_AUTO_POLICY,
   ResearchAutoPolicyStore,
   ResearchAutoPolicyController,
@@ -186,6 +323,58 @@ export async function createApp(
       module: AppModule,
       controllers: [
         HealthController,
+        IndiaMacroController,
+        FilingDiscoveryOperationsController,
+        FilingWatchOperationsController,
+        CcilZeroController,
+        OpsCcilZeroController,
+        CorporateRatingsController,
+        CorporateRatingsOperationsController,
+        EiaSpotController,
+        EiaSpotOperationsController,
+        EquityActionTermsController,
+        EquityActionTermsOperationsController,
+        SovereignBondsController,
+        SovereignBondsOperationsController,
+        EquityConsolidationsController,
+        EquityConsolidationOperationsController,
+        EquityAdjustmentsController,
+        ClassificationCrosswalkController,
+        ClassificationCrosswalkPublicController,
+        ParticipantPositioningController,
+        IntelligenceBriefController,
+        IntelligenceBriefOperationsController,
+        FundFactsheetController,
+        OpsFundFactsheetController,
+        FundMergersController,
+        FundMergersOperationsController,
+        CommodityOperationsController,
+        CommodityPublicController,
+        RegulatorySourcesController,
+        OpsRegulatorySourcesController,
+        CpiExpectationsController,
+        CpiExpectationOperationsController,
+        GdpExpectationsController,
+        GdpExpectationOperationsController,
+        WhatsappAccountController,
+        WhatsappWebhookController,
+        CcilYieldsController,
+        OpsCcilYieldsController,
+        FundLookthroughController,
+        OpsFundLookthroughController,
+        OilEducationController,
+        AngelConnectionController,
+        KiteConnectionController,
+        UpstoxConnectionController,
+        InstitutionalFlowController,
+        InstitutionalFlowOperationsController,
+        ParticipantPositioningOperationsController,
+        EquityAdjustmentOperationsController,
+        IndiaMacroOperationsController,
+        ImpactCalibrationController,
+        ResearchGovernanceController,
+        ResearchGovernancePublicController,
+        CompanyNewsController,
         ResearchAutoPolicyController,
         PrivateAiHistoryController,
         EventScenariosController,
@@ -208,6 +397,7 @@ export async function createApp(
         OpsEventsController,
         EventExtractionController,
         QualityOverviewController,
+        DeploymentMonitoringController,
         WorkerHealthController,
         FeedbackController,
         OpsFeedbackController,
@@ -220,6 +410,7 @@ export async function createApp(
         EcbFxController,
         OpsEcbFxController,
         AccountController,
+        AccountMfaController,
         GoalsController,
         GoalScenariosController,
         GoalFeasibilityController,
@@ -260,6 +451,48 @@ export async function createApp(
       ],
       providers: [
         equityCoverageProvider(config),
+        ResearchGovernanceStore,
+        companyNewsProvider(config),
+        indiaMacroProvider(config),
+        {
+          provide: CCIL_ZERO_GATE,
+          useValue: {
+            enabled: config.CCIL_ZERO_ENABLED,
+            permissionReference: config.CCIL_ZERO_PERMISSION_REFERENCE,
+          },
+        },
+        filingDiscoveryProvider(config),
+        filingWatchProvider(config),
+        eiaSpotProvider(config),
+        actionTermsProvider(config),
+        consolidationProvider(config),
+        equityAdjustmentProvider(config),
+        ClassificationCrosswalkStore,
+        participantPositioningProvider(config),
+        {
+          provide: CCIL_GATE,
+          useValue: {
+            enabled: config.CCIL_ENABLED,
+            permissionReference: config.CCIL_PERMISSION_REFERENCE,
+          },
+        },
+        {
+          provide: REGULATORY_GATE,
+          useValue: {
+            enabled: config.REGULATORY_SOURCES_ENABLED,
+            permissionReference: config.REGULATORY_SOURCES_PERMISSION_REFERENCE,
+          },
+        },
+        commodityProvider(config),
+        cpiExpectationProvider(config),
+        gdpExpectationProvider(config),
+        whatsappProvider(config),
+        intelligenceBriefProvider,
+        oilEducationProvider(config),
+        angelConnectionProvider(config),
+        kiteConnectionProvider(config),
+        upstoxConnectionProvider(config),
+        institutionalFlowProvider(config),
         {
           provide: RESEARCH_AUTO_POLICY,
           inject: [DISCOVERY_STORE],
@@ -310,6 +543,8 @@ export async function createApp(
         ReportWorker,
         MaterialWorker,
         WorkerHealthStore,
+        DeploymentMonitoringStore,
+        DeploymentMonitoringWorker,
         mediaProvider(config),
         sourcesProvider(config),
         assistanceProvider(config),
@@ -327,11 +562,53 @@ export async function createApp(
     import.meta.resolve('@nestjs/platform-express'),
   );
   const express = requireExpress('express') as {
-    json: (options: { limit: number }) => unknown;
+    json: (options: {
+      limit: number;
+      verify?: (
+        request: { rawBody?: Buffer },
+        response: unknown,
+        buffer: Buffer,
+      ) => void;
+    }) => unknown;
     urlencoded: (options: { limit: number; extended: boolean }) => unknown;
   };
+  app.use(
+    '/api/v1/whatsapp/webhook',
+    express.json({
+      limit: 256_000,
+      verify: (request, _response, buffer) => {
+        request.rawBody = Buffer.from(buffer);
+      },
+    }),
+  );
   app.use('/api/v1/ops/equities/import', express.json({ limit: 3_000_000 }));
   app.use('/api/v1/ops/funds/import', express.json({ limit: 10_000_000 }));
+  // Source-specific contracts cap decoded fields; transport also permits JSON escaping.
+  for (const [path, limit] of [
+    ['/api/v1/ops/filing-discovery/capture', 12_100_000],
+    ['/api/v1/ops/bond-zero-curve/import', 3_100_000],
+    ['/api/v1/ops/corporate-ratings/import', 2_900_000],
+    ['/api/v1/ops/eia-spot/capture', 6_100_000],
+    ['/api/v1/ops/equity-action-terms/prepare', 12_000_000],
+    ['/api/v1/ops/sovereign-bonds/import', 11_500_000],
+    ['/api/v1/ops/fund-factsheets/import', 4_100_000],
+    ['/api/v1/ops/fund-mergers/import', 2_100_000],
+    ['/api/v1/ops/commodity-benchmarks/capture', 4_100_000],
+    ['/api/v1/ops/regulatory-sources/import', 2_100_000],
+    ['/api/v1/ops/cpi-expectations/import', 12_100_000],
+    ['/api/v1/ops/gdp-expectations/import', 12_100_000],
+    ['/api/v1/ops/india-macro/gdp', 8_100_000],
+    ['/api/v1/ops/india-macro/import', 18_100_000],
+    ['/api/v1/ops/india-macro/calendar', 9_000_000],
+    ['/api/v1/ops/positioning/capture', 12_100_000],
+    ['/api/v1/ops/institutional-flows/capture', 6_100_000],
+    ['/api/v1/ops/oil-education/capture', 6_100_000],
+    ['/api/v1/ops/fund-lookthrough/import', 2_800_000],
+    ['/api/v1/ops/bond-yields/import', 3_100_000],
+    ['/api/v1/ops/equity-consolidations/prepare', 9_000_000],
+    ['/api/v1/ops/equity-adjustments/prepare', 12_100_000],
+  ] as const)
+    app.use(path, express.json({ limit }));
   app.use('/api/v1/feedback', express.json({ limit: 8_500_000 }));
   // Explicitly mount the defaults: Nest detects any named jsonParser as global,
   // even a path-scoped one, and would otherwise skip parsing every other route.
@@ -353,7 +630,9 @@ export async function createApp(
       const incoming = request.headers.origin;
       const allowed =
         incoming === config.WEB_ORIGIN ||
-        (feedback && incoming === 'https://appassets.androidplatform.net');
+        (feedback &&
+          (incoming === 'https://appassets.androidplatform.net' ||
+            incoming === 'https://ios.fingent360.invalid'));
       callback(null, {
         origin: feedback ? (allowed ? incoming! : false) : config.WEB_ORIGIN,
         credentials: true,

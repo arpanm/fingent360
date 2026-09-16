@@ -1,6 +1,6 @@
 # SDLC-REPAIR-002 — formatting-only retry and repair CLI discovery
 
-- **Status:** Implemented; validation pending
+- **Status:** Completed implementation; validation pending
 - **Implemented / recorded:** - Status: Fix authored, execution validation pending; user run1789445576136-52339 stopped at format:check before lint/tests. Installed CLI responds as codex-cli 0.153.4; no repair agent, formatter, checks or tests were run. Commit remains gated on user-run format/check.
 - **Pending:** The implementation is recorded; user-run validation remains separate.
 - **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.

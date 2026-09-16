@@ -6,11 +6,14 @@ Read [current delivery](current-delivery.md) for the latest nine-workstream brea
 
 ## Status meanings
 
+Use **Done (recorded scope)** for bounded deliveries with recorded acceptance, and **Done (documentation)** after the documentation acceptance review. Neither certifies later code changes. Do not hold documentation-only work open waiting for application E2E. Implementation-complete tasks awaiting runtime checks must retain that explicit qualifier; do not relabel them Done solely to clear the list.
+
 - **Planned:** implementation has not started for the stated scope.
 - **In progress:** implementation is actively underway; list exactly what is unfinished.
 - **Partial:** some functionality exists but named functional or acceptance requirements remain missing.
 - **Blocked:** give the specific missing input/dependency, the responsible person and the next step. Do not use this for ordinary developer research or an unrun test.
-- **Implemented; validation pending:** the stated implementation is authored; it is not a pass, production activation or device acceptance claim.
+- **Completed implementation; validation pending** (previously “Implemented; validation pending”): the stated implementation is authored; it is not a pass, production activation or device acceptance claim.
+- **Completed implementation; manual validation pending:** all stated code/workflow/spec/test-authoring requirements are complete; this explicitly does not claim checks, live activation or device acceptance passed. Use only after inspecting remaining scope.
 - **Completed (recorded scope):** recorded validation supports that bounded task/revision. Later edits need fresh validation.
 - **Deferred:** deliberately outside the current delivery stage; state the prerequisite for picking it up.
 - **Archived coordination:** historical team/batch tracking, not a separate feature to restart; child tasks own outstanding work.

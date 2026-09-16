@@ -1,3 +1,11 @@
+import {
+  FILING_WATCH_ADMISSION_SQL,
+  admitFilingWatchReview,
+  lockFilingWatchAdmission,
+} from './filing-watch.js';
+import { EquityPriceRangeSchema } from '@fingent360/contracts';
+import { readEquityPriceHistory } from './equity-price-history.js';
+import { canonicalSourceJson } from './canonical-source-json.js';
 import { createHash } from 'node:crypto';
 import { MongoClient } from 'mongodb';
 import {
@@ -17,6 +25,7 @@ import {
 } from '@nestjs/common';
 import { z } from 'zod';
 import {
+  reconcileEquityIdentity,
   EquityImportSchema,
   EquityFetchSchema,
   EquityEditionSchema,
@@ -28,6 +37,18 @@ import {
   EQUITY_MASTER_URL,
   EQUITY_INDEX_URL,
   NSE_UDIFF_PARSER,
+  NSE_ACTIONS_PARSER,
+  NSE_ACTIONS_URL,
+  NSE_INDAS_HTML_PARSER,
+  NSE_INDAS_STATEMENTS_PARSER,
+  NSE_BANKING_PARSER,
+  NSE_GI_PARSER,
+  NSE_LI_PARSER,
+  isNseLiSource,
+  isNseGiSource,
+  isNseBankingSource,
+  isNseIndasSource,
+  type ActionIdentity,
   nseUdiffUrl,
   nseUdiffFilename,
   parseEquitySource,
@@ -41,8 +62,7 @@ import type pg from 'pg';
 
 const hash = (body: string) => createHash('sha256').update(body).digest('hex');
 export const EQUITY_COVERAGE_RAW = Symbol('EQUITY_COVERAGE_RAW');
-const admission =
-  "(SELECT decision FROM equity_reviews r WHERE r.edition_id=e.id ORDER BY seq DESC LIMIT 1)='publish'";
+const admission = `(SELECT decision FROM equity_reviews r WHERE r.edition_id=e.id ORDER BY seq DESC LIMIT 1)='publish' AND (${FILING_WATCH_ADMISSION_SQL})`;
 function input<T>(schema: z.ZodType<T>, body: unknown) {
   const result = schema.safeParse(body);
   if (!result.success)
@@ -126,6 +146,7 @@ export function equityCoverageProvider(config: AppConfig) {
 }
 
 export async function equityCompanyForTrace(c: pg.PoolClient, isin: string) {
+  await lockFilingWatchAdmission(c);
   const result = await c.query(
     `SELECT o.payload,e.id,e.payload-'observations' AS edition FROM equity_observations o JOIN equity_editions e ON e.id=o.edition_id WHERE o.isin=$1 AND ${admission} ORDER BY o.effective_on DESC,e.created_at DESC,e.id,o.ordinal LIMIT 1001`,
     [isin],
@@ -150,7 +171,7 @@ function companyRows(
   const namedPrice = rows.find(
     (r) => r.payload.kind === 'price' && r.payload.udiff,
   );
-  return EquityCompanySchema.parse({
+  const parsed = EquityCompanySchema.parse({
     isin,
     name:
       identity?.payload.kind === 'identity'
@@ -168,6 +189,13 @@ function companyRows(
     })),
     truncated: all.length > 1000,
   });
+  return EquityCompanySchema.parse({
+    ...parsed,
+    identityReconciliation: reconcileEquityIdentity(
+      parsed.records,
+      parsed.truncated,
+    ),
+  });
 }
 @Controller('equities')
 export class EquityCoverageController {
@@ -177,6 +205,7 @@ export class EquityCoverageController {
       input(z.string().regex(/^IN[A-Z0-9]{9}[0-9]$/), after);
     if (q !== undefined) input(z.string().max(100), q);
     return this.account.transaction(async (c) => {
+      await lockFilingWatchAdmission(c);
       const result = await c.query(
         `SELECT DISTINCT o.isin FROM equity_observations o JOIN equity_editions e ON e.id=o.edition_id WHERE ${admission} AND ($1::text IS NULL OR o.isin>$1) AND ($2::text IS NULL OR position(lower($2) in lower(o.isin || ' ' || COALESCE(o.payload->>'name','') || ' ' || COALESCE(o.payload->>'symbol','') || ' ' || COALESCE(o.payload->'udiff'->>'name','') || ' ' || COALESCE(o.payload->'udiff'->>'symbol','')))>0) ORDER BY o.isin LIMIT 51`,
         [after ?? null, q?.trim() || null],
@@ -194,6 +223,7 @@ export class EquityCoverageController {
   }
   @Get('snapshot') async snapshot() {
     return this.account.transaction(async (c) => {
+      await lockFilingWatchAdmission(c);
       // Publication/withdrawal cannot change admission during a snapshot capture.
       await c.query('LOCK TABLE equity_reviews IN SHARE MODE');
       const rows = await c.query(
@@ -221,6 +251,24 @@ export class EquityCoverageController {
         companies,
       });
     });
+  }
+  @Get(':isin/prices') async priceHistory(
+    @Param('isin') isin: string,
+    @Query('from') from?: string,
+    @Query('to') to?: string,
+    @Query('after') after?: string,
+    @Query('limit') limit?: string,
+  ) {
+    input(z.string().regex(/^IN[A-Z0-9]{9}[0-9]$/), isin);
+    const range = input(EquityPriceRangeSchema, {
+      from,
+      to,
+      after: after ?? null,
+      limit: limit === undefined ? 15 : Number(limit),
+    });
+    return this.account.transaction((c) =>
+      readEquityPriceHistory(c, isin, range),
+    );
   }
   @Get(':isin') async detail(@Param('isin') isin: string) {
     input(z.string().regex(/^IN[A-Z0-9]{9}[0-9]$/), isin);
@@ -319,7 +367,8 @@ export class OpsEquityCoverageController {
     await this.actor(cookie, 'prepare');
     const data = input(EquityFetchSchema, body);
     const sourceUrl =
-      data.parser === 'nse-equity-master-v1'
+      data.parser === 'nse-equity-master-v1' ||
+      data.parser === 'nse-equity-master-v2'
         ? EQUITY_MASTER_URL
         : data.parser === NSE_UDIFF_PARSER
           ? nseUdiffUrl(data.effectiveOn)
@@ -422,13 +471,39 @@ export class OpsEquityCoverageController {
         'Future source dates are not observations.',
       );
     const fixed =
-      data.parser === 'nse-equity-master-v1'
+      data.parser === 'nse-equity-master-v1' ||
+      data.parser === 'nse-equity-master-v2'
         ? EQUITY_MASTER_URL
         : data.parser === 'nifty50-constituents-v1'
           ? EQUITY_INDEX_URL
-          : data.parser === NSE_UDIFF_PARSER
-            ? nseUdiffUrl(data.effectiveOn)
-            : null;
+          : data.parser === NSE_ACTIONS_PARSER
+            ? NSE_ACTIONS_URL
+            : data.parser === NSE_UDIFF_PARSER
+              ? nseUdiffUrl(data.effectiveOn)
+              : null;
+    if (data.parser === NSE_LI_PARSER && !isNseLiSource(data.sourceUrl))
+      throw new BadRequestException(
+        'Life-insurance reports require the exact official NSE LI rendered source URL.',
+      );
+    if (data.parser === NSE_GI_PARSER && !isNseGiSource(data.sourceUrl))
+      throw new BadRequestException(
+        'General-insurance reports require the exact official NSE GI rendered source URL.',
+      );
+    if (
+      data.parser === NSE_BANKING_PARSER &&
+      !isNseBankingSource(data.sourceUrl)
+    )
+      throw new BadRequestException(
+        'Bank reports require the exact official NSE Banking rendered source URL.',
+      );
+    if (
+      (data.parser === NSE_INDAS_HTML_PARSER ||
+        data.parser === NSE_INDAS_STATEMENTS_PARSER) &&
+      !isNseIndasSource(data.sourceUrl)
+    )
+      throw new BadRequestException(
+        'Ind AS HTML requires its original NSE rendered filing URL.',
+      );
     if (fixed && data.sourceUrl !== fixed)
       throw new BadRequestException(
         'This parser requires its fixed official source URL.',
@@ -442,6 +517,39 @@ export class OpsEquityCoverageController {
       retrievedAt,
       body: data.body,
     });
+    const replay = await this.account.transaction(async (c) => {
+      const found = await c.query(
+        'SELECT fingerprint,payload FROM equity_editions WHERE id=$1',
+        [data.requestId],
+      );
+      await this.actor(cookie, 'prepare', c);
+      if (!found.rows[0]) return null;
+      if (found.rows[0].fingerprint !== fingerprint)
+        throw new ConflictException(
+          'Request ID already belongs to a different source.',
+        );
+      return EquityEditionSchema.parse(found.rows[0].payload);
+    });
+    if (replay) return replay;
+    const identities: ActionIdentity[] =
+      data.parser === NSE_ACTIONS_PARSER
+        ? await this.account.transaction(async (c) => {
+            const found = await c.query(
+              `SELECT o.payload,e.id,e.payload->>'hash' AS hash FROM equity_observations o JOIN equity_editions e ON e.id=o.edition_id WHERE o.kind='identity' AND o.payload->>'exchange'='NSE' AND o.effective_on <= $1::date AND ${admission} ORDER BY o.effective_on DESC,e.created_at DESC LIMIT 100001`,
+              [data.effectiveOn],
+            );
+            await this.actor(cookie, 'prepare', c);
+            if (found.rows.length > 100000)
+              throw new BadRequestException(
+                'Identity history exceeds the action parser limit. Narrow source coverage before importing.',
+              );
+            return found.rows.map((row) => ({
+              ...row.payload,
+              editionId: row.id,
+              hash: row.hash,
+            }));
+          })
+        : [];
     let parsed;
     try {
       parsed = parseEquitySource(
@@ -449,10 +557,11 @@ export class OpsEquityCoverageController {
         data.body,
         data.effectiveOn,
         data.sourceFileName,
+        identities,
       );
     } catch {
       throw new BadRequestException(
-        'Retained source failed its strict parser. Check the documented version and source rows.',
+        'Retained source failed its strict parser. Check the documented version, source rows and published unambiguous NSE symbol/series identities.',
       );
     }
     if (parsed.observations.some((r) => r.effectiveOn > data.effectiveOn))
@@ -523,6 +632,8 @@ export class OpsEquityCoverageController {
         [data.requestId],
       );
       const actor = await this.actor(cookie, 'approve', c);
+      if (data.decision === 'publish')
+        await admitFilingWatchReview(c, data.editionId, this.ops.namedMode);
       if (previous.rows[0]) {
         const p = previous.rows[0];
         if (
@@ -541,10 +652,52 @@ export class OpsEquityCoverageController {
         throw new ForbiddenException(
           'Another named operator must review this evidence.',
         );
+      if (
+        data.decision === 'publish' &&
+        (found.rows[0].payload.parser === 'nse-equity-master-v2' ||
+          found.rows[0].payload.parser === NSE_INDAS_HTML_PARSER ||
+          found.rows[0].payload.parser === NSE_INDAS_STATEMENTS_PARSER ||
+          found.rows[0].payload.parser === NSE_BANKING_PARSER ||
+          found.rows[0].payload.parser === NSE_GI_PARSER ||
+          found.rows[0].payload.parser === NSE_LI_PARSER ||
+          EquityEditionSchema.parse(found.rows[0].payload).observations.some(
+            (row) =>
+              row.kind === 'fundamental' &&
+              (row.statementContext ||
+                row.bankContext ||
+                row.insuranceContext ||
+                row.lifeInsuranceContext),
+          )) &&
+        !this.ops.namedMode
+      )
+        throw new ForbiddenException(
+          'Named independent review is required for this source.',
+        );
       if (data.decision === 'publish') {
         const source = await this.raw.read(found.rows[0].payload.hash);
         if (!source || hash(source.body) !== found.rows[0].payload.hash)
           throw new ConflictException('Original source is missing or changed.');
+        if (
+          found.rows[0].payload.parser === NSE_INDAS_HTML_PARSER ||
+          found.rows[0].payload.parser === NSE_INDAS_STATEMENTS_PARSER ||
+          found.rows[0].payload.parser === NSE_BANKING_PARSER ||
+          found.rows[0].payload.parser === NSE_GI_PARSER ||
+          found.rows[0].payload.parser === NSE_LI_PARSER ||
+          found.rows[0].payload.parser === 'nse-equity-master-v2'
+        ) {
+          const reconstructed = parseEquitySource(
+            found.rows[0].payload.parser,
+            source.body,
+            found.rows[0].payload.effectiveOn,
+          );
+          if (
+            hash(canonicalSourceJson(reconstructed.observations)) !==
+            hash(canonicalSourceJson(found.rows[0].payload.observations))
+          )
+            throw new ConflictException(
+              'Source receipt differs from its retained original.',
+            );
+        }
         const digest = found.rows[0].payload.archiveHash;
         if (digest) {
           const archive = await this.raw.readArchive(digest);

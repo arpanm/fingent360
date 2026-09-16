@@ -1,3 +1,5 @@
+import { encryptJourney, decryptJourney } from './private-journey.js';
+import type { PrivateDataKeys } from './private-data-crypto.js';
 import { createHash, randomBytes, randomUUID } from 'node:crypto';
 import {
   BadRequestException,
@@ -64,7 +66,12 @@ function workspace(revision: number, portfolio: PortfolioInput) {
 }
 export class JourneyStore {
   private readonly pool: pg.Pool;
+  private readonly privateDataKeys: PrivateDataKeys;
   constructor(config: AppConfig) {
+    this.privateDataKeys = {
+      PRIVATE_DATA_KEYS: config.PRIVATE_DATA_KEYS,
+      PRIVATE_DATA_ACTIVE_KEY: config.PRIVATE_DATA_ACTIVE_KEY,
+    };
     this.pool = new pg.Pool({
       connectionString: config.DATABASE_URL,
       max: 4,
@@ -94,7 +101,8 @@ export class JourneyStore {
         error instanceof BadRequestException ||
         error instanceof ConflictException ||
         error instanceof UnauthorizedException ||
-        error instanceof NotFoundException
+        error instanceof NotFoundException ||
+        error instanceof ServiceUnavailableException
       )
         throw error;
       throw new ServiceUnavailableException(storageErrorMessage(error));
@@ -104,7 +112,7 @@ export class JourneyStore {
   }
   async locked(client: pg.PoolClient, key: string) {
     const result = await client.query(
-      'SELECT revision, portfolio FROM virtual_workspaces WHERE token_hash=$1 FOR UPDATE',
+      'SELECT * FROM virtual_workspaces WHERE token_hash=$1 FOR UPDATE',
       [key],
     );
     if (!result.rows[0])
@@ -112,15 +120,35 @@ export class JourneyStore {
         'Workspace expired or deleted. Open a new virtual workspace.',
       );
     return WorkspaceSchema.parse(
-      workspace(result.rows[0].revision, result.rows[0].portfolio),
+      workspace(
+        result.rows[0].revision,
+        WorkspaceSchema.shape.portfolio.parse(
+          await decryptJourney(
+            client,
+            'workspace',
+            key,
+            result.rows[0],
+            this.privateDataKeys,
+          ),
+        ),
+      ),
     );
   }
   async session() {
     const token = randomBytes(32).toString('hex');
     await this.transaction(async (c) => {
       await c.query(
-        'INSERT INTO virtual_workspaces(token_hash, portfolio) VALUES ($1,$2)',
-        [hash(token), emptyPortfolio],
+        'INSERT INTO virtual_workspaces(token_hash, encrypted_payload) VALUES ($1,$2)',
+        [
+          hash(token),
+          encryptJourney(
+            'workspace',
+            hash(token),
+            hash(token),
+            emptyPortfolio,
+            this.privateDataKeys,
+          ),
+        ],
       );
     });
     return SessionSchema.parse({ token });
@@ -184,8 +212,19 @@ export class JourneyStore {
           'Preview limit reached. Try again tomorrow or delete this virtual workspace.',
         );
       await c.query(
-        'INSERT INTO virtual_previews(id,owner_hash,content_hash,payload) VALUES ($1,$2,$3,$4)',
-        [result.id, key, contentHash, result],
+        'INSERT INTO virtual_previews(id,owner_hash,content_hash,encrypted_payload) VALUES ($1,$2,$3,$4)',
+        [
+          result.id,
+          key,
+          contentHash,
+          encryptJourney(
+            'preview',
+            key,
+            result.id,
+            result,
+            this.privateDataKeys,
+          ),
+        ],
       );
     });
     return result;
@@ -199,12 +238,20 @@ export class JourneyStore {
       input.expectedRevision,
       async (c, current) => {
         const result = await c.query(
-          "SELECT payload,content_hash FROM virtual_previews WHERE id=$1 AND owner_hash=$2 AND created_at > now() - interval '1 day'",
+          "SELECT * FROM virtual_previews WHERE id=$1 AND owner_hash=$2 AND created_at > now() - interval '1 day'",
           [input.previewId, key],
         );
         if (!result.rows[0])
           throw new NotFoundException('Preview not found or expired.');
-        const preview = PreviewSchema.parse(result.rows[0].payload);
+        const preview = PreviewSchema.parse(
+          await decryptJourney(
+            c,
+            'preview',
+            key,
+            result.rows[0],
+            this.privateDataKeys,
+          ),
+        );
         if (!preview.matched)
           throw new BadRequestException(
             'Resolve all preview issues before confirming.',
@@ -233,7 +280,7 @@ export class JourneyStore {
     return this.transaction(async (c) => {
       const current = await this.locked(c, key);
       const previous = await c.query(
-        'SELECT payload_hash,response FROM virtual_mutations WHERE owner_hash=$1 AND idempotency_key=$2',
+        'SELECT * FROM virtual_mutations WHERE owner_hash=$1 AND idempotency_key=$2',
         [key, idempotencyKey],
       );
       if (previous.rows[0]) {
@@ -241,12 +288,20 @@ export class JourneyStore {
           throw new ConflictException(
             'Idempotency key was already used for different content.',
           );
-        return WorkspaceSchema.parse(previous.rows[0].response);
+        return WorkspaceSchema.parse(
+          await decryptJourney(
+            c,
+            'mutation',
+            key,
+            previous.rows[0],
+            this.privateDataKeys,
+          ),
+        );
       }
       const next = await resolve(c, current);
       if (next.contentHash) {
         const imported = await c.query(
-          'SELECT response FROM virtual_imports WHERE owner_hash=$1 AND content_hash=$2',
+          'SELECT content_hash FROM virtual_imports WHERE owner_hash=$1 AND content_hash=$2',
           [key, next.contentHash],
         );
         if (imported.rows[0])
@@ -260,17 +315,48 @@ export class JourneyStore {
         );
       const saved = workspace(current.revision + 1, next.portfolio);
       await c.query(
-        'UPDATE virtual_workspaces SET revision=$2,portfolio=$3 WHERE token_hash=$1',
-        [key, saved.revision, saved.portfolio],
+        'UPDATE virtual_workspaces SET revision=$2,portfolio=NULL,encrypted_payload=$3 WHERE token_hash=$1',
+        [
+          key,
+          saved.revision,
+          encryptJourney(
+            'workspace',
+            key,
+            key,
+            saved.portfolio,
+            this.privateDataKeys,
+          ),
+        ],
       );
       await c.query(
-        'INSERT INTO virtual_mutations(owner_hash,idempotency_key,payload_hash,response) VALUES ($1,$2,$3,$4)',
-        [key, idempotencyKey, payloadHash, saved],
+        'INSERT INTO virtual_mutations(owner_hash,idempotency_key,payload_hash,encrypted_payload) VALUES ($1,$2,$3,$4)',
+        [
+          key,
+          idempotencyKey,
+          payloadHash,
+          encryptJourney(
+            'mutation',
+            key,
+            idempotencyKey,
+            saved,
+            this.privateDataKeys,
+          ),
+        ],
       );
       if (next.contentHash)
         await c.query(
-          'INSERT INTO virtual_imports(owner_hash,content_hash,response) VALUES ($1,$2,$3)',
-          [key, next.contentHash, saved],
+          'INSERT INTO virtual_imports(owner_hash,content_hash,encrypted_payload) VALUES ($1,$2,$3)',
+          [
+            key,
+            next.contentHash,
+            encryptJourney(
+              'import',
+              key,
+              next.contentHash,
+              saved,
+              this.privateDataKeys,
+            ),
+          ],
         );
       return saved;
     });
@@ -285,8 +371,18 @@ export class JourneyStore {
         scenario,
       );
       await c.query(
-        'INSERT INTO virtual_reviews(id,owner_hash,payload) VALUES ($1,$2,$3)',
-        [review.id, key, review],
+        'INSERT INTO virtual_reviews(id,owner_hash,encrypted_payload) VALUES ($1,$2,$3)',
+        [
+          review.id,
+          key,
+          encryptJourney(
+            'review',
+            key,
+            review.id,
+            review,
+            this.privateDataKeys,
+          ),
+        ],
       );
       return review;
     });
@@ -295,10 +391,16 @@ export class JourneyStore {
     return this.transaction(async (c) => {
       await this.locked(c, key);
       const result = await c.query(
-        'SELECT payload FROM virtual_reviews WHERE owner_hash=$1 ORDER BY created_at DESC,id DESC LIMIT 50',
+        'SELECT * FROM virtual_reviews WHERE owner_hash=$1 ORDER BY created_at DESC,id DESC LIMIT 50',
         [key],
       );
-      return ReviewListSchema.parse(result.rows.map((r) => r.payload));
+      return ReviewListSchema.parse(
+        await Promise.all(
+          result.rows.map((r) =>
+            decryptJourney(c, 'review', key, r, this.privateDataKeys),
+          ),
+        ),
+      );
     });
   }
   async reviewDetail(key: string, id: string) {
@@ -306,19 +408,29 @@ export class JourneyStore {
     return this.transaction(async (c) => {
       await this.locked(c, key);
       const result = await c.query(
-        'SELECT payload FROM virtual_reviews WHERE owner_hash=$1 AND id=$2',
+        'SELECT * FROM virtual_reviews WHERE owner_hash=$1 AND id=$2',
         [key, id],
       );
       if (!result.rows[0]) throw new NotFoundException('Review not found.');
-      return ReviewSchema.parse(result.rows[0].payload);
+      return ReviewSchema.parse(
+        await decryptJourney(
+          c,
+          'review',
+          key,
+          result.rows[0],
+          this.privateDataKeys,
+        ),
+      );
     });
   }
   async remove(key: string) {
     await this.transaction(async (c) => {
-      await this.locked(c, key);
-      await c.query('DELETE FROM virtual_workspaces WHERE token_hash=$1', [
-        key,
-      ]);
+      const removed = await c.query(
+        'DELETE FROM virtual_workspaces WHERE token_hash=$1 RETURNING token_hash',
+        [key],
+      );
+      if (removed.rowCount !== 1)
+        throw new UnauthorizedException('Workspace expired or deleted.');
     });
     return { deleted: true };
   }

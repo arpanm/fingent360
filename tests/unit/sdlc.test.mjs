@@ -128,6 +128,89 @@ test('format-only failure uses the formatter then stopped check without an agent
   }
 });
 
+test('formatting exposed by the last agent attempt uses Prettier without another agent', async () => {
+  const directory = mkdtempSync(path.join(tmpdir(), 'sdlc-after-repair-'));
+  const log = path.join(directory, 'check.log');
+  const calls = [];
+  const prompts = [];
+  const budget = { used: 0 };
+  try {
+    writeFileSync(log, 'TS2322: initial compiler failure');
+    const repaired = await repairFailure(
+      new SdlcStageFailure('pnpm', ['check'], 2, log),
+      async (prompt) => prompts.push(prompt),
+      { SDLC_REPAIR_LIMIT: '1' },
+      async (command, args) => {
+        calls.push([command, ...args]);
+        if (calls.length === 1) {
+          writeFileSync(
+            log,
+            '[warn] scripts/sdlc.mjs\n[warn] Code style issues found in 1 file.',
+          );
+          return 1;
+        }
+        return 0;
+      },
+      undefined,
+      budget,
+    );
+    assert.equal(repaired, true);
+    assert.equal(prompts.length, 1);
+    assert.equal(budget.used, 1);
+    assert.deepEqual(calls, [
+      ['pnpm', 'check'],
+      ['pnpm', 'exec', 'prettier', '--write', '--', 'scripts/sdlc.mjs'],
+      ['pnpm', 'check'],
+    ]);
+  } finally {
+    rmSync(directory, { recursive: true, force: true });
+  }
+});
+
+test('after formatting recovery the next agent receives only the new compiler failure', async () => {
+  const directory = mkdtempSync(path.join(tmpdir(), 'sdlc-next-error-'));
+  const log = path.join(directory, 'check.log');
+  const prompts = [];
+  const budget = { used: 0 };
+  let checks = 0;
+  try {
+    writeFileSync(log, 'TS2322: original compiler failure');
+    assert.equal(
+      await repairFailure(
+        new SdlcStageFailure('pnpm', ['check'], 2, log),
+        async (prompt) => prompts.push(prompt),
+        { SDLC_REPAIR_LIMIT: '2' },
+        async (_command, args) => {
+          if (args[0] !== 'check') return 0;
+          checks++;
+          if (checks === 1) {
+            writeFileSync(
+              log,
+              '[warn] scripts/sdlc.mjs\n[warn] Code style issues found in 1 file.',
+            );
+            return 1;
+          }
+          if (checks === 2) {
+            writeFileSync(log, 'TS2307: replacement compiler failure');
+            return 2;
+          }
+          return 0;
+        },
+        undefined,
+        budget,
+      ),
+      true,
+    );
+    assert.equal(checks, 3);
+    assert.equal(budget.used, 2);
+    assert.equal(prompts.length, 2);
+    assert.match(prompts[1], /TS2307: replacement compiler failure/);
+    assert.doesNotMatch(prompts[1], /TS2322|Code style issues found/);
+  } finally {
+    rmSync(directory, { recursive: true, force: true });
+  }
+});
+
 test('repeated formatting drift stops after two retries without launching an agent', async () => {
   const directory = mkdtempSync(path.join(tmpdir(), 'sdlc-drift-'));
   const log = path.join(directory, 'check.log');

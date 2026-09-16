@@ -1,7 +1,13 @@
+import { exportWhatsapp } from './whatsapp-channel.js';
+import { exportAngelConnections } from './angel-connection.js';
+import { exportUpstoxConnections } from './upstox-connection.js';
+import { exportKiteConnections } from './kite-connection.js';
 import { exportPrivateAiHistory } from './private-ai-history.js';
 import { exportActionCentre } from './action-centre.js';
 import { exportBondComparisons } from './funds-bonds.js';
 import { exportImpactTraces } from './impact-trace.js';
+import { exportImpactCalibrations } from './impact-calibration.js';
+import { exportPrivateAllocations } from './private-allocations.js';
 import { exportGoalFeasibility } from './goal-feasibility.js';
 import { exportMaterial } from './material-alert-store.js';
 import { readConsentList, exportConsents } from './consent-store.js';
@@ -24,6 +30,12 @@ import {
 } from '@nestjs/common';
 import type pg from 'pg';
 import { z } from 'zod';
+import { decryptGoalRows, type PrivateGoalRow } from './private-goals.js';
+import {
+  decryptHoldingsRows,
+  decryptHoldingsPreview,
+  type PrivateHoldingsRow,
+} from './private-holdings.js';
 import {
   PrivacyExportSchema,
   storedHoldingsPreview,
@@ -156,12 +168,18 @@ export class PrivacyController {
       const goalsAvailable = tables.rows[0]?.available ?? false;
       const goalRows = goalsAvailable
         ? (
-            await client.query<{ payload: unknown; deleted_at: Date | null }>(
-              'SELECT r.payload,g.deleted_at FROM app_goals g JOIN app_goal_revisions r ON r.goal_id=g.id WHERE g.user_id=$1 ORDER BY g.id,r.version',
+            await client.query<PrivateGoalRow & { deleted_at: Date | null }>(
+              'SELECT r.goal_id,r.version,r.payload,r.encrypted_payload,g.deleted_at FROM app_goals g JOIN app_goal_revisions r ON r.goal_id=g.id WHERE g.user_id=$1 ORDER BY g.id,r.version',
               [user.id],
             )
           ).rows
         : [];
+      await decryptGoalRows(
+        client,
+        user.id,
+        goalRows,
+        this.store.privateDataKeys,
+      );
       const preferenceTable = await client.query<{ available: boolean }>(
         "SELECT to_regclass('app_alert_preferences') IS NOT NULL AS available",
       );
@@ -192,26 +210,41 @@ export class PrivacyController {
         : 0;
       const holdingsRevisions = holdingsAvailable
         ? (
-            await client.query<{ payload: unknown }>(
-              'SELECT payload FROM app_holdings_revisions WHERE user_id=$1 ORDER BY version',
+            await client.query<PrivateHoldingsRow>(
+              'SELECT user_id,version,payload,encrypted_payload FROM app_holdings_revisions WHERE user_id=$1 ORDER BY version',
               [user.id],
             )
           ).rows
         : [];
+      await decryptHoldingsRows(
+        client,
+        user.id,
+        holdingsRevisions,
+        this.store.privateDataKeys,
+      );
       const holdingsPreviews = holdingsAvailable
         ? (
             await client.query<{
               id: string;
+              user_id: string;
               expected_version: number;
+              encrypted_payload: unknown;
               payload: unknown;
               expires_at: Date;
               confirmed_version: number | null;
             }>(
-              'SELECT id,expected_version,payload,expires_at,confirmed_version FROM app_holdings_previews WHERE user_id=$1 ORDER BY expires_at,id',
+              'SELECT id,user_id,expected_version,payload,encrypted_payload,expires_at,confirmed_version FROM app_holdings_previews WHERE user_id=$1 ORDER BY expires_at,id',
               [user.id],
             )
           ).rows
         : [];
+      for (const preview of holdingsPreviews)
+        await decryptHoldingsPreview(
+          client,
+          user.id,
+          preview,
+          this.store.privateDataKeys,
+        );
       const libraryTables = await client.query<{ available: boolean }>(
         "SELECT to_regclass('library_notifications') IS NOT NULL AS available",
       );
@@ -246,24 +279,89 @@ export class PrivacyController {
           ).rows
         : [];
       const exported = PrivacyExportSchema.parse({
-        allocations: {
-          revisions: (
-            await client.query<{ payload: unknown }>(
-              'SELECT payload FROM app_goal_allocation_revisions WHERE user_id=$1 ORDER BY version',
-              [user.id],
-            )
-          ).rows.map((r) => r.payload),
-        },
-        reports: await exportRecordReports(client, user.id),
-        reportSchedules: await exportReportSchedules(client, user.id),
-        researchConnections: await exportResearchConnections(client, user.id),
-        goalScenarios: await exportGoalScenarios(client, user.id),
-        goalFeasibility: await exportGoalFeasibility(client, user.id),
-        privateAiHistory: await exportPrivateAiHistory(client, user.id),
-        actionCentre: await exportActionCentre(client, user.id),
-        bondComparisons: await exportBondComparisons(client, user.id),
-        impactTraces: await exportImpactTraces(client, user.id),
-        connectionReviews: await exportConnectionReviews(client, user.id),
+        allocations: await exportPrivateAllocations(
+          client,
+          user.id,
+          this.store.privateDataKeys,
+        ),
+        reports: await exportRecordReports(
+          client,
+          user.id,
+          this.store.privateDataKeys,
+        ),
+        reportSchedules: await exportReportSchedules(
+          client,
+          user.id,
+          this.store.privateDataKeys,
+        ),
+        researchConnections: await exportResearchConnections(
+          client,
+          user.id,
+          this.store.privateDataKeys,
+        ),
+        impactCalibrations: await exportImpactCalibrations(
+          client,
+          user.id,
+          this.store.privateDataKeys,
+        ),
+        goalScenarios: await exportGoalScenarios(
+          client,
+          user.id,
+          this.store.privateDataKeys,
+        ),
+        goalFeasibility: await exportGoalFeasibility(
+          client,
+          user.id,
+          this.store.privateDataKeys,
+        ),
+        whatsapp: await exportWhatsapp(
+          client,
+          user.id,
+          this.store.privateDataKeys,
+        ),
+        privateAiHistory: await exportPrivateAiHistory(
+          client,
+          user.id,
+          this.store.privateDataKeys,
+        ),
+        actionCentre: await exportActionCentre(
+          client,
+          user.id,
+          this.store.privateDataKeys,
+        ),
+        angelConnection: await exportAngelConnections(
+          client,
+          user.id,
+          this.store.privateDataKeys,
+          this.store.angelConnectionEnabled,
+        ),
+        upstoxConnection: await exportUpstoxConnections(
+          client,
+          user.id,
+          this.store.privateDataKeys,
+          this.store.upstoxConnectionEnabled,
+        ),
+        brokerConnections: await exportKiteConnections(
+          client,
+          user.id,
+          this.store.privateDataKeys,
+          this.store.kiteConnectionEnabled,
+        ),
+        bondComparisons: await exportBondComparisons(
+          client,
+          user.id,
+          this.store.privateDataKeys,
+        ),
+        impactTraces: await exportImpactTraces(
+          client,
+          user.id,
+          this.store.privateDataKeys,
+        ),
+        connectionReviews: await exportConnectionReviews(
+          client,
+          user.id,
+          this.store.privateDataKeys,
+        ),
         readingFollow: await exportReadingFollow(client, user.id),
         materialAlerts: await exportMaterial(client, user.id),
         consents: {

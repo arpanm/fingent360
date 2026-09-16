@@ -33,6 +33,7 @@ try {
   )
     throw Error('Fixture isolation mismatch');
   const store = new ReportSchedulesStore({
+    privateDataKeys: input.privateDataKeys,
     transaction: async (work) => {
       const c = await pool.connect();
       try {

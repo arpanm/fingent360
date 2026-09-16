@@ -255,12 +255,24 @@ test('E2E-WEB-311 lost check and acknowledgement replay retain historical receip
       ).toBeEnabled();
       const committed = receipts.get(action.path)![0]!;
       const saved = await pool.query(
-        'SELECT payload FROM app_connection_review_requests WHERE request_id=$1 AND user_id=(SELECT user_id FROM app_research_connections WHERE id=$2)',
+        'SELECT * FROM app_connection_review_requests WHERE request_id=$1 AND user_id=(SELECT user_id FROM app_research_connections WHERE id=$2)',
         [committed.requestId, id],
       );
+      const cryptoUrl = new URL(
+        '../../../../apps/api/dist/private-data-crypto.js',
+        import.meta.url,
+      ).href;
+      const { openPrivateJson } = await import(cryptoUrl);
+      expect(saved.rows[0].payload).toBeNull();
       expect(
-        saved.rows.map((row: { payload: unknown }) => row.payload),
-      ).toEqual([committed]);
+        openPrivateJson(
+          'connection-review',
+          saved.rows[0].user_id,
+          committed.requestId,
+          saved.rows[0].encrypted_payload,
+          feedbackSandbox.privateDataKeys,
+        ),
+      ).toEqual(committed);
       failRefresh = true;
       await page
         .getByRole('button', { name: 'Retry last operation', exact: true })
@@ -338,10 +350,24 @@ test('E2E-WEB-311 lost check and acknowledgement replay retain historical receip
     ).toHaveCount(2);
     expect(duplicateKeyErrors).toEqual([]);
     const persisted = await pool.query(
-      'SELECT payload FROM app_connection_review_inboxes WHERE user_id=(SELECT user_id FROM app_research_connections WHERE id=$1)',
+      'SELECT * FROM app_connection_review_inboxes WHERE user_id=(SELECT user_id FROM app_research_connections WHERE id=$1)',
       [id],
     );
-    const state = ConnectionReviewInboxSchema.parse(persisted.rows[0].payload);
+    const cryptoUrl = new URL(
+      '../../../../apps/api/dist/private-data-crypto.js',
+      import.meta.url,
+    ).href;
+    const { openPrivateJson } = await import(cryptoUrl);
+    expect(persisted.rows[0].payload).toBeNull();
+    const state = ConnectionReviewInboxSchema.parse(
+      openPrivateJson(
+        'connection-inbox',
+        persisted.rows[0].user_id,
+        persisted.rows[0].user_id,
+        persisted.rows[0].encrypted_payload,
+        feedbackSandbox.privateDataKeys,
+      ),
+    );
     expect(state.evaluations.map((evaluation) => evaluation.requestId)).toEqual(
       [check.requestId, check.requestId],
     );

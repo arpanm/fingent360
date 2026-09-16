@@ -1,3 +1,6 @@
+import { openGoalRecord, sealGoalRecord } from './private-goal-records.js';
+import type { PrivateDataKeys } from './private-data-crypto.js';
+import { decryptGoalRows } from './private-goals.js';
 import { createHash } from 'node:crypto';
 import {
   Body,
@@ -31,11 +34,17 @@ function parse<T>(schema: z.ZodType<T>, value: unknown): T {
     throw new BadRequestException('Invalid downside assessment input.');
   return parsed.data;
 }
-export async function exportGoalFeasibility(c: pg.PoolClient, userId: string) {
+export async function exportGoalFeasibility(
+  c: pg.PoolClient,
+  userId: string,
+  keys: PrivateDataKeys,
+) {
   const rows = await c.query(
-    'SELECT payload FROM app_goal_feasibility WHERE user_id=$1 AND deleted_at IS NULL ORDER BY created_at,id LIMIT 100',
+    'SELECT id,payload,encrypted_payload,content_hash FROM app_goal_feasibility WHERE user_id=$1 AND deleted_at IS NULL ORDER BY created_at,id LIMIT 100',
     [userId],
   );
+  for (const row of rows.rows)
+    await openGoalRecord(c, 'goal-feasibility', userId, row.id, row, keys);
   const deleted = await c.query(
     'SELECT count(*)::integer AS count FROM app_goal_feasibility WHERE user_id=$1 AND deleted_at IS NOT NULL',
     [userId],
@@ -60,10 +69,19 @@ export class GoalFeasibilityController {
     return this.store.transaction(async (c) => {
       const user = await this.owner(c, cookie);
       const rows = await c.query(
-        'SELECT payload FROM app_goal_feasibility WHERE user_id=$1 AND deleted_at IS NULL ORDER BY created_at DESC,id LIMIT 100',
+        'SELECT id,payload,encrypted_payload,content_hash FROM app_goal_feasibility WHERE user_id=$1 AND deleted_at IS NULL ORDER BY created_at DESC,id LIMIT 100',
         [user.id],
       );
       await this.store.require(c, cookie);
+      for (const row of rows.rows)
+        await openGoalRecord(
+          c,
+          'goal-feasibility',
+          user.id,
+          row.id,
+          row,
+          this.store.privateDataKeys,
+        );
       return GoalFeasibilitiesSchema.parse({
         assessments: rows.rows.map((row) => row.payload),
       });
@@ -86,7 +104,7 @@ export class GoalFeasibilityController {
     return this.store.transaction(async (c) => {
       const user = await this.owner(c, cookie);
       const old = await c.query(
-        'SELECT fingerprint,payload,deleted_at FROM app_goal_feasibility WHERE user_id=$1 AND id=$2',
+        'SELECT fingerprint,payload,deleted_at,encrypted_payload,content_hash FROM app_goal_feasibility WHERE user_id=$1 AND id=$2',
         [user.id, id],
       );
       if (old.rows[0]) {
@@ -99,12 +117,22 @@ export class GoalFeasibilityController {
           throw new GoneException(
             'This assessment was deleted. Start a new assessment.',
           );
-        return GoalFeasibilitySchema.parse(old.rows[0].payload);
+        return GoalFeasibilitySchema.parse(
+          await openGoalRecord(
+            c,
+            'goal-feasibility',
+            user.id,
+            id,
+            old.rows[0],
+            this.store.privateDataKeys,
+          ),
+        );
       }
       const goals = await c.query(
-        'SELECT r.payload FROM app_goals g JOIN app_goal_revisions r ON r.goal_id=g.id AND r.version=g.version WHERE g.user_id=$1 AND g.id=$2 AND g.deleted_at IS NULL FOR SHARE OF g',
+        'SELECT r.goal_id,r.version,r.payload,r.encrypted_payload FROM app_goals g JOIN app_goal_revisions r ON r.goal_id=g.id AND r.version=g.version WHERE g.user_id=$1 AND g.id=$2 AND g.deleted_at IS NULL FOR SHARE OF g',
         [user.id, input.goalId],
       );
+      await decryptGoalRows(c, user.id, goals.rows, this.store.privateDataKeys);
       await this.store.require(c, cookie);
       if (!goals.rows[0])
         throw new NotFoundException('Saved goal unavailable.');
@@ -140,9 +168,16 @@ export class GoalFeasibilityController {
         result,
       });
       await this.store.require(c, cookie);
+      const encrypted = sealGoalRecord(
+        'goal-feasibility',
+        user.id,
+        id,
+        value,
+        this.store.privateDataKeys,
+      );
       await c.query(
-        'INSERT INTO app_goal_feasibility(user_id,id,fingerprint,payload) VALUES($1,$2,$3,$4)',
-        [user.id, id, fingerprint, value],
+        'INSERT INTO app_goal_feasibility(user_id,id,fingerprint,encrypted_payload,content_hash) VALUES($1,$2,$3,$4,$5)',
+        [user.id, id, fingerprint, encrypted.envelope, encrypted.hash],
       );
       return value;
     });
@@ -166,7 +201,7 @@ export class GoalFeasibilityController {
       if (!old.rows[0]) throw new NotFoundException('Assessment unavailable.');
       if (!old.rows[0].deleted_at)
         await c.query(
-          'UPDATE app_goal_feasibility SET payload=NULL,deleted_at=clock_timestamp() WHERE user_id=$1 AND id=$2',
+          'UPDATE app_goal_feasibility SET payload=NULL,encrypted_payload=NULL,deleted_at=clock_timestamp() WHERE user_id=$1 AND id=$2',
           [user.id, id],
         );
       return { ok: true };

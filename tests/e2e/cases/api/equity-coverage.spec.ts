@@ -139,3 +139,108 @@ test('E2E-API-902 UDiFF retained CSV produces searchable exact reviewed quotes a
     ).body,
   ).toBe(payload.body);
 });
+
+test('E2E-API-904 action CSV retains source and identity provenance, future ex-date, replay and snapshot @EQUITY-COVERAGE-001 @TEST-SIMULATION', async ({
+  request,
+}) => {
+  const { publishActions } = await import('../../helpers/equity-coverage');
+  const { payload, edition, identity } = await publishActions(request);
+  expect(edition.observations[0]).toMatchObject({
+    kind: 'corporate-action',
+    effectiveOn: '2025-01-31',
+    adjustment: 'not-applied',
+    nseAction: { exOn: '2025-02-03', identityEditionId: identity.requestId },
+  });
+  const evidence = await request.get(
+    `/api/v1/ops/equities/${payload.requestId}/evidence`,
+  );
+  expect(evidence.status()).toBe(200);
+  expect((await evidence.json()).body).toBe(payload.body);
+  const replay = await request.post('/api/v1/ops/equities/import', {
+    headers: retentionHeaders,
+    data: payload,
+  });
+  expect(replay.status()).toBe(201);
+  expect(await replay.json()).toEqual(edition);
+  const snapshot = EquitySnapshotSchema.parse(
+    await (await request.get('/api/v1/equities/snapshot')).json(),
+  );
+  expect(
+    snapshot.companies[0]?.records.find(
+      (r) => r.editionId === payload.requestId,
+    )?.observation,
+  ).toEqual(edition.observations[0]);
+});
+
+test('E2E-API-905 action CSV rejects missing identity and malformed date without publishing @EQUITY-COVERAGE-001 @TEST-SIMULATION', async ({
+  request,
+}) => {
+  const { actionInput } = await import('../../helpers/equity-coverage');
+  await loginRetentionOperator(request);
+  const payload = await actionInput();
+  expect(
+    (
+      await request.post('/api/v1/ops/equities/import', {
+        headers: retentionHeaders,
+        data: payload,
+      })
+    ).status(),
+  ).toBe(400);
+  await publishEquity(request);
+  for (const body of [
+    payload.body.replace('03-Feb-2025', '31-Feb-2025'),
+    payload.body.replace('SYNTHETIC,', 'UNRESOLVED,'),
+    payload.body.replace('FACE VALUE', 'FACE_VALUE'),
+  ]) {
+    expect(
+      (
+        await request.post('/api/v1/ops/equities/import', {
+          headers: retentionHeaders,
+          data: { ...payload, requestId: randomUUID(), body },
+        })
+      ).status(),
+    ).toBe(400);
+  }
+});
+
+test('E2E-API-906 official-layout synthetic Ind AS source retains exact period facts and source receipt @EQUITY-COVERAGE-001 @TEST-SIMULATION', async ({
+  request,
+}) => {
+  const { publishIndas } = await import('../../helpers/equity-coverage');
+  const { payload, edition } = await publishIndas(request);
+  expect(edition.observations).toHaveLength(4);
+  expect(edition.observations[1]).toMatchObject({
+    metric: 'profit-after-tax',
+    value: '-12.3400',
+    scale: 'lakhs',
+    basis: 'consolidated',
+  });
+  const evidence = await request.get(
+    `/api/v1/ops/equities/${payload.requestId}/evidence`,
+  );
+  expect((await evidence.json()).body).toBe(payload.body);
+  const detail = EquityCompanySchema.parse(
+    await (await request.get('/api/v1/equities/INE002A01018')).json(),
+  );
+  expect(detail.records).toHaveLength(4);
+  for (const data of [
+    {
+      ...payload,
+      requestId: randomUUID(),
+      sourceUrl: 'https://example.com/statement.html',
+    },
+    {
+      ...payload,
+      requestId: randomUUID(),
+      body: payload.body.replace('INR', 'USD'),
+    },
+  ])
+    expect(
+      (
+        await request.post('/api/v1/ops/equities/import', {
+          headers: retentionHeaders,
+          data,
+        })
+      ).status(),
+    ).toBe(400);
+});

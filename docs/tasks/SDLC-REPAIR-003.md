@@ -1,6 +1,6 @@
 # SDLC-REPAIR-003 — Feedback inbox nullable selection
 
-- **Status:** Implemented; validation pending
+- **Status:** Completed implementation; validation pending
 - **Implemented / recorded:** - Implementation: Authored; scoped repair of user-reported pnpm check TS18047 at FeedbackInbox.tsx:114/118.
 - **Pending:** User: run the task’s documented validation; implementation is not a test pass.
 - **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.

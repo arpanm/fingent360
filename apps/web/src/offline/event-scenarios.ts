@@ -15,6 +15,8 @@ export const handleEventScenarios: OfflineHandler = async (
   bundle,
 ) => {
   if (
+    request.path === '/api/v1/ops/research-governance' ||
+    request.path.startsWith('/api/v1/ops/research-governance/') ||
     request.path === '/api/v1/ops/event-scenarios' ||
     request.path.startsWith('/api/v1/ops/event-scenarios/')
   )

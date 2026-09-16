@@ -1,0 +1,40 @@
+# SBI Contra disclosure ingestion
+
+Implementation authored 2026-09-15; no validation, migration, provider activation or APK build has been run by the agent.
+
+## Scope and source boundary
+
+The versioned `sbi-contra-august-2026-v1` parser covers the original SBI Contra Fund August 2026 workbook linked in [source research](fund-lookthrough-source-research.md). Its one-sheet layout, date serial, headers, accounting display precision and section boundaries were inspected from original public bytes. This fixed variant deliberately rejects other scheme/date/layout variants; broader AMC/month coverage remains pending research and parser authoring. The original copyrighted workbook is not committed. Tests use an explicitly synthetic structural equivalent.
+
+The source reports INR lakh amounts at two decimal places. Exact lexical decimal rounding removes spreadsheet binary serialization artifacts without changing reported display precision. Integer quantities cannot silently round fractions. Cash sections reconcile independently against AUM; derivatives stay separate. Reported weights are preserved. The source's other-current-assets weights disagree with amount/AUM: these produce visible discrepancy warnings, never normalized weights or a claim of complete reliable exposure. This disclosure is dated evidence, not today's holdings or delta-adjusted portfolio risk.
+
+## Workflow and controls
+
+1. Connected Operations records the deployment's actual source-retention/display permission reference and fetches the fixed official URL or uploads the original XLSX. Public accessibility does not establish commercial redistribution permission.
+2. Bounded ZIP/XML parsing rejects formulas, unsafe XML, corrupt ZIP entries, unknown structure and unsupported precision. Embedded external-link metadata is inert; no linked resource is followed. Original bytes are retained in the existing Mongo source store, identified by SHA-256. PostgreSQL migration092 stores immutable capture metadata/parsed payload and append-only reviews. Malformed captures remain quarantined.
+3. A different named reviewer independently chooses an admitted AMFI scheme code/plan, supplies review reasons and explicitly acknowledges any discrepancies. Publication re-reads and hashes original bytes, reparses them and compares the retained parsed record. Scheme-name matching alone never publishes a mapping.
+4. Public readers and snapshots re-admit the exact reviewed mapping against current AMFI identity and the original NAV edition's publication state. Withdrawal or changed identity removes admission. Unrelated drafts/quarantine records do not consume public result bounds.
+5. Funds detail opens the dated disclosure, reported totals, expandable sections, discrepancy explanations, original source and separate derivatives. Loading, empty, retry and constrained mobile table states are authored. No source credentials enter the browser.
+6. Android shares this React reader. Packaged/downloaded snapshots display only mappings matching admitted bundled NAV identity. Missing data stays explicitly empty; capture/review require connected Operations. A disconnected bundle cannot learn a later server withdrawal until refreshed; it is never represented as current live holdings.
+
+Endpoints: public `GET /api/v1/fund-lookthrough?schemeCode=…` and `/snapshot`; protected Operations queue, `/fetch`, `/import`, `/:id/evidence`, `/:id/review` under `/api/v1/ops/fund-lookthrough`. There is no automatic recurring source job: this single verified historical variant must not be scheduled as if it supplied new monthly data.
+
+## Authored acceptance and manual next actions
+
+API1530 checks exact display precision, source inconsistency and derivative separation; API1531 checks durable raw/quarantine and independent-review enforcement; API1532 checks actual publication then NAV withdrawal. WEB1530 exercises connected fund detail and disclosure/source transitions on desktop/mobile. OFFLINE1530 checks admitted mapping, missing/changed identity and connected-only operations. Fixtures are synthetic; original source fixture provenance is recorded separately.
+
+After PostgreSQL/MongoDB are available, the user runs `pnpm db:migrate`, starts `pnpm dev`, then `pnpm sdlc "Add reviewed SBI portfolio disclosure" --grep 'E2E-(API-153[0-2]|WEB-1530)'`. Rebuild offline assets with `pnpm android:web`; use `pnpm android:test --grep E2E-OFFLINE-1530` and `pnpm android:build` for device acceptance. Open the printed web URL at `/#funds-bonds`, or Operations for capture/review. Leave watch mode off. Report the exact case/project, saved run ID and error context on failure; do not send source credentials or private exports.
+
+No dependencies were added. All gates and the conditional local commit remain user-owned through `pnpm sdlc`; nothing was pushed. Remaining parent work: other AMC/date layouts, deployment permission activation, trustworthy complete look-through exposure, and broader bond/source coverage in DEV-022.
+
+## Structural archive extension — 2026-09-15
+
+The ordinary SBI monthly archive selector exposed the original [July2026 Contra workbook](https://www.sbimf.com/docs/default-source/scheme-portfolios/sbi-contra-fund-monthly-portfolio---july-2026.xlsx?sfvrsn=5d225bc7_2). Read-only retrieval succeeded:102335 bytes, SHA256 `d0342c09bf460b44b78b356e9623470feaddf5001229daff9d681201e6244714`. Its worksheet was inspected without executing formulas. Compared with August, security counts and section positions change; July includes stock-option premiums inside AUM, small-weight `#` markers and cached SUM formulas on selected totals. Source notes define `#` as below0.005%. Separate futures remain outside cash AUM. Later analytical-note formulas and external metadata remain inert and are not interpreted as source positions.
+
+New captures now use `sbi-contra-structural-v2`: find scheme/date/header/section/total anchors, parse variable row counts and reconcile source totals. It supports only the two original URLs actually observed in the archive and requires the workbook date to match the selected URL's source record. No guessed filename or future date is fetched. Operations selects the verified month; exact source URL participates in capture idempotency. V1 August reconstruction remains available for already-issued records; no old parsed payload is silently rewritten. No additional migration is needed because immutable editions already store URL and parser version.
+
+The structural parser accepts cached totals only for the observed contiguous SUM grammar and independently reconciles reported display amounts. It never executes workbook expressions; other formula shapes in the portfolio portion fail closed. Original Excel builtin accounting format43 is recognized as two decimals in both parsers. Option premium amounts are included once in AUM; `#` remains an explicit source bound, never converted to zero. Unknown populated sections, duplicate identities, incompatible headers and source-date mismatch quarantine.
+
+Additional authored cases: API1533 structural layout/options/date/formula rejection; API1534 exact archive capture and mismatched-month quarantine; WEB1531 separate July/August detail with option marker; OFFLINE1531 preserves source date/marker. Manual feature run may extend the earlier command to `--grep 'E2E-(API-153[0-4]|WEB-153[01])'`; offline to `--grep 'E2E-OFFLINE-153[01]'`. No tests, checks, builds, migration or source activation were run. Other AMC/scheme layouts and unobserved source URLs remain pending. This extension supersedes the earlier one-month-only implementation boundary; it does not claim universal workbook support.
+
+Offline mapping admission also requires the exact reviewed AMFI edition to be present in current or retained snapshot history, alongside matching current scheme identity. A same-name replacement edition alone cannot prove the original mapping remains admitted. Missing bounded history therefore hides the dependent disclosure until a refreshed snapshot supplies proof; OFFLINE1530 covers missing/restored exact edition. Authored, not executed.

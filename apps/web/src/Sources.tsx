@@ -74,12 +74,67 @@ export function Sources() {
         </p>
         <a href="#macro">Explore the annual data</a>
       </article>
+      <section className="panel" aria-label="Specialist source readers">
+        <h2>Data and original-document readers</h2>
+        <p>
+          These readers use separate reviewed collections from the news feed.
+          Open a reader to see this installation’s retained data, dates and
+          limitations. A reader being available does not mean its source is
+          activated or that data has been published. Offline, only downloaded
+          editions are available.
+        </p>
+        <ul>
+          <li>
+            <a href="#equities">Company identities and exchange evidence</a> —
+            dated identities, prices, actions and financial statements.
+          </li>
+          <li>
+            <a href="#funds-bonds">Fund disclosures and bond yields</a> — AMFI
+            NAV history, reviewed portfolios, merger notices, dated fees and
+            historical sovereign auction calculations; individual fund
+            disclosures require a matched scheme.
+          </li>
+          <li>
+            <a href="#daily-oil">Daily oil observations</a> — retained WTI/Brent
+            closing data, source dates and permission limits.
+          </li>
+          <li>
+            <a href="#commodities">Monthly commodity evidence</a> — retained
+            benchmark units, dates and original evidence.
+          </li>
+          <li>
+            <a href="#regulatory-sources">Rules and tax originals</a> — reviewed
+            document revisions and effective-date precision, without legal
+            applicability approval.
+          </li>
+          <li>
+            <a href="#india-macro">India release history</a> — original
+            observations and retained revisions.
+          </li>
+          <li>
+            <a href="#global-macro">Global economic coverage</a> — published
+            releases, numerical policy rates, reference FX and calendars.
+          </li>
+          <li>
+            <a href="#research-calendar">
+              Release dates and GDP/CPI expectations
+            </a>{' '}
+            — survey forecasts and model nowcasts remain distinct from observed
+            releases.
+          </li>
+          <li>
+            <a href="#event-scenarios">Reviewed release scenarios</a> — dated
+            actuals and expectations, with uncertainty rather than causal
+            forecasts.
+          </li>
+        </ul>
+      </section>
       <section aria-label="Published research coverage">
         <div className="section-heading">
-          <h2>What you can read today</h2>
+          <h2>Published news and explanations</h2>
           <p>
-            Stored, published coverage — access alone does not mean a source is
-            included.
+            These counts describe the discovery feed, not every specialist
+            collection above. Access alone does not mean a source is included.
           </p>
         </div>
         {!catalog && !catalogError && (

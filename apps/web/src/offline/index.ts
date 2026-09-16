@@ -1,3 +1,29 @@
+import { handleFilingDiscovery } from './filing-discovery';
+import { handleFilingWatch } from './filing-watch';
+import { handleCcilZero } from './ccil-zero-curve';
+import { handleCorporateRatings } from './corporate-rating';
+import { handleEiaSpot } from './eia-spot';
+import { handleSovereignBonds } from './sovereign-bond';
+import { handleEquityActionTerms } from './equity-action-terms';
+import { handleFundFactsheet } from './fund-factsheet';
+import { handleFundMergers } from './fund-mergers';
+import { handleEquityConsolidations } from './equity-consolidation';
+import { handleCommodityBenchmarks } from './commodity-benchmarks';
+import { handleRegulatorySources } from './regulatory-sources';
+import { handleCpiExpectations } from './cpi-expectations';
+import { handleGdpExpectations } from './gdp-expectations';
+import { handleWhatsappChannel } from './whatsapp-channel';
+import { handleCcilYields } from './ccil-yields';
+import { handleSbiPortfolio } from './sbi-portfolio';
+import { handleRbiCalendar } from './rbi-calendar';
+import { handleIntelligenceBriefs } from './intelligence-brief';
+import { handlePolicyCalendar } from './policy-calendar';
+import { handleIndiaMacro } from './india-macro';
+import { handleEquityAdjustments } from './equity-adjustments';
+import { handleClassificationCrosswalks } from './classification-crosswalk';
+import { handleParticipantPositioning } from './participant-positioning';
+import { handleInstitutionalFlows } from './institutional-flows';
+import { handleImpactCalibrations } from './impact-calibration';
 import { handleEventScenarios } from './event-scenarios';
 import { handleActionCentre } from './action-centre';
 import { handleFundsBonds } from './funds-bonds';
@@ -56,7 +82,33 @@ const handlers: OfflineHandler[] = [
   handleEcbFx,
   handleEventScenarios,
   handleActionCentre,
+  handleIndiaMacro,
+  handleEquityConsolidations,
+  handleEquityActionTerms,
+  handleEquityAdjustments,
+  handleClassificationCrosswalks,
+  handleParticipantPositioning,
+  handleCommodityBenchmarks,
+  handleRegulatorySources,
+  handleCpiExpectations,
+  handleGdpExpectations,
+  handleWhatsappChannel,
+  handleCcilYields,
+  handleFilingDiscovery,
+  handleFilingWatch,
+  handleCcilZero,
+  handleCorporateRatings,
+  handleEiaSpot,
+  handleSovereignBonds,
+  handleFundFactsheet,
+  handleFundMergers,
+  handleSbiPortfolio,
+  handleRbiCalendar,
+  handleIntelligenceBriefs,
+  handleInstitutionalFlows,
+  handleImpactCalibrations,
   handleFundsBonds,
+  handlePolicyCalendar,
   handleResearchCalendar,
   handleImpactTraces,
   handleEquityCoverage,
@@ -122,6 +174,24 @@ export async function offlineResponse(request: Request): Promise<Response> {
   try {
     request.signal.throwIfAborted();
     const url = new URL(request.url);
+    if (
+      ['kite', 'upstox', 'angel'].some(
+        (provider) =>
+          url.pathname === `/api/v1/account/broker-connections/${provider}` ||
+          url.pathname.startsWith(
+            `/api/v1/account/broker-connections/${provider}/`,
+          ),
+      )
+    )
+      fail(503, 'Broker connectivity requires connected mode.');
+    if (
+      url.pathname === '/api/v1/ops/oil-education' ||
+      url.pathname.startsWith('/api/v1/ops/oil-education/')
+    )
+      fail(
+        503,
+        'Oil disclosure capture and review require connected Operations.',
+      );
     const text = await request.text();
     if (text.length > 2_000_000)
       fail(413, 'This upload exceeds the device workspace limit.');

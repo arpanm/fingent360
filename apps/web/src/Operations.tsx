@@ -1,3 +1,26 @@
+import { FilingDiscoveryOperations } from './FilingDiscoveryOperations';
+import { FilingWatchOperations } from './FilingWatchOperations';
+import { CcilZeroOperations } from './CcilZero';
+import { CorporateRatingsOperations } from './CorporateRatings';
+import { EiaSpotOperations } from './EiaSpotOperations';
+import { SovereignBondOperations } from './SovereignBonds';
+import { ActionTermsOperations } from './ActionTermsOperations';
+import { FundFactsheetOperations } from './FundFactsheetOperations';
+import { FundMergerOperations } from './FundMergers';
+import { EquityConsolidationOperations } from './EquityConsolidationOperations';
+import { CommodityOperations } from './CommodityOperations';
+import { RegulatorySourcesOperations } from './RegulatorySources';
+import { CpiExpectationOperations } from './CpiExpectationOperations';
+import { GdpExpectationOperations } from './GdpExpectationOperations';
+import { IntelligenceBriefOperations } from './IntelligenceBriefOperations';
+import { OilEducationOperations } from './OilEducationOperations';
+import { ParticipantPositioningOperations } from './ParticipantPositioningOperations';
+import { InstitutionalFlowOperations } from './InstitutionalFlowOperations';
+import { EquityAdjustmentOperations } from './EquityAdjustmentOperations';
+import { ClassificationCrosswalk } from './ClassificationCrosswalk';
+import { IndiaMacroOperations } from './IndiaMacroOperations';
+import { ResearchGovernance } from './ResearchGovernance';
+import { CompanyNewsOperations } from './CompanyNewsOperations';
 import { EventScenarioOperations } from './EventScenarioOperations';
 import { EvaluationLineage } from './EvaluationLineage';
 import { FundsBondsOperations } from './FundsBondsOperations';
@@ -319,20 +342,43 @@ export function Operations() {
             >
               {[
                 ['news', 'Publishing'],
+                ['company-news', 'Company news'],
+                ['india-macro', 'India macro'],
+                ['positioning', 'Participant positioning'],
+                ['intelligence-briefs', 'Intelligence briefs'],
+                ['institutional-flows', 'Institutional activity'],
+                ['oil-education', 'Oil disclosure'],
+                ['equity-adjustments', 'Price normalization'],
+                ['equity-consolidations', 'Security consolidations'],
+                ['equity-action-terms', 'Rights and mergers'],
+                ['classification-crosswalks', 'Sector mappings'],
                 ['evaluations', 'Research evaluation'],
+                ['cpi-expectations', 'CPI model expectations'],
+                ['gdp-expectations', 'GDP survey expectations'],
                 ['research-auto', 'Automatic research'],
                 ['bea-recovery', 'BEA recovery'],
                 ['macro', 'Macro ingestion'],
                 ['events', 'Event review'],
                 ['event-scenarios', 'Event scenarios'],
+                ['research-governance', 'Research policies and causal review'],
                 ['event-lineage', 'Merge/split events'],
                 ['ecb-rates', 'ECB policy rates'],
                 ['oil-benchmarks', 'Oil benchmarks'],
                 ['reference-fx', 'Reference exchange rates'],
+                ['commodities', 'Commodities'],
+                ['regulatory-sources', 'Regulatory originals'],
                 ['sources', 'Source registry'],
                 ['feedback', 'Feedback inbox'],
                 ['securities', 'Security identities'],
                 ['funds-bonds', 'Fund data'],
+                ['fund-mergers', 'Fund mergers'],
+                ['fund-factsheets', 'Fund factsheets'],
+                ['sovereign-bonds', 'Sovereign bonds'],
+                ['corporate-ratings', 'Corporate ratings'],
+                ['bond-zero-curve', 'CCIL NSS'],
+                ['filing-watch', 'Original filing watch'],
+                ['filing-discovery', 'Filing discovery'],
+                ['eia-spot', 'Daily oil source'],
                 ['equity-coverage', 'Indian equity data'],
                 ['identity-selections', 'Identity selections'],
                 ['retention', 'Expired data cleanup'],
@@ -501,6 +547,10 @@ export function Operations() {
                 request={request}
                 onPropose={namedMode ? submitProposal : undefined}
               />
+            ) : tab === 'research-governance' ? (
+              <ResearchGovernance request={request} />
+            ) : tab === 'classification-crosswalks' ? (
+              <ClassificationCrosswalk request={request} />
             ) : tab === 'event-scenarios' ? (
               <EventScenarioOperations request={request} />
             ) : tab === 'event-lineage' ? (
@@ -527,8 +577,104 @@ export function Operations() {
               <MacroOperations action={action} busy={busy} />
             ) : tab === 'evaluations' ? (
               <EvaluationLineage request={request} />
+            ) : tab === 'commodities' ? (
+              <CommodityOperations
+                request={request}
+                onDenied={sessionExpired}
+              />
+            ) : tab === 'regulatory-sources' ? (
+              <RegulatorySourcesOperations
+                request={request}
+                onDenied={sessionExpired}
+              />
+            ) : tab === 'cpi-expectations' ? (
+              <CpiExpectationOperations
+                request={request}
+                onDenied={sessionExpired}
+              />
+            ) : tab === 'gdp-expectations' ? (
+              <GdpExpectationOperations
+                request={request}
+                onDenied={sessionExpired}
+              />
             ) : tab === 'research-auto' ? (
               <ResearchAutomation request={request} />
+            ) : tab === 'positioning' ? (
+              <ParticipantPositioningOperations
+                request={request}
+                onDenied={sessionExpired}
+              />
+            ) : tab === 'oil-education' ? (
+              <OilEducationOperations
+                request={request}
+                onDenied={sessionExpired}
+              />
+            ) : tab === 'intelligence-briefs' ? (
+              <IntelligenceBriefOperations request={request} />
+            ) : tab === 'institutional-flows' ? (
+              <InstitutionalFlowOperations
+                request={request}
+                onDenied={sessionExpired}
+              />
+            ) : tab === 'equity-action-terms' ? (
+              <ActionTermsOperations
+                request={request}
+                onDenied={sessionExpired}
+              />
+            ) : tab === 'equity-consolidations' ? (
+              <EquityConsolidationOperations
+                request={request}
+                onDenied={sessionExpired}
+              />
+            ) : tab === 'equity-adjustments' ? (
+              <EquityAdjustmentOperations
+                request={request}
+                onDenied={sessionExpired}
+              />
+            ) : tab === 'india-macro' ? (
+              <IndiaMacroOperations
+                request={request}
+                onDenied={sessionExpired}
+              />
+            ) : tab === 'company-news' ? (
+              <CompanyNewsOperations
+                request={request}
+                onDenied={sessionExpired}
+              />
+            ) : tab === 'eia-spot' ? (
+              <EiaSpotOperations request={request} onDenied={sessionExpired} />
+            ) : tab === 'filing-discovery' ? (
+              <FilingDiscoveryOperations
+                request={request}
+                onDenied={sessionExpired}
+              />
+            ) : tab === 'filing-watch' ? (
+              <FilingWatchOperations
+                request={request}
+                onDenied={sessionExpired}
+              />
+            ) : tab === 'bond-zero-curve' ? (
+              <CcilZeroOperations request={request} onDenied={sessionExpired} />
+            ) : tab === 'corporate-ratings' ? (
+              <CorporateRatingsOperations
+                request={request}
+                onDenied={sessionExpired}
+              />
+            ) : tab === 'sovereign-bonds' ? (
+              <SovereignBondOperations
+                request={request}
+                onDenied={sessionExpired}
+              />
+            ) : tab === 'fund-factsheets' ? (
+              <FundFactsheetOperations
+                request={request}
+                onDenied={sessionExpired}
+              />
+            ) : tab === 'fund-mergers' ? (
+              <FundMergerOperations
+                request={request}
+                onDenied={sessionExpired}
+              />
             ) : tab === 'funds-bonds' ? (
               <FundsBondsOperations
                 request={request}

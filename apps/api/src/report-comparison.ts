@@ -1,3 +1,4 @@
+import { decryptIssuedReport } from './private-reports.js';
 import {
   BadRequestException,
   ConflictException,
@@ -30,10 +31,20 @@ export class ReportComparisonStore {
       ]);
       await this.account.require(c, cookie);
       const found = await c.query(
-        "SELECT j.id,r.payload FROM record_report_jobs j JOIN record_reports r ON r.job_id=j.id WHERE j.user_id=$1 AND j.status='succeeded' ORDER BY j.requested_at DESC,j.id LIMIT 100",
+        "SELECT j.id,r.payload,r.encrypted_payload FROM record_report_jobs j JOIN record_reports r ON r.job_id=j.id WHERE j.user_id=$1 AND j.status='succeeded' ORDER BY j.requested_at DESC,j.id LIMIT 100",
         [user.id],
       );
       try {
+        for (const row of found.rows) {
+          row.payload = await decryptIssuedReport(
+            c,
+            user.id,
+            row.id,
+            row.payload,
+            row.encrypted_payload,
+            this.account.privateDataKeys,
+          );
+        }
         return ReportComparisonOptionsSchema.parse({
           reports: found.rows.map((r) => {
             const report = RecordReportSchema.parse(r.payload);
@@ -75,7 +86,7 @@ export class ReportComparisonStore {
           'Both reports must be issued. Open Reports to check preparation.',
         );
       const originals = await c.query(
-        'SELECT job_id,payload FROM record_reports WHERE job_id=ANY($1::uuid[]) ORDER BY job_id',
+        'SELECT job_id,payload,encrypted_payload FROM record_reports WHERE job_id=ANY($1::uuid[]) ORDER BY job_id',
         [[parsed.data.first, parsed.data.second]],
       );
       if (originals.rows.length !== 2)
@@ -83,6 +94,16 @@ export class ReportComparisonStore {
           'Both reports must have an issued original.',
         );
       try {
+        for (const row of originals.rows) {
+          row.payload = await decryptIssuedReport(
+            c,
+            user.id,
+            row.job_id,
+            row.payload,
+            row.encrypted_payload,
+            this.account.privateDataKeys,
+          );
+        }
         const reports = originals.rows.map((r) => {
           const report = RecordReportSchema.parse(r.payload);
           if (report.id !== r.job_id) throw Error('Mismatched original.');

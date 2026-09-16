@@ -1,6 +1,6 @@
 # DOMAIN-CONTRACTS-002 — Domain models and golden fixtures
 
-- **Status:** Implemented; validation pending
+- **Status:** Completed implementation; validation pending
 - **Implemented / recorded:** - DOMAIN-CONTRACTS-002 (DEV-003): Implemented and committed in b5cfcd0; user format/check passed. Remaining integration evidence is tracked separately. Detailed Codex prompt: close the missing contract-only acceptance in DEV003: versioned general event/evidence-edge, owned portfolio-lot, profile inputs and educational policy-result schemas with golden validation/reconciliation fixtures. Reuse existing identity/evidence/observation/goal/holdings schemas and exact decimal utilities; do not int
 - **Pending:** User: run the task’s documented validation; implementation is not a test pass.
 - **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.

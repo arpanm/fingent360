@@ -1,6 +1,6 @@
 # SDLC-REPAIR-006 — event scenario callback type narrowing
 
-- **Status:** Implemented; validation pending
+- **Status:** Completed implementation; validation pending
 - **Implemented / recorded:** - Implementation: Authored: captured and narrowed a local constant model, preserving all golden and rejection assertions; extended the case to confirm negative variants leave the original comparison unchanged.
 - **Pending:** User: run the task’s documented validation; implementation is not a test pass.
 - **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.

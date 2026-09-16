@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { requireAuthenticator } from './account-mfa-crypto.js';
 import { randomBytes, timingSafeEqual } from 'node:crypto';
 import {
   BadRequestException,
@@ -107,6 +108,12 @@ export class RecoveryController {
         )
       )
         throw new UnauthorizedException('Current password is incorrect.');
+      await requireAuthenticator(
+        c,
+        user.id,
+        input.authenticatorCode,
+        this.store.privateDataKeys,
+      );
       const code = randomBytes(32).toString('hex');
       const r = await c.query<{ created_at: Date }>(
         'INSERT INTO app_account_recovery(user_id,code_hash) VALUES($1,$2) ON CONFLICT(user_id) DO UPDATE SET code_hash=excluded.code_hash,created_at=now(),consumed_at=NULL RETURNING created_at',
@@ -130,16 +137,16 @@ export class RecoveryController {
     const input = parse(RecoveryResetSchema, raw);
     await this.consume([
       { key: `reset-ip:${req.socket.remoteAddress ?? 'unknown'}`, max: 30 },
-      { key: `reset-user:${input.username}`, max: 5 },
+      {
+        key: `reset-user:${this.store.identityLookup(input.username)}`,
+        max: 5,
+      },
     ]);
     const salt = newSalt(),
       password = await derivePassword(input.newPassword, salt),
       codeHash = sessionHash(input.code);
     await this.store.transaction(async (c) => {
-      const users = await c.query<{ id: string }>(
-        'SELECT id FROM app_users WHERE username=$1 FOR UPDATE',
-        [input.username],
-      );
+      const users = await this.store.identityUser(c, input.username);
       const id = users.rows[0]?.id;
       const records = await c.query<{
         code_hash: string;
@@ -162,9 +169,11 @@ export class RecoveryController {
         'UPDATE app_users SET password_hash=$2,password_salt=$3 WHERE id=$1',
         [id, password, salt],
       );
+      await c.query('DELETE FROM app_account_mfa WHERE user_id=$1', [id]);
+      await c.query('DELETE FROM app_mfa_limits WHERE user_id=$1', [id]);
       await c.query('DELETE FROM app_sessions WHERE user_id=$1', [id]);
       await c.query('DELETE FROM app_login_limits WHERE username=$1', [
-        input.username,
+        this.store.identityLookup(input.username),
       ]);
     });
     response.setHeader('Set-Cookie', this.store.cookie('', true));

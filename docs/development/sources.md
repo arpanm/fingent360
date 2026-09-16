@@ -1,5 +1,7 @@
 # SOURCES-001 — Operational source registry
 
+Current integration note,2026-09-15: the shared-key-only description below records the original slice. Named operator permissions and independent review now exist, and the current source-specific workflows are indexed in TODO/README. Historical passes remain revision-specific; they do not validate the latest source/privacy changes.
+
 This slice stores source onboarding metadata in PostgreSQL. It does not activate adapters, retrieve arbitrary URLs, certify licensing rights, or replace the README 27-source roadmap. The database starts empty; no real provider is automatically approved. Operators must supply actual evidence before approving real sources. Public visitors see only the latest approved, published metadata, including its constraints and review evidence. Public metadata must contain no secrets or personal data.
 
 The research operator key controls creation, editing, private drafts and history. The Sources page keeps that key in memory only and supports forgetting it. Each edit checks the expected revision under a row lock and appends a complete snapshot. Stale edits return 409 and require reloading. Database triggers reject revision update/delete; the latest pointer is transactional. Unpublishing removes the current public listing while retaining operator history. The shared key identifies the actor as research_operator; named individual operator identity remains future work.

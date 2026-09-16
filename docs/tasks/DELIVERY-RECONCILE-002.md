@@ -1,6 +1,6 @@
 # DELIVERY-RECONCILE-002 — ad hoc request coverage and completed local delivery
 
-- **Status:** Implemented; validation pending
+- **Status:** Completed implementation; validation pending
 - **Implemented / recorded:** - Implementation: Implemented for the three named scopes and visible request reconciliation. Local DB activation: confirmed; format/check/E2E/commit: awaiting user. User asks to reconcile all available session requests into TODO/README/docs, explain and finish DOMAIN-CONTRACTS-002, actually enable local DB-LEAST-PRIVILEGE-001, and finish PUBLISHING-QUEUE-001 across its API/UI/storage/test/documentation layers. These are continuations of existing IDs, not three new duplicated features.
 - **Pending:** User: run the task’s documented validation; implementation is not a test pass.
 - **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.

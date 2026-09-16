@@ -1,6 +1,6 @@
 # TRACKER-001 — Readable task index and honest delivery status
 
-- **Status:** Implemented; validation pending
+- **Status:** Completed implementation; validation pending
 - **Implemented / recorded:** Moved task details into separate files and created a concise task index plus current delivery summary.
 - **Pending:** Manual review of status accuracy and user-run documentation gates remain pending.
 - **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.

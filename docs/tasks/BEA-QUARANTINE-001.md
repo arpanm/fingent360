@@ -1,6 +1,6 @@
 # BEA-QUARANTINE-001 — Inspect and recover rejected BEA data
 
-- **Status:** Implemented; validation pending
+- **Status:** Completed implementation; validation pending
 - **Implemented / recorded:** - BEA-QUARANTINE-001 (DEV-005/015/021): Implemented; migration035, verification and commit await user-run SDLC. Detailed Codex prompt: implement a bounded BEA-only retained-response recovery workflow using the existing fixed official RSS endpoint, permitted source evidence and shared bounded parser. Spec first. Add additive035 for immutable attempt/response-link/revalidation/staging receipts with truthful network/non-200/oversize/unavailable/pending/parsed/failed states, parser revision, ori
 - **Pending:** User: run the task’s documented validation; implementation is not a test pass.
 - **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.

@@ -263,6 +263,7 @@ export async function refreshFeedbackReceipts(): Promise<void> {
             receivedAt: report.data.receivedAt,
             updatedAt: report.data.updatedAt,
             version: report.data.version,
+            supportAccess: report.data.supportAccess,
           })
         : FeedbackReceiptSchema.safeParse(body);
       if (

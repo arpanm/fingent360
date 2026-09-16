@@ -10,7 +10,30 @@ import { fileURLToPath } from 'node:url';
 import { parseEnv } from 'node:util';
 import { readFileSync, existsSync } from 'node:fs';
 import {
+  ResearchGovernanceSnapshotSchema,
+  IndiaMacroDashboardSchema,
   EquitySnapshotSchema,
+  ConsolidationPublicSchema,
+  ActionTermsPublicSchema,
+  SovereignSnapshotSchema,
+  EiaSpotPublicSchema,
+  CorporateRatingSnapshotSchema,
+  CcilZeroSnapshotSchema,
+  AdjustmentPublicSchema,
+  ClassificationCrosswalkSnapshotSchema,
+  PositioningPublicSchema,
+  GdpExpectationPublicSchema,
+  CpiExpectationPublicSchema,
+  RegulatorySnapshotSchema,
+  CommodityPublicSchema,
+  CcilYieldsSnapshotSchema,
+  SbiPortfolioSnapshotSchema,
+  FundMergerSnapshotSchema,
+  FactsheetSnapshotSchema,
+  RbiCalendarSchema,
+  IntelligenceBriefSnapshotSchema,
+  InstitutionalFlowPublicSchema,
+  PolicyCalendarSchema,
   EventScenarioSnapshotSchema,
   FundsSnapshotSchema,
   ReleaseCalendarSchema,
@@ -157,14 +180,110 @@ Object.assign(bundle, {
 Object.assign(bundle, {
   fundsBonds: FundsSnapshotSchema.parse(await get('/funds/snapshot')),
 });
+const beaCalendar = ReleaseCalendarSchema.parse(
+  await get('/research-calendar?source=bea-calendar'),
+);
+const blsCalendar = ReleaseCalendarSchema.parse(
+  await get('/research-calendar?source=bls-calendar'),
+);
 Object.assign(bundle, {
-  researchCalendar: ReleaseCalendarSchema.parse(
-    await get('/research-calendar'),
+  indiaMacro: IndiaMacroDashboardSchema.parse(await get('/india-macro')),
+  researchGovernance: ResearchGovernanceSnapshotSchema.parse(
+    await get('/research-governance/snapshot'),
   ),
+  researchCalendar: beaCalendar,
+  researchCalendars: {
+    'bea-calendar': beaCalendar,
+    'bls-calendar': blsCalendar,
+  },
 });
 Object.assign(bundle, {
   equityCoverage: EquitySnapshotSchema.parse(await get('/equities/snapshot')),
 });
+bundle.equityAdjustments = Object.fromEntries(
+  await Promise.all(
+    bundle.equityCoverage.companies.map(async (company) => [
+      company.isin,
+      AdjustmentPublicSchema.parse(
+        await get('/equity-adjustments/' + company.isin),
+      ),
+    ]),
+  ),
+);
+bundle.equityActionTerms = Object.fromEntries(
+  await Promise.all(
+    bundle.equityCoverage.companies.map(async (company) => [
+      company.isin,
+      ActionTermsPublicSchema.parse(
+        await get('/equity-action-terms/' + company.isin),
+      ),
+    ]),
+  ),
+);
+bundle.equityConsolidations = Object.fromEntries(
+  await Promise.all(
+    bundle.equityCoverage.companies.map(async (company) => [
+      company.isin,
+      ConsolidationPublicSchema.parse(
+        await get('/equity-consolidations/' + company.isin),
+      ),
+    ]),
+  ),
+);
+bundle.classificationCrosswalks = ClassificationCrosswalkSnapshotSchema.parse(
+  await get('/classifications'),
+);
+bundle.participantPositioning = PositioningPublicSchema.parse(
+  await get('/positioning'),
+);
+bundle.institutionalFlows = InstitutionalFlowPublicSchema.parse(
+  await get('/institutional-flows'),
+);
+const dailyOil = await get('/eia-spot', true);
+if (dailyOil !== undefined)
+  bundle.eiaSpot = EiaSpotPublicSchema.parse(dailyOil);
+const commodities = await get('/commodity-benchmarks', true);
+if (commodities !== undefined)
+  bundle.commodityBenchmarks = CommodityPublicSchema.parse(commodities);
+bundle.regulatorySources = RegulatorySnapshotSchema.parse(
+  await get('/regulatory-sources/snapshot'),
+);
+bundle.cpiExpectations = CpiExpectationPublicSchema.parse(
+  await get('/cpi-expectations'),
+);
+bundle.gdpExpectations = GdpExpectationPublicSchema.parse(
+  await get('/gdp-expectations'),
+);
+bundle.bondYields = CcilYieldsSnapshotSchema.parse(
+  await get('/bond-yields/snapshot'),
+);
+bundle.bondZeroCurve = CcilZeroSnapshotSchema.parse(
+  await get('/bond-zero-curve/snapshot'),
+);
+bundle.corporateRatings = CorporateRatingSnapshotSchema.parse(
+  await get('/corporate-ratings/snapshot'),
+);
+bundle.sovereignBonds = SovereignSnapshotSchema.parse(
+  await get('/sovereign-bonds/snapshot'),
+);
+bundle.fundFactsheets = FactsheetSnapshotSchema.parse(
+  await get('/fund-factsheets/snapshot'),
+);
+bundle.fundMergers = FundMergerSnapshotSchema.parse(
+  await get('/fund-mergers/snapshot'),
+);
+bundle.fundPortfolios = SbiPortfolioSnapshotSchema.parse(
+  await get('/fund-lookthrough/snapshot'),
+);
+bundle.rbiCalendar = RbiCalendarSchema.parse(
+  await get('/research-calendar/rbi'),
+);
+bundle.intelligenceBriefs = IntelligenceBriefSnapshotSchema.parse(
+  await get('/intelligence-briefs/snapshot'),
+);
+bundle.policyCalendar = PolicyCalendarSchema.parse(
+  await get('/research-calendar/policy'),
+);
 Object.assign(bundle, await captureIdentitySelections(get, bundle.securities));
 Object.assign(bundle, await captureEvents(get, bundle));
 bundle.eventLineage = await captureEventLineage(get, bundle.events);

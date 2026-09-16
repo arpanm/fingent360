@@ -1,4 +1,12 @@
+import type pg from 'pg';
+import {
+  decryptHoldingsRows,
+  encryptHoldings,
+  encryptHoldingsPreview,
+  decryptHoldingsPreview,
+} from './private-holdings.js';
 import { randomUUID } from 'node:crypto';
+import { decryptAllocationRows } from './private-allocations.js';
 import {
   BadRequestException,
   Body,
@@ -13,6 +21,7 @@ import {
 import { z } from 'zod';
 import {
   HoldingsReconciliationSchema,
+  AllocationSnapshotSchema,
   storedHoldingsPreview,
   reconcileHoldings,
   HoldingsImportRequestSchema,
@@ -57,8 +66,14 @@ export class HoldingsController {
     return this.store.transaction(async (c) => {
       const account = await this.store.require(c, cookie);
       const rows = await c.query(
-        'SELECT r.payload FROM app_holdings h JOIN app_holdings_revisions r ON r.user_id=h.user_id AND r.version=h.version WHERE h.user_id=$1',
+        'SELECT r.user_id,r.version,r.payload,r.encrypted_payload FROM app_holdings h JOIN app_holdings_revisions r ON r.user_id=h.user_id AND r.version=h.version WHERE h.user_id=$1',
         [account.id],
+      );
+      await decryptHoldingsRows(
+        c,
+        account.id,
+        rows.rows,
+        this.store.privateDataKeys,
       );
       return rows.rows[0]
         ? HoldingsSnapshotSchema.parse(rows.rows[0].payload)
@@ -72,8 +87,14 @@ export class HoldingsController {
     return this.store.transaction(async (c) => {
       const account = await this.store.require(c, cookie);
       const rows = await c.query(
-        'SELECT payload FROM app_holdings_revisions WHERE user_id=$1 ORDER BY version DESC',
+        'SELECT user_id,version,payload,encrypted_payload FROM app_holdings_revisions WHERE user_id=$1 ORDER BY version DESC',
         [account.id],
+      );
+      await decryptHoldingsRows(
+        c,
+        account.id,
+        rows.rows,
+        this.store.privateDataKeys,
       );
       return HoldingsHistorySchema.parse({
         revisions: rows.rows.map((r) => r.payload),
@@ -145,6 +166,24 @@ export class HoldingsController {
             : 'Invalid CSV.',
       );
     }
+    return this.createPreview(
+      holdings,
+      imported,
+      input.expectedVersion,
+      cookie,
+    );
+  }
+  async createPreview(
+    holdings: z.infer<typeof HoldingsSnapshotSchema>['holdings'],
+    imported: z.infer<typeof HoldingsImportSchema>,
+    expectedVersion: number,
+    cookie?: string,
+    onCreated?: (
+      c: pg.PoolClient,
+      userId: string,
+      previewId: string,
+    ) => Promise<void>,
+  ) {
     return this.store.transaction(async (c) => {
       const account = await this.store.require(c, cookie);
       await c.query('SELECT id FROM app_users WHERE id=$1 FOR UPDATE', [
@@ -156,7 +195,7 @@ export class HoldingsController {
         'SELECT version FROM app_holdings WHERE user_id=$1',
         [account.id],
       );
-      if ((current.rows[0]?.version ?? 0) !== input.expectedVersion)
+      if ((current.rows[0]?.version ?? 0) !== expectedVersion)
         throw new ConflictException(
           'Holdings changed. Reload before previewing.',
         );
@@ -175,10 +214,16 @@ export class HoldingsController {
           'Too many previews. Retry after existing previews expire in 30 minutes.',
         );
       const baselineRows = await c.query(
-        'SELECT payload FROM app_holdings_revisions WHERE user_id=$1 AND version=$2',
-        [account.id, input.expectedVersion],
+        'SELECT user_id,version,payload,encrypted_payload FROM app_holdings_revisions WHERE user_id=$1 AND version=$2',
+        [account.id, expectedVersion],
       );
-      if (input.expectedVersion > 0 && !baselineRows.rows[0])
+      await decryptHoldingsRows(
+        c,
+        account.id,
+        baselineRows.rows,
+        this.store.privateDataKeys,
+      );
+      if (expectedVersion > 0 && !baselineRows.rows[0])
         throw new ConflictException(
           'Saved baseline unavailable. Reload your holdings.',
         );
@@ -186,34 +231,49 @@ export class HoldingsController {
         baselineRows.rows[0]?.payload ?? empty(),
       );
       const allocation = await c.query(
-        "SELECT jsonb_array_length(r.payload->'rows') AS count FROM app_goal_allocations a JOIN app_goal_allocation_revisions r ON r.user_id=a.user_id AND r.version=a.version WHERE a.user_id=$1",
+        'SELECT r.user_id,r.version,r.payload,r.encrypted_payload FROM app_goal_allocations a JOIN app_goal_allocation_revisions r ON r.user_id=a.user_id AND r.version=a.version WHERE a.user_id=$1',
         [account.id],
       );
+      await decryptAllocationRows(
+        c,
+        account.id,
+        allocation.rows,
+        this.store.privateDataKeys,
+      );
       const connections = await c.query(
-        "SELECT count(*)::int AS count FROM app_research_connections h JOIN app_research_connection_revisions r ON r.connection_id=h.id AND r.version=h.version WHERE h.user_id=$1 AND NOT h.removed AND r.payload->'target'->'binding'->>'kind'='holding'",
+        "SELECT count(*)::int AS count FROM app_research_connections h JOIN app_research_connection_revisions r ON r.connection_id=h.id AND r.version=h.version WHERE h.user_id=$1 AND NOT h.removed AND r.target_kind='holding'",
         [account.id],
       );
       const reconciliation = reconcileHoldings(baseline, holdings, {
-        allocationRows: allocation.rows[0]?.count ?? 0,
+        allocationRows: allocation.rows[0]
+          ? AllocationSnapshotSchema.parse(allocation.rows[0].payload).rows
+              .length
+          : 0,
         holdingConnections: connections.rows[0].count,
         checkedAt: new Date().toISOString(),
       });
       const previewId = randomUUID();
       const expiresAt = new Date(Date.now() + 1800000).toISOString();
       await c.query(
-        'INSERT INTO app_holdings_previews(id,user_id,expected_version,payload,expires_at) VALUES($1,$2,$3,$4,$5)',
+        'INSERT INTO app_holdings_previews(id,user_id,expected_version,encrypted_payload,expires_at) VALUES($1,$2,$3,$4,$5)',
         [
           previewId,
           account.id,
-          input.expectedVersion,
-          JSON.stringify({ holdings, import: imported, reconciliation }),
+          expectedVersion,
+          encryptHoldingsPreview(
+            account.id,
+            previewId,
+            { holdings, import: imported, reconciliation },
+            this.store.privateDataKeys,
+          ),
           expiresAt,
         ],
       );
+      if (onCreated) await onCreated(c, account.id, previewId);
       return HoldingsPreviewSchema.parse({
         previewId,
         expiresAt,
-        expectedVersion: input.expectedVersion,
+        expectedVersion: expectedVersion,
         holdings,
         totalCostMinor: holdingsTotal(holdings),
         reconciliation,
@@ -246,13 +306,25 @@ export class HoldingsController {
         throw new ConflictException('Preview version does not match.');
       if (preview.confirmed_version !== null) {
         const old = await c.query(
-          'SELECT payload FROM app_holdings_revisions WHERE user_id=$1 AND version=$2',
+          'SELECT user_id,version,payload,encrypted_payload FROM app_holdings_revisions WHERE user_id=$1 AND version=$2',
           [account.id, preview.confirmed_version],
+        );
+        await decryptHoldingsRows(
+          c,
+          account.id,
+          old.rows,
+          this.store.privateDataKeys,
         );
         return HoldingsSnapshotSchema.parse(old.rows[0].payload);
       }
       if (preview.expires_at.getTime() <= Date.now())
         throw new ConflictException('Preview expired. Create a fresh preview.');
+      await decryptHoldingsPreview(
+        c,
+        account.id,
+        preview,
+        this.store.privateDataKeys,
+      );
       await c.query(
         'INSERT INTO app_holdings(user_id) VALUES($1) ON CONFLICT DO NOTHING',
         [account.id],
@@ -288,8 +360,14 @@ export class HoldingsController {
       if (preview.expires_at.getTime() <= Date.now())
         throw new ConflictException('Preview expired. Create a fresh preview.');
       const baselineRows = await c.query(
-        'SELECT payload FROM app_holdings_revisions WHERE user_id=$1 AND version=$2',
+        'SELECT user_id,version,payload,encrypted_payload FROM app_holdings_revisions WHERE user_id=$1 AND version=$2',
         [account.id, input.expectedVersion],
+      );
+      await decryptHoldingsRows(
+        c,
+        account.id,
+        baselineRows.rows,
+        this.store.privateDataKeys,
       );
       const baseline = HoldingsSnapshotSchema.parse(
         baselineRows.rows[0]?.payload ?? empty(),
@@ -322,13 +400,23 @@ export class HoldingsController {
         totalCostMinor: holdingsTotal(holdings),
         currency: 'INR',
         scale: 2,
-        provenance: 'user-entered-unverified',
+        provenance: [
+          'kite-settled-holdings-v1',
+          'upstox-settled-holdings-v1',
+          'angel-settled-holdings-v1',
+        ].includes(imported?.parserVersion ?? '')
+          ? 'broker-reported-unverified'
+          : 'user-entered-unverified',
         import: imported,
         updatedAt: new Date().toISOString(),
       });
       await c.query(
-        'INSERT INTO app_holdings_revisions(user_id,version,payload) VALUES($1,$2,$3)',
-        [account.id, version, result],
+        'INSERT INTO app_holdings_revisions(user_id,version,encrypted_payload) VALUES($1,$2,$3)',
+        [
+          account.id,
+          version,
+          encryptHoldings(account.id, result, this.store.privateDataKeys),
+        ],
       );
       await c.query('UPDATE app_holdings SET version=$2 WHERE user_id=$1', [
         account.id,

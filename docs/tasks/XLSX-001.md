@@ -1,10 +1,12 @@
 # XLSX-001 — Spreadsheet workbook imports
 
-- **Status:** Completed (recorded scope)
+- **Status:** Done (recorded scope)
 - **Implemented / recorded:** - XLSX-001 (DEV-008/SRC-013): Implemented and integration verified for the standard format. Standard workbook import through the same exact preview/reconcile/confirm workflow as CSV, on server/web/device. This does not onboard arbitrary broker dialects or validate market prices. Prompt: specify a small downloadable Holdings-sheet template with isin,quantity,total_cost_paise and explicit format/limits; preserve lexical decimal strings, reject formulas/dates/scientific or ambiguous numeric for
 - **Pending:** No new action for the recorded scope; later changes need new validation.
 - **Next action / inputs:** No new action for the recorded scope; later changes need new validation.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
+
+Status reconciliation (2026-09-16): Done refers to the previously recorded bounded delivery, not fresh validation of the current working tree. No new implementation or test pass is claimed.
 
 ## Implementation handoff rule
 

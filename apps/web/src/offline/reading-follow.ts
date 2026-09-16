@@ -1,4 +1,5 @@
 import {
+  readingCalendarContext,
   ReadingFollowConfigSchema,
   ReadingFollowItemSchema,
   ReadingFollowWriteSchema,
@@ -107,6 +108,11 @@ export const handleReadingFollow: OfflineHandler = (request, state, bundle) => {
       .slice(0, 101);
     return {
       body: ReadingFollowViewSchema.parse({
+        calendarContext: readingCalendarContext(
+          value.config,
+          bundle.researchCalendars?.['bea-calendar'] ?? bundle.researchCalendar,
+          now,
+        ),
         config: value.config,
         items: selected.slice(0, 100),
         next: selected.length > 100 ? selected[99]!.itemId : null,

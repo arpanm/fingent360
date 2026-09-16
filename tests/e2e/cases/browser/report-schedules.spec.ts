@@ -348,7 +348,7 @@ async function pagedScheduleFixture(
       [fixture.id, fixture.owner, JSON.stringify(editions)],
     );
     await pool.query(
-      'UPDATE report_schedules SET version=101,payload=$2 WHERE id=$1',
+      'UPDATE report_schedules SET version=101,payload=$2,encrypted_payload=NULL,content_hash=NULL WHERE id=$1',
       [fixture.id, editions.at(-1)],
     );
   } finally {

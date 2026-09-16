@@ -1,3 +1,4 @@
+import { exportLocalImpactCalibrations } from './impact-calibration';
 import { exportLocalActionCentre } from './action-centre';
 import { exportLocalBondComparisons } from './funds-bonds';
 import { exportLocalImpactTraces } from './impact-trace';
@@ -314,6 +315,7 @@ export async function handleAccounts(
       'localGoalFeasibility',
       'localImpactTraces',
       'localActionCentre',
+      'localImpactCalibrations',
       'localBondComparisons',
       'localConnectionReviews',
       'localReadingFollow',
@@ -451,6 +453,7 @@ export async function handleAccounts(
           retentionDays: 7,
         },
         actionCentre: exportLocalActionCentre(detached, user.id),
+        impactCalibrations: exportLocalImpactCalibrations(detached, user.id),
         bondComparisons: exportLocalBondComparisons(detached, user.id),
         impactTraces: exportLocalImpactTraces(detached, user.id),
         connectionReviews: exportLocalConnectionReviews(detached, user.id),

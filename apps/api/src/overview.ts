@@ -1,3 +1,5 @@
+import { decryptHoldingsRows } from './private-holdings.js';
+import { decryptGoalRows } from './private-goals.js';
 import { Controller, Get, Headers, Inject } from '@nestjs/common';
 import { OverviewSchema } from '@fingent360/contracts';
 import { AccountStore, STORE } from './accounts.js';
@@ -8,17 +10,27 @@ export class OverviewController {
 
   @Get() get(@Headers('cookie') cookie?: string) {
     return this.store.transaction(async (client) => {
-      await client.query(
-        'SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY',
-      );
+      await client.query('SET TRANSACTION ISOLATION LEVEL REPEATABLE READ');
       const user = await this.store.require(client, cookie);
       const goals = await client.query(
-        'SELECT r.payload FROM app_goals g JOIN app_goal_revisions r ON r.goal_id=g.id AND r.version=g.version WHERE g.user_id=$1 AND g.deleted_at IS NULL ORDER BY g.created_at,g.id',
+        'SELECT r.goal_id,r.version,r.payload,r.encrypted_payload FROM app_goals g JOIN app_goal_revisions r ON r.goal_id=g.id AND r.version=g.version WHERE g.user_id=$1 AND g.deleted_at IS NULL ORDER BY g.created_at,g.id',
         [user.id],
       );
+      await decryptGoalRows(
+        client,
+        user.id,
+        goals.rows,
+        this.store.privateDataKeys,
+      );
       const holdings = await client.query(
-        'SELECT r.payload FROM app_holdings h JOIN app_holdings_revisions r ON r.user_id=h.user_id AND r.version=h.version WHERE h.user_id=$1',
+        'SELECT r.user_id,r.version,r.payload,r.encrypted_payload FROM app_holdings h JOIN app_holdings_revisions r ON r.user_id=h.user_id AND r.version=h.version WHERE h.user_id=$1',
         [user.id],
+      );
+      await decryptHoldingsRows(
+        client,
+        user.id,
+        holdings.rows,
+        this.store.privateDataKeys,
       );
       const watchlist = await client.query(
         'SELECT indicators FROM app_watchlists WHERE user_id=$1',

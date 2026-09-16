@@ -1,3 +1,4 @@
+import { CorporateRatingSnapshotSchema } from '@fingent360/contracts';
 import { z } from 'zod';
 import {
   FundsSnapshotSchema,
@@ -72,7 +73,7 @@ export const handleFundsBonds: OfflineHandler = async (
         .filter(
           (r) =>
             (!after || r.observation.schemeCode > after) &&
-            `${r.observation.name} ${r.observation.amc} ${r.observation.schemeCode}`
+            `${r.observation.name} ${r.observation.amc} ${r.observation.plan ?? ''} ${r.observation.option ?? ''} ${r.observation.schemeCode}`
               .toLowerCase()
               .includes(q),
         )
@@ -95,12 +96,16 @@ export const handleFundsBonds: OfflineHandler = async (
     if (!/^\d{5,8}$/.test(code)) fail(404, 'Unknown scheme.');
     const row = snapshot.funds.find((r) => r.observation.schemeCode === code);
     if (!row) fail(404, 'Fund is not included in this dated snapshot.');
+    const history = snapshot.history?.filter(
+      (item) => item.observation.schemeCode === code,
+    );
     return {
       body: FundDetailSchema.parse({
         schemeCode: code,
-        history: [row],
+        history: history?.length ? history.slice(0, 500) : [row],
         lookThrough: 'not-connected',
-        truncated: true,
+        truncated:
+          snapshot.historyTruncated || !history?.length || history.length > 500,
       }),
     };
   }
@@ -131,14 +136,38 @@ export const handleFundsBonds: OfflineHandler = async (
       if (old.fingerprint !== fingerprint)
         fail(409, 'Comparison ID already used.');
       if (!old.value) fail(410, 'Comparison was removed.');
-      return { body: old.value };
+      const receipt = SavedBondComparisonSchema.safeParse(old.value);
+      if (
+        !receipt.success ||
+        receipt.data.id !== id ||
+        JSON.stringify(receipt.data.input) !== JSON.stringify(input)
+      )
+        fail(
+          409,
+          'Saved comparison receipt no longer matches its original inputs.',
+        );
+      return { body: receipt.data };
     }
     if (Object.values(rows).filter((r) => r.value).length >= 100)
       fail(409, 'Remove a comparison before adding more.');
     let result;
     try {
-      result = calculateBondComparison(input);
+      const snapshot = CorporateRatingSnapshotSchema.safeParse(
+        bundle.corporateRatings,
+      );
+      const source =
+        input.creditEvidence && snapshot.success
+          ? snapshot.data.editions.find(
+              (e) => e.id === input.creditEvidence?.editionId,
+            )
+          : undefined;
+      result = calculateBondComparison(input, source);
     } catch {
+      if (input.creditEvidence)
+        fail(
+          409,
+          'Comparison inputs or downloaded credit evidence are unavailable, withdrawn or outside the historical assessment window.',
+        );
       fail(400, 'Comparison amounts or dates exceed supported bounds.');
     }
     rows[id] = {

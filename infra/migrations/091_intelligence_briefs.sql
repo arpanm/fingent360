@@ -1,0 +1,5 @@
+CREATE TABLE intelligence_briefs(id uuid PRIMARY KEY,head_version integer NOT NULL,published_version integer,state text NOT NULL CHECK(state IN('draft','published','withdrawn')),reviewed_at timestamptz);
+CREATE TABLE intelligence_brief_versions(brief_id uuid NOT NULL REFERENCES intelligence_briefs(id),version integer NOT NULL,request_id uuid UNIQUE NOT NULL,actor_id text NOT NULL,fingerprint text NOT NULL,payload jsonb NOT NULL,PRIMARY KEY(brief_id,version));
+CREATE TABLE intelligence_brief_reviews(seq bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,brief_id uuid NOT NULL REFERENCES intelligence_briefs(id),version integer NOT NULL,request_id uuid UNIQUE NOT NULL,actor_id text NOT NULL,payload jsonb NOT NULL,reviewed_at timestamptz NOT NULL DEFAULT clock_timestamp());
+CREATE TRIGGER intelligence_brief_versions_immutable BEFORE UPDATE OR DELETE ON intelligence_brief_versions FOR EACH ROW EXECUTE FUNCTION protect_reviewed_event_history();
+CREATE TRIGGER intelligence_brief_reviews_immutable BEFORE UPDATE OR DELETE ON intelligence_brief_reviews FOR EACH ROW EXECUTE FUNCTION protect_reviewed_event_history();

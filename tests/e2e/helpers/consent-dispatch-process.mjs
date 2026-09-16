@@ -36,6 +36,7 @@ try {
   store = new AccountStore({
     DATABASE_URL: url.href,
     WEB_ORIGIN: input.origin,
+    ...input.privateDataKeys,
   });
   if (input.holdBeforeDispatch) {
     const transaction = store.transaction.bind(store);

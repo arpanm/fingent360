@@ -1,5 +1,13 @@
-import { useEffect, useState } from 'react';
+import { CcilZeroReader } from './CcilZero';
+import { CorporateRatingsReader } from './CorporateRatings';
+import { SovereignBondReader } from './SovereignBonds';
+import { FundFactsheetReader } from './FundFactsheet';
+import { FundMergerReader } from './FundMergers';
+import { CcilYieldsReader } from './CcilYields';
+import { SbiPortfolioReader } from './SbiPortfolio';
+import { useEffect, useState, useRef } from 'react';
 import {
+  CorporateRatingListSchema,
   BondComparisonInputSchema,
   BondComparisonsSchema,
   SavedBondComparisonSchema,
@@ -10,6 +18,15 @@ import {
 } from '@fingent360/contracts';
 import { json } from './net';
 import './funds-bonds.css';
+const fundIdentityLabels: Record<string, string> = {
+  schemeCode: 'scheme code',
+  amc: 'fund manager',
+  name: 'scheme name',
+  plan: 'plan',
+  option: 'option',
+  payoutIsin: 'growth/payout ISIN',
+  reinvestmentIsin: 'reinvestment ISIN',
+};
 const paise = (value: string) => {
   if (!/^(0|[1-9][0-9]{0,15})(\.[0-9]{1,2})?$/.test(value))
     throw Error(
@@ -37,6 +54,7 @@ type Form = {
   depositBps: string;
   deductionBps: string;
   consent: boolean;
+  creditSelection: string;
 };
 const emptyForm = (): Form => ({
   title: '',
@@ -52,6 +70,7 @@ const emptyForm = (): Form => ({
   depositBps: '',
   deductionBps: '0',
   consent: false,
+  creditSelection: '',
 });
 function formInput(form: Form) {
   if (
@@ -71,6 +90,14 @@ function formInput(form: Form) {
     couponAmountPaise: paise(form.coupon),
     feesPaise: paise(form.fees),
     creditDescription: form.creditDescription,
+    ...(form.creditSelection
+      ? {
+          creditEvidence: {
+            editionId: form.creditSelection.split('|')[0],
+            isin: form.creditSelection.split('|')[1],
+          },
+        }
+      : {}),
     cashflows: form.cashflows.map((r) => ({
       date: r.date,
       amountPaise: paise(r.amount),
@@ -91,6 +118,9 @@ function formOf(input: BondComparisonInput): Form {
     coupon: rupees(input.couponAmountPaise),
     fees: rupees(input.feesPaise),
     creditDescription: input.creditDescription,
+    creditSelection: input.creditEvidence
+      ? input.creditEvidence.editionId + '|' + input.creditEvidence.isin
+      : '',
     cashflows: input.cashflows.map((r) => ({
       date: r.date,
       amount: rupees(r.amountPaise),
@@ -140,6 +170,42 @@ function ComparisonResult({
             : `${value.depositXirr.annualPercent}%`}
         </dd>
       </dl>
+      {value.evidencePolicy && (
+        <section aria-label="Saved bond evidence policy">
+          <h4>Evidence and valuation boundaries</h4>
+          <p>
+            Price: user-entered estimate; evaluated price not supplied; trading
+            liquidity not established. No recommendation.
+          </p>
+          <p>Historical assessment: {value.evidencePolicy.assessmentOn}</p>
+          {value.evidencePolicy.credit.status ===
+          'historical-original-attached' ? (
+            <>
+              <p>
+                {value.evidencePolicy.credit.observation.isin} ·{' '}
+                {value.evidencePolicy.credit.observation.rating} (
+                {value.evidencePolicy.credit.observation.outlook}), publication{' '}
+                {value.evidencePolicy.credit.publishedOn}. Original receipt, not
+                current surveillance.
+              </p>
+              <a
+                href={value.evidencePolicy.credit.sourceUrl}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Attached ICRA original
+              </a>
+              <p>
+                Source hash {value.evidencePolicy.credit.sourceHash}; edition{' '}
+                {value.evidencePolicy.credit.editionId}; version{' '}
+                {value.evidencePolicy.credit.sourceVersion}
+              </p>
+            </>
+          ) : (
+            <p>User credit description only; no verified rating attached.</p>
+          )}
+        </section>
+      )}
       <p>{value.xirr.reason}</p>
       <details>
         <summary>Calculation boundaries</summary>
@@ -151,6 +217,51 @@ function ComparisonResult({
   );
 }
 export function BondComparisonWorkbench() {
+  const [creditRows, setCreditRows] = useState<
+      ReturnType<typeof CorporateRatingListSchema.parse>
+    >({ editions: [], nextCursor: null }),
+    [creditError, setCreditError] = useState('');
+  const creditRequest = useRef<AbortController | null>(null);
+  const [creditBusy, setCreditBusy] = useState(false);
+  async function loadCredits(after?: string) {
+    creditRequest.current?.abort();
+    const controller = new AbortController();
+    creditRequest.current = controller;
+    setCreditBusy(true);
+    setCreditError('');
+    try {
+      const value = CorporateRatingListSchema.parse(
+        await json(
+          '/corporate-ratings' +
+            (after ? '?after=' + encodeURIComponent(after) : ''),
+          undefined,
+          'GET',
+          controller.signal,
+        ),
+      );
+      if (!controller.signal.aborted)
+        setCreditRows((old) => ({
+          ...value,
+          editions: after
+            ? [...old.editions, ...value.editions]
+            : value.editions,
+        }));
+    } catch (e) {
+      if (!controller.signal.aborted)
+        setCreditError(
+          e instanceof Error ? e.message : 'Credit evidence unavailable.',
+        );
+    } finally {
+      if (!controller.signal.aborted) setCreditBusy(false);
+    }
+  }
+  useEffect(() => {
+    void loadCredits();
+    return () => creditRequest.current?.abort();
+  }, []);
+  function ratingSource(selection: string) {
+    return creditRows.editions.find((e) => e.id === selection.split('|')[0]);
+  }
   const [form, setForm] = useState(emptyForm),
     [preview, setPreview] = useState<ReturnType<
       typeof calculateBondComparison
@@ -288,12 +399,61 @@ export function BondComparisonWorkbench() {
           event.preventDefault();
           setError('');
           try {
-            setPreview(calculateBondComparison(formInput(form)));
+            setPreview(
+              calculateBondComparison(
+                formInput(form),
+                ratingSource(form.creditSelection),
+              ),
+            );
           } catch (err) {
             setError(err instanceof Error ? err.message : 'Review inputs.');
           }
         }}
       >
+        <label>
+          Optional historical credit evidence
+          <select
+            disabled={creditBusy}
+            value={form.creditSelection}
+            onChange={(e) =>
+              change({ ...form, creditSelection: e.target.value })
+            }
+          >
+            <option value="">Use my description only</option>
+            {creditRows.editions.flatMap((edition) =>
+              edition.observations.map((row) => (
+                <option
+                  key={edition.id + row.isin}
+                  value={edition.id + '|' + row.isin}
+                >
+                  {row.isin} · {edition.publishedOn} · {row.agencyStatus}
+                </option>
+              )),
+            )}
+          </select>
+        </label>
+        <p>
+          Attachment assesses credit only at your historical settlement date,
+          within90days after publication. It does not validate entered price or
+          cashflows; trading liquidity remains unknown.
+        </p>
+        {creditError && <p role="alert">{creditError}</p>}
+        <button
+          type="button"
+          disabled={creditBusy}
+          onClick={() => void loadCredits()}
+        >
+          Reload credit choices
+        </button>
+        {creditRows.nextCursor && (
+          <button
+            type="button"
+            disabled={creditBusy}
+            onClick={() => void loadCredits(creditRows.nextCursor!)}
+          >
+            More credit choices
+          </button>
+        )}
         <div className="funds-form-grid">
           {fields.map(([key, title, type]) => (
             <label key={key}>
@@ -535,6 +695,10 @@ export function FundsBonds() {
           supply.
         </p>
       </header>
+      <CcilYieldsReader />
+      <CcilZeroReader />
+      <SovereignBondReader />
+      <CorporateRatingsReader />
       <nav aria-label="Funds and bond tools">
         <button aria-pressed={tab === 'funds'} onClick={() => setTab('funds')}>
           Fund NAVs
@@ -590,10 +754,46 @@ export function FundsBonds() {
                 growth/reinvestment identities remain distinct. NAV alone does
                 not describe portfolio risk.
               </p>
-              <p>
-                Portfolio look-through is not connected. No constituent holdings
-                or sector weights are inferred from a scheme name.
-              </p>
+              <SbiPortfolioReader schemeCode={detail.schemeCode} />
+              <FundMergerReader schemeCode={detail.schemeCode} />
+              <FundFactsheetReader schemeCode={detail.schemeCode} />
+              <section aria-label="NAV history consistency">
+                <h3>
+                  {detail.reconciliation.status === 'review-required'
+                    ? 'History needs review'
+                    : detail.reconciliation.status === 'insufficient-history'
+                      ? 'Not enough history to compare'
+                      : 'Retained records agree'}
+                </h3>
+                <p>
+                  {detail.reconciliation.distinctDates} distinct dates across{' '}
+                  {detail.reconciliation.retainedEditions} retained editions.{' '}
+                  {detail.reconciliation.firstDate} to{' '}
+                  {detail.reconciliation.lastDate}.
+                </p>
+                {detail.reconciliation.conflictingDates.length > 0 && (
+                  <p role="alert">
+                    Different NAVs are reported for the same date:{' '}
+                    {detail.reconciliation.conflictingDates.join(', ')}. No
+                    value has been selected as a corrected NAV.
+                  </p>
+                )}
+                {detail.reconciliation.identityChanges.length > 0 && (
+                  <p role="alert">
+                    Scheme details changed between captures (
+                    {detail.reconciliation.identityChanges
+                      .map((field) => fundIdentityLabels[field] ?? field)
+                      .join(', ')}
+                    ). Review the original editions before treating these as one
+                    continuous series.
+                  </p>
+                )}
+                <ul>
+                  {detail.reconciliation.limitations.map((message) => (
+                    <li key={message}>{message}</li>
+                  ))}
+                </ul>
+              </section>
               {detail.truncated && (
                 <p>
                   Only the retained history available in this view is shown; it
@@ -610,6 +810,11 @@ export function FundsBonds() {
                   </h3>
                   <p>
                     {row.observation.amc} · {row.observation.category}
+                    <span>
+                      {' '}
+                      · {row.observation.plan ?? 'Plan not supplied'} ·{' '}
+                      {row.observation.option ?? 'Option not supplied'}
+                    </span>
                   </p>
                   <p>
                     Growth/payout ISIN{' '}
@@ -623,6 +828,12 @@ export function FundsBonds() {
                       AMFI · {row.edition.retrievedAt} · {row.edition.parser}
                     </p>
                     <p>{row.edition.sourceUrl}</p>
+                    {row.edition.historyCatalog && (
+                      <p>
+                        Source catalog {row.edition.historyCatalog.version},
+                        observed {row.edition.historyCatalog.observedOn}.
+                      </p>
+                    )}
                     <code>{row.edition.hash}</code>
                     <p>
                       Source row {row.observation.sourceRow}. Retained NAV date
@@ -642,6 +853,10 @@ export function FundsBonds() {
                   >
                     <strong>{row.observation.name}</strong>
                     <span>{row.observation.amc}</span>
+                    <span>
+                      {row.observation.plan ?? 'Plan not supplied'} ·{' '}
+                      {row.observation.option ?? 'Option not supplied'}
+                    </span>
                     <span>
                       {row.observation.nav === null
                         ? 'NAV not supplied'

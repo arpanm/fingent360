@@ -1,6 +1,6 @@
 # REGRESSION-012 — formatting gate after roadmap authoring
 
-- **Status:** Implemented; validation pending
+- **Status:** Completed implementation; validation pending
 - **Implemented / recorded:** - Implementation: Whitespace corrections authored; user rerun pending. Verification: user reports format completed, then format:check rejected four files; later gates/commit/E2E were not reached. Inspect events.ts, operator-permissions.ts and the mapped/supplemental import helpers. Preserve all behavior and existing pending changes. Correct inconsistent wrapping without ignoring files, weakening format:check, adding repeated formatter passes or changing commit ordering. The existing runner invokes format and check sequentially with the same configuration; the precise cause of the reported divergence is not established without execution.
 - **Pending:** User: run the task’s documented validation; implementation is not a test pass.
 - **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.

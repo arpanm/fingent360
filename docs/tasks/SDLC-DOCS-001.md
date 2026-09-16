@@ -1,10 +1,10 @@
 # SDLC-DOCS-001 — complete command option reference
 
-- **Status:** Implemented; validation pending
-- **Implemented / recorded:** - Status: Documentation authored; manual acceptance pending. No commands/tests/commits run.
-- **Pending:** User: run the task’s documented validation; implementation is not a test pass.
-- **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.
-- **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
+- **Status:** Done (documentation)
+- **Implemented / recorded:** README documents all SDLC parser options, defaults, exclusions, forwarded filters, repair settings and evidence locations; SDLC guidance links that canonical reference.
+- **Pending:** None within the command-reference scope. Launcher execution and current-tree validation remain separate tasks.
+- **Next action / inputs:** No user input needed for this documentation task.
+- **Verification:** Read-only comparison on 2026-09-16 against parseArguments, repairFailure, CLI discovery and affected-selection rules. Positional/explicit messages, checks-only, affected/preview/base, forwarding, attempt bounds, opt-out and CLI override are documented. No commands or runtime tests executed.
 
 ## Implementation handoff rule
 

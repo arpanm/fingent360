@@ -10,58 +10,63 @@ Reviewed 126 blocked/partial/validation-pending records.
 - **Validation only: 82**
 - **Validation + activation: 5**
 
+## Current pickup results — DELIVERY-TEAM-005
+
+The counts above are the original triage snapshot, not live progress totals. [Current batch](DELIVERY-TEAM-005.md) authors privacy audit/encryption, database-backed monitoring, corporate-action/IndAS imports, BLS calendar, current AMFI NAV and historical Fed source/scenario slices. Each parent retains its remaining scope; user validation is separate. The old SDLC-REPAIR-005 formatting blocker is closed from saved check evidence. Reader503 now has safe diagnostics, but its original cause remains unconfirmed.
+
+Broker public research covered all five official download paths without discovering a complete workbook layout. Zerodha account/template availability was asked; no answer has been received. Do not invent a named parser or ask for credentials. Other ready work remains eligible while this input is pending.
+
+Completed implementation now includes DEV-006 public briefs, DEV-010 educational scope, DEV-015, DEV-016 reading layers, DEV-017 supported privacy, DEV-021 initial operational implementation, DEV-029 initial channels, SRC-014 registry, SRC-012, ACTION-CENTRE-001/DEV-019 and initial SRC-007/SRC-008/SRC-010/SRC-011; manual gates and real activation remain pending. Supported privacy/key lifecycle and reviewed simple corporate-action windows are now authored. Next independent implementation: remaining financial fields/history, broader company financial statements, source-linked analytical reading and outstanding source coverage; causal/policy work follows exact evidence. Deployment hosting, physical-device results and live-source activation remain distinct external/manual steps. Do not automatically pick validation-only items as new coding work.
+
 ## Pickup order
 
-1. Read the completed saved validation evidence once when available; diagnose only reported failures. Do not launch a new suite or treat the currently running report as final. Check the old SDLC-REPAIR-005 collision against current code before touching it.
-2. DEV-017 privacy/security and DEV-021 operational implementation gaps: independent agent work; physical/performance/restore acceptance remains separate.
-3. EQUITY-COVERAGE-001 and source children: research formats/rights, then implement missing action/fundamental/history ingestion.
-4. BROKER-PARSERS-002: Zerodha → Angel One → Groww → Upstox → ICICI Direct. Public official research first; ask for an exact account-only sample only if needed.
-5. RESEARCH-AUTO-002: remaining calendars/vintages and source publication prerequisites.
-6. EVENT-SCENARIOS-001, then IMPACT-TRACE-001: verify real event packs and causal evidence before numerical impact claims.
-7. ACTION-CENTRE-001: complete educational buy/rebalance and cost/tax-lot policies after reliable holdings/source inputs.
-8. FUNDS-BONDS-001: verified NAV/scheme/fund/bond data. Permission-dependent live use remains distinct from parser/calculation implementation.
-9. DEV-015 policy review, UX-002G code/accessibility corrections and DEV-029 channel-neutral work; actual device/provider acceptance stays explicit.
+1. Official NSE RSS discovery, historical original watch, daily EIA observations, rights/stock-swap terms, CCIL curve originals, sovereign settlement and source-linked credit comparisons are now authored. Keep their completed status separate from manual validation. Next SRC-004 development requires original XML/taxonomy and exact discovery-to-financial identity mapping; reuse the recorded access question and source evidence.
+2. Resume index-level CSV, original NSE XBRL, BSE source files, broker exports and delegated-provider contracts when the recorded original-format/access inputs arrive. Index originals now have a specific normal-browser availability question pending; do not repeat questions or invent schemas.
+3. Research remaining corporate evaluated-price/trading-liquidity originals and curve compounding conventions from primary sources. Historical credit opinions and reported zero-rate labels do not establish those facts.
+4. Diagnose supplied saved failures without running validation. Completed implementations await the manual SDLC command, source activation and physical-device acceptance; these are not new coding tasks.
+
+The historical CPI expectation/actual golden, seven-family event mechanisms, exact-source reading calendars, GDP archive recovery,25-company financial cohort, fund-merger lineage and initial AMC factsheets are authored. Their completed rows retain explicit manual-validation status. Historical coordination entries do not override current per-task summaries.
 
 DEV-013 regulatory applicability research can proceed alongside source research, but regulated activation remains gated. No paid service, external message, licence acceptance or deployment is authorized by this queue. Parent tasks close only after their children’s acceptance is satisfied.
 
 ## Per-task readiness
 
-- [DEV-013](DEV-013.md): Research-ready.
-- [SDLC-REPAIR-005](SDLC-REPAIR-005.md): Agent-ready.
-- [ACTION-CENTRE-001](ACTION-CENTRE-001.md): Research-ready.
-- [BROKER-PARSERS-002](BROKER-PARSERS-002.md): Research-ready.
+- [DEV-013](DEV-013.md): Applicability research complete; operating entity/registered partner and product-specific approval needed before regulated activation.
+- [SDLC-REPAIR-005](SDLC-REPAIR-005.md): Closed for recorded formatting failure; no repeat repair.
+- [ACTION-CENTRE-001](ACTION-CENTRE-001.md): Implementation complete for stated scope; manual validation/activation next.
+- [BROKER-PARSERS-002](BROKER-PARSERS-002.md): Exact export-layout input needed after public research; first availability question pending.
 - [DELIVERY-TEAM-004](DELIVERY-TEAM-004.md): Follow child tasks.
-- [DEV-006](DEV-006.md): Follow child tasks.
+- [DEV-006](DEV-006.md): Public brief implementation complete; manual validation and editorial/source activation next.
 - [DEV-008](DEV-008.md): Follow child tasks.
-- [DEV-010](DEV-010.md): Follow child tasks.
-- [DEV-011](DEV-011.md): Follow child tasks.
+- [DEV-010](DEV-010.md): Initial implementation complete; manual validation/activation next.
+- [DEV-011](DEV-011.md): Initial implementation complete; manual validation/activation next.
 - [DEV-014](DEV-014.md): Follow child tasks.
-- [DEV-015](DEV-015.md): Agent-ready.
-- [DEV-016](DEV-016.md): Follow child tasks.
-- [DEV-017](DEV-017.md): Agent-ready.
-- [DEV-018](DEV-018.md): Follow child tasks.
-- [DEV-019](DEV-019.md): Follow child tasks.
-- [DEV-020](DEV-020.md): Follow child tasks.
-- [DEV-021](DEV-021.md): Agent-ready.
+- [DEV-015](DEV-015.md): Implementation complete for stated scope; manual validation/activation next.
+- [DEV-016](DEV-016.md): Original progressive-reading implementation complete; manual validation next.
+- [DEV-017](DEV-017.md): Supported implementation complete; user-owned key/migration/acceptance rollout next.
+- [DEV-018](DEV-018.md): Initial implementation complete; manual validation/activation next.
+- [DEV-019](DEV-019.md): Implementation complete for stated scope; manual validation/activation next.
+- [DEV-020](DEV-020.md): Initial implementation complete; manual validation/activation next.
+- [DEV-021](DEV-021.md): Shared and independent monitoring implemented; manual validation and independent deployment remain.
 - [DEV-022](DEV-022.md): Follow child tasks.
-- [DEV-029](DEV-029.md): Agent-ready.
+- [DEV-029](DEV-029.md): Initial channel/mobile implementation complete; provider/signing activation and physical acceptance remain user-owned.
 - [EQUITY-COVERAGE-001](EQUITY-COVERAGE-001.md): Research-ready.
-- [EVENT-SCENARIOS-001](EVENT-SCENARIOS-001.md): Research-ready.
+- [EVENT-SCENARIOS-001](EVENT-SCENARIOS-001.md): Initial implementation complete; manual validation/activation next.
 - [EVIDENCE-LAYERS-001](EVIDENCE-LAYERS-001.md): Validation only.
 - [FUNDS-BONDS-001](FUNDS-BONDS-001.md): Research-ready.
-- [IMPACT-TRACE-001](IMPACT-TRACE-001.md): Research-ready.
+- [IMPACT-TRACE-001](IMPACT-TRACE-001.md): Initial implementation complete; manual validation/activation next.
 - [MAPPED-IMPORT-001](MAPPED-IMPORT-001.md): Follow child tasks.
-- [RESEARCH-AUTO-002](RESEARCH-AUTO-002.md): Research-ready.
+- [RESEARCH-AUTO-002](RESEARCH-AUTO-002.md): Initial implementation complete; manual validation/activation next.
 - [ROADMAP-COMPLETE-003](ROADMAP-COMPLETE-003.md): Follow child tasks.
 - [SRC-001](SRC-001.md): Research-ready.
 - [SRC-002](SRC-002.md): Research-ready.
 - [SRC-006](SRC-006.md): Research-ready.
-- [SRC-007](SRC-007.md): Research-ready.
-- [SRC-008](SRC-008.md): Research-ready.
+- [SRC-007](SRC-007.md): Implementation complete for stated scope; manual validation/activation next.
+- [SRC-008](SRC-008.md): Implementation complete for stated scope; manual validation/activation next.
 - [SRC-009](SRC-009.md): Research-ready.
-- [SRC-012](SRC-012.md): Research-ready.
+- [SRC-012](SRC-012.md): Implementation complete for stated scope; manual validation/activation next.
 - [SRC-013](SRC-013.md): Research-ready.
-- [SRC-015](SRC-015.md): Research-ready.
+- [SRC-015](SRC-015.md): Initial current/history implementation complete; actual source activation and saved user-run validation next.
 - [UX-002](UX-002.md): Follow child tasks.
 - [UX-002G](UX-002G.md): Agent-ready.
 - [ACCOUNT-001](ACCOUNT-001.md): Validation only.
@@ -152,3 +157,11 @@ DEV-013 regulatory applicability research can proceed alongside source research,
 - [UX-002D](UX-002D.md): Validation only.
 - [UX-002E](UX-002E.md): Validation only.
 - [UX-002F](UX-002F.md): Validation only.
+
+DEV-028 next independent pickup: primary-source research and first read-only broker connection, encrypted vault and explicit holdings reconciliation. Actual provider app credentials/callback and permissions remain activation inputs; no live provider auth is authorized.
+
+SRC-011 initial participant OI implementation is complete: exact documented/current CSV, retained originals, quarantine, independent review and web/offline metrics. Source rights activation and manual validation remain; contract-level bhavcopy analytics is separate from this initial aggregate feed.
+
+## Completed bounded source workflows
+
+The completed child rows added to TODO (SRC002-HISTORY through UX002G-HISTORY) expose already authored vertical workflows. They are validation/activation work, not new agent implementation pickups. Broader parent gaps remain listed separately. Do not count these child closures as completion of whole exchange, filing, macro or fund families.

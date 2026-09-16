@@ -1,3 +1,12 @@
+import { EiaSpot } from './EiaSpot';
+import { CommodityBenchmarks } from './CommodityBenchmarks';
+import { RegulatorySourcesReader } from './RegulatorySources';
+import { WhatsappChannel } from './WhatsappChannel';
+import { IntelligenceBrief } from './IntelligenceBrief';
+import { IndiaMacro } from './IndiaMacro';
+import { GlobalMacroCoverage } from './GlobalMacroCoverage';
+import { ParticipantPositioning } from './ParticipantPositioning';
+import { InstitutionalFlows } from './InstitutionalFlows';
 import { EventScenarios } from './EventScenarios';
 import { ActionCentre } from './ActionCentre';
 import { FundsBonds } from './FundsBonds';
@@ -68,6 +77,60 @@ const destinations = [
   ['more', 'More', 'more'],
 ];
 const moreLinks = [
+  [
+    'daily-oil',
+    'Daily oil observations',
+    'Reviewed WTI and Brent daily closing observations',
+    'market',
+  ],
+  [
+    'commodities',
+    'Monthly commodities',
+    'Gold, silver and copper source history with exact units',
+    'market',
+  ],
+  [
+    'regulatory-sources',
+    'Rules and original notices',
+    'Reviewed original documents, revisions and effective-date precision',
+    'market',
+  ],
+  [
+    'india-macro',
+    'India release history',
+    'Original CPI releases, revisions and release dates',
+    'market',
+  ],
+  [
+    'global-macro',
+    'Global economic coverage',
+    'Published releases, numerical editions and calendars',
+    'market',
+  ],
+  [
+    'positioning',
+    'Market positioning',
+    'Dated participant open contracts and source evidence',
+    'market',
+  ],
+  [
+    'whatsapp',
+    'WhatsApp summaries',
+    'Verified recipient, requested public summaries and delivery controls',
+    'market',
+  ],
+  [
+    'intelligence-briefs',
+    'Intelligence briefs',
+    'Five or six reviewed points, with their sources and connections',
+    'market',
+  ],
+  [
+    'institutional-flows',
+    'Institutional activity',
+    'Cash investment, derivatives activity and their distinct dates',
+    'market',
+  ],
   [
     'event-scenarios',
     'Understand a release',
@@ -444,6 +507,25 @@ export function App() {
             <Reader key={base} id={base.slice(5)} />
           ) : base === 'research-calendar' ? (
             <ResearchCalendar />
+          ) : base === 'india-macro' ? (
+            <IndiaMacro />
+          ) : base === 'global-macro' ? (
+            <GlobalMacroCoverage />
+          ) : base === 'positioning' ? (
+            <ParticipantPositioning />
+          ) : base === 'daily-oil' ? (
+            <EiaSpot />
+          ) : base === 'commodities' ? (
+            <CommodityBenchmarks />
+          ) : base === 'regulatory-sources' ? (
+            <RegulatorySourcesReader />
+          ) : base === 'whatsapp' ? (
+            <WhatsappChannel />
+          ) : base === 'intelligence-briefs' ||
+            base.startsWith('intelligence-briefs/') ? (
+            <IntelligenceBrief route={route} />
+          ) : base === 'institutional-flows' ? (
+            <InstitutionalFlows />
           ) : base === 'funds-bonds' ? (
             <FundsBonds />
           ) : base === 'equities' ? (

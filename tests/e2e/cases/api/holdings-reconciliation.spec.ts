@@ -172,8 +172,8 @@ test('E2E-API-401 stale expired unreadable previews recover without breaking leg
     const saved = await (await confirm(first)).json();
     expect((await confirm(stale)).status()).toBe(409);
     await pool.query(
-      "UPDATE app_holdings_previews SET payload=payload->'holdings',expires_at=clock_timestamp()-interval '1 second' WHERE id=$1",
-      [first.previewId],
+      "UPDATE app_holdings_previews SET payload=$2::jsonb,encrypted_payload=NULL,expires_at=clock_timestamp()-interval '1 second' WHERE id=$1",
+      [first.previewId, JSON.stringify(first.holdings)],
     );
     expect(await (await confirm(first)).json()).toEqual(saved);
     const expired = await preview(1);
@@ -184,14 +184,21 @@ test('E2E-API-401 stale expired unreadable previews recover without breaking leg
     expect((await confirm(expired)).status()).toBe(409);
     const legacy = await preview(1);
     await pool.query(
-      "UPDATE app_holdings_previews SET payload=payload->'holdings' WHERE id=$1",
-      [legacy.previewId],
+      'UPDATE app_holdings_previews SET payload=$2::jsonb,encrypted_payload=NULL WHERE id=$1',
+      [legacy.previewId, JSON.stringify(legacy.holdings)],
     );
     expect((await confirm(legacy)).status()).toBe(409);
     const altered = await preview(1);
     await pool.query(
-      "UPDATE app_holdings_previews SET payload=jsonb_set(payload,'{reconciliation,baseline,totalCostMinor}','\"0\"') WHERE id=$1",
-      [altered.previewId],
+      "UPDATE app_holdings_previews SET payload=jsonb_set($2::jsonb,'{reconciliation,baseline,totalCostMinor}','\"0\"'),encrypted_payload=NULL WHERE id=$1",
+      [
+        altered.previewId,
+        JSON.stringify({
+          holdings: altered.holdings,
+          import: altered.import,
+          reconciliation: altered.reconciliation,
+        }),
+      ],
     );
     expect((await confirm(altered)).status()).toBe(409);
     const recovered = await preview(1);

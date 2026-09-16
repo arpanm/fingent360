@@ -8,6 +8,10 @@ export const RecoveryCodeSchema = z
   .pipe(z.string().regex(/^[a-f0-9]{64}$/));
 export const RecoveryGenerateSchema = z.strictObject({
   currentPassword: PasswordSchema,
+  authenticatorCode: z
+    .string()
+    .regex(/^[0-9]{6}$/)
+    .optional(),
   confirm: z.literal(true),
 });
 export const RecoveryResetSchema = z.strictObject({

@@ -1,3 +1,6 @@
+import { releasedResearchPolicies } from './research-governance.js';
+import { EventStore, EVENT_STORE } from './events.js';
+import { EventScenarioStore, EVENT_SCENARIO_STORE } from './event-scenarios.js';
 import {
   BadRequestException,
   ConflictException,
@@ -5,6 +8,7 @@ import {
   Get,
   Inject,
   NotFoundException,
+  ServiceUnavailableException,
   Param,
   Query,
 } from '@nestjs/common';
@@ -13,13 +17,19 @@ import {
   EvidenceExplanationQuerySchema,
   FeedItemSchema,
   explainEdition,
+  contextBindsEdition,
 } from '@fingent360/contracts';
 import { AccountStore, STORE } from './accounts.js';
 import { admitPublications } from './publication.js';
 
 @Controller('discovery/items')
 export class EvidenceExplanationsController {
-  constructor(@Inject(STORE) private readonly store: AccountStore) {}
+  constructor(
+    @Inject(STORE) private readonly store: AccountStore,
+    @Inject(EVENT_SCENARIO_STORE)
+    private readonly scenarios: EventScenarioStore,
+    @Inject(EVENT_STORE) private readonly events: EventStore,
+  ) {}
   @Get(':id/explanation')
   read(@Param('id') id: string, @Query() query: unknown) {
     const parsed = EvidenceExplanationQuerySchema.safeParse(query);
@@ -38,10 +48,25 @@ export class EvidenceExplanationsController {
         "SELECT data FROM discovery_versions WHERE item_id=$1 AND version<$2 AND data->>'status'<>'draft' ORDER BY version DESC LIMIT 1",
         [id, current.version],
       );
+      const contexts = (
+        await releasedResearchPolicies(
+          client,
+          this.events,
+          'causal-context',
+          current,
+        )
+      ).filter((revision) => contextBindsEdition(revision, current));
+      if (contexts.length > 20)
+        throw new ServiceUnavailableException(
+          'More than20 released contexts reference this edition. A paginated explanation is required.',
+        );
       return explainEdition(
         current,
         rows.rows[0] ? FeedItemSchema.parse(rows.rows[0].data) : null,
         new Date().toISOString(),
+        null,
+        await this.scenarios.forSource(client, current),
+        contexts,
       );
     });
   }

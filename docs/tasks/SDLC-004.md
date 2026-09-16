@@ -1,6 +1,6 @@
 # SDLC-004 — user-run deterministic workflow
 
-- **Status:** Implemented; validation pending
+- **Status:** Completed implementation; validation pending
 - **Implemented / recorded:** - Implementation: Authored; verification and commit await the user. Detailed Codex prompt: honour the latest instruction to stop agent-run format/check/build/migration/E2E stages, including delegated or indirect execution. Remove the obsolete ongoing-session testing exception from AGENTS, SDLC and README. Agents continue spec → code → E2E case authoring → TODO/README/trackers, then hand over one user-run pnpm sdlc "message" command. Preserve its format/check-before-commit gate and no-push policy. Do not run the command, repeatedly execute suites, infer passes, or make an ungated commit. Record existing run evidence separately from later unverified edits. Manual acceptance: confirm current instructions consistently assign deterministic execution to the user and preserve historical evidence without treating it as authorization.
 - **Pending:** The implementation is recorded; user-run validation remains separate.
 - **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.

@@ -87,6 +87,7 @@ export function Macro({ route = 'macro' }: { route?: string }) {
       className={`macro ${view ? 'evidence-reader' : ''}`}
       aria-labelledby="macro-title"
     >
+      <a href="#india-macro">Original CPI releases and India calendar</a>
       {view && (
         <button
           className="text-link back-control"

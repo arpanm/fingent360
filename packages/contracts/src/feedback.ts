@@ -57,12 +57,25 @@ export const FeedbackStatusSchema = z.enum([
   'reviewing',
   'resolved',
 ]);
+export const FeedbackAccessHistorySchema = z.strictObject({
+  checkedAt: z.iso.datetime(),
+  total: z.number().int().nonnegative(),
+  events: z
+    .array(
+      z.strictObject({
+        action: z.enum(['support:list', 'support:detail']),
+        accessedAt: z.iso.datetime(),
+      }),
+    )
+    .max(20),
+});
 export const FeedbackReceiptSchema = z.strictObject({
   id: z.uuid(),
   status: FeedbackStatusSchema,
   receivedAt: z.iso.datetime(),
   updatedAt: z.iso.datetime(),
   version: z.number().int().positive(),
+  supportAccess: FeedbackAccessHistorySchema.optional(),
 });
 export const FeedbackReportSchema = FeedbackReceiptSchema.extend({
   text: z.string().max(feedbackLimits.text),
@@ -92,3 +105,11 @@ export type FeedbackReceipt = z.infer<typeof FeedbackReceiptSchema>;
 export type FeedbackReport = z.infer<typeof FeedbackReportSchema>;
 export type FeedbackImage = z.infer<typeof FeedbackImageSchema>;
 export type FeedbackAudio = z.infer<typeof FeedbackAudioSchema>;
+
+export const FeedbackEncryptionRequestSchema = z.strictObject({
+  confirm: z.literal(true),
+});
+export const FeedbackEncryptionResultSchema = z.strictObject({
+  processed: z.number().int().min(0).max(50),
+  remaining: z.number().int().nonnegative(),
+});

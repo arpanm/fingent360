@@ -1,3 +1,5 @@
+import { decryptHoldingsRows } from './private-holdings.js';
+import { decryptGoalRows } from './private-goals.js';
 import {
   startPrivateAiHistory,
   finishPrivateAiHistory,
@@ -287,9 +289,15 @@ export class AssistanceController {
         });
       }
       if (input.useHistory && input.scope === 'goals') {
-        const goals = await c.query<{ payload: unknown }>(
-          'SELECT r.payload FROM app_goals g JOIN app_goal_revisions r ON r.goal_id=g.id AND r.version=g.version WHERE g.user_id=$1 AND g.deleted_at IS NULL ORDER BY g.updated_at DESC LIMIT 20',
+        const goals = await c.query(
+          'SELECT r.goal_id,r.version,r.payload,r.encrypted_payload FROM app_goals g JOIN app_goal_revisions r ON r.goal_id=g.id AND r.version=g.version WHERE g.user_id=$1 AND g.deleted_at IS NULL ORDER BY g.updated_at DESC LIMIT 20',
           [user.id],
+        );
+        await decryptGoalRows(
+          c,
+          user.id,
+          goals.rows,
+          this.store.privateDataKeys,
         );
         for (const row of goals.rows) {
           const goal = SavedGoalSchema.parse(row.payload);
@@ -309,9 +317,15 @@ export class AssistanceController {
         }
       }
       if (input.useHistory && input.scope === 'holdings') {
-        const rows = await c.query<{ payload: unknown }>(
-          'SELECT r.payload FROM app_holdings h JOIN app_holdings_revisions r ON r.user_id=h.user_id AND r.version=h.version WHERE h.user_id=$1',
+        const rows = await c.query(
+          'SELECT r.user_id,r.version,r.payload,r.encrypted_payload FROM app_holdings h JOIN app_holdings_revisions r ON r.user_id=h.user_id AND r.version=h.version WHERE h.user_id=$1',
           [user.id],
+        );
+        await decryptHoldingsRows(
+          c,
+          user.id,
+          rows.rows,
+          this.store.privateDataKeys,
         );
         if (rows.rows[0])
           for (const holding of HoldingsSnapshotSchema.parse(
@@ -476,6 +490,7 @@ export class AssistanceController {
               selected.model,
               instructions,
               material,
+              this.store.privateDataKeys,
             );
             await this.store.require(c, cookie);
             if (consent && !consentActive(consent, new Date().toISOString()))
@@ -498,6 +513,7 @@ export class AssistanceController {
                         owner.id,
                         privateHistoryId,
                         { raw },
+                        this.store.privateDataKeys,
                       );
                     });
                   }
@@ -587,15 +603,21 @@ export class AssistanceController {
           )
         );
       });
-      await finishPrivateAiHistory(c, user.id, privateHistoryId, {
-        ...(historyText === undefined ? {} : { text: historyText }),
-        status: fallback ? 'failed' : 'succeeded',
-        outcome: fallback
-          ? 'Provider output rejected or unavailable; query fallback returned.'
-          : admittedSuggestions.length === suggestions.length
-            ? 'Grounded references returned.'
-            : 'Changed references excluded from final result.',
-      });
+      await finishPrivateAiHistory(
+        c,
+        user.id,
+        privateHistoryId,
+        {
+          ...(historyText === undefined ? {} : { text: historyText }),
+          status: fallback ? 'failed' : 'succeeded',
+          outcome: fallback
+            ? 'Provider output rejected or unavailable; query fallback returned.'
+            : admittedSuggestions.length === suggestions.length
+              ? 'Grounded references returned.'
+              : 'Changed references excluded from final result.',
+        },
+        this.store.privateDataKeys,
+      );
       return AssistanceResultSchema.parse({
         provider,
         model,

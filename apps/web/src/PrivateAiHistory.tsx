@@ -59,7 +59,10 @@ export function PrivateAiHistory() {
         Optional: keep up to 50 provider requests and answers for seven days.
         Only your account can read them. Enable My private AI request history in
         Purpose consent. Permission to share private context is separate. Query
-        help works without either option.
+        help works without either option. Server-stored request text is
+        encrypted with server-managed keys. Downloads contain readable private
+        text; store them carefully. This does not encrypt other account data or
+        device files.
       </p>
       <button disabled={busy} onClick={() => void load()}>
         Load my AI history

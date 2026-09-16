@@ -1,6 +1,6 @@
 # DB-LEAST-PRIVILEGE-001 — Separate database runtime and migration access
 
-- **Status:** Implemented; validation pending
+- **Status:** Completed implementation; validation pending
 - **Implemented / recorded:** Runtime/migration access separation is implemented and local activation was recorded. Later fixture/runtime corrections have separate regression records.
 - **Pending:** Validate the latest role-isolation regression cases after current repairs.
 - **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.

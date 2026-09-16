@@ -3,6 +3,7 @@ export const ResearchAutoSettingSchema = z.strictObject({
   sourceId: z.string().min(1).max(80),
   enabled: z.boolean(),
   intervalMinutes: z.number().int().min(60).max(10080),
+  rightsEvidence: z.string().trim().min(20).max(2000).optional(),
 });
 export const ResearchAutoStatusSchema = z.strictObject({
   schedules: z.array(
@@ -22,26 +23,48 @@ export const ReleaseEventSchema = z.strictObject({
   sequence: z.number().int().nonnegative(),
   cancelled: z.boolean(),
 });
-export const ReleaseCalendarSchema = z.strictObject({
-  edition: z
-    .string()
-    .regex(/^[a-f0-9]{64}$/)
-    .nullable(),
-  retrievedAt: z.iso.datetime().nullable(),
-  sourceUrl: z.literal(
-    'https://www.bea.gov/news/schedule/ics/online-calendar-subscription.ics',
-  ),
-  basis: z.literal('retained-calendar-capture'),
-  events: z.array(ReleaseEventSchema).max(3000),
-  editions: z
-    .array(
-      z.strictObject({
-        edition: z.string().regex(/^[a-f0-9]{64}$/),
-        retrievedAt: z.iso.datetime(),
-      }),
-    )
-    .max(100),
-});
+export const CalendarSourceSchema = z.enum(['bea-calendar', 'bls-calendar']);
+export const calendarSources = {
+  'bea-calendar': {
+    name: 'BEA',
+    url: 'https://www.bea.gov/news/schedule/ics/online-calendar-subscription.ics',
+  },
+  'bls-calendar': {
+    name: 'BLS',
+    url: 'https://www.bls.gov/schedule/news_release/bls.ics',
+  },
+} as const;
+export const ReleaseCalendarSchema = z
+  .strictObject({
+    sourceId: CalendarSourceSchema.default('bea-calendar'),
+    edition: z
+      .string()
+      .regex(/^[a-f0-9]{64}$/)
+      .nullable(),
+    retrievedAt: z.iso.datetime().nullable(),
+    sourceUrl: z.enum([
+      calendarSources['bea-calendar'].url,
+      calendarSources['bls-calendar'].url,
+    ]),
+    basis: z.literal('retained-calendar-capture'),
+    events: z.array(ReleaseEventSchema).max(3000),
+    editions: z
+      .array(
+        z.strictObject({
+          edition: z.string().regex(/^[a-f0-9]{64}$/),
+          retrievedAt: z.iso.datetime(),
+        }),
+      )
+      .max(100),
+  })
+  .superRefine((value, context) => {
+    if (value.sourceUrl !== calendarSources[value.sourceId].url)
+      context.addIssue({
+        code: 'custom',
+        path: ['sourceUrl'],
+        message: 'Calendar source and URL must agree.',
+      });
+  });
 export function parseBeaCalendar(body: string) {
   if (body.length > 2000000 || !body.startsWith('BEGIN:VCALENDAR'))
     throw Error('Invalid calendar document.');

@@ -601,8 +601,12 @@ test('E2E-API-298 v2 shares capacity and hourly budget while deletion and identi
   try {
     // Explicit capacity fixture, using the actual captured v2 shape in this owner/schema.
     await pool.query(
-      "INSERT INTO record_report_jobs(id,user_id,label,snapshot,status,next_attempt_at) SELECT x,j.user_id,'Synthetic capacity fixture',j.snapshot,'cancelled',NULL FROM record_report_jobs j CROSS JOIN unnest($2::uuid[]) x WHERE j.id=$1",
-      [first.id, Array.from({ length: 99 }, () => randomUUID())],
+      "INSERT INTO record_report_jobs(id,user_id,label,snapshot,status,next_attempt_at) SELECT x,j.user_id,'Synthetic capacity fixture',$3::jsonb,'cancelled',NULL FROM record_report_jobs j CROSS JOIN unnest($2::uuid[]) x WHERE j.id=$1",
+      [
+        first.id,
+        Array.from({ length: 99 }, () => randomUUID()),
+        first.snapshot,
+      ],
     );
     expect(
       (

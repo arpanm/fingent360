@@ -1,0 +1,1 @@
+CREATE TABLE app_impact_calibrations(user_id uuid NOT NULL REFERENCES app_users(id) ON DELETE CASCADE,id uuid NOT NULL,encrypted_payload jsonb,created_at timestamptz NOT NULL DEFAULT clock_timestamp(),deleted_at timestamptz,PRIMARY KEY(user_id,id),CHECK((encrypted_payload IS NULL)=(deleted_at IS NOT NULL)));

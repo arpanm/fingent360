@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Fingent360 independent observer</title>
+    <style>
+      body {
+        font: 16px system-ui;
+        margin: auto;
+        padding: 24px;
+        max-width: 850px;
+        background: #f4f7f5;
+        color: #142b24;
+      }
+      button {
+        padding: 12px 18px;
+      }
+      li {
+        background: white;
+        border: 1px solid #b4c7bd;
+        border-radius: 10px;
+        padding: 16px;
+        margin: 12px 0;
+        overflow-wrap: anywhere;
+      }
+      ul {
+        padding: 0;
+        list-style: none;
+      }
+      [role='alert'] {
+        color: #912020;
+      }
+      a,
+      button:focus-visible {
+        outline: 3px solid #287f66;
+      }
+      small {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Independent observer</h1>
+      <p>
+        Observed health and readiness, independent of the application database.
+        Unknown means observations are missing or stale. This is not an SLA or a
+        continuous uptime percentage.
+      </p>
+      <button id="refresh">Refresh observations</button>
+      <p id="status" role="status"></p>
+      <p id="error" role="alert"></p>
+      <h2>Targets</h2>
+      <ul id="targets"></ul>
+      <h2>Incident history</h2>
+      <p>
+        First observed failure and first observed recovery bound the evidence.
+        An observer outage leaves an unmeasured gap.
+      </p>
+      <ul id="incidents"></ul>
+    </main>
+    <script src="/viewer.js"></script>
+  </body>
+</html>

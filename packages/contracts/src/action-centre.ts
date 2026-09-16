@@ -1,3 +1,13 @@
+import {
+  ResearchPolicyBindingSchema,
+  ResearchGovernanceRevisionSchema,
+  type ResearchGovernanceRevision,
+} from './research-governance.js';
+import {
+  ActionPlanSchema,
+  ActionPlanOutcomeSchema,
+  calculateActionPlan,
+} from './action-plan.js';
 import { z } from 'zod';
 import {
   AccountHoldingSchema,
@@ -40,6 +50,8 @@ const PriceSchema = z
       });
   });
 export const ActionCentreInputSchema = z.strictObject({
+  researchPolicy: ResearchPolicyBindingSchema.optional(),
+  plan: ActionPlanSchema.optional(),
   isin: AccountHoldingSchema.shape.isin,
   holdingsVersion: z.number().int().positive(),
   goalId: z.uuid(),
@@ -80,6 +92,7 @@ export type ActionCentreInput = z.infer<typeof ActionCentreInputSchema>;
 const Whole = z.string().regex(/^\d+$/);
 const ConstraintSchema = z.strictObject({
   id: z.enum([
+    'materiality',
     'risk-understanding',
     'obligations',
     'liquidity',
@@ -95,6 +108,7 @@ const ConstraintSchema = z.strictObject({
   description: z.string(),
 });
 export const ActionCentreResultSchema = z.strictObject({
+  plan: ActionPlanOutcomeSchema.optional(),
   currency: z.literal('INR'),
   scale: z.literal(2),
   classification: z.enum([
@@ -121,12 +135,12 @@ export const ActionCentreResultSchema = z.strictObject({
     remainingPortfolioCostMinor: Whole,
     afterCashMinor: z.string().regex(/^-?\d+$/),
     concentrationBps: z.number().int().min(0).max(10000),
-    turnoverBps: z.number().int().min(0).max(10000),
+    turnoverBps: z.number().int().min(0),
     stressedLossMinor: Whole,
     projectedGoalMinor: Whole,
     goalGapMinor: Whole,
   }),
-  constraints: z.array(ConstraintSchema).length(10),
+  constraints: z.array(ConstraintSchema).min(10).max(11),
   warnings: z.array(z.string()).min(1),
   action: z.literal('none-educational-comparison'),
 });
@@ -134,12 +148,16 @@ export const ActionCentreReceiptSchema = z
   .strictObject({
     id: z.uuid(),
     createdAt: z.iso.datetime(),
-    policy: z.literal('proposed-disposal-education-v1'),
+    policy: z.enum([
+      'proposed-disposal-education-v1',
+      'proposed-trades-education-v2',
+    ]),
     input: ActionCentreInputSchema,
     holdings: HoldingsSnapshotSchema,
     goal: SavedGoalSchema,
     trace: ImpactTraceReceiptSchema.nullable(),
     equity: EquityCompanySchema.nullable(),
+    researchPolicy: ResearchGovernanceRevisionSchema.optional(),
     contextWarnings: z.array(z.string()),
     result: ActionCentreResultSchema,
   })
@@ -151,8 +169,13 @@ export const ActionCentreReceiptSchema = z
         value.goal,
         value.createdAt,
         value.contextWarnings,
+        value.researchPolicy,
       );
       if (
+        value.policy !==
+          (value.input.plan
+            ? 'proposed-trades-education-v2'
+            : 'proposed-disposal-education-v1') ||
         JSON.stringify(expected) !== JSON.stringify(value.result) ||
         !actionPriceBindingCurrent(value.input, value.equity) ||
         value.input.traceId !== (value.trace?.id ?? null) ||
@@ -181,6 +204,10 @@ export const ActionCentreListSchema = z.strictObject({
     .max(100),
 });
 export const ActionCentreChoicesSchema = z.strictObject({
+  researchPolicies: z
+    .array(ResearchGovernanceRevisionSchema)
+    .max(100)
+    .default([]),
   holdings: HoldingsSnapshotSchema,
   goals: z.array(SavedGoalSchema).max(100),
   traces: z.array(ImpactTraceReceiptSchema).max(100),
@@ -225,7 +252,24 @@ export function calculateActionCentre(
   goal: SavedGoal,
   now: string,
   contextWarnings: string[] = [],
+  policyRevision?: ResearchGovernanceRevision,
 ) {
+  raw = applyActionGovernancePolicy(raw, policyRevision, now);
+  if (policyRevision)
+    contextWarnings = [
+      ...contextWarnings,
+      `Released educational policy ${policyRevision.input.title}, version ${policyRevision.version}, applies stricter caps and minimum tests; it does not enable advice or trading.`,
+    ];
+  if (raw.plan)
+    return ActionCentreResultSchema.parse(
+      calculateActionPlan(
+        ActionCentreInputSchema.parse(raw),
+        holdings,
+        goal,
+        now,
+        contextWarnings,
+      ),
+    );
   const input = ActionCentreInputSchema.parse(raw),
     holding = holdings.holdings.find((item) => item.isin === input.isin);
   if (
@@ -412,4 +456,46 @@ export function calculateActionCentre(
     warnings,
     action: 'none-educational-comparison',
   });
+}
+
+export function applyActionGovernancePolicy(
+  input: ActionCentreInput,
+  revision: ResearchGovernanceRevision | undefined,
+  at: string,
+): ActionCentreInput {
+  if (!input.researchPolicy) {
+    if (revision) throw Error('Unexpected released policy snapshot.');
+    return input;
+  }
+  if (
+    !revision ||
+    revision.id !== input.researchPolicy.id ||
+    revision.version !== input.researchPolicy.version ||
+    revision.input.content.kind !== 'educational-policy' ||
+    revision.input.reviewBy < at.slice(0, 10)
+  )
+    throw Error('Choose a current admitted educational policy release.');
+  const rules = revision.input.content.rules;
+  return {
+    ...input,
+    limits: {
+      ...input.limits,
+      maximumConcentrationBps: Math.min(
+        input.limits.maximumConcentrationBps,
+        rules.maximumConcentrationBps,
+      ),
+      turnoverBudgetBps: Math.min(
+        input.limits.turnoverBudgetBps,
+        rules.turnoverBudgetBps,
+      ),
+      cooldownDays: Math.max(
+        input.limits.cooldownDays,
+        rules.minimumCooldownDays,
+      ),
+      downsideStressBps: Math.max(
+        input.limits.downsideStressBps,
+        rules.minimumDownsideStressBps,
+      ),
+    },
+  };
 }

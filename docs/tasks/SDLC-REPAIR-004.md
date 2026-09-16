@@ -1,6 +1,6 @@
 # SDLC-REPAIR-004 — Feedback delivery assertion formatting
 
-- **Status:** Implemented; validation pending
+- **Status:** Completed implementation; validation pending
 - **Implemented / recorded:** - Implementation/verification: Whitespace repair authored; verification pending parent/user retry. No validation commands or commits executed.
 - **Pending:** User: run the task’s documented validation; implementation is not a test pass.
 - **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.

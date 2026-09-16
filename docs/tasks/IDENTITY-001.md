@@ -1,6 +1,6 @@
 # IDENTITY-001 — Resolve security identities
 
-- **Status:** Implemented; validation pending
+- **Status:** Completed implementation; validation pending
 - **Implemented / recorded:** - IDENTITY-001 (SRC-001; DEV-003/005/015/016): Implemented; five actual public ISINs matched and persisted with evidence. Offline/regression verification passed. OpenFIGI official terms/FAQ permit free identifier metadata reuse and an actual unauthenticated INR/India-equity mapping returned a Reliance identity on 2026-09-13. Deliver a bounded operator-entered public-ISIN mapping pipeline, immutable MongoDB raw evidence and PostgreSQL canonical revisions, public searchable identity directory/
 - **Pending:** User: run the task’s documented validation; implementation is not a test pass.
 - **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.

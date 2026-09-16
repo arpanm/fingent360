@@ -1,0 +1,10 @@
+CREATE TABLE filing_discovery_gate(id boolean PRIMARY KEY DEFAULT true CHECK(id),enabled boolean NOT NULL DEFAULT false,rights_evidence text NOT NULL DEFAULT '',version integer NOT NULL DEFAULT 1);
+INSERT INTO filing_discovery_gate(id) VALUES(true);
+CREATE TABLE filing_discovery_captures(id uuid PRIMARY KEY,actor_id text NOT NULL,fingerprint text NOT NULL,rights_hash text NOT NULL,receipt jsonb NOT NULL,created_at timestamptz NOT NULL DEFAULT clock_timestamp());
+CREATE INDEX filing_discovery_fingerprint ON filing_discovery_captures(fingerprint,rights_hash);
+CREATE TABLE filing_discovery_items(id text PRIMARY KEY,payload jsonb NOT NULL,first_capture uuid NOT NULL REFERENCES filing_discovery_captures(id),created_at timestamptz NOT NULL DEFAULT transaction_timestamp());
+CREATE TABLE filing_discovery_members(capture_id uuid NOT NULL REFERENCES filing_discovery_captures(id),item_id text NOT NULL REFERENCES filing_discovery_items(id),PRIMARY KEY(capture_id,item_id));
+CREATE TRIGGER filing_discovery_captures_immutable BEFORE UPDATE OR DELETE ON filing_discovery_captures FOR EACH ROW EXECUTE FUNCTION protect_reviewed_event_history();
+CREATE TRIGGER filing_discovery_items_immutable BEFORE UPDATE OR DELETE ON filing_discovery_items FOR EACH ROW EXECUTE FUNCTION protect_reviewed_event_history();
+CREATE TRIGGER filing_discovery_members_immutable BEFORE UPDATE OR DELETE ON filing_discovery_members FOR EACH ROW EXECUTE FUNCTION protect_reviewed_event_history();
+INSERT INTO research_auto_schedules(source_id,enabled) VALUES('equity-filing-discovery',false) ON CONFLICT DO NOTHING;

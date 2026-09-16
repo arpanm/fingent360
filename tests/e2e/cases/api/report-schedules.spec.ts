@@ -1,3 +1,4 @@
+import { setSyntheticScheduleDue } from '../../helpers/private-schedule-fixture';
 import { test, expect } from '../../helpers/app-fixture';
 import { randomUUID } from 'node:crypto';
 import { spawn } from 'node:child_process';
@@ -157,10 +158,7 @@ test('E2E-API-331 concurrent actual workers capture latest due once and preserve
   const pool = await connectionDatabase(feedbackSandbox);
   try {
     const due = new Date(Date.now() - 3 * 86400000).toISOString();
-    await pool.query(
-      "UPDATE report_schedules SET next_due_at=$2::text::timestamptz,payload=jsonb_set(payload,'{nextDueAt}',to_jsonb($2::text)) WHERE id=$1",
-      [id, due],
-    );
+    await setSyntheticScheduleDue(pool, feedbackSandbox, id, due);
     await Promise.all([work(feedbackSandbox), work(feedbackSandbox)]);
     const current = ReportSchedulesSchema.parse(
       await (await request.get(base)).json(),
@@ -239,10 +237,7 @@ test('E2E-API-332 full report budget records capacity outcome without snapshot o
       [owner],
     );
     const due = new Date(Date.now() - 86400000).toISOString();
-    await pool.query(
-      "UPDATE report_schedules SET next_due_at=$2::text::timestamptz,payload=jsonb_set(payload,'{nextDueAt}',to_jsonb($2::text)) WHERE id=$1",
-      [id, due],
-    );
+    await setSyntheticScheduleDue(pool, feedbackSandbox, id, due);
     await work(feedbackSandbox);
     const current = ReportSchedulesSchema.parse(
       await (await request.get(base)).json(),
@@ -282,9 +277,11 @@ test('E2E-API-332 full report budget records capacity outcome without snapshot o
         })
       ).status(),
     ).toBe(201);
-    await pool.query(
-      "UPDATE report_schedules SET next_due_at=$2::text::timestamptz,payload=jsonb_set(payload,'{nextDueAt}',to_jsonb($2::text)) WHERE id=$1",
-      [id, new Date(Date.now() - 3 * 86400000).toISOString()],
+    await setSyntheticScheduleDue(
+      pool,
+      feedbackSandbox,
+      id,
+      new Date(Date.now() - 3 * 86400000).toISOString(),
     );
     await work(feedbackSandbox);
     const recovered = ReportSchedulesSchema.parse(
@@ -420,10 +417,7 @@ test('E2E-API-334 thousand-occurrence history continues generation pause and com
       [id, owner, JSON.stringify(history)],
     );
     const due = new Date(Date.now() - 86400000).toISOString();
-    await pool.query(
-      "UPDATE report_schedules SET next_due_at=$2::text::timestamptz,payload=jsonb_set(payload,'{nextDueAt}',to_jsonb($2::text)) WHERE id=$1",
-      [id, due],
-    );
+    await setSyntheticScheduleDue(pool, feedbackSandbox, id, due);
     await work(feedbackSandbox);
     const list = ReportSchedulesSchema.parse(
       await (await request.get(base)).json(),
@@ -510,7 +504,7 @@ test('E2E-API-335 edition history beyond one page still permits edit pause resum
       [id, owner, JSON.stringify(editions)],
     );
     await pool.query(
-      'UPDATE report_schedules SET version=101,payload=$2 WHERE id=$1',
+      'UPDATE report_schedules SET version=101,payload=$2,encrypted_payload=NULL,content_hash=NULL WHERE id=$1',
       [id, editions.at(-1)],
     );
     const input = {

@@ -1,0 +1,10 @@
+CREATE TABLE whatsapp_schedules(user_id uuid PRIMARY KEY REFERENCES app_users(id) ON DELETE CASCADE,version integer NOT NULL CHECK(version>0),state text NOT NULL CHECK(state IN('active','paused','deleted')),next_due_at timestamptz,payload jsonb NOT NULL);
+CREATE INDEX whatsapp_schedules_due ON whatsapp_schedules(state,next_due_at);
+CREATE TABLE whatsapp_schedule_versions(user_id uuid NOT NULL REFERENCES app_users(id) ON DELETE CASCADE,version integer NOT NULL,payload jsonb NOT NULL,created_at timestamptz NOT NULL DEFAULT clock_timestamp(),PRIMARY KEY(user_id,version));
+CREATE TABLE whatsapp_schedule_requests(user_id uuid NOT NULL REFERENCES app_users(id) ON DELETE CASCADE,id uuid NOT NULL,input_hash text NOT NULL,payload jsonb NOT NULL,PRIMARY KEY(user_id,id));
+CREATE TABLE whatsapp_schedule_occurrences(user_id uuid NOT NULL REFERENCES app_users(id) ON DELETE CASCADE,id uuid NOT NULL UNIQUE,schedule_version integer NOT NULL,due_at timestamptz NOT NULL,recorded_at timestamptz NOT NULL DEFAULT clock_timestamp(),outcome text NOT NULL CHECK(outcome IN('queued','empty','unavailable','skipped')),payload jsonb NOT NULL,PRIMARY KEY(user_id,schedule_version,due_at));
+ALTER TABLE whatsapp_outbox ADD COLUMN origin text NOT NULL DEFAULT 'explicit' CHECK(origin IN('explicit','scheduled'));
+ALTER TABLE whatsapp_outbox ADD COLUMN schedule_version integer;
+ALTER TABLE whatsapp_outbox ADD CONSTRAINT whatsapp_outbox_schedule_origin CHECK((origin='scheduled' AND schedule_version IS NOT NULL) OR (origin='explicit' AND schedule_version IS NULL));
+ALTER TABLE whatsapp_outbox ADD COLUMN source_expires_at timestamptz;
+ALTER TABLE whatsapp_outbox ADD CONSTRAINT whatsapp_outbox_source_expiry CHECK((origin='scheduled' AND source_expires_at IS NOT NULL) OR (origin='explicit' AND source_expires_at IS NULL));

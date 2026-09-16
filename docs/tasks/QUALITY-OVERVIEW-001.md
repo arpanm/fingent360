@@ -1,6 +1,6 @@
 # QUALITY-OVERVIEW-001 — protected current data-quality overview
 
-- **Status:** Implemented; validation pending
+- **Status:** Completed implementation; validation pending
 - **Implemented / recorded:** - Implementation: Implemented; user validation pending. Parent: DEV021 retains deployment/observability gaps. Add a bounded read-only Operations data-quality view over actual current publication heads and ingestion runs, explicit observation time, invalid-schema and stale counts, source-specific freshness semantics, safe aggregate-only output and session revalidation after storage reads. Show loading/empty/error/retry states, responsive counts and navigation to existing review tools. No fictitious uptime/metrics or automatic provider calls. Reuse stored tables, no migration needed. Add strict contracts, API/browser cases, operational objectives and restore/rollback guidance. Broader observability/release acceptance remains explicit.
 - **Pending:** User: run the task’s documented validation; implementation is not a test pass.
 - **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.

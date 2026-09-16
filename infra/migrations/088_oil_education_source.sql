@@ -1,0 +1,4 @@
+CREATE TABLE oil_education_sources(id uuid PRIMARY KEY,actor_id text NOT NULL,fingerprint text NOT NULL,source_hash text NOT NULL,receipt jsonb,error text,created_at timestamptz NOT NULL DEFAULT clock_timestamp(),CHECK((receipt IS NULL)=(error IS NOT NULL)));
+CREATE TABLE oil_education_reviews(seq bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,request_id uuid UNIQUE NOT NULL,edition_id uuid NOT NULL REFERENCES oil_education_sources(id),actor_id text NOT NULL,payload jsonb NOT NULL,created_at timestamptz NOT NULL DEFAULT clock_timestamp());
+CREATE TRIGGER oil_education_sources_immutable BEFORE UPDATE OR DELETE ON oil_education_sources FOR EACH ROW EXECUTE FUNCTION protect_reviewed_event_history();
+CREATE TRIGGER oil_education_reviews_immutable BEFORE UPDATE OR DELETE ON oil_education_reviews FOR EACH ROW EXECUTE FUNCTION protect_reviewed_event_history();

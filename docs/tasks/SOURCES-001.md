@@ -1,6 +1,6 @@
 # SOURCES-001 — Manage source ingestion and review
 
-- **Status:** Implemented; validation pending
+- **Status:** Completed implementation; validation pending
 - **Implemented / recorded:** - SOURCES-001 (DEV-005/015/016): Persist operator-managed source metadata, rights review status and revision history with public approved metadata. Prompt: strict contracts → migration 007 → authorized API → public/operator UI → regression tests and docs. No fetching arbitrary URLs or invented rights approval. Implemented.
 - **Pending:** User: run the task’s documented validation; implementation is not a test pass.
 - **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.

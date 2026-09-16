@@ -1,3 +1,10 @@
+import {
+  decryptConnectionRows,
+  sealConnection,
+} from './private-connections.js';
+import { decryptHoldingsRows } from './private-holdings.js';
+import { decryptGoalRows } from './private-goals.js';
+import type { PrivateDataKeys } from './private-data-crypto.js';
 import { admitPublications } from './publication.js';
 import { createHash } from 'node:crypto';
 import {
@@ -33,15 +40,21 @@ import {
 } from '@fingent360/contracts';
 import { AccountStore, STORE } from './accounts.js';
 
-async function targets(c: pg.PoolClient, userId: string) {
+async function targets(
+  c: pg.PoolClient,
+  userId: string,
+  keys: PrivateDataKeys,
+) {
   const holdings = await c.query(
-    'SELECT r.payload FROM app_holdings h JOIN app_holdings_revisions r ON r.user_id=h.user_id AND r.version=h.version WHERE h.user_id=$1',
+    'SELECT r.user_id,r.version,r.payload,r.encrypted_payload FROM app_holdings h JOIN app_holdings_revisions r ON r.user_id=h.user_id AND r.version=h.version WHERE h.user_id=$1',
     [userId],
   );
+  await decryptHoldingsRows(c, userId, holdings.rows, keys);
   const goals = await c.query(
-    'SELECT r.payload FROM app_goals g JOIN app_goal_revisions r ON r.goal_id=g.id AND r.version=g.version WHERE g.user_id=$1 AND g.deleted_at IS NULL ORDER BY g.created_at,g.id',
+    'SELECT r.goal_id,r.version,r.payload,r.encrypted_payload FROM app_goals g JOIN app_goal_revisions r ON r.goal_id=g.id AND r.version=g.version WHERE g.user_id=$1 AND g.deleted_at IS NULL ORDER BY g.created_at,g.id',
     [userId],
   );
+  await decryptGoalRows(c, userId, goals.rows, keys);
   return connectionTargets(
     HoldingsSnapshotSchema.parse(
       holdings.rows[0]?.payload ?? {
@@ -75,10 +88,18 @@ function validId(id: string) {
 export async function exportResearchConnections(
   c: pg.PoolClient,
   userId: string,
+  keys: PrivateDataKeys,
 ) {
   const rows = await c.query(
-    'SELECT payload FROM app_research_connection_revisions WHERE user_id=$1 ORDER BY created_at,connection_id,version',
+    'SELECT * FROM app_research_connection_revisions WHERE user_id=$1 ORDER BY created_at,connection_id,version',
     [userId],
+  );
+  await decryptConnectionRows(
+    c,
+    'connection-revision',
+    userId,
+    rows.rows,
+    keys,
   );
   return ResearchConnectionHistorySchema.parse({
     revisions: rows.rows.map((r) => r.payload),
@@ -98,13 +119,20 @@ export class ResearchConnectionsController {
       ]);
       await this.store.require(c, cookie);
       const rows = await c.query(
-        'SELECT r.payload FROM app_research_connections h JOIN app_research_connection_revisions r ON r.connection_id=h.id AND r.version=h.version WHERE h.user_id=$1 AND NOT h.removed ORDER BY r.created_at DESC,h.id',
+        'SELECT r.* FROM app_research_connections h JOIN app_research_connection_revisions r ON r.connection_id=h.id AND r.version=h.version WHERE h.user_id=$1 AND NOT h.removed ORDER BY r.created_at DESC,h.id',
         [user.id],
+      );
+      await decryptConnectionRows(
+        c,
+        'connection-revision',
+        user.id,
+        rows.rows,
+        this.store.privateDataKeys,
       );
       const revisions = rows.rows.map((r) =>
         ResearchConnectionRevisionSchema.parse(r.payload),
       );
-      const choices = await targets(c, user.id);
+      const choices = await targets(c, user.id, this.store.privateDataKeys);
       const current = await sources(c, [
         ...new Set([
           ...revisions.map((r) => r.source.itemId),
@@ -129,7 +157,7 @@ export class ResearchConnectionsController {
         user.id,
       ]);
       await this.store.require(c, cookie);
-      return exportResearchConnections(c, user.id);
+      return exportResearchConnections(c, user.id, this.store.privateDataKeys);
     });
   }
   @Get(':id/history') detailHistory(
@@ -144,11 +172,18 @@ export class ResearchConnectionsController {
       ]);
       await this.store.require(c, cookie);
       const rows = await c.query(
-        'SELECT payload FROM app_research_connection_revisions WHERE user_id=$1 AND connection_id=$2 ORDER BY version DESC',
+        'SELECT * FROM app_research_connection_revisions WHERE user_id=$1 AND connection_id=$2 ORDER BY version DESC',
         [user.id, id],
       );
       if (!rows.rows.length)
         throw new NotFoundException('Connection not found.');
+      await decryptConnectionRows(
+        c,
+        'connection-revision',
+        user.id,
+        rows.rows,
+        this.store.privateDataKeys,
+      );
       return ResearchConnectionHistorySchema.parse({
         revisions: rows.rows.map((r) => r.payload),
       });
@@ -182,7 +217,7 @@ export class ResearchConnectionsController {
       // replay, private read or write, using this transaction's fresh snapshot.
       await this.store.require(c, cookie);
       const priorRequest = await c.query(
-        'SELECT q.fingerprint,r.payload FROM app_research_connection_requests q JOIN app_research_connection_revisions r ON r.connection_id=q.connection_id AND r.version=q.version WHERE q.user_id=$1 AND q.request_id=$2',
+        'SELECT q.fingerprint,r.* FROM app_research_connection_requests q JOIN app_research_connection_revisions r ON r.connection_id=q.connection_id AND r.version=q.version WHERE q.user_id=$1 AND q.request_id=$2',
         [user.id, input.requestId],
       );
       if (priorRequest.rows[0]) {
@@ -190,16 +225,30 @@ export class ResearchConnectionsController {
           throw new ConflictException(
             'This request ID was already used for different changes. Start a new review.',
           );
+        await decryptConnectionRows(
+          c,
+          'connection-revision',
+          user.id,
+          priorRequest.rows,
+          this.store.privateDataKeys,
+        );
         return ResearchConnectionRevisionSchema.parse(
           priorRequest.rows[0].payload,
         );
       }
       const head = await c.query(
-        'SELECT h.user_id,r.payload FROM app_research_connections h JOIN app_research_connection_revisions r ON r.connection_id=h.id AND r.version=h.version WHERE h.id=$1 FOR UPDATE OF h',
+        'SELECT r.* FROM app_research_connections h JOIN app_research_connection_revisions r ON r.connection_id=h.id AND r.version=h.version WHERE h.id=$1 FOR UPDATE OF h',
         [id],
       );
       if (head.rows[0] && head.rows[0].user_id !== user.id)
         throw new NotFoundException('Connection not found.');
+      await decryptConnectionRows(
+        c,
+        'connection-revision',
+        user.id,
+        head.rows,
+        this.store.privateDataKeys,
+      );
       const previous = head.rows[0]
         ? ResearchConnectionRevisionSchema.parse(head.rows[0].payload)
         : null;
@@ -228,7 +277,7 @@ export class ResearchConnectionsController {
           input,
           previous,
           currentSources,
-          await targets(c, user.id),
+          await targets(c, user.id, this.store.privateDataKeys),
           new Date().toISOString(),
         );
       } catch (e) {
@@ -246,9 +295,23 @@ export class ResearchConnectionsController {
           'UPDATE app_research_connections SET version=$2,removed=$3 WHERE id=$1',
           [id, revision.version, revision.removed],
         );
+      const encrypted = sealConnection(
+        'connection-revision',
+        user.id,
+        `${id}:${revision.version}`,
+        revision,
+        this.store.privateDataKeys,
+      );
       await c.query(
-        'INSERT INTO app_research_connection_revisions(connection_id,user_id,version,payload) VALUES($1,$2,$3,$4)',
-        [id, user.id, revision.version, revision],
+        'INSERT INTO app_research_connection_revisions(connection_id,user_id,version,encrypted_payload,content_hash,target_kind) VALUES($1,$2,$3,$4,$5,$6)',
+        [
+          id,
+          user.id,
+          revision.version,
+          encrypted.envelope,
+          encrypted.hash,
+          revision.target.binding.kind,
+        ],
       );
       await c.query(
         'INSERT INTO app_research_connection_requests(user_id,request_id,connection_id,version,fingerprint) VALUES($1,$2,$3,$4,$5)',

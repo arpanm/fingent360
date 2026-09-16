@@ -1,3 +1,9 @@
+import { EquityPriceHistory } from './EquityPriceHistory';
+import { EquityActionTerms } from './EquityActionTerms';
+import { EquityConsolidations } from './EquityConsolidations';
+import { EquityIdentityHistory } from './EquityIdentityHistory';
+import { EquityAdjustments } from './EquityAdjustments';
+import { CompanyClassification } from './ClassificationCrosswalk';
 import { useEffect, useState } from 'react';
 import {
   EquityCompaniesSchema,
@@ -24,13 +30,13 @@ const labels = {
 };
 function observationText(row: EquityObservation) {
   if (row.kind === 'identity')
-    return `${row.name} · ${row.exchange}:${row.symbol} · series ${row.series} · face value ₹${row.faceValue}`;
+    return `${row.name} · ${row.exchange}:${row.symbol} · series ${row.series} · face value ₹${row.faceValue}${row.paidUpValue === undefined ? '' : ` · paid-up ₹${row.paidUpValue}`}${row.marketLot === undefined ? '' : ` · market lot ${row.marketLot}`}`;
   if (row.kind === 'price')
     return `Close ₹${row.close} · traded shares ${row.volume} · ${row.exchange} · unadjusted${row.udiff ? ` · ${row.udiff.symbol} · open ₹${row.udiff.open} · high ₹${row.udiff.high} · low ₹${row.udiff.low} · previous close ₹${row.udiff.previousClose}` : ''}`;
   if (row.kind === 'corporate-action')
-    return `${row.purpose} · record date ${row.recordOn ?? 'not supplied'} · no portfolio adjustment applied`;
+    return `${row.purpose}${row.nseAction ? ` · ex-date ${row.nseAction.exOn} · ${row.nseAction.symbol}/${row.nseAction.series} · book closure ${row.nseAction.bookClosureStart ?? 'not supplied'} to ${row.nseAction.bookClosureEnd ?? 'not supplied'}` : ''} · record date ${row.recordOn ?? 'not supplied'} · no portfolio adjustment applied`;
   if (row.kind === 'fundamental')
-    return `${row.metric.replaceAll('-', ' ')}: ${row.value} ${row.scale} · ${row.basis} · ${row.audited ? 'audited' : 'unaudited'} · period ${row.periodStart}–${row.periodEnd}`;
+    return `${row.metric.replaceAll('-', ' ')}: ${row.value} ${row.scale} · ${row.basis} · ${row.audited ? 'audited' : 'unaudited'} · ${row.statementContext?.section === 'balance-sheet' ? `as of ${row.periodEnd}` : `period ${row.periodStart}–${row.periodEnd}`}`;
   return `${row.sector} · ${row.index} · ${row.membership}${row.weightPercent === null ? ' · weight not supplied' : ` · weight ${row.weightPercent}%`}`;
 }
 export function EquityCoverage() {
@@ -151,6 +157,8 @@ export function EquityCoverage() {
       ) : detail ? (
         <>
           <p>{detail.isin} · retained editions; original precision preserved</p>
+          <EquityIdentityHistory company={detail} />
+          <EquityPriceHistory key={detail.isin} isin={detail.isin} />
           {detail.truncated && (
             <p role="status">
               Only the newest 1,000 records are included in this view.
@@ -188,6 +196,174 @@ export function EquityCoverage() {
                           {record.observation.effectiveOn}
                         </time>
                         <p>{observationText(record.observation)}</p>
+                        {record.observation.kind === 'fundamental' &&
+                          record.observation.lifeInsuranceContext && (
+                            <details>
+                              <summary>
+                                Life-insurance account reconciliation
+                              </summary>
+                              <p>
+                                Policyholder surplus is separate from
+                                shareholder profit after tax. Benefits paid and
+                                changes in actuarial liabilities belong to the
+                                policyholders' account; inter-account transfers
+                                reconcile in both directions.
+                              </p>
+                              <p>
+                                Policyholder surplus{' '}
+                                {
+                                  record.observation.lifeInsuranceContext
+                                    .amounts['life-policy-net-surplus']
+                                }{' '}
+                                {record.observation.scale}; shareholder profit
+                                after tax{' '}
+                                {
+                                  record.observation.lifeInsuranceContext
+                                    .amounts[
+                                    'life-shareholder-profit-after-tax'
+                                  ]
+                                }{' '}
+                                {record.observation.scale}.
+                              </p>
+                              <p>
+                                Reported columns:{' '}
+                                {record.observation.lifeInsuranceContext.reportingColumns.join(
+                                  ', ',
+                                )}
+                                . Insurance ratios are not interpreted by this
+                                adapter. Board approval{' '}
+                                {
+                                  record.observation.lifeInsuranceContext
+                                    .boardApprovedOn
+                                }{' '}
+                                is not publication time.
+                              </p>
+                            </details>
+                          )}
+                        {record.observation.kind === 'fundamental' &&
+                          record.observation.insuranceContext && (
+                            <details>
+                              <summary>
+                                Insurance operating reconciliation
+                              </summary>
+                              <p>
+                                General-insurance premiums and claims retain
+                                their reported INR scale. Underwriting and
+                                operating results are not shareholder profit
+                                after tax. Original rendered source; board
+                                approval{' '}
+                                {
+                                  record.observation.insuranceContext
+                                    .boardApprovedOn
+                                }{' '}
+                                is not a publication timestamp.
+                              </p>
+                              <p>
+                                Solvency{' '}
+                                {
+                                  record.observation.insuranceContext.ratios
+                                    .solvencyTimes
+                                }{' '}
+                                times · incurred claim ratio{' '}
+                                {
+                                  record.observation.insuranceContext.ratios
+                                    .incurredClaimPercent
+                                }
+                                % · combined ratio{' '}
+                                {
+                                  record.observation.insuranceContext.ratios
+                                    .combinedPercent
+                                }
+                                %.
+                              </p>
+                              <p>
+                                Reported columns:{' '}
+                                {record.observation.insuranceContext.reportingColumns.join(
+                                  ', ',
+                                )}
+                                . Identical first-quarter and year-to-date
+                                figures were reconciled before combining their
+                                labels. A combined ratio above100% is preserved,
+                                not clamped.
+                              </p>
+                            </details>
+                          )}
+                        {record.observation.kind === 'fundamental' &&
+                          record.observation.bankContext && (
+                            <details>
+                              <summary>
+                                Reported bank ratios and reconciliation
+                              </summary>
+                              <p>
+                                Bank income, provisions and ordinary profit
+                                reconcile in the stated INR units. These are
+                                reported bank measures, not manufacturing
+                                revenue. Uploaded rendered NSE report; board
+                                approved{' '}
+                                {record.observation.bankContext.boardApprovedOn}
+                                , which is not its publication timestamp.
+                              </p>
+                              <dl>
+                                {Object.entries(
+                                  record.observation.bankContext.ratios,
+                                )
+                                  .filter(([key]) => key !== 'unit')
+                                  .map(([key, value]) => (
+                                    <div key={key}>
+                                      <dt>
+                                        {
+                                          (
+                                            {
+                                              cet1: 'CET1',
+                                              additionalTier1:
+                                                'Additional Tier 1',
+                                              grossNpa: 'Gross NPA',
+                                              netNpa: 'Net NPA',
+                                            } as Record<string, string>
+                                          )[key]
+                                        }
+                                      </dt>
+                                      <dd>{value}%</dd>
+                                    </div>
+                                  ))}
+                              </dl>
+                              <p>
+                                Total capital adequacy is not inferred from
+                                CET1. Amounts of non-performing assets and their
+                                reported ratios are separate measures.
+                              </p>
+                            </details>
+                          )}
+                        {record.observation.kind === 'fundamental' &&
+                          record.observation.statementContext && (
+                            <details>
+                              <summary>
+                                Reported statement reconciliation
+                              </summary>
+                              <p>
+                                Exact reported totals reconcile in their source
+                                units. This validates the selected aggregate
+                                equations, not every accounting line or an audit
+                                opinion.
+                              </p>
+                              <p>
+                                {record.observation.statementContext.section ===
+                                'cash-flow'
+                                  ? 'Cash-flow statement cash is distinct from balance-sheet cash; reported overdrafts or other presentation differences are not silently removed.'
+                                  : 'Balance-sheet amounts describe the period-end position. Borrowings exclude other debt-like obligations unless separately reported.'}
+                              </p>
+                              <dl>
+                                {Object.entries(
+                                  record.observation.statementContext.values,
+                                ).map(([metric, value]) => (
+                                  <div key={metric}>
+                                    <dt>{metric.replaceAll('-', ' ')}</dt>
+                                    <dd>{value}</dd>
+                                  </div>
+                                ))}
+                              </dl>
+                            </details>
+                          )}
                         {record.observation.kind === 'price' &&
                           Date.now() -
                             Date.parse(record.observation.effectiveOn) >
@@ -222,6 +398,10 @@ export function EquityCoverage() {
               </section>
             );
           })}
+          <EquityAdjustments isin={detail.isin} />
+          <EquityConsolidations isin={detail.isin} />
+          <EquityActionTerms isin={detail.isin} />
+          <CompanyClassification isin={detail.isin} />
           <a href="#holdings">View my holdings</a>
         </>
       ) : (

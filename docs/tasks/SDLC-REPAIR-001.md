@@ -1,6 +1,6 @@
 # SDLC-REPAIR-001 — failure-scoped agent repair and exact-case retry
 
-- **Status:** Implemented; validation pending
+- **Status:** Completed implementation; validation pending
 - **Implemented / recorded:** - Implementation: Authored; user validation and gated commit pending. User explicitly requests an agent on any failing stage/test. Deterministic execution remains outside the repair agent.
 - **Pending:** The implementation is recorded; user-run validation remains separate.
 - **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.

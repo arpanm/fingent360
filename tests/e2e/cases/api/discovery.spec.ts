@@ -93,7 +93,10 @@ test('E2E-API-120 real feed review, withdrawal and protected operations @UX-002 
       const publicResponse = await request.get(
         `/api/v1/discovery/items/${item.id}`,
       );
-      expect(publicResponse.status(), 'Public item GET after review').toBe(200);
+      expect(
+        publicResponse.status(),
+        `Public item GET after review: ${await publicResponse.text()}`,
+      ).toBe(200);
       const publicItem = FeedItemSchema.parse(await publicResponse.json());
       expect(publicItem.status).toBe('published');
       expect(publicItem).toEqual(published);

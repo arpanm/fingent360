@@ -36,3 +36,9 @@ The saved E2E handoff read during triage was run `1789450221458-4d30c5af-f9f6-45
 ## Questions now versus later
 
 No new answer is required to start the independent ready/research tasks. Existing session answers resolve the current scope. Questions are deferred until there is a concrete need: unavailable account-only sample, an actual provider agreement/payment, a regulated-launch operating model, a specific deployment account, or phone/test evidence. These are future triggers, not unanswered questionnaires or assumed approvals. Record any future question, exact user answer, date, affected tasks and resulting scope change in each task’s input record.
+
+## Implementation pickup follow-up
+
+[DELIVERY-TEAM-005](DELIVERY-TEAM-005.md) records the implemented slices and links the additional primary research: NSE action/IndAS layouts, AMFI current Plan/Option format, official BLS timezone-bearing calendar, historical Fed statement fractions and safe sharing/encryption engineering references. Research did not activate production sources or run provider jobs.
+
+Broker research now covers all five official download paths; none of the inspected public pages establishes the complete downloaded holdings layout. The coordinator asked: “Do you have access to a Zerodha Console account from which a report could later be exported and anonymized?” Answer remains pending. This is a concrete unavailable-layout question, not a request for the user to research formats/rights. No broker credential or real holding is required. See BROKER-PARSERS-002 for exact source evidence and template scope. All prior answers remain in effect.

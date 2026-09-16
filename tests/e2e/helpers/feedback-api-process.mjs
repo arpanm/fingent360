@@ -134,6 +134,53 @@ async function start() {
   if (!isolation.rows[0]?.isolated)
     throw Error('Fixture schema isolation failed.');
   Object.assign(process.env, env, {
+    PRIVATE_IDENTITY_LOOKUP_KEY: randomBytes(32).toString('base64'),
+    PRIVATE_DATA_ACTIVE_KEY: 'synthetic_fixture',
+    PRIVATE_DATA_KEYS: JSON.stringify({
+      synthetic_fixture: randomBytes(32).toString('base64'),
+    }),
+    REGULATORY_SOURCES_ENABLED:
+      env.F360_TEST_REGULATORY === '1' ? 'true' : 'false',
+    REGULATORY_SOURCES_PERMISSION_REFERENCE:
+      'TEST-SIMULATION synthetic regulatory permission only; no actual licence.',
+    WHATSAPP_ENABLED: env.F360_TEST_WHATSAPP === '1' ? 'true' : 'false',
+    WHATSAPP_AUTOMATIC_DISPATCH: 'false',
+    WHATSAPP_ACCESS_TOKEN: 'synthetic-access-token-never-send',
+    WHATSAPP_APP_SECRET: 'synthetic-whatsapp-app-secret',
+    WHATSAPP_VERIFY_TOKEN: 'synthetic-whatsapp-verify-token',
+    WHATSAPP_PHONE_NUMBER_ID: '123456789',
+    WHATSAPP_BUSINESS_NUMBER: '15555550100',
+    WHATSAPP_TEMPLATE_NAME: 'fingent_public_summary',
+    WHATSAPP_TEMPLATE_LANGUAGE: 'en_US',
+    WHATSAPP_PUBLIC_ORIGIN: 'https://reading.example.com',
+    WHATSAPP_APPROVAL_REFERENCE:
+      'TEST-SIMULATION only; no provider activation or actual permission.',
+    WHATSAPP_ALLOWED_SOURCE_IDS: 'glossary',
+    CCIL_ZERO_ENABLED: env.F360_TEST_CCIL_ZERO === '1' ? 'true' : 'false',
+    CCIL_ZERO_PERMISSION_REFERENCE:
+      'Synthetic fixture only; no live source rights',
+    CCIL_ENABLED: env.F360_TEST_CCIL === '1' ? 'true' : 'false',
+    CCIL_PERMISSION_REFERENCE: 'Synthetic fixture only; no live source rights',
+    KITE_ENABLED: env.F360_TEST_KITE === '1' ? 'true' : 'false',
+    UPSTOX_ENABLED: env.F360_TEST_UPSTOX === '1' ? 'true' : 'false',
+    ANGEL_ENABLED: env.F360_TEST_ANGEL === '1' ? 'true' : 'false',
+    ANGEL_API_KEY: 'synthetic_angel_key',
+    ANGEL_REDIRECT_URL:
+      'http://127.0.0.1:4100/api/v1/account/broker-connections/angel/callback',
+    ANGEL_PERMISSION_REFERENCE: 'synthetic-publisher-test-only',
+    ANGEL_CLIENT_LOCAL_IP: '127.0.0.1',
+    ANGEL_CLIENT_PUBLIC_IP: '192.0.2.1',
+    ANGEL_MAC_ADDRESS: '02:00:00:00:00:01',
+    UPSTOX_API_KEY: 'synthetic_upstox_key',
+    UPSTOX_API_SECRET: 'synthetic_upstox_secret',
+    UPSTOX_REDIRECT_URL:
+      'http://127.0.0.1:4100/api/v1/account/broker-connections/upstox/callback',
+    UPSTOX_PERMISSION_REFERENCE: 'synthetic-test-only',
+    KITE_API_KEY: 'synthetic_kite_key',
+    KITE_API_SECRET: 'synthetic_kite_secret',
+    KITE_REDIRECT_URL:
+      'http://127.0.0.1:4100/api/v1/account/broker-connections/kite/callback',
+    KITE_PERMISSION_REFERENCE: 'SYNTHETIC-E2E-NO-LIVE-PERMISSION',
     RESEARCH_AUTO_ENABLED: 'false',
     STORY_IMAGE_PROVIDER: 'off',
     DATABASE_URL: database.href,
@@ -147,6 +194,23 @@ async function start() {
     WEB_ORIGIN: env.E2E_WEB_URL,
     AI_PROVIDER: 'query',
   });
+  if (env.F360_TEST_INDIA_GDP_ARCHIVE === '1') {
+    const { installSyntheticIndiaGdpArchive } =
+      await import('./india-gdp-archive-simulation.mjs');
+    installSyntheticIndiaGdpArchive();
+  }
+  if (env.F360_TEST_ANGEL === '1') {
+    const { installSyntheticAngel } = await import('./angel-simulation.mjs');
+    installSyntheticAngel();
+  }
+  if (env.F360_TEST_UPSTOX === '1') {
+    const { installSyntheticUpstox } = await import('./upstox-simulation.mjs');
+    installSyntheticUpstox();
+  }
+  if (env.F360_TEST_KITE === '1') {
+    const { installSyntheticKite } = await import('./kite-simulation.mjs');
+    installSyntheticKite();
+  }
   await import('../../../apps/api/dist/migrate.js');
   if (process.exitCode) throw Error('Fixture migration failed.');
   if (cancelled) return;
@@ -189,6 +253,9 @@ async function start() {
       await import('../../../apps/api/dist/library-worker.js');
     const { MaterialWorker } =
       await import('../../../apps/api/dist/material-worker.js');
+    const { DeploymentMonitoringWorker } =
+      await import('../../../apps/api/dist/deployment-monitoring.js');
+    await app.get(DeploymentMonitoringWorker).onApplicationShutdown();
     await app.get(MaterialWorker).onApplicationShutdown();
     await app.get(ReportWorker).onApplicationShutdown();
     await app.get(LibraryReminderWorker).onApplicationShutdown();
@@ -196,6 +263,11 @@ async function start() {
   if (!cancelled)
     notify({
       apiOrigin: await app.getUrl(),
+      privateDataKeys: {
+        PRIVATE_IDENTITY_LOOKUP_KEY: process.env.PRIVATE_IDENTITY_LOOKUP_KEY,
+        PRIVATE_DATA_ACTIVE_KEY: process.env.PRIVATE_DATA_ACTIVE_KEY,
+        PRIVATE_DATA_KEYS: process.env.PRIVATE_DATA_KEYS,
+      },
       databaseUrl: database.href,
       schema,
       ...(namedCredentials ? { namedCredentials } : {}),

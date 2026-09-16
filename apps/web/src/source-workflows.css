@@ -1,0 +1,33 @@
+.source-workflow {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.source-workflow :where(fieldset, article, section, details, form, label) {
+  min-width: 0;
+  max-width: 100%;
+}
+.source-workflow :where(input, select, textarea, button) {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+.source-workflow :where(button, summary) {
+  white-space: normal;
+  min-height: 44px;
+}
+.source-workflow pre {
+  max-width: 100%;
+  overflow: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.source-workflow
+  :where(a, button, summary, input, select, textarea):focus-visible {
+  outline: 3px solid var(--accent, #176747);
+  outline-offset: 3px;
+}
+@media (max-width: 480px) {
+  .source-workflow fieldset {
+    margin-inline: 0;
+    padding-inline: 0.65rem;
+  }
+}

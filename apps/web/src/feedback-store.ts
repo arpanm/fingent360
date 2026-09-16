@@ -43,7 +43,7 @@ interface Bridge {
   ): Promise<{ status: number; body: unknown }>;
 }
 export function feedbackBridge(): Bridge | undefined {
-  const bridge = window.FingentAndroid as unknown as
+  const bridge = (window.FingentAndroid ?? window.FingentIOS) as unknown as
     Partial<Bridge> | undefined;
   return bridge?.feedbackRead && bridge.feedbackWrite && bridge.sendFeedback
     ? (bridge as Bridge)
@@ -144,7 +144,7 @@ export async function mutateFeedback<T>(
 ): Promise<T> {
   const bridge = feedbackBridge();
   if (runtime.native && !bridge)
-    throw Error('Update the Android app to enable durable feedback storage.');
+    throw Error('Update the app to enable durable native feedback storage.');
   if (bridge) {
     for (let attempt = 0; attempt < 8; attempt++) {
       const current = await bridge.feedbackRead();
@@ -209,7 +209,7 @@ export async function mutateFeedback<T>(
 async function read(): Promise<Stored> {
   const bridge = feedbackBridge();
   if (runtime.native && !bridge)
-    throw Error('Update the Android app to enable durable feedback storage.');
+    throw Error('Update the app to enable durable native feedback storage.');
   if (bridge) return bridge.feedbackRead();
   const database = await db();
   return new Promise((resolve, reject) => {

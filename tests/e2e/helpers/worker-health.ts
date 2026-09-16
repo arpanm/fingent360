@@ -80,6 +80,7 @@ export async function startWorker(sandbox: FeedbackSandbox) {
   try {
     await run('start', {
       databaseUrl: sandbox.databaseUrl,
+      privateDataKeys: sandbox.privateDataKeys,
       schema: sandbox.schema,
     });
   } catch (error) {

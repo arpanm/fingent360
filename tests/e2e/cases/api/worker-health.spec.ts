@@ -481,8 +481,8 @@ test('E2E-API-358 capped queue counts and bounded receipt eviction never resurre
     // Explicit load fixture copies one actual accepted snapshot only inside the
     // owned database; these rows are not invented user or provider successes.
     await pool.query(
-      "INSERT INTO record_report_jobs(id,user_id,label,snapshot,requested_at,next_attempt_at) SELECT gen_random_uuid(),j.user_id,'Synthetic aggregate load',j.snapshot,clock_timestamp()-interval '2 hours',clock_timestamp()+interval '1 day' FROM record_report_jobs j CROSS JOIN generate_series(1,10000) n WHERE j.id=$1",
-      [job.id],
+      "INSERT INTO record_report_jobs(id,user_id,label,snapshot,requested_at,next_attempt_at) SELECT gen_random_uuid(),j.user_id,'Synthetic aggregate load',$2::jsonb,clock_timestamp()-interval '2 hours',clock_timestamp()+interval '1 day' FROM record_report_jobs j CROSS JOIN generate_series(1,10000) n WHERE j.id=$1",
+      [job.id, job.snapshot],
     );
     const state = (await workerOverview(request)).workers[0]!;
     expect(state.queued).toEqual({ count: 10000, moreAvailable: true });
@@ -549,13 +549,9 @@ test('E2E-API-359 actual preparation failure retains bounded category then origi
   const pool = await workerDatabase(feedbackSandbox),
     worker = await startWorker(feedbackSandbox);
   try {
-    const original = (
-      await pool.query('SELECT snapshot FROM record_report_jobs WHERE id=$1', [
-        job.id,
-      ])
-    ).rows[0]!.snapshot;
+    const original = job.snapshot;
     await pool.query(
-      "UPDATE record_report_jobs SET snapshot='{}'::jsonb WHERE id=$1",
+      "UPDATE record_report_jobs SET label='Synthetic preparation fault',snapshot='{}'::jsonb,encrypted_payload=NULL WHERE id=$1",
       [job.id],
     );
     expect(await worker.run('work')).toBe(true);

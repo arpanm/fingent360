@@ -1,6 +1,6 @@
 # UI-RACES-001 — Reliable feedback settings and financial-form input
 
-- **Status:** Implemented; validation pending
+- **Status:** Completed implementation; validation pending
 - **Implemented / recorded:** - Implementation: Complete. Feedback delivery controls mount only after persisted settings load; storage-open failure shows explicit Retry without a false empty history or default settings. Goal and holding step focus runs synchronously before interaction, removing animation callbacks that could steal input. WEB194 explicitly awaits ready settings. Validation, consent, financial precision, quotas, contracts and existing database records remain intact.
 - **Pending:** User: run the task’s documented validation; implementation is not a test pass.
 - **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.

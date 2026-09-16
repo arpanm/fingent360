@@ -1,5 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
-import { feedbackLimits, type FeedbackAudio } from '@fingent360/contracts';
+import {
+  feedbackLimits,
+  FeedbackAudioSchema,
+  type FeedbackAudio,
+} from '@fingent360/contracts';
 import { Icon } from './ui';
 
 export function VoiceFeedback({
@@ -17,7 +21,9 @@ export function VoiceFeedback({
   const [seconds, setSeconds] = useState(0),
     [error, setError] = useState('');
   const recorder = useRef<MediaRecorder | null>(null),
-    stream = useRef<MediaStream | null>(null);
+    stream = useRef<MediaStream | null>(null),
+    nativeRecording = useRef(false),
+    nativePending = useRef(false);
   const alive = useRef(true),
     generation = useRef(0),
     started = useRef(0),
@@ -28,6 +34,50 @@ export function VoiceFeedback({
   change.current = onChange;
   recording.current = onRecording;
   function stop(remove = false) {
+    if (
+      window.FingentIOS &&
+      (nativeRecording.current || nativePending.current || encoding.current)
+    ) {
+      if (encoding.current && !remove) return;
+      const bridge = window.FingentIOS;
+      const request = generation.current;
+      if (remove || nativePending.current) {
+        generation.current++;
+        nativeRecording.current = false;
+        nativePending.current = false;
+        encoding.current = false;
+        recording.current(false);
+        if (alive.current) setState('idle');
+        void bridge.cancelFeedbackAudio().catch(() => {});
+        return;
+      }
+      nativeRecording.current = false;
+      encoding.current = true;
+      if (alive.current) setState('processing');
+      void bridge
+        .stopFeedbackAudio()
+        .then((raw) => {
+          const audio = FeedbackAudioSchema.parse(raw);
+          if (alive.current && generation.current === request)
+            change.current(audio);
+        })
+        .catch((failure) => {
+          if (alive.current && generation.current === request)
+            setError(
+              failure instanceof Error
+                ? failure.message
+                : 'Native recording was interrupted. Record again or type.',
+            );
+        })
+        .finally(() => {
+          if (generation.current === request) {
+            encoding.current = false;
+            recording.current(false);
+            if (alive.current) setState('idle');
+          }
+        });
+      return;
+    }
     if (encoding.current && !remove) return;
     const active = recorder.current?.state === 'recording';
     if (remove || !active) generation.current++;
@@ -55,7 +105,7 @@ export function VoiceFeedback({
     window.addEventListener('f360-pause', pause);
     window.addEventListener('f360-feedback-stop-voice', pause);
     const timer = window.setInterval(() => {
-      if (recorder.current?.state === 'recording') {
+      if (recorder.current?.state === 'recording' || nativeRecording.current) {
         setSeconds(Math.floor((performance.now() - started.current) / 1000));
         if (performance.now() - started.current >= feedbackLimits.audioMs)
           stop();
@@ -74,6 +124,37 @@ export function VoiceFeedback({
     setError('');
     discard.current = false;
     const request = ++generation.current;
+    if (window.FingentIOS) {
+      nativePending.current = true;
+      setState('permission');
+      recording.current(true);
+      try {
+        const result = await window.FingentIOS.startFeedbackAudio();
+        if (!alive.current || generation.current !== request) {
+          await window.FingentIOS.cancelFeedbackAudio();
+          return;
+        }
+        if (!result.recording) throw Error('Native microphone did not start.');
+        nativePending.current = false;
+        nativeRecording.current = true;
+        started.current = performance.now();
+        setSeconds(0);
+        setState('recording');
+      } catch (failure) {
+        if (alive.current && generation.current === request) {
+          nativePending.current = false;
+          nativeRecording.current = false;
+          recording.current(false);
+          setState('idle');
+          setError(
+            failure instanceof Error
+              ? failure.message
+              : 'Native microphone could not start.',
+          );
+        }
+      }
+      return;
+    }
     if (
       !navigator.mediaDevices?.getUserMedia ||
       typeof MediaRecorder === 'undefined'

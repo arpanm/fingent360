@@ -1,6 +1,6 @@
 # GOAL-FEASIBILITY-001 — saved downside-capacity assessments
 
-- **Status:** Implemented; validation pending
+- **Status:** Completed implementation; validation pending
 - **Implemented / recorded:** - Implementation: Implemented; user validation pending. Parent: DEV009. Complete explicit affordability/interruption/protected-reserve assessment of an actual owned saved goal, with exact no-growth baseline and stressed totals, unknown inputs, immutable goal-version receipt, retry/conflict handling, removal without replay resurrection, account export/deletion, offline parity and mobile/keyboard cases. Use migration037. Do not infer expected market returns, probabilities, subjective suitability or regulated advice. Detailed implementation and acceptance are in the feature specification/handoff; user owns migrations/gates.
 - **Pending:** User: run the task’s documented validation; implementation is not a test pass.
 - **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.

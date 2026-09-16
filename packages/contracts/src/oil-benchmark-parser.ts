@@ -190,7 +190,20 @@ function xml(bytes: Uint8Array, root: string, namespace = mainNs) {
 }
 
 /** Reads saved cells only. Connections, drawings, print settings and hidden-sheet metadata are inert. */
-export function parseOilBenchmarks(bytes: Uint8Array) {
+export function parsePinkSheetColumns(
+  bytes: Uint8Array,
+  selected: readonly {
+    column: string;
+    series: string;
+    header: string;
+    unit: string;
+    precision: 0 | 1;
+  }[],
+) {
+  const columns = ['A', ...selected.map((v) => v.column)];
+  const columnNumbers = columns.map((v) =>
+    [...v].reduce((n, c) => n * 26 + c.charCodeAt(0) - 64, 0),
+  );
   const parts = oilWorkbookParts(bytes),
     deadline = Date.now() + 4000;
   const required = (name: string) =>
@@ -278,7 +291,7 @@ export function parseOilBenchmarks(bytes: Uint8Array) {
       max = Number(col['@_max']);
     if (
       ['1', 'true'].includes(scalar(col['@_hidden'])) &&
-      [1, 3, 5].some((index) => index >= min && index <= max)
+      columnNumbers.some((index) => index >= min && index <= max)
     )
       bad('selected source columns are hidden.');
   }
@@ -324,7 +337,7 @@ export function parseOilBenchmarks(bytes: Uint8Array) {
         ref = scalar(cell['@_r']);
       if (!/^[A-Z]{1,3}[1-9][0-9]{0,3}$/.test(ref) || cells.has(ref))
         bad('invalid or duplicate price cell.');
-      if (!['A', 'C', 'E'].includes(ref.replace(/[0-9]+$/, ''))) continue;
+      if (!columns.includes(ref.replace(/[0-9]+$/, ''))) continue;
       if (
         ref.replace(/^[A-Z]+/, '') !== rowId ||
         ['1', 'true'].includes(scalar(row['@_hidden']))
@@ -359,10 +372,10 @@ export function parseOilBenchmarks(bytes: Uint8Array) {
   if (
     read('A1') !== 'World Bank Commodity Price Data (The Pink Sheet)' ||
     read('A2') !== 'monthly prices in nominal US dollars, 1960 to present' ||
-    read('C5') !== 'Crude oil, Brent' ||
-    read('E5') !== 'Crude oil, WTI' ||
-    read('C6') !== '($/bbl)' ||
-    read('E6') !== '($/bbl)'
+    selected.some(
+      (v) =>
+        read(v.column + '5') !== v.header || read(v.column + '6') !== v.unit,
+    )
   )
     bad('unexpected selected source/header/unit.');
   const updated = /^Updated on ([A-Za-z]+) ([0-9]{2}), ([0-9]{4})$/.exec(
@@ -390,7 +403,7 @@ export function parseOilBenchmarks(bytes: Uint8Array) {
       `${updated[3]}-${String(months.indexOf(updated[1]!) + 1).padStart(2, '0')}-${updated[2]}`,
     );
   const observations: Array<{
-    series: 'BRENT' | 'WTI';
+    series: string;
     period: string;
     value: string | null;
     sourceValue: string | null;
@@ -408,10 +421,7 @@ export function parseOilBenchmarks(bytes: Uint8Array) {
     if (period < '2000-01') continue;
     if (period >= reportedUpdatedOn.slice(0, 7))
       bad('monthly observation is not completed at reported update.');
-    for (const [column, series] of [
-      ['C', 'BRENT'],
-      ['E', 'WTI'],
-    ] as const) {
+    for (const { column, series, precision } of selected) {
       const key = column + ref.slice(1),
         text = read(key),
         c = cells.get(key);
@@ -423,7 +433,9 @@ export function parseOilBenchmarks(bytes: Uint8Array) {
             : undefined;
         if (
           !xf ||
-          formats.get(scalar(xf['@_numFmtId'])) !== '0.0' ||
+          (precision === 0
+            ? scalar(xf['@_numFmtId']) !== '1'
+            : formats.get(scalar(xf['@_numFmtId'])) !== '0.0') ||
           c?.['@_t'] === 's' ||
           c?.['@_t'] === 'inlineStr'
         )
@@ -433,15 +445,61 @@ export function parseOilBenchmarks(bytes: Uint8Array) {
         series,
         period,
         sourceValue,
-        value: sourceValue === null ? null : roundOilSource(sourceValue),
+        value:
+          sourceValue === null
+            ? null
+            : roundPinkSheetValue(sourceValue, precision),
       });
     }
   }
   return {
     reportedUpdatedOn,
-    observations: OilBenchmarkObservationsSchema.parse(observations).sort(
+    observations: observations.sort(
       (a, b) =>
         a.series.localeCompare(b.series) || a.period.localeCompare(b.period),
     ),
   };
+}
+
+/** Existing oil contract retains its exact two-series one-decimal behavior. */
+export function parseOilBenchmarks(bytes: Uint8Array) {
+  const parsed = parsePinkSheetColumns(bytes, [
+    {
+      column: 'C',
+      series: 'BRENT',
+      header: 'Crude oil, Brent',
+      unit: '($/bbl)',
+      precision: 1,
+    },
+    {
+      column: 'E',
+      series: 'WTI',
+      header: 'Crude oil, WTI',
+      unit: '($/bbl)',
+      precision: 1,
+    },
+  ]);
+  return {
+    ...parsed,
+    observations: OilBenchmarkObservationsSchema.parse(parsed.observations),
+  };
+}
+export function roundPinkSheetValue(value: string, precision: 0 | 1) {
+  if (precision === 1) return roundOilSource(value);
+  const m =
+    /^(-?)(0|[1-9][0-9]{0,11})(?:\.([0-9]{1,20}))?(?:[Ee]([+-]?[0-9]{1,2}))?$/.exec(
+      value,
+    );
+  if (!m) throw Error('Unsupported commodity decimal.');
+  const fraction = m[3] ?? '',
+    shift = Number(m[4] ?? '0') - fraction.length;
+  if (Math.abs(Number(m[4] ?? '0')) > 20)
+    throw Error('Commodity exponent exceeds bound.');
+  let number = BigInt(m[2] + fraction);
+  if (shift >= 0) number *= 10n ** BigInt(shift);
+  else {
+    const divisor = 10n ** BigInt(-shift);
+    number = (number + divisor / 2n) / divisor;
+  }
+  return (m[1] && number !== 0n ? '-' : '') + number.toString();
 }

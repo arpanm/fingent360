@@ -95,3 +95,78 @@ export async function publishUdiff(request: APIRequestContext) {
   ).toBe(201);
   return payload;
 }
+
+export async function actionInput() {
+  return {
+    ...(await equityInput()),
+    parser: 'nse-corporate-actions-csv-v1',
+    sourceUrl:
+      'https://www.nseindia.com/companies-listing/corporate-filings-actions',
+    body: await readFile(
+      new URL(
+        '../../../packages/contracts/test/fixtures/equity-actions.csv',
+        import.meta.url,
+      ),
+      'utf8',
+    ),
+  };
+}
+export async function publishActions(request: APIRequestContext) {
+  const identity = await publishEquity(request);
+  const payload = await actionInput();
+  const captured = await request.post('/api/v1/ops/equities/import', {
+    headers: retentionHeaders,
+    data: payload,
+  });
+  expect(captured.status()).toBe(201);
+  const edition = await captured.json();
+  const reviewed = await request.post('/api/v1/ops/equities/review', {
+    headers: retentionHeaders,
+    data: {
+      requestId: randomUUID(),
+      editionId: payload.requestId,
+      decision: 'publish',
+      reason: 'Synthetic action source reviewed for isolated test.',
+    },
+  });
+  expect(reviewed.status()).toBe(201);
+  return { payload, edition, identity };
+}
+
+export async function publishIndas(request: APIRequestContext) {
+  await loginRetentionOperator(request);
+  const payload = {
+    ...(await equityInput()),
+    parser: 'nse-integrated-indas-html-v1',
+    effectiveOn: '2025-04-30',
+    sourceUrl:
+      'https://nsearchives.nseindia.com/corporate/ixbrl/INTEGRATED_FILING_INDAS_154496_30042026011808_iXBRL_WEB.html',
+    body: await readFile(
+      new URL(
+        '../../../packages/contracts/test/fixtures/equity-indas.html',
+        import.meta.url,
+      ),
+      'utf8',
+    ),
+  };
+  const captured = await request.post('/api/v1/ops/equities/import', {
+    headers: retentionHeaders,
+    data: payload,
+  });
+  expect(captured.status()).toBe(201);
+  const edition = await captured.json();
+  expect(
+    (
+      await request.post('/api/v1/ops/equities/review', {
+        headers: retentionHeaders,
+        data: {
+          requestId: randomUUID(),
+          editionId: payload.requestId,
+          decision: 'publish',
+          reason: 'Synthetic rendered Ind AS fixture reviewed.',
+        },
+      })
+    ).status(),
+  ).toBe(201);
+  return { payload, edition };
+}

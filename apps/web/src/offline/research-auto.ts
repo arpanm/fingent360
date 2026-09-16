@@ -1,18 +1,28 @@
-import { ReleaseCalendarSchema } from '@fingent360/contracts';
+import {
+  ReleaseCalendarSchema,
+  CalendarSourceSchema,
+  calendarSources,
+} from '@fingent360/contracts';
 /** Reader-only snapshot: no provider job, operator credential or fabricated calendar. */
-export function offlineResearchCalendar(snapshot: unknown, edition?: string) {
+export function offlineResearchCalendar(
+  snapshot: unknown,
+  edition?: string,
+  sourceValue: unknown = 'bea-calendar',
+) {
+  const sourceId = CalendarSourceSchema.parse(sourceValue);
   const parsed = ReleaseCalendarSchema.safeParse(snapshot);
-  const data = parsed.success
-    ? parsed.data
-    : ReleaseCalendarSchema.parse({
-        edition: null,
-        retrievedAt: null,
-        sourceUrl:
-          'https://www.bea.gov/news/schedule/ics/online-calendar-subscription.ics',
-        basis: 'retained-calendar-capture',
-        events: [],
-        editions: [],
-      });
+  const data =
+    parsed.success && parsed.data.sourceId === sourceId
+      ? parsed.data
+      : ReleaseCalendarSchema.parse({
+          edition: null,
+          retrievedAt: null,
+          sourceId,
+          sourceUrl: calendarSources[sourceId].url,
+          basis: 'retained-calendar-capture',
+          events: [],
+          editions: [],
+        });
   if (edition && edition !== data.edition)
     throw Error(
       'This calendar capture is not downloaded. Reconnect and refresh your snapshot.',

@@ -134,3 +134,13 @@ Follow [task maintenance](../tasks/README.md). Before coding, create/update `doc
 ## Input readiness before pickup
 
 Read the task’s dated input decision and [pickup queue](../tasks/pickup-queue.md). Reuse prior user answers. Agent-ready and research-ready tasks need no new question for independent work; validation-only tasks await actual saved evidence. Record future questions/answers against their tasks, distinguish source research from permission to activate, and retain the manual execution boundary. INPUT-TRIAGE-001 records the current 126-task pass.
+
+## SDLC-REPAIR-015 — failures exposed by repairs
+
+The saved run1789527818860-12801 launched the bundled Codex CLI successfully. After compiler repairs, check stopped on formatting. The retry loop previously sent that new failure straight to another agent instead of reclassifying it; attempts were exhausted and E2E was never reached.
+
+Every failed command retry now re-enters classification. Safe formatting-only diagnostics receive scoped Prettier and the same check retry, without an agent attempt, even when the agent budget is exhausted. A remaining code failure receives its latest diagnostics and the same shared attempt limit. Two successive formatting drifts still stop; exact E2E case/project retry behavior is unchanged. Check success remains mandatory before commit and E2E.
+
+The previous repair added root fflate, so run `pnpm install --frozen-lockfile` once before `pnpm sdlc "Complete source workflows" --affected`. Database migrations alone do not install Node dependencies. Do not increase the repair limit to work around whitespace. When piping output through tee, enable shell pipefail if you need the command's failure exit status rather than tee's status.
+
+Authored regression coverage lives in tests/unit/sdlc.test.mjs: final-attempt code-to-format recovery and replacement compiler diagnostics after deterministic formatting. Smallest optional manual check: `node --test tests/unit/sdlc.test.mjs` (no services). Normal manual SDLC also executes the unit suite; connected affected E2E requires the configured databases, migrated schema and current API/web origins. Report the new failed-stage log and handoff if recovery stops. No checks, tests or commit were run by the authoring agent.

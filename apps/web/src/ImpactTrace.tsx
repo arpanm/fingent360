@@ -1,3 +1,5 @@
+import { oilEducationSource } from '@fingent360/contracts';
+import { ImpactCalibration } from './ImpactCalibration';
 import { useEffect, useRef, useState } from 'react';
 import {
   EquityCompanySchema,
@@ -41,6 +43,55 @@ async function api(path: string, method = 'GET', body?: unknown) {
 function Receipt({ value }: { value: ImpactTraceReceipt }) {
   return (
     <div className="impact-receipt">
+      {value.oilEducation && (
+        <section aria-label="Oil cost educational conclusion">
+          <h2>Fuel costs, through to your goal</h2>
+          <p>{value.oilEducation.mechanism}</p>
+          <p>
+            Issuer report date {value.oilEducation.sourceDate}; exact
+            publication time unknown.
+          </p>
+          <p>{value.oilEducation.noAction}</p>
+          <ul>
+            {value.oilEducation.limitations.map((limit) => (
+              <li key={limit}>{limit}</li>
+            ))}
+          </ul>
+          <a href="#action-centre">Compare an explicit no-action plan</a>
+        </section>
+      )}
+      {value.transmission && (
+        <section aria-label="Reviewed transmission conclusion">
+          <h2>{value.transmission.binding.title}</h2>
+          <p>{value.transmission.binding.mechanism}</p>
+          <p>
+            {value.transmission.outcome === 'review-before-interpretation'
+              ? 'Review uncertainties before interpreting this context.'
+              : 'Qualitative context only.'}
+          </p>
+          <p>
+            Holding unchanged. Goal unchanged. No numerical impact is
+            calculated.
+          </p>
+          <ul>
+            {value.transmission.reasons.map((reason, index) => (
+              <li key={index}>{reason}</li>
+            ))}
+          </ul>
+          <a
+            href={value.transmission.binding.reference}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Primary mechanism reference
+          </a>
+          <p>
+            Released context {value.transmission.reviewId}, version{' '}
+            {value.transmission.reviewVersion} ·{' '}
+            {value.transmission.binding.version}
+          </p>
+        </section>
+      )}
       <ol aria-label="Evidence to goal trace">
         {value.chain.map((step) => (
           <li key={step.kind}>
@@ -103,6 +154,8 @@ function Receipt({ value }: { value: ImpactTraceReceipt }) {
   );
 }
 export function ImpactTrace() {
+  const [contextId, setContextId] = useState('');
+  const [oilWalkthrough, setOilWalkthrough] = useState(false);
   const [choices, setChoices] = useState<ImpactTraceChoices | null>(null);
   const [saved, setSaved] = useState<
     ReturnType<typeof ImpactTraceListSchema.parse>['traces']
@@ -176,7 +229,16 @@ export function ImpactTrace() {
           : EquityCompanySchema.parse(await response.json());
       const goal = choices.goals.find((item) => item.id === goalId);
       if (!goal) throw new Error('Choose one of your saved goals.');
+      const context = choices.contexts.find((item) => item.id === contextId);
+      if (contextId && !context)
+        throw new Error('Released context changed. Reload choices.');
       const input: ImpactTraceInput = {
+        ...(oilWalkthrough
+          ? { educationalPack: 'indigo-atf-context-2026-v1' as const }
+          : {}),
+        ...(context
+          ? { causalContext: { id: context.id, version: context.version } }
+          : {}),
         eventId,
         eventVersion: event.version,
         sector,
@@ -198,6 +260,7 @@ export function ImpactTrace() {
           choices.goals,
           new Date().toISOString(),
           equity,
+          context,
         ),
       );
       pending.current = { id, input };
@@ -250,6 +313,11 @@ export function ImpactTrace() {
       {busy && <p role="status">Loading or saving your trace…</p>}
       {notice && <p role="status">{notice}</p>}
       {choices && (
+        <ImpactCalibration
+          isins={choices.holdings.holdings.map((item) => item.isin)}
+        />
+      )}
+      {choices && (
         <>
           {choices.bundleGeneratedAt && (
             <p>
@@ -257,6 +325,78 @@ export function ImpactTrace() {
               traces stay on this device.
             </p>
           )}
+          <label>
+            <input
+              type="checkbox"
+              checked={oilWalkthrough}
+              onChange={(e) => {
+                setOilWalkthrough(e.target.checked);
+                clear();
+              }}
+            />
+            Use the verified IndiGo oil-cost educational walkthrough
+          </label>
+          {oilWalkthrough && (
+            <p role="status">
+              Choose the reviewed 1-Apr-2026 IndiGo source event, Airlines
+              sector, your actual INE646L01027 holding, a saved goal and its
+              independently released company context.{' '}
+              {selected && oilEducationSource(selected)
+                ? 'The selected event contains the supported issuer report.'
+                : 'The selected event does not yet contain the supported issuer report.'}{' '}
+              No price impact or financial action is predicted.
+            </p>
+          )}
+          <label>
+            Independently released causal context
+            <select
+              value={contextId}
+              onChange={(e) => {
+                setContextId(e.target.value);
+                clear();
+              }}
+            >
+              <option value="">Reviewed event associations only</option>
+              {choices.contexts
+                .filter(
+                  (item) =>
+                    item.input.eventId === eventId &&
+                    item.input.content.kind === 'causal-context' &&
+                    item.input.content.sector === sector &&
+                    item.input.content.isin === isin,
+                )
+                .map((item) => (
+                  <option key={item.id} value={item.id}>
+                    {item.input.title} · version {item.version}
+                  </option>
+                ))}
+            </select>
+          </label>
+          {new Set(
+            choices.contexts
+              .filter(
+                (item) =>
+                  item.input.eventId === eventId &&
+                  item.input.content.kind === 'causal-context' &&
+                  item.input.content.sector === sector &&
+                  item.input.content.isin === isin,
+              )
+              .map((item) =>
+                item.input.content.kind === 'causal-context'
+                  ? item.input.content.direction
+                  : '',
+              ),
+          ).size > 1 && (
+            <p role="alert">
+              Released contexts disagree on direction. Review each source-bound
+              interpretation; no direction has been selected automatically.
+            </p>
+          )}
+          <p>
+            Released direction remains uncertain interpretation; no numerical
+            holding or goal impact is inferred. Compare differing released
+            contexts before drawing conclusions.
+          </p>
           {!choices.events.length && (
             <p>
               No admitted reviewed events in this page. Add and publish evidence
@@ -277,6 +417,7 @@ export function ImpactTrace() {
                 value={eventId}
                 onChange={(e) => {
                   setEventId(e.target.value);
+                  setContextId('');
                   setSector('');
                   setIsin('');
                   clear();
@@ -318,6 +459,7 @@ export function ImpactTrace() {
                 value={sector}
                 onChange={(e) => {
                   setSector(e.target.value);
+                  setContextId('');
                   clear();
                 }}
               >
@@ -339,6 +481,7 @@ export function ImpactTrace() {
                 value={isin}
                 onChange={(e) => {
                   setIsin(e.target.value);
+                  setContextId('');
                   clear();
                 }}
               >

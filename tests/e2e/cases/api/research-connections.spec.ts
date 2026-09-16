@@ -678,7 +678,10 @@ test('E2E-API-276 recovery revokes admitted connection waiters before private re
     };
     await expect
       .poll(
-        () => waiting('SELECT id FROM app_users WHERE username=$1 FOR UPDATE'),
+        () =>
+          waiting(
+            'SELECT * FROM app_users WHERE username_lookup=$2 OR username=$1 FOR UPDATE',
+          ),
         { timeout: 3000 },
       )
       .toBe(1);

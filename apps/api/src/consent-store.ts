@@ -50,24 +50,24 @@ export async function readConsent(
   }
   if (purpose === 'scheduled-record-reviews') {
     const choice = await c.query(
-      `SELECT r.payload FROM report_schedule_requests r
-      JOIN report_schedules s ON s.id=(r.payload->'schedule'->>'id')::uuid AND s.user_id=r.user_id
-      WHERE r.user_id=$1 AND s.status<>'deleted' AND r.payload->'schedule'->>'status'='active'
+      `SELECT r.request_id,r.schedule_id,r.schedule_version,r.saved_at FROM report_schedule_requests r
+      JOIN report_schedules s ON s.id=r.schedule_id AND s.user_id=r.user_id
+      WHERE r.user_id=$1 AND s.status<>'deleted' AND r.schedule_status='active'
       ORDER BY r.seq DESC LIMIT 1`,
       [userId],
     );
     if (choice.rows[0]) {
-      const receipt = choice.rows[0].payload;
+      const receipt = choice.rows[0];
       return ConsentStateSchema.parse({
         ...empty,
         decision: 'granted',
-        grantedAt: receipt.schedule.savedAt,
+        grantedAt: receipt.saved_at.toISOString(),
         basis: {
           kind: 'legacy-schedule-opt-in',
-          recordedAt: receipt.schedule.savedAt,
-          scheduleId: receipt.schedule.id,
-          scheduleVersion: receipt.schedule.version,
-          requestId: receipt.requestId,
+          recordedAt: receipt.saved_at.toISOString(),
+          scheduleId: receipt.schedule_id,
+          scheduleVersion: receipt.schedule_version,
+          requestId: receipt.request_id,
         },
       });
     }

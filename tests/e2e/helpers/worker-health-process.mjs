@@ -38,7 +38,10 @@ async function command(message) {
       await import('../../../apps/api/dist/library-worker.js');
     const { ReportWorker } =
       await import('../../../apps/api/dist/report-worker.js');
-    account = new AccountStore({ DATABASE_URL: message.databaseUrl });
+    account = new AccountStore({
+      DATABASE_URL: message.databaseUrl,
+      ...message.privateDataKeys,
+    });
     reports = new ReportsStore(account);
     reminders = new LibraryReminderWorker(account);
     if (schedulesEnabled) {
@@ -62,6 +65,11 @@ async function command(message) {
   }
   if (message.action === 'finish') {
     if (!claim) throw Error('No actual claim.');
+    const { decryptReportJob } =
+      await import('../../../apps/api/dist/private-reports.js');
+    await account.transaction((c) =>
+      decryptReportJob(c, claim.userId, claim.rawJob, account.privateDataKeys),
+    );
     const { issueRecordReport, ReportSnapshotSchema } =
       await import('../../../packages/contracts/dist/index.js');
     await reports.finish(
@@ -69,8 +77,8 @@ async function command(message) {
       claim.lease,
       issueRecordReport(
         claim.id,
-        claim.label,
-        ReportSnapshotSchema.parse(claim.snapshot),
+        claim.rawJob.label,
+        ReportSnapshotSchema.parse(claim.rawJob.snapshot),
         new Date().toISOString(),
       ),
     );

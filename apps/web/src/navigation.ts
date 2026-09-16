@@ -38,6 +38,10 @@ export function sectionFor(route: string) {
     key === 'explore' ||
     key === 'equities' ||
     key === 'research-calendar' ||
+    key === 'india-macro' ||
+    key === 'global-macro' ||
+    key === 'positioning' ||
+    key === 'institutional-flows' ||
     key === 'event-scenarios' ||
     key.startsWith('event-scenarios/') ||
     key === 'events' ||

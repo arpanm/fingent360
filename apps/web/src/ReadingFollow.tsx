@@ -1,3 +1,4 @@
+import { ReadingCalendarContext } from './ReadingCalendarContext';
 import { useEffect, useRef, useState } from 'react';
 import {
   ReadingFollowViewSchema,
@@ -262,6 +263,9 @@ export function ReadingFollow() {
               ? `On this device, bundle ${data.bundleGeneratedAt}. Later server publications or withdrawals require an updated bundle.`
               : 'Reviewed editions stored on this server only.'}
           </p>
+          {data.calendarContext && (
+            <ReadingCalendarContext value={data.calendarContext} />
+          )}
           <section className="panel">
             <h2>What you follow</h2>
             <p>

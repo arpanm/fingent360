@@ -1,6 +1,6 @@
 # ECB-RATES-001 — official numerical policy-rate history
 
-- **Status:** Implemented; validation pending
+- **Status:** Completed implementation; validation pending
 - **Implemented / recorded:** - Implementation: Implemented for the selected three-series numerical family; user validation/live refresh pending. Parent: SRC008 initial onboarding implemented; broader analysis is separate and source acceptance remains user-run. Fixed official ECB DFR, fixed MRO and marginal lending rate change-date series, exact percent-per-annum decimals and reported effective dates. Bounded SDMX XML parsing, no arbitrary URL, raw evidence before immutable numerical editions, explicit current/future-effective separation, source rights/free-original attribution and no invented historical known-at timestamps. Migration040, operator refresh/review/publish/withdraw, shared named-mode independent approval, public current/history/evidence navigation and offline snapshot parity. Author representative explicitly synthetic syntax fixtures and actual isolated storage/rollback/replay/withdrawal cases; do not fetch live data as an ingestion run or claim newest values until user refreshes. Root integrates migration list and trackers.
 - **Pending:** User: run the task’s documented validation; implementation is not a test pass.
 - **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.

@@ -1,6 +1,6 @@
 # GOALS-001 — Create and manage goals
 
-- **Status:** Implemented; validation pending
+- **Status:** Completed implementation; validation pending
 - **Implemented / recorded:** - GOALS-001 (DEV-009): Persist authenticated account-owned repeatable financial goals, exact amounts, visible/versioned assumptions, CRUD UI and ownership/conflict tests. Prompt: deliver contracts → additive migration 005 → API → responsive Goals UI → API/browser cases and docs. No invented returns or investment recommendations. Implemented.
 - **Pending:** User: run the task’s documented validation; implementation is not a test pass.
 - **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.

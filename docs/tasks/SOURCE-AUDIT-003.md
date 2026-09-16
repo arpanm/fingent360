@@ -1,6 +1,6 @@
 # SOURCE-AUDIT-003 — Audit initial exchange source coverage
 
-- **Status:** Implemented; validation pending
+- **Status:** Completed implementation; validation pending
 - **Implemented / recorded:** - SOURCE-AUDIT-003 (SRC-001–003): Completed bounded source audit; OpenFIGI identity child is implemented; see IDENTITY-001. NSE EOD/corporate-action access and redistribution need explicit source rights. Parent researches primary free Indian-equity identity/EOD/corporate-action access and terms, records dated source evidence and precise blockers, then implements the next permitted complete source slice when evidence supports it. Public accessibility alone cannot approve ingestion/display. Ex
 - **Pending:** User: run the task’s documented validation; implementation is not a test pass.
 - **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.

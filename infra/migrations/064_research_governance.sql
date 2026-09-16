@@ -1,0 +1,9 @@
+CREATE TABLE research_governance_heads(id uuid PRIMARY KEY,head_version integer NOT NULL CHECK(head_version>0),published_version integer,state text NOT NULL CHECK(state IN ('draft','released','withdrawn')),reviewed_at timestamptz);
+CREATE TABLE research_governance_versions(id uuid NOT NULL REFERENCES research_governance_heads(id),version integer NOT NULL,request_id uuid NOT NULL UNIQUE,fingerprint text NOT NULL,actor_hash text NOT NULL,payload jsonb NOT NULL,PRIMARY KEY(id,version));
+CREATE TABLE research_governance_simulations(id uuid PRIMARY KEY,release_id uuid NOT NULL,version integer NOT NULL,payload jsonb NOT NULL,FOREIGN KEY(release_id,version) REFERENCES research_governance_versions(id,version));
+CREATE TABLE research_governance_reviews(request_id uuid PRIMARY KEY,release_id uuid NOT NULL,version integer NOT NULL,actor_hash text NOT NULL,decision text NOT NULL CHECK(decision IN ('release','withdraw')),reason text NOT NULL,simulation_id uuid REFERENCES research_governance_simulations(id),reviewed_at timestamptz NOT NULL DEFAULT clock_timestamp(),FOREIGN KEY(release_id,version) REFERENCES research_governance_versions(id,version));
+CREATE TRIGGER research_governance_versions_immutable BEFORE UPDATE OR DELETE ON research_governance_versions FOR EACH ROW EXECUTE FUNCTION prevent_discovery_revision_mutation();
+CREATE TRIGGER research_governance_simulations_immutable BEFORE UPDATE OR DELETE ON research_governance_simulations FOR EACH ROW EXECUTE FUNCTION prevent_discovery_revision_mutation();
+CREATE TRIGGER research_governance_reviews_immutable BEFORE UPDATE OR DELETE ON research_governance_reviews FOR EACH ROW EXECUTE FUNCTION prevent_discovery_revision_mutation();
+CREATE INDEX research_governance_simulation_version ON research_governance_simulations(release_id,version);
+CREATE INDEX research_governance_review_version ON research_governance_reviews(release_id,version);

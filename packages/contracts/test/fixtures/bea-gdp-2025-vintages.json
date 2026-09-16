@@ -1,0 +1,17 @@
+{
+  "description": "Minimal exact official headline anchors and independently encoded original release metadata. Later GDP vintages may supersede these historical estimates.",
+  "sources": [
+    {
+      "url": "https://www.bea.gov/news/2025/gross-domestic-product-2nd-quarter-2025-second-estimate-and-corporate-profits-preliminary",
+      "publishedAt": "2025-08-28T12:30:00.000Z",
+      "quote": "Real gross domestic product (GDP) increased at an annual rate of 3.3 percent in the second quarter of 2025"
+    },
+    {
+      "url": "https://www.bea.gov/news/2025/gross-domestic-product-2nd-quarter-2025-third-estimate-gdp-industry-corporate-profits",
+      "publishedAt": "2025-09-25T12:30:00.000Z",
+      "quote": "Real gross domestic product (GDP) increased at an annual rate of 3.8 percent in the second quarter of 2025"
+    }
+  ],
+  "expectedDeltaPercentagePoints": "0.5",
+  "comparison": "vintage-revision"
+}

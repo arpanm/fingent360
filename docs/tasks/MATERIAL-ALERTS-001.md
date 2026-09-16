@@ -1,6 +1,6 @@
 # MATERIAL-ALERTS-001 — explicit annual observation materiality
 
-- **Status:** Implemented; validation pending
+- **Status:** Completed implementation; validation pending
 - **Implemented / recorded:** - Implementation: Implemented; user validation pending. Parents: DEV011/018 retain calendar and broader pipeline gaps. Opt-in exact percentage-point threshold over followed actual stored World Bank GDP/CPI observations, explicit enable/edit/unmute baseline without backlog, max-two-indicator check batch, immutable comparison receipts and one versioned coalesced notice per indicator. Unchanged, nonmaterial, revised-same-year, null or stale source values never invent urgent/material notifications. Explain annual period versus retrieval date and unknown release calendar. Bind acknowledgement to exact notice version; support history, privacy export/deletion, mute/watchlist changes and local storage. Migration039, strict API/contracts/UI/cases/docs. No provider fetch, background test, forecast, email/push or investment action is implied.
 - **Pending:** User: run the task’s documented validation; implementation is not a test pass.
 - **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.

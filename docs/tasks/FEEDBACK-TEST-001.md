@@ -1,6 +1,6 @@
 # FEEDBACK-TEST-001 — Repeatable real feedback tests without shared quota exhaustion
 
-- **Status:** Implemented; validation pending
+- **Status:** Completed implementation; validation pending
 - **Implemented / recorded:** - Implementation: Complete. Connected feedback API/browser tests use a per-test temporary PostgreSQL schema and real API process with existing application code/migrations and unchanged production rate limits. Only feedback/operations browser requests are forwarded to that owned API; the actual running web/content remains. Fixtures are created only when a case runs, never during discovery; cleanup settles startup cancellation and independently closes the API/drops the exact owned schema/ends its pool. Real POST/receipt/attachment/review/deletion assertions remain. Receipt checks surface visible delivery failures; redundant cleanup DELETE requests no longer replace primary errors. Reports include temporary targets, and API193 expiry setup cannot fall back to the app database.
 - **Pending:** User: run the task’s documented validation; implementation is not a test pass.
 - **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.

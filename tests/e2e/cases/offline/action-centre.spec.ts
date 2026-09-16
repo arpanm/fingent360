@@ -1,3 +1,4 @@
+import { actionPlanInput } from '../../helpers/action-plan';
 import { test, expect } from '@playwright/test';
 import { randomUUID } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
@@ -237,4 +238,91 @@ test('E2E-OFFLINE-991 golden no-action fees liquidity concentration turnover dow
     calculateActionCentre({ ...input, quantity: '4' }, holdings, goal, at),
   ).toThrow(/exceeds/);
   expect(JSON.stringify({ goal, holdings })).toBe(original);
+});
+
+test('E2E-OFFLINE-1280 local buy and FIFO rebalance preserve exact positions and private replay without network @ACTION-CENTRE-001 @TEST-SIMULATION', async () => {
+  const { handleActionCentre } =
+    await import('../../../../apps/web/src/offline/action-centre');
+  const { goal, state, bundle } = await fixture(),
+    before = structuredClone(state.data.localHoldings),
+    originalFetch = globalThis.fetch;
+  globalThis.fetch = async () => {
+    throw Error('No network allowed.');
+  };
+  try {
+    for (const kind of ['rebalance', 'buy', 'sell-fifo'] as const) {
+      const request = {
+        path: '/api/v1/account/action-centre/' + randomUUID(),
+        method: 'PUT',
+        headers: new Headers(),
+        query: new URLSearchParams(),
+        body: actionPlanInput(goal.id, kind),
+      };
+      if (request.body.plan?.purchase)
+        request.body.plan.purchase.asOf = new Date(Date.now() - 9 * 86400000)
+          .toISOString()
+          .slice(0, 10);
+      const receipt = ActionCentreReceiptSchema.parse(
+        (await handleActionCentre(request, state, bundle))!.body,
+      );
+      expect(receipt.policy).toBe('proposed-trades-education-v2');
+      expect(receipt.result.proposal.afterCashMinor).toBe(
+        kind === 'rebalance' ? '59700' : kind === 'buy' ? '29700' : '69700',
+      );
+      expect(
+        (await handleActionCentre(request, structuredClone(state), bundle))!
+          .body,
+      ).toEqual(receipt);
+      if (kind === 'rebalance') {
+        const list = ActionCentreListSchema.parse(
+          (await handleActionCentre(
+            {
+              ...request,
+              path: '/api/v1/account/action-centre',
+              method: 'GET',
+            },
+            state,
+            bundle,
+          ))!.body,
+        );
+        expect(
+          list.assessments.find((item) => item.receipt.id === receipt.id)
+            ?.reviewReasons,
+        ).toContain('Purchase price is beyond the seven-day review window.');
+        expect(
+          list.assessments.find((item) => item.receipt.id === receipt.id)
+            ?.receipt,
+        ).toEqual(receipt);
+      }
+      expect(state.data.localHoldings).toEqual(before);
+      await handleActionCentre({ ...request, method: 'DELETE' }, state, bundle);
+    }
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test('E2E-OFFLINE-1283 local eligible tax policy reconstructs exact retained tax and cash @ACTION-CENTRE-001 @TEST-SIMULATION', async () => {
+  const { actionTaxProfile } = await import('../../helpers/action-plan');
+  const { handleActionCentre } =
+    await import('../../../../apps/web/src/offline/action-centre');
+  const { goal, state, bundle } = await fixture();
+  const input = actionPlanInput(goal.id);
+  input.costs.taxMinor = '0';
+  input.plan!.taxProfile = actionTaxProfile();
+  const receipt = ActionCentreReceiptSchema.parse(
+    (await handleActionCentre(
+      {
+        path: '/api/v1/account/action-centre/' + randomUUID(),
+        method: 'PUT',
+        headers: new Headers(),
+        query: new URLSearchParams(),
+        body: input,
+      },
+      state,
+      bundle,
+    ))!.body,
+  );
+  expect(receipt.result.plan?.tax?.taxMinor).toBe('2328');
+  expect(receipt.result.proposal.afterCashMinor).toBe('57572');
 });

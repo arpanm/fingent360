@@ -74,6 +74,8 @@ export function Goals() {
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
   const [busy, setBusy] = useState(false);
+  const actionPending = useRef(false);
+  const readEpoch = useRef(0);
   const [signedOut, setSignedOut] = useState(false);
   function failure(e: unknown) {
     if (e instanceof SignInRequired) {
@@ -93,10 +95,15 @@ export function Goals() {
     'Leave this page and discard your unsaved goal changes?',
   );
   const reload = async (active: () => boolean = () => true) => {
-    const result = SavedGoalsSchema.parse(await api());
-    if (!active()) return;
-    setGoals(result.goals);
-    setLoaded(true);
+    const epoch = ++readEpoch.current;
+    try {
+      const result = SavedGoalsSchema.parse(await api());
+      if (!active() || epoch !== readEpoch.current) return;
+      setGoals(result.goals);
+      setLoaded(true);
+    } catch (error) {
+      if (active() && epoch === readEpoch.current) throw error;
+    }
   };
   const openEditor = () => {
     setStep(0);
@@ -145,9 +152,13 @@ export function Goals() {
     });
     return () => {
       active = false;
+      readEpoch.current++;
     };
   }, []);
   async function action(work: () => Promise<void>) {
+    if (actionPending.current) return;
+    actionPending.current = true;
+    readEpoch.current++;
     setBusy(true);
     setError('');
     setMessage('');
@@ -156,6 +167,7 @@ export function Goals() {
     } catch (e) {
       failure(e);
     } finally {
+      actionPending.current = false;
       setBusy(false);
     }
   }
@@ -235,7 +247,9 @@ export function Goals() {
             Education, a home or a financial cushion: create a separate plan for
             each. You can have more than one goal of the same kind.
           </p>
-          <button onClick={openEditor}>Add your first goal</button>
+          <button disabled={busy} onClick={openEditor}>
+            Add your first goal
+          </button>
         </div>
       )}
       {showEditor && (
@@ -609,9 +623,7 @@ export function Goals() {
                     );
                     setHistory([]);
                     if (editing?.id === goal.id) {
-                      setEditing(null);
-                      setForm(empty);
-                      setConsent(false);
+                      closeEditor();
                     }
                     setMessage('Goal removed.');
                   });

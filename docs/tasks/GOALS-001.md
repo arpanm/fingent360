@@ -33,3 +33,11 @@ Read AGENTS.md, the task-maintenance guide and this task’s current summary. Wo
 - **Next action:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.
 - **Research/evidence:** See [dated source checks and existing answers](input-research-2026-09-15.md). Source-specific permissions, complete parser layouts and legal classification are not claimed resolved by triage.
 - **Completion boundary:** This updates readiness only, not test passes, live activation or full feature completion. On later pickup, refresh saved evidence and update this record plus the TODO row.
+
+## Functional closure review — 2026-09-16
+
+- **Specification:** Complete the existing saved-goal scope before starting another functional story. Review confirms real authenticated/versioned PostgreSQL CRUD, encrypted revisions, exact contribution arithmetic and the corresponding on-device implementation already exist. No new migration or contract is needed for the remaining UI lifecycle defect.
+- **Gap found:** Removing the goal currently being edited clears its fields but leaves the editor open at its previous wizard step. After confirmed removal, close that editor, clear its draft guard and restore focus; cancelling removal must preserve the draft. Removing a different goal must preserve the open draft. Prevent overlapping actions while a request is pending.
+- **Acceptance:** Author shared real-storage desktop/mobile/offline removal cases, preserving exact goal-list checks and original API conflict/ownership cases. No mocks for account or goal storage. Add required IDs to the acceptance matrix and opt this bounded story into closure only on actual full passing evidence. Keep physical-device release acceptance separate.
+- **Reusable prompt:** Finish GOALS-001's saved-goal CRUD and draft lifecycle using existing API/contracts/database and offline handlers. Fix only demonstrated gaps, author end-to-end regression coverage, update task/TODO/README and closure requirements. Do not execute deterministic commands; user-run SDLC owns validation and the gated commit.
+- **Current evidence:** ACCOUNT-001 passed user-run acceptance1789569346007-35322. GOALS-001 has no new passing run. Do not relabel authored goal fixes as verified.

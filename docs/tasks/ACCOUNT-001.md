@@ -1,9 +1,9 @@
 # ACCOUNT-001 — Authenticated accounts and real-data watchlists
 
-- **Status:** Completed implementation; validation pending
+- **Status:** Done (accepted scope)
 - **Implemented / recorded:** - Implementation: Implemented
-- **Pending:** Fresh key setup, API restart and story acceptance. User confirmed no existing private data. Save/reload recovery fixes and WEB034/OFFLINE034 are authored; no passing rerun claimed.
-- **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.
+- **Pending:** None for the reviewed acceptance scope; native release certification remains separate.
+- **Next action / inputs:** No further action for this accepted scope.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Implementation handoff rule
@@ -87,3 +87,10 @@ Read AGENTS.md, the task-maintenance guide and this task’s current summary. Wo
 - **Acceptance:** API030/031; browser030/033/034 on desktop/mobile; offline034. WEB034 commits through the real API and injects only downstream read outages, verifies one PUT, actual persisted choices, denied edits during unavailable reads and successful reload. Offline034 creates and persists a local account/watchlist with no API network traffic. The explicit matrix is docs/tasks/acceptance.json.
 - **Validation:** Authored only. Run `pnpm sdlc "Complete account workflow" --story ACCOUNT-001` after fresh key setup and API restart. For the packaged shared UI, `pnpm android:web` then `pnpm android:test --grep ACCOUNT-001`; SDLC affected mode also captures selected offline reports. Native APK installation is separate and is not certified by a browser test.
 - **Remaining:** Actual selected-run acceptance, then proceed to the next functional story. Do not mark this story fully Done from authored code or a checks-only run.
+
+<!-- sdlc-validation:start -->
+
+## Automated validation
+
+Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789569346007-35322.
+<!-- sdlc-validation:end -->

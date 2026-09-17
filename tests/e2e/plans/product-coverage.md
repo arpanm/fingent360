@@ -115,7 +115,7 @@ Prove reader→owned target→personal reason/consent→review→persist→reloa
 
 ## AUTH-WAIT-001 acceptance
 
-Prove that authentication before a blocking query cannot authorize private work after recovery/session expiry. Queue actual recovery ahead of account mutations/replays and private allocation reads; use observed owned-schema locks and assert401 plus unchanged financial/revision/report/receipt/budget digest. Cancel/retry must retain account→job ordering; expiry tests distinguish transaction start from database wall time. Recovered sessions still save normally. API300–309 and WEB300 desktop/mobile use actual APIs, no fabricated successful responses; all blockers/requests drain on failure. Existing local-mode serial execution has no PostgreSQL lock waiter. No schema or financial-model change.
+Prove that authentication before a blocking query cannot authorize private work after recovery/session expiry. Queue actual recovery ahead of account mutations/replays and private allocation reads; use observed owned-schema blocking relationships and assert401 plus unchanged financial/revision/report/receipt/budget digest. Recovery observation must accommodate bounded real pre-transaction password derivation without matching normalized SQL text; private-operation wait detection stays short and strict. API304 covers both allocation read and write branches. Cancel/retry must retain account→job ordering; expiry tests distinguish transaction start from database wall time. Recovered sessions still save normally. API300–309 and WEB300 desktop/mobile use actual APIs, no fabricated successful responses; all blockers/requests drain on failure. Existing local-mode serial execution has no PostgreSQL lock waiter. No schema or financial-model change.
 
 ## RETENTION-001 acceptance
 
@@ -363,6 +363,8 @@ These are scenario requirements, not executed tests. Link each case to TODO. Imp
 <a id="dev-016"></a>
 
 ## DEV-016 — Evidence, explanations and corrections
+
+- API1503/API1504 prerequisite regression: use real named event proposals; legacy review and self-approval remain403, denied approval leaves a pending stored receipt, independent approval binds the exact event/body/reviewer, and public admission exposes published revision2 before the unchanged analytical assertions. Shared fixture only; no UI/offline behavior change. Authored2026-09-17, user-run validation pending.
 
 - Task: [TODO DEV-016](../../../TODO.md#dev-016)
 - Prerequisites: DEV-003, DEV-005.

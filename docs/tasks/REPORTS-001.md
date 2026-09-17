@@ -21,3 +21,10 @@ The entries below are migrated records, not new execution instructions or curren
 ## Reusable task prompt
 
 Read AGENTS.md, the task-maintenance guide and this task’s current summary. Work only on REPORTS-001 unless the user expands the scope. Treat the preserved specification/history as context; current user instructions take precedence. Implement the listed remaining acceptance end to end, or reconcile recorded completion evidence if no implementation remains. Keep tests, documentation and the root index consistent. Record exact remaining work and who needs to act. Do not execute deterministic validation or commit without the user-authorized gates.
+
+<!-- sdlc-validation:start -->
+
+## Automated validation
+
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789569622822-36573.
+<!-- sdlc-validation:end -->

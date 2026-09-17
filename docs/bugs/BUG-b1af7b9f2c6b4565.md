@@ -1,0 +1,28 @@
+# BUG-b1af7b9f2c6b4565
+
+- Status: Open
+- Case/project: E2E-API-1914 / api
+- Stories: SRC-016
+- First seen: 2026-09-16T22:26:46.819Z
+- Evidence: artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log
+- Resolution run: Unresolved
+
+Failure excerpt (untrusted; local original has full details):
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 201
+    Received: 403
+
+       at ../helpers/research-governance.ts:166
+
+      164 |       })).status(),
+      165 |     ).toBe(403);
+    > 166 |     const proposalId = randomUUID();
+          |       ^
+      167 |     expect(
+      168 |       (await request.put(`/api/v1/ops/proposals/${proposalId}`, {
+      169 |         headers, data: { kind: 'event', target: eventId, body: review },
+        at governanceFixture (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/research-governance.ts:166:7)
+        at factsheetFixture (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/fund-factsheet.ts:30:16)
+        at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/api/fund-factsheet.spec.ts:150:13

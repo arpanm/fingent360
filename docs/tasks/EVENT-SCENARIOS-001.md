@@ -171,3 +171,10 @@ Manual next action: with existing PostgreSQL/MongoDB, API and web available, run
 See [specification, original source research, exact fixture provenance and handoff](../development/cpi-historical-nowcasts.md). The official Cleveland monthly chart archive retains the 2025-02-11 model estimate for January2025; the original BLS February12 release supplies the matching actual. Both use headline monthly seasonally adjusted nonannualized percent. Exact decimal error is stored with the existing reviewed public projection. This is a historical model-error golden, explicitly not market-consensus surprise or proof of prior app availability.
 
 The existing retained-original Mongo/edition-review-view PostgreSQL workflow now accepts an exact historical target month/day; source review reparses the same original selection. Shared web/app Operations supports the actual JSON file/fetch and independent review, reading shows acquisition/vintage limits, offline validates the same immutable selection. No new migration/dependency, no automatic source activation. Cases API1850–1851, WEB1850 and OFFLINE1850 authored; WEB1672 updated for the source-file label. No deterministic validation or commit executed. Local HEAD inspected `a2c53a0`; pre-existing concurrent work remains uncommitted for user-run gates.
+
+<!-- sdlc-validation:start -->
+
+## Automated validation
+
+Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789569622822-36573.
+<!-- sdlc-validation:end -->

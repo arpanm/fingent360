@@ -109,3 +109,10 @@ Optional explicit ISIN and exact published corporate-rating edition attachment t
 Optional exact credit reference and versioned policy are now saved inside existing encrypted bond receipts (079 storage reused, no127 migration). API re-admits selected editorial source under a review lock; common policy rejects missing/agency-withdrawn/expired-window evidence. Input settlement date is explicit historical assessment, not current rating claim. Existing immutable receipt replay/list/privacy export remains reconstructible after source withdrawal; fresh IDs cannot reuse withdrawn source. Shared form supports paginated source choices, retry, preview and saved provenance; offline handler uses the downloaded exact published version, preserving native local-storage protection and existing export/deletion. General cashflow/accrual method is not silently replaced by source coupon terms.
 
 Authored API1980 encrypted receipt/export/withdrawal/replay/deletion; API1981 agency withdrawal and stale assessment; WEB1980 real source selector/preview/save/reload; OFFLINE1980 downloaded admission/withdrawal/historical export/deletion. User inputs in these calculations are explicitly illustrative; ICRA original is genuine and attributed. No new dependencies/migration. Manual prerequisites: existing services, migration125 already applied; run `pnpm sdlc "Attach historical credit evidence to bond receipts" -- --grep "E2E-(API|WEB|OFFLINE)-198[01]"`; printed webURL `/#funds-bonds` → Bond & deposit comparison. Expected saved evidence contains exact edition/hash/ISIN and distinguishes user price from verified historical agency opinion; report runID/project/case/errorcontext. No gates/tests/commit executed; HEADa2c53a0 and shared working tree remain awaiting manual gates.
+
+<!-- sdlc-validation:start -->
+
+## Automated validation
+
+Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789569622822-36573.
+<!-- sdlc-validation:end -->

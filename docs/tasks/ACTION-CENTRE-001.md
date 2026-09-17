@@ -51,3 +51,10 @@ Tests to author cover exact buy funding, two-security rebalance and FIFO cost re
 Detailed implementation and scoped cases: [action-plan completion](../development/action-plan-completion.md). API1280–1282/WEB1280/OFFLINE1280 plus contract goldens are authored, not run.
 
 Current completion boundary: [supported policy, explicit exclusions and manual tests](../development/action-plan-completion.md). Earlier broad missing buy/rebalance/FIFO statements are superseded; no test pass or universal tax filing is claimed.
+
+<!-- sdlc-validation:start -->
+
+## Automated validation
+
+Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789569622822-36573.
+<!-- sdlc-validation:end -->

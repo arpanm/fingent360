@@ -48,6 +48,8 @@ type Pool = {
 export type OwnedAuthDatabase = Awaited<ReturnType<typeof openAuthDatabase>>;
 type AuthResponse = Pick<APIResponse, 'status' | 'json' | 'body'>;
 type BlockKind = 'account' | 'report' | 'preview' | 'goal' | 'advisory';
+const PRIVATE_WAIT_TIMEOUT_MS = 2500;
+const RECOVERY_WAIT_TIMEOUT_MS = 8000;
 
 // Resolve pnpm's API dependency only when a test runs; discovery opens no database.
 export async function openAuthDatabase(sandbox: FeedbackSandbox) {
@@ -142,16 +144,13 @@ export async function openAuthDatabase(sandbox: FeedbackSandbox) {
             const result = await query(
               `SELECT a.pid FROM pg_stat_activity a WHERE a.datname=current_database()
            AND a.wait_event_type='Lock' AND pg_blocking_pids(a.pid) && $1::integer[]
-           AND a.query LIKE $2 ORDER BY a.query_start LIMIT 1`,
-              [
-                blockers,
-                reset
-                  ? 'SELECT * FROM app_users WHERE username_lookup=$2 OR username=$1 FOR UPDATE%'
-                  : 'SELECT%',
-              ],
+           ORDER BY a.query_start LIMIT 4`,
+              [blockers],
             );
-            // In non-reset waits exclude the observed reset PID at the caller by
-            // passing it as a blocker, rather than its own upstream blocker alone.
+            // The reset is the only request started before its first observation.
+            // For the later private wait, exclude that observed reset PID while
+            // retaining the owned blocking relationship. Do not bind this race to
+            // pg_stat_activity's normalized rendering of application SQL.
             pid = Number(
               result.rows.find((row) => !blockers.includes(Number(row.pid)))
                 ?.pid ?? 0,
@@ -159,7 +158,10 @@ export async function openAuthDatabase(sandbox: FeedbackSandbox) {
             return pid;
           },
           {
-            timeout: 2500,
+            // Recovery derives the replacement password before opening the row-
+            // locking transaction. Keep the private-operation deadline strict,
+            // but allow that real cryptographic admission work to finish first.
+            timeout: reset ? RECOVERY_WAIT_TIMEOUT_MS : PRIVATE_WAIT_TIMEOUT_MS,
             intervals: [20, 40, 80],
             message: reset
               ? 'Actual recovery reset must be waiting on the owned account row.'

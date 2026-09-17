@@ -279,35 +279,42 @@ test('E2E-API-304 allocation reads and writes reject recovery-revoked account wa
   authDb,
 }) => {
   for (const action of ['read', 'save'] as const) {
-    const owner = await registerRecoverable(request);
-    const records = await financialRecords(request);
-    const operation = () =>
-      request.fetch('/api/v1/account/allocations', {
-        method: action === 'read' ? 'GET' : 'PUT',
-        headers: authHeaders,
-        ...(action === 'save'
-          ? {
-              data: {
-                ...records.allocationInput,
-                expectedVersion: 1,
-                rows: [],
-              },
-            }
-          : {}),
-        timeout: 10000,
+    await test.step(`recovery-revoked allocation ${action}`, async () => {
+      const owner = await registerRecoverable(request);
+      const records = await financialRecords(request);
+      const operation = () =>
+        request.fetch('/api/v1/account/allocations', {
+          method: action === 'read' ? 'GET' : 'PUT',
+          headers: authHeaders,
+          ...(action === 'save'
+            ? {
+                data: {
+                  ...records.allocationInput,
+                  expectedVersion: 1,
+                  rows: [],
+                },
+              }
+            : {}),
+          timeout: 10000,
+        });
+      const before = await authDb.privateDigest(owner.id);
+      await resetAheadOfOperation({
+        db: authDb,
+        owner,
+        resetRequest,
+        operation,
       });
-    const before = await authDb.privateDigest(owner.id);
-    await resetAheadOfOperation({ db: authDb, owner, resetRequest, operation });
-    expect(await authDb.privateDigest(owner.id)).toBe(before);
-    await signInRecovered(request, owner.username);
-    const response = await operation();
-    expect(response.status()).toBe(200);
-    const result = AllocationStateSchema.parse(await response.json());
-    expect(result.snapshot.version).toBe(action === 'read' ? 1 : 2);
-    if (action === 'read') {
-      expect(result).toEqual(records.allocations);
       expect(await authDb.privateDigest(owner.id)).toBe(before);
-    } else expect(result.snapshot.rows).toEqual([]);
+      await signInRecovered(request, owner.username);
+      const response = await operation();
+      expect(response.status()).toBe(200);
+      const result = AllocationStateSchema.parse(await response.json());
+      expect(result.snapshot.version).toBe(action === 'read' ? 1 : 2);
+      if (action === 'read') {
+        expect(result).toEqual(records.allocations);
+        expect(await authDb.privateDigest(owner.id)).toBe(before);
+      } else expect(result.snapshot.rows).toEqual([]);
+    });
   }
 });
 

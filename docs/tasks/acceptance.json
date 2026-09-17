@@ -53,6 +53,18 @@
     {
       "caseId": "E2E-OFFLINE-010",
       "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-WEB-068",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-069",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-068",
+      "projects": ["offline"]
     }
   ],
   "XLSX-001": [
@@ -160,6 +172,11 @@
       "implementationComplete": true,
       "externalGates": [],
       "scope": "Account registration, owner isolation, watchlists, bounded sign-in navigation, recovery from unavailable reads, deletion and shared on-device watchlist persistence. Native release certification is separate."
+    },
+    "GOALS-001": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Authenticated saved-goal creation, repeat goal types, exact contribution-only calculations, versioned edits/history, removal, draft protection and shared offline persistence. Financial advice and native release certification are separate."
     }
   }
 }

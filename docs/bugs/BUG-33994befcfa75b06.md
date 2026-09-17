@@ -1,0 +1,36 @@
+# BUG-33994befcfa75b06
+
+- Status: Open
+- Case/project: E2E-WEB-1690 / desktop
+- Stories: DEV-029
+- First seen: 2026-09-16T22:26:46.819Z
+- Evidence: artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log
+- Resolution run: Unresolved
+
+Failure excerpt (untrusted; local original has full details):
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: getByRole('region', { name: 'Recurring WhatsApp summaries' })
+    Expected substring: "Not saved"
+    Received string:    "Your recurring public summariesOne daily or weekly digest, up to three separate public-summary messages. Missed runs over ten minutes are skipped; nothing catches up later. No private reports or portfolio data are included. At most three scheduled summaries in 24 hours, separate from single-summary requests.Please sign in to continue.Refresh recurring schedule"
+    Timeout: 10000ms
+
+    Call log:
+      - Expect "toContainText" with timeout 10000ms
+      - waiting for getByRole('region', { name: 'Recurring WhatsApp summaries' })
+        - locator resolved to <section class="panel" aria-busy="true" aria-label="Recurring WhatsApp summaries">…</section>
+        - unexpected value "Your recurring public summariesOne daily or weekly digest, up to three separate public-summary messages. Missed runs over ten minutes are skipped; nothing catches up later. No private reports or portfolio data are included. At most three scheduled summaries in 24 hours, separate from single-summary requests.Updating schedule…Refresh recurring schedule"
+        13 × locator resolved to <section class="panel" aria-busy="false" aria-label="Recurring WhatsApp summaries">…</section>
+           - unexpected value "Your recurring public summariesOne daily or weekly digest, up to three separate public-summary messages. Missed runs over ten minutes are skipped; nothing catches up later. No private reports or portfolio data are included. At most three scheduled summaries in 24 hours, separate from single-summary requests.Please sign in to continue.Refresh recurring schedule"
+
+
+      25 |     name: 'Recurring WhatsApp summaries',
+      26 |   });
+    > 27 |   await expect(panel).toContainText('Not saved');
+         |                       ^
+      28 |   await panel
+      29 |     .getByRole('checkbox', { name: 'Learning glossary', exact: true })
+      30 |     .check();
+        at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/whatsapp-schedule.spec.ts:27:23
+    Test timeout of 30000ms exceeded.

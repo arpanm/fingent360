@@ -1,0 +1,24 @@
+# BUG-e54cceeeffdc096d
+
+- Status: Open
+- Case/project: E2E-WEB-960 / desktop
+- Stories: IMPACT-TRACE-001
+- First seen: 2026-09-16T22:26:46.819Z
+- Evidence: artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log
+- Resolution run: Unresolved
+
+Failure excerpt (untrusted; local original has full details):
+
+    TimeoutError: locator.selectOption: Timeout 10000ms exceeded.
+    Call log:
+      - waiting for getByRole('region', { name: 'Impact traces', exact: true }).getByLabel('Reviewed event', { exact: true })
+
+
+      24 |   await panel
+      25 |     .getByLabel('Reviewed event', { exact: true })
+    > 26 |     .selectOption(event.id);
+         |      ^
+      27 |   await panel
+      28 |     .getByLabel('Reviewed sector', { exact: true })
+      29 |     .selectOption('Synthetic sector context');
+        at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/impact-trace.spec.ts:26:6

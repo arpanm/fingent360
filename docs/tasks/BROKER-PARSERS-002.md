@@ -61,3 +61,10 @@ Manual documentation acceptance: task distinguishes Console XLSX from Kite API J
 | ICICI Direct | [Portfolio download help](https://www.icicidirect.com/faqs/stocks/how-can-i-download-a-summary-of-my-portfolio-on-website)                  | Both old/new website instructions use Stocks → Portfolio → Download and a format choice.                | Exported headers, format/version, position-versus-demat scope, price/cost basis and source reconciliation total. API/Breeze sample JSON and mutual-fund capital-gains CSV describe different inputs. |
 
 Targeted public official-site searches for holdings statement samples/XLSX did not identify an actual downloadable schema fixture for these three. Search absence is bounded to this review, not proof none exists anywhere. Therefore all five still need a sanitized layout or primary published schema before named automatic file parsing. General mapping and exact user-attested costs remain the truthful route meanwhile. No provider account, message, private download or paid service was accessed. No follow-up input answer is assumed; coordinating agent has queued the first concrete Zerodha availability question.
+
+<!-- sdlc-validation:start -->
+
+## Automated validation
+
+Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789569622822-36573.
+<!-- sdlc-validation:end -->

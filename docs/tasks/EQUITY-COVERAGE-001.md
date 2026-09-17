@@ -101,3 +101,10 @@ Remaining parent scope: automatic action acquisition, broader action grammars/co
 ### Expanded financial statements — 2026-09-15
 
 NSE rendered IndAS parser v2 now authors reported balance-sheet and indirect cash-flow totals with exact aggregate equations, original unit/period/basis, named independent review, retained-original reparse, web/app reader and offline reconstruction. See [SRC-005](SRC-005.md) for full scope,1510–1511 cases and manual next actions. This removes the balance-sheet/cash-flow-total authoring gap only; broad source coverage and real 25-company validation are not declared complete. No deterministic execution or commit.
+
+<!-- sdlc-validation:start -->
+
+## Automated validation
+
+Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789569622822-36573.
+<!-- sdlc-validation:end -->

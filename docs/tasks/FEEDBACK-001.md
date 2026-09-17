@@ -44,3 +44,10 @@ Read AGENTS.md, the task-maintenance guide and this task’s current summary. Wo
 ## iOS parity — 2026-09-15
 
 Native iOS feedback implementation and exact boundaries: [iOS feedback](../development/ios-feedback.md). API1610/WEB1610–1612 and physicalIOS1612–1619 authored; no executed/device proof. Keychain-protected encryption, current-main-frame admission, masked snapshot, explicit AAC permission/stop/cancel, exact enabled destination, offline receipts and foreground retry reuse the existing feedback workflow. No background/push or silent cross-origin queue migration.
+
+<!-- sdlc-validation:start -->
+
+## Automated validation
+
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789569622822-36573.
+<!-- sdlc-validation:end -->

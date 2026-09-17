@@ -48,3 +48,10 @@ The public Sources screen presents `/discovery/catalog` counts under a general c
 Authored outcome: `Sources.tsx` now links directly to the existing specialist collections and labels `/discovery/catalog` counts as published news/explanations, not total data coverage. Links cover equity evidence; AMFI/fund disclosures/CCIL; commodities; regulatory originals; India/global macro; GDP/CPI expectations and calendars; and reviewed scenarios. The directory stays available if feed-catalog loading fails. Existing destination APIs determine actual status and rights; no public activation flag, count or Operations permission record was fabricated. The generic source approval registry remains separate and unchanged. No backend/API/storage schema change is needed for this navigation-only correction; existing actual reader API coverage remains authoritative.
 
 WEB1760 follows actual links into real reader components including GDP comparisons. WEB1761 simulates only the feed-catalog503 and follows the independent commodity route. Both use the shared web interface used by Android/iOS. Physical offline acceptance: rebuild/package manually with a downloaded bundle, disable network, open Sources and the fund/regulatory/commodity readers, confirm dated downloaded data or their explicit unavailable state, then reconnect and use destination refresh. This is an authored manual scenario, not an executed offline pass. No new dependency/migration/service requirement. Use the running app URL at `#sources`; user-run command: `pnpm sdlc "Clarify specialist source reader coverage" --grep 'E2E-WEB-176[01]'`. Report saved run ID, project and failing assertion. No deterministic checks/tests/builds/services/commit ran; HEAD remains `a2c53a0` and shared changes await manual gates.
+
+<!-- sdlc-validation:start -->
+
+## Automated validation
+
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789569622822-36573.
+<!-- sdlc-validation:end -->

@@ -9,3 +9,10 @@
 ## Specification
 
 Keep successful public response unchanged and mandatory saved-view capture intact. On non-HTTP transaction failure, rollback and return a generic503 with an incident reference and fixed non-sensitive category/phase fields for the test handoff. Log only fixed operation/phase, sanitized SQLSTATE/category and that reference; never raw messages, SQL, URLs, parameters, account data or source content. Add missing-relation fault/recovery case in an isolated fixture and sanitizer unit assertions. No migration or UI layout required; existing reader error/retry path handles503. Underlying external/local failure remains unresolved until actual evidence is available.
+
+<!-- sdlc-validation:start -->
+
+## Automated validation
+
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789569622822-36573.
+<!-- sdlc-validation:end -->

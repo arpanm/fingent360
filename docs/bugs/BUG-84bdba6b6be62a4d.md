@@ -1,0 +1,24 @@
+# BUG-84bdba6b6be62a4d
+
+- Status: Open
+- Case/project: E2E-WEB-990 / desktop
+- Stories: ACTION-CENTRE-001
+- First seen: 2026-09-16T22:26:46.819Z
+- Evidence: artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log
+- Resolution run: Unresolved
+
+Failure excerpt (untrusted; local original has full details):
+
+    TimeoutError: locator.selectOption: Timeout 10000ms exceeded.
+    Call log:
+      - waiting for getByRole('region', { name: 'Educational action centre', exact: true }).getByLabel('Saved holding', { exact: true })
+
+
+      21 |   await panel
+      22 |     .getByLabel('Saved holding', { exact: true })
+    > 23 |     .selectOption('INE002A01018');
+         |      ^
+      24 |   await panel
+      25 |     .getByLabel('Saved goal', { exact: true })
+      26 |     .selectOption({ label: 'Synthetic research goal' });
+        at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/action-centre.spec.ts:23:6

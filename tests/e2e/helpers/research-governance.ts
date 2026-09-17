@@ -8,6 +8,7 @@ import {
   EventPublicSchema,
   ResearchGovernanceRevisionSchema,
   ResearchSimulationSchema,
+  PublicationProposalSchema,
 } from '../../../packages/contracts/src/index';
 import {
   connectionDatabase,
@@ -151,22 +152,68 @@ export async function governanceFixture(
         })
       ).status(),
     ).toBe(200);
+    const review = {
+      requestId: randomUUID(),
+      expectedVersion: 1,
+      status: 'published',
+      note: 'Separate named review of isolated synthetic interpretation.',
+    };
     expect(
       (
         await reviewer.post(`/api/v1/ops/events/${eventId}/review`, {
           headers,
-          data: {
-            requestId: randomUUID(),
-            expectedVersion: 1,
-            status: 'published',
-            note: 'Separate named review of isolated synthetic interpretation.',
-          },
+          data: review,
         })
       ).status(),
-    ).toBe(201);
-    const admittedEvent = EventPublicSchema.parse(
-      await (await request.get('/api/v1/events/' + eventId)).json(),
+    ).toBe(403);
+    const proposalId = randomUUID();
+    expect(
+      (
+        await request.put(`/api/v1/ops/proposals/${proposalId}`, {
+          headers,
+          data: { kind: 'event', target: eventId, body: review },
+        })
+      ).status(),
+    ).toBe(200);
+    expect(
+      (
+        await request.post(`/api/v1/ops/proposals/${proposalId}/approve`, {
+          headers,
+          data: { note: 'Same identity must not approve its proposal.' },
+        })
+      ).status(),
+    ).toBe(403);
+    const pendingResponse = await request.get(
+      `/api/v1/ops/proposals/${proposalId}`,
     );
+    expect(pendingResponse.status()).toBe(200);
+    const pending = PublicationProposalSchema.parse(
+      await pendingResponse.json(),
+    );
+    expect(pending.state).toBe('pending');
+    expect(pending.reviewer).toBeNull();
+    const approved = await reviewer.post(
+      `/api/v1/ops/proposals/${proposalId}/approve`,
+      { headers, data: { note: review.note } },
+    );
+    expect(approved.status()).toBe(201);
+    const receipt = PublicationProposalSchema.parse(await approved.json());
+    expect(receipt.id).toBe(proposalId);
+    expect(receipt.state).toBe('approved');
+    expect(receipt.input).toEqual({
+      kind: 'event',
+      target: eventId,
+      body: review,
+    });
+    expect(receipt.proposer.id).toBe(pending.proposer.id);
+    expect(receipt.reviewer?.id).not.toBe(receipt.proposer.id);
+    expect(receipt.reviewer?.username).toBe(username);
+    const publicResponse = await request.get('/api/v1/events/' + eventId);
+    expect(publicResponse.status()).toBe(200);
+    const admittedEvent = EventPublicSchema.parse(await publicResponse.json());
+    expect(admittedEvent.id).toBe(eventId);
+    expect(admittedEvent.status).toBe('published');
+    expect(admittedEvent.event?.version).toBe(2);
     const id = randomUUID(),
       input = {
         requestId: randomUUID(),

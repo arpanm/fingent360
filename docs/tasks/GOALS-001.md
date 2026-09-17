@@ -1,9 +1,9 @@
 # GOALS-001 — Create and manage goals
 
-- **Status:** Completed implementation; validation pending
+- **Status:** Implementation complete; validation pending
 - **Implemented / recorded:** - GOALS-001 (DEV-009): Persist authenticated account-owned repeatable financial goals, exact amounts, visible/versioned assumptions, CRUD UI and ownership/conflict tests. Prompt: deliver contracts → additive migration 005 → API → responsive Goals UI → API/browser cases and docs. No invented returns or investment recommendations. Implemented.
-- **Pending:** User: run the task’s documented validation; implementation is not a test pass.
-- **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.
+- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
+- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Implementation handoff rule
@@ -41,3 +41,14 @@ Read AGENTS.md, the task-maintenance guide and this task’s current summary. Wo
 - **Acceptance:** Author shared real-storage desktop/mobile/offline removal cases, preserving exact goal-list checks and original API conflict/ownership cases. No mocks for account or goal storage. Add required IDs to the acceptance matrix and opt this bounded story into closure only on actual full passing evidence. Keep physical-device release acceptance separate.
 - **Reusable prompt:** Finish GOALS-001's saved-goal CRUD and draft lifecycle using existing API/contracts/database and offline handlers. Fix only demonstrated gaps, author end-to-end regression coverage, update task/TODO/README and closure requirements. Do not execute deterministic commands; user-run SDLC owns validation and the gated commit.
 - **Current evidence:** ACCOUNT-001 passed user-run acceptance1789569346007-35322. GOALS-001 has no new passing run. Do not relabel authored goal fixes as verified.
+
+- **Authored fix:** Confirmed deletion calls the common editor-close path only when it removes the currently edited goal. Cancelling deletion and removing another goal preserve that draft. A synchronous action guard prevents overlapping submissions, and read generations prevent an earlier list response or error from overwriting a later reload/write. Existing encrypted server rows and on-device storage are reused.
+- **New cases:** WEB068 (desktop/mobile) and OFFLINE068 verify cancellation, other-goal removal, deletion from review, keyboard focus, draft-guard cleanup and durable empty list with actual storage. WEB069 delays a real old server response until after actual deletion and ensures it cannot restore the removed goal. Existing API060/061, WEB060/062/066/067 and OFFLINE010 remain required.
+- **Scope review:** This bounded saved-goal story has no remaining implementation/input gate. Its full current matrix and check gate must pass before automatic Done; broader forecasting, investment advice and native release acceptance are separate tasks.
+
+<!-- sdlc-validation:start -->
+
+## Automated validation
+
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789569622822-36573.
+<!-- sdlc-validation:end -->

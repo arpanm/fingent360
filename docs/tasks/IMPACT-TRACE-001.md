@@ -79,3 +79,10 @@ The user’s original IMPACT-TRACE request is actual evidence → economic facto
 The supported original trace is authored: actual retained source/version admission and named independent context release (1330), verified fixed issuer fuel-cost source and exact educational proof (DEV010/1470–1471), six-step owned holding/goal receipt and no-growth comparator with retained uncertainties/conflicts/stale checks, versioned seven-family qualitative mechanism and reconstructed outcomes (1700–1702), downloaded source re-admission and private receipt lifecycle.1860–1866 extend actual API source-family release/withdrawal bindings; they explicitly use simulated source admission and do not claim provider pipeline validation or historical causal identification. Contracts/API/shared `ImpactTrace`/offline implementation evidence is recorded above and in DEV010. Physical, operational and test acceptance remain unexecuted; completed implementation does not claim a live qualified investment model.
 
 Optional future work is separate: broader per-edge strength/confidence modeling, identified numerical causal sensitivities, calibrated forecasts and their representative out-of-sample validation. Existing descriptive OLS diagnostics retain exact source inputs and limitations; they are not promoted to forecasting. Original educational trace completion therefore does not authorize recommendations or trade execution. No code was changed in this reconciliation, no gates or commit ran. User manual commands and prerequisite services are in the1330/1470/1700 handoffs above; add `pnpm sdlc "Cover reviewed transmission families" --grep 'E2E-API-186[0-6]'` for the new authored coverage. Report failed case/project and saved run evidence. Local HEAD remains `a2c53a0`; shared changes await user gates.
+
+<!-- sdlc-validation:start -->
+
+## Automated validation
+
+Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789569622822-36573.
+<!-- sdlc-validation:end -->

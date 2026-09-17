@@ -135,3 +135,10 @@ The initial request is scheduled evidence research, verified release calendars a
 All initial implementation rows are authored. No new dependency/migration/code was added in this reconciliation. Broader RBI releases, additional numerical series, full retrospective archive discovery and all historical source layouts remain explicitly unclaimed expansion. RBI caching/display/offline permission, approved publication policies and worker flags are actual activation gates. The original historical source date never establishes prior app possession; current interactive values never replace original releases.
 
 Manual document acceptance: follow each matrix implementation/case reference, verify no source activation/test pass is implied, and confirm old preserved Partial paragraphs are historical snapshots superseded by this current top. For new runtime validation, use the relevant documented source-specific command rather than rerunning every suite. Minimal existing worker/control sample: `pnpm sdlc "Validate research scheduling" -- --grep "E2E-API-(1050|1056|1057)"`. Existing configured PostgreSQL/MongoDB/API required; Operations automatic research on the printed dev URL shows schedules/run outcomes and explicit publication gates. Report case/project, saved run path and response/assertion evidence. No tests, gates, migrations, services, worker activation or commit were run; local HEAD `a2c53a0` and unrelated concurrent authoring remain preserved.
+
+<!-- sdlc-validation:start -->
+
+## Automated validation
+
+Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789569622822-36573.
+<!-- sdlc-validation:end -->

@@ -20,7 +20,7 @@ Completed implementation now includes DEV-006 public briefs, DEV-010 educational
 
 ## Functional closure order — 2026-09-16
 
-Current story: ACCOUNT-001. User confirmed fresh installation; key setup/restart and explicit story acceptance remain. Save/reload recovery fixes and connected/offline cases are authored. Use user-run SDLC --story ACCOUNT-001, not a documentation-only affected selection. Next bounded stories after account acceptance: GOALS-001, XLSX-001, WORKER-HEALTH-001, then the remaining started functional stories. Do not start new scope or call authored work verified; close unresolved bugs from docs/bugs and maintain each acceptance matrix.
+ACCOUNT-001 passed its full user-run acceptance1789569346007-35322 and is Done for the accepted scope. Current story: GOALS-001. Removal/draft cleanup and stale-list recovery fixes, WEB068/069 and OFFLINE068 are authored; use SDLC --story GOALS-001 for acceptance. Next bounded stories after goal acceptance: XLSX-001, WORKER-HEALTH-001, then the remaining started functional stories. Do not start new scope or call authored work verified; close unresolved bugs from docs/bugs and maintain each acceptance matrix.
 
 ## Pickup order
 

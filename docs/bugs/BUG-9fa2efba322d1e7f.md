@@ -1,11 +1,11 @@
 # BUG-9fa2efba322d1e7f
 
-- Status: Open
+- Status: Resolved
 - Case/project: E2E-WEB-930 / mobile
 - Stories: BROKER-PARSERS-002
 - First seen: 2026-09-16T22:26:46.819Z
 - Evidence: artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log
-- Resolution run: Unresolved
+- Resolution run: 1789668919723-57996
 
 Failure excerpt (untrusted; local original has full details):
 

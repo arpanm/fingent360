@@ -8,6 +8,12 @@
 
 See [current delivery summary](current-delivery.md) for the batch-wide distinction between code, missing functionality and validation.
 
+## Trace selection and recovery specification — 2026-09-17
+
+The saved WEB960 failure stops at an exact event label because option text participates in implicit label lookup. Give each of the five selectors a stable accessible name. While reviewing evidence, disable the educational-pack/context inputs as well as the main fieldset so the returned preview cannot describe a different selection. Starting a new review removes the previous preview/consent; failed evidence loads expose retry without an old saveable receipt. Pagination clears the old causal-context ID. Focus the completed review heading for keyboard users. Reuse the unchanged validated API, exact-money contracts, encrypted receipt storage and offline handlers; no new dependency or migration.
+
+Author WEB961 against real isolated event/account/holding/goal data with only one explicitly simulated evidence-read503. Assert busy controls, failure without preview, successful retry, changed-selection invalidation and fresh consent. Existing API960/961, WEB960, released-context1330 and OFFLINE960 retain storage, reconstruction, isolation, source withdrawal and deletion coverage. No deterministic validation by the agent.
+
 ## Implementation handoff rule
 
 After each change, update the summary above and the matching [TODO row](../../TODO.md). Keep prompts, detailed scope, remaining work, verification evidence and handoff commands in this file. Follow [task maintenance](README.md); a parent stays partial while a child requirement is missing.
@@ -84,5 +90,5 @@ Optional future work is separate: broader per-edge strength/confidence modeling,
 
 ## Automated validation
 
-Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789667338688-55776.
+Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789668919723-57996.
 <!-- sdlc-validation:end -->

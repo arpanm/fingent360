@@ -114,5 +114,5 @@ Authored API1980 encrypted receipt/export/withdrawal/replay/deletion; API1981 ag
 
 ## Automated validation
 
-Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789667338688-55776.
+Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789668919723-57996.
 <!-- sdlc-validation:end -->

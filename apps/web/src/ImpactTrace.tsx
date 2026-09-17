@@ -171,6 +171,10 @@ export function ImpactTrace() {
   const [preview, setPreview] = useState<ImpactTraceReceipt | null>(null);
   const pending = useRef<{ id: string; input: ImpactTraceInput } | null>(null);
   const alive = useRef(true);
+  const reviewHeading = useRef<HTMLHeadingElement>(null);
+  useEffect(() => {
+    if (preview) reviewHeading.current?.focus();
+  }, [preview]);
   const failure = (error: unknown, fallback: string) => {
     if (error instanceof SignedOut) {
       setChoices(null);
@@ -214,6 +218,8 @@ export function ImpactTrace() {
   };
   const review = async () => {
     if (!choices || !selected || !event) return;
+    clear();
+    setError('');
     setBusy(true);
     try {
       const response = await fetch('/api/v1/equities/' + isin, {
@@ -328,6 +334,7 @@ export function ImpactTrace() {
           <label>
             <input
               type="checkbox"
+              disabled={busy}
               checked={oilWalkthrough}
               onChange={(e) => {
                 setOilWalkthrough(e.target.checked);
@@ -350,6 +357,8 @@ export function ImpactTrace() {
           <label>
             Independently released causal context
             <select
+              aria-label="Independently released causal context"
+              disabled={busy}
               value={contextId}
               onChange={(e) => {
                 setContextId(e.target.value);
@@ -414,6 +423,7 @@ export function ImpactTrace() {
             <label>
               Reviewed event
               <select
+                aria-label="Reviewed event"
                 value={eventId}
                 onChange={(e) => {
                   setEventId(e.target.value);
@@ -440,6 +450,7 @@ export function ImpactTrace() {
                       const next = ImpactTraceChoicesSchema.parse(value);
                       setChoices(next);
                       setEventId('');
+                      setContextId('');
                       setSector('');
                       setIsin('');
                       clear();
@@ -456,6 +467,7 @@ export function ImpactTrace() {
             <label>
               Reviewed sector
               <select
+                aria-label="Reviewed sector"
                 value={sector}
                 onChange={(e) => {
                   setSector(e.target.value);
@@ -478,6 +490,7 @@ export function ImpactTrace() {
             <label>
               Company in your holdings
               <select
+                aria-label="Company in your holdings"
                 value={isin}
                 onChange={(e) => {
                   setIsin(e.target.value);
@@ -505,6 +518,7 @@ export function ImpactTrace() {
             <label>
               Your goal
               <select
+                aria-label="Your goal"
                 value={goalId}
                 onChange={(e) => {
                   setGoalId(e.target.value);
@@ -530,11 +544,14 @@ export function ImpactTrace() {
       )}
       {preview && (
         <section aria-label="Impact trace review">
-          <h2>Review before saving</h2>
+          <h2 ref={reviewHeading} tabIndex={-1}>
+            Review before saving
+          </h2>
           <Receipt value={preview} />
           <label>
             <input
               type="checkbox"
+              disabled={busy}
               checked={consent}
               onChange={(e) => setConsent(e.target.checked)}
             />
@@ -546,7 +563,7 @@ export function ImpactTrace() {
         </section>
       )}
       <h2>Saved traces</h2>
-      {!saved.length && <p>No saved traces yet.</p>}
+      {!busy && !saved.length && <p>No saved traces yet.</p>}
       {saved.map(({ receipt, reviewReasons }) => (
         <article key={receipt.id}>
           <h3>

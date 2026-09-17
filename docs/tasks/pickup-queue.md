@@ -20,7 +20,7 @@ Completed implementation now includes DEV-006 public briefs, DEV-010 educational
 
 ## Functional closure order — 2026-09-16
 
-ACCOUNT-001 passed its full user-run acceptance1789569346007-35322 and is Done for the accepted scope. Current story: GOALS-001. Removal/draft cleanup and stale-list recovery fixes, WEB068/069 and OFFLINE068 are authored; use SDLC --story GOALS-001 for acceptance. Next bounded stories after goal acceptance: XLSX-001, WORKER-HEALTH-001, then the remaining started functional stories. Do not start new scope or call authored work verified; close unresolved bugs from docs/bugs and maintain each acceptance matrix.
+ACCOUNT-001 has recorded accepted scope in run1789569346007-35322; later global changes make its current validation stale. GOALS-001 now passed the user-run story acceptance and is Done for accepted scope (commit846e990). Current repairs focus on source publication/browser actor prerequisites and broker/action comparison controls from saved failures. Validate only the selected catalogue cases; do not restart completed goals or add more SDLC tooling.
 
 ## Pickup order
 

@@ -9,6 +9,7 @@ import {
   adjustmentActors,
   adjustmentInput,
 } from '../../helpers/equity-adjustments';
+test.use({ namedOperators: true, manualWorkers: true });
 test('E2E-WEB-1594 company news form retains two source proofs then independent reviewer publishes and withdraws @SRC-012 @UX-002G @TEST-SIMULATION', async ({
   page,
   request,

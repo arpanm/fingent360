@@ -772,3 +772,33 @@ Official filing RSS discovery: API2000–2003, WEB2000 and OFFLINE2000 author or
 SDLC-REPAIR-012 extends E2E-API-1600 (`@DEV-029`, `@TEST-SIMULATION`, API) with a plaintext WhatsApp verification handshake and wrong-token rejection using the existing synthetic fixture. Existing signed webhook, encryption and STOP paths remain covered. Authored; execution pending.
 
 SDLC-REPAIR-013 extends E2E-WEB-1290 (desktop/mobile, @DEV-015) with initial and reset null-selection assertions: the governance form stays visible, the event is empty and draft saving stays disabled. Existing real API fixture, simulation, independent release, persistence and withdrawal assertions remain. Web typechecking covers optional request/prop boundaries and brief ID state; API behavior and fixtures are unchanged. Authored only; validation pending.
+
+## Functional acceptance repairs — 2026-09-17
+
+Authored from saved failures, not executed:
+
+- Source Operations: WEB1472/1522/1590–1596 now start actual named auth. The shared browser helper installs only the selected actor's real Operations cookie, verifies the returned identity, then uses real source forms. WEB1990/2000 also use this helper. Independent publication/withdrawal and source proof assertions remain.
+- Source-backed briefs and seven-family scenarios: API1470–1471/1520–1521/1860–1866 use actual proposal/independent approval with explicit legacy and self-approval rejection. Family mechanisms use the returned publication version. Existing reader/private-receipt assertions remain.
+- Broker guides: WEB615/725 select the requested guide before inspecting its link; WEB930 and the shared offline guide exercise all five selections and the mapping CTA. The stable accessible name is independent of option content. This does not establish any named broker format support.
+- Educational action comparison: WEB990/1280/1283 retain real saved holding/goal selection, exact calculations and receipt checks. Only accessible selector names changed; API/database/financial behavior is unchanged.
+
+First targeted user-run gate (configured PostgreSQL/MongoDB and current API/web; no new dependency or migration):
+
+```bash
+pnpm sdlc "Repair core source and portfolio journeys" -- --grep 'E2E-(API-(1520|1860)|WEB-(930|990|1590))\b'
+```
+
+Then cover the remaining affected connected cases without selecting the whole suite:
+
+```bash
+pnpm sdlc "Validate source publication and portfolio controls" -- --grep 'E2E-(API-(147[01]|1521|186[1-6])|WEB-(615|725|128[03]|1472|1522|159[1-6]|1990|2000))\b'
+```
+
+For the shared offline broker UI after the connected gate:
+
+```bash
+pnpm android:web
+pnpm android:test --grep 'E2E-OFFLINE-930\b'
+```
+
+Use the printed web URL → Holdings → broker export help / Action centre, and the separate Operations sign-in → source panels. Expected: correct authenticated reviewer, independent publish/withdraw and public source-backed versions, stable broker/holding/goal selection, unchanged exact calculations. Android shares the UI changes but an installed APK requires the existing manual rebuild/reinstall flow; device acceptance is not claimed. Report case/project, assertion and saved run path for failures. Formatting/checks, test execution and gated local commits remain owned by these user-invoked commands.

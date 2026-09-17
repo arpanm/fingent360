@@ -140,5 +140,5 @@ Manual document acceptance: follow each matrix implementation/case reference, ve
 
 ## Automated validation
 
-Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789569622822-36573.
+Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789667338688-55776.
 <!-- sdlc-validation:end -->

@@ -1,6 +1,7 @@
 import { test, expect } from '../../helpers/app-fixture';
 import { oilEducationFixture } from '../../helpers/oil-education';
 import { sourceOpsBrowser } from '../../helpers/source-ops-browser';
+test.use({ namedOperators: true, manualWorkers: true });
 test('E2E-WEB-1593 governance browser creates source-bound draft simulates and independently releases then withdraws @DEV-015 @UX-002G @TEST-SIMULATION', async ({
   page,
   request,

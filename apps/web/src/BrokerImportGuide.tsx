@@ -18,6 +18,7 @@ export function BrokerImportGuide({
       <label className="field">
         Your broker
         <select
+          aria-label="Your broker"
           value={selected}
           onChange={(event) => {
             const value = event.target.value;
@@ -32,6 +33,10 @@ export function BrokerImportGuide({
           ))}
         </select>
       </label>
+      <p>
+        Automatic broker formats are not enabled. Choose your broker for export
+        instructions, then review and map your file before saving holdings.
+      </p>
       {broker ? (
         <section key={broker.id} aria-label={`${broker.name} import guidance`}>
           <h4>{broker.name}</h4>

@@ -587,6 +587,7 @@ export function ActionCentre() {
               <label>
                 Saved holding
                 <select
+                  aria-label="Saved holding"
                   required
                   value={isin}
                   onChange={(e) => {
@@ -834,6 +835,7 @@ export function ActionCentre() {
               <label>
                 Saved goal
                 <select
+                  aria-label="Saved goal"
                   required
                   value={goalId}
                   onChange={(e) => {

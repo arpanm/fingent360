@@ -8,6 +8,10 @@
 
 See [current delivery summary](current-delivery.md) for the batch-wide distinction between code, missing functionality and validation.
 
+## Source-to-reader acceptance repair — 2026-09-17
+
+API1860–1866 now publish their seven family events through the actual named proposal/independent approval workflow. Their mechanism input uses the returned published event version rather than hard-coded draft version1. The helper verifies rejected legacy/self approval and the actual public revision before scenario checks proceed. Existing API/browser workflow assertions remain. Authored, not run; no saved bug is marked resolved. Validate API1470–1471/1520–1521/1860–1866 and WEB1472/1522/1590–1596 with the targeted command in the E2E catalogue.
+
 ## Implementation handoff rule
 
 After each change, update the summary above and the matching [TODO row](../../TODO.md). Keep prompts, detailed scope, remaining work, verification evidence and handoff commands in this file. Follow [task maintenance](README.md); a parent stays partial while a child requirement is missing.
@@ -176,5 +180,5 @@ The existing retained-original Mongo/edition-review-view PostgreSQL workflow now
 
 ## Automated validation
 
-Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789569622822-36573.
+Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789667338688-55776.
 <!-- sdlc-validation:end -->

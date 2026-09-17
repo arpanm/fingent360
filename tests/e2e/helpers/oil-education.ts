@@ -1,3 +1,4 @@
+import { publishNamedEvent } from './publish-named-event';
 import { randomUUID, createHash } from 'node:crypto';
 import type { APIRequestContext, PlaywrightWorkerArgs } from '@playwright/test';
 import { expect } from '@playwright/test';
@@ -164,19 +165,12 @@ export async function oilEducationFixture(
         })
       ).status(),
     ).toBe(200);
-    expect(
-      (
-        await reviewer.post(`/api/v1/ops/events/${id}/review`, {
-          headers,
-          data: {
-            requestId: randomUUID(),
-            expectedVersion: 1,
-            status: 'published',
-            note: 'Independent exact historical issuer subject and qualitative mechanism.',
-          },
-        })
-      ).status(),
-    ).toBe(201);
+    await publishNamedEvent(
+      request,
+      reviewer,
+      id,
+      'Independent exact historical issuer subject and qualitative mechanism.',
+    );
     const event = EventPublicSchema.parse(
         await (await request.get('/api/v1/events/' + id)).json(),
       ),

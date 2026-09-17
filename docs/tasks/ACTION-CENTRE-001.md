@@ -8,6 +8,10 @@
 
 See [current delivery summary](current-delivery.md) for the batch-wide distinction between code, missing functionality and validation.
 
+## Comparison selection repair — 2026-09-17
+
+Make saved holding and saved goal selectors expose stable accessible names independent of current option content. Preserve selected IDs, exact financial calculations, owned API choices, encrypted receipts and offline implementation. Existing WEB990/1280/1283 and offline comparison cases exercise the controls; no database migration or new calculation policy is needed. Validation not run; existing saved failures remain open until rerun.
+
 ## Implementation handoff rule
 
 Static review follow-up, 2026-09-15: saved API/offline comparisons now recompute review flags for the rebalance purchase price as well as the primary price, and flag the restricted tax policy after its March2027 review boundary. The immutable historical calculation remains unchanged. Focused API/WEB/OFFLINE1280 assertions and contract date-boundary coverage are authored, not executed. The existing saved-comparison review UI displays these flags; no DB change or dependency is needed. Manual command: `pnpm sdlc "Review all saved action comparison price dates" -- --grep 'E2E-(API|WEB|OFFLINE)-1280'`; use the configured DB/API/web, printed development URL → #action-centre, and report failed ID/project plus saved artifact. No agent format/check/test/build/migration/commit ran.
@@ -56,5 +60,5 @@ Current completion boundary: [supported policy, explicit exclusions and manual t
 
 ## Automated validation
 
-Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789569622822-36573.
+Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789667338688-55776.
 <!-- sdlc-validation:end -->

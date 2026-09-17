@@ -2,6 +2,7 @@ import { test, expect } from '../../helpers/app-fixture';
 import { indiaActors } from '../../helpers/india-macro';
 import { oilEducationInput } from '../../helpers/oil-education';
 import { sourceOpsBrowser } from '../../helpers/source-ops-browser';
+test.use({ namedOperators: true, manualWorkers: true });
 test('E2E-WEB-1472 actual oil Operations form captures source then independent UI review publishes and withdraws @DEV-010 @TEST-SIMULATION', async ({
   page,
   request,

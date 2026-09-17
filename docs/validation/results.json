@@ -3918,12 +3918,13 @@
       "title": "E2E-API-060 private repeat goals preserve precision, revisions and conflicts @GOALS-001",
       "file": "api/goals.spec.ts",
       "stories": ["GOALS-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789569622822-36573",
-      "time": "2026-09-16T22:26:46.819Z",
-      "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json"
+      "run": "1789667338688-55776",
+      "time": "2026-09-17T17:50:30.967Z",
+      "fingerprint": "2117046a443bf8db44b75ecd37a628a007a1dd612b4507fa93e58bcc1322bd77",
+      "log": "artifacts/sdlc/1789667338688-55776/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-17T17-50-03-820Z-56992/results.json"
     },
     "cf2c1b660c24a7b7893ea122a04931b26d2f820c3b829dd2e7a4abfe2e2f2f70": {
       "key": "cf2c1b660c24a7b7893ea122a04931b26d2f820c3b829dd2e7a4abfe2e2f2f70",
@@ -3932,12 +3933,13 @@
       "title": "E2E-API-061 goal validation and origin reject without mutation @GOALS-001",
       "file": "api/goals.spec.ts",
       "stories": ["GOALS-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789569622822-36573",
-      "time": "2026-09-16T22:26:46.819Z",
-      "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json"
+      "run": "1789667338688-55776",
+      "time": "2026-09-17T17:50:30.967Z",
+      "fingerprint": "2117046a443bf8db44b75ecd37a628a007a1dd612b4507fa93e58bcc1322bd77",
+      "log": "artifacts/sdlc/1789667338688-55776/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-17T17-50-03-820Z-56992/results.json"
     },
     "4aa688f31949b8434439320b2bf2471f964d14db01225566d8c6bdbbd6764eae": {
       "key": "4aa688f31949b8434439320b2bf2471f964d14db01225566d8c6bdbbd6764eae",
@@ -11758,12 +11760,13 @@
       "title": "E2E-WEB-067 delayed frames cannot steal goal contribution input @GOALS-001 @simulated @UI-RACES-001",
       "file": "browser/goal-focus.spec.ts",
       "stories": ["GOALS-001", "UI-RACES-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789569622822-36573",
-      "time": "2026-09-16T22:26:46.819Z",
-      "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json"
+      "run": "1789667338688-55776",
+      "time": "2026-09-17T17:50:30.967Z",
+      "fingerprint": "2117046a443bf8db44b75ecd37a628a007a1dd612b4507fa93e58bcc1322bd77",
+      "log": "artifacts/sdlc/1789667338688-55776/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-17T17-50-03-820Z-56992/results.json"
     },
     "e89319b29bc46107477c1ea032f837ae989231df6e578185c6a574709c1a2641": {
       "key": "e89319b29bc46107477c1ea032f837ae989231df6e578185c6a574709c1a2641",
@@ -11772,12 +11775,13 @@
       "title": "E2E-WEB-067 delayed frames cannot steal goal contribution input @GOALS-001 @simulated @UI-RACES-001",
       "file": "browser/goal-focus.spec.ts",
       "stories": ["GOALS-001", "UI-RACES-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789569622822-36573",
-      "time": "2026-09-16T22:26:46.819Z",
-      "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json"
+      "run": "1789667338688-55776",
+      "time": "2026-09-17T17:50:30.967Z",
+      "fingerprint": "2117046a443bf8db44b75ecd37a628a007a1dd612b4507fa93e58bcc1322bd77",
+      "log": "artifacts/sdlc/1789667338688-55776/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-17T17-50-03-820Z-56992/results.json"
     },
     "b6c4a0c45d3fa60f4465ad59f1af5b3572bc459fef101e9f7287a43ad89453e9": {
       "key": "b6c4a0c45d3fa60f4465ad59f1af5b3572bc459fef101e9f7287a43ad89453e9",
@@ -11786,12 +11790,13 @@
       "title": "E2E-WEB-068 deleting the edited goal closes its draft while cancellation and other-goal removal preserve it @GOALS-001",
       "file": "browser/goal-removal.spec.ts",
       "stories": ["GOALS-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789569622822-36573",
-      "time": "2026-09-16T22:26:46.819Z",
-      "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json"
+      "run": "1789667338688-55776",
+      "time": "2026-09-17T17:50:30.967Z",
+      "fingerprint": "2117046a443bf8db44b75ecd37a628a007a1dd612b4507fa93e58bcc1322bd77",
+      "log": "artifacts/sdlc/1789667338688-55776/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-17T17-50-03-820Z-56992/results.json"
     },
     "029afa08e9c0e1106c597417c92989473f76a9e9acd8cf6a90a22f7efbe4500c": {
       "key": "029afa08e9c0e1106c597417c92989473f76a9e9acd8cf6a90a22f7efbe4500c",
@@ -11800,12 +11805,13 @@
       "title": "E2E-WEB-069 delayed original goal list cannot restore a removed goal @GOALS-001 @TEST-SIMULATION",
       "file": "browser/goal-removal.spec.ts",
       "stories": ["GOALS-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789569622822-36573",
-      "time": "2026-09-16T22:26:46.819Z",
-      "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json"
+      "run": "1789667338688-55776",
+      "time": "2026-09-17T17:50:30.967Z",
+      "fingerprint": "2117046a443bf8db44b75ecd37a628a007a1dd612b4507fa93e58bcc1322bd77",
+      "log": "artifacts/sdlc/1789667338688-55776/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-17T17-50-03-820Z-56992/results.json"
     },
     "6299884d206288d30ac70e132109ca2583ec140f952fbbfcc76aa9a7f99d6f2b": {
       "key": "6299884d206288d30ac70e132109ca2583ec140f952fbbfcc76aa9a7f99d6f2b",
@@ -11814,12 +11820,13 @@
       "title": "E2E-WEB-068 deleting the edited goal closes its draft while cancellation and other-goal removal preserve it @GOALS-001",
       "file": "browser/goal-removal.spec.ts",
       "stories": ["GOALS-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789569622822-36573",
-      "time": "2026-09-16T22:26:46.819Z",
-      "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json"
+      "run": "1789667338688-55776",
+      "time": "2026-09-17T17:50:30.967Z",
+      "fingerprint": "2117046a443bf8db44b75ecd37a628a007a1dd612b4507fa93e58bcc1322bd77",
+      "log": "artifacts/sdlc/1789667338688-55776/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-17T17-50-03-820Z-56992/results.json"
     },
     "038f83b55c1bc68d0a2843696a0c496a823441624ef3a4df46de1ab0d35dccb3": {
       "key": "038f83b55c1bc68d0a2843696a0c496a823441624ef3a4df46de1ab0d35dccb3",
@@ -11828,12 +11835,13 @@
       "title": "E2E-WEB-069 delayed original goal list cannot restore a removed goal @GOALS-001 @TEST-SIMULATION",
       "file": "browser/goal-removal.spec.ts",
       "stories": ["GOALS-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789569622822-36573",
-      "time": "2026-09-16T22:26:46.819Z",
-      "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json"
+      "run": "1789667338688-55776",
+      "time": "2026-09-17T17:50:30.967Z",
+      "fingerprint": "2117046a443bf8db44b75ecd37a628a007a1dd612b4507fa93e58bcc1322bd77",
+      "log": "artifacts/sdlc/1789667338688-55776/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-17T17-50-03-820Z-56992/results.json"
     },
     "46a2d6779bd743d870d8899a3d4829cb0c846d999d1623fca8db5792fdf2c6bd": {
       "key": "46a2d6779bd743d870d8899a3d4829cb0c846d999d1623fca8db5792fdf2c6bd",
@@ -11954,12 +11962,13 @@
       "title": "E2E-WEB-060 save, edit, reload and remove a private goal @GOALS-001",
       "file": "browser/goals.spec.ts",
       "stories": ["GOALS-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789569622822-36573",
-      "time": "2026-09-16T22:26:46.819Z",
-      "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json"
+      "run": "1789667338688-55776",
+      "time": "2026-09-17T17:50:30.967Z",
+      "fingerprint": "2117046a443bf8db44b75ecd37a628a007a1dd612b4507fa93e58bcc1322bd77",
+      "log": "artifacts/sdlc/1789667338688-55776/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-17T17-50-03-820Z-56992/results.json"
     },
     "c98e1acc18f9fe37595274e1e80bba06207fbf07e616916ce956d8926de40868": {
       "key": "c98e1acc18f9fe37595274e1e80bba06207fbf07e616916ce956d8926de40868",
@@ -11968,12 +11977,13 @@
       "title": "E2E-WEB-062 goal auth gates distinguish outages and cancellation preserves edits @GOALS-001 @UX-001",
       "file": "browser/goals.spec.ts",
       "stories": ["GOALS-001", "UX-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789569622822-36573",
-      "time": "2026-09-16T22:26:46.819Z",
-      "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json"
+      "run": "1789667338688-55776",
+      "time": "2026-09-17T17:50:30.967Z",
+      "fingerprint": "2117046a443bf8db44b75ecd37a628a007a1dd612b4507fa93e58bcc1322bd77",
+      "log": "artifacts/sdlc/1789667338688-55776/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-17T17-50-03-820Z-56992/results.json"
     },
     "c696b3861d6758be26ece8a7381085f4ccd54c8a8d1f907b42aaf6627a580488": {
       "key": "c696b3861d6758be26ece8a7381085f4ccd54c8a8d1f907b42aaf6627a580488",
@@ -11982,12 +11992,13 @@
       "title": "E2E-WEB-066 confirmed goal save survives later refresh failure without duplicate creation @GOALS-001 @UX-002",
       "file": "browser/goals.spec.ts",
       "stories": ["GOALS-001", "UX-002"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789569622822-36573",
-      "time": "2026-09-16T22:26:46.819Z",
-      "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json"
+      "run": "1789667338688-55776",
+      "time": "2026-09-17T17:50:30.967Z",
+      "fingerprint": "2117046a443bf8db44b75ecd37a628a007a1dd612b4507fa93e58bcc1322bd77",
+      "log": "artifacts/sdlc/1789667338688-55776/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-17T17-50-03-820Z-56992/results.json"
     },
     "24e5236cdae027dec715946aaa9a11261682185857d59f7ee944a8343e00f113": {
       "key": "24e5236cdae027dec715946aaa9a11261682185857d59f7ee944a8343e00f113",
@@ -11996,12 +12007,13 @@
       "title": "E2E-WEB-060 save, edit, reload and remove a private goal @GOALS-001",
       "file": "browser/goals.spec.ts",
       "stories": ["GOALS-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789569622822-36573",
-      "time": "2026-09-16T22:26:46.819Z",
-      "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json"
+      "run": "1789667338688-55776",
+      "time": "2026-09-17T17:50:30.967Z",
+      "fingerprint": "2117046a443bf8db44b75ecd37a628a007a1dd612b4507fa93e58bcc1322bd77",
+      "log": "artifacts/sdlc/1789667338688-55776/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-17T17-50-03-820Z-56992/results.json"
     },
     "e2ce24d0bcd4bb493dcada7f5127a25ec0067d7578c1a10eff4835d278f80d2b": {
       "key": "e2ce24d0bcd4bb493dcada7f5127a25ec0067d7578c1a10eff4835d278f80d2b",
@@ -12010,12 +12022,13 @@
       "title": "E2E-WEB-062 goal auth gates distinguish outages and cancellation preserves edits @GOALS-001 @UX-001",
       "file": "browser/goals.spec.ts",
       "stories": ["GOALS-001", "UX-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789569622822-36573",
-      "time": "2026-09-16T22:26:46.819Z",
-      "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json"
+      "run": "1789667338688-55776",
+      "time": "2026-09-17T17:50:30.967Z",
+      "fingerprint": "2117046a443bf8db44b75ecd37a628a007a1dd612b4507fa93e58bcc1322bd77",
+      "log": "artifacts/sdlc/1789667338688-55776/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-17T17-50-03-820Z-56992/results.json"
     },
     "f18469a694b9779fd306ae9e590327df9f67c22949d48b00f78dfe300c8a4b7d": {
       "key": "f18469a694b9779fd306ae9e590327df9f67c22949d48b00f78dfe300c8a4b7d",
@@ -12024,12 +12037,13 @@
       "title": "E2E-WEB-066 confirmed goal save survives later refresh failure without duplicate creation @GOALS-001 @UX-002",
       "file": "browser/goals.spec.ts",
       "stories": ["GOALS-001", "UX-002"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789569622822-36573",
-      "time": "2026-09-16T22:26:46.819Z",
-      "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json"
+      "run": "1789667338688-55776",
+      "time": "2026-09-17T17:50:30.967Z",
+      "fingerprint": "2117046a443bf8db44b75ecd37a628a007a1dd612b4507fa93e58bcc1322bd77",
+      "log": "artifacts/sdlc/1789667338688-55776/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-17T17-50-03-820Z-56992/results.json"
     },
     "016262e90f77e313d348c47034d6b00d4fcd67f1b4dc465d400f4998b8c0e1e4": {
       "key": "016262e90f77e313d348c47034d6b00d4fcd67f1b4dc465d400f4998b8c0e1e4",
@@ -18078,6 +18092,36 @@
       "time": "2026-09-16T22:26:46.819Z",
       "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json"
+    },
+    "9664caccf52a5c0a5d8b71fd88593b4c15eefbda52e197eedab35b6616fde80d": {
+      "key": "9664caccf52a5c0a5d8b71fd88593b4c15eefbda52e197eedab35b6616fde80d",
+      "caseId": "E2E-OFFLINE-010",
+      "project": "offline",
+      "title": "E2E-OFFLINE-010 exact goals and confirmed holdings survive reload without a server @ANDROID-001",
+      "file": "offline/finance.spec.ts",
+      "stories": ["ANDROID-001", "GOALS-001"],
+      "status": "passed",
+      "details": "",
+      "run": "1789667338688-55776",
+      "time": "2026-09-17T17:50:48.679Z",
+      "fingerprint": "2117046a443bf8db44b75ecd37a628a007a1dd612b4507fa93e58bcc1322bd77",
+      "log": "artifacts/sdlc/1789667338688-55776/08-pnpm-android_test.log",
+      "report": "artifacts/e2e/offline-1789667442248-57214/results.json"
+    },
+    "9750c3141c7f29c8877d97676c35a9fa99513d80eae4e317c0807503bbc4cc91": {
+      "key": "9750c3141c7f29c8877d97676c35a9fa99513d80eae4e317c0807503bbc4cc91",
+      "caseId": "E2E-OFFLINE-068",
+      "project": "offline",
+      "title": "E2E-OFFLINE-068 deleting the edited local goal closes its draft and persists without API traffic @GOALS-001",
+      "file": "offline/goal-removal.spec.ts",
+      "stories": ["GOALS-001"],
+      "status": "passed",
+      "details": "",
+      "run": "1789667338688-55776",
+      "time": "2026-09-17T17:50:48.679Z",
+      "fingerprint": "2117046a443bf8db44b75ecd37a628a007a1dd612b4507fa93e58bcc1322bd77",
+      "log": "artifacts/sdlc/1789667338688-55776/08-pnpm-android_test.log",
+      "report": "artifacts/e2e/offline-1789667442248-57214/results.json"
     }
   },
   "bugs": {
@@ -22191,5 +22235,7 @@
       "firstSeen": "2026-09-16T22:26:46.819Z"
     }
   },
-  "gates": {}
+  "gates": {
+    "check": "2117046a443bf8db44b75ecd37a628a007a1dd612b4507fa93e58bcc1322bd77"
+  }
 }

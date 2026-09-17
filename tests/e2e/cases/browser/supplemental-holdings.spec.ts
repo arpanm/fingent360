@@ -307,6 +307,7 @@ test('E2E-WEB-725 broker help links real export paths and separates substituted 
   await expect(
     page.getByText(/Automatic broker formats are not enabled/),
   ).toBeVisible();
+  await page.getByLabel('Your broker', { exact: true }).selectOption('groww');
   await expect(
     page.getByRole('link', {
       name: 'Groww official export help (opens a new tab)',
@@ -316,6 +317,7 @@ test('E2E-WEB-725 broker help links real export paths and separates substituted 
     'href',
     'https://groww.in/updates/updates-from-groww-tax-loss-harvesting-intraday-oco-bonds-and-lots-more',
   );
+  await page.getByLabel('Your broker', { exact: true }).selectOption('upstox');
   await expect(
     page.getByRole('link', {
       name: 'Upstox official export help (opens a new tab)',
@@ -325,6 +327,9 @@ test('E2E-WEB-725 broker help links real export paths and separates substituted 
     'href',
     'https://upstox.com/help-center/how-can-i-check-my-holdings-248548/',
   );
+  await page
+    .getByLabel('Your broker', { exact: true })
+    .selectOption('icici-direct');
   await expect(
     page.getByText(
       /ICICI Direct says off-market Portfolio entries can use transfer-day closing prices/,

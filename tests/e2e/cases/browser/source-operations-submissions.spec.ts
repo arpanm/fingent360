@@ -3,6 +3,7 @@ import { indiaActors, indiaMacroInput } from '../../helpers/india-macro';
 import { flowInput } from '../../helpers/institutional-flows';
 import { positioningInput } from '../../helpers/participant-positioning';
 import { sourceOpsBrowser } from '../../helpers/source-ops-browser';
+test.use({ namedOperators: true, manualWorkers: true });
 test('E2E-WEB-1590 India original form resets changed permission and actually retains independently publishes withdraws @SRC-007 @UX-002G @TEST-SIMULATION', async ({
   page,
   request,

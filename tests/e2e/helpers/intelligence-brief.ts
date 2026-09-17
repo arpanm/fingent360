@@ -1,3 +1,4 @@
+import { publishNamedEvent } from './publish-named-event';
 import { readFile } from 'node:fs/promises';
 import { randomUUID } from 'node:crypto';
 import type { APIRequestContext, PlaywrightWorkerArgs } from '@playwright/test';
@@ -116,19 +117,12 @@ export async function intelligenceBriefFixture(
           })
         ).status(),
       ).toBe(200);
-      expect(
-        (
-          await oil.reviewer.post(`/api/v1/ops/events/${id}/review`, {
-            headers,
-            data: {
-              requestId: randomUUID(),
-              expectedVersion: 1,
-              status: 'published',
-              note: 'Independent actual-source historical point review.',
-            },
-          })
-        ).status(),
-      ).toBe(201);
+      await publishNamedEvent(
+        request,
+        oil.reviewer,
+        id,
+        'Independent actual-source historical point review.',
+      );
       events.push(
         EventPublicSchema.parse(
           await (await request.get('/api/v1/events/' + id)).json(),

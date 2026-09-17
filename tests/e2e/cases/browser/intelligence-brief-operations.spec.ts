@@ -1,6 +1,7 @@
 import { test, expect } from '../../helpers/app-fixture';
 import { intelligenceBriefFixture } from '../../helpers/intelligence-brief';
 import { sourceOpsBrowser } from '../../helpers/source-ops-browser';
+test.use({ namedOperators: true, manualWorkers: true });
 test('E2E-WEB-1522 actual editorial brief UI prepares independently issues corrects and withdraws @DEV-006 @TEST-SIMULATION', async ({
   page,
   request,

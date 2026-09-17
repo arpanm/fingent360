@@ -8,6 +8,10 @@
 
 See [current delivery summary](current-delivery.md) for the batch-wide distinction between code, missing functionality and validation.
 
+## Broker guide selection repair — 2026-09-17
+
+Make the broker selector expose the exact stable accessible name Your broker, independent of its option text. Preserve one selected guide at a time and the reviewed mapping CTA. Update legacy guide cases to select each broker before asserting its source link; keep unsupported-parser and cost warnings explicit. Shared web/Android code changes only; existing capability contracts, API, storage and mapped reconciliation remain unchanged. No verified broker parser or source rights are newly claimed. Validation not run; existing saved failures remain open until rerun.
+
 ## Implementation handoff rule
 
 After each change, update the summary above and the matching [TODO row](../../TODO.md). Keep prompts, detailed scope, remaining work, verification evidence and handoff commands in this file. Follow [task maintenance](README.md); a parent stays partial while a child requirement is missing.
@@ -66,5 +70,5 @@ Targeted public official-site searches for holdings statement samples/XLSX did n
 
 ## Automated validation
 
-Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789569622822-36573.
+Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789667338688-55776.
 <!-- sdlc-validation:end -->

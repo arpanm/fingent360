@@ -219,6 +219,9 @@ test('E2E-WEB-615 broker help distinguishes researched exports from automatic pa
     'Angel One',
     'ICICI Direct',
   ]) {
+    await page.getByLabel('Your broker', { exact: true }).selectOption({
+      label: name,
+    });
     const link = page.getByRole('link', {
       name: `${name} official export help (opens a new tab)`,
       exact: true,

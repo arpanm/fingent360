@@ -1,3 +1,4 @@
+import { publishNamedEvent } from '../../helpers/publish-named-event';
 import { randomUUID } from 'node:crypto';
 import {
   test,
@@ -81,24 +82,17 @@ for (const [index, mechanism] of TRANSMISSION_CATALOG.entries())
           })
         ).status(),
       ).toBe(200);
-      expect(
-        (
-          await reviewer.post(`/api/v1/ops/events/${eventId}/review`, {
-            headers,
-            data: {
-              requestId: randomUUID(),
-              expectedVersion: 1,
-              status: 'published',
-              note: 'Separate named review; historical facts and synthetic context are distinct.',
-            },
-          })
-        ).status(),
-      ).toBe(201);
+      const publishedEvent = await publishNamedEvent(
+        request,
+        reviewer,
+        eventId,
+        'Separate named review; historical facts and synthetic context are distinct.',
+      );
       const input = {
         requestId: randomUUID(),
         expectedVersion: 0,
         eventId,
-        eventVersion: 1,
+        eventVersion: publishedEvent.event!.version,
         title: 'Reviewed educational transmission context',
         reviewBy: new Date(Date.now() + 86400000).toISOString().slice(0, 10),
         rationale:

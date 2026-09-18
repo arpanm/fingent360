@@ -12077,13 +12077,13 @@
       "title": "E2E-WEB-1593 governance browser creates source-bound draft simulates and independently releases then withdraws @DEV-015 @UX-002G @TEST-SIMULATION",
       "file": "browser/governance-operations-submit.spec.ts",
       "stories": ["DEV-015", "UX-002G"],
-      "status": "failed",
-      "details": "Error: expect(locator).toHaveCount(expected) failed\n\nLocator:  getByRole('region', { name: 'Research governance', exact: true }).getByLabel('Reviewed event', { exact: true }).locator('option[value=\"0a57dad6-3499-4966-9f0c-25179f7d4787\"]')\nExpected: 1\nReceived: 0\nTimeout:  10000ms\n\nCall log:\n  - Expect \"toHaveCount\" with timeout 10000ms\n  - waiting for getByRole('region', { name: 'Research governance', exact: true }).getByLabel('Reviewed event', { exact: true }).locator('option[value=\"0a57dad6-3499-4966-9f0c-25179f7d4787\"]')\n    14 × locator resolved to 0 elements\n       - unexpected value \"0\"\n\n\n  35 |     await expect(\n  36 |       reviewedEvent.locator(`option[value=\"${fixture.event.id}\"]`),\n> 37 |     ).toHaveCount(1);\n     |       ^\n  38 |     await region.getByRole('button', { name: 'New research draft' }).click();\n  39 |     await reviewedEvent.selectOption(fixture.event.id);\n  40 |     await region.getByRole('checkbox', { name: /Citation 1:/ }).check();\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/governance-operations-submit.spec.ts:37:7\nTest timeout of 30000ms exceeded.",
-      "run": "1789722425545-83879",
-      "time": "2026-09-18T09:23:52.521Z",
-      "fingerprint": "a707a104004a80be4b62223ae8a30aa19443d47c7dac56231abbaf080bfb7aab",
-      "log": "artifacts/sdlc/1789722425545-83879/12-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-18T09-23-04-252Z-86647/results.json"
+      "status": "passed",
+      "details": "",
+      "run": "1789752487631-95916",
+      "time": "2026-09-18T17:29:22.133Z",
+      "fingerprint": "a8694374d296c89fca948e3a5850ce30830b59a7f1538e98f55f29afef00f54a",
+      "log": "artifacts/sdlc/1789752487631-95916/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T17-29-06-548Z-96601/results.json"
     },
     "012de3d2d9713107cb3d6a5309b88d75a9b65f9e14012f4a04d6c5ad35677256": {
       "key": "012de3d2d9713107cb3d6a5309b88d75a9b65f9e14012f4a04d6c5ad35677256",
@@ -12092,13 +12092,13 @@
       "title": "E2E-WEB-1593 governance browser creates source-bound draft simulates and independently releases then withdraws @DEV-015 @UX-002G @TEST-SIMULATION",
       "file": "browser/governance-operations-submit.spec.ts",
       "stories": ["DEV-015", "UX-002G"],
-      "status": "failed",
-      "details": "TimeoutError: locator.selectOption: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('region', { name: 'Research governance', exact: true }).getByLabel('Reviewed event', { exact: true })\n\n\n  34 |     await region\n  35 |       .getByLabel('Reviewed event', { exact: true })\n> 36 |       .selectOption(fixture.event.id);\n     |        ^\n  37 |     await region.getByRole('checkbox', { name: /Citation 1:/ }).check();\n  38 |     await region\n  39 |       .getByLabel('Research title')\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/governance-operations-submit.spec.ts:36:8",
-      "run": "1789722425545-83879",
-      "time": "2026-09-18T09:14:00.280Z",
-      "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
-      "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
+      "status": "passed",
+      "details": "",
+      "run": "1789752487631-95916",
+      "time": "2026-09-18T17:29:22.133Z",
+      "fingerprint": "a8694374d296c89fca948e3a5850ce30830b59a7f1538e98f55f29afef00f54a",
+      "log": "artifacts/sdlc/1789752487631-95916/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T17-29-06-548Z-96601/results.json"
     },
     "f2415036c05144156e334cb723100341397d42ec8575cef1f6354513f87ee9d5": {
       "key": "f2415036c05144156e334cb723100341397d42ec8575cef1f6354513f87ee9d5",
@@ -21236,7 +21236,7 @@
       "title": "E2E-WEB-1593 governance browser creates source-bound draft simulates and independently releases then withdraws @DEV-015 @UX-002G @TEST-SIMULATION",
       "file": "browser/governance-operations-submit.spec.ts",
       "stories": ["DEV-015", "UX-002G"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(locator).toHaveCount(expected) failed\n\nLocator:  getByRole('region', { name: 'Research governance', exact: true }).getByLabel('Reviewed event', { exact: true }).locator('option[value=\"0a57dad6-3499-4966-9f0c-25179f7d4787\"]')\nExpected: 1\nReceived: 0\nTimeout:  10000ms\n\nCall log:\n  - Expect \"toHaveCount\" with timeout 10000ms\n  - waiting for getByRole('region', { name: 'Research governance', exact: true }).getByLabel('Reviewed event', { exact: true }).locator('option[value=\"0a57dad6-3499-4966-9f0c-25179f7d4787\"]')\n    14 × locator resolved to 0 elements\n       - unexpected value \"0\"\n\n\n  35 |     await expect(\n  36 |       reviewedEvent.locator(`option[value=\"${fixture.event.id}\"]`),\n> 37 |     ).toHaveCount(1);\n     |       ^\n  38 |     await region.getByRole('button', { name: 'New research draft' }).click();\n  39 |     await reviewedEvent.selectOption(fixture.event.id);\n  40 |     await region.getByRole('checkbox', { name: /Citation 1:/ }).check();\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/governance-operations-submit.spec.ts:37:7\nTest timeout of 30000ms exceeded.",
       "run": "1789722425545-83879",
       "time": "2026-09-18T09:23:52.521Z",
@@ -21244,7 +21244,14 @@
       "log": "artifacts/sdlc/1789722425545-83879/12-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-18T09-23-04-252Z-86647/results.json",
       "id": "BUG-016262e90f77e313",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789752487631-95916",
+        "time": "2026-09-18T17:29:22.133Z",
+        "fingerprint": "a8694374d296c89fca948e3a5850ce30830b59a7f1538e98f55f29afef00f54a",
+        "log": "artifacts/sdlc/1789752487631-95916/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T17-29-06-548Z-96601/results.json"
+      }
     },
     "BUG-012de3d2d9713107": {
       "key": "012de3d2d9713107cb3d6a5309b88d75a9b65f9e14012f4a04d6c5ad35677256",
@@ -21253,7 +21260,7 @@
       "title": "E2E-WEB-1593 governance browser creates source-bound draft simulates and independently releases then withdraws @DEV-015 @UX-002G @TEST-SIMULATION",
       "file": "browser/governance-operations-submit.spec.ts",
       "stories": ["DEV-015", "UX-002G"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "TimeoutError: locator.selectOption: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('region', { name: 'Research governance', exact: true }).getByLabel('Reviewed event', { exact: true })\n\n\n  34 |     await region\n  35 |       .getByLabel('Reviewed event', { exact: true })\n> 36 |       .selectOption(fixture.event.id);\n     |        ^\n  37 |     await region.getByRole('checkbox', { name: /Citation 1:/ }).check();\n  38 |     await region\n  39 |       .getByLabel('Research title')\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/governance-operations-submit.spec.ts:36:8",
       "run": "1789722425545-83879",
       "time": "2026-09-18T09:14:00.280Z",
@@ -21261,7 +21268,14 @@
       "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json",
       "id": "BUG-012de3d2d9713107",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789752487631-95916",
+        "time": "2026-09-18T17:29:22.133Z",
+        "fingerprint": "a8694374d296c89fca948e3a5850ce30830b59a7f1538e98f55f29afef00f54a",
+        "log": "artifacts/sdlc/1789752487631-95916/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T17-29-06-548Z-96601/results.json"
+      }
     },
     "BUG-60fd7eb3b2dc231e": {
       "key": "60fd7eb3b2dc231e0e8742672b04f7fa37a8cb643a3e964f40178d83e414fd3c",
@@ -23345,10 +23359,10 @@
       "id": "BUG-a47611ab64789eb8",
       "firstSeen": "2026-09-18T05:33:44.718Z",
       "resolvedBy": {
-        "run": "1789752313607-94916",
-        "time": "2026-09-18T17:26:14.317Z",
+        "run": "1789752487631-95916",
+        "time": "2026-09-18T17:29:06.122Z",
         "fingerprint": "a8694374d296c89fca948e3a5850ce30830b59a7f1538e98f55f29afef00f54a",
-        "log": "artifacts/sdlc/1789752313607-94916/02-pnpm-check.log"
+        "log": "artifacts/sdlc/1789752487631-95916/02-pnpm-check.log"
       }
     },
     "BUG-a0826694511b6915": {

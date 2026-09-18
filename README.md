@@ -453,6 +453,7 @@ After failure, ask Codex: **Read artifacts/e2e/latest.md and fix the failures.**
 Place SDLC options before the `--` separator. Everything after it is forwarded to Playwright. Use a quoted positional commit message or `--message "..."`, not both. If omitted, the message defaults to `chore: validated local changes`.
 
 - **No option:** Format → full checks → local commit → all connected E2E (API, desktop, mobile). Example: `pnpm sdlc "Change"`.
+- **`--all`:** Full gates and gated local commit, then every connected E2E and a freshly built full offline web suite. Continues to offline inventory after an unresolved connected test failure, but returns failure overall. Cannot combine with story, affected, checks-only or Playwright filters. For a stable validation audit without repair-agent edits: `SDLC_AUTO_REPAIR=0 pnpm sdlc "Audit all pending validation" --all`. Existing reporters update TODO/task validation and bug records. Tasks without reviewed acceptance matrices or with manual requirements remain open. Native device acceptance is separate. This new option is authored; validation is pending.
 - **`--message <text>`:** Explicit commit message. Example: `pnpm sdlc --message "Change"`.
 - **`--story <task-id>`:** Run the reviewed connected and offline acceptance matrix for one story, even when changes are already committed. Example: `pnpm sdlc "Complete account workflow" --story ACCOUNT-001`. Requires a matrix in docs/tasks/acceptance.json; cannot combine with affected mode, checks-only or manual filters.
 - **`--checks-only`:** Format, full checks and gated commit; skip E2E. Example: `pnpm sdlc "Change" --checks-only`.
@@ -465,7 +466,7 @@ Place SDLC options before the `--` separator. Everything after it is forwarded t
 
 All executing modes retain the complete `pnpm check` gate: formatting validation, lint, application typechecks, E2E typechecks, builds and unit tests. Affected mode narrows E2E only. It includes staged/unstaged/untracked/deleted paths against the baseline even after the workflow commits. For already committed changes choose an earlier ref. A clean tree does not prove prior validation and falls back to full coverage. Documentation-only changes explicitly skip E2E.
 
-Changed test files select those files; web changes select desktop/mobile and offline coverage. API/contracts/migrations/helpers and unknown dependencies fall back to full coverage. Offline selections first rebuild the offline web package, then test it; native APK/device validation is separate. The ordinary unfiltered command runs connected projects, not the offline package. See [selection details and limitations](docs/development/sdlc.md#impacted-e2e-selection-sdlc-affected-001).
+Changed test files select those files; web changes select desktop/mobile and offline coverage. API/contracts/migrations/helpers and unknown dependencies fall back to full coverage. Offline selections first rebuild the offline web package, then test it; native APK/device validation is separate. The ordinary unfiltered command runs connected projects; use `--all` to also build and test the offline package. See [selection details and limitations](docs/development/sdlc.md#impacted-e2e-selection-sdlc-affected-001).
 
 ### SDLC repair settings and results
 

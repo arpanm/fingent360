@@ -52,6 +52,7 @@ export function parseArguments(input) {
     return true;
   };
   const checksOnly = takeFlag('--checks-only');
+  const all = takeFlag('--all');
   const preview = takeFlag('--affected-plan');
   const affected = takeFlag('--affected') || preview;
   let story;
@@ -105,6 +106,10 @@ export function parseArguments(input) {
     throw Error(
       '--story cannot be combined with affected mode, checks-only or manual E2E filters.',
     );
+  if (all && (story || affected || checksOnly || args.length))
+    throw Error(
+      '--all cannot be combined with story, affected, checks-only or E2E filters.',
+    );
   return {
     message,
     filters: args,
@@ -113,6 +118,7 @@ export function parseArguments(input) {
     ...(base ? { base } : {}),
     ...(checksOnly ? { checksOnly: true } : {}),
     ...(story ? { story } : {}),
+    ...(all ? { all: true } : {}),
   };
 }
 
@@ -149,7 +155,23 @@ export async function workflow(
       lastLog,
     );
   }
-  if (options.storyPlan) {
+  if (options.all) {
+    let firstFailure;
+    for (const stages of [[['e2e:run']], [['android:web'], ['android:test']]]) {
+      try {
+        for (const args of stages) await step('pnpm', args);
+      } catch (error) {
+        if (
+          !(error instanceof SdlcStageFailure) ||
+          [130, 143].includes(error.status)
+        )
+          throw error;
+        firstFailure ??= error;
+        console.error(error.message);
+      }
+    }
+    if (firstFailure) throw firstFailure;
+  } else if (options.storyPlan) {
     const plan = options.storyPlan;
     if (plan.connected)
       await step('pnpm', ['e2e:run', '--grep', plan.connected]);
@@ -623,6 +645,7 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
       message,
       filters,
       checksOnly = false,
+      all = false,
       affected = false,
       preview = false,
       base,
@@ -666,6 +689,7 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
     validationRecorder = createValidationRecorder(root, runDirectory);
     await workflow(message, filters, executeCommand, {
       checksOnly,
+      all,
       storyPlan: selectedStory,
       impactPlan: planImpact,
       recordImpact,

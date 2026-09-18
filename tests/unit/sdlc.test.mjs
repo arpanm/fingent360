@@ -616,3 +616,89 @@ test('offline failed-case repair rebuilds its package and retries only the exact
   assert.match(calls[1].at(-1), /E2E-OFFLINE-034/);
   assert.equal(calls.length, 2);
 });
+
+test('all mode rejects filters and other selection modes', () => {
+  assert.deepEqual(parseArguments(['Inventory', '--all']), {
+    message: 'Inventory',
+    filters: [],
+    all: true,
+  });
+  for (const extra of [
+    ['--checks-only'],
+    ['--affected'],
+    ['--affected-plan'],
+    ['--story', 'ACCOUNT-001'],
+    ['--', '--grep', 'ACCOUNT-001'],
+  ]) {
+    assert.throws(
+      () => parseArguments(['Inventory', '--all', ...extra]),
+      /cannot be combined/,
+    );
+  }
+});
+
+test('all mode runs unfiltered connected and freshly built offline inventories', async () => {
+  const calls = [];
+  await workflow(
+    'Inventory',
+    [],
+    async (command, args) => {
+      calls.push([command, ...args]);
+      return 0;
+    },
+    { all: true },
+  );
+  assert.deepEqual(calls, [
+    ['pnpm', 'format'],
+    ['pnpm', 'check'],
+    ['git', 'add', '-A'],
+    ['git', 'diff', '--cached', '--quiet'],
+    ['pnpm', 'e2e:run'],
+    ['pnpm', 'android:web'],
+    ['pnpm', 'android:test'],
+  ]);
+});
+
+for (const scenario of [
+  { stage: 'e2e:run', status: 1, offlineBuild: true, offlineTests: true },
+  { stage: 'android:web', status: 1, offlineBuild: true, offlineTests: false },
+  { stage: 'check', status: 1, offlineBuild: false, offlineTests: false },
+  { stage: 'e2e:run', status: 130, offlineBuild: false, offlineTests: false },
+]) {
+  test(`all mode respects dependency boundaries after ${scenario.stage} exits ${scenario.status}`, async () => {
+    const calls = [];
+    await assert.rejects(
+      workflow(
+        'Inventory',
+        [],
+        async (command, args) => {
+          calls.push([command, ...args]);
+          return command === 'pnpm' && args[0] === scenario.stage
+            ? scenario.status
+            : 0;
+        },
+        { all: true },
+      ),
+      (error) =>
+        error instanceof SdlcStageFailure && error.status === scenario.status,
+    );
+    assert.equal(
+      calls.some(([, stage]) => stage === 'android:web'),
+      scenario.offlineBuild,
+    );
+    assert.equal(
+      calls.some(([, stage]) => stage === 'android:test'),
+      scenario.offlineTests,
+    );
+    if (scenario.stage === 'check') {
+      assert.equal(
+        calls.some(([command]) => command === 'git'),
+        false,
+      );
+      assert.equal(
+        calls.some(([, stage]) => stage === 'e2e:run'),
+        false,
+      );
+    }
+  });
+}

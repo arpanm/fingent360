@@ -1,10 +1,16 @@
 # SDLC-002 — User acceptance of the SDLC tool
 
 - **Status:** Completed implementation; validation pending
-- **Implemented / recorded:** - Implementation: Implemented handoff/evidence tooling; user acceptance remains pending
+- **Implemented / recorded:** Handoff/evidence tooling plus explicit full connected/offline `--all` inventory; launcher regression cases authored. [Run RCA](../development/sdlc-run-rca-2026-09-18.md) records the mixed-revision acceptance failure.
 - **Pending:** User: run the task’s documented validation; implementation is not a test pass.
-- **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.
+- **Next action / inputs:** User runs `SDLC_AUTO_REPAIR=0 pnpm sdlc "Audit all pending validation" --all`; review saved results. Structured RCA linkage and dependency-aware evidence invalidation remain gaps.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
+
+## Complete validation inventory and RCA audit — 2026-09-18
+
+User asks for a command covering all pending validation and an evidence-based explanation of the failed trace run. Add explicit `--all`: run normal format/check/gated commit once, then all connected cases and a freshly built full offline suite. An unresolved connected test failure must not prevent the independent offline inventory from being recorded; failed gates/commit, cancellation and failed offline build still prevent dependent actions. Reuse existing recorder and exact-case repairs. Reject combinations with story/affected/checks-only/manual filters. No new application API, UI, DB or migration: this is the user-operated launcher only.
+
+All generated statuses must retain existing truth rules: unknown acceptance matrices remain selected-result evidence, missing/manual requirements are not Done, source revisions must match and bugs require actual passing retries. Recommend `SDLC_AUTO_REPAIR=0` for one stable inventory audit to avoid source edits mid-run. This does not claim to solve dependency-aware validation invalidation. Record the actual RCA and the current missing structured-RCA guarantee separately. Author launcher unit regressions; user runs them through pnpm check, never the agent.
 
 ## Implementation handoff rule
 

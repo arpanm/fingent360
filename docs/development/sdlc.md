@@ -156,3 +156,11 @@ The authoring agent does not run these deterministic steps. For connected cases 
 Story mode exits nonzero when required coverage or the current check gate is missing, even if selected tests exited zero. The existing API030 failure is explicitly seeded as historical-unverified with an Open bug; it is not a newly executed result.
 
 The acceptance manifest `_completion` section explicitly opts reviewed implementation scopes into automatic Done. It requires implementationComplete true, an empty externalGates list and full current automated acceptance. ACCOUNT-001 is the first opted-in scope. A later failed result reopens it as Needs repair; stale or partial coverage returns it to validation pending. Other stories retain their implementation status until reviewed for closure.
+
+## Complete validation audit (`--all`)
+
+Run `SDLC_AUTO_REPAIR=0 pnpm sdlc "Audit all pending validation" --all` with configured services and migrations ready. This performs normal format/check/gated commit, all API/desktop/mobile E2E, then `android:web` and all `android:test` cases. It uses the same validation and bug recorder as story runs. Unresolved connected test failures do not hide offline results; the final exit remains nonzero. Gate/commit failures stop before tests; a failed offline build prevents offline tests; cancellation stops the workflow. Other selection modes and manual filters cannot combine with `--all`.
+
+Disable automatic repair for this inventory so all evidence refers to one source revision. Omitting the environment override retains existing exact-case automatic repairs, but repair edits can invalidate earlier passes under the conservative repository-wide fingerprint. This option does not change that rule. TODO validation updates automatically; only complete reviewed matrices with matching passing gates and no blocking bugs qualify for automated acceptance. Missing matrices, external approvals and native-device acceptance are not implied by a passing suite.
+
+Regression cases in tests/unit/sdlc.test.mjs cover option conflicts, unfiltered inventory, continuation after connected failure, failed offline build, failed checks and cancellation. Authored only; execute through the manual command above. See the [18 September run RCA](sdlc-run-rca-2026-09-18.md) for the observed trace failure and current RCA-recording limitation.

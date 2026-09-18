@@ -47,10 +47,13 @@ test('E2E-API-1330 released actual causal mapping binds holding goal and withdra
       ).status(),
     ).toBe(200);
     await releaseGovernanceFixture(request, { ...fixture, id });
+    expect(fixture.revision.input.eventVersion).toBe(
+      fixture.revision.event.event?.version,
+    );
     const goal = await prepareConnectionAccount(request),
       input = {
         eventId: fixture.eventId,
-        eventVersion: 1,
+        eventVersion: fixture.revision.input.eventVersion,
         sector: 'Synthetic sector',
         isin: 'INE002A01018',
         holdingsVersion: 1,
@@ -61,6 +64,14 @@ test('E2E-API-1330 released actual causal mapping binds holding goal and withdra
         storageConsent: true,
         causalContext: { id, version: 1 },
       };
+    expect(
+      (
+        await request.put('/api/v1/account/impact-traces/' + randomUUID(), {
+          headers,
+          data: { ...input, eventVersion: input.eventVersion - 1 },
+        })
+      ).status(),
+    ).toBe(409);
     const saved = await request.put(
       '/api/v1/account/impact-traces/' + randomUUID(),
       { headers, data: input },

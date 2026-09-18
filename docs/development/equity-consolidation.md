@@ -25,3 +25,11 @@ No holdings, quantity, tax lot, fractional entitlement, election or cash-in-lieu
 Upload permitted original notices, select the old/new admitted security identifiers and exact trading dates, enter verified fully-paid face values and confirm the limited family. A different named publisher verifies all originals and publishes. Both company pages must show identical bridge terms and distinct raw/nominal comparison. Withdrawing an underlying edition or the bridge removes it from connected public reads. A suspension spanning a proposed daily-calibration window cannot become an ordinary adjacent-day observation. No portfolio balance changes.
 
 No tests, builds, formatting, services or migration were run by the agent. Migration110 requires the user's normal database/migration workflow. Use the final task handoff's filtered `pnpm sdlc` command; no live provider retrieval is needed for synthetic acceptance fixtures.
+
+### API1783 prerequisite regression — 2026-09-18
+
+The synthetic old-security edition is declared effective on24 June2025 and the new-security edition on11 July2025, matching their respective identity and boundary-price observations. The shared acceptance helper asserts each imported edition and both of its observations retain that exact date before independent review. This preserves the production rule that an observation after its declared source date is rejected; it does not relax admission or replace the retained-source path.
+
+The supplied API1783 retry then verifies the independently published bridge blocks only windows crossing the suspension transition for both ISINs, while a wholly pre-suspension old-ISIN window and wholly post-resumption new-ISIN window remain unblocked. This repair is authored and has not been executed.
+
+The subsequent user-operated `pnpm check` reached E2E typechecking and reported that the destructured fixture date could be `undefined`. The rows are now declared as immutable tuples, which preserves their exact five required string fields under `noUncheckedIndexedAccess`. The response-date assertions remain the runtime regression; `pnpm e2e:typecheck` is the smallest static validation. Neither validation has been rerun for this edit.

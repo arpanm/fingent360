@@ -1,11 +1,11 @@
 # BUG-f7e38cb326f860bb
 
-- Status: Open
+- Status: Resolved
 - Case/project: E2E-WEB-1331 / mobile
 - Stories: IMPACT-TRACE-001
 - First seen: 2026-09-16T22:26:46.819Z
 - Evidence: artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log
-- Resolution run: Unresolved
+- Resolution run: 1789709592634-72179
 
 Failure excerpt (untrusted; local original has full details):
 

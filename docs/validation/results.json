@@ -2349,12 +2349,13 @@
       "title": "E2E-API-1343 actual private calibration retains admitted normalization and omits it after withdrawal @EQUITY-COVERAGE-001 @IMPACT-TRACE-001 @TEST-SIMULATION",
       "file": "api/equity-adjustments.spec.ts",
       "stories": ["EQUITY-COVERAGE-001", "IMPACT-TRACE-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789709592634-72179",
+      "time": "2026-09-18T05:39:06.574Z",
+      "fingerprint": "8eaefc9c5469efa008da193f489ce9e2ec8ffe294e6c3e9b3ccb2ad528ad3e07",
+      "log": "artifacts/sdlc/1789709592634-72179/09-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T05-37-02-689Z-73557/results.json"
     },
     "6a83f68a921747414ec9b47ac11c45f21ca6f553a30649e682f84760ceda2b01": {
       "key": "6a83f68a921747414ec9b47ac11c45f21ca6f553a30649e682f84760ceda2b01",
@@ -2475,12 +2476,13 @@
       "title": "E2E-API-1783 actual published suspension blocks daily-window qualification only across its transition @SRC-003 @IMPACT-TRACE-001 @TEST-SIMULATION",
       "file": "api/equity-consolidation.spec.ts",
       "stories": ["SRC-003", "IMPACT-TRACE-001"],
-      "status": "failed",
-      "details": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 201\nReceived: 400\n\n   at ../helpers/equity-consolidation.ts:127\n\n  125 |         })\n  126 |       ).status(),\n> 127 |     ).toBe(201);\n      |       ^\n  128 |     expect(\n  129 |       (\n  130 |         await reviewer.post('/api/v1/ops/equities/review', {\n    at consolidationActors (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/equity-consolidation.ts:127:7)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/api/equity-consolidation.spec.ts:224:24",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "status": "passed",
+      "details": "",
+      "run": "1789709592634-72179",
+      "time": "2026-09-18T05:42:45.732Z",
+      "fingerprint": "c6d6513f0e10763c470caa404842832930ee7d1c513308f5163643b3266f45e0",
+      "log": "artifacts/sdlc/1789709592634-72179/11-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T05-42-40-922Z-74322/results.json"
     },
     "70fdf457c31b7e6ba950c02214508401a66e47580b011578d05ab09f2a7da8cc": {
       "key": "70fdf457c31b7e6ba950c02214508401a66e47580b011578d05ab09f2a7da8cc",
@@ -4127,12 +4129,13 @@
       "title": "E2E-API-1331 actual source availability persists encrypted unqualified calibration replay and deletion @IMPACT-TRACE-001 @TEST-SIMULATION",
       "file": "api/impact-calibration.spec.ts",
       "stories": ["IMPACT-TRACE-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789709592634-72179",
+      "time": "2026-09-18T05:39:06.574Z",
+      "fingerprint": "8eaefc9c5469efa008da193f489ce9e2ec8ffe294e6c3e9b3ccb2ad528ad3e07",
+      "log": "artifacts/sdlc/1789709592634-72179/09-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T05-37-02-689Z-73557/results.json"
     },
     "4835e3fc121610d4236a28598440e1344b7543729660f381ad3e1b400d517f8f": {
       "key": "4835e3fc121610d4236a28598440e1344b7543729660f381ad3e1b400d517f8f",
@@ -4141,12 +4144,13 @@
       "title": "E2E-API-1330 released actual causal mapping binds holding goal and withdrawal preserves historical trace @IMPACT-TRACE-001 @TEST-SIMULATION",
       "file": "api/impact-governance.spec.ts",
       "stories": ["IMPACT-TRACE-001"],
-      "status": "failed",
-      "details": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 200\nReceived: 409\n\n  66 |       { headers, data: input },\n  67 |     );\n> 68 |     expect(saved.status()).toBe(200);\n     |                            ^\n  69 |     const receipt = ImpactTraceReceiptSchema.parse(await saved.json());\n  70 |     expect(receipt.causalContext?.id).toBe(id);\n  71 |     expect(receipt.chain[2]?.explanation).toContain('mixed');\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/api/impact-governance.spec.ts:68:28",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "status": "passed",
+      "details": "",
+      "run": "1789709592634-72179",
+      "time": "2026-09-18T05:44:32.152Z",
+      "fingerprint": "2e0ea2febe0272f17c1f463ee3d70fcbd9d9eb69b0b5de9b6e5b908e837d377b",
+      "log": "artifacts/sdlc/1789709592634-72179/13-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T05-44-27-211Z-74840/results.json"
     },
     "a1a2f43a3544fcb4f37ea28a3ba030abf7c39ef560fe034c810a13d8fb66c274": {
       "key": "a1a2f43a3544fcb4f37ea28a3ba030abf7c39ef560fe034c810a13d8fb66c274",
@@ -4155,12 +4159,13 @@
       "title": "E2E-API-960 admitted source to owned goal saves exact immutable receipt replay privacy and delete @IMPACT-TRACE-001 @TEST-SIMULATION",
       "file": "api/impact-trace.spec.ts",
       "stories": ["IMPACT-TRACE-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789709592634-72179",
+      "time": "2026-09-18T05:39:06.574Z",
+      "fingerprint": "8eaefc9c5469efa008da193f489ce9e2ec8ffe294e6c3e9b3ccb2ad528ad3e07",
+      "log": "artifacts/sdlc/1789709592634-72179/09-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T05-37-02-689Z-73557/results.json"
     },
     "22b420917a785b52af3fc158ec871a0d05e6678fdfbe4a4c337f22da9f42375b": {
       "key": "22b420917a785b52af3fc158ec871a0d05e6678fdfbe4a4c337f22da9f42375b",
@@ -4169,12 +4174,13 @@
       "title": "E2E-API-961 changed goal and withdrawn event stop new trace and flag retained receipt @IMPACT-TRACE-001 @TEST-SIMULATION",
       "file": "api/impact-trace.spec.ts",
       "stories": ["IMPACT-TRACE-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789709592634-72179",
+      "time": "2026-09-18T05:39:06.574Z",
+      "fingerprint": "8eaefc9c5469efa008da193f489ce9e2ec8ffe294e6c3e9b3ccb2ad528ad3e07",
+      "log": "artifacts/sdlc/1789709592634-72179/09-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T05-37-02-689Z-73557/results.json"
     },
     "fbdbc5baf859bfe25926a1bb4fd297a86d91d5f49fb4e17b0e599033a08b49e6": {
       "key": "fbdbc5baf859bfe25926a1bb4fd297a86d91d5f49fb4e17b0e599033a08b49e6",
@@ -7333,12 +7339,13 @@
       "title": "E2E-API-1700 reviewed exact transmission catalog persists into actual holding goal receipt and rejects withdrawn context @IMPACT-TRACE-001 @TEST-SIMULATION",
       "file": "api/transmission-context.spec.ts",
       "stories": ["IMPACT-TRACE-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789709592634-72179",
+      "time": "2026-09-18T05:39:06.574Z",
+      "fingerprint": "8eaefc9c5469efa008da193f489ce9e2ec8ffe294e6c3e9b3ccb2ad528ad3e07",
+      "log": "artifacts/sdlc/1789709592634-72179/09-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T05-37-02-689Z-73557/results.json"
     },
     "174227e2096fb520b7cda2a382a65f166909de082302bc93a29f1b94c704d5ad": {
       "key": "174227e2096fb520b7cda2a382a65f166909de082302bc93a29f1b94c704d5ad",
@@ -7347,12 +7354,13 @@
       "title": "E2E-API-1701 seven qualitative policy golden outcomes preserve no action and uncertainty without coefficients @IMPACT-TRACE-001 @TEST-SIMULATION",
       "file": "api/transmission-context.spec.ts",
       "stories": ["IMPACT-TRACE-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789709592634-72179",
+      "time": "2026-09-18T05:39:06.574Z",
+      "fingerprint": "8eaefc9c5469efa008da193f489ce9e2ec8ffe294e6c3e9b3ccb2ad528ad3e07",
+      "log": "artifacts/sdlc/1789709592634-72179/09-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T05-37-02-689Z-73557/results.json"
     },
     "8044bf83da88e9b96eed3eec3d61b0620d9fad51fe6bc0fc718fda2eb7f892b8": {
       "key": "8044bf83da88e9b96eed3eec3d61b0620d9fad51fe6bc0fc718fda2eb7f892b8",
@@ -12345,12 +12353,13 @@
       "title": "E2E-WEB-1331 source qualification gaps save reload and delete from sensitivity diagnostics @IMPACT-TRACE-001 @TEST-SIMULATION",
       "file": "browser/impact-calibration.spec.ts",
       "stories": ["IMPACT-TRACE-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789709592634-72179",
+      "time": "2026-09-18T05:39:06.574Z",
+      "fingerprint": "8eaefc9c5469efa008da193f489ce9e2ec8ffe294e6c3e9b3ccb2ad528ad3e07",
+      "log": "artifacts/sdlc/1789709592634-72179/09-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T05-37-02-689Z-73557/results.json"
     },
     "f7e38cb326f860bb1a129550039ef060b10f1672a9913fbc3d1374bf582335eb": {
       "key": "f7e38cb326f860bb1a129550039ef060b10f1672a9913fbc3d1374bf582335eb",
@@ -12359,12 +12368,13 @@
       "title": "E2E-WEB-1331 source qualification gaps save reload and delete from sensitivity diagnostics @IMPACT-TRACE-001 @TEST-SIMULATION",
       "file": "browser/impact-calibration.spec.ts",
       "stories": ["IMPACT-TRACE-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789709592634-72179",
+      "time": "2026-09-18T05:39:06.574Z",
+      "fingerprint": "8eaefc9c5469efa008da193f489ce9e2ec8ffe294e6c3e9b3ccb2ad528ad3e07",
+      "log": "artifacts/sdlc/1789709592634-72179/09-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T05-37-02-689Z-73557/results.json"
     },
     "7995721e0d2c682ff929e3726a0a5493c42570a89913eca632ebfc497c7859b0": {
       "key": "7995721e0d2c682ff929e3726a0a5493c42570a89913eca632ebfc497c7859b0",
@@ -12373,12 +12383,13 @@
       "title": "E2E-WEB-1330 released source mapping previews and saves actual six-step owned trace @IMPACT-TRACE-001 @TEST-SIMULATION",
       "file": "browser/impact-governance.spec.ts",
       "stories": ["IMPACT-TRACE-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789709592634-72179",
+      "time": "2026-09-18T05:39:06.574Z",
+      "fingerprint": "8eaefc9c5469efa008da193f489ce9e2ec8ffe294e6c3e9b3ccb2ad528ad3e07",
+      "log": "artifacts/sdlc/1789709592634-72179/09-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T05-37-02-689Z-73557/results.json"
     },
     "162a827417732744316f5165fe4f7f64e86de07728a5c92301dc564c4b521ebb": {
       "key": "162a827417732744316f5165fe4f7f64e86de07728a5c92301dc564c4b521ebb",
@@ -12387,12 +12398,13 @@
       "title": "E2E-WEB-1330 released source mapping previews and saves actual six-step owned trace @IMPACT-TRACE-001 @TEST-SIMULATION",
       "file": "browser/impact-governance.spec.ts",
       "stories": ["IMPACT-TRACE-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789709592634-72179",
+      "time": "2026-09-18T05:39:06.574Z",
+      "fingerprint": "8eaefc9c5469efa008da193f489ce9e2ec8ffe294e6c3e9b3ccb2ad528ad3e07",
+      "log": "artifacts/sdlc/1789709592634-72179/09-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T05-37-02-689Z-73557/results.json"
     },
     "e54cceeeffdc096d3bc610ffa6d64508d74767664f22e679e06257694c485db9": {
       "key": "e54cceeeffdc096d3bc610ffa6d64508d74767664f22e679e06257694c485db9",
@@ -12401,12 +12413,13 @@
       "title": "E2E-WEB-960 reviewed six step trace preview consent save reload delete and navigation @IMPACT-TRACE-001 @TEST-SIMULATION",
       "file": "browser/impact-trace.spec.ts",
       "stories": ["IMPACT-TRACE-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789709592634-72179",
+      "time": "2026-09-18T05:39:06.574Z",
+      "fingerprint": "8eaefc9c5469efa008da193f489ce9e2ec8ffe294e6c3e9b3ccb2ad528ad3e07",
+      "log": "artifacts/sdlc/1789709592634-72179/09-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T05-37-02-689Z-73557/results.json"
     },
     "485f4c037cc15244cbbb049efff6161c1a5eb64b2e214b1c382d5825ed6cad93": {
       "key": "485f4c037cc15244cbbb049efff6161c1a5eb64b2e214b1c382d5825ed6cad93",
@@ -12415,12 +12428,13 @@
       "title": "E2E-WEB-960 reviewed six step trace preview consent save reload delete and navigation @IMPACT-TRACE-001 @TEST-SIMULATION",
       "file": "browser/impact-trace.spec.ts",
       "stories": ["IMPACT-TRACE-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789709592634-72179",
+      "time": "2026-09-18T05:39:06.574Z",
+      "fingerprint": "8eaefc9c5469efa008da193f489ce9e2ec8ffe294e6c3e9b3ccb2ad528ad3e07",
+      "log": "artifacts/sdlc/1789709592634-72179/09-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T05-37-02-689Z-73557/results.json"
     },
     "bd966367f44fa64c1cf422fdc10ae5001a0f4f4bcfbc6c089fb6c343015a64ae": {
       "key": "bd966367f44fa64c1cf422fdc10ae5001a0f4f4bcfbc6c089fb6c343015a64ae",
@@ -17749,12 +17763,13 @@
       "title": "E2E-WEB-1700 released transmission mechanism previews and saves actual six-step owned trace @IMPACT-TRACE-001 @TEST-SIMULATION",
       "file": "browser/transmission-context.spec.ts",
       "stories": ["IMPACT-TRACE-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789709592634-72179",
+      "time": "2026-09-18T05:39:06.574Z",
+      "fingerprint": "8eaefc9c5469efa008da193f489ce9e2ec8ffe294e6c3e9b3ccb2ad528ad3e07",
+      "log": "artifacts/sdlc/1789709592634-72179/09-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T05-37-02-689Z-73557/results.json"
     },
     "8c2719e3d20735b22c5ec00cb0efc2da80c10b0ccc4a7882c2986b56332be294": {
       "key": "8c2719e3d20735b22c5ec00cb0efc2da80c10b0ccc4a7882c2986b56332be294",
@@ -17765,10 +17780,11 @@
       "stories": ["IMPACT-TRACE-001"],
       "status": "failed",
       "details": "TimeoutError: locator.selectOption: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('region', { name: 'Research governance', exact: true }).getByLabel('Reviewed event', { exact: true })\n\n\n  142 |     await panel\n  143 |       .getByLabel('Reviewed event', { exact: true })\n> 144 |       .selectOption(fixture.eventId);\n      |        ^\n  145 |     await panel.getByRole('checkbox').check();\n  146 |     await panel\n  147 |       .getByLabel('Research title', { exact: true })\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/transmission-context.spec.ts:144:8",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789709592634-72179",
+      "time": "2026-09-18T05:39:06.574Z",
+      "fingerprint": "8eaefc9c5469efa008da193f489ce9e2ec8ffe294e6c3e9b3ccb2ad528ad3e07",
+      "log": "artifacts/sdlc/1789709592634-72179/09-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T05-37-02-689Z-73557/results.json"
     },
     "64eec645c161cd2530e3308408de21a184d5789e9e14ecb21733ab57d8bcdccd": {
       "key": "64eec645c161cd2530e3308408de21a184d5789e9e14ecb21733ab57d8bcdccd",
@@ -17777,12 +17793,13 @@
       "title": "E2E-WEB-1700 released transmission mechanism previews and saves actual six-step owned trace @IMPACT-TRACE-001 @TEST-SIMULATION",
       "file": "browser/transmission-context.spec.ts",
       "stories": ["IMPACT-TRACE-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789709592634-72179",
+      "time": "2026-09-18T05:39:06.574Z",
+      "fingerprint": "8eaefc9c5469efa008da193f489ce9e2ec8ffe294e6c3e9b3ccb2ad528ad3e07",
+      "log": "artifacts/sdlc/1789709592634-72179/09-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T05-37-02-689Z-73557/results.json"
     },
     "a83076701ce70f225ce624c013251d6ae92979a8a2e67300a84afa23a497c179": {
       "key": "a83076701ce70f225ce624c013251d6ae92979a8a2e67300a84afa23a497c179",
@@ -17793,10 +17810,11 @@
       "stories": ["IMPACT-TRACE-001"],
       "status": "failed",
       "details": "TimeoutError: locator.selectOption: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('region', { name: 'Research governance', exact: true }).getByLabel('Reviewed event', { exact: true })\n\n\n  142 |     await panel\n  143 |       .getByLabel('Reviewed event', { exact: true })\n> 144 |       .selectOption(fixture.eventId);\n      |        ^\n  145 |     await panel.getByRole('checkbox').check();\n  146 |     await panel\n  147 |       .getByLabel('Research title', { exact: true })\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/transmission-context.spec.ts:144:8",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789709592634-72179",
+      "time": "2026-09-18T05:39:06.574Z",
+      "fingerprint": "8eaefc9c5469efa008da193f489ce9e2ec8ffe294e6c3e9b3ccb2ad528ad3e07",
+      "log": "artifacts/sdlc/1789709592634-72179/09-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T05-37-02-689Z-73557/results.json"
     },
     "85ad0eaf90886546f2ce9ddbd6520d741b9b4c7727f510d1e312a84d9925b384": {
       "key": "85ad0eaf90886546f2ce9ddbd6520d741b9b4c7727f510d1e312a84d9925b384",
@@ -18115,12 +18133,13 @@
       "title": "E2E-WEB-961 failed evidence review retries current selections and requires fresh consent @IMPACT-TRACE-001 @TEST-SIMULATION",
       "file": "browser/impact-trace.spec.ts",
       "stories": ["IMPACT-TRACE-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789709592634-72179",
+      "time": "2026-09-18T05:39:06.574Z",
+      "fingerprint": "8eaefc9c5469efa008da193f489ce9e2ec8ffe294e6c3e9b3ccb2ad528ad3e07",
+      "log": "artifacts/sdlc/1789709592634-72179/09-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T05-37-02-689Z-73557/results.json"
     },
     "0cb15c0549cebf038d8edd106197efb77cadd609f530b7e7ade42f060efd14bd": {
       "key": "0cb15c0549cebf038d8edd106197efb77cadd609f530b7e7ade42f060efd14bd",
@@ -18129,12 +18148,13 @@
       "title": "E2E-WEB-961 failed evidence review retries current selections and requires fresh consent @IMPACT-TRACE-001 @TEST-SIMULATION",
       "file": "browser/impact-trace.spec.ts",
       "stories": ["IMPACT-TRACE-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789709592634-72179",
+      "time": "2026-09-18T05:39:06.574Z",
+      "fingerprint": "8eaefc9c5469efa008da193f489ce9e2ec8ffe294e6c3e9b3ccb2ad528ad3e07",
+      "log": "artifacts/sdlc/1789709592634-72179/09-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T05-37-02-689Z-73557/results.json"
     }
   },
   "bugs": {
@@ -18508,14 +18528,22 @@
       "title": "E2E-API-1783 actual published suspension blocks daily-window qualification only across its transition @SRC-003 @IMPACT-TRACE-001 @TEST-SIMULATION",
       "file": "api/equity-consolidation.spec.ts",
       "stories": ["SRC-003", "IMPACT-TRACE-001"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 201\nReceived: 400\n\n   at ../helpers/equity-consolidation.ts:127\n\n  125 |         })\n  126 |       ).status(),\n> 127 |     ).toBe(201);\n      |       ^\n  128 |     expect(\n  129 |       (\n  130 |         await reviewer.post('/api/v1/ops/equities/review', {\n    at consolidationActors (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/equity-consolidation.ts:127:7)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/api/equity-consolidation.spec.ts:224:24",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json",
+      "run": "1789709592634-72179",
+      "time": "2026-09-18T05:39:06.574Z",
+      "fingerprint": "8eaefc9c5469efa008da193f489ce9e2ec8ffe294e6c3e9b3ccb2ad528ad3e07",
+      "log": "artifacts/sdlc/1789709592634-72179/09-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T05-37-02-689Z-73557/results.json",
       "id": "BUG-e9ced00e799624ec",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789709592634-72179",
+        "time": "2026-09-18T05:42:45.732Z",
+        "fingerprint": "c6d6513f0e10763c470caa404842832930ee7d1c513308f5163643b3266f45e0",
+        "log": "artifacts/sdlc/1789709592634-72179/11-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T05-42-40-922Z-74322/results.json"
+      }
     },
     "BUG-fb092701ddad7401": {
       "key": "fb092701ddad7401e9a98ad60283f01fc848dad2e183f87fc6a8d9ba8bf0e1e4",
@@ -18684,14 +18712,22 @@
       "title": "E2E-API-1330 released actual causal mapping binds holding goal and withdrawal preserves historical trace @IMPACT-TRACE-001 @TEST-SIMULATION",
       "file": "api/impact-governance.spec.ts",
       "stories": ["IMPACT-TRACE-001"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 200\nReceived: 409\n\n  66 |       { headers, data: input },\n  67 |     );\n> 68 |     expect(saved.status()).toBe(200);\n     |                            ^\n  69 |     const receipt = ImpactTraceReceiptSchema.parse(await saved.json());\n  70 |     expect(receipt.causalContext?.id).toBe(id);\n  71 |     expect(receipt.chain[2]?.explanation).toContain('mixed');\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/api/impact-governance.spec.ts:68:28",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json",
+      "run": "1789709592634-72179",
+      "time": "2026-09-18T05:39:06.574Z",
+      "fingerprint": "8eaefc9c5469efa008da193f489ce9e2ec8ffe294e6c3e9b3ccb2ad528ad3e07",
+      "log": "artifacts/sdlc/1789709592634-72179/09-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T05-37-02-689Z-73557/results.json",
       "id": "BUG-4835e3fc121610d4",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789709592634-72179",
+        "time": "2026-09-18T05:44:32.152Z",
+        "fingerprint": "2e0ea2febe0272f17c1f463ee3d70fcbd9d9eb69b0b5de9b6e5b908e837d377b",
+        "log": "artifacts/sdlc/1789709592634-72179/13-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T05-44-27-211Z-74840/results.json"
+      }
     },
     "BUG-41ca7a8017047884": {
       "key": "41ca7a801704788434ef9da92a3d204987bc9725d6cee0dd2e667fbd9b9dbaca",
@@ -19123,14 +19159,21 @@
       "title": "E2E-API-1700 reviewed exact transmission catalog persists into actual holding goal receipt and rejects withdrawn context @IMPACT-TRACE-001 @TEST-SIMULATION",
       "file": "api/transmission-context.spec.ts",
       "stories": ["IMPACT-TRACE-001"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 201\nReceived: 403\n\n   at ../helpers/research-governance.ts:166\n\n  164 |       })).status(),\n  165 |     ).toBe(403);\n> 166 |     const proposalId = randomUUID();\n      |       ^\n  167 |     expect(\n  168 |       (await request.put(`/api/v1/ops/proposals/${proposalId}`, {\n  169 |         headers, data: { kind: 'event', target: eventId, body: review },\n    at governanceFixture (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/research-governance.ts:166:7)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/api/transmission-context.spec.ts:21:19",
       "run": "1789569622822-36573",
       "time": "2026-09-16T22:26:46.819Z",
       "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json",
       "id": "BUG-eea0eab4514b81f0",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789709592634-72179",
+        "time": "2026-09-18T05:39:06.574Z",
+        "fingerprint": "8eaefc9c5469efa008da193f489ce9e2ec8ffe294e6c3e9b3ccb2ad528ad3e07",
+        "log": "artifacts/sdlc/1789709592634-72179/09-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T05-37-02-689Z-73557/results.json"
+      }
     },
     "BUG-8044bf83da88e9b9": {
       "key": "8044bf83da88e9b96eed3eec3d61b0620d9fad51fe6bc0fc718fda2eb7f892b8",
@@ -20838,14 +20881,21 @@
       "title": "E2E-WEB-1331 source qualification gaps save reload and delete from sensitivity diagnostics @IMPACT-TRACE-001 @TEST-SIMULATION",
       "file": "browser/impact-calibration.spec.ts",
       "stories": ["IMPACT-TRACE-001"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "TimeoutError: locator.selectOption: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('region', { name: 'Historical sensitivity diagnostics', exact: true }).getByLabel('Calibration holding', { exact: true })\n\n\n  19 |   await panel\n  20 |     .getByLabel('Calibration holding', { exact: true })\n> 21 |     .selectOption('INE002A01018');\n     |      ^\n  22 |   await panel\n  23 |     .getByLabel('Save this private source-bound diagnostic receipt.', {\n  24 |       exact: true,\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/impact-calibration.spec.ts:21:6",
       "run": "1789569622822-36573",
       "time": "2026-09-16T22:26:46.819Z",
       "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json",
       "id": "BUG-60fd7eb3b2dc231e",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789709592634-72179",
+        "time": "2026-09-18T05:39:06.574Z",
+        "fingerprint": "8eaefc9c5469efa008da193f489ce9e2ec8ffe294e6c3e9b3ccb2ad528ad3e07",
+        "log": "artifacts/sdlc/1789709592634-72179/09-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T05-37-02-689Z-73557/results.json"
+      }
     },
     "BUG-f7e38cb326f860bb": {
       "key": "f7e38cb326f860bb1a129550039ef060b10f1672a9913fbc3d1374bf582335eb",
@@ -20854,14 +20904,21 @@
       "title": "E2E-WEB-1331 source qualification gaps save reload and delete from sensitivity diagnostics @IMPACT-TRACE-001 @TEST-SIMULATION",
       "file": "browser/impact-calibration.spec.ts",
       "stories": ["IMPACT-TRACE-001"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "TimeoutError: locator.selectOption: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('region', { name: 'Historical sensitivity diagnostics', exact: true }).getByLabel('Calibration holding', { exact: true })\n\n\n  19 |   await panel\n  20 |     .getByLabel('Calibration holding', { exact: true })\n> 21 |     .selectOption('INE002A01018');\n     |      ^\n  22 |   await panel\n  23 |     .getByLabel('Save this private source-bound diagnostic receipt.', {\n  24 |       exact: true,\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/impact-calibration.spec.ts:21:6",
       "run": "1789569622822-36573",
       "time": "2026-09-16T22:26:46.819Z",
       "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json",
       "id": "BUG-f7e38cb326f860bb",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789709592634-72179",
+        "time": "2026-09-18T05:39:06.574Z",
+        "fingerprint": "8eaefc9c5469efa008da193f489ce9e2ec8ffe294e6c3e9b3ccb2ad528ad3e07",
+        "log": "artifacts/sdlc/1789709592634-72179/09-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T05-37-02-689Z-73557/results.json"
+      }
     },
     "BUG-7995721e0d2c682f": {
       "key": "7995721e0d2c682ff929e3726a0a5493c42570a89913eca632ebfc497c7859b0",
@@ -20870,14 +20927,21 @@
       "title": "E2E-WEB-1330 released source mapping previews and saves actual six-step owned trace @IMPACT-TRACE-001 @TEST-SIMULATION",
       "file": "browser/impact-governance.spec.ts",
       "stories": ["IMPACT-TRACE-001"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 201\nReceived: 403\n\n   at ../helpers/research-governance.ts:166\n\n  164 |       })).status(),\n  165 |     ).toBe(403);\n> 166 |     const proposalId = randomUUID();\n      |       ^\n  167 |     expect(\n  168 |       (await request.put(`/api/v1/ops/proposals/${proposalId}`, {\n  169 |         headers, data: { kind: 'event', target: eventId, body: review },\n    at governanceFixture (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/research-governance.ts:166:7)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/impact-governance.spec.ts:22:19",
       "run": "1789569622822-36573",
       "time": "2026-09-16T22:26:46.819Z",
       "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json",
       "id": "BUG-7995721e0d2c682f",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789709592634-72179",
+        "time": "2026-09-18T05:39:06.574Z",
+        "fingerprint": "8eaefc9c5469efa008da193f489ce9e2ec8ffe294e6c3e9b3ccb2ad528ad3e07",
+        "log": "artifacts/sdlc/1789709592634-72179/09-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T05-37-02-689Z-73557/results.json"
+      }
     },
     "BUG-162a827417732744": {
       "key": "162a827417732744316f5165fe4f7f64e86de07728a5c92301dc564c4b521ebb",
@@ -20886,14 +20950,21 @@
       "title": "E2E-WEB-1330 released source mapping previews and saves actual six-step owned trace @IMPACT-TRACE-001 @TEST-SIMULATION",
       "file": "browser/impact-governance.spec.ts",
       "stories": ["IMPACT-TRACE-001"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 201\nReceived: 403\n\n   at ../helpers/research-governance.ts:166\n\n  164 |       })).status(),\n  165 |     ).toBe(403);\n> 166 |     const proposalId = randomUUID();\n      |       ^\n  167 |     expect(\n  168 |       (await request.put(`/api/v1/ops/proposals/${proposalId}`, {\n  169 |         headers, data: { kind: 'event', target: eventId, body: review },\n    at governanceFixture (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/research-governance.ts:166:7)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/impact-governance.spec.ts:22:19",
       "run": "1789569622822-36573",
       "time": "2026-09-16T22:26:46.819Z",
       "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json",
       "id": "BUG-162a827417732744",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789709592634-72179",
+        "time": "2026-09-18T05:39:06.574Z",
+        "fingerprint": "8eaefc9c5469efa008da193f489ce9e2ec8ffe294e6c3e9b3ccb2ad528ad3e07",
+        "log": "artifacts/sdlc/1789709592634-72179/09-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T05-37-02-689Z-73557/results.json"
+      }
     },
     "BUG-e54cceeeffdc096d": {
       "key": "e54cceeeffdc096d3bc610ffa6d64508d74767664f22e679e06257694c485db9",
@@ -20902,14 +20973,21 @@
       "title": "E2E-WEB-960 reviewed six step trace preview consent save reload delete and navigation @IMPACT-TRACE-001 @TEST-SIMULATION",
       "file": "browser/impact-trace.spec.ts",
       "stories": ["IMPACT-TRACE-001"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "TimeoutError: locator.selectOption: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('region', { name: 'Impact traces', exact: true }).getByLabel('Reviewed event', { exact: true })\n\n\n  24 |   await panel\n  25 |     .getByLabel('Reviewed event', { exact: true })\n> 26 |     .selectOption(event.id);\n     |      ^\n  27 |   await panel\n  28 |     .getByLabel('Reviewed sector', { exact: true })\n  29 |     .selectOption('Synthetic sector context');\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/impact-trace.spec.ts:26:6",
       "run": "1789569622822-36573",
       "time": "2026-09-16T22:26:46.819Z",
       "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json",
       "id": "BUG-e54cceeeffdc096d",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789709592634-72179",
+        "time": "2026-09-18T05:39:06.574Z",
+        "fingerprint": "8eaefc9c5469efa008da193f489ce9e2ec8ffe294e6c3e9b3ccb2ad528ad3e07",
+        "log": "artifacts/sdlc/1789709592634-72179/09-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T05-37-02-689Z-73557/results.json"
+      }
     },
     "BUG-485f4c037cc15244": {
       "key": "485f4c037cc15244cbbb049efff6161c1a5eb64b2e214b1c382d5825ed6cad93",
@@ -20918,14 +20996,21 @@
       "title": "E2E-WEB-960 reviewed six step trace preview consent save reload delete and navigation @IMPACT-TRACE-001 @TEST-SIMULATION",
       "file": "browser/impact-trace.spec.ts",
       "stories": ["IMPACT-TRACE-001"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "TimeoutError: locator.selectOption: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('region', { name: 'Impact traces', exact: true }).getByLabel('Reviewed event', { exact: true })\n\n\n  24 |   await panel\n  25 |     .getByLabel('Reviewed event', { exact: true })\n> 26 |     .selectOption(event.id);\n     |      ^\n  27 |   await panel\n  28 |     .getByLabel('Reviewed sector', { exact: true })\n  29 |     .selectOption('Synthetic sector context');\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/impact-trace.spec.ts:26:6",
       "run": "1789569622822-36573",
       "time": "2026-09-16T22:26:46.819Z",
       "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json",
       "id": "BUG-485f4c037cc15244",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789709592634-72179",
+        "time": "2026-09-18T05:39:06.574Z",
+        "fingerprint": "8eaefc9c5469efa008da193f489ce9e2ec8ffe294e6c3e9b3ccb2ad528ad3e07",
+        "log": "artifacts/sdlc/1789709592634-72179/09-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T05-37-02-689Z-73557/results.json"
+      }
     },
     "BUG-75cf1cfd02b05914": {
       "key": "75cf1cfd02b05914d5a63e67d4df2dc5caf8c96baf23b606bbfd1574e25f545d",
@@ -22164,14 +22249,21 @@
       "title": "E2E-WEB-1700 released transmission mechanism previews and saves actual six-step owned trace @IMPACT-TRACE-001 @TEST-SIMULATION",
       "file": "browser/transmission-context.spec.ts",
       "stories": ["IMPACT-TRACE-001"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 201\nReceived: 403\n\n   at ../helpers/research-governance.ts:166\n\n  164 |       })).status(),\n  165 |     ).toBe(403);\n> 166 |     const proposalId = randomUUID();\n      |       ^\n  167 |     expect(\n  168 |       (await request.put(`/api/v1/ops/proposals/${proposalId}`, {\n  169 |         headers, data: { kind: 'event', target: eventId, body: review },\n    at governanceFixture (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/research-governance.ts:166:7)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/transmission-context.spec.ts:23:19",
       "run": "1789569622822-36573",
       "time": "2026-09-16T22:26:46.819Z",
       "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json",
       "id": "BUG-98a020b0f7ad52cf",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789709592634-72179",
+        "time": "2026-09-18T05:39:06.574Z",
+        "fingerprint": "8eaefc9c5469efa008da193f489ce9e2ec8ffe294e6c3e9b3ccb2ad528ad3e07",
+        "log": "artifacts/sdlc/1789709592634-72179/09-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T05-37-02-689Z-73557/results.json"
+      }
     },
     "BUG-8c2719e3d20735b2": {
       "key": "8c2719e3d20735b22c5ec00cb0efc2da80c10b0ccc4a7882c2986b56332be294",
@@ -22182,10 +22274,11 @@
       "stories": ["IMPACT-TRACE-001"],
       "status": "Open",
       "details": "TimeoutError: locator.selectOption: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('region', { name: 'Research governance', exact: true }).getByLabel('Reviewed event', { exact: true })\n\n\n  142 |     await panel\n  143 |       .getByLabel('Reviewed event', { exact: true })\n> 144 |       .selectOption(fixture.eventId);\n      |        ^\n  145 |     await panel.getByRole('checkbox').check();\n  146 |     await panel\n  147 |       .getByLabel('Research title', { exact: true })\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/transmission-context.spec.ts:144:8",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json",
+      "run": "1789709592634-72179",
+      "time": "2026-09-18T05:39:06.574Z",
+      "fingerprint": "8eaefc9c5469efa008da193f489ce9e2ec8ffe294e6c3e9b3ccb2ad528ad3e07",
+      "log": "artifacts/sdlc/1789709592634-72179/09-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T05-37-02-689Z-73557/results.json",
       "id": "BUG-8c2719e3d20735b2",
       "firstSeen": "2026-09-16T22:26:46.819Z"
     },
@@ -22196,14 +22289,21 @@
       "title": "E2E-WEB-1700 released transmission mechanism previews and saves actual six-step owned trace @IMPACT-TRACE-001 @TEST-SIMULATION",
       "file": "browser/transmission-context.spec.ts",
       "stories": ["IMPACT-TRACE-001"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 201\nReceived: 403\n\n   at ../helpers/research-governance.ts:166\n\n  164 |       })).status(),\n  165 |     ).toBe(403);\n> 166 |     const proposalId = randomUUID();\n      |       ^\n  167 |     expect(\n  168 |       (await request.put(`/api/v1/ops/proposals/${proposalId}`, {\n  169 |         headers, data: { kind: 'event', target: eventId, body: review },\n    at governanceFixture (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/research-governance.ts:166:7)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/transmission-context.spec.ts:23:19",
       "run": "1789569622822-36573",
       "time": "2026-09-16T22:26:46.819Z",
       "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json",
       "id": "BUG-64eec645c161cd25",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789709592634-72179",
+        "time": "2026-09-18T05:39:06.574Z",
+        "fingerprint": "8eaefc9c5469efa008da193f489ce9e2ec8ffe294e6c3e9b3ccb2ad528ad3e07",
+        "log": "artifacts/sdlc/1789709592634-72179/09-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T05-37-02-689Z-73557/results.json"
+      }
     },
     "BUG-a83076701ce70f22": {
       "key": "a83076701ce70f225ce624c013251d6ae92979a8a2e67300a84afa23a497c179",
@@ -22214,10 +22314,11 @@
       "stories": ["IMPACT-TRACE-001"],
       "status": "Open",
       "details": "TimeoutError: locator.selectOption: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('region', { name: 'Research governance', exact: true }).getByLabel('Reviewed event', { exact: true })\n\n\n  142 |     await panel\n  143 |       .getByLabel('Reviewed event', { exact: true })\n> 144 |       .selectOption(fixture.eventId);\n      |        ^\n  145 |     await panel.getByRole('checkbox').check();\n  146 |     await panel\n  147 |       .getByLabel('Research title', { exact: true })\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/transmission-context.spec.ts:144:8",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json",
+      "run": "1789709592634-72179",
+      "time": "2026-09-18T05:39:06.574Z",
+      "fingerprint": "8eaefc9c5469efa008da193f489ce9e2ec8ffe294e6c3e9b3ccb2ad528ad3e07",
+      "log": "artifacts/sdlc/1789709592634-72179/09-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T05-37-02-689Z-73557/results.json",
       "id": "BUG-a83076701ce70f22",
       "firstSeen": "2026-09-16T22:26:46.819Z"
     },
@@ -22628,14 +22729,43 @@
       "title": "pnpm build",
       "file": "",
       "stories": [],
-      "status": "Open",
+      "status": "Resolved",
       "details": "$ pnpm -r build\nScope: 3 of 4 workspace projects\npackages/contracts build$ tsc -p tsconfig.json\npackages/contracts build: src/bond-evidence.ts(40,58): error TS2339: Property 'observation' does not exist on type '{ status: \"user-description-only\"; } | { status: \"historical-original-attached\"; editionId: string; sourceUrl: string; sourceHash: string; sourceVersion: \"icra-hudco-142975-annexure-v1\"; ... 4 more ...; observation: { ...; }; }'.\npackages/contracts build:   Property 'observation' does not exist on type '{ status: \"user-description-only\"; }'.\npackages/contracts build: Failed\n/Users/arpanmacmini/code/fingent360/packages/contracts:\n[ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL] @fingent360/contracts@0.1.0 build: `tsc -p tsconfig.json`\nExit status 2\n[ELIFECYCLE] Command failed with exit code 2.\n",
       "run": "1789669163056-59061",
       "time": "2026-09-18T05:11:23.620Z",
       "log": "artifacts/sdlc/1789669163056-59061/11-pnpm-build.log",
       "id": "BUG-efa18bcf6151b6e5",
-      "firstSeen": "2026-09-18T05:11:23.620Z"
+      "firstSeen": "2026-09-18T05:11:23.620Z",
+      "resolvedBy": {
+        "run": "1789709592634-72179",
+        "time": "2026-09-18T05:44:26.820Z",
+        "log": "artifacts/sdlc/1789709592634-72179/12-pnpm-build.log"
+      }
+    },
+    "BUG-a47611ab64789eb8": {
+      "key": "a47611ab64789eb8f58fb4c5f227527c0c2cf49d0ba00f0fcb3d59dbe4856420",
+      "caseId": "",
+      "project": "workflow",
+      "title": "pnpm check",
+      "file": "",
+      "stories": [],
+      "status": "Resolved",
+      "details": "$ pnpm format:check && pnpm lint && pnpm typecheck && pnpm e2e:typecheck && pnpm test\n$ prettier --check .\nChecking formatting...\n[warn] TODO.md\n[warn] Code style issues found in the above file. Run Prettier with --write to fix.\n[ELIFECYCLE] Command failed with exit code 1.\n[ELIFECYCLE] Command failed with exit code 1.\n",
+      "run": "1789709592634-72179",
+      "time": "2026-09-18T05:36:13.812Z",
+      "fingerprint": "8eaefc9c5469efa008da193f489ce9e2ec8ffe294e6c3e9b3ccb2ad528ad3e07",
+      "log": "artifacts/sdlc/1789709592634-72179/03-pnpm-check.log",
+      "id": "BUG-a47611ab64789eb8",
+      "firstSeen": "2026-09-18T05:33:44.718Z",
+      "resolvedBy": {
+        "run": "1789709592634-72179",
+        "time": "2026-09-18T05:37:02.176Z",
+        "fingerprint": "8eaefc9c5469efa008da193f489ce9e2ec8ffe294e6c3e9b3ccb2ad528ad3e07",
+        "log": "artifacts/sdlc/1789709592634-72179/05-pnpm-check.log"
+      }
     }
   },
-  "gates": {}
+  "gates": {
+    "check": "8eaefc9c5469efa008da193f489ce9e2ec8ffe294e6c3e9b3ccb2ad528ad3e07"
+  }
 }

@@ -87,8 +87,9 @@ export async function consolidationActors(
   for (const [isin, face, date, close, series] of [
     ['INE188Y01023', '1', '2025-06-24', '12.345', 'EQ'],
     ['INE188Y01031', '10', '2025-07-11', '125', 'BE'],
-  ]) {
+  ] as const) {
     const input = await equityInput();
+    input.effectiveOn = date;
     input.body = JSON.stringify({
       format: 'f360-equity-evidence-v1',
       observations: [
@@ -117,14 +118,16 @@ export async function consolidationActors(
         },
       ],
     });
-    expect(
-      (
-        await request.post('/api/v1/ops/equities/import', {
-          headers: retentionHeaders,
-          data: input,
-        })
-      ).status(),
-    ).toBe(201);
+    const imported = await request.post('/api/v1/ops/equities/import', {
+      headers: retentionHeaders,
+      data: input,
+    });
+    const edition = await imported.json();
+    expect(imported.status(), JSON.stringify(edition)).toBe(201);
+    expect(edition).toMatchObject({
+      effectiveOn: date,
+      observations: [{ effectiveOn: date }, { effectiveOn: date }],
+    });
     expect(
       (
         await reviewer.post('/api/v1/ops/equities/review', {

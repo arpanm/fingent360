@@ -1,11 +1,11 @@
 # BUG-e9ced00e799624ec
 
-- Status: Open
+- Status: Resolved
 - Case/project: E2E-API-1783 / api
 - Stories: SRC-003, IMPACT-TRACE-001
 - First seen: 2026-09-16T22:26:46.819Z
-- Evidence: artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log
-- Resolution run: Unresolved
+- Evidence: artifacts/sdlc/1789709592634-72179/09-pnpm-e2e_run.log
+- Resolution run: 1789709592634-72179
 
 Failure excerpt (untrusted; local original has full details):
 

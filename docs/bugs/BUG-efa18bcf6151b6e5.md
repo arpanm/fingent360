@@ -1,11 +1,11 @@
 # BUG-efa18bcf6151b6e5
 
-- Status: Open
+- Status: Resolved
 - Case/project: Workflow stage / workflow
 - Stories: Unmapped workflow failure
 - First seen: 2026-09-18T05:11:23.620Z
 - Evidence: artifacts/sdlc/1789669163056-59061/11-pnpm-build.log
-- Resolution run: Unresolved
+- Resolution run: 1789709592634-72179
 
 Failure excerpt (untrusted; local original has full details):
 

@@ -1,5 +1,13 @@
 # Current implementation and verification status
 
+## API1330 reviewed-event fixture repair — 2026-09-18
+
+The supplied user-run API1330 evidence reached impact-trace admission and received409 because the case submitted hard-coded event revision1 after its governance fixture had independently published and returned revision2. The case now binds the trace to the returned retained revision and explicitly preserves a409 assertion for the preceding stale revision. Production admission remains strict and unchanged. The repair is authored, not executed or committed; the exact API1330 retry is pending.
+
+## API1783 consolidation prerequisite repair — 2026-09-18
+
+The supplied user-run API1783 evidence reached the shared equity prerequisite and received400 before consolidation preparation. The synthetic helper had retained the generic 31 January2025 edition date while replacing its body with 24 June and 11 July2025 observations; production correctly rejects observations later than their declared source date. The helper now aligns each edition to its boundary date and asserts the returned edition and both observations preserve that date before independent review. Production admission and suspension-window logic are unchanged. The repair is authored, not executed or committed; the exact API1783 retry is pending.
+
 ## Continued implementation — 2026-09-15
 
 DEV-006 public briefs, DEV-010 educational source-to-goal flow, DEV-015, DEV-016 progressive evidence reading, DEV-017 supported server privacy, SRC-012, ACTION-CENTRE-001/DEV-019 and initial SRC-007/SRC-008/SRC-010/SRC-011/SRC-015 are now implementation-complete for their stated scope. Authored acceptance is API/WEB/OFFLINE1280–1283,1290–1291,1300–1301,1320–1323 and1350 as applicable; see the case catalogue for project-specific IDs. Broader equity/complex-action coverage, complete causal impact policies, AMC look-through variants and bond price/credit sources remain explicitly open. Private-storage lifecycle and simple action/classification support are authored; their manual acceptance remains. Source activation, deployment and manual checks remain distinct. No new gate pass, applied migration, APK or commit is claimed.

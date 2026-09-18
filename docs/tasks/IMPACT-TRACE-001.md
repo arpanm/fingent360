@@ -12,6 +12,16 @@ See [current delivery summary](current-delivery.md) for the batch-wide distincti
 
 The complete required API/browser/offline matrix is recorded in `docs/tasks/acceptance.json`. Implementation of its supported functional scope is complete; the new repairs remain unvalidated. User command: `pnpm sdlc "Complete IMPACT-TRACE-001" --story IMPACT-TRACE-001`. SDLC may mark the accepted functional scope Done only after all required current cases and checks pass. Live-source/editorial activation and native production release remain separate operational prerequisites, not permissions inferred from these tests. See [consolidated commands and completed scope](../development/core-journey-acceptance.md). Existing failure records stay open until observed passing reruns.
 
+## API1330 reviewed-event version repair — 2026-09-18
+
+The supplied API1330 run received409 while saving the first trace because its fixture now publishes the reviewed event through an independent proposal and returns revision2, but the case still submitted the obsolete draft `eventVersion: 1`. The released causal context already retained the returned reviewed revision, so strict trace admission correctly rejected the mismatched input. API1330 now derives `eventVersion` from the returned governance revision, asserts that it matches the retained event snapshot, and separately expects the immediately preceding stale revision to remain409 before the current trace saves. Production event/context matching, withdrawal handling and stored receipt behavior are unchanged.
+
+This scoped repair is authored only. No dependencies, migrations, services, format, checks, tests, commit or push were run. With the existing migrated databases and current API service, the parent retries the exact supplied API1330 command. Expected: stale revision409, current released revision200, then withdrawal denial409 while the earlier immutable receipt remains listed with a withdrawn review reason. Report the run ID and the assertion/status response if it still fails. Story acceptance and existing API1783 repair evidence remain separate.
+
+## API1783 scoped prerequisite repair — 2026-09-18
+
+The supplied API1783 failure occurred before the impact-calibration suspension check: its shared consolidation fixture declared January2025 source metadata around June/July2025 identity and price observations, and strict equity admission correctly returned400. [SRC-003-CONSOLIDATION](SRC-003-CONSOLIDATION.md#api1783-edition-date-repair--2026-09-18) records the aligned synthetic edition dates and response-date regression assertions. No impact policy, calibration rule or production admission was relaxed. The exact API1783 retry remains pending, and this task retains Needs repair until recorded acceptance resolves its outstanding bugs.
+
 ## Trace selection and recovery specification — 2026-09-17
 
 The saved WEB960 failure stops at an exact event label because option text participates in implicit label lookup. Give each of the five selectors a stable accessible name. While reviewing evidence, disable the educational-pack/context inputs as well as the main fieldset so the returned preview cannot describe a different selection. Starting a new review removes the previous preview/consent; failed evidence loads expose retry without an old saveable receipt. Pagination clears the old causal-context ID. Focus the completed review heading for keyboard users. Reuse the unchanged validated API, exact-money contracts, encrypted receipt storage and offline handlers; no new dependency or migration.
@@ -96,5 +106,5 @@ Optional future work is separate: broader per-edge strength/confidence modeling,
 
 ## Automated validation
 
-Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789669163056-59061.
+Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789709592634-72179.
 <!-- sdlc-validation:end -->

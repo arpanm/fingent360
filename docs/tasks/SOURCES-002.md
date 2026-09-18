@@ -53,5 +53,5 @@ WEB1760 follows actual links into real reader components including GDP compariso
 
 ## Automated validation
 
-Blocked — workflow failure. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789669163056-59061.
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789709592634-72179.
 <!-- sdlc-validation:end -->

@@ -1,6 +1,6 @@
 # SRC-003-CONSOLIDATION — Reviewed share-consolidation bridge
 
-- **Status:** Completed implementation; manual validation pending.
+- **Status:** API1783 prerequisite and E2E typing repairs authored; manual validation pending.
 - **Parent:** [SRC-003](SRC-003.md). This completed scope does not complete its broader parent.
 - **Implemented:** Original notices, old/new security identities, exact nominal comparison, suspension-aware calibration exclusion and independent review. Holdings are unchanged.
 - **Specification and source evidence:** Use the dated implementation specification, original-source research and detailed handoff in the parent task. This child makes the finished scope visible in the task index; it does not replace or duplicate that evidence.
@@ -8,7 +8,23 @@
 - **Authored acceptance:** API1780–1783, WEB1780, OFFLINE1780. Cases cover the specified behavior, not live provider permissions or physical-device acceptance.
 - **Migration:** 110. No dependency added for this child.
 - **Remaining:** User-run validation and applicable source/device activation. Original-data access and wider source coverage remain explicit in the parent.
-- **Verification:** Not executed. No format/check/build/E2E, migration, service change, commit or push was run. Baseline a2c53a0.
+- **Verification:** The user-operated run `1789709825376-80015a7a-8b3d-4394-a62a-7c6567ea9582` reported API1783 failing before consolidation preparation because the synthetic equity prerequisite returned400. After the date repair, a user-operated `pnpm check` reached E2E typechecking and reported TS2322 at the fixture-date assignment. The typing repair below is not executed. No check/build/E2E, migration, service change, commit or push was run by the repair agent. Inspected HEAD `4774895`.
+
+## API1783 edition-date repair — 2026-09-18
+
+`consolidationActors` replaced the generic equity fixture body with old/new identity and price observations dated 24 June and 11 July2025, but retained the generic edition date 31 January2025. The strict equity-import boundary correctly rejects any observation after its declared source date, so the prerequisite import returned400 before API1783 could exercise the published suspension window.
+
+The helper now declares each synthetic edition effective on its corresponding boundary date. Its shared prerequisite regression also inspects the201 response and requires both retained observations and the edition to preserve that same date before independent publication. Production validation and suspension-window logic are unchanged; no assertion was removed and no provider path was mocked. This strengthens API1780–1783 and WEB1780 setup while the supplied retry remains API1783 only.
+
+The initial implementation represented the two five-field fixture rows as a mutable array of arrays. With repository-wide `noUncheckedIndexedAccess`, TypeScript therefore inferred every destructured cell as `string | undefined`, although both authored rows contain all five values. The rows are now an immutable tuple collection, making their completeness part of the static fixture contract without a cast at the assignment or weaker input typing. The admitted-edition response assertions above remain the meaningful runtime regression.
+
+Smallest validation for the supplied check-stage failure: `pnpm e2e:typecheck`. Expected: the E2E TypeScript project completes without TS2322 in `equity-consolidation.ts`. If it fails, report the exact diagnostic and file/line. This command needs no services, migrations or UI URL. The parent repair workflow owns the exact `pnpm check` retry; API1783 runtime validation remains separately pending.
+
+Smallest validation, with the existing migrated databases and current API process available:
+
+`pnpm e2e:run '/Users/arpanmacmini/code/fingent360/tests/e2e/cases/api/equity-consolidation\.spec\.ts' --project=api --grep 'E2E-API-1783 actual published suspension blocks daily-window qualification only across its transition @SRC-003 @IMPACT-TRACE-001 @TEST-SIMULATION$'`
+
+Expected: both dated prerequisite editions import and publish, the transition window is blocked for both identities, and windows wholly before/after it remain eligible. On failure report the exact status/assertion and saved run artifact. No UI URL is needed for this API-only retry; dependencies and migration110 are unchanged.
 
 ## Reusable implementation prompt
 

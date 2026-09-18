@@ -1,11 +1,11 @@
 # BUG-d7eac1ec7e90f85d
 
-- Status: Open
+- Status: Resolved
 - Case/project: E2E-WEB-295 / desktop
 - Stories: REPORTS-003
 - First seen: 2026-09-16T22:26:46.819Z
 - Evidence: artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log
-- Resolution run: Unresolved
+- Resolution run: 1789719717196-80383
 
 Failure excerpt (untrusted; local original has full details):
 

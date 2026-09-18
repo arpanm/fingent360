@@ -6254,13 +6254,14 @@
       "project": "api",
       "title": "E2E-API-331 concurrent actual workers capture latest due once and preserve deleted report tombstone @REPORT-SCHEDULES-001",
       "file": "api/report-schedules.spec.ts",
-      "stories": ["REPORT-SCHEDULES-001"],
-      "status": "skipped",
+      "stories": ["REPORT-SCHEDULES-001", "REPORTS-001"],
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789719717196-80383",
+      "time": "2026-09-18T08:25:22.601Z",
+      "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+      "log": "artifacts/sdlc/1789719717196-80383/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T08-23-00-935Z-81092/results.json"
     },
     "9aec809f8fb5ad1e4f4a95f64edcee2e95abe463a8589f409f8ce3a3891dcdae": {
       "key": "9aec809f8fb5ad1e4f4a95f64edcee2e95abe463a8589f409f8ce3a3891dcdae",
@@ -6325,12 +6326,13 @@
       "title": "E2E-API-223 populated report preserves exact records, allocation review, privacy and ownership @REPORTS-001",
       "file": "api/reports-populated.spec.ts",
       "stories": ["REPORTS-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789719717196-80383",
+      "time": "2026-09-18T08:25:22.601Z",
+      "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+      "log": "artifacts/sdlc/1789719717196-80383/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T08-23-00-935Z-81092/results.json"
     },
     "2762110c5dfb46f94a74bc39840f9d4645a082b4d24d1999b31d7698cfdafc00": {
       "key": "2762110c5dfb46f94a74bc39840f9d4645a082b4d24d1999b31d7698cfdafc00",
@@ -6339,12 +6341,13 @@
       "title": "E2E-API-220 immutable owned report request, issue, retry identity and download @REPORTS-001",
       "file": "api/reports.spec.ts",
       "stories": ["REPORTS-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789719717196-80383",
+      "time": "2026-09-18T08:25:22.601Z",
+      "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+      "log": "artifacts/sdlc/1789719717196-80383/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T08-23-00-935Z-81092/results.json"
     },
     "38edf7e7f0d01fc5d27027d3f61b771990fd3ec413dca70d280e1aa90b3c8cd9": {
       "key": "38edf7e7f0d01fc5d27027d3f61b771990fd3ec413dca70d280e1aa90b3c8cd9",
@@ -6353,12 +6356,13 @@
       "title": "E2E-API-221 report consent and unknown fields rejected without jobs @REPORTS-001",
       "file": "api/reports.spec.ts",
       "stories": ["REPORTS-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789719717196-80383",
+      "time": "2026-09-18T08:25:22.601Z",
+      "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+      "log": "artifacts/sdlc/1789719717196-80383/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T08-23-00-935Z-81092/results.json"
     },
     "4826316ede5e7f8f8e994bf3190e2f05fb1512dda774d84a58a2c5e0820f92e1": {
       "key": "4826316ede5e7f8f8e994bf3190e2f05fb1512dda774d84a58a2c5e0820f92e1",
@@ -6367,12 +6371,13 @@
       "title": "E2E-API-222 expired leases recover and cancellation fences late issuance @REPORTS-001",
       "file": "api/reports.spec.ts",
       "stories": ["REPORTS-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789719717196-80383",
+      "time": "2026-09-18T08:25:22.601Z",
+      "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+      "log": "artifacts/sdlc/1789719717196-80383/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T08-23-00-935Z-81092/results.json"
     },
     "a7447e9d66ebb98d21e67f35ff70d5cc283fabd81eda6b3715faf2ed8bb1a178": {
       "key": "a7447e9d66ebb98d21e67f35ff70d5cc283fabd81eda6b3715faf2ed8bb1a178",
@@ -7754,13 +7759,14 @@
       "project": "api",
       "title": "E2E-API-352 committed pause fences two real claimants restart and new work while existing leases finish once @WORKER-HEALTH-001",
       "file": "api/worker-health.spec.ts",
-      "stories": ["WORKER-HEALTH-001"],
-      "status": "skipped",
+      "stories": ["WORKER-HEALTH-001", "REPORTS-001"],
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789719717196-80383",
+      "time": "2026-09-18T08:25:22.601Z",
+      "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+      "log": "artifacts/sdlc/1789719717196-80383/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T08-23-00-935Z-81092/results.json"
     },
     "d0a228c40f352866fc40a2b7a52cdbff9cfa684fb0f9930bdbe11f16cb99b667": {
       "key": "d0a228c40f352866fc40a2b7a52cdbff9cfa684fb0f9930bdbe11f16cb99b667",
@@ -15246,13 +15252,14 @@
       "project": "desktop",
       "title": "E2E-WEB-425 foreign comparison and original deep link clear an existing selection without fallback @REPORT-COMPARE-001",
       "file": "browser/report-comparison.spec.ts",
-      "stories": ["REPORT-COMPARE-001"],
-      "status": "skipped",
+      "stories": ["REPORT-COMPARE-001", "REPORTS-001"],
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789719717196-80383",
+      "time": "2026-09-18T08:25:22.601Z",
+      "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+      "log": "artifacts/sdlc/1789719717196-80383/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T08-23-00-935Z-81092/results.json"
     },
     "fa6ae4b5c9ca1a9e434a733060c79b94cb9191f7ed757493853fe667e173a6ae": {
       "key": "fa6ae4b5c9ca1a9e434a733060c79b94cb9191f7ed757493853fe667e173a6ae",
@@ -15330,13 +15337,14 @@
       "project": "mobile",
       "title": "E2E-WEB-425 foreign comparison and original deep link clear an existing selection without fallback @REPORT-COMPARE-001",
       "file": "browser/report-comparison.spec.ts",
-      "stories": ["REPORT-COMPARE-001"],
-      "status": "skipped",
+      "stories": ["REPORT-COMPARE-001", "REPORTS-001"],
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789719717196-80383",
+      "time": "2026-09-18T08:25:22.601Z",
+      "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+      "log": "artifacts/sdlc/1789719717196-80383/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T08-23-00-935Z-81092/results.json"
     },
     "a790981a92541ae7651c924dbadf3956a0cb65215ab0e412c187077402780d3a": {
       "key": "a790981a92541ae7651c924dbadf3956a0cb65215ab0e412c187077402780d3a",
@@ -15358,13 +15366,14 @@
       "project": "desktop",
       "title": "E2E-WEB-224 another tab deletion removes reader and stale list cannot restore report @REPORTS-002",
       "file": "browser/report-deletion.spec.ts",
-      "stories": ["REPORTS-002"],
-      "status": "skipped",
+      "stories": ["REPORTS-002", "REPORTS-001"],
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789719717196-80383",
+      "time": "2026-09-18T08:25:22.601Z",
+      "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+      "log": "artifacts/sdlc/1789719717196-80383/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T08-23-00-935Z-81092/results.json"
     },
     "0195414975f9e4a19b682e6e236e9b7c5effa45d00355ce5541385cb3863aafa": {
       "key": "0195414975f9e4a19b682e6e236e9b7c5effa45d00355ce5541385cb3863aafa",
@@ -15400,13 +15409,14 @@
       "project": "mobile",
       "title": "E2E-WEB-224 another tab deletion removes reader and stale list cannot restore report @REPORTS-002",
       "file": "browser/report-deletion.spec.ts",
-      "stories": ["REPORTS-002"],
-      "status": "skipped",
+      "stories": ["REPORTS-002", "REPORTS-001"],
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789719717196-80383",
+      "time": "2026-09-18T08:25:22.601Z",
+      "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+      "log": "artifacts/sdlc/1789719717196-80383/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T08-23-00-935Z-81092/results.json"
     },
     "60f35eca18ea84d29a0c03a6b268cb25b3ebad0b957db072e3203539e88ba1fd": {
       "key": "60f35eca18ea84d29a0c03a6b268cb25b3ebad0b957db072e3203539e88ba1fd",
@@ -15498,13 +15508,14 @@
       "project": "desktop",
       "title": "E2E-WEB-295 changed selected revision conflicts then discard reload and review capture the edited reason @REPORTS-003",
       "file": "browser/report-research.spec.ts",
-      "stories": ["REPORTS-003"],
-      "status": "skipped",
+      "stories": ["REPORTS-003", "REPORTS-001"],
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789719717196-80383",
+      "time": "2026-09-18T08:25:22.601Z",
+      "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+      "log": "artifacts/sdlc/1789719717196-80383/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T08-23-00-935Z-81092/results.json"
     },
     "05e470f87d74470fdc58dfdb077036b3741ebd4d4e565197acdb24aa7ca2c6a8": {
       "key": "05e470f87d74470fdc58dfdb077036b3741ebd4d4e565197acdb24aa7ca2c6a8",
@@ -15652,13 +15663,14 @@
       "project": "mobile",
       "title": "E2E-WEB-295 changed selected revision conflicts then discard reload and review capture the edited reason @REPORTS-003",
       "file": "browser/report-research.spec.ts",
-      "stories": ["REPORTS-003"],
-      "status": "skipped",
+      "stories": ["REPORTS-003", "REPORTS-001"],
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789719717196-80383",
+      "time": "2026-09-18T08:25:22.601Z",
+      "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+      "log": "artifacts/sdlc/1789719717196-80383/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T08-23-00-935Z-81092/results.json"
     },
     "1278828a3f4d7bc6536c21225e6da022b779850d5fad08b6c363c3a8c09f993a": {
       "key": "1278828a3f4d7bc6536c21225e6da022b779850d5fad08b6c363c3a8c09f993a",
@@ -15905,12 +15917,13 @@
       "title": "E2E-WEB-222 populated goal, holding and allocation report keeps exact separate cost @REPORTS-001",
       "file": "browser/reports-populated.spec.ts",
       "stories": ["REPORTS-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789719717196-80383",
+      "time": "2026-09-18T08:25:22.601Z",
+      "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+      "log": "artifacts/sdlc/1789719717196-80383/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T08-23-00-935Z-81092/results.json"
     },
     "bf89c0ad879245efe187e57d97a3c9fdf3153ff385a1b4bdeea6c5d678895ba0": {
       "key": "bf89c0ad879245efe187e57d97a3c9fdf3153ff385a1b4bdeea6c5d678895ba0",
@@ -15919,12 +15932,13 @@
       "title": "E2E-WEB-222 populated goal, holding and allocation report keeps exact separate cost @REPORTS-001",
       "file": "browser/reports-populated.spec.ts",
       "stories": ["REPORTS-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789719717196-80383",
+      "time": "2026-09-18T08:25:22.601Z",
+      "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+      "log": "artifacts/sdlc/1789719717196-80383/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T08-23-00-935Z-81092/results.json"
     },
     "be900ae4a898f64d942a7adb7e6c967959613e9aaa63c104677e0819d4261cfe": {
       "key": "be900ae4a898f64d942a7adb7e6c967959613e9aaa63c104677e0819d4261cfe",
@@ -15933,12 +15947,13 @@
       "title": "E2E-WEB-220 request, open and download actual private saved-record report @REPORTS-001",
       "file": "browser/reports.spec.ts",
       "stories": ["REPORTS-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789719717196-80383",
+      "time": "2026-09-18T08:25:22.601Z",
+      "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+      "log": "artifacts/sdlc/1789719717196-80383/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T08-23-00-935Z-81092/results.json"
     },
     "3706156298c075785758fd205314389ff32c5c98540ba12ff94441faf95856dd": {
       "key": "3706156298c075785758fd205314389ff32c5c98540ba12ff94441faf95856dd",
@@ -15947,12 +15962,13 @@
       "title": "E2E-WEB-221 mobile report reader keyboard close preserves route and focus @REPORTS-001",
       "file": "browser/reports.spec.ts",
       "stories": ["REPORTS-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789719717196-80383",
+      "time": "2026-09-18T08:25:22.601Z",
+      "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+      "log": "artifacts/sdlc/1789719717196-80383/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T08-23-00-935Z-81092/results.json"
     },
     "658bd585c4db512081efc6523af4463c6a82af61fc70a03724c0b6ab0b2177b4": {
       "key": "658bd585c4db512081efc6523af4463c6a82af61fc70a03724c0b6ab0b2177b4",
@@ -15961,12 +15977,13 @@
       "title": "E2E-WEB-220 request, open and download actual private saved-record report @REPORTS-001",
       "file": "browser/reports.spec.ts",
       "stories": ["REPORTS-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789719717196-80383",
+      "time": "2026-09-18T08:25:22.601Z",
+      "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+      "log": "artifacts/sdlc/1789719717196-80383/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T08-23-00-935Z-81092/results.json"
     },
     "1ea537e2572da341dfa589d6a0b8af60e588abfd13261e4ebabd6de18469ea3e": {
       "key": "1ea537e2572da341dfa589d6a0b8af60e588abfd13261e4ebabd6de18469ea3e",
@@ -15975,12 +15992,13 @@
       "title": "E2E-WEB-221 mobile report reader keyboard close preserves route and focus @REPORTS-001",
       "file": "browser/reports.spec.ts",
       "stories": ["REPORTS-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789719717196-80383",
+      "time": "2026-09-18T08:25:22.601Z",
+      "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+      "log": "artifacts/sdlc/1789719717196-80383/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T08-23-00-935Z-81092/results.json"
     },
     "5a32d8cc4288c6f645932ab0c090990721873b0db3d5d94c927ca70d6cd28bbb": {
       "key": "5a32d8cc4288c6f645932ab0c090990721873b0db3d5d94c927ca70d6cd28bbb",
@@ -18248,6 +18266,66 @@
       "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
       "log": "artifacts/sdlc/1789719520254-79325/08-pnpm-android_test.log",
       "report": "artifacts/e2e/offline-1789719706520-80320/results.json"
+    },
+    "667795b88eaa80be065cafe758b479bc7b0729ad6de656deee5355da29325597": {
+      "key": "667795b88eaa80be065cafe758b479bc7b0729ad6de656deee5355da29325597",
+      "caseId": "E2E-API-227",
+      "project": "api",
+      "title": "E2E-API-227 scheduled capture storage failure does not strand actual queued reports @REPORTS-001 @TEST-SIMULATION",
+      "file": "api/reports.spec.ts",
+      "stories": ["REPORTS-001"],
+      "status": "passed",
+      "details": "",
+      "run": "1789719717196-80383",
+      "time": "2026-09-18T08:25:22.601Z",
+      "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+      "log": "artifacts/sdlc/1789719717196-80383/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T08-23-00-935Z-81092/results.json"
+    },
+    "5e08780a3898acf8458d88593e241ddc196faec99fc108b31642ce7e2cd14924": {
+      "key": "5e08780a3898acf8458d88593e241ddc196faec99fc108b31642ce7e2cd14924",
+      "caseId": "E2E-OFFLINE-262",
+      "project": "offline",
+      "title": "E2E-OFFLINE-262 populated goal, holding and allocation report keeps exact separate cost @REPORTS-001",
+      "file": "offline/reports-populated.spec.ts",
+      "stories": ["REPORTS-001"],
+      "status": "passed",
+      "details": "",
+      "run": "1789719717196-80383",
+      "time": "2026-09-18T08:25:45.229Z",
+      "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+      "log": "artifacts/sdlc/1789719717196-80383/08-pnpm-android_test.log",
+      "report": "artifacts/e2e/offline-1789719933144-81431/results.json"
+    },
+    "8c1039b084bf7426524662b8a77ae59bf9b3a01e961e05b2b165c85cf86a4a41": {
+      "key": "8c1039b084bf7426524662b8a77ae59bf9b3a01e961e05b2b165c85cf86a4a41",
+      "caseId": "E2E-OFFLINE-260",
+      "project": "offline",
+      "title": "E2E-OFFLINE-260 request, open and download durable offline private saved-record report @REPORTS-001",
+      "file": "offline/reports.spec.ts",
+      "stories": ["REPORTS-001"],
+      "status": "passed",
+      "details": "",
+      "run": "1789719717196-80383",
+      "time": "2026-09-18T08:25:45.229Z",
+      "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+      "log": "artifacts/sdlc/1789719717196-80383/08-pnpm-android_test.log",
+      "report": "artifacts/e2e/offline-1789719933144-81431/results.json"
+    },
+    "3b5b205757a81faee669f5ae43094a2f88a266c5b940ab2f189c974ec4c45ce2": {
+      "key": "3b5b205757a81faee669f5ae43094a2f88a266c5b940ab2f189c974ec4c45ce2",
+      "caseId": "E2E-OFFLINE-261",
+      "project": "offline",
+      "title": "E2E-OFFLINE-261 queued snapshot survives reload and later source changes @REPORTS-001",
+      "file": "offline/reports.spec.ts",
+      "stories": ["REPORTS-001"],
+      "status": "passed",
+      "details": "",
+      "run": "1789719717196-80383",
+      "time": "2026-09-18T08:25:45.229Z",
+      "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+      "log": "artifacts/sdlc/1789719717196-80383/08-pnpm-android_test.log",
+      "report": "artifacts/e2e/offline-1789719933144-81431/results.json"
     }
   },
   "bugs": {
@@ -21752,14 +21830,21 @@
       "title": "E2E-WEB-425 foreign comparison and original deep link clear an existing selection without fallback @REPORT-COMPARE-001",
       "file": "browser/report-comparison.spec.ts",
       "stories": ["REPORT-COMPARE-001"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: The actual owned report must be issued.\n\nexpect(received).toBe(expected) // Object.is equality\n\nExpected: \"succeeded\"\nReceived: \"queued\"\n\nCall Log:\n- Timeout 20000ms exceeded while waiting on the predicate\n\n   at ../helpers/report-comparison.ts:61\n\n  59 |   });\n  60 |   expect(response.status).toBe(201);\n> 61 |   await expect\n     |   ^\n  62 |     .poll(\n  63 |       async () =>\n  64 |         ReportJobSchema.parse(\n    at issueComparisonReport (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/report-comparison.ts:61:3)\n    at setup (/Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/report-comparison.spec.ts:20:9)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/report-comparison.spec.ts:321:20\nTest timeout of 30000ms exceeded.",
       "run": "1789569622822-36573",
       "time": "2026-09-16T22:26:46.819Z",
       "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json",
       "id": "BUG-4829395298db8238",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789719717196-80383",
+        "time": "2026-09-18T08:25:22.601Z",
+        "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+        "log": "artifacts/sdlc/1789719717196-80383/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T08-23-00-935Z-81092/results.json"
+      }
     },
     "BUG-c9ec533b14d9b6f8": {
       "key": "c9ec533b14d9b6f8b4e6b11744afd1912a55c4d8268bb3ea57d4355bf87de9cf",
@@ -21768,14 +21853,21 @@
       "title": "E2E-WEB-224 another tab deletion removes reader and stale list cannot restore report @REPORTS-002",
       "file": "browser/report-deletion.spec.ts",
       "stories": ["REPORTS-002"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Test timeout of 30000ms exceeded.\nError: Isolated feedback API shutdown timed out; inspect its annotated owned schema.\n\n   at ../helpers/feedback-fixture.ts:164\n\n  162 |               child.kill('SIGKILL');\n  163 |               reject(\n> 164 |                 Error(\n      |                 ^\n  165 |                   'Isolated feedback API shutdown timed out; inspect its annotated owned schema.',\n  166 |                 ),\n  167 |               );\n    at Timeout.<anonymous> (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/feedback-fixture.ts:164:17)\nError: locator.click: Test timeout of 30000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: 'Open report', exact: true })\n\n\n  73 |   await page\n  74 |     .getByRole('button', { name: 'Open report', exact: true })\n> 75 |     .click({ timeout: 15000 });\n     |      ^\n  76 |   await page.evaluate(() => {\n  77 |     const original = window.fetch.bind(window);\n  78 |     const state = window as unknown as {\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/report-deletion.spec.ts:75:6\nTest timeout of 30000ms exceeded.",
       "run": "1789569622822-36573",
       "time": "2026-09-16T22:26:46.819Z",
       "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json",
       "id": "BUG-c9ec533b14d9b6f8",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789719717196-80383",
+        "time": "2026-09-18T08:25:22.601Z",
+        "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+        "log": "artifacts/sdlc/1789719717196-80383/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T08-23-00-935Z-81092/results.json"
+      }
     },
     "BUG-d7eac1ec7e90f85d": {
       "key": "d7eac1ec7e90f85d3da4f4dd4d7c8374255d2d7a54f487ce672dc2dfb040a528",
@@ -21784,14 +21876,21 @@
       "title": "E2E-WEB-295 changed selected revision conflicts then discard reload and review capture the edited reason @REPORTS-003",
       "file": "browser/report-research.spec.ts",
       "stories": ["REPORTS-003"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Test timeout of 30000ms exceeded.\nTimeoutError: locator.check: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('checkbox', { name: 'Include research connections in this report', exact: true })\n    - locator resolved to <input type=\"checkbox\"/>\n  - attempting click action\n    - waiting for element to be visible, enabled and stable\n\n\n   at ../helpers/report-research-fixture.ts:158\n\n  156 |       exact: true,\n  157 |     })\n> 158 |     .check();\n      |      ^\n  159 |   await page\n  160 |     .getByRole('region', { name: 'Research connection selection', exact: true })\n  161 |     .getByRole('checkbox')\n    at chooseResearchReport (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/report-research-fixture.ts:158:6)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/report-research.spec.ts:281:3\nTest timeout of 30000ms exceeded.",
       "run": "1789569622822-36573",
       "time": "2026-09-16T22:26:46.819Z",
       "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json",
       "id": "BUG-d7eac1ec7e90f85d",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789719717196-80383",
+        "time": "2026-09-18T08:25:22.601Z",
+        "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+        "log": "artifacts/sdlc/1789719717196-80383/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T08-23-00-935Z-81092/results.json"
+      }
     },
     "BUG-1b5b0e18dc09a3ac": {
       "key": "1b5b0e18dc09a3ac9aac1285526f8add7ee36996976cfa578b68445d94b39ef7",
@@ -22915,10 +23014,10 @@
       "id": "BUG-a47611ab64789eb8",
       "firstSeen": "2026-09-18T05:33:44.718Z",
       "resolvedBy": {
-        "run": "1789719520254-79325",
-        "time": "2026-09-18T08:19:40.187Z",
+        "run": "1789719717196-80383",
+        "time": "2026-09-18T08:23:00.514Z",
         "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
-        "log": "artifacts/sdlc/1789719520254-79325/02-pnpm-check.log"
+        "log": "artifacts/sdlc/1789719717196-80383/02-pnpm-check.log"
       }
     },
     "BUG-a0826694511b6915": {

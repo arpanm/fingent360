@@ -1,6 +1,6 @@
 # Story validation
 
-Latest SDLC invocation: 1789719520254-79325. Only actual test receipts count.
+Latest SDLC invocation: 1789719717196-80383. Only actual test receipts count.
 
 Automated acceptance is separate from implementation, live-source permission and physical-device acceptance.
 
@@ -71,7 +71,7 @@ Automated acceptance is separate from implementation, live-source permission and
 - [REGRESSION-011](../tasks/REGRESSION-011.md): **Stale — rerun required**.
 - [REPORT-COMPARE-001](../tasks/REPORT-COMPARE-001.md): **Failed — unresolved bug**.
 - [REPORT-SCHEDULES-001](../tasks/REPORT-SCHEDULES-001.md): **Failed — unresolved bug**.
-- [REPORTS-001](../tasks/REPORTS-001.md): **Stale — rerun required**.
+- [REPORTS-001](../tasks/REPORTS-001.md): **Passed — automated acceptance**.
 - [REPORTS-002](../tasks/REPORTS-002.md): **Failed — unresolved bug**.
 - [REPORTS-003](../tasks/REPORTS-003.md): **Failed — unresolved bug**.
 - [RESEARCH-AUTO-002](../tasks/RESEARCH-AUTO-002.md): **Failed — unresolved bug**.

@@ -1,6 +1,6 @@
 # Story validation
 
-Latest SDLC invocation: 1789722425545-83879. Only actual test receipts count.
+Latest SDLC invocation: 1789751750850-92480. Only actual test receipts count.
 
 Automated acceptance is separate from implementation, live-source permission and physical-device acceptance.
 
@@ -51,7 +51,7 @@ Automated acceptance is separate from implementation, live-source permission and
 - [HOLDINGS-RECONCILE-001](../tasks/HOLDINGS-RECONCILE-001.md): **Stale — rerun required**.
 - [IDENTITY-001](../tasks/IDENTITY-001.md): **Stale — rerun required**.
 - [IDENTITY-ADJUDICATION-001](../tasks/IDENTITY-ADJUDICATION-001.md): **Stale — rerun required**.
-- [IMPACT-TRACE-001](../tasks/IMPACT-TRACE-001.md): **Failed — unresolved bug**.
+- [IMPACT-TRACE-001](../tasks/IMPACT-TRACE-001.md): **Partial — required cases not run**.
 - [INDIA-EQUITY-001](../tasks/INDIA-EQUITY-001.md): **Stale — rerun required**.
 - [LEGACY-FIXTURE-ISOLATION-001](../tasks/LEGACY-FIXTURE-ISOLATION-001.md): **Stale — rerun required**.
 - [MAPPED-IMPORT-001](../tasks/MAPPED-IMPORT-001.md): **Stale — rerun required**.

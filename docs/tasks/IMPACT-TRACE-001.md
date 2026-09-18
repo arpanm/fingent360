@@ -1,12 +1,42 @@
 # IMPACT-TRACE-001 — Real evidence to factor, sector, company, holding and goal trace
 
-- **Status:** Needs repair
+- **Status:** Implementation complete; validation pending
 - **Implemented / recorded:** Saved evidence/context/company/holding/goal links, independently released seven-family qualitative mechanisms, empirical calibration, reconstructed outcomes, downloaded parity and stale/conflict checks are authored.
 - **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
 - **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
-- **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
+- **Verification:** The shared-fixture repair is authored but not run. Preserved evidence below applies only to its recorded scope/revision.
 
 See [current delivery summary](current-delivery.md) for the batch-wide distinction between code, missing functionality and validation.
+
+## OFFLINE960/OFFLINE961/OFFLINE1700 shared evidence-graph publication repair — 2026-09-18
+
+Saved run `1789751952214-e02aaf5d-075a-4f56-8617-8877b7586429` selected E2E-OFFLINE-960 and failed while constructing its synthetic public event, before the offline trace handler ran. The subsequently supplied E2E-OFFLINE-961 failure and the current exact E2E-OFFLINE-1700 failure stopped at the same shared fixture parse with the same reconciliation error. The fixture changed the graph event from `candidate` to `published` but left its linked source/sector/instrument edges in `candidate`. `EventPublicSchema` correctly rejected that internally inconsistent revision with “Event, source, identity and graph revisions do not reconcile.”
+
+The shared fixture now performs the complete publication transition used by the production event path: the event becomes `published` and every linked graph edge becomes `reviewed`. Before strict parsing, shared regression assertions require the published event node, at least one linked edge and only reviewed edges, so OFFLINE960, OFFLINE961 and OFFLINE1700 all cover the invariant. Their existing behavior remains unchanged: OFFLINE960 exercises the real offline handler, no-network guard, exact immutable receipt replay/export, source withdrawal warning, deletion tombstone and financial-state preservation; OFFLINE961 exercises conflicting equity values, exact edition binding, receipt reconstruction and unreviewed-sector rejection; OFFLINE1700 exercises an exact downloaded released mechanism, unchanged holding/goal outcomes, strict receipt reconstruction and denial after the release is removed. No production schema, trace behavior, existing assertion, dependency, migration or source content changed.
+
+This scoped repair is authored, not run. No service or database is required; the existing `android:test` command rebuilds the offline package. The parent retries exactly:
+
+```bash
+pnpm android:test '/Users/arpanmacmini/code/fingent360/tests/e2e/cases/offline/impact-trace\.spec\.ts' --project=offline --grep 'E2E-OFFLINE-960 local trace exact receipt persists replay source withdrawal and deletion without network @IMPACT-TRACE-001 @TEST-SIMULATION$'
+```
+
+Expected: the public event parses with all linked edges reviewed, then the trace saves/replays/exports, reports withdrawal, deletes, refuses recreation and leaves goals/holdings unchanged without network access. Report the saved run ID and the first failing assertion or error if it still fails. Broader IMPACT-TRACE-001 acceptance and activation remain separate.
+
+The prior exact OFFLINE961 retry remains documented as:
+
+```bash
+pnpm android:test '/Users/arpanmacmini/code/fingent360/tests/e2e/cases/offline/impact-trace\.spec\.ts' --project=offline --grep 'E2E-OFFLINE-961 golden equity conflict values and exact edition binding refuse silent replacement @IMPACT-TRACE-001 @TEST-SIMULATION$'
+```
+
+Expected: the shared public-event fixture parses with a nonempty reviewed graph, conflicting equity values remain visible, an unbound edition is rejected, exact bindings reconstruct without a quantified impact, tampered no-action arithmetic is rejected and an unreviewed sector cannot replace the reviewed path. Report the saved run ID and first failing assertion or error if it still fails. No service, database, dependency installation, migration or UI is required for this packaged offline case.
+
+The exact current retry supplied by the parent is:
+
+```bash
+pnpm android:test '/Users/arpanmacmini/code/fingent360/tests/e2e/cases/offline/impact-trace\.spec\.ts' --project=offline --grep 'E2E-OFFLINE-1700 exact downloaded mechanism binds local receipt and removed release rejects new trace @IMPACT-TRACE-001 @TEST-SIMULATION$'
+```
+
+Expected: the shared public event parses only after its nonempty graph is fully reviewed; the downloaded `earnings` mechanism binds to the local receipt with unchanged holding/goal actions and no numerical impact; tampered reconstruction remains rejected; and removing the released context prevents a new trace. Report the saved run ID and first failing assertion or error if it still fails. No service, database, dependency installation, migration or UI is required for this packaged offline case.
 
 ## September18 remaining acceptance repair
 
@@ -110,5 +140,5 @@ Optional future work is separate: broader per-edge strength/confidence modeling,
 
 ## Automated validation
 
-Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789722425545-83879.
+Partial — required cases not run. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789751750850-92480.
 <!-- sdlc-validation:end -->

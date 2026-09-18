@@ -112,6 +112,12 @@ async function fixture(family = 'Oil input context') {
     randomUUID,
   );
   event.graph.events[0]!.publicationState = 'published';
+  for (const edge of event.graph.edges) edge.reviewState = 'reviewed';
+  expect(event.graph.events[0]!.publicationState).toBe('published');
+  expect(event.graph.edges).not.toHaveLength(0);
+  expect(
+    event.graph.edges.every((edge) => edge.reviewState === 'reviewed'),
+  ).toBe(true);
   const publicEvent = EventPublicSchema.parse({
     id,
     status: 'published',

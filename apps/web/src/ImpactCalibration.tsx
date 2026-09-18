@@ -15,6 +15,7 @@ export function ImpactCalibration({ isins }: { isins: string[] }) {
     [error, setError] = useState(''),
     [consent, setConsent] = useState(false);
   async function load() {
+    setError('');
     try {
       setList(
         ImpactCalibrationListSchema.parse(
@@ -62,9 +63,12 @@ export function ImpactCalibration({ isins }: { isins: string[] }) {
       <label>
         Calibration holding
         <select
+          aria-label="Calibration holding"
+          disabled={busy}
           value={isin}
           onChange={(e) => {
             setIsin(e.target.value);
+            setConsent(false);
             pending.current = null;
           }}
         >
@@ -77,6 +81,7 @@ export function ImpactCalibration({ isins }: { isins: string[] }) {
       <label>
         <input
           type="checkbox"
+          disabled={busy}
           checked={consent}
           onChange={(e) => setConsent(e.target.checked)}
         />

@@ -2,6 +2,7 @@ import { z } from 'zod';
 import {
   CorporateRatingEditionSchema,
   CorporateRatingObservationSchema,
+  CORPORATE_RATINGS,
   CORPORATE_RATING_SOURCE,
   CORPORATE_RATING_VERSION,
 } from './corporate-rating.js';
@@ -9,29 +10,47 @@ export const BondCreditReferenceSchema = z.strictObject({
   editionId: z.uuid(),
   isin: CorporateRatingObservationSchema.shape.isin,
 });
-export const BondEvidencePolicySchema = z.strictObject({
-  version: z.literal('bond-evidence-policy-v1'),
-  priceBasis: z.literal('user-entered-estimate'),
-  evaluatedPrice: z.literal('not-supplied'),
-  tradingLiquidity: z.literal('not-established'),
-  recommendation: z.literal(false),
-  assessmentOn: z.iso.date(),
-  credit: z.union([
-    z.strictObject({ status: z.literal('user-description-only') }),
-    z.strictObject({
-      status: z.literal('historical-original-attached'),
-      editionId: z.uuid(),
-      sourceUrl: z.literal(CORPORATE_RATING_SOURCE.url),
-      sourceHash: z.literal(CORPORATE_RATING_SOURCE.hash),
-      sourceVersion: z.literal(CORPORATE_RATING_VERSION),
-      publishedOn: z.literal(CORPORATE_RATING_SOURCE.documentDate),
-      annexureAsOf: z.literal('2026-03-31'),
-      reviewedAt: z.iso.datetime(),
-      admissionWindowDays: z.literal(90),
-      observation: CorporateRatingObservationSchema,
-    }),
-  ]),
-});
+export const BondEvidencePolicySchema = z
+  .strictObject({
+    version: z.literal('bond-evidence-policy-v1'),
+    priceBasis: z.literal('user-entered-estimate'),
+    evaluatedPrice: z.literal('not-supplied'),
+    tradingLiquidity: z.literal('not-established'),
+    recommendation: z.literal(false),
+    assessmentOn: z.iso.date(),
+    credit: z.union([
+      z.strictObject({ status: z.literal('user-description-only') }),
+      z.strictObject({
+        status: z.literal('historical-original-attached'),
+        editionId: z.uuid(),
+        sourceUrl: z.literal(CORPORATE_RATING_SOURCE.url),
+        sourceHash: z.literal(CORPORATE_RATING_SOURCE.hash),
+        sourceVersion: z.literal(CORPORATE_RATING_VERSION),
+        publishedOn: z.literal(CORPORATE_RATING_SOURCE.documentDate),
+        annexureAsOf: z.literal('2026-03-31'),
+        reviewedAt: z.iso.datetime(),
+        admissionWindowDays: z.literal(90),
+        observation: CorporateRatingObservationSchema,
+      }),
+    ]),
+  })
+  .superRefine((value, context) => {
+    const { credit } = value;
+    if (credit.status !== 'historical-original-attached') return;
+    const canonical = CORPORATE_RATINGS.find(
+      (observation) => observation.isin === credit.observation.isin,
+    );
+    if (
+      !canonical ||
+      JSON.stringify(credit.observation) !== JSON.stringify(canonical)
+    )
+      context.addIssue({
+        code: 'custom',
+        path: ['credit', 'observation'],
+        message:
+          'Attached credit observation must match the exact verified source row.',
+      });
+  });
 export function bondEvidencePolicy(
   settlementOn: string,
   reference?: z.infer<typeof BondCreditReferenceSchema>,

@@ -1,16 +1,20 @@
 # ACTION-CENTRE-001 — Deterministic educational action comparison and suitability constraints
 
-- **Status:** Completed implementation; manual validation pending
+- **Status:** Needs repair
 - **Implemented / recorded:** Versioned educational sell/FIFO/buy/rebalance comparisons, materiality and suitability guards, no-action baseline, independently released policy bounds, restricted source-documented disposal tax plus reviewed tax-input fallback, encrypted immutable receipts, API/web/Android-shared/offline workflows and authored tests.
-- **Pending:** User-run gates, migrations064/067/070/071 and configured private keys; physical-device acceptance. Unsupported tax profiles explicitly use reviewed tax assumptions; automatic filing, trade execution and regulated advice are outside this educational scope.
-- **Next action / inputs:** User follows action-plan-completion.md for focused validation. No missing user decision blocks the authored educational workflow.
+- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
+- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 See [current delivery summary](current-delivery.md) for the batch-wide distinction between code, missing functionality and validation.
 
+## Reviewed functional closure — 2026-09-17
+
+The complete required API/browser/offline matrix is recorded in `docs/tasks/acceptance.json`. Implementation of its supported functional scope is complete; the new repairs remain unvalidated. User command: `pnpm sdlc "Complete ACTION-CENTRE-001" --story ACTION-CENTRE-001`. SDLC may mark the accepted functional scope Done only after all required current cases and checks pass. Live-source/editorial activation and native production release remain separate operational prerequisites, not permissions inferred from these tests. See [consolidated commands and completed scope](../development/core-journey-acceptance.md). Existing failure records stay open until observed passing reruns.
+
 ## Comparison selection repair — 2026-09-17
 
-Make saved holding and saved goal selectors expose stable accessible names independent of current option content. Preserve selected IDs, exact financial calculations, owned API choices, encrypted receipts and offline implementation. Existing WEB990/1280/1283 and offline comparison cases exercise the controls; no database migration or new calculation policy is needed. Validation not run; existing saved failures remain open until rerun.
+Make saved holding, saved goal, comparison type, tax calculation, price basis, reviewed context and released policy selectors expose stable accessible names independent of current option content. Lock the external policy selector while a comparison is being reviewed or saved. Preserve selected IDs, exact financial calculations, owned API choices, encrypted receipts and offline implementation. Existing WEB990/1280/1283 and offline comparison cases exercise the controls; no database migration or new calculation policy is needed. WEB990 passed on desktop/mobile in user-run1789668919723-57996. The additional buy/rebalance/tax-policy selector fixes still await WEB1280/1283 and released-policy acceptance; saved failures remain open until their rerun.
 
 ## Implementation handoff rule
 
@@ -60,5 +64,5 @@ Current completion boundary: [supported policy, explicit exclusions and manual t
 
 ## Automated validation
 
-Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789668919723-57996.
+Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789669163056-59061.
 <!-- sdlc-validation:end -->

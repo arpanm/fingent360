@@ -14,7 +14,11 @@ const text = (v: unknown): string =>
     : v && typeof v === 'object'
       ? text((v as Node)['#text'])
       : '';
-function xml(part: Uint8Array | undefined, root: string) {
+function xml(
+  part: Uint8Array | undefined,
+  root: string,
+  allowEmptyRoot = false,
+) {
   if (!part) throw Error('Workbook part missing.');
   const raw = new TextDecoder('utf-8', { fatal: true }).decode(part);
   if (
@@ -31,9 +35,11 @@ function xml(part: Uint8Array | undefined, root: string) {
     trimValues: false,
     maxNestedTags: 32,
   }).parse(raw) as Node;
-  if (!parsed[root] || typeof parsed[root] !== 'object')
+  const value = parsed[root];
+  if (allowEmptyRoot && value === '') return {};
+  if (!value || typeof value !== 'object' || Array.isArray(value))
     throw Error('Invalid XML root.');
-  return parsed[root] as Node;
+  return value as Node;
 }
 export function parseAxisPortfolio(bytes: Uint8Array, url: string) {
   if (url !== AXIS_PORTFOLIO_URL) throw Error('Unsupported Axis source.');
@@ -54,7 +60,7 @@ export function parseAxisPortfolio(bytes: Uint8Array, url: string) {
     !/^worksheets\/sheet\d+\.xml$/.test(String(relationships[0]!['@_Target']))
   )
     throw Error('Invalid scheme sheet relationship.');
-  const shared = xml(parts.get('xl/sharedStrings.xml'), 'sst'),
+  const shared = xml(parts.get('xl/sharedStrings.xml'), 'sst', true),
     strings = list(shared.si).map((si) =>
       si.t !== undefined
         ? text(si.t)

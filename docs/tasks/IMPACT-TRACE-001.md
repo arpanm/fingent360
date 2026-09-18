@@ -1,16 +1,22 @@
 # IMPACT-TRACE-001 — Real evidence to factor, sector, company, holding and goal trace
 
-- **Status:** Completed implementation; manual validation and source activation pending
+- **Status:** Needs repair
 - **Implemented / recorded:** Saved evidence/context/company/holding/goal links, independently released seven-family qualitative mechanisms, empirical calibration, reconstructed outcomes, downloaded parity and stale/conflict checks are authored.
-- **Pending:** Manual API/browser/offline and actual device validation, source-rights activation and representative account acceptance. Numerical causal forecasts are unavailable; they are not a mandatory acceptance item in the original educational trace request. Descriptive calibration is not identified causality.
-- **Next action / inputs:** User validates1330,1470–1471 and1700–1702, with1860–1866 covering seven independently reviewed family bindings. Retain permission records before actual source activation. Any later forecast feature requires a separate evidence-backed model specification; no universal elasticities are substituted.
+- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
+- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 See [current delivery summary](current-delivery.md) for the batch-wide distinction between code, missing functionality and validation.
 
+## Reviewed functional closure — 2026-09-17
+
+The complete required API/browser/offline matrix is recorded in `docs/tasks/acceptance.json`. Implementation of its supported functional scope is complete; the new repairs remain unvalidated. User command: `pnpm sdlc "Complete IMPACT-TRACE-001" --story IMPACT-TRACE-001`. SDLC may mark the accepted functional scope Done only after all required current cases and checks pass. Live-source/editorial activation and native production release remain separate operational prerequisites, not permissions inferred from these tests. See [consolidated commands and completed scope](../development/core-journey-acceptance.md). Existing failure records stay open until observed passing reruns.
+
 ## Trace selection and recovery specification — 2026-09-17
 
 The saved WEB960 failure stops at an exact event label because option text participates in implicit label lookup. Give each of the five selectors a stable accessible name. While reviewing evidence, disable the educational-pack/context inputs as well as the main fieldset so the returned preview cannot describe a different selection. Starting a new review removes the previous preview/consent; failed evidence loads expose retry without an old saveable receipt. Pagination clears the old causal-context ID. Focus the completed review heading for keyboard users. Reuse the unchanged validated API, exact-money contracts, encrypted receipt storage and offline handlers; no new dependency or migration.
+
+Calibration holding selection now also has a stable label, is locked while saving and resets consent on change; WEB1331 adds a real choice-change consent regression. History retry clears the previous error.
 
 Author WEB961 against real isolated event/account/holding/goal data with only one explicitly simulated evidence-read503. Assert busy controls, failure without preview, successful retry, changed-selection invalidation and fresh consent. Existing API960/961, WEB960, released-context1330 and OFFLINE960 retain storage, reconstruction, isolation, source withdrawal and deletion coverage. No deterministic validation by the agent.
 
@@ -90,5 +96,5 @@ Optional future work is separate: broader per-edge strength/confidence modeling,
 
 ## Automated validation
 
-Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789668919723-57996.
+Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789669163056-59061.
 <!-- sdlc-validation:end -->

@@ -1,11 +1,107 @@
 import { test, expect } from '../../helpers/app-fixture';
 import { randomUUID } from 'node:crypto';
 import { createRequire } from 'node:module';
+import { openAuthDatabase } from '../../helpers/auth-wait';
 import {
   ReportJobSchema,
   RecordReportSchema,
 } from '../../../../packages/contracts/src/index';
 const headers = { Origin: process.env.E2E_WEB_URL || 'http://localhost:5173' };
+test('E2E-API-227 scheduled capture storage failure does not strand actual queued reports @REPORTS-001 @TEST-SIMULATION', async ({
+  request,
+  feedbackSandbox,
+}) => {
+  const db = await openAuthDatabase(feedbackSandbox);
+  let renamed = false;
+  try {
+    expect(
+      (
+        await request.post('/api/v1/account/register', {
+          headers,
+          data: {
+            username: `report_${randomUUID().slice(0, 12)}`,
+            password: 'Synthetic-report-2026',
+            consent: true,
+          },
+        })
+      ).status(),
+    ).toBe(201);
+    // Real storage fault in this fixture's verified owned schema only. The
+    // API uses that same exclusive search_path, with no public-table fallback.
+    await db.query(
+      'ALTER TABLE report_schedules RENAME TO synthetic_unavailable_report_schedules',
+    );
+    renamed = true;
+    const create = async () => {
+      const response = await request.post('/api/v1/account/reports', {
+        headers,
+        data: {
+          requestId: randomUUID(),
+          label: 'Synthetic independent report preparation',
+          consent: true,
+        },
+      });
+      expect(response.status()).toBe(201);
+      return ReportJobSchema.parse(await response.json());
+    };
+    const issued = async (id: string) => {
+      await expect
+        .poll(
+          async () => {
+            const response = await request.get(`/api/v1/account/reports/${id}`);
+            expect(response.status()).toBe(200);
+            return ReportJobSchema.parse(await response.json()).status;
+          },
+          { timeout: 15000 },
+        )
+        .toBe('succeeded');
+      const response = await request.get(
+        `/api/v1/account/reports/${id}/download`,
+      );
+      expect(response.status()).toBe(200);
+      return RecordReportSchema.parse(await response.json());
+    };
+    const captured = await create();
+    const report = await issued(captured.id);
+    expect(report.snapshot).toEqual(captured.snapshot);
+    const observation = await db.query(
+      "SELECT last_failure_at,failure_category,last_success_at FROM worker_observations WHERE worker='reports'",
+    );
+    expect(observation.rows[0]?.last_failure_at).toBeTruthy();
+    expect(observation.rows[0]?.failure_category).toBe('storage');
+    expect(observation.rows[0]?.last_success_at).toBeTruthy();
+    expect(
+      (
+        await db.query('SELECT job_id FROM record_reports WHERE job_id=$1', [
+          captured.id,
+        ])
+      ).rows,
+    ).toEqual([{ job_id: captured.id }]);
+
+    await db.query(
+      'ALTER TABLE synthetic_unavailable_report_schedules RENAME TO report_schedules',
+    );
+    renamed = false;
+    const recovered = await create();
+    expect((await issued(recovered.id)).snapshot).toEqual(recovered.snapshot);
+    expect(
+      RecordReportSchema.parse(
+        await (
+          await request.get(`/api/v1/account/reports/${captured.id}/download`)
+        ).json(),
+      ),
+    ).toEqual(report);
+  } finally {
+    try {
+      if (renamed)
+        await db.query(
+          'ALTER TABLE synthetic_unavailable_report_schedules RENAME TO report_schedules',
+        );
+    } finally {
+      await db.close();
+    }
+  }
+});
 test('E2E-API-220 immutable owned report request, issue, retry identity and download @REPORTS-001', async ({
   request,
   playwright,

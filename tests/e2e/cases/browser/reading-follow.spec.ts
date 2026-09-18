@@ -7,7 +7,10 @@ import {
   reviseConnectionSourceFixture,
   connectionDatabase,
 } from '../../helpers/research-connection-fixture';
-import { CompletePrivacyExportSchema } from '../../../../packages/contracts/src/index';
+import {
+  CompletePrivacyExportSchema,
+  ReadingFollowViewSchema,
+} from '../../../../packages/contracts/src/index';
 import { readingPaginationSources } from '../../helpers/reading-follow-fixture';
 test.use({ trace: 'off', video: 'off', screenshot: 'off' });
 const base = '/api/v1/account/reading-follow';
@@ -540,7 +543,7 @@ test('E2E-WEB-444 first-read recovery and pending subscription save preserve dis
     .click();
   const source = page
       .getByRole('group', { name: 'Sources', exact: true })
-      .getByRole('checkbox', { name: /Federal Reserve/ }),
+      .getByRole('checkbox', { name: 'Federal Reserve Board', exact: true }),
     mute = page.getByRole('checkbox', {
       name: 'Mute reading updates',
       exact: true,
@@ -595,6 +598,26 @@ test('E2E-WEB-444 first-read recovery and pending subscription save preserve dis
         exact: true,
       }),
     ).toBeEnabled();
+    const saved = await call(page, base);
+    expect(saved.status).toBe(200);
+    expect(ReadingFollowViewSchema.parse(saved.body).config).toMatchObject({
+      version: 1,
+      sources: ['fed'],
+      topics: [],
+      muted: false,
+    });
+    await page.reload();
+    await expect(view(page)).toContainText('settings revision 1');
+    await page
+      .getByRole('button', { name: 'Choose sources and topics', exact: true })
+      .click();
+    await expect(source).toBeChecked();
+    await expect(
+      page.getByRole('checkbox', {
+        name: 'Federal Reserve historical',
+        exact: true,
+      }),
+    ).not.toBeChecked();
   } finally {
     release();
     if (held) await drained;

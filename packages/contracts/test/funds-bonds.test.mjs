@@ -6,6 +6,10 @@ import {
   datedXirr,
   calculateBondComparison,
   BondComparisonInputSchema,
+  BondEvidencePolicySchema,
+  CORPORATE_RATINGS,
+  CORPORATE_RATING_SOURCE,
+  CORPORATE_RATING_VERSION,
 } from '../dist/index.js';
 const fixture = async () =>
   JSON.parse(
@@ -99,6 +103,56 @@ test('bond settlement and future cashflow boundaries reject impossible assumptio
       cashflows: [{ date: comparison.settlementOn, amountPaise: '100' }],
     }).success,
     false,
+  );
+});
+
+test('bond evidence accepts each credit branch and rejects a canonical-shaped hybrid observation', () => {
+  const descriptionOnly = {
+    version: 'bond-evidence-policy-v1',
+    priceBasis: 'user-entered-estimate',
+    evaluatedPrice: 'not-supplied',
+    tradingLiquidity: 'not-established',
+    recommendation: false,
+    assessmentOn: '2026-05-14',
+    credit: { status: 'user-description-only' },
+  };
+  assert.deepEqual(
+    BondEvidencePolicySchema.parse(descriptionOnly),
+    descriptionOnly,
+  );
+  const observation = CORPORATE_RATINGS.find(
+    (row) => row.isin === 'INE031A08939',
+  );
+  assert.ok(observation);
+  const policy = {
+    version: 'bond-evidence-policy-v1',
+    priceBasis: 'user-entered-estimate',
+    evaluatedPrice: 'not-supplied',
+    tradingLiquidity: 'not-established',
+    recommendation: false,
+    assessmentOn: '2026-05-14',
+    credit: {
+      status: 'historical-original-attached',
+      editionId: '99999999-9999-4999-8999-999999999999',
+      sourceUrl: CORPORATE_RATING_SOURCE.url,
+      sourceHash: CORPORATE_RATING_SOURCE.hash,
+      sourceVersion: CORPORATE_RATING_VERSION,
+      publishedOn: CORPORATE_RATING_SOURCE.documentDate,
+      annexureAsOf: '2026-03-31',
+      reviewedAt: '2026-05-14T00:00:00.000Z',
+      admissionWindowDays: 90,
+      observation,
+    },
+  };
+  assert.deepEqual(BondEvidencePolicySchema.parse(policy), policy);
+  assert.throws(() =>
+    BondEvidencePolicySchema.parse({
+      ...policy,
+      credit: {
+        ...policy.credit,
+        observation: { ...observation, couponPercent: '5.62' },
+      },
+    }),
   );
 });
 

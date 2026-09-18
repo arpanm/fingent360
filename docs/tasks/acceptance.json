@@ -167,6 +167,222 @@
       "projects": ["offline"]
     }
   ],
+  "DEV-006": [
+    {
+      "caseId": "E2E-API-1520",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1521",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1520",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-WEB-1520",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1522",
+      "projects": ["desktop", "mobile"]
+    }
+  ],
+  "IMPACT-TRACE-001": [
+    {
+      "caseId": "E2E-API-1330",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1331",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1343",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1700",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1701",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1783",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-960",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-961",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1331",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1700",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-960",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-961",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-WEB-1330",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1331",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1700",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1702",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-960",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-961",
+      "projects": ["desktop", "mobile"]
+    }
+  ],
+  "ACTION-CENTRE-001": [
+    {
+      "caseId": "E2E-API-1280",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1281",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1282",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1283",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-990",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-991",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1280",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1283",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-990",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-991",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-WEB-1280",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1283",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-990",
+      "projects": ["desktop", "mobile"]
+    }
+  ],
+  "REPORTS-001": [
+    {
+      "caseId": "E2E-API-220",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-221",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-222",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-223",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-227",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-331",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-352",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-260",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-261",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-262",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-WEB-220",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-221",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-222",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-224",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-295",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-425",
+      "projects": ["desktop", "mobile"]
+    }
+  ],
   "_completion": {
     "ACCOUNT-001": {
       "implementationComplete": true,
@@ -177,6 +393,26 @@
       "implementationComplete": true,
       "externalGates": [],
       "scope": "Authenticated saved-goal creation, repeat goal types, exact contribution-only calculations, versioned edits/history, removal, draft protection and shared offline persistence. Financial advice and native release certification are separate."
+    },
+    "DEV-006": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Reviewed five/six-point brief preparation, independent issue, immutable correction/reissue/withdrawal, current source re-admission, failure/retry and source/detail navigation in web and the shared offline reader. Live source permission/editorial activation and native release certification remain operational release prerequisites."
+    },
+    "IMPACT-TRACE-001": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Source-bound qualitative evidence-to-holding/goal receipts, consent and recovery, version/conflict/withdrawal checks, independently released mechanisms, descriptive source diagnostics and shared offline persistence. No quantified causal forecast, trade or automatic financial change is claimed. Live source activation and native certification remain operational release prerequisites."
+    },
+    "ACTION-CENTRE-001": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Educational no-action, sell, purchase and FIFO rebalance comparisons with explicit suitability/cost constraints, supported tax policy or reviewed assumptions, immutable owned receipts and equivalent on-device behavior. Does not authorize personalized advice or trade execution."
+    },
+    "REPORTS-001": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Owned saved-record snapshot capture, isolated queued preparation, immutable issuance/download, cancellation/recovery, schedule uniqueness/pause controls, populated records, report research/comparison navigation and shared offline report storage. Production hosting and native certification remain release prerequisites."
     }
   }
 }

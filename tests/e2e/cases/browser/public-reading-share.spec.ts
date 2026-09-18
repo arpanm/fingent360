@@ -16,6 +16,9 @@ test('E2E-WEB-1255 public reading sharing excludes private URL context and opens
       : webOrigin;
     const response = await route.fetch({
       url: target + url.pathname + url.search,
+      // The synthetic host forwards the dev module graph. Retry only reset
+      // connections for safe reads; never replay a reader/account mutation.
+      maxRetries: route.request().method() === 'GET' ? 1 : 0,
     });
     await route.fulfill({ response });
   });
@@ -69,4 +72,43 @@ test('E2E-WEB-1255 public reading sharing excludes private URL context and opens
   await expect(
     share.getByRole('button', { name: 'Copy link', exact: true }),
   ).toBeEnabled();
+  await page.evaluate(() => {
+    Object.defineProperty(navigator, 'share', {
+      configurable: true,
+      value: async () => {
+        throw new DOMException('Synthetic share denied', 'NotAllowedError');
+      },
+    });
+    Object.defineProperty(navigator, 'clipboard', {
+      configurable: true,
+      value: {
+        writeText: async () => {
+          throw new DOMException(
+            'Synthetic clipboard denied',
+            'NotAllowedError',
+          );
+        },
+      },
+    });
+  });
+  await share
+    .getByRole('button', { name: 'Share public link', exact: true })
+    .click();
+  await expect(share).toContainText(
+    'Sharing is unavailable. You can still copy the public link.',
+  );
+  await share.getByRole('button', { name: 'Copy link', exact: true }).click();
+  await expect(share).toContainText(
+    'Copy is unavailable. Select and copy the public link below.',
+  );
+  const publicLink = share.getByLabel('Public reading link');
+  await expect(publicLink).toHaveValue(
+    'https://reader.example.org/#read/' + f.source.id,
+  );
+  await publicLink.focus();
+  expect(
+    await publicLink.evaluate((input: HTMLInputElement) =>
+      input.value.slice(input.selectionStart ?? 0, input.selectionEnd ?? 0),
+    ),
+  ).toBe('https://reader.example.org/#read/' + f.source.id);
 });

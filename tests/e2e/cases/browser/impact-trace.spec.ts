@@ -79,7 +79,10 @@ test('E2E-WEB-961 failed evidence review retries current selections and requires
   await page.goto('/#today');
   await prepareConnectionBrowser(page);
   await page.goto('/#impact-traces');
-  const panel = page.getByRole('region', { name: 'Impact traces', exact: true });
+  const panel = page.getByRole('region', {
+    name: 'Impact traces',
+    exact: true,
+  });
   await panel
     .getByLabel('Reviewed event', { exact: true })
     .selectOption(event.id);
@@ -113,22 +116,28 @@ test('E2E-WEB-961 failed evidence review retries current selections and requires
   });
   try {
     const submit = panel.getByRole('button', {
-      name: 'Review impact trace', exact: true,
+      name: 'Review impact trace',
+      exact: true,
     });
     await submit.click();
     await expect(goal).toBeDisabled();
     await expect(
-      panel.getByLabel('Independently released causal context', { exact: true }),
+      panel.getByLabel('Independently released causal context', {
+        exact: true,
+      }),
     ).toBeDisabled();
     await expect(
-      panel.getByLabel('Use the verified IndiGo oil-cost educational walkthrough'),
+      panel.getByLabel(
+        'Use the verified IndiGo oil-cost educational walkthrough',
+      ),
     ).toBeDisabled();
     release();
     await expect(panel.getByRole('alert')).toContainText(
       'Company evidence unavailable. Retry before reviewing.',
     );
     const review = panel.getByRole('region', {
-      name: 'Impact trace review', exact: true,
+      name: 'Impact trace review',
+      exact: true,
     });
     await expect(review).toHaveCount(0);
     await expect(submit).toBeEnabled();
@@ -137,7 +146,8 @@ test('E2E-WEB-961 failed evidence review retries current selections and requires
       review.getByRole('heading', { name: 'Review before saving' }),
     ).toBeFocused();
     await expect(
-      review.getByRole('list', { name: 'Evidence to goal trace' })
+      review
+        .getByRole('list', { name: 'Evidence to goal trace' })
         .locator(':scope > li'),
     ).toHaveCount(6);
     await review.getByRole('checkbox').check();

@@ -14,5 +14,5 @@ Keep successful public response unchanged and mandatory saved-view capture intac
 
 ## Automated validation
 
-Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789668919723-57996.
+Blocked — workflow failure. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789669163056-59061.
 <!-- sdlc-validation:end -->

@@ -1,6 +1,6 @@
 import { zipSync, strToU8 } from 'fflate';
 /** Synthetic structural workbook using the inspected AXISNETF layout, not real holdings. */
-export function syntheticAxisWorkbook() {
+export function syntheticAxisWorkbook(options?: { sharedStringsXml?: string }) {
   const cells = new Map<number, string[]>(),
     add = (r: number, c: string, v: string, style?: number) => {
       const row = cells.get(r) ?? [];
@@ -71,7 +71,7 @@ export function syntheticAxisWorkbook() {
       '<workbook><sheets><sheet name="AXISNETF" sheetId="1" r:id="rId1"/></sheets></workbook>',
     'xl/_rels/workbook.xml.rels':
       '<Relationships><Relationship Id="rId1" Target="worksheets/sheet1.xml"/></Relationships>',
-    'xl/sharedStrings.xml': '<sst/>',
+    'xl/sharedStrings.xml': options?.sharedStringsXml ?? '<sst/>',
     'xl/styles.xml':
       '<styleSheet><numFmts><numFmt numFmtId="164" formatCode="#,##0.00"/><numFmt numFmtId="165" formatCode="#,##0.00%"/></numFmts><cellXfs><xf numFmtId="0"/><xf numFmtId="3"/><xf numFmtId="164"/><xf numFmtId="165"/></cellXfs></styleSheet>',
     'xl/worksheets/sheet1.xml':

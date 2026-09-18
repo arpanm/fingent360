@@ -25,6 +25,7 @@ export function IntelligenceBrief({ route }: { route: string }) {
     setBusy(true);
     setError('');
     setView(null);
+    setList(null);
     setHistory(null);
     try {
       if (id) {

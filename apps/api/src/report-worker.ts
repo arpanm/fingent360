@@ -31,6 +31,13 @@ export class ReportWorker {
     try {
       await this.store.observe('heartbeat');
       await this.schedules.workOne();
+    } catch {
+      await this.store.observe('storage').catch(() => {});
+    }
+    // A failed scheduled capture must not strand snapshots already queued.
+    // Keep both phases sequential within the existing active-tick guard;
+    // preparation still owns its pause admission, lease and retry rules.
+    try {
       await this.store.workOne();
     } catch {
       await this.store.observe('storage').catch(() => {});

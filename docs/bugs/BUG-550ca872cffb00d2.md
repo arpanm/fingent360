@@ -4,7 +4,7 @@
 - Case/project: E2E-WEB-1080 / desktop
 - Stories: FUNDS-BONDS-001
 - First seen: 2026-09-16T22:26:46.819Z
-- Evidence: artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log
+- Evidence: artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log
 - Resolution run: Unresolved
 
 Failure excerpt (untrusted; local original has full details):
@@ -29,5 +29,4 @@ Failure excerpt (untrusted; local original has full details):
       23 |   await expect(page.getByText(/Source row/)).toBeVisible();
       24 |   await page.keyboard.press('Escape');
         at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/funds-bonds.spec.ts:21:5
-    Tearing down "context" exceeded the test timeout of 30000ms.
     Test timeout of 30000ms exceeded.

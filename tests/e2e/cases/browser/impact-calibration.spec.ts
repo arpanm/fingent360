@@ -25,6 +25,28 @@ test('E2E-WEB-1331 source qualification gaps save reload and delete from sensiti
     })
     .check();
   await panel
+    .getByLabel('Calibration holding', { exact: true })
+    .selectOption('');
+  await panel
+    .getByLabel('Calibration holding', { exact: true })
+    .selectOption('INE002A01018');
+  await expect(
+    panel.getByLabel('Save this private source-bound diagnostic receipt.', {
+      exact: true,
+    }),
+  ).not.toBeChecked();
+  await expect(
+    panel.getByRole('button', {
+      name: 'Calculate and save diagnostic',
+      exact: true,
+    }),
+  ).toBeDisabled();
+  await panel
+    .getByLabel('Save this private source-bound diagnostic receipt.', {
+      exact: true,
+    })
+    .check();
+  await panel
     .getByRole('button', { name: 'Calculate and save diagnostic', exact: true })
     .click();
   await expect(

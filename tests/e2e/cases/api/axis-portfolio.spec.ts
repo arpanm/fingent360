@@ -6,6 +6,7 @@ import { governanceHeaders as headers } from '../../helpers/research-governance'
 import {
   parseAxisPortfolio,
   AXIS_PORTFOLIO_URL,
+  SbiPortfolioEditionSchema,
   SbiPortfolioSchema,
 } from '../../../../packages/contracts/src/index';
 test.use({ namedOperators: true });
@@ -44,6 +45,12 @@ test('E2E-API-1720 original Axis grammar preserves quantity fractional weights y
       'https://example.com/private.xlsx',
     ),
   ).toThrow();
+  expect(() =>
+    parseAxisPortfolio(
+      syntheticAxisWorkbook({ sharedStringsXml: '<not-sst/>' }),
+      AXIS_PORTFOLIO_URL,
+    ),
+  ).toThrow('Invalid XML root.');
 });
 test('E2E-API-1721 Axis capture independent exact-AMFI mapping and NAV withdrawal use retained original receipts @FUNDS-BONDS-001 @TEST-SIMULATION', async ({
   request,
@@ -57,9 +64,20 @@ test('E2E-API-1721 Axis capture independent exact-AMFI mapping and NAV withdrawa
       data: f.input,
     });
     expect(captured.status()).toBe(201);
-    expect((await captured.json()).portfolio.parser).toBe(
-      'axis-nifty50-february-2026-v1',
+    const capturedEdition = SbiPortfolioEditionSchema.parse(
+      await captured.json(),
     );
+    expect(capturedEdition).toMatchObject({
+      id: f.id,
+      sourceUrl: AXIS_PORTFOLIO_URL,
+      state: 'draft',
+      error: null,
+      portfolio: {
+        parser: 'axis-nifty50-february-2026-v1',
+        scheme: 'Axis NIFTY 50 ETF',
+        asOf: '2026-02-28',
+      },
+    });
     const review = {
       requestId: randomUUID(),
       decision: 'publish',

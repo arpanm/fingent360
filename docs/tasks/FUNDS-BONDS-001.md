@@ -1,7 +1,7 @@
 # FUNDS-BONDS-001 — Indian mutual funds, bonds, XIRR and deposit comparisons
 
 - **Status:** Partial
-- **Implemented / recorded:** Current and historical AMFI NAV ingestion/review; July/August SBI Contra and February2026 Axis NIFTY50 ETF original disclosures with exact retained AMFI mapping and reconciliation; CCIL indicative government-yield history; shared reader/offline display and private cash-flow/accrual/XIRR/duration/deposit calculations are authored. See SRC015–SRC017 for current source-specific scope. Initial Kotak fee/fund-size factsheets, CCIL source-reported curve history, matched sovereign settlement and exact historical ICRA credit attachment to encrypted saved comparisons are also authored.
+- **Implemented / recorded:** Current and historical AMFI NAV ingestion/review; July/August SBI Contra and February2026 Axis NIFTY50 ETF original disclosures with exact retained AMFI mapping and reconciliation; CCIL indicative government-yield history; shared reader/offline display and private cash-flow/accrual/XIRR/duration/deposit calculations are authored. See SRC015–SRC017 for current source-specific scope. Initial Kotak fee/fund-size factsheets, CCIL source-reported curve history, matched sovereign settlement and exact historical ICRA credit attachment to encrypted saved comparisons are also authored. The API1982 exact-row receipt-integrity repair is authored and awaits its scoped retry.
 - **Pending:** Actual evaluated-price and secondary-market trading-liquidity source evidence; verified conventions for any wider curve valuation/cashflow use. Manual validation, permitted source activation and physical-device acceptance remain separate. Broader issuer/agency/AMC coverage is expansion, not evidence that these authored initial workflows are missing.
 - **Next action / inputs:** Developer researches remaining credit/liquidity and current source quotation linkage; no repeated request for already-verified SBI/Axis workbooks. Operator records applicable source rights; user validates existing source-specific cases and device behavior.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
@@ -110,9 +110,17 @@ Optional exact credit reference and versioned policy are now saved inside existi
 
 Authored API1980 encrypted receipt/export/withdrawal/replay/deletion; API1981 agency withdrawal and stale assessment; WEB1980 real source selector/preview/save/reload; OFFLINE1980 downloaded admission/withdrawal/historical export/deletion. User inputs in these calculations are explicitly illustrative; ICRA original is genuine and attributed. No new dependencies/migration. Manual prerequisites: existing services, migration125 already applied; run `pnpm sdlc "Attach historical credit evidence to bond receipts" -- --grep "E2E-(API|WEB|OFFLINE)-198[01]"`; printed webURL `/#funds-bonds` → Bond & deposit comparison. Expected saved evidence contains exact edition/hash/ISIN and distinguishes user price from verified historical agency opinion; report runID/project/case/errorcontext. No gates/tests/commit executed; HEADa2c53a0 and shared working tree remain awaiting manual gates.
 
+## API1982 exact rating-row repair — 2026-09-18
+
+The supplied user-run API1982 failure showed that the receipt schema accepted a hybrid observation: each field satisfied its enum or date shape, but a selected ISIN could be paired with another canonical instrument's coupon or an invented valid maturity. Source hash/version and input-reference checks did not establish that the complete saved observation was the verified row.
+
+`BondEvidencePolicySchema` now requires an attached observation to equal the complete canonical source row selected by ISIN. This applies at shared contract boundaries used by connected saves/replay, exports, browser parsing and offline storage; valid historical receipts still parse after editorial withdrawal because validation remains against their retained versioned facts, not current publication state. The focused contract regression accepts the genuine row and rejects a canonical-shaped cross-instrument coupon hybrid. Existing API1982 additionally covers altered maturity, source facts and missing input reference. No API route, database schema, migration, dependency, UI or source activation changed.
+
+Authored only: formatting, checks, builds and tests were not run. With the existing dependencies and no services required for this contract-only API case, the smallest exact retry is `pnpm e2e:run tests/e2e/cases/api/bond-evidence.spec.ts --project=api --grep 'E2E-API-1982 saved receipt contract rejects altered source facts and unreferenced opinions while preserving historical originals @FUNDS-BONDS-001$'`. Expected: the valid retained receipt parses, every altered receipt throws, and the case passes. On failure report the case/project, assertion, run ID and saved report path. BUG-e3878578217ee412 remains Open until user-run passing evidence is reconciled. Current price and trading-liquidity source gaps, broader source activation and physical-device acceptance remain unchanged.
+
 <!-- sdlc-validation:start -->
 
 ## Automated validation
 
-Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789668919723-57996.
+Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789669163056-59061.
 <!-- sdlc-validation:end -->

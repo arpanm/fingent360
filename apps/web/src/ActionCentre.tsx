@@ -549,6 +549,8 @@ export function ActionCentre() {
           <label>
             Released educational policy
             <select
+              aria-label="Released educational policy"
+              disabled={busy}
               value={researchPolicyId}
               onChange={(event) => {
                 setResearchPolicyId(event.target.value);
@@ -607,6 +609,7 @@ export function ActionCentre() {
               <label>
                 Comparison type
                 <select
+                  aria-label="Comparison type"
                   value={planKind}
                   onChange={(e) => {
                     setPlanKind(e.target.value as typeof planKind);
@@ -732,6 +735,7 @@ export function ActionCentre() {
                       <label>
                         Tax calculation
                         <select
+                          aria-label="Tax calculation"
                           value={form.taxMode ?? 'assumed'}
                           onChange={(e) => {
                             edit('taxMode', e.target.value);
@@ -855,6 +859,7 @@ export function ActionCentre() {
               <label>
                 Optional reviewed context
                 <select
+                  aria-label="Optional reviewed context"
                   value={traceId}
                   onChange={(e) => {
                     setTraceId(e.target.value);
@@ -897,6 +902,7 @@ export function ActionCentre() {
               <label>
                 Price basis
                 <select
+                  aria-label="Price basis"
                   value={priceChoice}
                   onChange={(e) => {
                     setPriceChoice(e.target.value);

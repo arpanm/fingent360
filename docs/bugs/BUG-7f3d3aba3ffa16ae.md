@@ -4,7 +4,7 @@
 - Case/project: E2E-API-1521 / api
 - Stories: DEV-006
 - First seen: 2026-09-16T22:26:46.819Z
-- Evidence: artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log
+- Evidence: artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log
 - Resolution run: Unresolved
 
 Failure excerpt (untrusted; local original has full details):
@@ -14,15 +14,11 @@ Failure excerpt (untrusted; local original has full details):
     Expected: 201
     Received: 403
 
-       at ../helpers/oil-education.ts:179
-
-      177 |         })
-      178 |       ).status(),
-    > 179 |     ).toBe(201);
+      184 |         })
+      185 |       ).status(),
+    > 186 |     ).toBe(201);
           |       ^
-      180 |     const event = EventPublicSchema.parse(
-      181 |         await (await request.get('/api/v1/events/' + id)).json(),
-      182 |       ),
-        at oilEducationFixture (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/oil-education.ts:179:7)
-        at intelligenceBriefFixture (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/intelligence-brief.ts:25:15)
-        at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/api/intelligence-brief.spec.ts:135:13
+      187 |     const pending = IntelligenceBriefPublicSchema.parse(
+      188 |       await (await request.get('/api/v1/intelligence-briefs/' + f.id)).json(),
+      189 |     );
+        at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/api/intelligence-brief.spec.ts:186:7

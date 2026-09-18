@@ -169,3 +169,7 @@ SRC-011 initial participant OI implementation is complete: exact documented/curr
 ## Completed bounded source workflows
 
 The completed child rows added to TODO (SRC002-HISTORY through UX002G-HISTORY) expose already authored vertical workflows. They are validation/activation work, not new agent implementation pickups. Broader parent gaps remain listed separately. Do not count these child closures as completion of whole exchange, filing, macro or fund families.
+
+## Current functional batch — 2026-09-17
+
+Eight selected core-flow cases passed in user-run1789668919723-57996. Subsequent trace/diagnostic selection, brief admission recovery, full action-plan controls, queued report resilience and reading/share acceptance repairs are authored. Follow [the consolidated scoped command list](../development/core-journey-acceptance.md); four reviewed story matrices include connected and offline acceptance. User explicitly requested continuing authoring across stories and receiving commands together at the end. No agent execution is authorized. Source export/licence inputs and production activation remain separately tracked; do not infer them from functional tests.

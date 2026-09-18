@@ -103,6 +103,39 @@ test('E2E-WEB-1520 five historical actual-source points expose source sector com
     await expect(panel).toContainText('Version 1');
     await panel.getByRole('link', { name: 'Back to briefs' }).click();
     await expect(page).toHaveURL(/#intelligence-briefs$/);
+    const issuedLink = panel.getByRole('link', {
+      name: f.input.title,
+      exact: true,
+    });
+    await expect(issuedLink).toBeVisible();
+    await expect(panel).toContainText('4 of 5 points currently admitted.');
+    const listPath = /\/api\/v1\/intelligence-briefs$/;
+    await page.route(listPath, (route) =>
+      route.fulfill({
+        status: 503,
+        contentType: 'application/json',
+        body: JSON.stringify({
+          message: 'Brief admission temporarily unavailable.',
+        }),
+      }),
+    );
+    await panel
+      .getByRole('button', { name: 'Refresh brief', exact: true })
+      .click();
+    await expect(panel.getByRole('alert')).toBeVisible();
+    await expect(issuedLink).toHaveCount(0);
+    await expect(panel).not.toContainText('points currently admitted.');
+    await page.unroute(listPath);
+    await panel
+      .getByRole('button', { name: 'Refresh brief', exact: true })
+      .click();
+    await expect(issuedLink).toBeVisible();
+    await expect(panel.getByRole('alert')).toHaveCount(0);
+    await issuedLink.click();
+    await expect(points).toHaveCount(5);
+    await expect(points.first()).toContainText('Point 1 unavailable');
+    await panel.getByRole('link', { name: 'Back to briefs' }).click();
+    await expect(issuedLink).toBeVisible();
   } finally {
     await f.reviewer.dispose();
   }

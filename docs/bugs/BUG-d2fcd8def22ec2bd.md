@@ -4,23 +4,30 @@
 - Case/project: E2E-WEB-1673 / mobile
 - Stories: EVENT-SCENARIOS-001
 - First seen: 2026-09-16T22:26:46.819Z
-- Evidence: artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log
+- Evidence: artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log
 - Resolution run: Unresolved
 
 Failure excerpt (untrusted; local original has full details):
 
-    TimeoutError: locator.click: Timeout 10000ms exceeded.
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  getByRole('region', { name: 'CPI expectation operations' }).locator('article')
+    Expected: 25
+    Received: 0
+    Timeout:  10000ms
+
     Call log:
-      - waiting for getByRole('button', { name: 'CPI model expectations', exact: true })
+      - Expect "toHaveCount" with timeout 10000ms
+      - waiting for getByRole('region', { name: 'CPI expectation operations' }).locator('article')
+        14 × locator resolved to 0 elements
+           - unexpected value "0"
 
 
-       at ../helpers/source-ops-browser.ts:23
-
-      21 |   await page.goto('/#today');
-      22 |   await page.goto('/#ops');
-    > 23 |   await page.getByRole('button', { name: tab, exact: true }).click();
-         |                                                              ^
-      24 | }
-      25 |
-        at sourceOpsBrowser (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/source-ops-browser.ts:23:62)
-        at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/expectation-pagination.spec.ts:18:7
+      20 |         name: `${label} expectation operations`,
+      21 |       });
+    > 22 |       await expect(region.locator('article')).toHaveCount(25);
+         |                                               ^
+      23 |       for (const count of [50, 75, 100, 101]) {
+      24 |         await region
+      25 |           .getByRole('button', { name: 'Load older expectations' })
+        at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/expectation-pagination.spec.ts:22:47

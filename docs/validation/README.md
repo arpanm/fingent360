@@ -1,11 +1,11 @@
 # Story validation
 
-Latest SDLC invocation: 1789719717196-80383. Only actual test receipts count.
+Latest SDLC invocation: 1789720252776-81604. Only actual test receipts count.
 
 Automated acceptance is separate from implementation, live-source permission and physical-device acceptance.
 
 - [ACCOUNT-001](../tasks/ACCOUNT-001.md): **Stale — rerun required**.
-- [ACTION-CENTRE-001](../tasks/ACTION-CENTRE-001.md): **Passed — automated acceptance**.
+- [ACTION-CENTRE-001](../tasks/ACTION-CENTRE-001.md): **Stale — rerun required**.
 - [ALERT-001](../tasks/ALERT-001.md): **Stale — rerun required**.
 - [ALERT-002](../tasks/ALERT-002.md): **Stale — rerun required**.
 - [ALLOCATIONS-001](../tasks/ALLOCATIONS-001.md): **Stale — rerun required**.
@@ -21,7 +21,7 @@ Automated acceptance is separate from implementation, live-source permission and
 - [CONSENT-LIFECYCLE-001](../tasks/CONSENT-LIFECYCLE-001.md): **Stale — rerun required**.
 - [DATA-001](../tasks/DATA-001.md): **Stale — rerun required**.
 - [DB-LEAST-PRIVILEGE-001](../tasks/DB-LEAST-PRIVILEGE-001.md): **Stale — rerun required**.
-- [DEV-006](../tasks/DEV-006.md): **Partial — required cases not run**.
+- [DEV-006](../tasks/DEV-006.md): **Stale — rerun required**.
 - [DEV-010](../tasks/DEV-010.md): **Failed — unresolved bug**.
 - [DEV-015](../tasks/DEV-015.md): **Failed — unresolved bug**.
 - [DEV-016](../tasks/DEV-016.md): **Failed — unresolved bug**.
@@ -66,12 +66,12 @@ Automated acceptance is separate from implementation, live-source permission and
 - [PWA-001](../tasks/PWA-001.md): **Stale — rerun required**.
 - [QUALITY-OVERVIEW-001](../tasks/QUALITY-OVERVIEW-001.md): **Stale — rerun required**.
 - [READER-DIAGNOSTICS-001](../tasks/READER-DIAGNOSTICS-001.md): **Stale — rerun required**.
-- [READING-FOLLOW-001](../tasks/READING-FOLLOW-001.md): **Failed — unresolved bug**.
+- [READING-FOLLOW-001](../tasks/READING-FOLLOW-001.md): **Selected cases passed — acceptance matrix needed**.
 - [RECOVERY-001](../tasks/RECOVERY-001.md): **Stale — rerun required**.
 - [REGRESSION-011](../tasks/REGRESSION-011.md): **Stale — rerun required**.
 - [REPORT-COMPARE-001](../tasks/REPORT-COMPARE-001.md): **Failed — unresolved bug**.
 - [REPORT-SCHEDULES-001](../tasks/REPORT-SCHEDULES-001.md): **Failed — unresolved bug**.
-- [REPORTS-001](../tasks/REPORTS-001.md): **Passed — automated acceptance**.
+- [REPORTS-001](../tasks/REPORTS-001.md): **Stale — rerun required**.
 - [REPORTS-002](../tasks/REPORTS-002.md): **Failed — unresolved bug**.
 - [REPORTS-003](../tasks/REPORTS-003.md): **Failed — unresolved bug**.
 - [RESEARCH-AUTO-002](../tasks/RESEARCH-AUTO-002.md): **Failed — unresolved bug**.

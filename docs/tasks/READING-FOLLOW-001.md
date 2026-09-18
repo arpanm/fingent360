@@ -2,7 +2,7 @@
 
 - **Status:** Completed implementation; repair validation pending
 - **Implemented / recorded:** - READING-FOLLOW-001 (DEV-018): Implemented and verified for the bounded scope;25 connected and10 selected offline scenarios passed, with final navigation reruns passing. Explicit source/topic subscriptions with a manual check of newly reviewed stored editions, dated coalesced private inbox, mute/acknowledge/reopen and withdrawal-safe navigation. Dependencies: SOURCE-WITHDRAWAL-001, current library/privacy and complete schedule export. Initial follow/re-add/unmute establishes a visible fresh
-- **Pending:** User-run WEB444 desktop/mobile acceptance after repairing the ambiguous source selector; saved failures remain unresolved until a passing run.
+- **Pending:** User-run WEB444 mobile acceptance after repairing the canonical historical-source label; the supplied mobile failure remains unresolved until a passing run.
 - **Next action / inputs:** User runs the scoped SDLC command below and returns any saved failing case/project evidence.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
@@ -34,9 +34,17 @@ Reusable repair prompt: repair only saved acceptance defects, preserving actual 
 
 Manual acceptance: at the current `pnpm dev` web URL (latest saved target http://127.0.0.1:5176), open `/#reading-follow`, recover a read failure, choose Federal Reserve Board, confirm consent, save and reload. Its choice must remain saved; historical Federal Reserve must remain distinct. User command: `pnpm sdlc "Repair reading subscription acceptance" -- --project=desktop --project=mobile --grep "E2E-WEB-444"`. Existing migrated databases/API/web services are required; dependencies and migrations are unchanged. No tests, format, check, build, services, browser or commit executed. Current local commit at inspection: `bee7f02`; this repair and unrelated existing working-tree changes await user gates. Report failing ID/project, run ID and redacted handoff/error excerpt.
 
+## WEB444 canonical source-label repair — 2026-09-18
+
+Cause: the persistence regression added after the earlier ambiguous-selector failure looked for the shortened accessible name `Federal Reserve historical`. The real catalogue descriptor is `Federal Reserve historical policy decisions`, so the exact locator could not find the legitimate second checkbox after reload. The production catalogue and subscription behavior were correct; the failing assertion did not name the rendered control.
+
+Authored repair: WEB444 now locates both legitimate choices by their complete canonical accessible names within the Sources group. It proves the historical source is initially unselected, saves the real `fed` subscription while controls are disabled, validates the stored config through the real API, reloads, and proves `fed` remains selected while `fed-policy-history` remains unselected. No assertion, API validation, recovery state or real persistence path was removed or mocked.
+
+Validation remains pending for mobile. The supplied failure (run ID and start time unavailable) is the mobile WEB444 instance at the nonexistent shortened label. The newer saved handoff `1789720496239-da65e456-0861-45b3-b644-49563e18693b`, started 2026-09-18T08:34:56.239Z against API4104/web5176, covers desktop only and therefore does not close the supplied mobile failure. No dependencies, migrations, services or product behavior changed. Smallest retry: `pnpm e2e:run tests/e2e/cases/browser/reading-follow.spec.ts --project=mobile --grep "E2E-WEB-444 first-read recovery and pending subscription save preserve disabled draft controls @READING-FOLLOW-001 @TEST-SIMULATION$"`. Expect the outage/malformed-read recovery, pending disabled controls, real `fed` save, reload persistence and distinct unchecked historical-source assertions to complete. Report the new run ID, project and redacted assertion excerpt on failure. No deterministic command or commit was run during this repair; inspected HEAD was `2dbbceb` and these edits await the parent retry.
+
 <!-- sdlc-validation:start -->
 
 ## Automated validation
 
-Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789719717196-80383.
+Selected cases passed — acceptance matrix needed. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789720252776-81604.
 <!-- sdlc-validation:end -->

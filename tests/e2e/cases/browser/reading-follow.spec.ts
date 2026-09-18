@@ -541,9 +541,15 @@ test('E2E-WEB-444 first-read recovery and pending subscription save preserve dis
   await page
     .getByRole('button', { name: 'Choose sources and topics', exact: true })
     .click();
-  const source = page
-      .getByRole('group', { name: 'Sources', exact: true })
-      .getByRole('checkbox', { name: 'Federal Reserve Board', exact: true }),
+  const sources = page.getByRole('group', { name: 'Sources', exact: true }),
+    source = sources.getByRole('checkbox', {
+      name: 'Federal Reserve Board',
+      exact: true,
+    }),
+    historicalSource = sources.getByRole('checkbox', {
+      name: 'Federal Reserve historical policy decisions',
+      exact: true,
+    }),
     mute = page.getByRole('checkbox', {
       name: 'Mute reading updates',
       exact: true,
@@ -551,6 +557,7 @@ test('E2E-WEB-444 first-read recovery and pending subscription save preserve dis
     consent = page.getByRole('checkbox', {
       name: /I agree to store my reading subscriptions/,
     });
+  await expect(historicalSource).not.toBeChecked();
   await source.check();
   await consent.check();
   await page
@@ -612,12 +619,7 @@ test('E2E-WEB-444 first-read recovery and pending subscription save preserve dis
       .getByRole('button', { name: 'Choose sources and topics', exact: true })
       .click();
     await expect(source).toBeChecked();
-    await expect(
-      page.getByRole('checkbox', {
-        name: 'Federal Reserve historical',
-        exact: true,
-      }),
-    ).not.toBeChecked();
+    await expect(historicalSource).not.toBeChecked();
   } finally {
     release();
     if (held) await drained;

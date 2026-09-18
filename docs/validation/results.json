@@ -14567,12 +14567,13 @@
       "title": "E2E-WEB-1255 public reading sharing excludes private URL context and opens a user-controlled share handoff @DEV-029 @TEST-SIMULATION",
       "file": "browser/public-reading-share.spec.ts",
       "stories": ["DEV-029"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789720252776-81604",
+      "time": "2026-09-18T08:32:42.449Z",
+      "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+      "log": "artifacts/sdlc/1789720252776-81604/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T08-31-56-736Z-82338/results.json"
     },
     "14bc3236ae60219fd66600fe36dfc4583adec06f8ba1db5f47ffb91dba9dc871": {
       "key": "14bc3236ae60219fd66600fe36dfc4583adec06f8ba1db5f47ffb91dba9dc871",
@@ -14581,12 +14582,13 @@
       "title": "E2E-WEB-1255 public reading sharing excludes private URL context and opens a user-controlled share handoff @DEV-029 @TEST-SIMULATION",
       "file": "browser/public-reading-share.spec.ts",
       "stories": ["DEV-029"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789720252776-81604",
+      "time": "2026-09-18T08:32:42.449Z",
+      "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+      "log": "artifacts/sdlc/1789720252776-81604/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T08-31-56-736Z-82338/results.json"
     },
     "78223d3450e47c8c2d0d5474bd1188039ac9e0e3d9933d3eb4f7a95640f539a8": {
       "key": "78223d3450e47c8c2d0d5474bd1188039ac9e0e3d9933d3eb4f7a95640f539a8",
@@ -14959,12 +14961,13 @@
       "title": "E2E-WEB-444 first-read recovery and pending subscription save preserve disabled draft controls @READING-FOLLOW-001 @TEST-SIMULATION",
       "file": "browser/reading-follow.spec.ts",
       "stories": ["READING-FOLLOW-001"],
-      "status": "failed",
-      "details": "Error: locator.check: Error: strict mode violation: getByRole('group', { name: 'Sources', exact: true }).getByRole('checkbox', { name: /Federal Reserve/ }) resolved to 2 elements:\n    1) <input type=\"checkbox\"/> aka getByRole('checkbox', { name: 'Federal Reserve historical' })\n    2) <input type=\"checkbox\"/> aka getByRole('checkbox', { name: 'Federal Reserve Board' })\n\nCall log:\n  - waiting for getByRole('group', { name: 'Sources', exact: true }).getByRole('checkbox', { name: /Federal Reserve/ })\n\n\n  549 |       exact: true,\n  550 |     }),\n> 551 |     consent = page.getByRole('checkbox', {\n      |                ^\n  552 |       name: /I agree to store my reading subscriptions/,\n  553 |     });\n  554 |   await source.check();\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/reading-follow.spec.ts:551:16",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "status": "passed",
+      "details": "",
+      "run": "1789720252776-81604",
+      "time": "2026-09-18T08:35:02.323Z",
+      "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+      "log": "artifacts/sdlc/1789720252776-81604/08-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T08-34-55-533Z-82938/results.json"
     },
     "cd51badc336cdbf10b75d61402b82b8fcb4ae84e13c966d2dc4f3db81198c926": {
       "key": "cd51badc336cdbf10b75d61402b82b8fcb4ae84e13c966d2dc4f3db81198c926",
@@ -15043,12 +15046,13 @@
       "title": "E2E-WEB-444 first-read recovery and pending subscription save preserve disabled draft controls @READING-FOLLOW-001 @TEST-SIMULATION",
       "file": "browser/reading-follow.spec.ts",
       "stories": ["READING-FOLLOW-001"],
-      "status": "failed",
-      "details": "Error: expect(locator).not.toBeChecked() failed\n\nLocator: getByRole('checkbox', { name: 'Federal Reserve historical', exact: true })\nExpected: not checked\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"not toBeChecked\" with timeout 10000ms\n  - waiting for getByRole('checkbox', { name: 'Federal Reserve historical', exact: true })\n\n\n  618 |         exact: true,\n  619 |       }),\n> 620 |     ).not.toBeChecked();\n      |           ^\n  621 |   } finally {\n  622 |     release();\n  623 |     if (held) await drained;\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/reading-follow.spec.ts:620:11",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "status": "passed",
+      "details": "",
+      "run": "1789720252776-81604",
+      "time": "2026-09-18T08:37:13.860Z",
+      "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+      "log": "artifacts/sdlc/1789720252776-81604/10-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T08-37-07-090Z-83422/results.json"
     },
     "4c2b96a3bb51a48ec8a7458cd91635b34bd0f34aba1d0d5fb8bf8dffce241ffd": {
       "key": "4c2b96a3bb51a48ec8a7458cd91635b34bd0f34aba1d0d5fb8bf8dffce241ffd",
@@ -21622,14 +21626,21 @@
       "title": "E2E-WEB-1255 public reading sharing excludes private URL context and opens a user-controlled share handoff @DEV-029 @TEST-SIMULATION",
       "file": "browser/public-reading-share.spec.ts",
       "stories": ["DEV-029"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: route.fetch: connect ECONNRESET 127.0.0.1:5176\nCall log:\n  - → GET http://127.0.0.1:5176/src/goal-allocations.css\n    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.7632.6 Safari/537.36\n    - accept: */*\n    - accept-encoding: gzip,deflate,br\n    - accept-language: en-US\n    - origin: https://reader.example.org\n    - referer: https://reader.example.org/src/GoalAllocations.tsx?t=1789569670779\n    - sec-ch-ua: \"Chromium\";v=\"152\", \"Not?A_Brand\";v=\"24\", \"Google Chrome\";v=\"152\"\n    - sec-ch-ua-mobile: ?1\n    - sec-ch-ua-platform: \"Windows\"\n\n\n  15 |       ? feedbackSandbox.apiOrigin\n  16 |       : webOrigin;\n> 17 |     const response = await route.fetch({\n     |                                  ^\n  18 |       url: target + url.pathname + url.search,\n  19 |     });\n  20 |     await route.fulfill({ response });\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/public-reading-share.spec.ts:17:34\nError: page.goto: Test ended.\nCall log:\n  - navigating to \"https://reader.example.org/?privateContext=do-not-share#read/fed-801d63c5c41391b968dca5c5f676d799\", waiting until \"load\"\n\n\n  28 |     });\n  29 |   });\n> 30 |   await page.goto(\n     |              ^\n  31 |     'https://reader.example.org/?privateContext=do-not-share#read/' +\n  32 |       f.source.id,\n  33 |   );\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/public-reading-share.spec.ts:30:14",
       "run": "1789569622822-36573",
       "time": "2026-09-16T22:26:46.819Z",
       "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json",
       "id": "BUG-14bc3236ae60219f",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789720252776-81604",
+        "time": "2026-09-18T08:32:42.449Z",
+        "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+        "log": "artifacts/sdlc/1789720252776-81604/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T08-31-56-736Z-82338/results.json"
+      }
     },
     "BUG-2e345e856a74a714": {
       "key": "2e345e856a74a71464d93d03a3908d857f5f1bc7bf6fa194aaf43d29af9f7182",
@@ -21702,14 +21713,22 @@
       "title": "E2E-WEB-444 first-read recovery and pending subscription save preserve disabled draft controls @READING-FOLLOW-001 @TEST-SIMULATION",
       "file": "browser/reading-follow.spec.ts",
       "stories": ["READING-FOLLOW-001"],
-      "status": "Open",
-      "details": "Error: locator.check: Error: strict mode violation: getByRole('group', { name: 'Sources', exact: true }).getByRole('checkbox', { name: /Federal Reserve/ }) resolved to 2 elements:\n    1) <input type=\"checkbox\"/> aka getByRole('checkbox', { name: 'Federal Reserve historical' })\n    2) <input type=\"checkbox\"/> aka getByRole('checkbox', { name: 'Federal Reserve Board' })\n\nCall log:\n  - waiting for getByRole('group', { name: 'Sources', exact: true }).getByRole('checkbox', { name: /Federal Reserve/ })\n\n\n  549 |       exact: true,\n  550 |     }),\n> 551 |     consent = page.getByRole('checkbox', {\n      |                ^\n  552 |       name: /I agree to store my reading subscriptions/,\n  553 |     });\n  554 |   await source.check();\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/reading-follow.spec.ts:551:16",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json",
+      "status": "Resolved",
+      "details": "Error: expect(locator).not.toBeChecked() failed\n\nLocator: getByRole('checkbox', { name: 'Federal Reserve historical', exact: true })\nExpected: not checked\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"not toBeChecked\" with timeout 10000ms\n  - waiting for getByRole('checkbox', { name: 'Federal Reserve historical', exact: true })\n\n\n  618 |         exact: true,\n  619 |       }),\n> 620 |     ).not.toBeChecked();\n      |           ^\n  621 |   } finally {\n  622 |     release();\n  623 |     if (held) await drained;\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/reading-follow.spec.ts:620:11",
+      "run": "1789720252776-81604",
+      "time": "2026-09-18T08:32:42.449Z",
+      "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+      "log": "artifacts/sdlc/1789720252776-81604/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T08-31-56-736Z-82338/results.json",
       "id": "BUG-2d4a4a832bb63904",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789720252776-81604",
+        "time": "2026-09-18T08:35:02.323Z",
+        "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+        "log": "artifacts/sdlc/1789720252776-81604/08-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T08-34-55-533Z-82938/results.json"
+      }
     },
     "BUG-11f2347c63632afc": {
       "key": "11f2347c63632afccb42e87a51e0baaadf8f5999f62cd488245f753b15f909b7",
@@ -21718,14 +21737,22 @@
       "title": "E2E-WEB-444 first-read recovery and pending subscription save preserve disabled draft controls @READING-FOLLOW-001 @TEST-SIMULATION",
       "file": "browser/reading-follow.spec.ts",
       "stories": ["READING-FOLLOW-001"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(locator).not.toBeChecked() failed\n\nLocator: getByRole('checkbox', { name: 'Federal Reserve historical', exact: true })\nExpected: not checked\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"not toBeChecked\" with timeout 10000ms\n  - waiting for getByRole('checkbox', { name: 'Federal Reserve historical', exact: true })\n\n\n  618 |         exact: true,\n  619 |       }),\n> 620 |     ).not.toBeChecked();\n      |           ^\n  621 |   } finally {\n  622 |     release();\n  623 |     if (held) await drained;\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/reading-follow.spec.ts:620:11",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json",
+      "run": "1789720252776-81604",
+      "time": "2026-09-18T08:32:42.449Z",
+      "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+      "log": "artifacts/sdlc/1789720252776-81604/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T08-31-56-736Z-82338/results.json",
       "id": "BUG-11f2347c63632afc",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789720252776-81604",
+        "time": "2026-09-18T08:37:13.860Z",
+        "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+        "log": "artifacts/sdlc/1789720252776-81604/10-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T08-37-07-090Z-83422/results.json"
+      }
     },
     "BUG-6fae5b9c28229717": {
       "key": "6fae5b9c28229717977c67cf51c080b2420a68dee0f10506a058bb9347c26aaa",
@@ -22993,9 +23020,9 @@
       "id": "BUG-efa18bcf6151b6e5",
       "firstSeen": "2026-09-18T05:11:23.620Z",
       "resolvedBy": {
-        "run": "1789711405725-75316",
-        "time": "2026-09-18T06:09:57.845Z",
-        "log": "artifacts/sdlc/1789711405725-75316/10-pnpm-build.log"
+        "run": "1789720252776-81604",
+        "time": "2026-09-18T08:37:06.721Z",
+        "log": "artifacts/sdlc/1789720252776-81604/09-pnpm-build.log"
       }
     },
     "BUG-a47611ab64789eb8": {
@@ -23014,10 +23041,10 @@
       "id": "BUG-a47611ab64789eb8",
       "firstSeen": "2026-09-18T05:33:44.718Z",
       "resolvedBy": {
-        "run": "1789719717196-80383",
-        "time": "2026-09-18T08:23:00.514Z",
+        "run": "1789720252776-81604",
+        "time": "2026-09-18T08:31:56.325Z",
         "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
-        "log": "artifacts/sdlc/1789719717196-80383/02-pnpm-check.log"
+        "log": "artifacts/sdlc/1789720252776-81604/02-pnpm-check.log"
       }
     },
     "BUG-a0826694511b6915": {

@@ -59,7 +59,7 @@ On-device mode uses the same reducer and highest non-draft bundle resolver in th
 
 ## Acceptance and verification boundary
 
-Authored coverage consists of API440–445, WEB440–445, OFFLINE450–451 and5 shared-domain unit cases. It covers baseline/change/ack/reopen, overlap and mute rules, request replay and conflicts, owner isolation/deletion, actual lock-wait expiry rollback, more than200 source heads, bounded notice/history pagination, frozen export cutoffs, later-page401, lost committed responses, first-load recovery, pending draft controls, closing pending history, keyboard/mobile navigation and zero-network local persistence.
+Authored coverage consists of API440–445, WEB440–445, OFFLINE450–451 and5 shared-domain unit cases. It covers baseline/change/ack/reopen, overlap and mute rules, request replay and conflicts, owner isolation/deletion, actual lock-wait expiry rollback, more than200 source heads, bounded notice/history pagination, frozen export cutoffs, later-page401, lost committed responses, first-load recovery, pending draft controls, exact selection and reload persistence across similarly named legitimate sources, closing pending history, keyboard/mobile navigation and zero-network local persistence.
 
 Provider/source fixtures use retained public bundle data. Synthetic later editions, pagination records and transport interruptions are explicitly labelled test simulations and confined to owned schemas/state. They establish no live source or provider claim. No test/build/format/migration/service/provider command was run by the authors. Parent integration and authorized gates, followed by separate physical-device/visual acceptance, determine verification. See the development handoff for commands, exact files and limits.
 

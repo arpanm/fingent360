@@ -5,7 +5,7 @@
 - Stories: DEV-006
 - First seen: 2026-09-16T22:26:46.819Z
 - Evidence: artifacts/sdlc/1789711405725-75316/09-pnpm-e2e_run.log
-- Resolution run: 1789711405725-75316
+- Resolution run: 1789752313607-94916
 
 Failure excerpt (untrusted; local original has full details):
 

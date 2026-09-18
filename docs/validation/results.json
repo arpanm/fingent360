@@ -4449,11 +4449,11 @@
       "stories": ["DEV-006"],
       "status": "passed",
       "details": "",
-      "run": "1789711405725-75316",
-      "time": "2026-09-18T06:07:55.714Z",
-      "fingerprint": "9d1a14b81d3efd2987433195424d40ed107b76cbefa715435e778600c7dee905",
-      "log": "artifacts/sdlc/1789711405725-75316/09-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-18T06-07-16-007Z-76671/results.json"
+      "run": "1789752313607-94916",
+      "time": "2026-09-18T17:26:56.520Z",
+      "fingerprint": "a8694374d296c89fca948e3a5850ce30830b59a7f1538e98f55f29afef00f54a",
+      "log": "artifacts/sdlc/1789752313607-94916/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T17-26-14-763Z-95603/results.json"
     },
     "7f3d3aba3ffa16ae719d9b1fef8ae8bb554b1a1e69f854abecfef7d7b3b5ae64": {
       "key": "7f3d3aba3ffa16ae719d9b1fef8ae8bb554b1a1e69f854abecfef7d7b3b5ae64",
@@ -4464,11 +4464,11 @@
       "stories": ["DEV-006"],
       "status": "passed",
       "details": "",
-      "run": "1789711405725-75316",
-      "time": "2026-09-18T06:10:03.445Z",
-      "fingerprint": "c104b8d9adf408518c16734475e69293027c7308b7d852009f48b502d529b020",
-      "log": "artifacts/sdlc/1789711405725-75316/11-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-18T06-09-58-214Z-77256/results.json"
+      "run": "1789752313607-94916",
+      "time": "2026-09-18T17:26:56.520Z",
+      "fingerprint": "a8694374d296c89fca948e3a5850ce30830b59a7f1538e98f55f29afef00f54a",
+      "log": "artifacts/sdlc/1789752313607-94916/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T17-26-14-763Z-95603/results.json"
     },
     "c347f1cc58d17aaa55fe2b2d353716c9084d7262aa8c76c293ae95b96bf67828": {
       "key": "c347f1cc58d17aaa55fe2b2d353716c9084d7262aa8c76c293ae95b96bf67828",
@@ -12675,11 +12675,11 @@
       "stories": ["DEV-006"],
       "status": "passed",
       "details": "",
-      "run": "1789711405725-75316",
-      "time": "2026-09-18T06:07:55.714Z",
-      "fingerprint": "9d1a14b81d3efd2987433195424d40ed107b76cbefa715435e778600c7dee905",
-      "log": "artifacts/sdlc/1789711405725-75316/09-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-18T06-07-16-007Z-76671/results.json"
+      "run": "1789752313607-94916",
+      "time": "2026-09-18T17:26:56.520Z",
+      "fingerprint": "a8694374d296c89fca948e3a5850ce30830b59a7f1538e98f55f29afef00f54a",
+      "log": "artifacts/sdlc/1789752313607-94916/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T17-26-14-763Z-95603/results.json"
     },
     "d32b207c7c0ada321167e6370a2a8685f0392a18bef14d3dbb682959485b847d": {
       "key": "d32b207c7c0ada321167e6370a2a8685f0392a18bef14d3dbb682959485b847d",
@@ -12690,11 +12690,11 @@
       "stories": ["DEV-006"],
       "status": "passed",
       "details": "",
-      "run": "1789711405725-75316",
-      "time": "2026-09-18T06:07:55.714Z",
-      "fingerprint": "9d1a14b81d3efd2987433195424d40ed107b76cbefa715435e778600c7dee905",
-      "log": "artifacts/sdlc/1789711405725-75316/09-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-18T06-07-16-007Z-76671/results.json"
+      "run": "1789752313607-94916",
+      "time": "2026-09-18T17:26:56.520Z",
+      "fingerprint": "a8694374d296c89fca948e3a5850ce30830b59a7f1538e98f55f29afef00f54a",
+      "log": "artifacts/sdlc/1789752313607-94916/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T17-26-14-763Z-95603/results.json"
     },
     "be64d772800f930a58b4df5df920c011c2ac826ac20d7146e8efad71cd8ab684": {
       "key": "be64d772800f930a58b4df5df920c011c2ac826ac20d7146e8efad71cd8ab684",
@@ -12705,11 +12705,11 @@
       "stories": ["DEV-006"],
       "status": "passed",
       "details": "",
-      "run": "1789711405725-75316",
-      "time": "2026-09-18T06:07:55.714Z",
-      "fingerprint": "9d1a14b81d3efd2987433195424d40ed107b76cbefa715435e778600c7dee905",
-      "log": "artifacts/sdlc/1789711405725-75316/09-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-18T06-07-16-007Z-76671/results.json"
+      "run": "1789752313607-94916",
+      "time": "2026-09-18T17:26:56.520Z",
+      "fingerprint": "a8694374d296c89fca948e3a5850ce30830b59a7f1538e98f55f29afef00f54a",
+      "log": "artifacts/sdlc/1789752313607-94916/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T17-26-14-763Z-95603/results.json"
     },
     "2cfaecca1c8be087f37c04aa2c1c650f60e90ebf788ed5e8b9b8eec40e1ed561": {
       "key": "2cfaecca1c8be087f37c04aa2c1c650f60e90ebf788ed5e8b9b8eec40e1ed561",
@@ -12720,11 +12720,11 @@
       "stories": ["DEV-006"],
       "status": "passed",
       "details": "",
-      "run": "1789711405725-75316",
-      "time": "2026-09-18T06:07:55.714Z",
-      "fingerprint": "9d1a14b81d3efd2987433195424d40ed107b76cbefa715435e778600c7dee905",
-      "log": "artifacts/sdlc/1789711405725-75316/09-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-18T06-07-16-007Z-76671/results.json"
+      "run": "1789752313607-94916",
+      "time": "2026-09-18T17:26:56.520Z",
+      "fingerprint": "a8694374d296c89fca948e3a5850ce30830b59a7f1538e98f55f29afef00f54a",
+      "log": "artifacts/sdlc/1789752313607-94916/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T17-26-14-763Z-95603/results.json"
     },
     "c65fd27a3b9edfce7e83c83b747dfbef25af6180e0b40dfc725011be5c819bc2": {
       "key": "c65fd27a3b9edfce7e83c83b747dfbef25af6180e0b40dfc725011be5c819bc2",
@@ -18235,11 +18235,11 @@
       "stories": ["DEV-006"],
       "status": "passed",
       "details": "",
-      "run": "1789711405725-75316",
-      "time": "2026-09-18T06:12:18.580Z",
-      "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
-      "log": "artifacts/sdlc/1789711405725-75316/15-pnpm-android_test.log",
-      "report": "artifacts/e2e/offline-1789711936788-77879/results.json"
+      "run": "1789752313607-94916",
+      "time": "2026-09-18T17:27:10.924Z",
+      "fingerprint": "a8694374d296c89fca948e3a5850ce30830b59a7f1538e98f55f29afef00f54a",
+      "log": "artifacts/sdlc/1789752313607-94916/08-pnpm-android_test.log",
+      "report": "artifacts/e2e/offline-1789752428641-95851/results.json"
     },
     "68fc9ddf216fa5b90ae44a7f42e0f416258303760af7b87e878756927a7c250c": {
       "key": "68fc9ddf216fa5b90ae44a7f42e0f416258303760af7b87e878756927a7c250c",
@@ -19026,11 +19026,11 @@
       "id": "BUG-a7da4eb6097aaf05",
       "firstSeen": "2026-09-16T22:26:46.819Z",
       "resolvedBy": {
-        "run": "1789711405725-75316",
-        "time": "2026-09-18T06:07:55.714Z",
-        "fingerprint": "9d1a14b81d3efd2987433195424d40ed107b76cbefa715435e778600c7dee905",
-        "log": "artifacts/sdlc/1789711405725-75316/09-pnpm-e2e_run.log",
-        "report": "artifacts/e2e/2026-09-18T06-07-16-007Z-76671/results.json"
+        "run": "1789752313607-94916",
+        "time": "2026-09-18T17:26:56.520Z",
+        "fingerprint": "a8694374d296c89fca948e3a5850ce30830b59a7f1538e98f55f29afef00f54a",
+        "log": "artifacts/sdlc/1789752313607-94916/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T17-26-14-763Z-95603/results.json"
       }
     },
     "BUG-7f3d3aba3ffa16ae": {
@@ -19050,11 +19050,11 @@
       "id": "BUG-7f3d3aba3ffa16ae",
       "firstSeen": "2026-09-16T22:26:46.819Z",
       "resolvedBy": {
-        "run": "1789711405725-75316",
-        "time": "2026-09-18T06:10:03.445Z",
-        "fingerprint": "c104b8d9adf408518c16734475e69293027c7308b7d852009f48b502d529b020",
-        "log": "artifacts/sdlc/1789711405725-75316/11-pnpm-e2e_run.log",
-        "report": "artifacts/e2e/2026-09-18T06-09-58-214Z-77256/results.json"
+        "run": "1789752313607-94916",
+        "time": "2026-09-18T17:26:56.520Z",
+        "fingerprint": "a8694374d296c89fca948e3a5850ce30830b59a7f1538e98f55f29afef00f54a",
+        "log": "artifacts/sdlc/1789752313607-94916/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T17-26-14-763Z-95603/results.json"
       }
     },
     "BUG-2410d03c2040b742": {
@@ -21561,11 +21561,11 @@
       "id": "BUG-045bc0c3e4873529",
       "firstSeen": "2026-09-16T22:26:46.819Z",
       "resolvedBy": {
-        "run": "1789711405725-75316",
-        "time": "2026-09-18T06:07:55.714Z",
-        "fingerprint": "9d1a14b81d3efd2987433195424d40ed107b76cbefa715435e778600c7dee905",
-        "log": "artifacts/sdlc/1789711405725-75316/09-pnpm-e2e_run.log",
-        "report": "artifacts/e2e/2026-09-18T06-07-16-007Z-76671/results.json"
+        "run": "1789752313607-94916",
+        "time": "2026-09-18T17:26:56.520Z",
+        "fingerprint": "a8694374d296c89fca948e3a5850ce30830b59a7f1538e98f55f29afef00f54a",
+        "log": "artifacts/sdlc/1789752313607-94916/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T17-26-14-763Z-95603/results.json"
       }
     },
     "BUG-d32b207c7c0ada32": {
@@ -21584,11 +21584,11 @@
       "id": "BUG-d32b207c7c0ada32",
       "firstSeen": "2026-09-16T22:26:46.819Z",
       "resolvedBy": {
-        "run": "1789711405725-75316",
-        "time": "2026-09-18T06:07:55.714Z",
-        "fingerprint": "9d1a14b81d3efd2987433195424d40ed107b76cbefa715435e778600c7dee905",
-        "log": "artifacts/sdlc/1789711405725-75316/09-pnpm-e2e_run.log",
-        "report": "artifacts/e2e/2026-09-18T06-07-16-007Z-76671/results.json"
+        "run": "1789752313607-94916",
+        "time": "2026-09-18T17:26:56.520Z",
+        "fingerprint": "a8694374d296c89fca948e3a5850ce30830b59a7f1538e98f55f29afef00f54a",
+        "log": "artifacts/sdlc/1789752313607-94916/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T17-26-14-763Z-95603/results.json"
       }
     },
     "BUG-be64d772800f930a": {
@@ -21607,11 +21607,11 @@
       "id": "BUG-be64d772800f930a",
       "firstSeen": "2026-09-16T22:26:46.819Z",
       "resolvedBy": {
-        "run": "1789711405725-75316",
-        "time": "2026-09-18T06:07:55.714Z",
-        "fingerprint": "9d1a14b81d3efd2987433195424d40ed107b76cbefa715435e778600c7dee905",
-        "log": "artifacts/sdlc/1789711405725-75316/09-pnpm-e2e_run.log",
-        "report": "artifacts/e2e/2026-09-18T06-07-16-007Z-76671/results.json"
+        "run": "1789752313607-94916",
+        "time": "2026-09-18T17:26:56.520Z",
+        "fingerprint": "a8694374d296c89fca948e3a5850ce30830b59a7f1538e98f55f29afef00f54a",
+        "log": "artifacts/sdlc/1789752313607-94916/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T17-26-14-763Z-95603/results.json"
       }
     },
     "BUG-2cfaecca1c8be087": {
@@ -21630,11 +21630,11 @@
       "id": "BUG-2cfaecca1c8be087",
       "firstSeen": "2026-09-16T22:26:46.819Z",
       "resolvedBy": {
-        "run": "1789711405725-75316",
-        "time": "2026-09-18T06:07:55.714Z",
-        "fingerprint": "9d1a14b81d3efd2987433195424d40ed107b76cbefa715435e778600c7dee905",
-        "log": "artifacts/sdlc/1789711405725-75316/09-pnpm-e2e_run.log",
-        "report": "artifacts/e2e/2026-09-18T06-07-16-007Z-76671/results.json"
+        "run": "1789752313607-94916",
+        "time": "2026-09-18T17:26:56.520Z",
+        "fingerprint": "a8694374d296c89fca948e3a5850ce30830b59a7f1538e98f55f29afef00f54a",
+        "log": "artifacts/sdlc/1789752313607-94916/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T17-26-14-763Z-95603/results.json"
       }
     },
     "BUG-0e81897622123629": {
@@ -23345,10 +23345,10 @@
       "id": "BUG-a47611ab64789eb8",
       "firstSeen": "2026-09-18T05:33:44.718Z",
       "resolvedBy": {
-        "run": "1789751750850-92480",
-        "time": "2026-09-18T17:16:54.761Z",
-        "fingerprint": "f53e9add1691c450e67ded66036560be9433ea81b9ee474e313d2fc0214b25b9",
-        "log": "artifacts/sdlc/1789751750850-92480/02-pnpm-check.log"
+        "run": "1789752313607-94916",
+        "time": "2026-09-18T17:26:14.317Z",
+        "fingerprint": "a8694374d296c89fca948e3a5850ce30830b59a7f1538e98f55f29afef00f54a",
+        "log": "artifacts/sdlc/1789752313607-94916/02-pnpm-check.log"
       }
     },
     "BUG-a0826694511b6915": {
@@ -23368,11 +23368,11 @@
       "id": "BUG-a0826694511b6915",
       "firstSeen": "2026-09-18T06:10:15.599Z",
       "resolvedBy": {
-        "run": "1789711405725-75316",
-        "time": "2026-09-18T06:12:18.580Z",
-        "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
-        "log": "artifacts/sdlc/1789711405725-75316/15-pnpm-android_test.log",
-        "report": "artifacts/e2e/offline-1789711936788-77879/results.json"
+        "run": "1789752313607-94916",
+        "time": "2026-09-18T17:27:10.924Z",
+        "fingerprint": "a8694374d296c89fca948e3a5850ce30830b59a7f1538e98f55f29afef00f54a",
+        "log": "artifacts/sdlc/1789752313607-94916/08-pnpm-android_test.log",
+        "report": "artifacts/e2e/offline-1789752428641-95851/results.json"
       }
     },
     "BUG-a57afe92fde1af5a": {
@@ -23449,6 +23449,6 @@
     }
   },
   "gates": {
-    "check": "f53e9add1691c450e67ded66036560be9433ea81b9ee474e313d2fc0214b25b9"
+    "check": "a8694374d296c89fca948e3a5850ce30830b59a7f1538e98f55f29afef00f54a"
   }
 }

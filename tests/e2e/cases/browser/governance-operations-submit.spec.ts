@@ -8,6 +8,7 @@ test('E2E-WEB-1593 governance browser creates source-bound draft simulates and i
   playwright,
   feedbackSandbox,
 }) => {
+  test.setTimeout(60_000);
   const fixture = await oilEducationFixture(
     request,
     playwright,
@@ -30,10 +31,12 @@ test('E2E-WEB-1593 governance browser creates source-bound draft simulates and i
       name: 'Research governance',
       exact: true,
     });
+    const reviewedEvent = region.getByLabel('Reviewed event', { exact: true });
+    await expect(
+      reviewedEvent.locator(`option[value="${fixture.event.id}"]`),
+    ).toHaveCount(1);
     await region.getByRole('button', { name: 'New research draft' }).click();
-    await region
-      .getByLabel('Reviewed event', { exact: true })
-      .selectOption(fixture.event.id);
+    await reviewedEvent.selectOption(fixture.event.id);
     await region.getByRole('checkbox', { name: /Citation 1:/ }).check();
     await region
       .getByLabel('Research title')
@@ -46,9 +49,15 @@ test('E2E-WEB-1593 governance browser creates source-bound draft simulates and i
       .fill(
         'Source reports incomplete fuel-cost pass-through, without numeric price or goal claims.',
       );
-    await region.getByLabel('Reviewed sector').selectOption('Airlines');
-    await region.getByLabel('Reviewed company').selectOption('INE646L01027');
-    await region.getByLabel('Qualitative direction').selectOption('mixed');
+    await region
+      .getByLabel('Reviewed sector', { exact: true })
+      .selectOption('Airlines');
+    await region
+      .getByLabel('Reviewed company', { exact: true })
+      .selectOption('INE646L01027');
+    await region
+      .getByLabel('Qualitative direction', { exact: true })
+      .selectOption('mixed');
     await region
       .getByLabel('Context horizon')
       .fill('Historical issuer disclosure');

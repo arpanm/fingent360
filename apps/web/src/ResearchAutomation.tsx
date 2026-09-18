@@ -3,7 +3,7 @@ import { RbiCalendar } from './RbiCalendar';
 import { GdpVintages } from './GdpVintages';
 import { PolicyCalendar } from './PolicyCalendar';
 import { ResearchAutoPublication } from './ResearchAutoPublication';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   ResearchAutoStatusSchema,
   ReleaseCalendarSchema,
@@ -22,22 +22,32 @@ export function ResearchAutomation({
   const [rightsEvidence, setRightsEvidence] = useState<Record<string, string>>(
     {},
   );
-  const [busy, setBusy] = useState(false),
+  const [busy, setBusy] = useState(true),
     [error, setError] = useState(''),
     [notice, setNotice] = useState('');
+  const loadGeneration = useRef(0);
   async function load() {
+    const generation = ++loadGeneration.current;
     setBusy(true);
     setError('');
     try {
-      setState(
-        ResearchAutoStatusSchema.parse(await request('/ops/research-auto')),
+      const next = ResearchAutoStatusSchema.parse(
+        await request('/ops/research-auto'),
       );
+      if (generation === loadGeneration.current) setState(next);
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'Schedules unavailable.');
+      if (generation === loadGeneration.current)
+        setError(e instanceof Error ? e.message : 'Schedules unavailable.');
     } finally {
-      setBusy(false);
+      if (generation === loadGeneration.current) setBusy(false);
     }
   }
+  useEffect(() => {
+    void load();
+    return () => {
+      loadGeneration.current++;
+    };
+  }, []);
   async function save(
     sourceId: string,
     enabled: boolean,

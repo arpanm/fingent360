@@ -315,6 +315,7 @@ export function ResearchGovernance({ request }: { request: typeof json }) {
           <label>
             Governance kind
             <select
+              aria-label="Governance kind"
               value={fields.kind}
               onChange={(e) => edit('kind', e.target.value)}
             >
@@ -327,6 +328,7 @@ export function ResearchGovernance({ request }: { request: typeof json }) {
           <label>
             Reviewed event
             <select
+              aria-label="Reviewed event"
               required
               value={fields.eventId ?? ''}
               onChange={(e) => {
@@ -463,6 +465,7 @@ export function ResearchGovernance({ request }: { request: typeof json }) {
               <label>
                 Transmission mechanism
                 <select
+                  aria-label="Transmission mechanism"
                   value={fields.transmission ?? ''}
                   onChange={(e) => edit('transmission', e.target.value)}
                 >
@@ -495,6 +498,7 @@ export function ResearchGovernance({ request }: { request: typeof json }) {
               <label>
                 Reviewed sector
                 <select
+                  aria-label="Reviewed sector"
                   required
                   value={fields.sector ?? ''}
                   onChange={(e) => edit('sector', e.target.value)}
@@ -515,6 +519,7 @@ export function ResearchGovernance({ request }: { request: typeof json }) {
               <label>
                 Reviewed company
                 <select
+                  aria-label="Reviewed company"
                   value={fields.isin ?? ''}
                   onChange={(e) => edit('isin', e.target.value)}
                 >
@@ -534,6 +539,7 @@ export function ResearchGovernance({ request }: { request: typeof json }) {
               <label>
                 Qualitative direction
                 <select
+                  aria-label="Qualitative direction"
                   value={fields.direction ?? 'unknown'}
                   onChange={(e) => edit('direction', e.target.value)}
                 >

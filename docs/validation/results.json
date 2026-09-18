@@ -5219,12 +5219,13 @@
       "title": "E2E-API-1470 historical issuer fuel evidence independently links six steps to owned goal and keeps no-action after withdrawal @DEV-010 @TEST-SIMULATION",
       "file": "api/oil-education.spec.ts",
       "stories": ["DEV-010"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789722425545-83879",
+      "time": "2026-09-18T09:14:00.280Z",
+      "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+      "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
     },
     "3dcb9f5fc6d699def5f36dfe383cba325928ea8a5c49ed376a588061f080ebd6": {
       "key": "3dcb9f5fc6d699def5f36dfe383cba325928ea8a5c49ed376a588061f080ebd6",
@@ -5233,12 +5234,13 @@
       "title": "E2E-API-1471 unsupported issuer original quarantines without public evidence @DEV-010 @TEST-SIMULATION",
       "file": "api/oil-education.spec.ts",
       "stories": ["DEV-010"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789722425545-83879",
+      "time": "2026-09-18T09:14:00.280Z",
+      "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+      "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
     },
     "abcfa3c06a7dff096c89b57af0c7c91e09f3fa5d2a8b2cf37d9905772e1ce327": {
       "key": "abcfa3c06a7dff096c89b57af0c7c91e09f3fa5d2a8b2cf37d9905772e1ce327",
@@ -7396,12 +7398,13 @@
       "title": "E2E-API-1861 retained inflation source reaches independently reviewed exact mechanism binding @EVENT-SCENARIOS-001 @TEST-SIMULATION",
       "file": "api/transmission-families.spec.ts",
       "stories": ["EVENT-SCENARIOS-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789722425545-83879",
+      "time": "2026-09-18T09:14:00.280Z",
+      "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+      "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
     },
     "a29c410d88625ab192c6145344ca2d0a2e67aac97e5dc6003a37f25598e25b42": {
       "key": "a29c410d88625ab192c6145344ca2d0a2e67aac97e5dc6003a37f25598e25b42",
@@ -7410,12 +7413,13 @@
       "title": "E2E-API-1862 retained gdp source reaches independently reviewed exact mechanism binding @EVENT-SCENARIOS-001 @TEST-SIMULATION",
       "file": "api/transmission-families.spec.ts",
       "stories": ["EVENT-SCENARIOS-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789722425545-83879",
+      "time": "2026-09-18T09:14:00.280Z",
+      "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+      "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
     },
     "96653ab912ba264ef7d5b881d2feba8eb27f40b2c5d857d5485a6bd01d63d4d6": {
       "key": "96653ab912ba264ef7d5b881d2feba8eb27f40b2c5d857d5485a6bd01d63d4d6",
@@ -7424,12 +7428,13 @@
       "title": "E2E-API-1863 retained earnings source reaches independently reviewed exact mechanism binding @EVENT-SCENARIOS-001 @TEST-SIMULATION",
       "file": "api/transmission-families.spec.ts",
       "stories": ["EVENT-SCENARIOS-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789722425545-83879",
+      "time": "2026-09-18T09:14:00.280Z",
+      "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+      "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
     },
     "330da2524336dcf87d4a615f3829d3945d54ee7211087899cbaefbb0e465b171": {
       "key": "330da2524336dcf87d4a615f3829d3945d54ee7211087899cbaefbb0e465b171",
@@ -7438,12 +7443,13 @@
       "title": "E2E-API-1864 retained guidance source reaches independently reviewed exact mechanism binding @EVENT-SCENARIOS-001 @TEST-SIMULATION",
       "file": "api/transmission-families.spec.ts",
       "stories": ["EVENT-SCENARIOS-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789722425545-83879",
+      "time": "2026-09-18T09:14:00.280Z",
+      "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+      "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
     },
     "2cb791e3c3102b6e83936d35fd58b35f926f4102e23a0ebdf0b120a3298bfffa": {
       "key": "2cb791e3c3102b6e83936d35fd58b35f926f4102e23a0ebdf0b120a3298bfffa",
@@ -7452,12 +7458,13 @@
       "title": "E2E-API-1865 retained regulatory source reaches independently reviewed exact mechanism binding @EVENT-SCENARIOS-001 @TEST-SIMULATION",
       "file": "api/transmission-families.spec.ts",
       "stories": ["EVENT-SCENARIOS-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789722425545-83879",
+      "time": "2026-09-18T09:14:00.280Z",
+      "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+      "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
     },
     "be32992f3d1801d67fab53b9fe36193573bad028a86d2f1e4a43c522caade194": {
       "key": "be32992f3d1801d67fab53b9fe36193573bad028a86d2f1e4a43c522caade194",
@@ -7466,12 +7473,13 @@
       "title": "E2E-API-1866 retained flows source reaches independently reviewed exact mechanism binding @EVENT-SCENARIOS-001 @TEST-SIMULATION",
       "file": "api/transmission-families.spec.ts",
       "stories": ["EVENT-SCENARIOS-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789722425545-83879",
+      "time": "2026-09-18T09:14:00.280Z",
+      "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+      "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
     },
     "ceb3f8dc8aaba1649889d2df4f83f693e4f150f336373c3e3fd5cbd0e5e40505": {
       "key": "ceb3f8dc8aaba1649889d2df4f83f693e4f150f336373c3e3fd5cbd0e5e40505",
@@ -11253,12 +11261,13 @@
       "title": "E2E-WEB-2000 real RSS permission upload inbox original inspection and explicit unresolved identity workflow @SRC-004 @TEST-SIMULATION",
       "file": "browser/filing-discovery.spec.ts",
       "stories": ["SRC-004"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789722425545-83879",
+      "time": "2026-09-18T09:14:00.280Z",
+      "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+      "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
     },
     "dad60b81d4566d3ff50c78d67853ebd968e5960a04fc26f0d580dc9ffefe9d79": {
       "key": "dad60b81d4566d3ff50c78d67853ebd968e5960a04fc26f0d580dc9ffefe9d79",
@@ -11267,12 +11276,13 @@
       "title": "E2E-WEB-2000 real RSS permission upload inbox original inspection and explicit unresolved identity workflow @SRC-004 @TEST-SIMULATION",
       "file": "browser/filing-discovery.spec.ts",
       "stories": ["SRC-004"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789722425545-83879",
+      "time": "2026-09-18T09:14:00.280Z",
+      "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+      "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
     },
     "edd3343e05c7ef1d770912593b5b72878b4b0d5df43750c81766045afb1e3e8a": {
       "key": "edd3343e05c7ef1d770912593b5b72878b4b0d5df43750c81766045afb1e3e8a",
@@ -11281,12 +11291,13 @@
       "title": "E2E-WEB-1990 original filing permission schedule and independent publication use actual Operations forms @SRC-004 @TEST-SIMULATION",
       "file": "browser/filing-watch.spec.ts",
       "stories": ["SRC-004"],
-      "status": "failed",
-      "details": "TimeoutError: locator.click: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: 'Enable equity-filing-watch', exact: true })\n\n\n  57 |     await page\n  58 |       .getByRole('button', { name: 'Enable equity-filing-watch', exact: true })\n> 59 |       .click();\n     |        ^\n  60 |     await expect(\n  61 |       page.getByRole('button', {\n  62 |         name: 'Pause equity-filing-watch',\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/filing-watch.spec.ts:59:8\nTest timeout of 30000ms exceeded.",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "status": "passed",
+      "details": "",
+      "run": "1789722425545-83879",
+      "time": "2026-09-18T09:17:25.439Z",
+      "fingerprint": "72c8c2bffdb0e1e1405f17d11cb9c44862c0d1fa9b5f557e2fdf34749e6bf5c9",
+      "log": "artifacts/sdlc/1789722425545-83879/08-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T09-17-16-115Z-85580/results.json"
     },
     "05b8453779129540d2f2049649fc38c592fe8cf09ce9d5bea1742e43de91191d": {
       "key": "05b8453779129540d2f2049649fc38c592fe8cf09ce9d5bea1742e43de91191d",
@@ -11295,12 +11306,13 @@
       "title": "E2E-WEB-1990 original filing permission schedule and independent publication use actual Operations forms @SRC-004 @TEST-SIMULATION",
       "file": "browser/filing-watch.spec.ts",
       "stories": ["SRC-004"],
-      "status": "failed",
-      "details": "TimeoutError: locator.click: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: 'Enable equity-filing-watch', exact: true })\n\n\n  57 |     await page\n  58 |       .getByRole('button', { name: 'Enable equity-filing-watch', exact: true })\n> 59 |       .click();\n     |        ^\n  60 |     await expect(\n  61 |       page.getByRole('button', {\n  62 |         name: 'Pause equity-filing-watch',\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/filing-watch.spec.ts:59:8\nTest timeout of 30000ms exceeded.",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "status": "passed",
+      "details": "",
+      "run": "1789722425545-83879",
+      "time": "2026-09-18T09:20:04.496Z",
+      "fingerprint": "72c8c2bffdb0e1e1405f17d11cb9c44862c0d1fa9b5f557e2fdf34749e6bf5c9",
+      "log": "artifacts/sdlc/1789722425545-83879/10-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T09-19-54-765Z-86063/results.json"
     },
     "b578bdc7e5ecf30bc01073a3ba82a9f44ac2980ecb21bbf156793e75745d820f": {
       "key": "b578bdc7e5ecf30bc01073a3ba82a9f44ac2980ecb21bbf156793e75745d820f",
@@ -12066,11 +12078,12 @@
       "file": "browser/governance-operations-submit.spec.ts",
       "stories": ["DEV-015", "UX-002G"],
       "status": "failed",
-      "details": "TimeoutError: locator.selectOption: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('region', { name: 'Research governance', exact: true }).getByLabel('Reviewed event', { exact: true })\n\n\n  34 |     await region\n  35 |       .getByLabel('Reviewed event', { exact: true })\n> 36 |       .selectOption(fixture.event.id);\n     |        ^\n  37 |     await region.getByRole('checkbox', { name: /Citation 1:/ }).check();\n  38 |     await region\n  39 |       .getByLabel('Research title')\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/governance-operations-submit.spec.ts:36:8\nTest timeout of 30000ms exceeded.",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "details": "Error: expect(locator).toHaveCount(expected) failed\n\nLocator:  getByRole('region', { name: 'Research governance', exact: true }).getByLabel('Reviewed event', { exact: true }).locator('option[value=\"0a57dad6-3499-4966-9f0c-25179f7d4787\"]')\nExpected: 1\nReceived: 0\nTimeout:  10000ms\n\nCall log:\n  - Expect \"toHaveCount\" with timeout 10000ms\n  - waiting for getByRole('region', { name: 'Research governance', exact: true }).getByLabel('Reviewed event', { exact: true }).locator('option[value=\"0a57dad6-3499-4966-9f0c-25179f7d4787\"]')\n    14 × locator resolved to 0 elements\n       - unexpected value \"0\"\n\n\n  35 |     await expect(\n  36 |       reviewedEvent.locator(`option[value=\"${fixture.event.id}\"]`),\n> 37 |     ).toHaveCount(1);\n     |       ^\n  38 |     await region.getByRole('button', { name: 'New research draft' }).click();\n  39 |     await reviewedEvent.selectOption(fixture.event.id);\n  40 |     await region.getByRole('checkbox', { name: /Citation 1:/ }).check();\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/governance-operations-submit.spec.ts:37:7\nTest timeout of 30000ms exceeded.",
+      "run": "1789722425545-83879",
+      "time": "2026-09-18T09:23:52.521Z",
+      "fingerprint": "a707a104004a80be4b62223ae8a30aa19443d47c7dac56231abbaf080bfb7aab",
+      "log": "artifacts/sdlc/1789722425545-83879/12-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T09-23-04-252Z-86647/results.json"
     },
     "012de3d2d9713107cb3d6a5309b88d75a9b65f9e14012f4a04d6c5ad35677256": {
       "key": "012de3d2d9713107cb3d6a5309b88d75a9b65f9e14012f4a04d6c5ad35677256",
@@ -12081,10 +12094,11 @@
       "stories": ["DEV-015", "UX-002G"],
       "status": "failed",
       "details": "TimeoutError: locator.selectOption: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('region', { name: 'Research governance', exact: true }).getByLabel('Reviewed event', { exact: true })\n\n\n  34 |     await region\n  35 |       .getByLabel('Reviewed event', { exact: true })\n> 36 |       .selectOption(fixture.event.id);\n     |        ^\n  37 |     await region.getByRole('checkbox', { name: /Citation 1:/ }).check();\n  38 |     await region\n  39 |       .getByLabel('Research title')\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/governance-operations-submit.spec.ts:36:8",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789722425545-83879",
+      "time": "2026-09-18T09:14:00.280Z",
+      "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+      "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
     },
     "f2415036c05144156e334cb723100341397d42ec8575cef1f6354513f87ee9d5": {
       "key": "f2415036c05144156e334cb723100341397d42ec8575cef1f6354513f87ee9d5",
@@ -13461,12 +13475,13 @@
       "title": "E2E-WEB-615 broker help distinguishes researched exports from automatic parser support @MAPPED-IMPORT-001",
       "file": "browser/mapped-import.spec.ts",
       "stories": ["MAPPED-IMPORT-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789722425545-83879",
+      "time": "2026-09-18T09:14:00.280Z",
+      "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+      "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
     },
     "c8df05a0510ce96e1dd13d8a2898608f15683c5e1d72bb9516e33f95f881e6a9": {
       "key": "c8df05a0510ce96e1dd13d8a2898608f15683c5e1d72bb9516e33f95f881e6a9",
@@ -13545,12 +13560,13 @@
       "title": "E2E-WEB-615 broker help distinguishes researched exports from automatic parser support @MAPPED-IMPORT-001",
       "file": "browser/mapped-import.spec.ts",
       "stories": ["MAPPED-IMPORT-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789722425545-83879",
+      "time": "2026-09-18T09:14:00.280Z",
+      "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+      "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
     },
     "d4b4329951300a08bf6fe995c183bd6a0ce60f984ab3372a28ba5155839470b0": {
       "key": "d4b4329951300a08bf6fe995c183bd6a0ce60f984ab3372a28ba5155839470b0",
@@ -14007,12 +14023,13 @@
       "title": "E2E-WEB-1472 actual oil Operations form captures source then independent UI review publishes and withdraws @DEV-010 @TEST-SIMULATION",
       "file": "browser/oil-education-operations.spec.ts",
       "stories": ["DEV-010"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789722425545-83879",
+      "time": "2026-09-18T09:14:00.280Z",
+      "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+      "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
     },
     "9e6470725995e5cc30070dc9f5c3f9ee15cdb54752d32f5f1d0f8c612e0a6eb4": {
       "key": "9e6470725995e5cc30070dc9f5c3f9ee15cdb54752d32f5f1d0f8c612e0a6eb4",
@@ -14021,12 +14038,13 @@
       "title": "E2E-WEB-1472 actual oil Operations form captures source then independent UI review publishes and withdraws @DEV-010 @TEST-SIMULATION",
       "file": "browser/oil-education-operations.spec.ts",
       "stories": ["DEV-010"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789722425545-83879",
+      "time": "2026-09-18T09:14:00.280Z",
+      "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+      "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
     },
     "07309954350ec24fe3e0ed892eefd26c45f83b2fde0cc50a6153f6ccb9084066": {
       "key": "07309954350ec24fe3e0ed892eefd26c45f83b2fde0cc50a6153f6ccb9084066",
@@ -16627,12 +16645,13 @@
       "title": "E2E-WEB-1594 company news form retains two source proofs then independent reviewer publishes and withdraws @SRC-012 @UX-002G @TEST-SIMULATION",
       "file": "browser/reviewed-source-forms.spec.ts",
       "stories": ["SRC-012", "UX-002G"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789722425545-83879",
+      "time": "2026-09-18T09:14:00.280Z",
+      "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+      "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
     },
     "df25559a3bfefafb451f76c7fbc7b4abbf45d3ded70dcce9feb46df7401e7b82": {
       "key": "df25559a3bfefafb451f76c7fbc7b4abbf45d3ded70dcce9feb46df7401e7b82",
@@ -16641,12 +16660,13 @@
       "title": "E2E-WEB-1595 actual classification form loads admitted source saves mapping and independently publishes withdraws @SRC-006 @UX-002G @TEST-SIMULATION",
       "file": "browser/reviewed-source-forms.spec.ts",
       "stories": ["SRC-006", "UX-002G"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789722425545-83879",
+      "time": "2026-09-18T09:14:00.280Z",
+      "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+      "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
     },
     "90341cde0602f188434d2ba7f95a25445b8057fcd7e34fa71756fc292b4ad232": {
       "key": "90341cde0602f188434d2ba7f95a25445b8057fcd7e34fa71756fc292b4ad232",
@@ -16655,12 +16675,13 @@
       "title": "E2E-WEB-1596 actual normalization form clears changed coverage attestation then independent publish withdraw @INDIA-EQUITY-001 @UX-002G @TEST-SIMULATION",
       "file": "browser/reviewed-source-forms.spec.ts",
       "stories": ["INDIA-EQUITY-001", "UX-002G"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789722425545-83879",
+      "time": "2026-09-18T09:14:00.280Z",
+      "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+      "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
     },
     "7846b9f9f62e6e552849ea978a8b1b7e7dd1afc2cec811e9f0424bfe5315253f": {
       "key": "7846b9f9f62e6e552849ea978a8b1b7e7dd1afc2cec811e9f0424bfe5315253f",
@@ -16669,12 +16690,13 @@
       "title": "E2E-WEB-1594 company news form retains two source proofs then independent reviewer publishes and withdraws @SRC-012 @UX-002G @TEST-SIMULATION",
       "file": "browser/reviewed-source-forms.spec.ts",
       "stories": ["SRC-012", "UX-002G"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789722425545-83879",
+      "time": "2026-09-18T09:14:00.280Z",
+      "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+      "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
     },
     "845504dbfe595690673432d4d7bed7e138f7a2d4b8526024e843e21971cda9f7": {
       "key": "845504dbfe595690673432d4d7bed7e138f7a2d4b8526024e843e21971cda9f7",
@@ -16683,12 +16705,13 @@
       "title": "E2E-WEB-1595 actual classification form loads admitted source saves mapping and independently publishes withdraws @SRC-006 @UX-002G @TEST-SIMULATION",
       "file": "browser/reviewed-source-forms.spec.ts",
       "stories": ["SRC-006", "UX-002G"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789722425545-83879",
+      "time": "2026-09-18T09:14:00.280Z",
+      "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+      "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
     },
     "c05af9e763999d87881f48955b0d8e59cce9c131fdea750d1b5e85ebbd2e7752": {
       "key": "c05af9e763999d87881f48955b0d8e59cce9c131fdea750d1b5e85ebbd2e7752",
@@ -16697,12 +16720,13 @@
       "title": "E2E-WEB-1596 actual normalization form clears changed coverage attestation then independent publish withdraw @INDIA-EQUITY-001 @UX-002G @TEST-SIMULATION",
       "file": "browser/reviewed-source-forms.spec.ts",
       "stories": ["INDIA-EQUITY-001", "UX-002G"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789722425545-83879",
+      "time": "2026-09-18T09:14:00.280Z",
+      "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+      "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
     },
     "49c1008a19f4fc2bc67c760e02241961963cf1d33b9befdbcfcd4e2e6fa34b3c": {
       "key": "49c1008a19f4fc2bc67c760e02241961963cf1d33b9befdbcfcd4e2e6fa34b3c",
@@ -17033,12 +17057,13 @@
       "title": "E2E-WEB-1591 institutional flow real form capture independent publish and withdrawal @SRC-010 @UX-002G @TEST-SIMULATION",
       "file": "browser/source-operations-submissions.spec.ts",
       "stories": ["SRC-010", "UX-002G"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789722425545-83879",
+      "time": "2026-09-18T09:14:00.280Z",
+      "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+      "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
     },
     "afb2d724cbd5b2a9c82195b721a4bc58c72ad7e4226e971afb729ee9c5f98171": {
       "key": "afb2d724cbd5b2a9c82195b721a4bc58c72ad7e4226e971afb729ee9c5f98171",
@@ -17047,12 +17072,13 @@
       "title": "E2E-WEB-1592 participant source form actual submit and independently reviewed publication @SRC-011 @UX-002G @TEST-SIMULATION",
       "file": "browser/source-operations-submissions.spec.ts",
       "stories": ["SRC-011", "UX-002G"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789722425545-83879",
+      "time": "2026-09-18T09:14:00.280Z",
+      "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+      "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
     },
     "ce636f187c3353b017a701643a10e489cd7c489fad9da84649cce78d53e02622": {
       "key": "ce636f187c3353b017a701643a10e489cd7c489fad9da84649cce78d53e02622",
@@ -17075,12 +17101,13 @@
       "title": "E2E-WEB-1591 institutional flow real form capture independent publish and withdrawal @SRC-010 @UX-002G @TEST-SIMULATION",
       "file": "browser/source-operations-submissions.spec.ts",
       "stories": ["SRC-010", "UX-002G"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789722425545-83879",
+      "time": "2026-09-18T09:14:00.280Z",
+      "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+      "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
     },
     "e29dd8b4caeceb7e4c946b59a97283a9d0c9eb4cd1d4cc7922cd4480bddfe3a3": {
       "key": "e29dd8b4caeceb7e4c946b59a97283a9d0c9eb4cd1d4cc7922cd4480bddfe3a3",
@@ -17089,12 +17116,13 @@
       "title": "E2E-WEB-1592 participant source form actual submit and independently reviewed publication @SRC-011 @UX-002G @TEST-SIMULATION",
       "file": "browser/source-operations-submissions.spec.ts",
       "stories": ["SRC-011", "UX-002G"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789722425545-83879",
+      "time": "2026-09-18T09:14:00.280Z",
+      "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+      "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
     },
     "a3f94e7fb6cd824a3f7299f436c97394dfa7cb4482bc2656593e2100b82e80a1": {
       "key": "a3f94e7fb6cd824a3f7299f436c97394dfa7cb4482bc2656593e2100b82e80a1",
@@ -17677,12 +17705,13 @@
       "title": "E2E-WEB-725 broker help links real export paths and separates substituted prices from acquisition costs @BROKER-DIALECTS-001",
       "file": "browser/supplemental-holdings.spec.ts",
       "stories": ["BROKER-DIALECTS-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789722425545-83879",
+      "time": "2026-09-18T09:14:00.280Z",
+      "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+      "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
     },
     "587bb8d636f796b7497ec91d35a1b83c8e9f959b48f2ec58a7f1b489436ea9c6": {
       "key": "587bb8d636f796b7497ec91d35a1b83c8e9f959b48f2ec58a7f1b489436ea9c6",
@@ -17761,12 +17790,13 @@
       "title": "E2E-WEB-725 broker help links real export paths and separates substituted prices from acquisition costs @BROKER-DIALECTS-001",
       "file": "browser/supplemental-holdings.spec.ts",
       "stories": ["BROKER-DIALECTS-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789722425545-83879",
+      "time": "2026-09-18T09:14:00.280Z",
+      "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+      "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
     },
     "7c1f8105a07a7b7f6592989cfd37dd0a4cdfd744fc3b79af8142dd116850bb74": {
       "key": "7c1f8105a07a7b7f6592989cfd37dd0a4cdfd744fc3b79af8142dd116850bb74",
@@ -18974,14 +19004,21 @@
       "title": "E2E-API-1470 historical issuer fuel evidence independently links six steps to owned goal and keeps no-action after withdrawal @DEV-010 @TEST-SIMULATION",
       "file": "api/oil-education.spec.ts",
       "stories": ["DEV-010"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 201\nReceived: 403\n\n   at ../helpers/oil-education.ts:179\n\n  177 |         })\n  178 |       ).status(),\n> 179 |     ).toBe(201);\n      |       ^\n  180 |     const event = EventPublicSchema.parse(\n  181 |         await (await request.get('/api/v1/events/' + id)).json(),\n  182 |       ),\n    at oilEducationFixture (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/oil-education.ts:179:7)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/api/oil-education.spec.ts:26:19",
       "run": "1789569622822-36573",
       "time": "2026-09-16T22:26:46.819Z",
       "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json",
       "id": "BUG-2410d03c2040b742",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789722425545-83879",
+        "time": "2026-09-18T09:14:00.280Z",
+        "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+        "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
+      }
     },
     "BUG-3dcb9f5fc6d699de": {
       "key": "3dcb9f5fc6d699def5f36dfe383cba325928ea8a5c49ed376a588061f080ebd6",
@@ -18990,14 +19027,21 @@
       "title": "E2E-API-1471 unsupported issuer original quarantines without public evidence @DEV-010 @TEST-SIMULATION",
       "file": "api/oil-education.spec.ts",
       "stories": ["DEV-010"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 201\nReceived: 403\n\n   at ../helpers/oil-education.ts:179\n\n  177 |         })\n  178 |       ).status(),\n> 179 |     ).toBe(201);\n      |       ^\n  180 |     const event = EventPublicSchema.parse(\n  181 |         await (await request.get('/api/v1/events/' + id)).json(),\n  182 |       ),\n    at oilEducationFixture (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/oil-education.ts:179:7)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/api/oil-education.spec.ts:130:19",
       "run": "1789569622822-36573",
       "time": "2026-09-16T22:26:46.819Z",
       "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json",
       "id": "BUG-3dcb9f5fc6d699de",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789722425545-83879",
+        "time": "2026-09-18T09:14:00.280Z",
+        "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+        "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
+      }
     },
     "BUG-23164e18a5381e68": {
       "key": "23164e18a5381e683548d5b62ac949084ff9a3c6a873c4d067dad94b9def6a24",
@@ -19388,14 +19432,21 @@
       "title": "E2E-API-1861 retained inflation source reaches independently reviewed exact mechanism binding @EVENT-SCENARIOS-001 @TEST-SIMULATION",
       "file": "api/transmission-families.spec.ts",
       "stories": ["EVENT-SCENARIOS-001"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 201\nReceived: 403\n\n  94 |           })\n  95 |         ).status(),\n> 96 |       ).toBe(201);\n     |         ^\n  97 |       const input = {\n  98 |         requestId: randomUUID(),\n  99 |         expectedVersion: 0,\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/api/transmission-families.spec.ts:96:9",
       "run": "1789569622822-36573",
       "time": "2026-09-16T22:26:46.819Z",
       "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json",
       "id": "BUG-1c484b05bc5c60e6",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789722425545-83879",
+        "time": "2026-09-18T09:14:00.280Z",
+        "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+        "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
+      }
     },
     "BUG-a29c410d88625ab1": {
       "key": "a29c410d88625ab192c6145344ca2d0a2e67aac97e5dc6003a37f25598e25b42",
@@ -19404,14 +19455,21 @@
       "title": "E2E-API-1862 retained gdp source reaches independently reviewed exact mechanism binding @EVENT-SCENARIOS-001 @TEST-SIMULATION",
       "file": "api/transmission-families.spec.ts",
       "stories": ["EVENT-SCENARIOS-001"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 201\nReceived: 403\n\n  94 |           })\n  95 |         ).status(),\n> 96 |       ).toBe(201);\n     |         ^\n  97 |       const input = {\n  98 |         requestId: randomUUID(),\n  99 |         expectedVersion: 0,\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/api/transmission-families.spec.ts:96:9",
       "run": "1789569622822-36573",
       "time": "2026-09-16T22:26:46.819Z",
       "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json",
       "id": "BUG-a29c410d88625ab1",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789722425545-83879",
+        "time": "2026-09-18T09:14:00.280Z",
+        "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+        "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
+      }
     },
     "BUG-96653ab912ba264e": {
       "key": "96653ab912ba264ef7d5b881d2feba8eb27f40b2c5d857d5485a6bd01d63d4d6",
@@ -19420,14 +19478,21 @@
       "title": "E2E-API-1863 retained earnings source reaches independently reviewed exact mechanism binding @EVENT-SCENARIOS-001 @TEST-SIMULATION",
       "file": "api/transmission-families.spec.ts",
       "stories": ["EVENT-SCENARIOS-001"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 201\nReceived: 403\n\n  94 |           })\n  95 |         ).status(),\n> 96 |       ).toBe(201);\n     |         ^\n  97 |       const input = {\n  98 |         requestId: randomUUID(),\n  99 |         expectedVersion: 0,\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/api/transmission-families.spec.ts:96:9",
       "run": "1789569622822-36573",
       "time": "2026-09-16T22:26:46.819Z",
       "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json",
       "id": "BUG-96653ab912ba264e",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789722425545-83879",
+        "time": "2026-09-18T09:14:00.280Z",
+        "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+        "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
+      }
     },
     "BUG-330da2524336dcf8": {
       "key": "330da2524336dcf87d4a615f3829d3945d54ee7211087899cbaefbb0e465b171",
@@ -19436,14 +19501,21 @@
       "title": "E2E-API-1864 retained guidance source reaches independently reviewed exact mechanism binding @EVENT-SCENARIOS-001 @TEST-SIMULATION",
       "file": "api/transmission-families.spec.ts",
       "stories": ["EVENT-SCENARIOS-001"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 201\nReceived: 403\n\n  94 |           })\n  95 |         ).status(),\n> 96 |       ).toBe(201);\n     |         ^\n  97 |       const input = {\n  98 |         requestId: randomUUID(),\n  99 |         expectedVersion: 0,\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/api/transmission-families.spec.ts:96:9",
       "run": "1789569622822-36573",
       "time": "2026-09-16T22:26:46.819Z",
       "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json",
       "id": "BUG-330da2524336dcf8",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789722425545-83879",
+        "time": "2026-09-18T09:14:00.280Z",
+        "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+        "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
+      }
     },
     "BUG-2cb791e3c3102b6e": {
       "key": "2cb791e3c3102b6e83936d35fd58b35f926f4102e23a0ebdf0b120a3298bfffa",
@@ -19452,14 +19524,21 @@
       "title": "E2E-API-1865 retained regulatory source reaches independently reviewed exact mechanism binding @EVENT-SCENARIOS-001 @TEST-SIMULATION",
       "file": "api/transmission-families.spec.ts",
       "stories": ["EVENT-SCENARIOS-001"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 201\nReceived: 403\n\n  94 |           })\n  95 |         ).status(),\n> 96 |       ).toBe(201);\n     |         ^\n  97 |       const input = {\n  98 |         requestId: randomUUID(),\n  99 |         expectedVersion: 0,\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/api/transmission-families.spec.ts:96:9",
       "run": "1789569622822-36573",
       "time": "2026-09-16T22:26:46.819Z",
       "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json",
       "id": "BUG-2cb791e3c3102b6e",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789722425545-83879",
+        "time": "2026-09-18T09:14:00.280Z",
+        "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+        "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
+      }
     },
     "BUG-be32992f3d1801d6": {
       "key": "be32992f3d1801d67fab53b9fe36193573bad028a86d2f1e4a43c522caade194",
@@ -19468,14 +19547,21 @@
       "title": "E2E-API-1866 retained flows source reaches independently reviewed exact mechanism binding @EVENT-SCENARIOS-001 @TEST-SIMULATION",
       "file": "api/transmission-families.spec.ts",
       "stories": ["EVENT-SCENARIOS-001"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 201\nReceived: 403\n\n  94 |           })\n  95 |         ).status(),\n> 96 |       ).toBe(201);\n     |         ^\n  97 |       const input = {\n  98 |         requestId: randomUUID(),\n  99 |         expectedVersion: 0,\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/api/transmission-families.spec.ts:96:9",
       "run": "1789569622822-36573",
       "time": "2026-09-16T22:26:46.819Z",
       "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json",
       "id": "BUG-be32992f3d1801d6",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789722425545-83879",
+        "time": "2026-09-18T09:14:00.280Z",
+        "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+        "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
+      }
     },
     "BUG-a8d437da2ec3c1ad": {
       "key": "a8d437da2ec3c1adab562495c90a3e515e677c2a9c8ed69359497d98c3d06382",
@@ -20836,14 +20922,21 @@
       "title": "E2E-WEB-2000 real RSS permission upload inbox original inspection and explicit unresolved identity workflow @SRC-004 @TEST-SIMULATION",
       "file": "browser/filing-discovery.spec.ts",
       "stories": ["SRC-004"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "TimeoutError: locator.click: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: 'Filing discovery', exact: true })\n\n\n   at ../helpers/source-ops-browser.ts:23\n\n  21 |   await page.goto('/#today');\n  22 |   await page.goto('/#ops');\n> 23 |   await page.getByRole('button', { name: tab, exact: true }).click();\n     |                                                              ^\n  24 | }\n  25 |\n    at sourceOpsBrowser (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/source-ops-browser.ts:23:62)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/filing-discovery.spec.ts:18:5",
       "run": "1789569622822-36573",
       "time": "2026-09-16T22:26:46.819Z",
       "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json",
       "id": "BUG-78d238b933dd8541",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789722425545-83879",
+        "time": "2026-09-18T09:14:00.280Z",
+        "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+        "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
+      }
     },
     "BUG-dad60b81d4566d3f": {
       "key": "dad60b81d4566d3ff50c78d67853ebd968e5960a04fc26f0d580dc9ffefe9d79",
@@ -20852,14 +20945,21 @@
       "title": "E2E-WEB-2000 real RSS permission upload inbox original inspection and explicit unresolved identity workflow @SRC-004 @TEST-SIMULATION",
       "file": "browser/filing-discovery.spec.ts",
       "stories": ["SRC-004"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "TimeoutError: locator.click: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: 'Filing discovery', exact: true })\n\n\n   at ../helpers/source-ops-browser.ts:23\n\n  21 |   await page.goto('/#today');\n  22 |   await page.goto('/#ops');\n> 23 |   await page.getByRole('button', { name: tab, exact: true }).click();\n     |                                                              ^\n  24 | }\n  25 |\n    at sourceOpsBrowser (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/source-ops-browser.ts:23:62)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/filing-discovery.spec.ts:18:5",
       "run": "1789569622822-36573",
       "time": "2026-09-16T22:26:46.819Z",
       "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json",
       "id": "BUG-dad60b81d4566d3f",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789722425545-83879",
+        "time": "2026-09-18T09:14:00.280Z",
+        "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+        "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
+      }
     },
     "BUG-edd3343e05c7ef1d": {
       "key": "edd3343e05c7ef1d770912593b5b72878b4b0d5df43750c81766045afb1e3e8a",
@@ -20868,14 +20968,22 @@
       "title": "E2E-WEB-1990 original filing permission schedule and independent publication use actual Operations forms @SRC-004 @TEST-SIMULATION",
       "file": "browser/filing-watch.spec.ts",
       "stories": ["SRC-004"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "TimeoutError: locator.click: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: 'Enable equity-filing-watch', exact: true })\n\n\n  57 |     await page\n  58 |       .getByRole('button', { name: 'Enable equity-filing-watch', exact: true })\n> 59 |       .click();\n     |        ^\n  60 |     await expect(\n  61 |       page.getByRole('button', {\n  62 |         name: 'Pause equity-filing-watch',\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/filing-watch.spec.ts:59:8\nTest timeout of 30000ms exceeded.",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json",
+      "run": "1789722425545-83879",
+      "time": "2026-09-18T09:14:00.280Z",
+      "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+      "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json",
       "id": "BUG-edd3343e05c7ef1d",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789722425545-83879",
+        "time": "2026-09-18T09:17:25.439Z",
+        "fingerprint": "72c8c2bffdb0e1e1405f17d11cb9c44862c0d1fa9b5f557e2fdf34749e6bf5c9",
+        "log": "artifacts/sdlc/1789722425545-83879/08-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T09-17-16-115Z-85580/results.json"
+      }
     },
     "BUG-05b8453779129540": {
       "key": "05b8453779129540d2f2049649fc38c592fe8cf09ce9d5bea1742e43de91191d",
@@ -20884,14 +20992,22 @@
       "title": "E2E-WEB-1990 original filing permission schedule and independent publication use actual Operations forms @SRC-004 @TEST-SIMULATION",
       "file": "browser/filing-watch.spec.ts",
       "stories": ["SRC-004"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "TimeoutError: locator.click: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: 'Enable equity-filing-watch', exact: true })\n\n\n  57 |     await page\n  58 |       .getByRole('button', { name: 'Enable equity-filing-watch', exact: true })\n> 59 |       .click();\n     |        ^\n  60 |     await expect(\n  61 |       page.getByRole('button', {\n  62 |         name: 'Pause equity-filing-watch',\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/filing-watch.spec.ts:59:8\nTest timeout of 30000ms exceeded.",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json",
+      "run": "1789722425545-83879",
+      "time": "2026-09-18T09:14:00.280Z",
+      "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+      "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json",
       "id": "BUG-05b8453779129540",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789722425545-83879",
+        "time": "2026-09-18T09:20:04.496Z",
+        "fingerprint": "72c8c2bffdb0e1e1405f17d11cb9c44862c0d1fa9b5f557e2fdf34749e6bf5c9",
+        "log": "artifacts/sdlc/1789722425545-83879/10-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T09-19-54-765Z-86063/results.json"
+      }
     },
     "BUG-64330952f9acb674": {
       "key": "64330952f9acb674c8557de180081f371799bc0e835f2c5a0d067f07423b0ac8",
@@ -21061,11 +21177,12 @@
       "file": "browser/governance-operations-submit.spec.ts",
       "stories": ["DEV-015", "UX-002G"],
       "status": "Open",
-      "details": "TimeoutError: locator.selectOption: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('region', { name: 'Research governance', exact: true }).getByLabel('Reviewed event', { exact: true })\n\n\n  34 |     await region\n  35 |       .getByLabel('Reviewed event', { exact: true })\n> 36 |       .selectOption(fixture.event.id);\n     |        ^\n  37 |     await region.getByRole('checkbox', { name: /Citation 1:/ }).check();\n  38 |     await region\n  39 |       .getByLabel('Research title')\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/governance-operations-submit.spec.ts:36:8\nTest timeout of 30000ms exceeded.",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json",
+      "details": "Error: expect(locator).toHaveCount(expected) failed\n\nLocator:  getByRole('region', { name: 'Research governance', exact: true }).getByLabel('Reviewed event', { exact: true }).locator('option[value=\"0a57dad6-3499-4966-9f0c-25179f7d4787\"]')\nExpected: 1\nReceived: 0\nTimeout:  10000ms\n\nCall log:\n  - Expect \"toHaveCount\" with timeout 10000ms\n  - waiting for getByRole('region', { name: 'Research governance', exact: true }).getByLabel('Reviewed event', { exact: true }).locator('option[value=\"0a57dad6-3499-4966-9f0c-25179f7d4787\"]')\n    14 × locator resolved to 0 elements\n       - unexpected value \"0\"\n\n\n  35 |     await expect(\n  36 |       reviewedEvent.locator(`option[value=\"${fixture.event.id}\"]`),\n> 37 |     ).toHaveCount(1);\n     |       ^\n  38 |     await region.getByRole('button', { name: 'New research draft' }).click();\n  39 |     await reviewedEvent.selectOption(fixture.event.id);\n  40 |     await region.getByRole('checkbox', { name: /Citation 1:/ }).check();\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/governance-operations-submit.spec.ts:37:7\nTest timeout of 30000ms exceeded.",
+      "run": "1789722425545-83879",
+      "time": "2026-09-18T09:23:52.521Z",
+      "fingerprint": "a707a104004a80be4b62223ae8a30aa19443d47c7dac56231abbaf080bfb7aab",
+      "log": "artifacts/sdlc/1789722425545-83879/12-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T09-23-04-252Z-86647/results.json",
       "id": "BUG-016262e90f77e313",
       "firstSeen": "2026-09-16T22:26:46.819Z"
     },
@@ -21078,10 +21195,11 @@
       "stories": ["DEV-015", "UX-002G"],
       "status": "Open",
       "details": "TimeoutError: locator.selectOption: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('region', { name: 'Research governance', exact: true }).getByLabel('Reviewed event', { exact: true })\n\n\n  34 |     await region\n  35 |       .getByLabel('Reviewed event', { exact: true })\n> 36 |       .selectOption(fixture.event.id);\n     |        ^\n  37 |     await region.getByRole('checkbox', { name: /Citation 1:/ }).check();\n  38 |     await region\n  39 |       .getByLabel('Research title')\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/governance-operations-submit.spec.ts:36:8",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json",
+      "run": "1789722425545-83879",
+      "time": "2026-09-18T09:14:00.280Z",
+      "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+      "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json",
       "id": "BUG-012de3d2d9713107",
       "firstSeen": "2026-09-16T22:26:46.819Z"
     },
@@ -21498,14 +21616,21 @@
       "title": "E2E-WEB-615 broker help distinguishes researched exports from automatic parser support @MAPPED-IMPORT-001",
       "file": "browser/mapped-import.spec.ts",
       "stories": ["MAPPED-IMPORT-001"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByText(/Automatic broker formats are not enabled/)\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" with timeout 10000ms\n  - waiting for getByText(/Automatic broker formats are not enabled/)\n\n\n  212 |   await expect(\n  213 |     page.getByText(/Automatic broker formats are not enabled/),\n> 214 |   ).toBeVisible();\n      |     ^\n  215 |   for (const name of [\n  216 |     'Zerodha',\n  217 |     'Groww',\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/mapped-import.spec.ts:214:5",
       "run": "1789569622822-36573",
       "time": "2026-09-16T22:26:46.819Z",
       "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json",
       "id": "BUG-3b6ad6cb4c817b1b",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789722425545-83879",
+        "time": "2026-09-18T09:14:00.280Z",
+        "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+        "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
+      }
     },
     "BUG-1a642790b90e904c": {
       "key": "1a642790b90e904cd370220859072e70d291ef65828773baa066d3649ec73bbf",
@@ -21514,14 +21639,21 @@
       "title": "E2E-WEB-615 broker help distinguishes researched exports from automatic parser support @MAPPED-IMPORT-001",
       "file": "browser/mapped-import.spec.ts",
       "stories": ["MAPPED-IMPORT-001"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByText(/Automatic broker formats are not enabled/)\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" with timeout 10000ms\n  - waiting for getByText(/Automatic broker formats are not enabled/)\n\n\n  212 |   await expect(\n  213 |     page.getByText(/Automatic broker formats are not enabled/),\n> 214 |   ).toBeVisible();\n      |     ^\n  215 |   for (const name of [\n  216 |     'Zerodha',\n  217 |     'Groww',\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/mapped-import.spec.ts:214:5",
       "run": "1789569622822-36573",
       "time": "2026-09-16T22:26:46.819Z",
       "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json",
       "id": "BUG-1a642790b90e904c",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789722425545-83879",
+        "time": "2026-09-18T09:14:00.280Z",
+        "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+        "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
+      }
     },
     "BUG-09a20b1f4731e5fb": {
       "key": "09a20b1f4731e5fb5f343903f9e63a7af53516fecd67cc95515d920dde325567",
@@ -21562,14 +21694,21 @@
       "title": "E2E-WEB-1472 actual oil Operations form captures source then independent UI review publishes and withdraws @DEV-010 @TEST-SIMULATION",
       "file": "browser/oil-education-operations.spec.ts",
       "stories": ["DEV-010"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 200\nReceived: 400\n\n   at ../helpers/india-macro.ts:67\n\n  65 |       })\n  66 |     ).status(),\n> 67 |   ).toBe(200);\n     |     ^\n  68 |   const credentials = {\n  69 |     username: `india_${randomUUID().slice(0, 8)}`,\n  70 |     password: [REDACTED],\n    at indiaActors (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/india-macro.ts:67:5)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/oil-education-operations.spec.ts:11:20",
       "run": "1789569622822-36573",
       "time": "2026-09-16T22:26:46.819Z",
       "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json",
       "id": "BUG-683070c9f0501b0f",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789722425545-83879",
+        "time": "2026-09-18T09:14:00.280Z",
+        "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+        "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
+      }
     },
     "BUG-9e6470725995e5cc": {
       "key": "9e6470725995e5cc30070dc9f5c3f9ee15cdb54752d32f5f1d0f8c612e0a6eb4",
@@ -21578,14 +21717,21 @@
       "title": "E2E-WEB-1472 actual oil Operations form captures source then independent UI review publishes and withdraws @DEV-010 @TEST-SIMULATION",
       "file": "browser/oil-education-operations.spec.ts",
       "stories": ["DEV-010"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 200\nReceived: 400\n\n   at ../helpers/india-macro.ts:67\n\n  65 |       })\n  66 |     ).status(),\n> 67 |   ).toBe(200);\n     |     ^\n  68 |   const credentials = {\n  69 |     username: `india_${randomUUID().slice(0, 8)}`,\n  70 |     password: [REDACTED],\n    at indiaActors (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/india-macro.ts:67:5)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/oil-education-operations.spec.ts:11:20",
       "run": "1789569622822-36573",
       "time": "2026-09-16T22:26:46.819Z",
       "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json",
       "id": "BUG-9e6470725995e5cc",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789722425545-83879",
+        "time": "2026-09-18T09:14:00.280Z",
+        "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+        "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
+      }
     },
     "BUG-07309954350ec24f": {
       "key": "07309954350ec24fe3e0ed892eefd26c45f83b2fde0cc50a6153f6ccb9084066",
@@ -22134,14 +22280,21 @@
       "title": "E2E-WEB-1594 company news form retains two source proofs then independent reviewer publishes and withdraws @SRC-012 @UX-002G @TEST-SIMULATION",
       "file": "browser/reviewed-source-forms.spec.ts",
       "stories": ["SRC-012", "UX-002G"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(received).toBeDefined()\n\nReceived: undefined\n\n   at ../helpers/company-news.ts:62\n\n  60 |   sandbox: FeedbackSandbox,\n  61 | ) {\n> 62 |   expect(sandbox.namedCredentials).toBeDefined();\n     |                                    ^\n  63 |   expect(\n  64 |     (\n  65 |       await request.post('/api/v1/ops/session', {\n    at prepareCompanyNews (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/company-news.ts:62:36)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/reviewed-source-forms.spec.ts:18:25",
       "run": "1789569622822-36573",
       "time": "2026-09-16T22:26:46.819Z",
       "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json",
       "id": "BUG-c655705077821487",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789722425545-83879",
+        "time": "2026-09-18T09:14:00.280Z",
+        "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+        "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
+      }
     },
     "BUG-df25559a3bfefafb": {
       "key": "df25559a3bfefafb451f76c7fbc7b4abbf45d3ded70dcce9feb46df7401e7b82",
@@ -22150,14 +22303,21 @@
       "title": "E2E-WEB-1595 actual classification form loads admitted source saves mapping and independently publishes withdraws @SRC-006 @UX-002G @TEST-SIMULATION",
       "file": "browser/reviewed-source-forms.spec.ts",
       "stories": ["SRC-006", "UX-002G"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 200\nReceived: 400\n\n   at ../helpers/classification-crosswalk.ts:23\n\n  21 |       })\n  22 |     ).status(),\n> 23 |   ).toBe(200);\n     |     ^\n  24 |   const credentials = {\n  25 |     username: 'crosswalk_' + randomUUID().slice(0, 8),\n  26 |     password: [REDACTED],\n    at crosswalkFixture (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/classification-crosswalk.ts:23:5)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/reviewed-source-forms.spec.ts:129:19",
       "run": "1789569622822-36573",
       "time": "2026-09-16T22:26:46.819Z",
       "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json",
       "id": "BUG-df25559a3bfefafb",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789722425545-83879",
+        "time": "2026-09-18T09:14:00.280Z",
+        "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+        "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
+      }
     },
     "BUG-90341cde0602f188": {
       "key": "90341cde0602f188434d2ba7f95a25445b8057fcd7e34fa71756fc292b4ad232",
@@ -22166,14 +22326,21 @@
       "title": "E2E-WEB-1596 actual normalization form clears changed coverage attestation then independent publish withdraw @INDIA-EQUITY-001 @UX-002G @TEST-SIMULATION",
       "file": "browser/reviewed-source-forms.spec.ts",
       "stories": ["INDIA-EQUITY-001", "UX-002G"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 200\nReceived: 400\n\n   at ../helpers/india-macro.ts:67\n\n  65 |       })\n  66 |     ).status(),\n> 67 |   ).toBe(200);\n     |     ^\n  68 |   const credentials = {\n  69 |     username: `india_${randomUUID().slice(0, 8)}`,\n  70 |     password: [REDACTED],\n    at indiaActors (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/india-macro.ts:67:5)\n    at adjustmentActors (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/equity-adjustments.ts:46:20)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/reviewed-source-forms.spec.ts:210:19",
       "run": "1789569622822-36573",
       "time": "2026-09-16T22:26:46.819Z",
       "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json",
       "id": "BUG-90341cde0602f188",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789722425545-83879",
+        "time": "2026-09-18T09:14:00.280Z",
+        "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+        "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
+      }
     },
     "BUG-7846b9f9f62e6e55": {
       "key": "7846b9f9f62e6e552849ea978a8b1b7e7dd1afc2cec811e9f0424bfe5315253f",
@@ -22182,14 +22349,21 @@
       "title": "E2E-WEB-1594 company news form retains two source proofs then independent reviewer publishes and withdraws @SRC-012 @UX-002G @TEST-SIMULATION",
       "file": "browser/reviewed-source-forms.spec.ts",
       "stories": ["SRC-012", "UX-002G"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(received).toBeDefined()\n\nReceived: undefined\n\n   at ../helpers/company-news.ts:62\n\n  60 |   sandbox: FeedbackSandbox,\n  61 | ) {\n> 62 |   expect(sandbox.namedCredentials).toBeDefined();\n     |                                    ^\n  63 |   expect(\n  64 |     (\n  65 |       await request.post('/api/v1/ops/session', {\n    at prepareCompanyNews (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/company-news.ts:62:36)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/reviewed-source-forms.spec.ts:18:25",
       "run": "1789569622822-36573",
       "time": "2026-09-16T22:26:46.819Z",
       "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json",
       "id": "BUG-7846b9f9f62e6e55",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789722425545-83879",
+        "time": "2026-09-18T09:14:00.280Z",
+        "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+        "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
+      }
     },
     "BUG-845504dbfe595690": {
       "key": "845504dbfe595690673432d4d7bed7e138f7a2d4b8526024e843e21971cda9f7",
@@ -22198,14 +22372,21 @@
       "title": "E2E-WEB-1595 actual classification form loads admitted source saves mapping and independently publishes withdraws @SRC-006 @UX-002G @TEST-SIMULATION",
       "file": "browser/reviewed-source-forms.spec.ts",
       "stories": ["SRC-006", "UX-002G"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 200\nReceived: 400\n\n   at ../helpers/classification-crosswalk.ts:23\n\n  21 |       })\n  22 |     ).status(),\n> 23 |   ).toBe(200);\n     |     ^\n  24 |   const credentials = {\n  25 |     username: 'crosswalk_' + randomUUID().slice(0, 8),\n  26 |     password: [REDACTED],\n    at crosswalkFixture (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/classification-crosswalk.ts:23:5)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/reviewed-source-forms.spec.ts:129:19",
       "run": "1789569622822-36573",
       "time": "2026-09-16T22:26:46.819Z",
       "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json",
       "id": "BUG-845504dbfe595690",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789722425545-83879",
+        "time": "2026-09-18T09:14:00.280Z",
+        "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+        "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
+      }
     },
     "BUG-c05af9e763999d87": {
       "key": "c05af9e763999d87881f48955b0d8e59cce9c131fdea750d1b5e85ebbd2e7752",
@@ -22214,14 +22395,21 @@
       "title": "E2E-WEB-1596 actual normalization form clears changed coverage attestation then independent publish withdraw @INDIA-EQUITY-001 @UX-002G @TEST-SIMULATION",
       "file": "browser/reviewed-source-forms.spec.ts",
       "stories": ["INDIA-EQUITY-001", "UX-002G"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 200\nReceived: 400\n\n   at ../helpers/india-macro.ts:67\n\n  65 |       })\n  66 |     ).status(),\n> 67 |   ).toBe(200);\n     |     ^\n  68 |   const credentials = {\n  69 |     username: `india_${randomUUID().slice(0, 8)}`,\n  70 |     password: [REDACTED],\n    at indiaActors (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/india-macro.ts:67:5)\n    at adjustmentActors (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/equity-adjustments.ts:46:20)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/reviewed-source-forms.spec.ts:210:19",
       "run": "1789569622822-36573",
       "time": "2026-09-16T22:26:46.819Z",
       "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json",
       "id": "BUG-c05af9e763999d87",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789722425545-83879",
+        "time": "2026-09-18T09:14:00.280Z",
+        "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+        "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
+      }
     },
     "BUG-49c1008a19f4fc2b": {
       "key": "49c1008a19f4fc2bc67c760e02241961963cf1d33b9befdbcfcd4e2e6fa34b3c",
@@ -22349,14 +22537,21 @@
       "title": "E2E-WEB-1591 institutional flow real form capture independent publish and withdrawal @SRC-010 @UX-002G @TEST-SIMULATION",
       "file": "browser/source-operations-submissions.spec.ts",
       "stories": ["SRC-010", "UX-002G"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 200\nReceived: 400\n\n   at ../helpers/india-macro.ts:67\n\n  65 |       })\n  66 |     ).status(),\n> 67 |   ).toBe(200);\n     |     ^\n  68 |   const credentials = {\n  69 |     username: `india_${randomUUID().slice(0, 8)}`,\n  70 |     password: [REDACTED],\n    at indiaActors (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/india-macro.ts:67:5)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/source-operations-submissions.spec.ts:80:20",
       "run": "1789569622822-36573",
       "time": "2026-09-16T22:26:46.819Z",
       "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json",
       "id": "BUG-80a721f0ecae1496",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789722425545-83879",
+        "time": "2026-09-18T09:14:00.280Z",
+        "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+        "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
+      }
     },
     "BUG-afb2d724cbd5b2a9": {
       "key": "afb2d724cbd5b2a9c82195b721a4bc58c72ad7e4226e971afb729ee9c5f98171",
@@ -22365,14 +22560,21 @@
       "title": "E2E-WEB-1592 participant source form actual submit and independently reviewed publication @SRC-011 @UX-002G @TEST-SIMULATION",
       "file": "browser/source-operations-submissions.spec.ts",
       "stories": ["SRC-011", "UX-002G"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 200\nReceived: 400\n\n   at ../helpers/india-macro.ts:67\n\n  65 |       })\n  66 |     ).status(),\n> 67 |   ).toBe(200);\n     |     ^\n  68 |   const credentials = {\n  69 |     username: `india_${randomUUID().slice(0, 8)}`,\n  70 |     password: [REDACTED],\n    at indiaActors (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/india-macro.ts:67:5)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/source-operations-submissions.spec.ts:152:20",
       "run": "1789569622822-36573",
       "time": "2026-09-16T22:26:46.819Z",
       "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json",
       "id": "BUG-afb2d724cbd5b2a9",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789722425545-83879",
+        "time": "2026-09-18T09:14:00.280Z",
+        "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+        "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
+      }
     },
     "BUG-ce636f187c3353b0": {
       "key": "ce636f187c3353b017a701643a10e489cd7c489fad9da84649cce78d53e02622",
@@ -22404,14 +22606,21 @@
       "title": "E2E-WEB-1591 institutional flow real form capture independent publish and withdrawal @SRC-010 @UX-002G @TEST-SIMULATION",
       "file": "browser/source-operations-submissions.spec.ts",
       "stories": ["SRC-010", "UX-002G"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 200\nReceived: 400\n\n   at ../helpers/india-macro.ts:67\n\n  65 |       })\n  66 |     ).status(),\n> 67 |   ).toBe(200);\n     |     ^\n  68 |   const credentials = {\n  69 |     username: `india_${randomUUID().slice(0, 8)}`,\n  70 |     password: [REDACTED],\n    at indiaActors (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/india-macro.ts:67:5)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/source-operations-submissions.spec.ts:80:20",
       "run": "1789569622822-36573",
       "time": "2026-09-16T22:26:46.819Z",
       "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json",
       "id": "BUG-802fdd6adba2b2ff",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789722425545-83879",
+        "time": "2026-09-18T09:14:00.280Z",
+        "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+        "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
+      }
     },
     "BUG-e29dd8b4caeceb7e": {
       "key": "e29dd8b4caeceb7e4c946b59a97283a9d0c9eb4cd1d4cc7922cd4480bddfe3a3",
@@ -22420,14 +22629,21 @@
       "title": "E2E-WEB-1592 participant source form actual submit and independently reviewed publication @SRC-011 @UX-002G @TEST-SIMULATION",
       "file": "browser/source-operations-submissions.spec.ts",
       "stories": ["SRC-011", "UX-002G"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 200\nReceived: 400\n\n   at ../helpers/india-macro.ts:67\n\n  65 |       })\n  66 |     ).status(),\n> 67 |   ).toBe(200);\n     |     ^\n  68 |   const credentials = {\n  69 |     username: `india_${randomUUID().slice(0, 8)}`,\n  70 |     password: [REDACTED],\n    at indiaActors (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/india-macro.ts:67:5)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/source-operations-submissions.spec.ts:152:20",
       "run": "1789569622822-36573",
       "time": "2026-09-16T22:26:46.819Z",
       "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json",
       "id": "BUG-e29dd8b4caeceb7e",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789722425545-83879",
+        "time": "2026-09-18T09:14:00.280Z",
+        "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+        "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
+      }
     },
     "BUG-0f8c33c108554673": {
       "key": "0f8c33c10855467321b8c9822ebb0f3f8dc131e197ab9c1d8444b16bbc0ca8cd",
@@ -22500,14 +22716,21 @@
       "title": "E2E-WEB-725 broker help links real export paths and separates substituted prices from acquisition costs @BROKER-DIALECTS-001",
       "file": "browser/supplemental-holdings.spec.ts",
       "stories": ["BROKER-DIALECTS-001"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByText(/Automatic broker formats are not enabled/)\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" with timeout 10000ms\n  - waiting for getByText(/Automatic broker formats are not enabled/)\n\n\n  307 |   await expect(\n  308 |     page.getByText(/Automatic broker formats are not enabled/),\n> 309 |   ).toBeVisible();\n      |     ^\n  310 |   await expect(\n  311 |     page.getByRole('link', {\n  312 |       name: 'Groww official export help (opens a new tab)',\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/supplemental-holdings.spec.ts:309:5",
       "run": "1789569622822-36573",
       "time": "2026-09-16T22:26:46.819Z",
       "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json",
       "id": "BUG-4980ed3832a17e7a",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789722425545-83879",
+        "time": "2026-09-18T09:14:00.280Z",
+        "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+        "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
+      }
     },
     "BUG-5b20659e0bb7e8bb": {
       "key": "5b20659e0bb7e8bb2e72c80e8fcd2b153bd605edbc8380ef56bf9c2ca1bd4a71",
@@ -22516,14 +22739,21 @@
       "title": "E2E-WEB-725 broker help links real export paths and separates substituted prices from acquisition costs @BROKER-DIALECTS-001",
       "file": "browser/supplemental-holdings.spec.ts",
       "stories": ["BROKER-DIALECTS-001"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByText(/Automatic broker formats are not enabled/)\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" with timeout 10000ms\n  - waiting for getByText(/Automatic broker formats are not enabled/)\n\n\n  307 |   await expect(\n  308 |     page.getByText(/Automatic broker formats are not enabled/),\n> 309 |   ).toBeVisible();\n      |     ^\n  310 |   await expect(\n  311 |     page.getByRole('link', {\n  312 |       name: 'Groww official export help (opens a new tab)',\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/supplemental-holdings.spec.ts:309:5",
       "run": "1789569622822-36573",
       "time": "2026-09-16T22:26:46.819Z",
       "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json",
       "id": "BUG-5b20659e0bb7e8bb",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789722425545-83879",
+        "time": "2026-09-18T09:14:00.280Z",
+        "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+        "log": "artifacts/sdlc/1789722425545-83879/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T09-08-06-798Z-84596/results.json"
+      }
     },
     "BUG-98a020b0f7ad52cf": {
       "key": "98a020b0f7ad52cfa915b8f5caef6cefbfc7822740c14b2621f464d4eafddeed",
@@ -23020,9 +23250,9 @@
       "id": "BUG-efa18bcf6151b6e5",
       "firstSeen": "2026-09-18T05:11:23.620Z",
       "resolvedBy": {
-        "run": "1789720252776-81604",
-        "time": "2026-09-18T08:37:06.721Z",
-        "log": "artifacts/sdlc/1789720252776-81604/09-pnpm-build.log"
+        "run": "1789722425545-83879",
+        "time": "2026-09-18T09:23:03.835Z",
+        "log": "artifacts/sdlc/1789722425545-83879/11-pnpm-build.log"
       }
     },
     "BUG-a47611ab64789eb8": {
@@ -23041,10 +23271,10 @@
       "id": "BUG-a47611ab64789eb8",
       "firstSeen": "2026-09-18T05:33:44.718Z",
       "resolvedBy": {
-        "run": "1789720252776-81604",
-        "time": "2026-09-18T08:31:56.325Z",
-        "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
-        "log": "artifacts/sdlc/1789720252776-81604/02-pnpm-check.log"
+        "run": "1789722425545-83879",
+        "time": "2026-09-18T09:08:06.346Z",
+        "fingerprint": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51",
+        "log": "artifacts/sdlc/1789722425545-83879/02-pnpm-check.log"
       }
     },
     "BUG-a0826694511b6915": {
@@ -23073,6 +23303,6 @@
     }
   },
   "gates": {
-    "check": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041"
+    "check": "b771a5bfecb33b90d9298c407321c41d696565659b8ddce6132c30df0a0e2d51"
   }
 }

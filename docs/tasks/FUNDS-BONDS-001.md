@@ -122,5 +122,5 @@ Authored only: formatting, checks, builds and tests were not run. With the exist
 
 ## Automated validation
 
-Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789720252776-81604.
+Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789722425545-83879.
 <!-- sdlc-validation:end -->

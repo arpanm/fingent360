@@ -1,5 +1,13 @@
 # Current implementation and verification status
 
+## WEB1593 reviewed-event readiness repair — 2026-09-18
+
+The governance Operations browser case performs retained-source preparation, named event publication and a full two-actor draft/simulation/release/withdrawal workflow but inherited the default 30-second test timeout. The supplied desktop run reached the asynchronously populated Reviewed event control, where its 10-second locator wait and the whole-test limit expired. WEB1593 now uses a 60-second whole-workflow budget and directly requires the exact fixture event option before selection. All real API/storage and governance assertions remain; production code and individual action timeouts are unchanged. This repair was not run or committed.
+
+## WEB1990 initial schedule-load repair — 2026-09-18
+
+Automatic research now loads its runtime-validated schedules when the operator opens the section, rather than rendering no schedule controls until a separate refresh. WEB1990 first requires the `equity-filing-watch` heading inside the Automatic research region, then retains its enable/pause, worker, independent-review and company-fact assertions. Saved user-run `1789723036823-6f833c8e-c99d-49f7-bc1c-b71fad7bd5fc` started at `2026-09-18T09:17:16.823Z` against API4104/web5176 and passed the repaired desktop selection. The supplied mobile failure points to the committed pre-repair line59 click; the repaired mobile selection remains unverified. This repair attempt did not run gates, services, migrations or tests and did not commit.
+
 ## API1330 reviewed-event fixture repair — 2026-09-18
 
 The supplied user-run API1330 evidence reached impact-trace admission and received409 because the case submitted hard-coded event revision1 after its governance fixture had independently published and returned revision2. The case now binds the trace to the returned retained revision and explicitly preserves a409 assertion for the preceding stale revision. Production admission remains strict and unchanged. The repair is authored, not executed or committed; the exact API1330 retry is pending.

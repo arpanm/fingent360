@@ -1,6 +1,6 @@
 # Story validation
 
-Latest SDLC invocation: 1789720252776-81604. Only actual test receipts count.
+Latest SDLC invocation: 1789722425545-83879. Only actual test receipts count.
 
 Automated acceptance is separate from implementation, live-source permission and physical-device acceptance.
 
@@ -14,7 +14,7 @@ Automated acceptance is separate from implementation, live-source permission and
 - [AUTH-WAIT-001](../tasks/AUTH-WAIT-001.md): **Stale — rerun required**.
 - [BEA-001](../tasks/BEA-001.md): **Failed — unresolved bug**.
 - [BEA-QUARANTINE-001](../tasks/BEA-QUARANTINE-001.md): **Stale — rerun required**.
-- [BROKER-DIALECTS-001](../tasks/BROKER-DIALECTS-001.md): **Failed — unresolved bug**.
+- [BROKER-DIALECTS-001](../tasks/BROKER-DIALECTS-001.md): **Stale — rerun required**.
 - [BROKER-PARSERS-002](../tasks/BROKER-PARSERS-002.md): **Stale — rerun required**.
 - [BUG-002](../tasks/BUG-002.md): **Stale — rerun required**.
 - [CONNECTION-REVIEWS-001](../tasks/CONNECTION-REVIEWS-001.md): **Stale — rerun required**.
@@ -52,9 +52,9 @@ Automated acceptance is separate from implementation, live-source permission and
 - [IDENTITY-001](../tasks/IDENTITY-001.md): **Stale — rerun required**.
 - [IDENTITY-ADJUDICATION-001](../tasks/IDENTITY-ADJUDICATION-001.md): **Stale — rerun required**.
 - [IMPACT-TRACE-001](../tasks/IMPACT-TRACE-001.md): **Failed — unresolved bug**.
-- [INDIA-EQUITY-001](../tasks/INDIA-EQUITY-001.md): **Failed — unresolved bug**.
+- [INDIA-EQUITY-001](../tasks/INDIA-EQUITY-001.md): **Stale — rerun required**.
 - [LEGACY-FIXTURE-ISOLATION-001](../tasks/LEGACY-FIXTURE-ISOLATION-001.md): **Stale — rerun required**.
-- [MAPPED-IMPORT-001](../tasks/MAPPED-IMPORT-001.md): **Failed — unresolved bug**.
+- [MAPPED-IMPORT-001](../tasks/MAPPED-IMPORT-001.md): **Stale — rerun required**.
 - [MATERIAL-ALERTS-001](../tasks/MATERIAL-ALERTS-001.md): **Failed — unresolved bug**.
 - [MATERIAL-AUTO-001](../tasks/MATERIAL-AUTO-001.md): **Stale — rerun required**.
 - [NAMED-OPERATORS-001](../tasks/NAMED-OPERATORS-001.md): **Stale — rerun required**.
@@ -66,7 +66,7 @@ Automated acceptance is separate from implementation, live-source permission and
 - [PWA-001](../tasks/PWA-001.md): **Stale — rerun required**.
 - [QUALITY-OVERVIEW-001](../tasks/QUALITY-OVERVIEW-001.md): **Stale — rerun required**.
 - [READER-DIAGNOSTICS-001](../tasks/READER-DIAGNOSTICS-001.md): **Stale — rerun required**.
-- [READING-FOLLOW-001](../tasks/READING-FOLLOW-001.md): **Selected cases passed — acceptance matrix needed**.
+- [READING-FOLLOW-001](../tasks/READING-FOLLOW-001.md): **Stale — rerun required**.
 - [RECOVERY-001](../tasks/RECOVERY-001.md): **Stale — rerun required**.
 - [REGRESSION-011](../tasks/REGRESSION-011.md): **Stale — rerun required**.
 - [REPORT-COMPARE-001](../tasks/REPORT-COMPARE-001.md): **Failed — unresolved bug**.
@@ -94,7 +94,7 @@ Automated acceptance is separate from implementation, live-source permission and
 - [SRC-009](../tasks/SRC-009.md): **Failed — unresolved bug**.
 - [SRC-010](../tasks/SRC-010.md): **Failed — unresolved bug**.
 - [SRC-011](../tasks/SRC-011.md): **Failed — unresolved bug**.
-- [SRC-012](../tasks/SRC-012.md): **Failed — unresolved bug**.
+- [SRC-012](../tasks/SRC-012.md): **Stale — rerun required**.
 - [SRC-014](../tasks/SRC-014.md): **Failed — unresolved bug**.
 - [SRC-015](../tasks/SRC-015.md): **Failed — unresolved bug**.
 - [SRC-016](../tasks/SRC-016.md): **Failed — unresolved bug**.

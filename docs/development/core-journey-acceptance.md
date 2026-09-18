@@ -35,3 +35,17 @@ pnpm sdlc "Validate remaining source publishing journeys" -- --grep 'E2E-(API-(1
 User checks: open `/#impact-traces`, `/#intelligence-briefs`, `/#action-centre`, `/#reports`, reading preferences and a public reading item. Expect real owned records, current source admission, save/reload/delete, exact no-action comparisons and explicit failure/retry states. Test figures and induced faults stay labelled synthetic; they do not become live content.
 
 For a failure, supply the case/project, saved run path and assertion from `artifacts/e2e/latest.md` or the SDLC handoff. No agent-run validation, service operation or commit was performed. Existing unrelated/generated changes were preserved. The manifest is a complete required case list for each stated functional scope; an authored test, partial run or skipped case does not close it.
+
+## September18 run follow-up
+
+Saved run review: portfolio1789709592634-72179 has18 passing connected results after exact API retries, with WEB1702 still failing on both browser projects; its offline stage was not reached. Brief1789711405725-75316 records all seven required results passing after its repairs, but overall acceptance remains stale across revisions. Source1789722425545-83879 records28 passing results, with WEB1593 failing on both browser projects. These counts describe saved evidence, not newly executed checks.
+
+Fixes: all six Research governance selectors now have explicit accessible labels; WEB1702 forwards its public event reads to the same actual isolated API as its Operations mutations, then asserts the exact available event. WEB1593 retains actual event readiness and now checks exact sector/company/direction labels through the same complete workflow. No timeout increase, API permission relaxation, dependency or migration was added in this follow-up.
+
+Smallest diagnostic run (four browser combinations only):
+
+```bash
+pnpm sdlc "Repair governance event selection" -- --project=desktop --project=mobile --grep 'E2E-WEB-(1593|1702)\b'
+```
+
+To close the two story matrices after repair, use the existing `--story IMPACT-TRACE-001` and `--story DEV-006` commands above. For the failed source scope, only WEB1593 needs a new selected browser rerun; the other28 saved selections passed. Existing PostgreSQL/MongoDB/API/web setup is sufficient; open the printed app URL → Operations → Research policies and causal review. Expected: actual reviewed event selectable, source citations/sector/company loaded, saved catalog binding and independent release/withdrawal. Report case/project and run path on failure. Generated bug and validation statuses remain owned by the manual SDLC command.

@@ -8,6 +8,10 @@
 
 See [current delivery summary](current-delivery.md) for the batch-wide distinction between code, missing functionality and validation.
 
+## September18 remaining acceptance repair
+
+SDLC1789709592634-72179 records18 connected passes after API1783/1330 automatic repairs. Only WEB1702 remains failed on desktop/mobile; offline acceptance was not reached. Its Operations panel requested public events from the main app while its draft API used the isolated server. Route both to the same actual fixture and require the exact event option. Governance selects now have stable labels throughout event/mechanism/sector/company selection. No financial model, permissions or source content is changed. User rerun: `pnpm sdlc "Complete portfolio traces" --story IMPACT-TRACE-001`; alternatively diagnose only WEB1702/1593 using the focused command in DEV015. No agent execution or new pass claim.
+
 ## Reviewed functional closure — 2026-09-17
 
 The complete required API/browser/offline matrix is recorded in `docs/tasks/acceptance.json`. Implementation of its supported functional scope is complete; the new repairs remain unvalidated. User command: `pnpm sdlc "Complete IMPACT-TRACE-001" --story IMPACT-TRACE-001`. SDLC may mark the accepted functional scope Done only after all required current cases and checks pass. Live-source/editorial activation and native production release remain separate operational prerequisites, not permissions inferred from these tests. See [consolidated commands and completed scope](../development/core-journey-acceptance.md). Existing failure records stay open until observed passing reruns.
@@ -106,5 +110,5 @@ Optional future work is separate: broader per-edge strength/confidence modeling,
 
 ## Automated validation
 
-Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789720252776-81604.
+Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789722425545-83879.
 <!-- sdlc-validation:end -->

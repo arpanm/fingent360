@@ -54,11 +54,21 @@ test('E2E-WEB-1990 original filing permission schedule and independent publicati
     await page
       .getByRole('button', { name: 'Automatic research', exact: true })
       .click();
-    await page
+    const automaticResearch = page.getByRole('region', {
+      name: 'Automatic research',
+      exact: true,
+    });
+    await expect(
+      automaticResearch.getByRole('heading', {
+        name: 'equity-filing-watch',
+        exact: true,
+      }),
+    ).toBeVisible();
+    await automaticResearch
       .getByRole('button', { name: 'Enable equity-filing-watch', exact: true })
       .click();
     await expect(
-      page.getByRole('button', {
+      automaticResearch.getByRole('button', {
         name: 'Pause equity-filing-watch',
         exact: true,
       }),

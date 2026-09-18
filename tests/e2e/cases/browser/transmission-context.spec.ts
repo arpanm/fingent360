@@ -124,6 +124,14 @@ test('E2E-WEB-1702 Operations saves an explicit compatible transmission catalog 
     'earnings',
   );
   try {
+    // Governance loads public evidence as well as protected Operations data.
+    // Both must belong to the same real isolated fixture.
+    await page.route(/\/api\/v1\/events(?:[/?]|$)/, (route) => {
+      const url = new URL(route.request().url());
+      return route.continue({
+        url: feedbackSandbox.apiOrigin + url.pathname + url.search,
+      });
+    });
     const { sourceOpsBrowser } =
       await import('../../helpers/source-ops-browser');
     await sourceOpsBrowser(
@@ -139,9 +147,11 @@ test('E2E-WEB-1702 Operations saves an explicit compatible transmission catalog 
     await panel
       .getByRole('button', { name: 'New research draft', exact: true })
       .click();
-    await panel
-      .getByLabel('Reviewed event', { exact: true })
-      .selectOption(fixture.eventId);
+    const reviewedEvent = panel.getByLabel('Reviewed event', { exact: true });
+    await expect(
+      reviewedEvent.locator(`option[value="${fixture.eventId}"]`),
+    ).toHaveCount(1);
+    await reviewedEvent.selectOption(fixture.eventId);
     await panel.getByRole('checkbox').check();
     await panel
       .getByLabel('Research title', { exact: true })

@@ -1,11 +1,11 @@
 # BUG-7f3d3aba3ffa16ae
 
-- Status: Open
+- Status: Resolved
 - Case/project: E2E-API-1521 / api
 - Stories: DEV-006
 - First seen: 2026-09-16T22:26:46.819Z
-- Evidence: artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log
-- Resolution run: Unresolved
+- Evidence: artifacts/sdlc/1789711405725-75316/09-pnpm-e2e_run.log
+- Resolution run: 1789711405725-75316
 
 Failure excerpt (untrusted; local original has full details):
 

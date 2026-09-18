@@ -4441,12 +4441,13 @@
       "title": "E2E-API-1520 five actual-source points require independent issue and suppress a withdrawn source point without rewriting the brief @DEV-006 @TEST-SIMULATION",
       "file": "api/intelligence-brief.spec.ts",
       "stories": ["DEV-006"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789711405725-75316",
+      "time": "2026-09-18T06:07:55.714Z",
+      "fingerprint": "9d1a14b81d3efd2987433195424d40ed107b76cbefa715435e778600c7dee905",
+      "log": "artifacts/sdlc/1789711405725-75316/09-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T06-07-16-007Z-76671/results.json"
     },
     "7f3d3aba3ffa16ae719d9b1fef8ae8bb554b1a1e69f854abecfef7d7b3b5ae64": {
       "key": "7f3d3aba3ffa16ae719d9b1fef8ae8bb554b1a1e69f854abecfef7d7b3b5ae64",
@@ -4455,12 +4456,13 @@
       "title": "E2E-API-1521 corrected reviewed event requires new independent brief version while issued history stays immutable @DEV-006 @TEST-SIMULATION",
       "file": "api/intelligence-brief.spec.ts",
       "stories": ["DEV-006"],
-      "status": "failed",
-      "details": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 201\nReceived: 403\n\n  184 |         })\n  185 |       ).status(),\n> 186 |     ).toBe(201);\n      |       ^\n  187 |     const pending = IntelligenceBriefPublicSchema.parse(\n  188 |       await (await request.get('/api/v1/intelligence-briefs/' + f.id)).json(),\n  189 |     );\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/api/intelligence-brief.spec.ts:186:7",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "status": "passed",
+      "details": "",
+      "run": "1789711405725-75316",
+      "time": "2026-09-18T06:10:03.445Z",
+      "fingerprint": "c104b8d9adf408518c16734475e69293027c7308b7d852009f48b502d529b020",
+      "log": "artifacts/sdlc/1789711405725-75316/11-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T06-09-58-214Z-77256/results.json"
     },
     "c347f1cc58d17aaa55fe2b2d353716c9084d7262aa8c76c293ae95b96bf67828": {
       "key": "c347f1cc58d17aaa55fe2b2d353716c9084d7262aa8c76c293ae95b96bf67828",
@@ -12639,12 +12641,13 @@
       "title": "E2E-WEB-1522 actual editorial brief UI prepares independently issues corrects and withdraws @DEV-006 @TEST-SIMULATION",
       "file": "browser/intelligence-brief-operations.spec.ts",
       "stories": ["DEV-006"],
-      "status": "failed",
-      "details": "Test timeout of 30000ms exceeded.\nTimeoutError: page.waitForResponse: Timeout 10000ms exceeded while waiting for event \"response\"\n\n   at ../helpers/source-ops-browser.ts:41\n\n  39 |     });\n  40 |   });\n> 41 |   const sessionResponse = page.waitForResponse(\n     |                                ^\n  42 |     (response) =>\n  43 |       new URL(response.url()).pathname === '/api/v1/ops/session' &&\n  44 |       response.request().method() === 'GET',\n    at sourceOpsBrowser (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/source-ops-browser.ts:41:32)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/intelligence-brief-operations.spec.ts:17:5",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "status": "passed",
+      "details": "",
+      "run": "1789711405725-75316",
+      "time": "2026-09-18T06:07:55.714Z",
+      "fingerprint": "9d1a14b81d3efd2987433195424d40ed107b76cbefa715435e778600c7dee905",
+      "log": "artifacts/sdlc/1789711405725-75316/09-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T06-07-16-007Z-76671/results.json"
     },
     "d32b207c7c0ada321167e6370a2a8685f0392a18bef14d3dbb682959485b847d": {
       "key": "d32b207c7c0ada321167e6370a2a8685f0392a18bef14d3dbb682959485b847d",
@@ -12653,12 +12656,13 @@
       "title": "E2E-WEB-1522 actual editorial brief UI prepares independently issues corrects and withdraws @DEV-006 @TEST-SIMULATION",
       "file": "browser/intelligence-brief-operations.spec.ts",
       "stories": ["DEV-006"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789711405725-75316",
+      "time": "2026-09-18T06:07:55.714Z",
+      "fingerprint": "9d1a14b81d3efd2987433195424d40ed107b76cbefa715435e778600c7dee905",
+      "log": "artifacts/sdlc/1789711405725-75316/09-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T06-07-16-007Z-76671/results.json"
     },
     "be64d772800f930a58b4df5df920c011c2ac826ac20d7146e8efad71cd8ab684": {
       "key": "be64d772800f930a58b4df5df920c011c2ac826ac20d7146e8efad71cd8ab684",
@@ -12667,12 +12671,13 @@
       "title": "E2E-WEB-1520 five historical actual-source points expose source sector company navigation and hide withdrawn evidence @DEV-006 @TEST-SIMULATION",
       "file": "browser/intelligence-brief.spec.ts",
       "stories": ["DEV-006"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789711405725-75316",
+      "time": "2026-09-18T06:07:55.714Z",
+      "fingerprint": "9d1a14b81d3efd2987433195424d40ed107b76cbefa715435e778600c7dee905",
+      "log": "artifacts/sdlc/1789711405725-75316/09-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T06-07-16-007Z-76671/results.json"
     },
     "2cfaecca1c8be087f37c04aa2c1c650f60e90ebf788ed5e8b9b8eec40e1ed561": {
       "key": "2cfaecca1c8be087f37c04aa2c1c650f60e90ebf788ed5e8b9b8eec40e1ed561",
@@ -12681,12 +12686,13 @@
       "title": "E2E-WEB-1520 five historical actual-source points expose source sector company navigation and hide withdrawn evidence @DEV-006 @TEST-SIMULATION",
       "file": "browser/intelligence-brief.spec.ts",
       "stories": ["DEV-006"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789711405725-75316",
+      "time": "2026-09-18T06:07:55.714Z",
+      "fingerprint": "9d1a14b81d3efd2987433195424d40ed107b76cbefa715435e778600c7dee905",
+      "log": "artifacts/sdlc/1789711405725-75316/09-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T06-07-16-007Z-76671/results.json"
     },
     "c65fd27a3b9edfce7e83c83b747dfbef25af6180e0b40dfc725011be5c819bc2": {
       "key": "c65fd27a3b9edfce7e83c83b747dfbef25af6180e0b40dfc725011be5c819bc2",
@@ -18155,6 +18161,21 @@
       "fingerprint": "8eaefc9c5469efa008da193f489ce9e2ec8ffe294e6c3e9b3ccb2ad528ad3e07",
       "log": "artifacts/sdlc/1789709592634-72179/09-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-18T05-37-02-689Z-73557/results.json"
+    },
+    "a0826694511b6915fe7d41d8f1dbf13d1c3c75dd8003b30e25336b0c639002b6": {
+      "key": "a0826694511b6915fe7d41d8f1dbf13d1c3c75dd8003b30e25336b0c639002b6",
+      "caseId": "E2E-OFFLINE-1520",
+      "project": "offline",
+      "title": "E2E-OFFLINE-1520 five retained actual-source points re-admit installed evidence and hide withdrawal without invented replacements @DEV-006 @TEST-SIMULATION",
+      "file": "offline/intelligence-brief.spec.ts",
+      "stories": ["DEV-006"],
+      "status": "passed",
+      "details": "",
+      "run": "1789711405725-75316",
+      "time": "2026-09-18T06:12:18.580Z",
+      "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+      "log": "artifacts/sdlc/1789711405725-75316/15-pnpm-android_test.log",
+      "report": "artifacts/e2e/offline-1789711936788-77879/results.json"
     }
   },
   "bugs": {
@@ -18761,11 +18782,11 @@
       "id": "BUG-a7da4eb6097aaf05",
       "firstSeen": "2026-09-16T22:26:46.819Z",
       "resolvedBy": {
-        "run": "1789668919723-57996",
-        "time": "2026-09-17T18:17:17.901Z",
-        "fingerprint": "a95adad4a7bb1ea3c50bf9dcfd71530573c5190df5e0c262755b54e3e60b8bf4",
-        "log": "artifacts/sdlc/1789668919723-57996/06-pnpm-e2e_run.log",
-        "report": "artifacts/e2e/2026-09-17T18-16-23-638Z-58699/results.json"
+        "run": "1789711405725-75316",
+        "time": "2026-09-18T06:07:55.714Z",
+        "fingerprint": "9d1a14b81d3efd2987433195424d40ed107b76cbefa715435e778600c7dee905",
+        "log": "artifacts/sdlc/1789711405725-75316/09-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T06-07-16-007Z-76671/results.json"
       }
     },
     "BUG-7f3d3aba3ffa16ae": {
@@ -18775,14 +18796,22 @@
       "title": "E2E-API-1521 corrected reviewed event requires new independent brief version while issued history stays immutable @DEV-006 @TEST-SIMULATION",
       "file": "api/intelligence-brief.spec.ts",
       "stories": ["DEV-006"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 201\nReceived: 403\n\n  184 |         })\n  185 |       ).status(),\n> 186 |     ).toBe(201);\n      |       ^\n  187 |     const pending = IntelligenceBriefPublicSchema.parse(\n  188 |       await (await request.get('/api/v1/intelligence-briefs/' + f.id)).json(),\n  189 |     );\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/api/intelligence-brief.spec.ts:186:7",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json",
+      "run": "1789711405725-75316",
+      "time": "2026-09-18T06:07:55.714Z",
+      "fingerprint": "9d1a14b81d3efd2987433195424d40ed107b76cbefa715435e778600c7dee905",
+      "log": "artifacts/sdlc/1789711405725-75316/09-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T06-07-16-007Z-76671/results.json",
       "id": "BUG-7f3d3aba3ffa16ae",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789711405725-75316",
+        "time": "2026-09-18T06:10:03.445Z",
+        "fingerprint": "c104b8d9adf408518c16734475e69293027c7308b7d852009f48b502d529b020",
+        "log": "artifacts/sdlc/1789711405725-75316/11-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T06-09-58-214Z-77256/results.json"
+      }
     },
     "BUG-2410d03c2040b742": {
       "key": "2410d03c2040b7425ba2496d35bb71ea83a98b48aaa23feb3bb923948200bbc5",
@@ -21163,14 +21192,21 @@
       "title": "E2E-WEB-1522 actual editorial brief UI prepares independently issues corrects and withdraws @DEV-006 @TEST-SIMULATION",
       "file": "browser/intelligence-brief-operations.spec.ts",
       "stories": ["DEV-006"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Test timeout of 30000ms exceeded.\nTimeoutError: page.waitForResponse: Timeout 10000ms exceeded while waiting for event \"response\"\n\n   at ../helpers/source-ops-browser.ts:41\n\n  39 |     });\n  40 |   });\n> 41 |   const sessionResponse = page.waitForResponse(\n     |                                ^\n  42 |     (response) =>\n  43 |       new URL(response.url()).pathname === '/api/v1/ops/session' &&\n  44 |       response.request().method() === 'GET',\n    at sourceOpsBrowser (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/source-ops-browser.ts:41:32)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/intelligence-brief-operations.spec.ts:17:5",
       "run": "1789669163056-59061",
       "time": "2026-09-18T05:00:49.248Z",
       "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json",
       "id": "BUG-045bc0c3e4873529",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789711405725-75316",
+        "time": "2026-09-18T06:07:55.714Z",
+        "fingerprint": "9d1a14b81d3efd2987433195424d40ed107b76cbefa715435e778600c7dee905",
+        "log": "artifacts/sdlc/1789711405725-75316/09-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T06-07-16-007Z-76671/results.json"
+      }
     },
     "BUG-d32b207c7c0ada32": {
       "key": "d32b207c7c0ada321167e6370a2a8685f0392a18bef14d3dbb682959485b847d",
@@ -21179,14 +21215,21 @@
       "title": "E2E-WEB-1522 actual editorial brief UI prepares independently issues corrects and withdraws @DEV-006 @TEST-SIMULATION",
       "file": "browser/intelligence-brief-operations.spec.ts",
       "stories": ["DEV-006"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 200\nReceived: 400\n\n   at ../helpers/india-macro.ts:67\n\n  65 |       })\n  66 |     ).status(),\n> 67 |   ).toBe(200);\n     |     ^\n  68 |   const credentials = {\n  69 |     username: `india_${randomUUID().slice(0, 8)}`,\n  70 |     password: [REDACTED],\n    at indiaActors (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/india-macro.ts:67:5)\n    at oilEducationFixture (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/oil-education.ts:33:20)\n    at intelligenceBriefFixture (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/intelligence-brief.ts:25:15)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/intelligence-brief-operations.spec.ts:10:19",
       "run": "1789569622822-36573",
       "time": "2026-09-16T22:26:46.819Z",
       "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json",
       "id": "BUG-d32b207c7c0ada32",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789711405725-75316",
+        "time": "2026-09-18T06:07:55.714Z",
+        "fingerprint": "9d1a14b81d3efd2987433195424d40ed107b76cbefa715435e778600c7dee905",
+        "log": "artifacts/sdlc/1789711405725-75316/09-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T06-07-16-007Z-76671/results.json"
+      }
     },
     "BUG-be64d772800f930a": {
       "key": "be64d772800f930a58b4df5df920c011c2ac826ac20d7146e8efad71cd8ab684",
@@ -21195,14 +21238,21 @@
       "title": "E2E-WEB-1520 five historical actual-source points expose source sector company navigation and hide withdrawn evidence @DEV-006 @TEST-SIMULATION",
       "file": "browser/intelligence-brief.spec.ts",
       "stories": ["DEV-006"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 201\nReceived: 403\n\n   at ../helpers/oil-education.ts:179\n\n  177 |         })\n  178 |       ).status(),\n> 179 |     ).toBe(201);\n      |       ^\n  180 |     const event = EventPublicSchema.parse(\n  181 |         await (await request.get('/api/v1/events/' + id)).json(),\n  182 |       ),\n    at oilEducationFixture (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/oil-education.ts:179:7)\n    at intelligenceBriefFixture (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/intelligence-brief.ts:25:15)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/intelligence-brief.spec.ts:14:13",
       "run": "1789569622822-36573",
       "time": "2026-09-16T22:26:46.819Z",
       "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json",
       "id": "BUG-be64d772800f930a",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789711405725-75316",
+        "time": "2026-09-18T06:07:55.714Z",
+        "fingerprint": "9d1a14b81d3efd2987433195424d40ed107b76cbefa715435e778600c7dee905",
+        "log": "artifacts/sdlc/1789711405725-75316/09-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T06-07-16-007Z-76671/results.json"
+      }
     },
     "BUG-2cfaecca1c8be087": {
       "key": "2cfaecca1c8be087f37c04aa2c1c650f60e90ebf788ed5e8b9b8eec40e1ed561",
@@ -21211,14 +21261,21 @@
       "title": "E2E-WEB-1520 five historical actual-source points expose source sector company navigation and hide withdrawn evidence @DEV-006 @TEST-SIMULATION",
       "file": "browser/intelligence-brief.spec.ts",
       "stories": ["DEV-006"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 201\nReceived: 403\n\n   at ../helpers/oil-education.ts:179\n\n  177 |         })\n  178 |       ).status(),\n> 179 |     ).toBe(201);\n      |       ^\n  180 |     const event = EventPublicSchema.parse(\n  181 |         await (await request.get('/api/v1/events/' + id)).json(),\n  182 |       ),\n    at oilEducationFixture (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/oil-education.ts:179:7)\n    at intelligenceBriefFixture (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/intelligence-brief.ts:25:15)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/intelligence-brief.spec.ts:14:13",
       "run": "1789569622822-36573",
       "time": "2026-09-16T22:26:46.819Z",
       "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json",
       "id": "BUG-2cfaecca1c8be087",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789711405725-75316",
+        "time": "2026-09-18T06:07:55.714Z",
+        "fingerprint": "9d1a14b81d3efd2987433195424d40ed107b76cbefa715435e778600c7dee905",
+        "log": "artifacts/sdlc/1789711405725-75316/09-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T06-07-16-007Z-76671/results.json"
+      }
     },
     "BUG-0e81897622123629": {
       "key": "0e81897622123629dd492c136cab90403f059d9b631f2468668316f0c77e791d",
@@ -22737,9 +22794,9 @@
       "id": "BUG-efa18bcf6151b6e5",
       "firstSeen": "2026-09-18T05:11:23.620Z",
       "resolvedBy": {
-        "run": "1789709592634-72179",
-        "time": "2026-09-18T05:44:26.820Z",
-        "log": "artifacts/sdlc/1789709592634-72179/12-pnpm-build.log"
+        "run": "1789711405725-75316",
+        "time": "2026-09-18T06:09:57.845Z",
+        "log": "artifacts/sdlc/1789711405725-75316/10-pnpm-build.log"
       }
     },
     "BUG-a47611ab64789eb8": {
@@ -22751,21 +22808,45 @@
       "stories": [],
       "status": "Resolved",
       "details": "$ pnpm format:check && pnpm lint && pnpm typecheck && pnpm e2e:typecheck && pnpm test\n$ prettier --check .\nChecking formatting...\n[warn] TODO.md\n[warn] Code style issues found in the above file. Run Prettier with --write to fix.\n[ELIFECYCLE] Command failed with exit code 1.\n[ELIFECYCLE] Command failed with exit code 1.\n",
-      "run": "1789709592634-72179",
-      "time": "2026-09-18T05:36:13.812Z",
-      "fingerprint": "8eaefc9c5469efa008da193f489ce9e2ec8ffe294e6c3e9b3ccb2ad528ad3e07",
-      "log": "artifacts/sdlc/1789709592634-72179/03-pnpm-check.log",
+      "run": "1789711405725-75316",
+      "time": "2026-09-18T06:06:27.197Z",
+      "fingerprint": "9d1a14b81d3efd2987433195424d40ed107b76cbefa715435e778600c7dee905",
+      "log": "artifacts/sdlc/1789711405725-75316/03-pnpm-check.log",
       "id": "BUG-a47611ab64789eb8",
       "firstSeen": "2026-09-18T05:33:44.718Z",
       "resolvedBy": {
-        "run": "1789709592634-72179",
-        "time": "2026-09-18T05:37:02.176Z",
-        "fingerprint": "8eaefc9c5469efa008da193f489ce9e2ec8ffe294e6c3e9b3ccb2ad528ad3e07",
-        "log": "artifacts/sdlc/1789709592634-72179/05-pnpm-check.log"
+        "run": "1789711405725-75316",
+        "time": "2026-09-18T06:07:15.575Z",
+        "fingerprint": "9d1a14b81d3efd2987433195424d40ed107b76cbefa715435e778600c7dee905",
+        "log": "artifacts/sdlc/1789711405725-75316/05-pnpm-check.log"
+      }
+    },
+    "BUG-a0826694511b6915": {
+      "key": "a0826694511b6915fe7d41d8f1dbf13d1c3c75dd8003b30e25336b0c639002b6",
+      "caseId": "E2E-OFFLINE-1520",
+      "project": "offline",
+      "title": "E2E-OFFLINE-1520 five retained actual-source points re-admit installed evidence and hide withdrawal without invented replacements @DEV-006 @TEST-SIMULATION",
+      "file": "offline/intelligence-brief.spec.ts",
+      "stories": ["DEV-006"],
+      "status": "Resolved",
+      "details": "ZodError: [\n  {\n    \"code\": \"custom\",\n    \"message\": \"Event, source, identity and graph revisions do not reconcile.\",\n    \"path\": [\n      \"event\"\n    ]\n  }\n]\n\n  166 |         );\n  167 |       event.graph.events[0]!.publicationState = 'published';\n> 168 |       return EventPublicSchema.parse({\n      |                                ^\n  169 |         id,\n  170 |         status: 'published',\n  171 |         event,\n    at map (/Users/arpanmacmini/code/fingent360/tests/e2e/cases/offline/intelligence-brief.spec.ts:168:32)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/offline/intelligence-brief.spec.ts:117:22",
+      "run": "1789711405725-75316",
+      "time": "2026-09-18T06:10:15.599Z",
+      "fingerprint": "c104b8d9adf408518c16734475e69293027c7308b7d852009f48b502d529b020",
+      "log": "artifacts/sdlc/1789711405725-75316/13-pnpm-android_test.log",
+      "report": "artifacts/e2e/offline-1789711813237-77395/results.json",
+      "id": "BUG-a0826694511b6915",
+      "firstSeen": "2026-09-18T06:10:15.599Z",
+      "resolvedBy": {
+        "run": "1789711405725-75316",
+        "time": "2026-09-18T06:12:18.580Z",
+        "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+        "log": "artifacts/sdlc/1789711405725-75316/15-pnpm-android_test.log",
+        "report": "artifacts/e2e/offline-1789711936788-77879/results.json"
       }
     }
   },
   "gates": {
-    "check": "8eaefc9c5469efa008da193f489ce9e2ec8ffe294e6c3e9b3ccb2ad528ad3e07"
+    "check": "9d1a14b81d3efd2987433195424d40ed107b76cbefa715435e778600c7dee905"
   }
 }

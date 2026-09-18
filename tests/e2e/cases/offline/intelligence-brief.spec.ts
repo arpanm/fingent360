@@ -165,6 +165,7 @@ test('E2E-OFFLINE-1520 five retained actual-source points re-admit installed evi
           randomUUID,
         );
       event.graph.events[0]!.publicationState = 'published';
+      for (const edge of event.graph.edges) edge.reviewState = 'reviewed';
       return EventPublicSchema.parse({
         id,
         status: 'published',
@@ -228,6 +229,11 @@ test('E2E-OFFLINE-1520 five retained actual-source points re-admit installed evi
       query: new URLSearchParams(),
     },
     oldFetch = globalThis.fetch;
+  expect(
+    events.every((item) =>
+      item.event!.graph.edges.every((edge) => edge.reviewState === 'reviewed'),
+    ),
+  ).toBe(true);
   globalThis.fetch = async () => {
     throw Error('Offline brief must not fetch.');
   };

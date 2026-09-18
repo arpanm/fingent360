@@ -12,10 +12,11 @@ export async function publishNamedEvent(
   reviewer: APIRequestContext,
   eventId: string,
   note: string,
+  expectedVersion = 1,
 ) {
   const body = {
     requestId: randomUUID(),
-    expectedVersion: 1,
+    expectedVersion,
     status: 'published',
     note,
   };
@@ -55,6 +56,6 @@ export async function publishNamedEvent(
   const event = EventPublicSchema.parse(await publicResponse.json());
   expect(event.id).toBe(eventId);
   expect(event.status).toBe('published');
-  expect(event.event?.version).toBe(2);
+  expect(event.event?.version).toBe(expectedVersion + 1);
   return event;
 }

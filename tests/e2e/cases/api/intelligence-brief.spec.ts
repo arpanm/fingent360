@@ -4,6 +4,7 @@ import {
   intelligenceBriefFixture,
   headers,
 } from '../../helpers/intelligence-brief';
+import { publishNamedEvent } from '../../helpers/publish-named-event';
 import {
   IntelligenceBriefPublicSchema,
   IntelligenceBriefHistorySchema,
@@ -171,19 +172,14 @@ test('E2E-API-1521 corrected reviewed event requires new independent brief versi
         })
       ).status(),
     ).toBe(200);
-    expect(
-      (
-        await f.reviewer.post(`/api/v1/ops/events/${old.id}/review`, {
-          headers,
-          data: {
-            requestId: randomUUID(),
-            expectedVersion: old.event!.version + 1,
-            status: 'published',
-            note: 'Independent historical title clarification review.',
-          },
-        })
-      ).status(),
-    ).toBe(201);
+    const corrected = await publishNamedEvent(
+      request,
+      f.reviewer,
+      old.id,
+      'Independent historical title clarification review.',
+      old.event!.version + 1,
+    );
+    expect(corrected.event?.editorial.title).toBe(changed.title);
     const pending = IntelligenceBriefPublicSchema.parse(
       await (await request.get('/api/v1/intelligence-briefs/' + f.id)).json(),
     );
@@ -199,7 +195,7 @@ test('E2E-API-1521 corrected reviewed event requires new independent brief versi
         'Explicit corrected event edition replaces the older brief point.',
       events: f.input.events.map((event) =>
         event.id === old.id
-          ? { ...event, version: old.event!.version + 2 }
+          ? { ...event, version: corrected.event!.version }
           : event,
       ),
     };

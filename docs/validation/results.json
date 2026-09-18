@@ -191,12 +191,13 @@
       "title": "E2E-API-990 exact disposal comparison persists replays exports and deletes without changing finances @ACTION-CENTRE-001 @TEST-SIMULATION",
       "file": "api/action-centre.spec.ts",
       "stories": ["ACTION-CENTRE-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789719520254-79325",
+      "time": "2026-09-18T08:21:35.820Z",
+      "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+      "log": "artifacts/sdlc/1789719520254-79325/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T08-19-40-630Z-80021/results.json"
     },
     "cc2c0202d25a37ea5f1ef6b91094903d378c257c0fe8a28a8b65b12da88b049f": {
       "key": "cc2c0202d25a37ea5f1ef6b91094903d378c257c0fe8a28a8b65b12da88b049f",
@@ -205,12 +206,13 @@
       "title": "E2E-API-991 insufficient units invalid bindings and explicit breached policy remain safe @ACTION-CENTRE-001 @TEST-SIMULATION",
       "file": "api/action-centre.spec.ts",
       "stories": ["ACTION-CENTRE-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789719520254-79325",
+      "time": "2026-09-18T08:21:35.820Z",
+      "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+      "log": "artifacts/sdlc/1789719520254-79325/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T08-19-40-630Z-80021/results.json"
     },
     "4daeff8d4f7ef12f8dfc3b5648974a6d41e7562cd9a2c5033e196e49a0ae6e08": {
       "key": "4daeff8d4f7ef12f8dfc3b5648974a6d41e7562cd9a2c5033e196e49a0ae6e08",
@@ -219,12 +221,13 @@
       "title": "E2E-API-1280 reconciled FIFO rebalance and purchase save replay export delete without changing actual finances @ACTION-CENTRE-001 @TEST-SIMULATION",
       "file": "api/action-plan.spec.ts",
       "stories": ["ACTION-CENTRE-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789719520254-79325",
+      "time": "2026-09-18T08:21:35.820Z",
+      "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+      "log": "artifacts/sdlc/1789719520254-79325/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T08-19-40-630Z-80021/results.json"
     },
     "34ae17e1074ff134371b9eb1a60c7ed180ca412dc775e2236fd342385a4ecaab": {
       "key": "34ae17e1074ff134371b9eb1a60c7ed180ca412dc775e2236fd342385a4ecaab",
@@ -233,12 +236,13 @@
       "title": "E2E-API-1281 missing or conflicting open lots are rejected and unfunded purchase is explicitly breached @ACTION-CENTRE-001 @TEST-SIMULATION",
       "file": "api/action-plan.spec.ts",
       "stories": ["ACTION-CENTRE-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789719520254-79325",
+      "time": "2026-09-18T08:21:35.820Z",
+      "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+      "log": "artifacts/sdlc/1789719520254-79325/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T08-19-40-630Z-80021/results.json"
     },
     "4854ef061ce87e675fcf9b320e1810c645fe39196c22a8fcb2b1759033fa14a5": {
       "key": "4854ef061ce87e675fcf9b320e1810c645fe39196c22a8fcb2b1759033fa14a5",
@@ -247,12 +251,13 @@
       "title": "E2E-API-1282 private comparison ciphertext is owner and receipt bound and deletion erases it @ACTION-CENTRE-001 @DEV-017 @TEST-SIMULATION",
       "file": "api/action-plan.spec.ts",
       "stories": ["ACTION-CENTRE-001", "DEV-017"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789719520254-79325",
+      "time": "2026-09-18T08:21:35.820Z",
+      "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+      "log": "artifacts/sdlc/1789719520254-79325/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T08-19-40-630Z-80021/results.json"
     },
     "e834ecb173083569d70ce2e5396773f59247a8a2118a895400d1c0d633d724c4": {
       "key": "e834ecb173083569d70ce2e5396773f59247a8a2118a895400d1c0d633d724c4",
@@ -261,12 +266,13 @@
       "title": "E2E-API-1283 eligible tax policy is retained and funded exactly and rejects unsupported eligibility @ACTION-CENTRE-001 @TEST-SIMULATION",
       "file": "api/action-plan.spec.ts",
       "stories": ["ACTION-CENTRE-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789719520254-79325",
+      "time": "2026-09-18T08:21:35.820Z",
+      "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+      "log": "artifacts/sdlc/1789719520254-79325/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T08-19-40-630Z-80021/results.json"
     },
     "98e593a9d1503a3508ebca2dc554aaa32d79e27a8fa5c2e47dff8e9892a77204": {
       "key": "98e593a9d1503a3508ebca2dc554aaa32d79e27a8fa5c2e47dff8e9892a77204",
@@ -7931,12 +7937,13 @@
       "title": "E2E-WEB-990 actual owned proposal review consent save reload and delete @ACTION-CENTRE-001 @TEST-SIMULATION",
       "file": "browser/action-centre.spec.ts",
       "stories": ["ACTION-CENTRE-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789719520254-79325",
+      "time": "2026-09-18T08:21:35.820Z",
+      "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+      "log": "artifacts/sdlc/1789719520254-79325/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T08-19-40-630Z-80021/results.json"
     },
     "86850d356fbd0da7c1979e9d14cae860485dcc2109d026c89b68713cd33123bf": {
       "key": "86850d356fbd0da7c1979e9d14cae860485dcc2109d026c89b68713cd33123bf",
@@ -7945,12 +7952,13 @@
       "title": "E2E-WEB-990 actual owned proposal review consent save reload and delete @ACTION-CENTRE-001 @TEST-SIMULATION",
       "file": "browser/action-centre.spec.ts",
       "stories": ["ACTION-CENTRE-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789719520254-79325",
+      "time": "2026-09-18T08:21:35.820Z",
+      "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+      "log": "artifacts/sdlc/1789719520254-79325/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T08-19-40-630Z-80021/results.json"
     },
     "ef71020041b6e4c227c7bac1c8844a1486b36ae70f16dd5f5b18af96525f2186": {
       "key": "ef71020041b6e4c227c7bac1c8844a1486b36ae70f16dd5f5b18af96525f2186",
@@ -7959,12 +7967,13 @@
       "title": "E2E-WEB-1280 actual FIFO rebalance review retains lot allocation purchase and immutable result @ACTION-CENTRE-001 @TEST-SIMULATION",
       "file": "browser/action-plan.spec.ts",
       "stories": ["ACTION-CENTRE-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789719520254-79325",
+      "time": "2026-09-18T08:21:35.820Z",
+      "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+      "log": "artifacts/sdlc/1789719520254-79325/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T08-19-40-630Z-80021/results.json"
     },
     "80b45d390daf4dea18940f3ae4baf5d67c12f3a0b64bc2df3c5de2109da1bf8f": {
       "key": "80b45d390daf4dea18940f3ae4baf5d67c12f3a0b64bc2df3c5de2109da1bf8f",
@@ -7973,12 +7982,13 @@
       "title": "E2E-WEB-1283 eligible tax scenario shows calculation and retains saved source-backed policy @ACTION-CENTRE-001 @TEST-SIMULATION",
       "file": "browser/action-plan.spec.ts",
       "stories": ["ACTION-CENTRE-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789719520254-79325",
+      "time": "2026-09-18T08:21:35.820Z",
+      "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+      "log": "artifacts/sdlc/1789719520254-79325/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T08-19-40-630Z-80021/results.json"
     },
     "4cae2a9a44235074382b2b63f397031035843067ad07630259b8c42ab1bfbbca": {
       "key": "4cae2a9a44235074382b2b63f397031035843067ad07630259b8c42ab1bfbbca",
@@ -7987,12 +7997,13 @@
       "title": "E2E-WEB-1280 actual FIFO rebalance review retains lot allocation purchase and immutable result @ACTION-CENTRE-001 @TEST-SIMULATION",
       "file": "browser/action-plan.spec.ts",
       "stories": ["ACTION-CENTRE-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789719520254-79325",
+      "time": "2026-09-18T08:21:35.820Z",
+      "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+      "log": "artifacts/sdlc/1789719520254-79325/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T08-19-40-630Z-80021/results.json"
     },
     "f0816714c7594f7dca72f70f0054cfaeaddd8c8c807bea4467a79b9599f2753b": {
       "key": "f0816714c7594f7dca72f70f0054cfaeaddd8c8c807bea4467a79b9599f2753b",
@@ -8001,12 +8012,13 @@
       "title": "E2E-WEB-1283 eligible tax scenario shows calculation and retains saved source-backed policy @ACTION-CENTRE-001 @TEST-SIMULATION",
       "file": "browser/action-plan.spec.ts",
       "stories": ["ACTION-CENTRE-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789669163056-59061",
-      "time": "2026-09-18T05:00:49.248Z",
-      "log": "artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-17T18-20-28-213Z-60023/results.json"
+      "run": "1789719520254-79325",
+      "time": "2026-09-18T08:21:35.820Z",
+      "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+      "log": "artifacts/sdlc/1789719520254-79325/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-18T08-19-40-630Z-80021/results.json"
     },
     "2eaf41c296f67f33b220b73f4281725829da5c408f90025b408f8bb627cc7378": {
       "key": "2eaf41c296f67f33b220b73f4281725829da5c408f90025b408f8bb627cc7378",
@@ -18176,6 +18188,66 @@
       "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
       "log": "artifacts/sdlc/1789711405725-75316/15-pnpm-android_test.log",
       "report": "artifacts/e2e/offline-1789711936788-77879/results.json"
+    },
+    "68fc9ddf216fa5b90ae44a7f42e0f416258303760af7b87e878756927a7c250c": {
+      "key": "68fc9ddf216fa5b90ae44a7f42e0f416258303760af7b87e878756927a7c250c",
+      "caseId": "E2E-OFFLINE-990",
+      "project": "offline",
+      "title": "E2E-OFFLINE-990 exact local educational comparison persists replays invalidates and deletes without network @ACTION-CENTRE-001 @TEST-SIMULATION",
+      "file": "offline/action-centre.spec.ts",
+      "stories": ["ACTION-CENTRE-001"],
+      "status": "passed",
+      "details": "",
+      "run": "1789719520254-79325",
+      "time": "2026-09-18T08:21:49.077Z",
+      "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+      "log": "artifacts/sdlc/1789719520254-79325/08-pnpm-android_test.log",
+      "report": "artifacts/e2e/offline-1789719706520-80320/results.json"
+    },
+    "97b46fa6e6cc4b3eb2056a6b0bba91f8cdf750f37b8723545248e4a13dc207d5": {
+      "key": "97b46fa6e6cc4b3eb2056a6b0bba91f8cdf750f37b8723545248e4a13dc207d5",
+      "caseId": "E2E-OFFLINE-991",
+      "project": "offline",
+      "title": "E2E-OFFLINE-991 golden no-action fees liquidity concentration turnover downside and cooldown outcomes @ACTION-CENTRE-001 @TEST-SIMULATION",
+      "file": "offline/action-centre.spec.ts",
+      "stories": ["ACTION-CENTRE-001"],
+      "status": "passed",
+      "details": "",
+      "run": "1789719520254-79325",
+      "time": "2026-09-18T08:21:49.077Z",
+      "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+      "log": "artifacts/sdlc/1789719520254-79325/08-pnpm-android_test.log",
+      "report": "artifacts/e2e/offline-1789719706520-80320/results.json"
+    },
+    "f15e9f6c7632f8b0f58ea59790a4432074ad2b57a8a89980504144e11edb4c29": {
+      "key": "f15e9f6c7632f8b0f58ea59790a4432074ad2b57a8a89980504144e11edb4c29",
+      "caseId": "E2E-OFFLINE-1280",
+      "project": "offline",
+      "title": "E2E-OFFLINE-1280 local buy and FIFO rebalance preserve exact positions and private replay without network @ACTION-CENTRE-001 @TEST-SIMULATION",
+      "file": "offline/action-centre.spec.ts",
+      "stories": ["ACTION-CENTRE-001"],
+      "status": "passed",
+      "details": "",
+      "run": "1789719520254-79325",
+      "time": "2026-09-18T08:21:49.077Z",
+      "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+      "log": "artifacts/sdlc/1789719520254-79325/08-pnpm-android_test.log",
+      "report": "artifacts/e2e/offline-1789719706520-80320/results.json"
+    },
+    "92d7832ec39a8b66ff7effb4e5386c2858b1a97c1ad93e27c5ad1288fef1be7a": {
+      "key": "92d7832ec39a8b66ff7effb4e5386c2858b1a97c1ad93e27c5ad1288fef1be7a",
+      "caseId": "E2E-OFFLINE-1283",
+      "project": "offline",
+      "title": "E2E-OFFLINE-1283 local eligible tax policy reconstructs exact retained tax and cash @ACTION-CENTRE-001 @TEST-SIMULATION",
+      "file": "offline/action-centre.spec.ts",
+      "stories": ["ACTION-CENTRE-001"],
+      "status": "passed",
+      "details": "",
+      "run": "1789719520254-79325",
+      "time": "2026-09-18T08:21:49.077Z",
+      "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+      "log": "artifacts/sdlc/1789719520254-79325/08-pnpm-android_test.log",
+      "report": "artifacts/e2e/offline-1789719706520-80320/results.json"
     }
   },
   "bugs": {
@@ -19483,11 +19555,11 @@
       "id": "BUG-84bdba6b6be62a4d",
       "firstSeen": "2026-09-16T22:26:46.819Z",
       "resolvedBy": {
-        "run": "1789668919723-57996",
-        "time": "2026-09-17T18:17:17.901Z",
-        "fingerprint": "a95adad4a7bb1ea3c50bf9dcfd71530573c5190df5e0c262755b54e3e60b8bf4",
-        "log": "artifacts/sdlc/1789668919723-57996/06-pnpm-e2e_run.log",
-        "report": "artifacts/e2e/2026-09-17T18-16-23-638Z-58699/results.json"
+        "run": "1789719520254-79325",
+        "time": "2026-09-18T08:21:35.820Z",
+        "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+        "log": "artifacts/sdlc/1789719520254-79325/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T08-19-40-630Z-80021/results.json"
       }
     },
     "BUG-86850d356fbd0da7": {
@@ -19506,11 +19578,11 @@
       "id": "BUG-86850d356fbd0da7",
       "firstSeen": "2026-09-16T22:26:46.819Z",
       "resolvedBy": {
-        "run": "1789668919723-57996",
-        "time": "2026-09-17T18:17:17.901Z",
-        "fingerprint": "a95adad4a7bb1ea3c50bf9dcfd71530573c5190df5e0c262755b54e3e60b8bf4",
-        "log": "artifacts/sdlc/1789668919723-57996/06-pnpm-e2e_run.log",
-        "report": "artifacts/e2e/2026-09-17T18-16-23-638Z-58699/results.json"
+        "run": "1789719520254-79325",
+        "time": "2026-09-18T08:21:35.820Z",
+        "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+        "log": "artifacts/sdlc/1789719520254-79325/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T08-19-40-630Z-80021/results.json"
       }
     },
     "BUG-ef71020041b6e4c2": {
@@ -19520,14 +19592,21 @@
       "title": "E2E-WEB-1280 actual FIFO rebalance review retains lot allocation purchase and immutable result @ACTION-CENTRE-001 @TEST-SIMULATION",
       "file": "browser/action-plan.spec.ts",
       "stories": ["ACTION-CENTRE-001"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "TimeoutError: locator.selectOption: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('region', { name: 'Educational action centre', exact: true }).getByLabel('Saved holding', { exact: true })\n\n\n  21 |   await panel\n  22 |     .getByLabel('Saved holding', { exact: true })\n> 23 |     .selectOption('INE002A01018');\n     |      ^\n  24 |   await panel\n  25 |     .getByLabel('Saved goal', { exact: true })\n  26 |     .selectOption({ label: 'Synthetic research goal' });\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/action-plan.spec.ts:23:6",
       "run": "1789569622822-36573",
       "time": "2026-09-16T22:26:46.819Z",
       "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json",
       "id": "BUG-ef71020041b6e4c2",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789719520254-79325",
+        "time": "2026-09-18T08:21:35.820Z",
+        "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+        "log": "artifacts/sdlc/1789719520254-79325/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T08-19-40-630Z-80021/results.json"
+      }
     },
     "BUG-80b45d390daf4dea": {
       "key": "80b45d390daf4dea18940f3ae4baf5d67c12f3a0b64bc2df3c5de2109da1bf8f",
@@ -19536,14 +19615,21 @@
       "title": "E2E-WEB-1283 eligible tax scenario shows calculation and retains saved source-backed policy @ACTION-CENTRE-001 @TEST-SIMULATION",
       "file": "browser/action-plan.spec.ts",
       "stories": ["ACTION-CENTRE-001"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "TimeoutError: locator.selectOption: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('region', { name: 'Educational action centre', exact: true }).getByLabel('Saved holding', { exact: true })\n\n\n  165 |   await panel\n  166 |     .getByLabel('Saved holding', { exact: true })\n> 167 |     .selectOption('INE002A01018');\n      |      ^\n  168 |   await panel\n  169 |     .getByLabel('Saved goal', { exact: true })\n  170 |     .selectOption({ label: 'Synthetic research goal' });\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/action-plan.spec.ts:167:6",
       "run": "1789569622822-36573",
       "time": "2026-09-16T22:26:46.819Z",
       "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json",
       "id": "BUG-80b45d390daf4dea",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789719520254-79325",
+        "time": "2026-09-18T08:21:35.820Z",
+        "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+        "log": "artifacts/sdlc/1789719520254-79325/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T08-19-40-630Z-80021/results.json"
+      }
     },
     "BUG-4cae2a9a44235074": {
       "key": "4cae2a9a44235074382b2b63f397031035843067ad07630259b8c42ab1bfbbca",
@@ -19552,14 +19638,21 @@
       "title": "E2E-WEB-1280 actual FIFO rebalance review retains lot allocation purchase and immutable result @ACTION-CENTRE-001 @TEST-SIMULATION",
       "file": "browser/action-plan.spec.ts",
       "stories": ["ACTION-CENTRE-001"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "TimeoutError: locator.selectOption: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('region', { name: 'Educational action centre', exact: true }).getByLabel('Saved holding', { exact: true })\n\n\n  21 |   await panel\n  22 |     .getByLabel('Saved holding', { exact: true })\n> 23 |     .selectOption('INE002A01018');\n     |      ^\n  24 |   await panel\n  25 |     .getByLabel('Saved goal', { exact: true })\n  26 |     .selectOption({ label: 'Synthetic research goal' });\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/action-plan.spec.ts:23:6",
       "run": "1789569622822-36573",
       "time": "2026-09-16T22:26:46.819Z",
       "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json",
       "id": "BUG-4cae2a9a44235074",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789719520254-79325",
+        "time": "2026-09-18T08:21:35.820Z",
+        "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+        "log": "artifacts/sdlc/1789719520254-79325/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T08-19-40-630Z-80021/results.json"
+      }
     },
     "BUG-f0816714c7594f7d": {
       "key": "f0816714c7594f7dca72f70f0054cfaeaddd8c8c807bea4467a79b9599f2753b",
@@ -19568,14 +19661,21 @@
       "title": "E2E-WEB-1283 eligible tax scenario shows calculation and retains saved source-backed policy @ACTION-CENTRE-001 @TEST-SIMULATION",
       "file": "browser/action-plan.spec.ts",
       "stories": ["ACTION-CENTRE-001"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "TimeoutError: locator.selectOption: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('region', { name: 'Educational action centre', exact: true }).getByLabel('Saved holding', { exact: true })\n\n\n  165 |   await panel\n  166 |     .getByLabel('Saved holding', { exact: true })\n> 167 |     .selectOption('INE002A01018');\n      |      ^\n  168 |   await panel\n  169 |     .getByLabel('Saved goal', { exact: true })\n  170 |     .selectOption({ label: 'Synthetic research goal' });\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/action-plan.spec.ts:167:6",
       "run": "1789569622822-36573",
       "time": "2026-09-16T22:26:46.819Z",
       "log": "artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-16T14-41-25-877Z-37286/results.json",
       "id": "BUG-f0816714c7594f7d",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789719520254-79325",
+        "time": "2026-09-18T08:21:35.820Z",
+        "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+        "log": "artifacts/sdlc/1789719520254-79325/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-18T08-19-40-630Z-80021/results.json"
+      }
     },
     "BUG-23a32f24700f7b82": {
       "key": "23a32f24700f7b8260af5304444c90fea760dbf82b99dde61cc6188cd6b5f8ff",
@@ -22815,10 +22915,10 @@
       "id": "BUG-a47611ab64789eb8",
       "firstSeen": "2026-09-18T05:33:44.718Z",
       "resolvedBy": {
-        "run": "1789711405725-75316",
-        "time": "2026-09-18T06:07:15.575Z",
-        "fingerprint": "9d1a14b81d3efd2987433195424d40ed107b76cbefa715435e778600c7dee905",
-        "log": "artifacts/sdlc/1789711405725-75316/05-pnpm-check.log"
+        "run": "1789719520254-79325",
+        "time": "2026-09-18T08:19:40.187Z",
+        "fingerprint": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041",
+        "log": "artifacts/sdlc/1789719520254-79325/02-pnpm-check.log"
       }
     },
     "BUG-a0826694511b6915": {
@@ -22847,6 +22947,6 @@
     }
   },
   "gates": {
-    "check": "9d1a14b81d3efd2987433195424d40ed107b76cbefa715435e778600c7dee905"
+    "check": "476709d8c2b3fbf306d6a7681f685f6d7de4fcae8e0eaa171cfb1775ac70f041"
   }
 }

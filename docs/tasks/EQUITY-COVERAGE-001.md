@@ -106,5 +106,5 @@ NSE rendered IndAS parser v2 now authors reported balance-sheet and indirect cas
 
 ## Automated validation
 
-Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789711405725-75316.
+Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789719520254-79325.
 <!-- sdlc-validation:end -->

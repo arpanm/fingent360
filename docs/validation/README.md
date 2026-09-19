@@ -1,6 +1,6 @@
 # Story validation
 
-Latest SDLC invocation: 1789837057413-22117. Only actual test receipts count.
+Latest SDLC invocation: 1789837362616-23249. Only actual test receipts count.
 
 Automated acceptance is separate from implementation, live-source permission and physical-device acceptance.
 
@@ -103,8 +103,8 @@ Automated acceptance is separate from implementation, live-source permission and
 - [STORY-MEDIA-002](../tasks/STORY-MEDIA-002.md): **Stale — rerun required**.
 - [UI-RACES-001](../tasks/UI-RACES-001.md): **Stale — rerun required**.
 - [UX-001](../tasks/UX-001.md): **Selected cases passed — acceptance matrix needed**.
-- [UX-002](../tasks/UX-002.md): **Failed — unresolved bug**.
-- [UX-002D](../tasks/UX-002D.md): **Failed — unresolved bug**.
+- [UX-002](../tasks/UX-002.md): **Selected cases passed — acceptance matrix needed**.
+- [UX-002D](../tasks/UX-002D.md): **Passed — automated acceptance**.
 - [UX-002G](../tasks/UX-002G.md): **Failed — unresolved bug**.
 - [WORKER-HEALTH-001](../tasks/WORKER-HEALTH-001.md): **Failed — unresolved bug**.
 - [XLSX-001](../tasks/XLSX-001.md): **Stale — rerun required**.

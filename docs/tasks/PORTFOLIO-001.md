@@ -56,5 +56,5 @@ User next action: in a separate terminal run `pnpm db:up` then `pnpm dev`, leave
 
 ## Automated validation
 
-Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789837057413-22117.
+Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789837362616-23249.
 <!-- sdlc-validation:end -->

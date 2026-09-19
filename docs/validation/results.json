@@ -1600,11 +1600,11 @@
       "stories": ["CONSENT-LIFECYCLE-001", "UX-002D"],
       "status": "passed",
       "details": "",
-      "run": "1789836492361-20464",
-      "time": "2026-09-19T16:49:29.201Z",
+      "run": "1789837362616-23249",
+      "time": "2026-09-19T17:05:53.566Z",
       "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789836492361-20464/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T16-49-12-814Z-21184/results.json"
+      "log": "artifacts/sdlc/1789837362616-23249/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T17-03-45-471Z-23962/results.json"
     },
     "69f429b33adf78927db7ef21f5d94bd1a3a04cdef7ebda8be1bccf4b637dac0c": {
       "key": "69f429b33adf78927db7ef21f5d94bd1a3a04cdef7ebda8be1bccf4b637dac0c",
@@ -5003,13 +5003,13 @@
       "title": "E2E-API-121 library saves preferences isolation and durable in-app reminders @UX-002D",
       "file": "api/library.spec.ts",
       "stories": ["UX-002D"],
-      "status": "failed",
-      "details": "Error: apiRequestContext.delete: connect ECONNREFUSED 127.0.0.1:4104\nCall log:\n  - → DELETE http://127.0.0.1:4104/api/v1/account\n    - user-agent: Playwright/1.58.2 (arm64; macOS 15.3) node/26.7\n    - accept: */*\n    - accept-encoding: gzip,deflate,br\n    - Origin: http://127.0.0.1:5176\n    - content-type: application/json\n    - content-length: 47\n\n\n  311 |     ).toContain('no-store');\n  312 |   } finally {\n> 313 |     await request.delete('/api/v1/account', { headers, data: { password } });\n      |                         ^\n  314 |     await other.delete('/api/v1/account', { headers, data: { password } });\n  315 |     await other.dispose();\n  316 |   }\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/api/library.spec.ts:313:25",
-      "run": "1789836492361-20464",
-      "time": "2026-09-19T16:49:29.201Z",
+      "status": "passed",
+      "details": "",
+      "run": "1789837362616-23249",
+      "time": "2026-09-19T17:05:53.566Z",
       "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789836492361-20464/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T16-49-12-814Z-21184/results.json"
+      "log": "artifacts/sdlc/1789837362616-23249/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T17-03-45-471Z-23962/results.json"
     },
     "70962d1f82bcde87d98b845e094bbd2451ee8eafbba376a2750430c92f13c76f": {
       "key": "70962d1f82bcde87d98b845e094bbd2451ee8eafbba376a2750430c92f13c76f",
@@ -5018,13 +5018,13 @@
       "title": "E2E-API-122 saved versions survive correction and withdrawn reminders cancel @UX-002D",
       "file": "api/library.spec.ts",
       "stories": ["UX-002D"],
-      "status": "failed",
-      "details": "Error: apiRequestContext.delete: connect ECONNREFUSED 127.0.0.1:4104\nCall log:\n  - → DELETE http://127.0.0.1:4104/api/v1/ops/session\n    - user-agent: Playwright/1.58.2 (arm64; macOS 15.3) node/26.7\n    - accept: */*\n    - accept-encoding: gzip,deflate,br\n    - Origin: http://127.0.0.1:5176\n\n\n  442 |         ).status(),\n  443 |       ).toBe(200);\n> 444 |     await request.delete('/api/v1/ops/session', { headers });\n      |                         ^\n  445 |     await request.delete('/api/v1/account', { headers, data: { password } });\n  446 |   }\n  447 | });\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/api/library.spec.ts:444:25",
-      "run": "1789836492361-20464",
-      "time": "2026-09-19T16:49:29.201Z",
+      "status": "passed",
+      "details": "",
+      "run": "1789837362616-23249",
+      "time": "2026-09-19T17:05:53.566Z",
       "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789836492361-20464/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T16-49-12-814Z-21184/results.json"
+      "log": "artifacts/sdlc/1789837362616-23249/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T17-03-45-471Z-23962/results.json"
     },
     "5d95f4ff67252339148cecd340df2e22810ae7820d39098781bdf0d24a038a19": {
       "key": "5d95f4ff67252339148cecd340df2e22810ae7820d39098781bdf0d24a038a19",
@@ -10148,13 +10148,13 @@
       "title": "E2E-WEB-134 deliberate swipe preference, undo, vertical and cancel safety @UX-002",
       "file": "browser/discovery-quality.spec.ts",
       "stories": ["UX-002", "UX-002D"],
-      "status": "failed",
-      "details": "Error: apiRequestContext.get: connect ECONNREFUSED 127.0.0.1:5176\nCall log:\n  - → GET http://127.0.0.1:5176/api/v1/discovery/feed?kind=term\n    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.7632.6 Safari/537.36\n    - accept: */*\n    - accept-encoding: gzip,deflate,br\n\n\n   7 | });\n   8 | async function publishedTerm(page: Page) {\n>  9 |   const response = await page.request.get('/api/v1/discovery/feed?kind=term');\n     |                                       ^\n  10 |   expect(response.status()).toBe(200);\n  11 |   const item = FeedSchema.parse(await response.json()).items[0];\n  12 |   expect(\n    at publishedTerm (/Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/discovery-quality.spec.ts:9:39)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/discovery-quality.spec.ts:77:22",
-      "run": "1789836492361-20464",
-      "time": "2026-09-19T16:49:29.201Z",
+      "status": "passed",
+      "details": "",
+      "run": "1789837362616-23249",
+      "time": "2026-09-19T17:05:53.566Z",
       "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789836492361-20464/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T16-49-12-814Z-21184/results.json"
+      "log": "artifacts/sdlc/1789837362616-23249/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T17-03-45-471Z-23962/results.json"
     },
     "4ab225b7323b9774536823a3022133bd9d3014d1cf41c70dc34375bbb69b16f3": {
       "key": "4ab225b7323b9774536823a3022133bd9d3014d1cf41c70dc34375bbb69b16f3",
@@ -10193,13 +10193,13 @@
       "title": "E2E-WEB-134 deliberate swipe preference, undo, vertical and cancel safety @UX-002",
       "file": "browser/discovery-quality.spec.ts",
       "stories": ["UX-002", "UX-002D"],
-      "status": "failed",
-      "details": "Error: apiRequestContext.get: connect ECONNREFUSED 127.0.0.1:5176\nCall log:\n  - → GET http://127.0.0.1:5176/api/v1/discovery/feed?kind=term\n    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.7632.6 Safari/537.36\n    - accept: */*\n    - accept-encoding: gzip,deflate,br\n\n\n   7 | });\n   8 | async function publishedTerm(page: Page) {\n>  9 |   const response = await page.request.get('/api/v1/discovery/feed?kind=term');\n     |                                       ^\n  10 |   expect(response.status()).toBe(200);\n  11 |   const item = FeedSchema.parse(await response.json()).items[0];\n  12 |   expect(\n    at publishedTerm (/Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/discovery-quality.spec.ts:9:39)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/discovery-quality.spec.ts:77:22",
-      "run": "1789836492361-20464",
-      "time": "2026-09-19T16:49:29.201Z",
+      "status": "passed",
+      "details": "",
+      "run": "1789837362616-23249",
+      "time": "2026-09-19T17:05:53.566Z",
       "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789836492361-20464/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T16-49-12-814Z-21184/results.json"
+      "log": "artifacts/sdlc/1789837362616-23249/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T17-03-45-471Z-23962/results.json"
     },
     "439a7a585c39851f40a4ec45c9c36fc1a64a518a903c9271d413cc123b34505e": {
       "key": "439a7a585c39851f40a4ec45c9c36fc1a64a518a903c9271d413cc123b34505e",
@@ -10238,13 +10238,13 @@
       "title": "E2E-WEB-131 saved reading, reaction undo and persisted reminder @UX-002",
       "file": "browser/discovery.spec.ts",
       "stories": ["UX-002", "UX-002D"],
-      "status": "failed",
-      "details": "Error: apiRequestContext.post: connect ECONNREFUSED 127.0.0.1:5176\nCall log:\n  - → POST http://127.0.0.1:5176/api/v1/ops/session\n    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.7632.6 Safari/537.36\n    - accept: */*\n    - accept-encoding: gzip,deflate,br\n    - Origin: http://127.0.0.1:5176\n    - content-type: application/json\n    - content-length: 74\n\n\n  15 |   expect(\n  16 |     (\n> 17 |       await api.post('/api/v1/ops/session', {\n     |                 ^\n  18 |         headers: origin(),\n  19 |         data: { key: await operatorKey() },\n  20 |       })\n    at ensureReading (/Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/discovery.spec.ts:17:17)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/discovery.spec.ts:134:17",
-      "run": "1789836492361-20464",
-      "time": "2026-09-19T16:49:29.201Z",
+      "status": "passed",
+      "details": "",
+      "run": "1789837362616-23249",
+      "time": "2026-09-19T17:05:53.566Z",
       "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789836492361-20464/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T16-49-12-814Z-21184/results.json"
+      "log": "artifacts/sdlc/1789837362616-23249/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T17-03-45-471Z-23962/results.json"
     },
     "9f03f8cf2dda2a2d04c90d5f7803e9ab996ebe3e68d92e074261375fbd78e88c": {
       "key": "9f03f8cf2dda2a2d04c90d5f7803e9ab996ebe3e68d92e074261375fbd78e88c",
@@ -10283,13 +10283,13 @@
       "title": "E2E-WEB-131 saved reading, reaction undo and persisted reminder @UX-002",
       "file": "browser/discovery.spec.ts",
       "stories": ["UX-002", "UX-002D"],
-      "status": "failed",
-      "details": "Error: apiRequestContext.post: connect ECONNREFUSED 127.0.0.1:5176\nCall log:\n  - → POST http://127.0.0.1:5176/api/v1/ops/session\n    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.7632.6 Safari/537.36\n    - accept: */*\n    - accept-encoding: gzip,deflate,br\n    - Origin: http://127.0.0.1:5176\n    - content-type: application/json\n    - content-length: 74\n\n\n  15 |   expect(\n  16 |     (\n> 17 |       await api.post('/api/v1/ops/session', {\n     |                 ^\n  18 |         headers: origin(),\n  19 |         data: { key: await operatorKey() },\n  20 |       })\n    at ensureReading (/Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/discovery.spec.ts:17:17)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/discovery.spec.ts:134:17",
-      "run": "1789836492361-20464",
-      "time": "2026-09-19T16:49:29.201Z",
+      "status": "passed",
+      "details": "",
+      "run": "1789837362616-23249",
+      "time": "2026-09-19T17:05:53.566Z",
       "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789836492361-20464/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T16-49-12-814Z-21184/results.json"
+      "log": "artifacts/sdlc/1789837362616-23249/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T17-03-45-471Z-23962/results.json"
     },
     "9ea63477fd2bf2085c8f4850458a9e6489bbdc7c2ee7bbba78342a75ae0f0195": {
       "key": "9ea63477fd2bf2085c8f4850458a9e6489bbdc7c2ee7bbba78342a75ae0f0195",
@@ -14183,13 +14183,13 @@
       "title": "E2E-WEB-120 saved reading reminders preferences and removal @UX-002D",
       "file": "browser/library.spec.ts",
       "stories": ["UX-002D"],
-      "status": "failed",
-      "details": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:5176/#saved\nCall log:\n  - navigating to \"http://127.0.0.1:5176/#saved\", waiting until \"load\"\n\n\n   9 | }) => {\n  10 |   test.setTimeout(60000);\n> 11 |   await page.goto('/#saved');\n     |              ^\n  12 |   await expect(\n  13 |     page.getByRole('link', {\n  14 |       name: 'Sign in or create an account',\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/library.spec.ts:11:14",
-      "run": "1789836492361-20464",
-      "time": "2026-09-19T16:49:29.201Z",
+      "status": "passed",
+      "details": "",
+      "run": "1789837362616-23249",
+      "time": "2026-09-19T17:05:53.566Z",
       "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789836492361-20464/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T16-49-12-814Z-21184/results.json"
+      "log": "artifacts/sdlc/1789837362616-23249/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T17-03-45-471Z-23962/results.json"
     },
     "2596dbdfec69bba73986188b431ad504f508f8a030dde8ba378e65d2d803ceb8": {
       "key": "2596dbdfec69bba73986188b431ad504f508f8a030dde8ba378e65d2d803ceb8",
@@ -14198,13 +14198,13 @@
       "title": "E2E-WEB-121 incoming reminders preserve unsaved preferences and snooze once @UX-002D",
       "file": "browser/library.spec.ts",
       "stories": ["UX-002D"],
-      "status": "failed",
-      "details": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:5176/#saved\nCall log:\n  - navigating to \"http://127.0.0.1:5176/#saved\", waiting until \"load\"\n\n\n  140 | }) => {\n  141 |   test.setTimeout(60000);\n> 142 |   await page.goto('/#saved');\n      |              ^\n  143 |   expect(\n  144 |     (\n  145 |       await page.request.post('/api/v1/account/register', {\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/library.spec.ts:142:14",
-      "run": "1789836492361-20464",
-      "time": "2026-09-19T16:49:29.201Z",
+      "status": "passed",
+      "details": "",
+      "run": "1789837362616-23249",
+      "time": "2026-09-19T17:05:53.566Z",
       "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789836492361-20464/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T16-49-12-814Z-21184/results.json"
+      "log": "artifacts/sdlc/1789837362616-23249/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T17-03-45-471Z-23962/results.json"
     },
     "57a59fc088ab5de2dea7e5026cb8581057dbca7c9c1a8edb566d0f59b36514f1": {
       "key": "57a59fc088ab5de2dea7e5026cb8581057dbca7c9c1a8edb566d0f59b36514f1",
@@ -14213,13 +14213,13 @@
       "title": "E2E-WEB-120 saved reading reminders preferences and removal @UX-002D",
       "file": "browser/library.spec.ts",
       "stories": ["UX-002D"],
-      "status": "failed",
-      "details": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:5176/#saved\nCall log:\n  - navigating to \"http://127.0.0.1:5176/#saved\", waiting until \"load\"\n\n\n   9 | }) => {\n  10 |   test.setTimeout(60000);\n> 11 |   await page.goto('/#saved');\n     |              ^\n  12 |   await expect(\n  13 |     page.getByRole('link', {\n  14 |       name: 'Sign in or create an account',\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/library.spec.ts:11:14",
-      "run": "1789836492361-20464",
-      "time": "2026-09-19T16:49:29.201Z",
+      "status": "passed",
+      "details": "",
+      "run": "1789837362616-23249",
+      "time": "2026-09-19T17:05:53.566Z",
       "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789836492361-20464/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T16-49-12-814Z-21184/results.json"
+      "log": "artifacts/sdlc/1789837362616-23249/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T17-03-45-471Z-23962/results.json"
     },
     "8d8a89e04ebfb6b6156c2c36e7388f6d8591a07423e4a9c6cfef98d39012843f": {
       "key": "8d8a89e04ebfb6b6156c2c36e7388f6d8591a07423e4a9c6cfef98d39012843f",
@@ -14228,13 +14228,13 @@
       "title": "E2E-WEB-121 incoming reminders preserve unsaved preferences and snooze once @UX-002D",
       "file": "browser/library.spec.ts",
       "stories": ["UX-002D"],
-      "status": "failed",
-      "details": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:5176/#saved\nCall log:\n  - navigating to \"http://127.0.0.1:5176/#saved\", waiting until \"load\"\n\n\n  140 | }) => {\n  141 |   test.setTimeout(60000);\n> 142 |   await page.goto('/#saved');\n      |              ^\n  143 |   expect(\n  144 |     (\n  145 |       await page.request.post('/api/v1/account/register', {\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/library.spec.ts:142:14",
-      "run": "1789836492361-20464",
-      "time": "2026-09-19T16:49:29.201Z",
+      "status": "passed",
+      "details": "",
+      "run": "1789837362616-23249",
+      "time": "2026-09-19T17:05:53.566Z",
       "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789836492361-20464/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T16-49-12-814Z-21184/results.json"
+      "log": "artifacts/sdlc/1789837362616-23249/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T17-03-45-471Z-23962/results.json"
     },
     "e3f7844134cd29102629a04499fb98f010f8e498e22538e4acf1b639620f2b4f": {
       "key": "e3f7844134cd29102629a04499fb98f010f8e498e22538e4acf1b639620f2b4f",
@@ -20092,14 +20092,14 @@
       "project": "offline",
       "title": "E2E-OFFLINE-761 real local schedule admission expiry renewal without catchup and reading denial retain owned records @CONSENT-LIFECYCLE-001 @TEST-SIMULATION",
       "file": "offline/consents.spec.ts",
-      "stories": ["CONSENT-LIFECYCLE-001"],
+      "stories": ["CONSENT-LIFECYCLE-001", "UX-002D"],
       "status": "passed",
       "details": "",
-      "run": "1789752953639-97020",
-      "time": "2026-09-18T19:39:46.662Z",
-      "fingerprint": "c8bf5e6587dc0d47cb9a1a8b67bd10a471f32f3dfe65afd70a30566c85459ad4",
-      "log": "artifacts/sdlc/1789752953639-97020/08-pnpm-android_test.log",
-      "report": "artifacts/e2e/offline-1789760138287-6597/results.json"
+      "run": "1789837362616-23249",
+      "time": "2026-09-19T17:06:13.457Z",
+      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
+      "log": "artifacts/sdlc/1789837362616-23249/08-pnpm-android_test.log",
+      "report": "artifacts/e2e/offline-1789837564428-24257/results.json"
     },
     "9dcb2c8631e57ce22788ffd9f8565b0697dadb7979282bed3c4b75108b0e9ff4": {
       "key": "9dcb2c8631e57ce22788ffd9f8565b0697dadb7979282bed3c4b75108b0e9ff4",
@@ -21517,14 +21517,14 @@
       "project": "offline",
       "title": "E2E-OFFLINE-201 dated reading persists saves, reminders and private learning without server @ANDROID-001",
       "file": "offline/reading.spec.ts",
-      "stories": ["ANDROID-001"],
+      "stories": ["ANDROID-001", "UX-002D"],
       "status": "passed",
       "details": "",
-      "run": "1789752953639-97020",
-      "time": "2026-09-18T19:39:46.662Z",
-      "fingerprint": "c8bf5e6587dc0d47cb9a1a8b67bd10a471f32f3dfe65afd70a30566c85459ad4",
-      "log": "artifacts/sdlc/1789752953639-97020/08-pnpm-android_test.log",
-      "report": "artifacts/e2e/offline-1789760138287-6597/results.json"
+      "run": "1789837362616-23249",
+      "time": "2026-09-19T17:06:13.457Z",
+      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
+      "log": "artifacts/sdlc/1789837362616-23249/08-pnpm-android_test.log",
+      "report": "artifacts/e2e/offline-1789837564428-24257/results.json"
     },
     "97baa46f4ee8ed5d32a6422567c164c584f8df459b398b85027111eb3606c58c": {
       "key": "97baa46f4ee8ed5d32a6422567c164c584f8df459b398b85027111eb3606c58c",
@@ -21547,14 +21547,14 @@
       "project": "offline",
       "title": "E2E-OFFLINE-204 reader actions and navigation work with no API network @ANDROID-001",
       "file": "offline/reading.spec.ts",
-      "stories": ["ANDROID-001"],
+      "stories": ["ANDROID-001", "UX-002D"],
       "status": "passed",
       "details": "",
-      "run": "1789752953639-97020",
-      "time": "2026-09-18T19:39:46.662Z",
-      "fingerprint": "c8bf5e6587dc0d47cb9a1a8b67bd10a471f32f3dfe65afd70a30566c85459ad4",
-      "log": "artifacts/sdlc/1789752953639-97020/08-pnpm-android_test.log",
-      "report": "artifacts/e2e/offline-1789760138287-6597/results.json"
+      "run": "1789837362616-23249",
+      "time": "2026-09-19T17:06:13.457Z",
+      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
+      "log": "artifacts/sdlc/1789837362616-23249/08-pnpm-android_test.log",
+      "report": "artifacts/e2e/offline-1789837564428-24257/results.json"
     },
     "d4bc76ac58529858b299c69ce8b6a4ee945101429e01a88d1fb91861c7d67845": {
       "key": "d4bc76ac58529858b299c69ce8b6a4ee945101429e01a88d1fb91861c7d67845",
@@ -27888,7 +27888,7 @@
       "title": "E2E-WEB-120 saved reading reminders preferences and removal @UX-002D",
       "file": "browser/library.spec.ts",
       "stories": ["UX-002D"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:5176/#saved\nCall log:\n  - navigating to \"http://127.0.0.1:5176/#saved\", waiting until \"load\"\n\n\n   9 | }) => {\n  10 |   test.setTimeout(60000);\n> 11 |   await page.goto('/#saved');\n     |              ^\n  12 |   await expect(\n  13 |     page.getByRole('link', {\n  14 |       name: 'Sign in or create an account',\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/library.spec.ts:11:14",
       "run": "1789836492361-20464",
       "time": "2026-09-19T16:49:29.201Z",
@@ -27896,7 +27896,14 @@
       "log": "artifacts/sdlc/1789836492361-20464/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-19T16-49-12-814Z-21184/results.json",
       "id": "BUG-07d0fcb49db3c16b",
-      "firstSeen": "2026-09-18T05:00:49.248Z"
+      "firstSeen": "2026-09-18T05:00:49.248Z",
+      "resolvedBy": {
+        "run": "1789837362616-23249",
+        "time": "2026-09-19T17:05:53.566Z",
+        "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
+        "log": "artifacts/sdlc/1789837362616-23249/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T17-03-45-471Z-23962/results.json"
+      }
     },
     "BUG-44d7bbdff42ad3e4": {
       "key": "44d7bbdff42ad3e472e76cefc2d312ba7e1140cd7b76be9946c8c076deee4838",
@@ -28164,10 +28171,10 @@
       "id": "BUG-a47611ab64789eb8",
       "firstSeen": "2026-09-18T05:33:44.718Z",
       "resolvedBy": {
-        "run": "1789837057413-22117",
-        "time": "2026-09-19T16:58:38.152Z",
+        "run": "1789837362616-23249",
+        "time": "2026-09-19T17:03:45.023Z",
         "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-        "log": "artifacts/sdlc/1789837057413-22117/02-pnpm-check.log"
+        "log": "artifacts/sdlc/1789837362616-23249/02-pnpm-check.log"
       }
     },
     "BUG-a0826694511b6915": {
@@ -28792,7 +28799,7 @@
       "title": "E2E-API-121 library saves preferences isolation and durable in-app reminders @UX-002D",
       "file": "api/library.spec.ts",
       "stories": ["UX-002D"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: apiRequestContext.delete: connect ECONNREFUSED 127.0.0.1:4104\nCall log:\n  - → DELETE http://127.0.0.1:4104/api/v1/account\n    - user-agent: Playwright/1.58.2 (arm64; macOS 15.3) node/26.7\n    - accept: */*\n    - accept-encoding: gzip,deflate,br\n    - Origin: http://127.0.0.1:5176\n    - content-type: application/json\n    - content-length: 47\n\n\n  311 |     ).toContain('no-store');\n  312 |   } finally {\n> 313 |     await request.delete('/api/v1/account', { headers, data: { password } });\n      |                         ^\n  314 |     await other.delete('/api/v1/account', { headers, data: { password } });\n  315 |     await other.dispose();\n  316 |   }\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/api/library.spec.ts:313:25",
       "run": "1789836492361-20464",
       "time": "2026-09-19T16:49:29.201Z",
@@ -28800,7 +28807,14 @@
       "log": "artifacts/sdlc/1789836492361-20464/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-19T16-49-12-814Z-21184/results.json",
       "id": "BUG-fcf6658b39787480",
-      "firstSeen": "2026-09-19T16:49:29.201Z"
+      "firstSeen": "2026-09-19T16:49:29.201Z",
+      "resolvedBy": {
+        "run": "1789837362616-23249",
+        "time": "2026-09-19T17:05:53.566Z",
+        "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
+        "log": "artifacts/sdlc/1789837362616-23249/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T17-03-45-471Z-23962/results.json"
+      }
     },
     "BUG-70962d1f82bcde87": {
       "key": "70962d1f82bcde87d98b845e094bbd2451ee8eafbba376a2750430c92f13c76f",
@@ -28809,7 +28823,7 @@
       "title": "E2E-API-122 saved versions survive correction and withdrawn reminders cancel @UX-002D",
       "file": "api/library.spec.ts",
       "stories": ["UX-002D"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: apiRequestContext.delete: connect ECONNREFUSED 127.0.0.1:4104\nCall log:\n  - → DELETE http://127.0.0.1:4104/api/v1/ops/session\n    - user-agent: Playwright/1.58.2 (arm64; macOS 15.3) node/26.7\n    - accept: */*\n    - accept-encoding: gzip,deflate,br\n    - Origin: http://127.0.0.1:5176\n\n\n  442 |         ).status(),\n  443 |       ).toBe(200);\n> 444 |     await request.delete('/api/v1/ops/session', { headers });\n      |                         ^\n  445 |     await request.delete('/api/v1/account', { headers, data: { password } });\n  446 |   }\n  447 | });\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/api/library.spec.ts:444:25",
       "run": "1789836492361-20464",
       "time": "2026-09-19T16:49:29.201Z",
@@ -28817,7 +28831,14 @@
       "log": "artifacts/sdlc/1789836492361-20464/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-19T16-49-12-814Z-21184/results.json",
       "id": "BUG-70962d1f82bcde87",
-      "firstSeen": "2026-09-19T16:49:29.201Z"
+      "firstSeen": "2026-09-19T16:49:29.201Z",
+      "resolvedBy": {
+        "run": "1789837362616-23249",
+        "time": "2026-09-19T17:05:53.566Z",
+        "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
+        "log": "artifacts/sdlc/1789837362616-23249/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T17-03-45-471Z-23962/results.json"
+      }
     },
     "BUG-dff9303fd35bbcef": {
       "key": "dff9303fd35bbcefe3971d91df4a34e111dc0d20282326a6851be566597e7d3a",
@@ -28826,7 +28847,7 @@
       "title": "E2E-WEB-134 deliberate swipe preference, undo, vertical and cancel safety @UX-002",
       "file": "browser/discovery-quality.spec.ts",
       "stories": ["UX-002", "UX-002D"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: apiRequestContext.get: connect ECONNREFUSED 127.0.0.1:5176\nCall log:\n  - → GET http://127.0.0.1:5176/api/v1/discovery/feed?kind=term\n    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.7632.6 Safari/537.36\n    - accept: */*\n    - accept-encoding: gzip,deflate,br\n\n\n   7 | });\n   8 | async function publishedTerm(page: Page) {\n>  9 |   const response = await page.request.get('/api/v1/discovery/feed?kind=term');\n     |                                       ^\n  10 |   expect(response.status()).toBe(200);\n  11 |   const item = FeedSchema.parse(await response.json()).items[0];\n  12 |   expect(\n    at publishedTerm (/Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/discovery-quality.spec.ts:9:39)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/discovery-quality.spec.ts:77:22",
       "run": "1789836492361-20464",
       "time": "2026-09-19T16:49:29.201Z",
@@ -28834,7 +28855,14 @@
       "log": "artifacts/sdlc/1789836492361-20464/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-19T16-49-12-814Z-21184/results.json",
       "id": "BUG-dff9303fd35bbcef",
-      "firstSeen": "2026-09-19T16:49:29.201Z"
+      "firstSeen": "2026-09-19T16:49:29.201Z",
+      "resolvedBy": {
+        "run": "1789837362616-23249",
+        "time": "2026-09-19T17:05:53.566Z",
+        "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
+        "log": "artifacts/sdlc/1789837362616-23249/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T17-03-45-471Z-23962/results.json"
+      }
     },
     "BUG-577458879870aab9": {
       "key": "577458879870aab9daeadc2ddacbf53561ef4406d53bce60ec3c17e89f444cea",
@@ -28843,7 +28871,7 @@
       "title": "E2E-WEB-134 deliberate swipe preference, undo, vertical and cancel safety @UX-002",
       "file": "browser/discovery-quality.spec.ts",
       "stories": ["UX-002", "UX-002D"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: apiRequestContext.get: connect ECONNREFUSED 127.0.0.1:5176\nCall log:\n  - → GET http://127.0.0.1:5176/api/v1/discovery/feed?kind=term\n    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.7632.6 Safari/537.36\n    - accept: */*\n    - accept-encoding: gzip,deflate,br\n\n\n   7 | });\n   8 | async function publishedTerm(page: Page) {\n>  9 |   const response = await page.request.get('/api/v1/discovery/feed?kind=term');\n     |                                       ^\n  10 |   expect(response.status()).toBe(200);\n  11 |   const item = FeedSchema.parse(await response.json()).items[0];\n  12 |   expect(\n    at publishedTerm (/Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/discovery-quality.spec.ts:9:39)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/discovery-quality.spec.ts:77:22",
       "run": "1789836492361-20464",
       "time": "2026-09-19T16:49:29.201Z",
@@ -28851,7 +28879,14 @@
       "log": "artifacts/sdlc/1789836492361-20464/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-19T16-49-12-814Z-21184/results.json",
       "id": "BUG-577458879870aab9",
-      "firstSeen": "2026-09-19T16:49:29.201Z"
+      "firstSeen": "2026-09-19T16:49:29.201Z",
+      "resolvedBy": {
+        "run": "1789837362616-23249",
+        "time": "2026-09-19T17:05:53.566Z",
+        "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
+        "log": "artifacts/sdlc/1789837362616-23249/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T17-03-45-471Z-23962/results.json"
+      }
     },
     "BUG-3646b61bc09cb824": {
       "key": "3646b61bc09cb824ae678c891c1924d0ba999c9e097a79737620b1aa1ea01bcd",
@@ -28860,7 +28895,7 @@
       "title": "E2E-WEB-131 saved reading, reaction undo and persisted reminder @UX-002",
       "file": "browser/discovery.spec.ts",
       "stories": ["UX-002", "UX-002D"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: apiRequestContext.post: connect ECONNREFUSED 127.0.0.1:5176\nCall log:\n  - → POST http://127.0.0.1:5176/api/v1/ops/session\n    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.7632.6 Safari/537.36\n    - accept: */*\n    - accept-encoding: gzip,deflate,br\n    - Origin: http://127.0.0.1:5176\n    - content-type: application/json\n    - content-length: 74\n\n\n  15 |   expect(\n  16 |     (\n> 17 |       await api.post('/api/v1/ops/session', {\n     |                 ^\n  18 |         headers: origin(),\n  19 |         data: { key: await operatorKey() },\n  20 |       })\n    at ensureReading (/Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/discovery.spec.ts:17:17)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/discovery.spec.ts:134:17",
       "run": "1789836492361-20464",
       "time": "2026-09-19T16:49:29.201Z",
@@ -28868,7 +28903,14 @@
       "log": "artifacts/sdlc/1789836492361-20464/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-19T16-49-12-814Z-21184/results.json",
       "id": "BUG-3646b61bc09cb824",
-      "firstSeen": "2026-09-19T16:49:29.201Z"
+      "firstSeen": "2026-09-19T16:49:29.201Z",
+      "resolvedBy": {
+        "run": "1789837362616-23249",
+        "time": "2026-09-19T17:05:53.566Z",
+        "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
+        "log": "artifacts/sdlc/1789837362616-23249/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T17-03-45-471Z-23962/results.json"
+      }
     },
     "BUG-95b58369d87cefd7": {
       "key": "95b58369d87cefd7f6ccf5e95eaf4aa7eeaed6549cedb3eaa6cd466666c442b6",
@@ -28877,7 +28919,7 @@
       "title": "E2E-WEB-131 saved reading, reaction undo and persisted reminder @UX-002",
       "file": "browser/discovery.spec.ts",
       "stories": ["UX-002", "UX-002D"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: apiRequestContext.post: connect ECONNREFUSED 127.0.0.1:5176\nCall log:\n  - → POST http://127.0.0.1:5176/api/v1/ops/session\n    - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.7632.6 Safari/537.36\n    - accept: */*\n    - accept-encoding: gzip,deflate,br\n    - Origin: http://127.0.0.1:5176\n    - content-type: application/json\n    - content-length: 74\n\n\n  15 |   expect(\n  16 |     (\n> 17 |       await api.post('/api/v1/ops/session', {\n     |                 ^\n  18 |         headers: origin(),\n  19 |         data: { key: await operatorKey() },\n  20 |       })\n    at ensureReading (/Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/discovery.spec.ts:17:17)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/discovery.spec.ts:134:17",
       "run": "1789836492361-20464",
       "time": "2026-09-19T16:49:29.201Z",
@@ -28885,7 +28927,14 @@
       "log": "artifacts/sdlc/1789836492361-20464/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-19T16-49-12-814Z-21184/results.json",
       "id": "BUG-95b58369d87cefd7",
-      "firstSeen": "2026-09-19T16:49:29.201Z"
+      "firstSeen": "2026-09-19T16:49:29.201Z",
+      "resolvedBy": {
+        "run": "1789837362616-23249",
+        "time": "2026-09-19T17:05:53.566Z",
+        "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
+        "log": "artifacts/sdlc/1789837362616-23249/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T17-03-45-471Z-23962/results.json"
+      }
     },
     "BUG-2596dbdfec69bba7": {
       "key": "2596dbdfec69bba73986188b431ad504f508f8a030dde8ba378e65d2d803ceb8",
@@ -28894,7 +28943,7 @@
       "title": "E2E-WEB-121 incoming reminders preserve unsaved preferences and snooze once @UX-002D",
       "file": "browser/library.spec.ts",
       "stories": ["UX-002D"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:5176/#saved\nCall log:\n  - navigating to \"http://127.0.0.1:5176/#saved\", waiting until \"load\"\n\n\n  140 | }) => {\n  141 |   test.setTimeout(60000);\n> 142 |   await page.goto('/#saved');\n      |              ^\n  143 |   expect(\n  144 |     (\n  145 |       await page.request.post('/api/v1/account/register', {\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/library.spec.ts:142:14",
       "run": "1789836492361-20464",
       "time": "2026-09-19T16:49:29.201Z",
@@ -28902,7 +28951,14 @@
       "log": "artifacts/sdlc/1789836492361-20464/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-19T16-49-12-814Z-21184/results.json",
       "id": "BUG-2596dbdfec69bba7",
-      "firstSeen": "2026-09-19T16:49:29.201Z"
+      "firstSeen": "2026-09-19T16:49:29.201Z",
+      "resolvedBy": {
+        "run": "1789837362616-23249",
+        "time": "2026-09-19T17:05:53.566Z",
+        "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
+        "log": "artifacts/sdlc/1789837362616-23249/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T17-03-45-471Z-23962/results.json"
+      }
     },
     "BUG-57a59fc088ab5de2": {
       "key": "57a59fc088ab5de2dea7e5026cb8581057dbca7c9c1a8edb566d0f59b36514f1",
@@ -28911,7 +28967,7 @@
       "title": "E2E-WEB-120 saved reading reminders preferences and removal @UX-002D",
       "file": "browser/library.spec.ts",
       "stories": ["UX-002D"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:5176/#saved\nCall log:\n  - navigating to \"http://127.0.0.1:5176/#saved\", waiting until \"load\"\n\n\n   9 | }) => {\n  10 |   test.setTimeout(60000);\n> 11 |   await page.goto('/#saved');\n     |              ^\n  12 |   await expect(\n  13 |     page.getByRole('link', {\n  14 |       name: 'Sign in or create an account',\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/library.spec.ts:11:14",
       "run": "1789836492361-20464",
       "time": "2026-09-19T16:49:29.201Z",
@@ -28919,7 +28975,14 @@
       "log": "artifacts/sdlc/1789836492361-20464/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-19T16-49-12-814Z-21184/results.json",
       "id": "BUG-57a59fc088ab5de2",
-      "firstSeen": "2026-09-19T16:49:29.201Z"
+      "firstSeen": "2026-09-19T16:49:29.201Z",
+      "resolvedBy": {
+        "run": "1789837362616-23249",
+        "time": "2026-09-19T17:05:53.566Z",
+        "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
+        "log": "artifacts/sdlc/1789837362616-23249/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T17-03-45-471Z-23962/results.json"
+      }
     },
     "BUG-8d8a89e04ebfb6b6": {
       "key": "8d8a89e04ebfb6b6156c2c36e7388f6d8591a07423e4a9c6cfef98d39012843f",
@@ -28928,7 +28991,7 @@
       "title": "E2E-WEB-121 incoming reminders preserve unsaved preferences and snooze once @UX-002D",
       "file": "browser/library.spec.ts",
       "stories": ["UX-002D"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:5176/#saved\nCall log:\n  - navigating to \"http://127.0.0.1:5176/#saved\", waiting until \"load\"\n\n\n  140 | }) => {\n  141 |   test.setTimeout(60000);\n> 142 |   await page.goto('/#saved');\n      |              ^\n  143 |   expect(\n  144 |     (\n  145 |       await page.request.post('/api/v1/account/register', {\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/library.spec.ts:142:14",
       "run": "1789836492361-20464",
       "time": "2026-09-19T16:49:29.201Z",
@@ -28936,7 +28999,14 @@
       "log": "artifacts/sdlc/1789836492361-20464/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-19T16-49-12-814Z-21184/results.json",
       "id": "BUG-8d8a89e04ebfb6b6",
-      "firstSeen": "2026-09-19T16:49:29.201Z"
+      "firstSeen": "2026-09-19T16:49:29.201Z",
+      "resolvedBy": {
+        "run": "1789837362616-23249",
+        "time": "2026-09-19T17:05:53.566Z",
+        "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
+        "log": "artifacts/sdlc/1789837362616-23249/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T17-03-45-471Z-23962/results.json"
+      }
     }
   },
   "gates": {

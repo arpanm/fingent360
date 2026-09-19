@@ -1,6 +1,6 @@
 # ACTION-CENTRE-001 — Deterministic educational action comparison and suitability constraints
 
-- **Status:** Needs repair
+- **Status:** Implementation complete; validation pending
 - **Implemented / recorded:** Versioned educational sell/FIFO/buy/rebalance comparisons, materiality and suitability guards, no-action baseline, independently released policy bounds, restricted source-documented disposal tax plus reviewed tax-input fallback, encrypted immutable receipts, API/web/Android-shared/offline workflows and authored tests.
 - **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
 - **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
@@ -70,5 +70,5 @@ Evidence: connected run2026-09-19T19-40-29-161Z-37323 completed76 passes and10 f
 
 ## Automated validation
 
-Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789847379056-38783.
+Partial — required cases not run. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789847795826-40501.
 <!-- sdlc-validation:end -->

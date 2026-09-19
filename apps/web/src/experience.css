@@ -1632,3 +1632,26 @@ html {
     --focus-safe-bottom: calc(267px + env(safe-area-inset-bottom));
   }
 }
+
+/* Operations has dense receipts as well as controls: reserve a shared lane
+   for its fixed feedback launcher instead of protecting individual rows. */
+.operations {
+  padding-right: 98px;
+  overflow-wrap: anywhere;
+}
+.operations .unobscured-actions {
+  padding-inline-end: 0;
+}
+.operations :is(button, input, select, textarea) {
+  min-width: 0;
+  max-width: 100%;
+}
+.operations button {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 760px) {
+  .operations {
+    padding-right: 82px;
+  }
+}

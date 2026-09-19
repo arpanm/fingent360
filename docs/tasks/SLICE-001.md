@@ -44,13 +44,6 @@ Read AGENTS.md, the task-maintenance guide and this task’s current summary. Wo
 - **Research/evidence:** See [dated source checks and existing answers](input-research-2026-09-15.md). Source-specific permissions, complete parser layouts and legal classification are not claimed resolved by triage.
 - **Completion boundary:** This updates readiness only, not test passes, live activation or full feature completion. On later pickup, refresh saved evidence and update this record plus the TODO row.
 
-<!-- sdlc-validation:start -->
-
-## Automated validation
-
-Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789847379056-38783.
-<!-- sdlc-validation:end -->
-
 ## Reviewed acceptance scope — 20 September 2026
 
 Explicitly synthetic educational virtual workspace, catalog/event/company navigation, exact quantities/valuation, CSV preview/reconciliation, revision/idempotency/ownership, repeated goals, immutable review and persisted responsive journey.
@@ -58,3 +51,10 @@ Explicitly synthetic educational virtual workspace, catalog/event/company naviga
 The complete required case/project matrix is now recorded in `acceptance.json`. This review is not a test pass; actual current-revision receipts determine validation.
 
 Remaining gates: Separate keyboard acceptance for the full virtual journey remains unrecorded; connected browser cases exercise click controls and mobile width, not a complete keyboard journey.
+
+<!-- sdlc-validation:start -->
+
+## Automated validation
+
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789847795826-40501.
+<!-- sdlc-validation:end -->

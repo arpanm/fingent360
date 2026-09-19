@@ -42,5 +42,9 @@ No overall pass or resolved bug is inferred from this narrative. Generated valid
 
 ## Automated validation
 
-Partial — required cases not run. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789847379056-38783.
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789847795826-40501.
 <!-- sdlc-validation:end -->
+
+### Final focused repair result — 20 September 2026
+
+All newly found shared causes are repaired and their focused checks now pass: query fallback, public cursor routing, selectors/native keyboard, narrow text wrapping, fixed furniture, wrapped-link hit testing and offline reload readiness. Receipt2026-09-19T20-00-04-465Z-41642 passed12 browser cases, followed by the rebuilt OFFLINE081 pass. Final current-revision complete acceptance remains in progress; generated validation/bugs must come from that actual run.

@@ -1,6 +1,6 @@
 # ALERT-002 — Alert delivery controls
 
-- **Status:** Implementation complete; validation pending
+- **Status:** Needs repair
 - **Implemented / recorded:** - ALERT-002 (DEV-018): Persist account-owned indicator mute preferences and integrate actual inbox filtering/unmute restoration without deleting evidence or receipts. Prompt: contracts/migration008/API/UI, ownership and not-followed rejection, real inbox tests and privacy export integration. Implemented.
 - **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
 - **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
@@ -42,13 +42,13 @@ The required API, browser-project and offline case IDs are now explicit in [acce
 
 No additional input is needed for this bounded automated scope. Run the complete required matrix and review attached keyboard/narrow-layout artifacts where applicable before claiming accepted delivery.
 
+## Visual acceptance repair — 20 September 2026
+
+Actual focused screenshots exposed controls under persistent navigation/feedback and colliding wrapped action buttons. Preserve all controls; reserve native focus scroll space and wrap affected action rows with gaps and a feedback lane. Existing browser cases now require focused controls to be actual visible hit targets, without forced scrolling. Shared web/Android presentation changes only; no API, contract, database or migration change. Current user authorization covers focused execution; saved post-repair visual and test evidence remains required.
+
 <!-- sdlc-validation:start -->
 
 ## Automated validation
 
-Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789847379056-38783.
+Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789847795826-40501.
 <!-- sdlc-validation:end -->
-
-## Visual acceptance repair — 20 September 2026
-
-Actual focused screenshots exposed controls under persistent navigation/feedback and colliding wrapped action buttons. Preserve all controls; reserve native focus scroll space and wrap affected action rows with gaps and a feedback lane. Existing browser cases now require focused controls to be actual visible hit targets, without forced scrolling. Shared web/Android presentation changes only; no API, contract, database or migration change. Current user authorization covers focused execution; saved post-repair visual and test evidence remains required.

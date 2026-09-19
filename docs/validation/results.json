@@ -11362,11 +11362,11 @@
       "stories": ["EVENT-LINEAGE-001"],
       "status": "passed",
       "details": "",
-      "run": "1789846773980-36608",
-      "time": "2026-09-19T19:49:13.237Z",
-      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
-      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+      "run": "1789847795826-40501",
+      "time": "2026-09-19T19:59:41.360Z",
+      "fingerprint": "f437fd88753803e3398eb6383ea1aa7d3f611d80e292b0599c029e58e93adde5",
+      "log": "artifacts/sdlc/1789847795826-40501/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-57-32-410Z-41273/results.json"
     },
     "79f9088a1c3d7247696ef0ef15b11179b8795d8fbe9f871b17ebce09c47bdde5": {
       "key": "79f9088a1c3d7247696ef0ef15b11179b8795d8fbe9f871b17ebce09c47bdde5",
@@ -11377,11 +11377,11 @@
       "stories": ["EVENT-LINEAGE-001"],
       "status": "passed",
       "details": "",
-      "run": "1789846773980-36608",
-      "time": "2026-09-19T19:49:13.237Z",
-      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
-      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+      "run": "1789847795826-40501",
+      "time": "2026-09-19T19:59:41.360Z",
+      "fingerprint": "f437fd88753803e3398eb6383ea1aa7d3f611d80e292b0599c029e58e93adde5",
+      "log": "artifacts/sdlc/1789847795826-40501/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-57-32-410Z-41273/results.json"
     },
     "bd6ac615a9d2d9a88535c14894e2cd774b9af943592cd5dd3db9b8f121f66cb3": {
       "key": "bd6ac615a9d2d9a88535c14894e2cd774b9af943592cd5dd3db9b8f121f66cb3",
@@ -11392,11 +11392,11 @@
       "stories": ["EVENT-LINEAGE-001"],
       "status": "passed",
       "details": "",
-      "run": "1789846773980-36608",
-      "time": "2026-09-19T19:49:13.237Z",
-      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
-      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+      "run": "1789847795826-40501",
+      "time": "2026-09-19T19:59:41.360Z",
+      "fingerprint": "f437fd88753803e3398eb6383ea1aa7d3f611d80e292b0599c029e58e93adde5",
+      "log": "artifacts/sdlc/1789847795826-40501/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-57-32-410Z-41273/results.json"
     },
     "9d234a46a42e291c6cc0b91a64f03d164283a35119217d443779008b767a8972": {
       "key": "9d234a46a42e291c6cc0b91a64f03d164283a35119217d443779008b767a8972",
@@ -11407,11 +11407,11 @@
       "stories": ["EVENT-LINEAGE-001"],
       "status": "passed",
       "details": "",
-      "run": "1789846773980-36608",
-      "time": "2026-09-19T19:49:13.237Z",
-      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
-      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+      "run": "1789847795826-40501",
+      "time": "2026-09-19T19:59:41.360Z",
+      "fingerprint": "f437fd88753803e3398eb6383ea1aa7d3f611d80e292b0599c029e58e93adde5",
+      "log": "artifacts/sdlc/1789847795826-40501/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-57-32-410Z-41273/results.json"
     },
     "ccfd0813d79dbef1d31534ec00595ca14f4727a6273123ae4fb27c9124b3497c": {
       "key": "ccfd0813d79dbef1d31534ec00595ca14f4727a6273123ae4fb27c9124b3497c",
@@ -14722,11 +14722,11 @@
       "stories": ["MATERIAL-AUTO-001", "DEV-011", "DEV-018"],
       "status": "passed",
       "details": "",
-      "run": "1789846773980-36608",
-      "time": "2026-09-19T19:49:13.237Z",
-      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
-      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+      "run": "1789847795826-40501",
+      "time": "2026-09-19T19:59:41.360Z",
+      "fingerprint": "f437fd88753803e3398eb6383ea1aa7d3f611d80e292b0599c029e58e93adde5",
+      "log": "artifacts/sdlc/1789847795826-40501/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-57-32-410Z-41273/results.json"
     },
     "64287d99a041782fc1e88ab89fc0229890ad6262ab6f58148954a299626054ca": {
       "key": "64287d99a041782fc1e88ab89fc0229890ad6262ab6f58148954a299626054ca",
@@ -14737,11 +14737,11 @@
       "stories": ["MATERIAL-AUTO-001", "DEV-011", "DEV-018"],
       "status": "passed",
       "details": "",
-      "run": "1789846773980-36608",
-      "time": "2026-09-19T19:49:13.237Z",
-      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
-      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+      "run": "1789847795826-40501",
+      "time": "2026-09-19T19:59:41.360Z",
+      "fingerprint": "f437fd88753803e3398eb6383ea1aa7d3f611d80e292b0599c029e58e93adde5",
+      "log": "artifacts/sdlc/1789847795826-40501/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-57-32-410Z-41273/results.json"
     },
     "373b52f34b3c2082c3f68f6ffce48a89da82f500187a6e79341153e585ae6d41": {
       "key": "373b52f34b3c2082c3f68f6ffce48a89da82f500187a6e79341153e585ae6d41",
@@ -15832,11 +15832,11 @@
       "stories": ["QUALITY-OVERVIEW-001"],
       "status": "passed",
       "details": "",
-      "run": "1789846773980-36608",
-      "time": "2026-09-19T19:49:13.237Z",
-      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
-      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+      "run": "1789847795826-40501",
+      "time": "2026-09-19T19:59:41.360Z",
+      "fingerprint": "f437fd88753803e3398eb6383ea1aa7d3f611d80e292b0599c029e58e93adde5",
+      "log": "artifacts/sdlc/1789847795826-40501/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-57-32-410Z-41273/results.json"
     },
     "2a2928a44870ce0a1c63dfab6c583d1d66211a82a28af80d298657f6289419a8": {
       "key": "2a2928a44870ce0a1c63dfab6c583d1d66211a82a28af80d298657f6289419a8",
@@ -15847,11 +15847,11 @@
       "stories": ["QUALITY-OVERVIEW-001"],
       "status": "passed",
       "details": "",
-      "run": "1789846773980-36608",
-      "time": "2026-09-19T19:49:13.237Z",
-      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
-      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+      "run": "1789847795826-40501",
+      "time": "2026-09-19T19:59:41.360Z",
+      "fingerprint": "f437fd88753803e3398eb6383ea1aa7d3f611d80e292b0599c029e58e93adde5",
+      "log": "artifacts/sdlc/1789847795826-40501/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-57-32-410Z-41273/results.json"
     },
     "796b05223aefadde137c5a005d5f7de02db4a55cfa35b545e9704f6971c29f4d": {
       "key": "796b05223aefadde137c5a005d5f7de02db4a55cfa35b545e9704f6971c29f4d",
@@ -22595,13 +22595,13 @@
       "title": "E2E-WEB-1295 released policy keyboard comparison retains sources and no-action through lost-response replay reload and withdrawal @DEV-019 @ACTION-CENTRE-001 @TEST-SIMULATION",
       "file": "browser/action-centre-policy.spec.ts",
       "stories": ["DEV-019", "ACTION-CENTRE-001"],
-      "status": "failed",
-      "details": "Error: expect(locator).toHaveValue(expected) failed\n\nLocator:  getByRole('region', { name: 'Educational action centre', exact: true }).getByLabel('Released educational policy', { exact: true })\nExpected: \"4936274d-47c0-4063-a6d0-a797c3bba2bb\"\nReceived: \"\"\nTimeout:  10000ms\n\nCall log:\n  - Expect \"toHaveValue\" with timeout 10000ms\n  - waiting for getByRole('region', { name: 'Educational action centre', exact: true }).getByLabel('Released educational policy', { exact: true })\n    14 × locator resolved to <select aria-label=\"Released educational policy\">…</select>\n       - unexpected value \"\"\n\n\n  62 |     await policy.press('End');\n  63 |     await policy.press('Enter');\n> 64 |     await expect(policy).toHaveValue(policyId);\n     |                          ^\n  65 |     await policy.press('Tab');\n  66 |   }\n  67 |   await expect(policy).toHaveValue(policyId);\n    at enterComparison (/Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/action-centre-policy.spec.ts:64:26)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/action-centre-policy.spec.ts:162:35",
-      "run": "1789847379056-38783",
-      "time": "2026-09-19T19:53:21.721Z",
-      "fingerprint": "91a5a8b8d0fbaacfdf8423469df291cbe3565e04c41d7ae0b801687cb68280f3",
-      "log": "artifacts/sdlc/1789847379056-38783/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T19-50-37-130Z-39599/results.json"
+      "status": "passed",
+      "details": "",
+      "run": "1789847795826-40501",
+      "time": "2026-09-19T19:59:41.360Z",
+      "fingerprint": "f437fd88753803e3398eb6383ea1aa7d3f611d80e292b0599c029e58e93adde5",
+      "log": "artifacts/sdlc/1789847795826-40501/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-57-32-410Z-41273/results.json"
     },
     "084ea181539ddb1a4896251ed1274b9a6cd04b242b01739ffdaeaaef79a98ce9": {
       "key": "084ea181539ddb1a4896251ed1274b9a6cd04b242b01739ffdaeaaef79a98ce9",
@@ -22610,13 +22610,13 @@
       "title": "E2E-WEB-1296 real session revocation clears policy review and saved private comparisons before recovery @DEV-019 @ACTION-CENTRE-001 @TEST-SIMULATION",
       "file": "browser/action-centre-policy.spec.ts",
       "stories": ["DEV-019", "ACTION-CENTRE-001"],
-      "status": "failed",
-      "details": "Error: expect(locator).toHaveValue(expected) failed\n\nLocator:  getByRole('region', { name: 'Educational action centre', exact: true }).getByLabel('Released educational policy', { exact: true })\nExpected: \"e56c805b-6a01-4473-bcf1-a11d93b1d04a\"\nReceived: \"\"\nTimeout:  10000ms\n\nCall log:\n  - Expect \"toHaveValue\" with timeout 10000ms\n  - waiting for getByRole('region', { name: 'Educational action centre', exact: true }).getByLabel('Released educational policy', { exact: true })\n    14 × locator resolved to <select aria-label=\"Released educational policy\">…</select>\n       - unexpected value \"\"\n\n\n  62 |     await policy.press('End');\n  63 |     await policy.press('Enter');\n> 64 |     await expect(policy).toHaveValue(policyId);\n     |                          ^\n  65 |     await policy.press('Tab');\n  66 |   }\n  67 |   await expect(policy).toHaveValue(policyId);\n    at enterComparison (/Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/action-centre-policy.spec.ts:64:26)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/action-centre-policy.spec.ts:307:37",
-      "run": "1789847379056-38783",
-      "time": "2026-09-19T19:53:21.721Z",
-      "fingerprint": "91a5a8b8d0fbaacfdf8423469df291cbe3565e04c41d7ae0b801687cb68280f3",
-      "log": "artifacts/sdlc/1789847379056-38783/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T19-50-37-130Z-39599/results.json"
+      "status": "passed",
+      "details": "",
+      "run": "1789847795826-40501",
+      "time": "2026-09-19T19:59:41.360Z",
+      "fingerprint": "f437fd88753803e3398eb6383ea1aa7d3f611d80e292b0599c029e58e93adde5",
+      "log": "artifacts/sdlc/1789847795826-40501/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-57-32-410Z-41273/results.json"
     },
     "8dd1f7a289b3a6109c35a45647a5020ff04e50c7b9fc42c5e3d38b4b427947c8": {
       "key": "8dd1f7a289b3a6109c35a45647a5020ff04e50c7b9fc42c5e3d38b4b427947c8",
@@ -22625,13 +22625,13 @@
       "title": "E2E-WEB-1297 changed source edition rejects stale policy preview and removes its selection @DEV-019 @ACTION-CENTRE-001 @TEST-SIMULATION",
       "file": "browser/action-centre-policy.spec.ts",
       "stories": ["DEV-019", "ACTION-CENTRE-001"],
-      "status": "failed",
-      "details": "Error: expect(locator).toHaveValue(expected) failed\n\nLocator:  getByRole('region', { name: 'Educational action centre', exact: true }).getByLabel('Released educational policy', { exact: true })\nExpected: \"fd549aee-11e6-44c6-94b6-f65c97da2bc0\"\nReceived: \"\"\nTimeout:  10000ms\n\nCall log:\n  - Expect \"toHaveValue\" with timeout 10000ms\n  - waiting for getByRole('region', { name: 'Educational action centre', exact: true }).getByLabel('Released educational policy', { exact: true })\n    14 × locator resolved to <select aria-label=\"Released educational policy\">…</select>\n       - unexpected value \"\"\n\n\n  62 |     await policy.press('End');\n  63 |     await policy.press('Enter');\n> 64 |     await expect(policy).toHaveValue(policyId);\n     |                          ^\n  65 |     await policy.press('Tab');\n  66 |   }\n  67 |   await expect(policy).toHaveValue(policyId);\n    at enterComparison (/Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/action-centre-policy.spec.ts:64:26)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/action-centre-policy.spec.ts:357:29",
-      "run": "1789847379056-38783",
-      "time": "2026-09-19T19:53:21.721Z",
-      "fingerprint": "91a5a8b8d0fbaacfdf8423469df291cbe3565e04c41d7ae0b801687cb68280f3",
-      "log": "artifacts/sdlc/1789847379056-38783/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T19-50-37-130Z-39599/results.json"
+      "status": "passed",
+      "details": "",
+      "run": "1789847795826-40501",
+      "time": "2026-09-19T19:59:41.360Z",
+      "fingerprint": "f437fd88753803e3398eb6383ea1aa7d3f611d80e292b0599c029e58e93adde5",
+      "log": "artifacts/sdlc/1789847795826-40501/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-57-32-410Z-41273/results.json"
     },
     "ce29c20346c49707169a7eebb5708a280363a7e1394f1a01b322029c8fa5717d": {
       "key": "ce29c20346c49707169a7eebb5708a280363a7e1394f1a01b322029c8fa5717d",
@@ -22642,11 +22642,11 @@
       "stories": ["DEV-019", "ACTION-CENTRE-001"],
       "status": "passed",
       "details": "",
-      "run": "1789847379056-38783",
-      "time": "2026-09-19T19:53:21.721Z",
-      "fingerprint": "91a5a8b8d0fbaacfdf8423469df291cbe3565e04c41d7ae0b801687cb68280f3",
-      "log": "artifacts/sdlc/1789847379056-38783/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T19-50-37-130Z-39599/results.json"
+      "run": "1789847795826-40501",
+      "time": "2026-09-19T19:59:41.360Z",
+      "fingerprint": "f437fd88753803e3398eb6383ea1aa7d3f611d80e292b0599c029e58e93adde5",
+      "log": "artifacts/sdlc/1789847795826-40501/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-57-32-410Z-41273/results.json"
     },
     "acf4234d445d16583ad1fd7b008a5920205672d53b6868eb795f4d922a579883": {
       "key": "acf4234d445d16583ad1fd7b008a5920205672d53b6868eb795f4d922a579883",
@@ -22657,11 +22657,11 @@
       "stories": ["DEV-019", "ACTION-CENTRE-001"],
       "status": "passed",
       "details": "",
-      "run": "1789847379056-38783",
-      "time": "2026-09-19T19:53:21.721Z",
-      "fingerprint": "91a5a8b8d0fbaacfdf8423469df291cbe3565e04c41d7ae0b801687cb68280f3",
-      "log": "artifacts/sdlc/1789847379056-38783/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T19-50-37-130Z-39599/results.json"
+      "run": "1789847795826-40501",
+      "time": "2026-09-19T19:59:41.360Z",
+      "fingerprint": "f437fd88753803e3398eb6383ea1aa7d3f611d80e292b0599c029e58e93adde5",
+      "log": "artifacts/sdlc/1789847795826-40501/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-57-32-410Z-41273/results.json"
     },
     "73d5123d4cfe0d85cb06163be8a1db57cefbc513e456c4e7c142f6904a32b49e": {
       "key": "73d5123d4cfe0d85cb06163be8a1db57cefbc513e456c4e7c142f6904a32b49e",
@@ -22672,11 +22672,11 @@
       "stories": ["DEV-019", "ACTION-CENTRE-001"],
       "status": "passed",
       "details": "",
-      "run": "1789847379056-38783",
-      "time": "2026-09-19T19:53:21.721Z",
-      "fingerprint": "91a5a8b8d0fbaacfdf8423469df291cbe3565e04c41d7ae0b801687cb68280f3",
-      "log": "artifacts/sdlc/1789847379056-38783/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T19-50-37-130Z-39599/results.json"
+      "run": "1789847795826-40501",
+      "time": "2026-09-19T19:59:41.360Z",
+      "fingerprint": "f437fd88753803e3398eb6383ea1aa7d3f611d80e292b0599c029e58e93adde5",
+      "log": "artifacts/sdlc/1789847795826-40501/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-57-32-410Z-41273/results.json"
     },
     "04066f3cf8c676df0c690d285c7def4a9eeae2b33d886abaff7842fcde6e848b": {
       "key": "04066f3cf8c676df0c690d285c7def4a9eeae2b33d886abaff7842fcde6e848b",
@@ -22805,13 +22805,13 @@
       "title": "E2E-WEB-041 real corrected observation is unread and stale source context remains explicit @ALERT-001 @ALERT-002 @TEST-SIMULATION",
       "file": "browser/inbox-revisions.spec.ts",
       "stories": ["ALERT-001", "ALERT-002", "DEV-018"],
-      "status": "passed",
-      "details": "",
-      "run": "1789846773980-36608",
-      "time": "2026-09-19T19:49:13.237Z",
-      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
-      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+      "status": "failed",
+      "details": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: true\nReceived: false\n\nCall Log:\n- Timeout 10000ms exceeded while waiting on the predicate\n\n   at ../helpers/focus-visibility.ts:6\n\n  4 | // Inspect actual viewport hit targets without moving or focusing the control.\n  5 | export async function expectUnobscuredControl(control: Locator) {\n> 6 |   await expect\n    |   ^\n  7 |     .poll(() =>\n  8 |       control.evaluate((element) => {\n  9 |         const box = element.getBoundingClientRect();\n    at expectUnobscuredControl (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/focus-visibility.ts:6:3)\n    at tabToObservationControl (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/observation-inbox-accessibility.ts:20:3)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/inbox-revisions.spec.ts:96:5",
+      "run": "1789847795826-40501",
+      "time": "2026-09-19T19:59:41.360Z",
+      "fingerprint": "f437fd88753803e3398eb6383ea1aa7d3f611d80e292b0599c029e58e93adde5",
+      "log": "artifacts/sdlc/1789847795826-40501/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-57-32-410Z-41273/results.json"
     },
     "25789591666eea0cccdb0ca68864e41845674d9f5c438248085cd7318c7dd097": {
       "key": "25789591666eea0cccdb0ca68864e41845674d9f5c438248085cd7318c7dd097",
@@ -22820,13 +22820,13 @@
       "title": "E2E-WEB-041 real corrected observation is unread and stale source context remains explicit @ALERT-001 @ALERT-002 @TEST-SIMULATION",
       "file": "browser/inbox-revisions.spec.ts",
       "stories": ["ALERT-001", "ALERT-002", "DEV-018"],
-      "status": "passed",
-      "details": "",
-      "run": "1789846773980-36608",
-      "time": "2026-09-19T19:49:13.237Z",
-      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
-      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+      "status": "failed",
+      "details": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: true\nReceived: false\n\nCall Log:\n- Timeout 10000ms exceeded while waiting on the predicate\n\n   at ../helpers/focus-visibility.ts:6\n\n  4 | // Inspect actual viewport hit targets without moving or focusing the control.\n  5 | export async function expectUnobscuredControl(control: Locator) {\n> 6 |   await expect\n    |   ^\n  7 |     .poll(() =>\n  8 |       control.evaluate((element) => {\n  9 |         const box = element.getBoundingClientRect();\n    at expectUnobscuredControl (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/focus-visibility.ts:6:3)\n    at tabToObservationControl (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/observation-inbox-accessibility.ts:20:3)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/inbox-revisions.spec.ts:96:5",
+      "run": "1789847795826-40501",
+      "time": "2026-09-19T19:59:41.360Z",
+      "fingerprint": "f437fd88753803e3398eb6383ea1aa7d3f611d80e292b0599c029e58e93adde5",
+      "log": "artifacts/sdlc/1789847795826-40501/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-57-32-410Z-41273/results.json"
     },
     "0b344f93ef7c976cde625463e034df01374fd15cd6289c2b9eafef6787ca6d40": {
       "key": "0b344f93ef7c976cde625463e034df01374fd15cd6289c2b9eafef6787ca6d40",
@@ -29348,10 +29348,10 @@
       "id": "BUG-a47611ab64789eb8",
       "firstSeen": "2026-09-18T05:33:44.718Z",
       "resolvedBy": {
-        "run": "1789847379056-38783",
-        "time": "2026-09-19T19:50:36.672Z",
-        "fingerprint": "91a5a8b8d0fbaacfdf8423469df291cbe3565e04c41d7ae0b801687cb68280f3",
-        "log": "artifacts/sdlc/1789847379056-38783/02-pnpm-check.log"
+        "run": "1789847795826-40501",
+        "time": "2026-09-19T19:57:31.984Z",
+        "fingerprint": "f437fd88753803e3398eb6383ea1aa7d3f611d80e292b0599c029e58e93adde5",
+        "log": "artifacts/sdlc/1789847795826-40501/02-pnpm-check.log"
       }
     },
     "BUG-a0826694511b6915": {
@@ -30369,7 +30369,7 @@
       "title": "E2E-WEB-1295 released policy keyboard comparison retains sources and no-action through lost-response replay reload and withdrawal @DEV-019 @ACTION-CENTRE-001 @TEST-SIMULATION",
       "file": "browser/action-centre-policy.spec.ts",
       "stories": ["DEV-019", "ACTION-CENTRE-001"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(locator).toHaveValue(expected) failed\n\nLocator:  getByRole('region', { name: 'Educational action centre', exact: true }).getByLabel('Released educational policy', { exact: true })\nExpected: \"4936274d-47c0-4063-a6d0-a797c3bba2bb\"\nReceived: \"\"\nTimeout:  10000ms\n\nCall log:\n  - Expect \"toHaveValue\" with timeout 10000ms\n  - waiting for getByRole('region', { name: 'Educational action centre', exact: true }).getByLabel('Released educational policy', { exact: true })\n    14 × locator resolved to <select aria-label=\"Released educational policy\">…</select>\n       - unexpected value \"\"\n\n\n  62 |     await policy.press('End');\n  63 |     await policy.press('Enter');\n> 64 |     await expect(policy).toHaveValue(policyId);\n     |                          ^\n  65 |     await policy.press('Tab');\n  66 |   }\n  67 |   await expect(policy).toHaveValue(policyId);\n    at enterComparison (/Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/action-centre-policy.spec.ts:64:26)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/action-centre-policy.spec.ts:162:35",
       "run": "1789847379056-38783",
       "time": "2026-09-19T19:53:21.721Z",
@@ -30377,7 +30377,14 @@
       "log": "artifacts/sdlc/1789847379056-38783/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-19T19-50-37-130Z-39599/results.json",
       "id": "BUG-009a3dd57d58b56d",
-      "firstSeen": "2026-09-19T19:49:13.237Z"
+      "firstSeen": "2026-09-19T19:49:13.237Z",
+      "resolvedBy": {
+        "run": "1789847795826-40501",
+        "time": "2026-09-19T19:59:41.360Z",
+        "fingerprint": "f437fd88753803e3398eb6383ea1aa7d3f611d80e292b0599c029e58e93adde5",
+        "log": "artifacts/sdlc/1789847795826-40501/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T19-57-32-410Z-41273/results.json"
+      }
     },
     "BUG-084ea181539ddb1a": {
       "key": "084ea181539ddb1a4896251ed1274b9a6cd04b242b01739ffdaeaaef79a98ce9",
@@ -30386,7 +30393,7 @@
       "title": "E2E-WEB-1296 real session revocation clears policy review and saved private comparisons before recovery @DEV-019 @ACTION-CENTRE-001 @TEST-SIMULATION",
       "file": "browser/action-centre-policy.spec.ts",
       "stories": ["DEV-019", "ACTION-CENTRE-001"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(locator).toHaveValue(expected) failed\n\nLocator:  getByRole('region', { name: 'Educational action centre', exact: true }).getByLabel('Released educational policy', { exact: true })\nExpected: \"e56c805b-6a01-4473-bcf1-a11d93b1d04a\"\nReceived: \"\"\nTimeout:  10000ms\n\nCall log:\n  - Expect \"toHaveValue\" with timeout 10000ms\n  - waiting for getByRole('region', { name: 'Educational action centre', exact: true }).getByLabel('Released educational policy', { exact: true })\n    14 × locator resolved to <select aria-label=\"Released educational policy\">…</select>\n       - unexpected value \"\"\n\n\n  62 |     await policy.press('End');\n  63 |     await policy.press('Enter');\n> 64 |     await expect(policy).toHaveValue(policyId);\n     |                          ^\n  65 |     await policy.press('Tab');\n  66 |   }\n  67 |   await expect(policy).toHaveValue(policyId);\n    at enterComparison (/Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/action-centre-policy.spec.ts:64:26)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/action-centre-policy.spec.ts:307:37",
       "run": "1789847379056-38783",
       "time": "2026-09-19T19:53:21.721Z",
@@ -30394,7 +30401,14 @@
       "log": "artifacts/sdlc/1789847379056-38783/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-19T19-50-37-130Z-39599/results.json",
       "id": "BUG-084ea181539ddb1a",
-      "firstSeen": "2026-09-19T19:49:13.237Z"
+      "firstSeen": "2026-09-19T19:49:13.237Z",
+      "resolvedBy": {
+        "run": "1789847795826-40501",
+        "time": "2026-09-19T19:59:41.360Z",
+        "fingerprint": "f437fd88753803e3398eb6383ea1aa7d3f611d80e292b0599c029e58e93adde5",
+        "log": "artifacts/sdlc/1789847795826-40501/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T19-57-32-410Z-41273/results.json"
+      }
     },
     "BUG-8dd1f7a289b3a610": {
       "key": "8dd1f7a289b3a6109c35a45647a5020ff04e50c7b9fc42c5e3d38b4b427947c8",
@@ -30403,7 +30417,7 @@
       "title": "E2E-WEB-1297 changed source edition rejects stale policy preview and removes its selection @DEV-019 @ACTION-CENTRE-001 @TEST-SIMULATION",
       "file": "browser/action-centre-policy.spec.ts",
       "stories": ["DEV-019", "ACTION-CENTRE-001"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(locator).toHaveValue(expected) failed\n\nLocator:  getByRole('region', { name: 'Educational action centre', exact: true }).getByLabel('Released educational policy', { exact: true })\nExpected: \"fd549aee-11e6-44c6-94b6-f65c97da2bc0\"\nReceived: \"\"\nTimeout:  10000ms\n\nCall log:\n  - Expect \"toHaveValue\" with timeout 10000ms\n  - waiting for getByRole('region', { name: 'Educational action centre', exact: true }).getByLabel('Released educational policy', { exact: true })\n    14 × locator resolved to <select aria-label=\"Released educational policy\">…</select>\n       - unexpected value \"\"\n\n\n  62 |     await policy.press('End');\n  63 |     await policy.press('Enter');\n> 64 |     await expect(policy).toHaveValue(policyId);\n     |                          ^\n  65 |     await policy.press('Tab');\n  66 |   }\n  67 |   await expect(policy).toHaveValue(policyId);\n    at enterComparison (/Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/action-centre-policy.spec.ts:64:26)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/action-centre-policy.spec.ts:357:29",
       "run": "1789847379056-38783",
       "time": "2026-09-19T19:53:21.721Z",
@@ -30411,7 +30425,14 @@
       "log": "artifacts/sdlc/1789847379056-38783/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-19T19-50-37-130Z-39599/results.json",
       "id": "BUG-8dd1f7a289b3a610",
-      "firstSeen": "2026-09-19T19:49:13.237Z"
+      "firstSeen": "2026-09-19T19:49:13.237Z",
+      "resolvedBy": {
+        "run": "1789847795826-40501",
+        "time": "2026-09-19T19:59:41.360Z",
+        "fingerprint": "f437fd88753803e3398eb6383ea1aa7d3f611d80e292b0599c029e58e93adde5",
+        "log": "artifacts/sdlc/1789847795826-40501/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T19-57-32-410Z-41273/results.json"
+      }
     },
     "BUG-04066f3cf8c676df": {
       "key": "04066f3cf8c676df0c690d285c7def4a9eeae2b33d886abaff7842fcde6e848b",
@@ -30508,9 +30529,43 @@
         "log": "artifacts/sdlc/1789847379056-38783/06-pnpm-e2e_run.log",
         "report": "artifacts/e2e/2026-09-19T19-50-37-130Z-39599/results.json"
       }
+    },
+    "BUG-72830ddbb577982e": {
+      "key": "72830ddbb577982e91062f97990b5de70083ecc8b5d54f27430258a91a8897af",
+      "caseId": "E2E-WEB-041",
+      "project": "desktop",
+      "title": "E2E-WEB-041 real corrected observation is unread and stale source context remains explicit @ALERT-001 @ALERT-002 @TEST-SIMULATION",
+      "file": "browser/inbox-revisions.spec.ts",
+      "stories": ["ALERT-001", "ALERT-002", "DEV-018"],
+      "status": "Open",
+      "details": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: true\nReceived: false\n\nCall Log:\n- Timeout 10000ms exceeded while waiting on the predicate\n\n   at ../helpers/focus-visibility.ts:6\n\n  4 | // Inspect actual viewport hit targets without moving or focusing the control.\n  5 | export async function expectUnobscuredControl(control: Locator) {\n> 6 |   await expect\n    |   ^\n  7 |     .poll(() =>\n  8 |       control.evaluate((element) => {\n  9 |         const box = element.getBoundingClientRect();\n    at expectUnobscuredControl (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/focus-visibility.ts:6:3)\n    at tabToObservationControl (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/observation-inbox-accessibility.ts:20:3)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/inbox-revisions.spec.ts:96:5",
+      "run": "1789847795826-40501",
+      "time": "2026-09-19T19:59:41.360Z",
+      "fingerprint": "f437fd88753803e3398eb6383ea1aa7d3f611d80e292b0599c029e58e93adde5",
+      "log": "artifacts/sdlc/1789847795826-40501/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-57-32-410Z-41273/results.json",
+      "id": "BUG-72830ddbb577982e",
+      "firstSeen": "2026-09-19T19:59:41.360Z"
+    },
+    "BUG-25789591666eea0c": {
+      "key": "25789591666eea0cccdb0ca68864e41845674d9f5c438248085cd7318c7dd097",
+      "caseId": "E2E-WEB-041",
+      "project": "mobile",
+      "title": "E2E-WEB-041 real corrected observation is unread and stale source context remains explicit @ALERT-001 @ALERT-002 @TEST-SIMULATION",
+      "file": "browser/inbox-revisions.spec.ts",
+      "stories": ["ALERT-001", "ALERT-002", "DEV-018"],
+      "status": "Open",
+      "details": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: true\nReceived: false\n\nCall Log:\n- Timeout 10000ms exceeded while waiting on the predicate\n\n   at ../helpers/focus-visibility.ts:6\n\n  4 | // Inspect actual viewport hit targets without moving or focusing the control.\n  5 | export async function expectUnobscuredControl(control: Locator) {\n> 6 |   await expect\n    |   ^\n  7 |     .poll(() =>\n  8 |       control.evaluate((element) => {\n  9 |         const box = element.getBoundingClientRect();\n    at expectUnobscuredControl (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/focus-visibility.ts:6:3)\n    at tabToObservationControl (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/observation-inbox-accessibility.ts:20:3)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/inbox-revisions.spec.ts:96:5",
+      "run": "1789847795826-40501",
+      "time": "2026-09-19T19:59:41.360Z",
+      "fingerprint": "f437fd88753803e3398eb6383ea1aa7d3f611d80e292b0599c029e58e93adde5",
+      "log": "artifacts/sdlc/1789847795826-40501/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-57-32-410Z-41273/results.json",
+      "id": "BUG-25789591666eea0c",
+      "firstSeen": "2026-09-19T19:59:41.360Z"
     }
   },
   "gates": {
-    "check": "91a5a8b8d0fbaacfdf8423469df291cbe3565e04c41d7ae0b801687cb68280f3"
+    "check": "f437fd88753803e3398eb6383ea1aa7d3f611d80e292b0599c029e58e93adde5"
   }
 }

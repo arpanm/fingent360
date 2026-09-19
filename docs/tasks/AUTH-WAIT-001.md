@@ -1,9 +1,9 @@
 # AUTH-WAIT-001 — Recheck authorization after storage waits
 
-- **Status:** Fixture repair authored; validation pending
+- **Status:** Implementation complete; validation pending
 - **Implemented / recorded:** Production authorization-after-wait behavior retains its earlier recorded evidence. The API304 fixture now observes recovery through owned blocker relationships and allows bounded pre-lock password derivation.
-- **Pending:** User-run API304 validation for the 2026-09-17 fixture repair.
-- **Next action / inputs:** User reruns the exact API304 command below; no new private input, dependency, migration or service change is needed.
+- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
+- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
 - **Verification:** Not run for this repair. Earlier AUTH-WAIT-001 evidence applies only to its recorded revision.
 
 ## Scoped API304 fixture repair — 2026-09-17
@@ -34,13 +34,6 @@ The entries below are migrated records, not new execution instructions or curren
 
 Read AGENTS.md, the task-maintenance guide and this task’s current summary. Work only on AUTH-WAIT-001 unless the user expands the scope. Treat the preserved specification/history as context; current user instructions take precedence. Implement the listed remaining acceptance end to end, or reconcile recorded completion evidence if no implementation remains. Keep tests, documentation and the root index consistent. Record exact remaining work and who needs to act. Do not execute deterministic validation or commit without the user-authorized gates.
 
-<!-- sdlc-validation:start -->
-
-## Automated validation
-
-Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789847379056-38783.
-<!-- sdlc-validation:end -->
-
 ## Reviewed acceptance scope — 20 September 2026
 
 Reauthorization after actual PostgreSQL account/report waits, recovery and wall-clock expiry, unchanged owned state on rejection, replay paths and browser recovery with keyboard sign-in. Serialized on-device storage has no PostgreSQL lock wait; native certification is outside this server race.
@@ -48,3 +41,10 @@ Reauthorization after actual PostgreSQL account/report waits, recovery and wall-
 The complete required case/project matrix is now recorded in `acceptance.json`. This review is not a test pass; actual current-revision receipts determine validation.
 
 Remaining gates: None for this bounded functional scope.
+
+<!-- sdlc-validation:start -->
+
+## Automated validation
+
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789847795826-40501.
+<!-- sdlc-validation:end -->

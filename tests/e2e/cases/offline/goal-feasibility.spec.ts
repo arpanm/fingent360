@@ -28,9 +28,20 @@ test('E2E-OFFLINE-600 real local downside save reload export and account deletio
   });
   expect(result.exported.goalFeasibility.assessments).toHaveLength(1);
   expect(result.status).toBe(200);
-  expect(network).toEqual([]);
   await page.reload();
   await expect(
-    page.getByRole('heading', { name: /sign in/i }).first(),
+    page.getByRole('link', {
+      name: 'Sign in or create an account',
+      exact: true,
+    }),
   ).toBeVisible();
+  await expect(
+    page.getByRole('region', { name: 'Goal downside capacity', exact: true }),
+  ).toHaveCount(0);
+  expect(
+    await page.evaluate(
+      async () => (await fetch('/api/v1/account/goal-feasibility')).status,
+    ),
+  ).toBe(401);
+  expect(network).toEqual([]);
 });

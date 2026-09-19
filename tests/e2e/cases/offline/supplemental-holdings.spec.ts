@@ -226,6 +226,9 @@ test('E2E-OFFLINE-722 actual local supplemental empty replacement requires remov
   await page
     .getByText('Broker export help and supported imports', { exact: true })
     .click();
+  await page
+    .getByRole('combobox', { name: 'Your broker', exact: true })
+    .selectOption('icici-direct');
   await expect(
     page.getByText(
       /ICICI Direct says off-market Portfolio entries can use transfer-day closing prices/,

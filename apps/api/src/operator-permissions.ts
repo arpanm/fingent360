@@ -42,7 +42,11 @@ export class OperatorPermissionGuard implements CanActivate {
       ACTION,
       handler,
     );
-    if (request.method === 'GET' && Reflect.getMetadata(READ, controller)) {
+    if (
+      request.method === 'GET' &&
+      (Reflect.getMetadata(READ, handler) ||
+        Reflect.getMetadata(READ, controller))
+    ) {
       await this.store.permission(request.headers.cookie, 'read');
       return true;
     }

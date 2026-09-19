@@ -13,6 +13,7 @@ function context(paths, method = 'POST') {
   Reflect.defineMetadata(PATH_METADATA, paths, Controller);
   return {
     Controller,
+    handler,
     value: {
       getClass: () => Controller,
       getHandler: () => handler,
@@ -32,6 +33,32 @@ test('named mode denies unannotated mutations through an ops controller alias', 
       status: 403,
     });
   }
+});
+test('handler protected reads require named identity without enabling other methods', async () => {
+  let admitted = 0;
+  const guard = new OperatorPermissionGuard({
+    namedMode: true,
+    permission: async (_cookie, permission) => {
+      assert.equal(permission, 'read');
+      admitted++;
+    },
+  });
+  const input = context('ops/new-feature', 'GET');
+  OperatorRead()(input.handler);
+  assert.equal(await guard.canActivate(input.value), true);
+  assert.equal(admitted, 1);
+  const mutation = context('ops/new-feature');
+  OperatorRead()(mutation.handler);
+  await assert.rejects(guard.canActivate(mutation.value), { status: 403 });
+  await assert.rejects(
+    new OperatorPermissionGuard({
+      namedMode: true,
+      permission: async () => {
+        throw new Error('Named identity required');
+      },
+    }).canActivate(input.value),
+    /Named identity required/,
+  );
 });
 test('aliased protected reads still require identity and bootstrap remains compatible', async () => {
   let admitted = 0;

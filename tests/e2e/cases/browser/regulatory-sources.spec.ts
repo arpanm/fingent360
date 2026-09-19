@@ -68,7 +68,7 @@ test('E2E-WEB-1681 actual Operations form retains unchanged bytes and leaves ind
     name: 'Regulatory source Operations',
   });
   await region
-    .getByLabel('Authority', { exact: true })
+    .getByRole('combobox', { name: 'Authority', exact: true })
     .selectOption('income-tax');
   await region
     .getByLabel('Document key', { exact: true })
@@ -96,7 +96,9 @@ test('E2E-WEB-1681 actual Operations form retains unchanged bytes and leaves ind
   await region
     .getByLabel('Document-specific retention and display permission')
     .fill('Synthetic test-only retention permission.');
-  await region.getByLabel('Original format').selectOption('text/html');
+  await region
+    .getByRole('combobox', { name: 'Original format', exact: true })
+    .selectOption('text/html');
   await region.getByLabel('Unchanged original file').setInputFiles({
     name: 'synthetic.html',
     mimeType: 'text/html',

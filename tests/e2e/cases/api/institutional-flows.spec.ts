@@ -1,3 +1,4 @@
+import { publishNamedEvent } from '../../helpers/publish-named-event';
 import { randomUUID } from 'node:crypto';
 import { historicalFlowInput } from '../../helpers/institutional-flows';
 import {
@@ -201,19 +202,12 @@ test('E2E-API-1433 historical numerical flow golden follows capture independent 
         })
       ).status(),
     ).toBe(200);
-    expect(
-      (
-        await reviewer.post(`/api/v1/ops/events/${eventId}/review`, {
-          headers: retentionHeaders,
-          data: {
-            requestId: randomUUID(),
-            expectedVersion: 1,
-            status: 'published',
-            note: 'Independent exact scope/date numerical row review.',
-          },
-        })
-      ).status(),
-    ).toBe(201);
+    await publishNamedEvent(
+      request,
+      reviewer,
+      eventId,
+      'Independent exact scope/date numerical row review.',
+    );
     const draft = InstitutionalFlowDraftSchema.parse(
       await (
         await request.get('/api/v1/ops/event-scenarios/flows-draft/' + eventId)

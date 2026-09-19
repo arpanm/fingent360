@@ -4,6 +4,7 @@ import type { APIRequestContext } from '@playwright/test';
 import { expect } from '@playwright/test';
 import type { FeedbackSandbox } from './feedback-fixture';
 import { operatorKey } from './operator';
+import { feedbackImage } from './feedback-image';
 import {
   CurrentAccountSchema,
   HoldingsPreviewSchema,
@@ -131,7 +132,7 @@ export async function seedRetentionRows(
     id: randomUUID(),
     receiptToken: createHash('sha256').update(randomUUID()).digest('hex'),
     text,
-    image: null,
+    image: feedbackImage(),
     audio: null,
     consent: true,
     context: {
@@ -189,12 +190,8 @@ export async function seedRetentionRows(
     [[confirmed.previewId, expiredPreview.previewId]],
   );
   await pool.query(
-    "UPDATE feedback_reports SET expires_at=now()-interval '1 day',image_meta=$2,image_bytes=$3,audio_meta=$2,audio_bytes=$3 WHERE id=$1",
-    [
-      expiredFeedback.id,
-      JSON.stringify({ syntheticFixture: true }),
-      Buffer.from('Synthetic private attachment fixture'),
-    ],
+    "UPDATE feedback_reports SET expires_at=now()-interval '1 day' WHERE id=$1",
+    [expiredFeedback.id],
   );
   return {
     username,

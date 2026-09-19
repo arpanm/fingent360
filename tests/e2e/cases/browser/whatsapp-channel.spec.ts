@@ -11,18 +11,26 @@ test('E2E-WEB-1600 actual consent form recipient verification public selection q
   page,
   request,
   feedbackSandbox,
+  baseURL,
 }) => {
   await whatsappAccount(request);
   const source = await whatsappSource(feedbackSandbox);
   const state = await request.storageState();
-  const cookie = state.cookies.map((v) => `${v.name}=${v.value}`).join(';');
-  await page.route('**/api/v1/account/**', (route) => {
-    const url = new URL(route.request().url());
-    return route.continue({
-      url: feedbackSandbox.apiOrigin + url.pathname + url.search,
-      headers: { ...route.request().headers(), cookie },
-    });
-  });
+  const session = state.cookies.find(
+    (cookie) => cookie.name === 'f360_session',
+  );
+  if (!session)
+    throw Error('Verified WhatsApp fixture requires an account session.');
+  const origin = new URL(baseURL!);
+  // Cookie headers in route.continue cannot authenticate a browser. Install the
+  // real owner session in its cookie jar, preserving the account-only path.
+  await page.context().addCookies([
+    {
+      ...session,
+      domain: origin.hostname,
+      secure: origin.protocol === 'https:',
+    },
+  ]);
   await page.goto('/#whatsapp');
   const panel = page.getByRole('main', { name: 'WhatsApp summaries' });
   await expect(panel).toContainText('Not connected');
@@ -32,7 +40,12 @@ test('E2E-WEB-1600 actual consent form recipient verification public selection q
   await expect(
     panel.getByRole('button', { name: 'Verify my number' }),
   ).toBeDisabled();
-  await panel.getByRole('checkbox').check();
+  await panel
+    .getByRole('checkbox', {
+      name: 'I consent to receiving the public summaries I explicitly request on WhatsApp. I can disconnect or send STOP at any time.',
+      exact: true,
+    })
+    .check();
   await panel.getByRole('button', { name: 'Verify my number' }).click();
   const link = panel.getByRole('link', {
     name: 'Open WhatsApp and send verification',
@@ -52,7 +65,9 @@ test('E2E-WEB-1600 actual consent form recipient verification public selection q
   await panel.getByRole('button', { name: 'Refresh WhatsApp status' }).click();
   await expect(panel).toContainText('verified');
   await expect(link).toHaveCount(0);
-  await panel.getByLabel('Reviewed public summary').selectOption(source.id);
+  await panel
+    .getByRole('combobox', { name: 'Reviewed public summary', exact: true })
+    .selectOption(source.id);
   await expect(
     panel.getByRole('link', { name: 'Read evidence first' }),
   ).toHaveAttribute('href', '#read/' + source.id);

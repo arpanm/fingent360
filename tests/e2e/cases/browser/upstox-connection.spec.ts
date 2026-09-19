@@ -41,7 +41,12 @@ test('E2E-WEB-1450 connected broker consent opens verified authorization then ac
   await page
     .getByRole('button', { name: 'Confirm replacement', exact: true })
     .click();
-  await expect(page.getByText(/Holdings saved as revision 1/)).toBeVisible();
+  await expect(
+    page.getByRole('region', { name: 'My entered holdings', exact: true }),
+  ).toContainText('Saved revision 1');
+  await expect(
+    page.getByRole('region', { name: 'Saved holdings', exact: true }),
+  ).toContainText('INE002A01018');
   await connection
     .getByRole('button', { name: 'Revoke broker connection' })
     .click();

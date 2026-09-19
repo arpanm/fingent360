@@ -34,10 +34,10 @@ test('E2E-WEB-1020 actual source scenario prepare publish read history and retur
     exact: true,
   });
   await panel
-    .getByLabel('Reviewed source event', { exact: true })
+    .getByRole('combobox', { name: 'Reviewed source event', exact: true })
     .selectOption(event.id);
   await panel
-    .getByLabel('Scenario family', { exact: true })
+    .getByRole('combobox', { name: 'Scenario family', exact: true })
     .selectOption('regulatory');
   await panel
     .getByLabel('Editorial regulatory interpretation', { exact: true })

@@ -122,6 +122,8 @@ test('E2E-OFFLINE-1470 retained issuer fuel proof reconstructs six-step private 
       randomUUID,
     );
   event.graph.events[0]!.publicationState = 'published';
+  expect(event.graph.edges.length).toBeGreaterThan(0);
+  for (const edge of event.graph.edges) edge.reviewState = 'reviewed';
   const publicEvent = EventPublicSchema.parse({
       id,
       status: 'published',

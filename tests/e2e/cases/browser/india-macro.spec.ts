@@ -39,7 +39,14 @@ test('E2E-WEB-1320 actual India macro reader shows publication vintages and reco
     await page
       .getByText('Release vintages for 2026-06', { exact: true })
       .click();
-    await expect(page.getByText(/matches-current-capture/)).toBeVisible();
+    await expect(
+      page
+        .locator('details')
+        .filter({
+          has: page.getByText('Release vintages for 2026-06', { exact: true }),
+        })
+        .getByText(/matches-current-capture/),
+    ).toBeVisible();
     await page.getByLabel('Published by (UTC)').fill('2026-07-12T00:00');
     await page
       .getByRole('button', { name: 'Apply publication cutoff' })

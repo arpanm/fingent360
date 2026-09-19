@@ -558,6 +558,17 @@ test('E2E-API-359 actual preparation failure retains bounded category then origi
     const failed = (await workerOverview(request)).workers[0]!;
     expect(failed.failureCategory).toBe('preparation');
     expect(failed.lastSuccessAt).toBeNull();
+    const retained = await pool.query(
+      'SELECT status,attempts,lease_id,encrypted_payload,snapshot FROM record_report_jobs WHERE id=$1',
+      [job.id],
+    );
+    expect(retained.rows[0]).toMatchObject({
+      status: 'queued',
+      attempts: 1,
+      lease_id: null,
+      encrypted_payload: null,
+      snapshot: {},
+    });
     await pool.query(
       'UPDATE record_report_jobs SET snapshot=$2,next_attempt_at=clock_timestamp() WHERE id=$1',
       [job.id, original],

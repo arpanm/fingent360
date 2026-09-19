@@ -17,8 +17,13 @@ test('E2E-WEB-1080 actual sourced NAV list detail missing look-through and back 
     page.getByRole('region', { name: 'Fund NAV history' }),
   ).toContainText('₹123.456700');
   await expect(
-    page.getByText(/Portfolio look-through is not connected/),
-  ).toBeVisible();
+    page.getByRole('region', {
+      name: 'Fund portfolio disclosure',
+      exact: true,
+    }),
+  ).toContainText(
+    'No currently admitted portfolio mapping is available for this scheme.',
+  );
   await page.getByText('Source and retrieval edition', { exact: true }).click();
   await expect(page.getByText(/Source row/)).toBeVisible();
   await page.keyboard.press('Escape');

@@ -43,19 +43,45 @@ test('E2E-API-1620 independently reviewed original SPF expectation compares with
       'INSERT INTO discovery_versions(item_id,version,data) VALUES($1,1,$2)',
       [item.id, item],
     );
+    const publication = randomUUID(),
+      publicationInput = {
+        kind: 'discovery',
+        target: item.id,
+        body: {
+          expectedVersion: 1,
+          status: 'published',
+          correctionNote:
+            'Synthetic reconstruction of actual original GDP release values.',
+        },
+      };
     expect(
       (
-        await reviewer.put('/api/v1/ops/discovery/items/' + item.id, {
+        await request.put('/api/v1/ops/proposals/' + publication, {
           headers: retentionHeaders,
-          data: {
-            expectedVersion: 1,
-            status: 'published',
-            correctionNote:
-              'Synthetic reconstruction of actual original GDP release values.',
-          },
+          data: publicationInput,
         })
       ).status(),
     ).toBe(200);
+    const approval = {
+      headers: retentionHeaders,
+      data: { note: 'Independent original GDP source review.' },
+    };
+    expect(
+      (
+        await request.post(
+          `/api/v1/ops/proposals/${publication}/approve`,
+          approval,
+        )
+      ).status(),
+    ).toBe(403);
+    expect(
+      (
+        await reviewer.post(
+          `/api/v1/ops/proposals/${publication}/approve`,
+          approval,
+        )
+      ).status(),
+    ).toBe(201);
     const capture = await request.post('/api/v1/ops/gdp-expectations/import', {
       headers: retentionHeaders,
       data,

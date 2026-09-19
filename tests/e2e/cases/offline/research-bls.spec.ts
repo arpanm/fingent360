@@ -9,8 +9,11 @@ test('E2E-OFFLINE-1070 BLS source remains isolated and missing captures explain 
   });
   await page.goto('/#research-calendar');
   await page
-    .getByLabel('Calendar source', { exact: true })
+    .getByRole('combobox', { name: 'Calendar source', exact: true })
     .selectOption('bls-calendar');
+  await expect(
+    page.getByRole('combobox', { name: 'Calendar source', exact: true }),
+  ).toHaveValue('bls-calendar');
   await expect(
     page.getByRole('link', { name: 'Official BLS calendar' }),
   ).toBeVisible();

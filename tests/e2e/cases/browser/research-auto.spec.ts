@@ -18,7 +18,10 @@ test('E2E-WEB-1053 actual retained release calendar supports retry and capture n
   });
   await expect(region).toContainText('Synthetic release');
   await expect(region).toContainText('not original numerical data vintages');
-  const picker = region.getByLabel('Calendar capture');
+  const picker = region.getByRole('combobox', {
+    name: 'Calendar capture',
+    exact: true,
+  });
   await picker.selectOption({ index: 1 });
   await expect(region).toContainText('Source revision 2');
   await page.route(

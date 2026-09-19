@@ -70,6 +70,9 @@ test('E2E-OFFLINE-611 mapped total correction and cancel preserve actual local h
   await expect(
     page.getByText(/Automatic broker formats are not enabled/),
   ).toBeVisible();
+  await page
+    .getByRole('combobox', { name: 'Your broker', exact: true })
+    .selectOption('zerodha');
   await expect(
     page.getByRole('link', {
       name: 'Zerodha official export help (opens a new tab)',

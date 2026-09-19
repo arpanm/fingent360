@@ -69,10 +69,10 @@ test('E2E-WEB-1542 official catalog selector builds scoped history requests and 
     .click();
   await page.getByRole('button', { name: 'Fund data', exact: true }).click();
   await page
-    .getByLabel('History mutual fund', { exact: true })
+    .getByRole('combobox', { name: 'History mutual fund', exact: true })
     .selectOption('9');
   await page
-    .getByLabel('History scheme type', { exact: true })
+    .getByRole('combobox', { name: 'History scheme type', exact: true })
     .selectOption('2');
   await page
     .getByLabel('History from date', { exact: true })
@@ -99,7 +99,7 @@ test('E2E-WEB-1542 official catalog selector builds scoped history requests and 
     }),
   ).toBeVisible();
   await page
-    .getByLabel('History mutual fund', { exact: true })
+    .getByRole('combobox', { name: 'History mutual fund', exact: true })
     .selectOption('');
   await page.getByLabel('History NAV date', { exact: true }).fill('2026-09-11');
   await page

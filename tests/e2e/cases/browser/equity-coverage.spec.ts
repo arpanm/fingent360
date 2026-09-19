@@ -98,20 +98,25 @@ test('E2E-WEB-904 corporate action dates and source remain readable through comp
   ).toBeVisible();
 });
 
-test('E2E-WEB-906 exact Ind AS period scale and negative profit render in company financials @EQUITY-COVERAGE-001 @TEST-SIMULATION', async ({
-  page,
-  request,
-}) => {
-  const { publishIndas } = await import('../../helpers/equity-coverage');
-  await publishIndas(request);
-  await page.goto('/#equities');
-  await page.getByRole('button', { name: /INE002A01018/ }).click();
-  const financials = page.getByRole('region', {
-    name: 'Reported financials',
-    exact: true,
+test.describe('Named Ind AS publication', () => {
+  test.use({ namedOperators: true });
+  test('E2E-WEB-906 exact Ind AS period scale and negative profit render in company financials @EQUITY-COVERAGE-001 @TEST-SIMULATION', async ({
+    page,
+    request,
+    playwright,
+    feedbackSandbox,
+  }) => {
+    const { publishIndas } = await import('../../helpers/equity-coverage');
+    await publishIndas(request, playwright, feedbackSandbox);
+    await page.goto('/#equities');
+    await page.getByRole('button', { name: /INE002A01018/ }).click();
+    const financials = page.getByRole('region', {
+      name: 'Reported financials',
+      exact: true,
+    });
+    await expect(financials).toContainText('revenue: 1234.5600 lakhs');
+    await expect(financials).toContainText('profit after tax: -12.3400 lakhs');
+    await expect(financials).toContainText('2025-01-01–2025-03-31');
+    await expect(financials).toContainText('2024-04-01–2025-03-31');
   });
-  await expect(financials).toContainText('revenue: 1234.5600 lakhs');
-  await expect(financials).toContainText('profit after tax: -12.3400 lakhs');
-  await expect(financials).toContainText('2025-01-01–2025-03-31');
-  await expect(financials).toContainText('2024-04-01–2025-03-31');
 });

@@ -19,7 +19,7 @@ test('E2E-API-1690 recurring schedule actual occurrence idempotency STOP cancell
   feedbackSandbox,
 }) => {
   const account = await whatsappAccount(request),
-    source = await whatsappSource(feedbackSandbox);
+    source = await whatsappSource(feedbackSandbox, new Date().toISOString());
   await verifyWhatsapp(request);
   const body = {
     requestId: randomUUID(),
@@ -41,10 +41,6 @@ test('E2E-API-1690 recurring schedule actual occurrence idempotency STOP cancell
     worker = await whatsappScheduleWorker(feedbackSandbox);
   try {
     // Explicit synthetic publication timing and due clock, actual scheduling/DB/admission/outbox.
-    await pool.query(
-      "UPDATE discovery_versions SET data=jsonb_set(data,'{publishedAt}',to_jsonb($2::text)) WHERE item_id=$1",
-      [source.id, new Date().toISOString()],
-    );
     await pool.query(
       "INSERT INTO discovery_items(id,version) SELECT 'fed-synthetic-unselected-'||n,1 FROM generate_series(1,501)n",
     );

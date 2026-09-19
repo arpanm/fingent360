@@ -4,7 +4,7 @@
 - Case/project: E2E-WEB-1690 / desktop
 - Stories: DEV-029
 - First seen: 2026-09-16T22:26:46.819Z
-- Evidence: artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log
+- Evidence: artifacts/sdlc/1789752953639-97020/06-pnpm-e2e_run.log
 - Resolution run: Unresolved
 
 Failure excerpt (untrusted; local original has full details):
@@ -19,7 +19,9 @@ Failure excerpt (untrusted; local original has full details):
     Call log:
       - Expect "toContainText" with timeout 10000ms
       - waiting for getByRole('region', { name: 'Recurring WhatsApp summaries' })
-        14 × locator resolved to <section class="panel" aria-busy="false" aria-label="Recurring WhatsApp summaries">…</section>
+        - locator resolved to <section class="panel" aria-busy="true" aria-label="Recurring WhatsApp summaries">…</section>
+        - unexpected value "Your recurring public summariesOne daily or weekly digest, up to three separate public-summary messages. Missed runs over ten minutes are skipped; nothing catches up later. No private reports or portfolio data are included. At most three scheduled summaries in 24 hours, separate from single-summary requests.Updating schedule…Refresh recurring schedule"
+        13 × locator resolved to <section class="panel" aria-busy="false" aria-label="Recurring WhatsApp summaries">…</section>
            - unexpected value "Your recurring public summariesOne daily or weekly digest, up to three separate public-summary messages. Missed runs over ten minutes are skipped; nothing catches up later. No private reports or portfolio data are included. At most three scheduled summaries in 24 hours, separate from single-summary requests.Please sign in to continue.Refresh recurring schedule"
 
 

@@ -203,44 +203,53 @@ test('E2E-API-905 action CSV rejects missing identity and malformed date without
   }
 });
 
-test('E2E-API-906 official-layout synthetic Ind AS source retains exact period facts and source receipt @EQUITY-COVERAGE-001 @TEST-SIMULATION', async ({
-  request,
-}) => {
-  const { publishIndas } = await import('../../helpers/equity-coverage');
-  const { payload, edition } = await publishIndas(request);
-  expect(edition.observations).toHaveLength(4);
-  expect(edition.observations[1]).toMatchObject({
-    metric: 'profit-after-tax',
-    value: '-12.3400',
-    scale: 'lakhs',
-    basis: 'consolidated',
+test.describe('Named Ind AS original review', () => {
+  test.use({ namedOperators: true });
+  test('E2E-API-906 official-layout synthetic Ind AS source retains exact period facts and source receipt @EQUITY-COVERAGE-001 @TEST-SIMULATION', async ({
+    request,
+    playwright,
+    feedbackSandbox,
+  }) => {
+    const { publishIndas } = await import('../../helpers/equity-coverage');
+    const { payload, edition } = await publishIndas(
+      request,
+      playwright,
+      feedbackSandbox,
+    );
+    expect(edition.observations).toHaveLength(4);
+    expect(edition.observations[1]).toMatchObject({
+      metric: 'profit-after-tax',
+      value: '-12.3400',
+      scale: 'lakhs',
+      basis: 'consolidated',
+    });
+    const evidence = await request.get(
+      `/api/v1/ops/equities/${payload.requestId}/evidence`,
+    );
+    expect((await evidence.json()).body).toBe(payload.body);
+    const detail = EquityCompanySchema.parse(
+      await (await request.get('/api/v1/equities/INE002A01018')).json(),
+    );
+    expect(detail.records).toHaveLength(4);
+    for (const data of [
+      {
+        ...payload,
+        requestId: randomUUID(),
+        sourceUrl: 'https://example.com/statement.html',
+      },
+      {
+        ...payload,
+        requestId: randomUUID(),
+        body: payload.body.replace('INR', 'USD'),
+      },
+    ])
+      expect(
+        (
+          await request.post('/api/v1/ops/equities/import', {
+            headers: retentionHeaders,
+            data,
+          })
+        ).status(),
+      ).toBe(400);
   });
-  const evidence = await request.get(
-    `/api/v1/ops/equities/${payload.requestId}/evidence`,
-  );
-  expect((await evidence.json()).body).toBe(payload.body);
-  const detail = EquityCompanySchema.parse(
-    await (await request.get('/api/v1/equities/INE002A01018')).json(),
-  );
-  expect(detail.records).toHaveLength(4);
-  for (const data of [
-    {
-      ...payload,
-      requestId: randomUUID(),
-      sourceUrl: 'https://example.com/statement.html',
-    },
-    {
-      ...payload,
-      requestId: randomUUID(),
-      body: payload.body.replace('INR', 'USD'),
-    },
-  ])
-    expect(
-      (
-        await request.post('/api/v1/ops/equities/import', {
-          headers: retentionHeaders,
-          data,
-        })
-      ).status(),
-    ).toBe(400);
 });

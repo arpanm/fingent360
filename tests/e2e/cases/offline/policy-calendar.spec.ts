@@ -55,23 +55,28 @@ test('E2E-OFFLINE-1440 downloaded policy calendar cannot invent historical captu
     meetings: calendar.meetings,
     editions: [{ edition, retrievedAt: now }],
   });
-  expect(
-    (
-      await handlePolicyCalendar(
+  await expect(
+    Promise.resolve().then(() =>
+      handlePolicyCalendar(
         { ...request, query: new URLSearchParams({ edition: 'b'.repeat(64) }) },
         state,
         bundle,
-      )
-    )?.status,
-  ).toBe(404);
+      ),
+    ),
+  ).rejects.toMatchObject({ status: 404 });
   const corrupt = structuredClone(calendar);
   corrupt.meetings[0]!.statementUrl = 'https://untrusted.example';
-  expect(
-    (
-      await handlePolicyCalendar(request, state, {
+  await expect(
+    Promise.resolve().then(() =>
+      handlePolicyCalendar(request, state, {
         ...bundle,
         policyCalendar: corrupt,
-      })
-    )?.status,
-  ).toBe(503);
+      }),
+    ),
+  ).rejects.toMatchObject({ status: 503 });
+  await expect(
+    Promise.resolve().then(() =>
+      handlePolicyCalendar({ ...request, method: 'POST' }, state, bundle),
+    ),
+  ).rejects.toMatchObject({ status: 405 });
 });

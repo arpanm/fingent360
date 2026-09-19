@@ -65,4 +65,9 @@ test('E2E-OFFLINE-1550 RBI installed capture preserves day precision and rejects
       }),
     ),
   ).rejects.toMatchObject({ status: 503 });
+  await expect(
+    Promise.resolve().then(() =>
+      handleRbiCalendar({ ...request, method: 'POST' }, state, bundle),
+    ),
+  ).rejects.toMatchObject({ status: 405 });
 });

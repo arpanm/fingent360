@@ -106,6 +106,8 @@ async function fixture() {
     randomUUID,
   );
   event.graph.events[0]!.publicationState = 'published';
+  expect(event.graph.edges.length).toBeGreaterThan(0);
+  for (const edge of event.graph.edges) edge.reviewState = 'reviewed';
   const publicEvent = EventPublicSchema.parse({
     id,
     status: 'published',

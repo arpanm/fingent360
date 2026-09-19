@@ -38,6 +38,7 @@ test('E2E-API-1600 actual recipient verification encrypted queue idempotency and
   ).toBe(401);
   await whatsappAccount(request);
   const source = await whatsappSource(feedbackSandbox);
+  expect(source.sourceHash).toBeNull();
   await verifyWhatsapp(request);
   expect(
     (await (await request.get('/api/v1/account/whatsapp')).json()).connection,
@@ -432,6 +433,7 @@ test('E2E-API-1605 recipient history rechecks session after actual outbox storag
   await whatsappAccount(request);
   await verifyWhatsapp(request);
   const pool = await connectionDatabase(feedbackSandbox),
+    observer = await connectionDatabase(feedbackSandbox),
     blocker = await pool.connect();
   let pending: ReturnType<typeof request.get> | undefined;
   try {
@@ -445,7 +447,7 @@ test('E2E-API-1605 recipient history rechecks session after actual outbox storag
       .poll(async () =>
         Number(
           (
-            await pool.query(
+            await observer.query(
               'SELECT count(*)::int AS count FROM pg_stat_activity WHERE $1=ANY(pg_blocking_pids(pid))',
               [pid],
             )
@@ -453,7 +455,7 @@ test('E2E-API-1605 recipient history rechecks session after actual outbox storag
         ),
       )
       .toBeGreaterThan(0);
-    await pool.query(
+    await observer.query(
       "UPDATE app_sessions SET expires_at=clock_timestamp()-interval '1 second'",
     );
     await blocker.query('COMMIT');
@@ -464,6 +466,7 @@ test('E2E-API-1605 recipient history rechecks session after actual outbox storag
     await blocker.query('ROLLBACK');
     blocker.release();
     await pending?.catch(() => {});
+    await observer.end();
     await pool.end();
   }
 });

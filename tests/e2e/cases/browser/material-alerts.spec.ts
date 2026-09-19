@@ -178,7 +178,7 @@ test('E2E-WEB-661 lost real check response replays immutable receipt while faile
       page.getByRole('status', { name: 'Saved material receipt' }),
     ).toContainText('saved state version 2');
     await expect(region(page)).toContainText(
-      'Synthetic current material read outage.',
+      'Your account is temporarily unavailable. Please try again shortly.',
     );
     await expect(region(page)).toContainText(
       'Current material context is unavailable.',

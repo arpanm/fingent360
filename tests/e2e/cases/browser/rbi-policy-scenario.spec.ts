@@ -27,7 +27,7 @@ test('E2E-WEB-1380 reviewed historical RBI repo extraction feeds real save publi
     exact: true,
   });
   await region
-    .getByLabel('Reviewed source event', { exact: true })
+    .getByRole('combobox', { name: 'Reviewed source event', exact: true })
     .selectOption(event.id);
   await region
     .getByRole('button', { name: 'Extract RBI repo decision', exact: true })

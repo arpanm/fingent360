@@ -53,7 +53,30 @@ const series = z.strictObject({
   seriesname: z.string(),
   color: z.string(),
   data: z
-    .array(z.strictObject({ value: z.string(), tooltext: z.string() }))
+    .array(
+      z.strictObject({
+        value: z.string(),
+        tooltext: z.string(),
+        // Original actual-value series include chart marker styling. These
+        // fields never determine the selected model value or vintage.
+        anchorradius: z
+          .string()
+          .regex(/^\d{1,2}$/)
+          .optional(),
+        anchorbgcolor: z
+          .string()
+          .regex(/^[a-fA-F0-9]{6}$/)
+          .optional(),
+        anchorbordercolor: z
+          .string()
+          .regex(/^[a-fA-F0-9]{6}$/)
+          .optional(),
+        anchorborderthickness: z
+          .string()
+          .regex(/^\d{1,2}$/)
+          .optional(),
+      }),
+    )
     .max(100),
 });
 const entry = z.strictObject({

@@ -1,110 +1,110 @@
 # Story validation
 
-Latest SDLC invocation: 1789752487631-95916. Only actual test receipts count.
+Latest SDLC invocation: 1789752953639-97020. Only actual test receipts count.
 
 Automated acceptance is separate from implementation, live-source permission and physical-device acceptance.
 
-- [ACCOUNT-001](../tasks/ACCOUNT-001.md): **Stale — rerun required**.
-- [ACTION-CENTRE-001](../tasks/ACTION-CENTRE-001.md): **Stale — rerun required**.
-- [ALERT-001](../tasks/ALERT-001.md): **Stale — rerun required**.
-- [ALERT-002](../tasks/ALERT-002.md): **Stale — rerun required**.
-- [ALLOCATIONS-001](../tasks/ALLOCATIONS-001.md): **Stale — rerun required**.
-- [ANDROID-001](../tasks/ANDROID-001.md): **Stale — rerun required**.
-- [ASSIST-001](../tasks/ASSIST-001.md): **Stale — rerun required**.
-- [AUTH-WAIT-001](../tasks/AUTH-WAIT-001.md): **Stale — rerun required**.
-- [BEA-001](../tasks/BEA-001.md): **Failed — unresolved bug**.
-- [BEA-QUARANTINE-001](../tasks/BEA-QUARANTINE-001.md): **Stale — rerun required**.
-- [BROKER-DIALECTS-001](../tasks/BROKER-DIALECTS-001.md): **Stale — rerun required**.
-- [BROKER-PARSERS-002](../tasks/BROKER-PARSERS-002.md): **Stale — rerun required**.
-- [BUG-002](../tasks/BUG-002.md): **Stale — rerun required**.
-- [CONNECTION-REVIEWS-001](../tasks/CONNECTION-REVIEWS-001.md): **Stale — rerun required**.
-- [CONSENT-LIFECYCLE-001](../tasks/CONSENT-LIFECYCLE-001.md): **Stale — rerun required**.
-- [DATA-001](../tasks/DATA-001.md): **Stale — rerun required**.
-- [DB-LEAST-PRIVILEGE-001](../tasks/DB-LEAST-PRIVILEGE-001.md): **Stale — rerun required**.
+- [ACCOUNT-001](../tasks/ACCOUNT-001.md): **Passed — automated acceptance**.
+- [ACTION-CENTRE-001](../tasks/ACTION-CENTRE-001.md): **Passed — automated acceptance**.
+- [ALERT-001](../tasks/ALERT-001.md): **Selected cases passed — acceptance matrix needed**.
+- [ALERT-002](../tasks/ALERT-002.md): **Selected cases passed — acceptance matrix needed**.
+- [ALLOCATIONS-001](../tasks/ALLOCATIONS-001.md): **Selected cases passed — acceptance matrix needed**.
+- [ANDROID-001](../tasks/ANDROID-001.md): **Selected cases passed — acceptance matrix needed**.
+- [ASSIST-001](../tasks/ASSIST-001.md): **Selected cases passed — acceptance matrix needed**.
+- [AUTH-WAIT-001](../tasks/AUTH-WAIT-001.md): **Selected cases passed — acceptance matrix needed**.
+- [BEA-001](../tasks/BEA-001.md): **Selected cases passed — acceptance matrix needed**.
+- [BEA-QUARANTINE-001](../tasks/BEA-QUARANTINE-001.md): **Selected cases passed — acceptance matrix needed**.
+- [BROKER-DIALECTS-001](../tasks/BROKER-DIALECTS-001.md): **Failed — unresolved bug**.
+- [BROKER-PARSERS-002](../tasks/BROKER-PARSERS-002.md): **Selected cases passed — acceptance matrix needed**.
+- [BUG-002](../tasks/BUG-002.md): **Selected cases passed — acceptance matrix needed**.
+- [CONNECTION-REVIEWS-001](../tasks/CONNECTION-REVIEWS-001.md): **Selected cases passed — acceptance matrix needed**.
+- [CONSENT-LIFECYCLE-001](../tasks/CONSENT-LIFECYCLE-001.md): **Selected cases passed — acceptance matrix needed**.
+- [DATA-001](../tasks/DATA-001.md): **Selected cases passed — acceptance matrix needed**.
+- [DB-LEAST-PRIVILEGE-001](../tasks/DB-LEAST-PRIVILEGE-001.md): **Selected cases passed — acceptance matrix needed**.
 - [DEV-006](../tasks/DEV-006.md): **Passed — automated acceptance**.
 - [DEV-010](../tasks/DEV-010.md): **Failed — unresolved bug**.
-- [DEV-015](../tasks/DEV-015.md): **Failed — unresolved bug**.
+- [DEV-015](../tasks/DEV-015.md): **Selected cases passed — acceptance matrix needed**.
 - [DEV-016](../tasks/DEV-016.md): **Failed — unresolved bug**.
 - [DEV-017](../tasks/DEV-017.md): **Failed — unresolved bug**.
 - [DEV-018](../tasks/DEV-018.md): **Failed — unresolved bug**.
-- [DEV-021](../tasks/DEV-021.md): **Stale — rerun required**.
+- [DEV-021](../tasks/DEV-021.md): **Selected cases passed — acceptance matrix needed**.
 - [DEV-022](../tasks/DEV-022.md): **Failed — unresolved bug**.
 - [DEV-028](../tasks/DEV-028.md): **Failed — unresolved bug**.
 - [DEV-029](../tasks/DEV-029.md): **Failed — unresolved bug**.
-- [ECB-FX-001](../tasks/ECB-FX-001.md): **Stale — rerun required**.
-- [ECB-RATES-001](../tasks/ECB-RATES-001.md): **Stale — rerun required**.
-- [EIA-BENCHMARKS-001](../tasks/EIA-BENCHMARKS-001.md): **Stale — rerun required**.
+- [ECB-FX-001](../tasks/ECB-FX-001.md): **Failed — unresolved bug**.
+- [ECB-RATES-001](../tasks/ECB-RATES-001.md): **Failed — unresolved bug**.
+- [EIA-BENCHMARKS-001](../tasks/EIA-BENCHMARKS-001.md): **Failed — unresolved bug**.
 - [EQUITY-COVERAGE-001](../tasks/EQUITY-COVERAGE-001.md): **Failed — unresolved bug**.
-- [EVAL-LINEAGE-001](../tasks/EVAL-LINEAGE-001.md): **Stale — rerun required**.
-- [EVENT-EXTRACTION-001](../tasks/EVENT-EXTRACTION-001.md): **Stale — rerun required**.
-- [EVENT-LINEAGE-001](../tasks/EVENT-LINEAGE-001.md): **Stale — rerun required**.
-- [EVENT-REVIEW-001](../tasks/EVENT-REVIEW-001.md): **Stale — rerun required**.
+- [EVAL-LINEAGE-001](../tasks/EVAL-LINEAGE-001.md): **Selected cases passed — acceptance matrix needed**.
+- [EVENT-EXTRACTION-001](../tasks/EVENT-EXTRACTION-001.md): **Selected cases passed — acceptance matrix needed**.
+- [EVENT-LINEAGE-001](../tasks/EVENT-LINEAGE-001.md): **Selected cases passed — acceptance matrix needed**.
+- [EVENT-REVIEW-001](../tasks/EVENT-REVIEW-001.md): **Selected cases passed — acceptance matrix needed**.
 - [EVENT-SCENARIOS-001](../tasks/EVENT-SCENARIOS-001.md): **Failed — unresolved bug**.
-- [EVIDENCE-LAYERS-001](../tasks/EVIDENCE-LAYERS-001.md): **Stale — rerun required**.
+- [EVIDENCE-LAYERS-001](../tasks/EVIDENCE-LAYERS-001.md): **Selected cases passed — acceptance matrix needed**.
 - [EVIDENCE-LINKS-001](../tasks/EVIDENCE-LINKS-001.md): **Failed — unresolved bug**.
-- [FEEDBACK-001](../tasks/FEEDBACK-001.md): **Stale — rerun required**.
-- [FEEDBACK-TEST-001](../tasks/FEEDBACK-TEST-001.md): **Stale — rerun required**.
+- [FEEDBACK-001](../tasks/FEEDBACK-001.md): **Selected cases passed — acceptance matrix needed**.
+- [FEEDBACK-TEST-001](../tasks/FEEDBACK-TEST-001.md): **Selected cases passed — acceptance matrix needed**.
 - [FUNDS-BONDS-001](../tasks/FUNDS-BONDS-001.md): **Failed — unresolved bug**.
-- [GOAL-FEASIBILITY-001](../tasks/GOAL-FEASIBILITY-001.md): **Stale — rerun required**.
-- [GOAL-SCENARIOS-001](../tasks/GOAL-SCENARIOS-001.md): **Stale — rerun required**.
-- [GOALS-001](../tasks/GOALS-001.md): **Stale — rerun required**.
-- [HOLDINGS-RECONCILE-001](../tasks/HOLDINGS-RECONCILE-001.md): **Stale — rerun required**.
-- [IDENTITY-001](../tasks/IDENTITY-001.md): **Stale — rerun required**.
-- [IDENTITY-ADJUDICATION-001](../tasks/IDENTITY-ADJUDICATION-001.md): **Stale — rerun required**.
-- [IMPACT-TRACE-001](../tasks/IMPACT-TRACE-001.md): **Partial — required cases not run**.
-- [INDIA-EQUITY-001](../tasks/INDIA-EQUITY-001.md): **Stale — rerun required**.
-- [LEGACY-FIXTURE-ISOLATION-001](../tasks/LEGACY-FIXTURE-ISOLATION-001.md): **Stale — rerun required**.
-- [MAPPED-IMPORT-001](../tasks/MAPPED-IMPORT-001.md): **Stale — rerun required**.
+- [GOAL-FEASIBILITY-001](../tasks/GOAL-FEASIBILITY-001.md): **Failed — unresolved bug**.
+- [GOAL-SCENARIOS-001](../tasks/GOAL-SCENARIOS-001.md): **Selected cases passed — acceptance matrix needed**.
+- [GOALS-001](../tasks/GOALS-001.md): **Passed — automated acceptance**.
+- [HOLDINGS-RECONCILE-001](../tasks/HOLDINGS-RECONCILE-001.md): **Selected cases passed — acceptance matrix needed**.
+- [IDENTITY-001](../tasks/IDENTITY-001.md): **Selected cases passed — acceptance matrix needed**.
+- [IDENTITY-ADJUDICATION-001](../tasks/IDENTITY-ADJUDICATION-001.md): **Selected cases passed — acceptance matrix needed**.
+- [IMPACT-TRACE-001](../tasks/IMPACT-TRACE-001.md): **Passed — automated acceptance**.
+- [INDIA-EQUITY-001](../tasks/INDIA-EQUITY-001.md): **Selected cases passed — acceptance matrix needed**.
+- [LEGACY-FIXTURE-ISOLATION-001](../tasks/LEGACY-FIXTURE-ISOLATION-001.md): **Selected cases passed — acceptance matrix needed**.
+- [MAPPED-IMPORT-001](../tasks/MAPPED-IMPORT-001.md): **Failed — unresolved bug**.
 - [MATERIAL-ALERTS-001](../tasks/MATERIAL-ALERTS-001.md): **Failed — unresolved bug**.
-- [MATERIAL-AUTO-001](../tasks/MATERIAL-AUTO-001.md): **Stale — rerun required**.
-- [NAMED-OPERATORS-001](../tasks/NAMED-OPERATORS-001.md): **Stale — rerun required**.
-- [OPS-AUDIT-001](../tasks/OPS-AUDIT-001.md): **Failed — unresolved bug**.
-- [OPS-READ-ADMISSION-001](../tasks/OPS-READ-ADMISSION-001.md): **Stale — rerun required**.
-- [PORTFOLIO-001](../tasks/PORTFOLIO-001.md): **Failed — unresolved bug**.
+- [MATERIAL-AUTO-001](../tasks/MATERIAL-AUTO-001.md): **Selected cases passed — acceptance matrix needed**.
+- [NAMED-OPERATORS-001](../tasks/NAMED-OPERATORS-001.md): **Selected cases passed — acceptance matrix needed**.
+- [OPS-AUDIT-001](../tasks/OPS-AUDIT-001.md): **Selected cases passed — acceptance matrix needed**.
+- [OPS-READ-ADMISSION-001](../tasks/OPS-READ-ADMISSION-001.md): **Selected cases passed — acceptance matrix needed**.
+- [PORTFOLIO-001](../tasks/PORTFOLIO-001.md): **Selected cases passed — acceptance matrix needed**.
 - [PRIVACY-001](../tasks/PRIVACY-001.md): **Failed — unresolved bug**.
-- [PUBLISHING-QUEUE-001](../tasks/PUBLISHING-QUEUE-001.md): **Failed — unresolved bug**.
-- [PWA-001](../tasks/PWA-001.md): **Stale — rerun required**.
-- [QUALITY-OVERVIEW-001](../tasks/QUALITY-OVERVIEW-001.md): **Stale — rerun required**.
-- [READER-DIAGNOSTICS-001](../tasks/READER-DIAGNOSTICS-001.md): **Stale — rerun required**.
-- [READING-FOLLOW-001](../tasks/READING-FOLLOW-001.md): **Stale — rerun required**.
-- [RECOVERY-001](../tasks/RECOVERY-001.md): **Stale — rerun required**.
-- [REGRESSION-011](../tasks/REGRESSION-011.md): **Stale — rerun required**.
-- [REPORT-COMPARE-001](../tasks/REPORT-COMPARE-001.md): **Failed — unresolved bug**.
-- [REPORT-SCHEDULES-001](../tasks/REPORT-SCHEDULES-001.md): **Failed — unresolved bug**.
-- [REPORTS-001](../tasks/REPORTS-001.md): **Stale — rerun required**.
-- [REPORTS-002](../tasks/REPORTS-002.md): **Failed — unresolved bug**.
-- [REPORTS-003](../tasks/REPORTS-003.md): **Failed — unresolved bug**.
+- [PUBLISHING-QUEUE-001](../tasks/PUBLISHING-QUEUE-001.md): **Selected cases passed — acceptance matrix needed**.
+- [PWA-001](../tasks/PWA-001.md): **Selected cases passed — acceptance matrix needed**.
+- [QUALITY-OVERVIEW-001](../tasks/QUALITY-OVERVIEW-001.md): **Selected cases passed — acceptance matrix needed**.
+- [READER-DIAGNOSTICS-001](../tasks/READER-DIAGNOSTICS-001.md): **Selected cases passed — acceptance matrix needed**.
+- [READING-FOLLOW-001](../tasks/READING-FOLLOW-001.md): **Selected cases passed — acceptance matrix needed**.
+- [RECOVERY-001](../tasks/RECOVERY-001.md): **Selected cases passed — acceptance matrix needed**.
+- [REGRESSION-011](../tasks/REGRESSION-011.md): **Selected cases passed — acceptance matrix needed**.
+- [REPORT-COMPARE-001](../tasks/REPORT-COMPARE-001.md): **Selected cases passed — acceptance matrix needed**.
+- [REPORT-SCHEDULES-001](../tasks/REPORT-SCHEDULES-001.md): **Selected cases passed — acceptance matrix needed**.
+- [REPORTS-001](../tasks/REPORTS-001.md): **Passed — automated acceptance**.
+- [REPORTS-002](../tasks/REPORTS-002.md): **Selected cases passed — acceptance matrix needed**.
+- [REPORTS-003](../tasks/REPORTS-003.md): **Selected cases passed — acceptance matrix needed**.
 - [RESEARCH-AUTO-002](../tasks/RESEARCH-AUTO-002.md): **Failed — unresolved bug**.
 - [RETENTION-001](../tasks/RETENTION-001.md): **Failed — unresolved bug**.
-- [SDLC-001](../tasks/SDLC-001.md): **Stale — rerun required**.
-- [SETUP-001](../tasks/SETUP-001.md): **Stale — rerun required**.
-- [SLICE-001](../tasks/SLICE-001.md): **Failed — unresolved bug**.
-- [SOURCE-REVIEW-DIFF-001](../tasks/SOURCE-REVIEW-DIFF-001.md): **Stale — rerun required**.
+- [SDLC-001](../tasks/SDLC-001.md): **Incomplete — skipped or failed cases**.
+- [SETUP-001](../tasks/SETUP-001.md): **Incomplete — skipped or failed cases**.
+- [SLICE-001](../tasks/SLICE-001.md): **Selected cases passed — acceptance matrix needed**.
+- [SOURCE-REVIEW-DIFF-001](../tasks/SOURCE-REVIEW-DIFF-001.md): **Selected cases passed — acceptance matrix needed**.
 - [SOURCE-WITHDRAWAL-001](../tasks/SOURCE-WITHDRAWAL-001.md): **Failed — unresolved bug**.
-- [SOURCES-001](../tasks/SOURCES-001.md): **Stale — rerun required**.
-- [SOURCES-002](../tasks/SOURCES-002.md): **Stale — rerun required**.
-- [SRC-001](../tasks/SRC-001.md): **Stale — rerun required**.
-- [SRC-002](../tasks/SRC-002.md): **Stale — rerun required**.
-- [SRC-003](../tasks/SRC-003.md): **Failed — unresolved bug**.
+- [SOURCES-001](../tasks/SOURCES-001.md): **Selected cases passed — acceptance matrix needed**.
+- [SOURCES-002](../tasks/SOURCES-002.md): **Selected cases passed — acceptance matrix needed**.
+- [SRC-001](../tasks/SRC-001.md): **Selected cases passed — acceptance matrix needed**.
+- [SRC-002](../tasks/SRC-002.md): **Selected cases passed — acceptance matrix needed**.
+- [SRC-003](../tasks/SRC-003.md): **Selected cases passed — acceptance matrix needed**.
 - [SRC-004](../tasks/SRC-004.md): **Failed — unresolved bug**.
-- [SRC-005](../tasks/SRC-005.md): **Failed — unresolved bug**.
+- [SRC-005](../tasks/SRC-005.md): **Selected cases passed — acceptance matrix needed**.
 - [SRC-006](../tasks/SRC-006.md): **Failed — unresolved bug**.
 - [SRC-007](../tasks/SRC-007.md): **Failed — unresolved bug**.
-- [SRC-008](../tasks/SRC-008.md): **Stale — rerun required**.
+- [SRC-008](../tasks/SRC-008.md): **Selected cases passed — acceptance matrix needed**.
 - [SRC-009](../tasks/SRC-009.md): **Failed — unresolved bug**.
 - [SRC-010](../tasks/SRC-010.md): **Failed — unresolved bug**.
-- [SRC-011](../tasks/SRC-011.md): **Failed — unresolved bug**.
-- [SRC-012](../tasks/SRC-012.md): **Stale — rerun required**.
+- [SRC-011](../tasks/SRC-011.md): **Selected cases passed — acceptance matrix needed**.
+- [SRC-012](../tasks/SRC-012.md): **Selected cases passed — acceptance matrix needed**.
 - [SRC-014](../tasks/SRC-014.md): **Failed — unresolved bug**.
 - [SRC-015](../tasks/SRC-015.md): **Failed — unresolved bug**.
-- [SRC-016](../tasks/SRC-016.md): **Failed — unresolved bug**.
+- [SRC-016](../tasks/SRC-016.md): **Selected cases passed — acceptance matrix needed**.
 - [SRC-017](../tasks/SRC-017.md): **Failed — unresolved bug**.
 - [SRC-018](../tasks/SRC-018.md): **Failed — unresolved bug**.
-- [STORY-MEDIA-002](../tasks/STORY-MEDIA-002.md): **Stale — rerun required**.
-- [UI-RACES-001](../tasks/UI-RACES-001.md): **Stale — rerun required**.
-- [UX-001](../tasks/UX-001.md): **Failed — unresolved bug**.
-- [UX-002](../tasks/UX-002.md): **Failed — unresolved bug**.
-- [UX-002D](../tasks/UX-002D.md): **Failed — unresolved bug**.
+- [STORY-MEDIA-002](../tasks/STORY-MEDIA-002.md): **Selected cases passed — acceptance matrix needed**.
+- [UI-RACES-001](../tasks/UI-RACES-001.md): **Selected cases passed — acceptance matrix needed**.
+- [UX-001](../tasks/UX-001.md): **Selected cases passed — acceptance matrix needed**.
+- [UX-002](../tasks/UX-002.md): **Selected cases passed — acceptance matrix needed**.
+- [UX-002D](../tasks/UX-002D.md): **Selected cases passed — acceptance matrix needed**.
 - [UX-002G](../tasks/UX-002G.md): **Failed — unresolved bug**.
 - [WORKER-HEALTH-001](../tasks/WORKER-HEALTH-001.md): **Failed — unresolved bug**.
-- [XLSX-001](../tasks/XLSX-001.md): **Failed — unresolved bug**.
+- [XLSX-001](../tasks/XLSX-001.md): **Passed — automated acceptance**.

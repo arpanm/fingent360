@@ -24,7 +24,9 @@ test('E2E-OFFLINE-680 actual packaged rate snapshot or honest unavailable state 
       network.push(new URL(request.url()).pathname);
   });
   await page.goto('/#policy-rates');
-  await expect(page.getByText('On-device mode', { exact: true })).toBeVisible();
+  await expect(
+    page.getByRole('complementary', { name: 'On-device mode', exact: true }),
+  ).toBeVisible();
   const current = EcbRatePublicSchema.parse(
     await page.evaluate(async () =>
       (await fetch('/api/v1/policy-rates')).json(),

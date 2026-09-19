@@ -73,7 +73,9 @@ test('E2E-API-1960 genuine ICRA original requires independent review and preserv
       maturityOn: '2035-02-12',
       agencyStatus: 'rated-in-original',
     });
-    const raw = await (await request.get(ops + '/evidence')).json();
+    const originalResponse = await request.get(ops + '/evidence');
+    expect(originalResponse.status()).toBe(200);
+    const raw = await originalResponse.json();
     expect(raw.body).toBe(input.body);
     expect(
       (

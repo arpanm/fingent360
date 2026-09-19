@@ -1052,3 +1052,11 @@ SDLC-REPAIR-013 extends E2E-WEB-1290 (desktop/mobile, @DEV-015) with initial and
 ## Functional closure repairs — 2026-09-17
 
 [Reviewed matrices and manual commands](../../../docs/development/core-journey-acceptance.md) cover DEV006 briefs, IMPACT-TRACE receipts/diagnostics, ACTION-CENTRE comparisons and REPORTS immutable records. WEB961 adds trace recovery/fresh consent; WEB1331 adds consent invalidation. DEV011/report API227 proves an actual schedule-storage fault cannot prevent a captured report issuing, preserving snapshot/idempotency and recovery. WEB1520 checks failed current admission removes old cards. WEB444 and WEB1255 retain real persisted subscription/share navigation with explicitly simulated capability/transport failure only. These are authored acceptance scenarios, not current passing results or permission to activate source ingestion.
+
+## Saved inventory repair coverage — 2026-09-19
+
+SDLC-REPAIR-016 is a bounded failure-repair selection, not a replacement for functional acceptance. It covers the119 failed case/project pairs from run1789752953639-97020 and companion report-storage classification API360. Original source, permissions, privacy, reconciliation, offline and navigation checks remain; strict provider marker rejection, retained failed snapshot/lease assertions and404/503/405 offline distinctions are strengthened. [Root causes and manual command](../../../docs/development/full-audit-2026-09-19.md). Authored only; generated failures stay open until an actual passing retry.
+
+## Portfolio and saved-reading closure — 2026-09-19
+
+Reviewed case/project matrices now cover the bounded portfolio, replacement-review and saved-reading modules. E2E-OFFLINE-090 fills the previously direct-handler-only gap for guided manual portfolio UI in the installed web package; existing ownership, encryption, consent, exact totals, stale-preview, removal, history/export and deletion cases are retained. Existing library API/browser/offline and gesture/consent cases supply the saved-reading matrix. Physical native certification remains separate. [Scope and commands](../../../docs/development/main-module-closure-2026-09-19.md). No new pass is claimed.

@@ -3,7 +3,7 @@ import {
   WhatsappOccurrenceSchema,
 } from './whatsapp-schedule.js';
 import { z } from 'zod';
-import { DiscoveryIdSchema } from './discovery.js';
+import { DiscoveryIdSchema, FeedItemSchema } from './discovery.js';
 export const WhatsappStartSchema = z.strictObject({
   requestId: z.uuid(),
   phone: z.string().regex(/^[1-9]\d{7,14}$/),
@@ -53,7 +53,7 @@ export const WhatsappJobPayloadSchema = z.strictObject({
   title: z.string().max(200),
   summary: z.string().max(800),
   url: z.string().url(),
-  sourceHash: z.string(),
+  sourceHash: FeedItemSchema.shape.sourceHash,
   sourceVersion: z.number().int().positive(),
 });
 /** Strict status advancement: an out-of-order sent notification cannot undo delivery/read. */

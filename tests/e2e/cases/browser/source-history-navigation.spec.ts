@@ -126,7 +126,7 @@ test('E2E-WEB-1831 selected commodity edition retry and browser Back retain exac
       .getByText('Source and retained edition evidence', { exact: true })
       .click();
     await reader
-      .getByLabel('Retained reviewed edition', { exact: true })
+      .getByRole('combobox', { name: 'Retained reviewed edition', exact: true })
       .selectOption(ids[0]!);
     await expect(reader.getByRole('alert')).toBeFocused();
     await expect(page).toHaveURL(new RegExp('edition=' + ids[0]));
@@ -146,11 +146,14 @@ test('E2E-WEB-1831 selected commodity edition retry and browser Back retain exac
       .getByText('Source and retained edition evidence', { exact: true })
       .click();
     await expect(
-      reader.getByLabel('Retained reviewed edition', { exact: true }),
+      reader.getByRole('combobox', {
+        name: 'Retained reviewed edition',
+        exact: true,
+      }),
     ).toHaveValue(ids[0]!);
     expect(requested.filter((id) => id === ids[0])).toHaveLength(2);
     await reader
-      .getByLabel('Retained reviewed edition', { exact: true })
+      .getByRole('combobox', { name: 'Retained reviewed edition', exact: true })
       .selectOption(ids[1]!);
     await expect(
       reader.getByRole('heading', {
@@ -164,7 +167,10 @@ test('E2E-WEB-1831 selected commodity edition retry and browser Back retain exac
       .getByText('Source and retained edition evidence', { exact: true })
       .click();
     await expect(
-      reader.getByLabel('Retained reviewed edition', { exact: true }),
+      reader.getByRole('combobox', {
+        name: 'Retained reviewed edition',
+        exact: true,
+      }),
     ).toHaveValue(ids[0]!);
     expect(
       await page.evaluate(

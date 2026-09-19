@@ -127,7 +127,7 @@ test('E2E-API-250 fixed expiry cleanup preserves current data receipts issued re
     expect(
       (
         await pool.query<{ scrubbed: boolean }>(
-          'SELECT deleted_at IS NOT NULL AND text IS NULL AND context IS NULL AND image_meta IS NULL AND image_bytes IS NULL AND audio_meta IS NULL AND audio_bytes IS NULL AS scrubbed FROM feedback_reports WHERE id=$1',
+          'SELECT deleted_at IS NOT NULL AND text IS NULL AND context IS NULL AND image_meta IS NULL AND image_bytes IS NULL AND audio_meta IS NULL AND audio_bytes IS NULL AND encrypted_payload IS NULL AS scrubbed FROM feedback_reports WHERE id=$1',
           [fixture.expiredFeedback.id],
         )
       ).rows[0]?.scrubbed,
@@ -647,7 +647,7 @@ test('E2E-API-256 concurrent normal feedback expiry keeps tombstones and reports
     expect(
       (
         await pool.query(
-          'SELECT 1 FROM feedback_reports WHERE id=$1 AND deleted_at IS NOT NULL AND text IS NULL AND image_bytes IS NULL AND audio_bytes IS NULL',
+          'SELECT 1 FROM feedback_reports WHERE id=$1 AND deleted_at IS NOT NULL AND text IS NULL AND image_bytes IS NULL AND audio_bytes IS NULL AND encrypted_payload IS NULL',
           [fixture.expiredFeedback.id],
         )
       ).rows,
@@ -699,7 +699,9 @@ test('E2E-API-257 every allowlisted category caps truthful counts including the 
       ],
     );
     await pool.query(
-      'INSERT INTO feedback_reports(id,token_hash,payload_hash,expires_at,text,image_meta,image_bytes,audio_meta,audio_bytes) SELECT gen_random_uuid(),token_hash,payload_hash,expires_at,text,image_meta,image_bytes,audio_meta,audio_bytes FROM feedback_reports CROSS JOIN generate_series(1,20) WHERE id=$1',
+      // Explicit legacy synthetic copies exercise cleanup without copying an
+      // encrypted envelope to an ID outside its authenticated binding.
+      "INSERT INTO feedback_reports(id,token_hash,payload_hash,expires_at,text) SELECT gen_random_uuid(),token_hash,payload_hash,expires_at,'Synthetic legacy cap fixture' FROM feedback_reports CROSS JOIN generate_series(1,20) WHERE id=$1",
       [fixture.expiredFeedback.id],
     );
     const preview = await retentionPreview(request);

@@ -30,7 +30,13 @@ test('E2E-WEB-1256 support encryption maintenance requires confirmation and repo
   });
   await expect(submit).toBeDisabled();
   await maintenance.getByRole('checkbox').check();
+  const completed = page.waitForResponse(
+    (response) =>
+      new URL(response.url()).pathname === '/api/v1/ops/feedback/encryption' &&
+      response.request().method() === 'POST',
+  );
   await submit.click();
+  expect((await completed).status()).toBe(201);
   await expect(maintenance).toContainText('0 reports upgraded. 0 remain.');
   await expect(submit).toBeDisabled();
 });

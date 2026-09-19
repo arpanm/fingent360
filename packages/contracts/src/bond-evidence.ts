@@ -37,6 +37,21 @@ export const BondEvidencePolicySchema = z
   .superRefine((value, context) => {
     const { credit } = value;
     if (credit.status !== 'historical-original-attached') return;
+    const elapsed =
+      (Date.parse(value.assessmentOn) - Date.parse(credit.publishedOn)) /
+      86400000;
+    if (
+      elapsed < 0 ||
+      elapsed > credit.admissionWindowDays ||
+      value.assessmentOn >= credit.observation.maturityOn ||
+      credit.observation.agencyStatus !== 'rated-in-original'
+    )
+      context.addIssue({
+        code: 'custom',
+        path: ['assessmentOn'],
+        message:
+          'Saved credit assessment must retain its original admission window.',
+      });
     const canonical = CORPORATE_RATINGS.find(
       (observation) => observation.isin === credit.observation.isin,
     );

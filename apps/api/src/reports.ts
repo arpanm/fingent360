@@ -474,14 +474,25 @@ export class ReportsStore {
     const claim = await this.claim();
     if (!claim) return false;
     try {
-      await this.account.transaction((c) =>
-        decryptReportJob(
-          c,
-          claim.userId,
-          claim.rawJob,
-          this.account.privateDataKeys,
-        ),
-      );
+      await this.account.transaction(async (c) => {
+        try {
+          await decryptReportJob(
+            c,
+            claim.userId,
+            claim.rawJob,
+            this.account.privateDataKeys,
+          );
+        } catch (error) {
+          // Preserve preparation failures across the account transaction's
+          // storage-error boundary. Encryption and database failures remain 503.
+          if (error instanceof z.ZodError)
+            throw new BadRequestException(
+              'Saved report snapshot could not be prepared.',
+              { cause: error },
+            );
+          throw error;
+        }
+      });
       await this.finish(
         claim.id,
         claim.lease,

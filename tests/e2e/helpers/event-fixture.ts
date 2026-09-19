@@ -9,12 +9,15 @@ export const eventHeaders = {
 };
 export const test = base.extend({
   context: async ({ context, feedbackSandbox }, use) => {
-    await context.route(/\/api\/v1\/events(?:[/?]|$)/, (route) => {
-      const url = new URL(route.request().url());
-      return route.continue({
-        url: feedbackSandbox.apiOrigin + url.pathname + url.search,
-      });
-    });
+    await context.route(
+      /\/api\/v1\/(?:events|event-scenarios)(?:[/?]|$)/,
+      (route) => {
+        const url = new URL(route.request().url());
+        return route.continue({
+          url: feedbackSandbox.apiOrigin + url.pathname + url.search,
+        });
+      },
+    );
     await use(context);
   },
 });

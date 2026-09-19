@@ -536,6 +536,7 @@ test('E2E-API-378 delayed assistance selection rechecks actual publication befor
     ),
   ]);
   const account = new AccountStore({
+    ...feedbackSandbox.privateDataKeys,
     DATABASE_URL: feedbackSandbox.databaseUrl,
     WEB_ORIGIN: headers.Origin,
   });

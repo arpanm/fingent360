@@ -62,7 +62,10 @@ export async function postWhatsappWebhook(
     data: signed.body,
   });
 }
-export async function whatsappSource(sandbox: FeedbackSandbox) {
+export async function whatsappSource(
+  sandbox: FeedbackSandbox,
+  publishedAt?: string,
+) {
   const bundle = JSON.parse(
     await readFile(
       new URL(
@@ -82,6 +85,8 @@ export async function whatsappSource(sandbox: FeedbackSandbox) {
         v.title.length <= 200,
     );
   if (!item) throw Error('Authored public glossary fixture missing.');
+  // Synthetic clock selection is part of the first retained fixture edition.
+  if (publishedAt) item.publishedAt = publishedAt;
   const pool = await connectionDatabase(sandbox);
   try {
     await pool.query('INSERT INTO discovery_items(id,version) VALUES($1,$2)', [

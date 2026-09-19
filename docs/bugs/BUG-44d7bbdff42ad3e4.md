@@ -1,11 +1,11 @@
 # BUG-44d7bbdff42ad3e4
 
-- Status: Open
+- Status: Resolved
 - Case/project: E2E-WEB-665 / mobile
 - Stories: MATERIAL-ALERTS-001
 - First seen: 2026-09-18T05:00:49.248Z
 - Evidence: artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log
-- Resolution run: Unresolved
+- Resolution run: 1789752953639-97020
 
 Failure excerpt (untrusted; local original has full details):
 

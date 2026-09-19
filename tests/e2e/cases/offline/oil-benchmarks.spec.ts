@@ -24,7 +24,9 @@ test('E2E-OFFLINE-740 actual packaged rate snapshot or honest unavailable state 
       network.push(new URL(request.url()).pathname);
   });
   await page.goto('/#oil-benchmarks');
-  await expect(page.getByText('On-device mode', { exact: true })).toBeVisible();
+  await expect(
+    page.getByRole('complementary', { name: 'On-device mode', exact: true }),
+  ).toBeVisible();
   const current = OilBenchmarkPublicSchema.parse(
     await page.evaluate(async () =>
       (await fetch('/api/v1/oil-benchmarks')).json(),

@@ -7,19 +7,26 @@ test.use({ whatsappSimulation: true });
 test('E2E-WEB-1690 actual recurring consent schedule save pause resume and delete @DEV-029 @TEST-SIMULATION', async ({
   page,
   request,
-  feedbackSandbox,
+  baseURL,
 }) => {
   await whatsappAccount(request);
   await verifyWhatsapp(request);
-  const state = await request.storageState(),
-    cookie = state.cookies.map((v) => `${v.name}=${v.value}`).join(';');
-  await page.route('**/api/v1/account/**', (route) => {
-    const url = new URL(route.request().url());
-    return route.continue({
-      url: feedbackSandbox.apiOrigin + url.pathname + url.search,
-      headers: { ...route.request().headers(), cookie },
-    });
-  });
+  const state = await request.storageState();
+  const session = state.cookies.find(
+    (cookie) => cookie.name === 'f360_session',
+  );
+  if (!session)
+    throw Error('Verified WhatsApp fixture requires an account session.');
+  const origin = new URL(baseURL!);
+  // Cookie headers in route.continue cannot authenticate a browser. Install the
+  // real owner session in its cookie jar, preserving the account-only path.
+  await page.context().addCookies([
+    {
+      ...session,
+      domain: origin.hostname,
+      secure: origin.protocol === 'https:',
+    },
+  ]);
   await page.goto('/#whatsapp');
   const panel = page.getByRole('region', {
     name: 'Recurring WhatsApp summaries',

@@ -89,7 +89,7 @@ test('E2E-WEB-1730 actual banking upload independent publication reader ratios a
     await summary.focus();
     await summary.press('Enter');
     await expect(income).toContainText('18.0400%');
-    await expect(income).toContainText('not a publication timestamp');
+    await expect(income).toContainText('not its publication timestamp');
     await expect(income).toContainText(
       'Total capital adequacy is not inferred',
     );

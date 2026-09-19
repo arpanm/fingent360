@@ -26,7 +26,7 @@ test('E2E-WEB-1360 independent crosswalk reviewer inspects actual label publishe
       .getByRole('button', { name: 'Sign in to operations', exact: true })
       .click();
     await page
-      .getByRole('button', { name: 'Classification crosswalks', exact: true })
+      .getByRole('button', { name: 'Sector mappings', exact: true })
       .click();
     const panel = page.getByRole('region', {
       name: 'Classification crosswalk operations',

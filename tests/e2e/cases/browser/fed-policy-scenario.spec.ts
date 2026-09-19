@@ -27,7 +27,7 @@ test('E2E-WEB-1260 reviewed historical Fed bound extraction feeds real save publ
     exact: true,
   });
   await region
-    .getByLabel('Reviewed source event', { exact: true })
+    .getByRole('combobox', { name: 'Reviewed source event', exact: true })
     .selectOption(event.id);
   await region
     .getByRole('button', { name: 'Extract FOMC lower bound', exact: true })

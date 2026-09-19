@@ -93,6 +93,24 @@ test('E2E-API-1851 chart vintage selection rejects blank actual days and wrong m
         retrievedAt: '2026-09-15T00:00:00.000Z',
       });
   expect(parse(data).sourcePublishedOn).toBeNull();
+  expect(parse(data).points[0]?.value).toBe('0.242424629147151');
+  // Keep strict provider validation even though known chart decoration is allowed.
+  expect(data.body).toContain('anchorradius');
+  expect(() =>
+    parse({
+      ...data,
+      body: data.body.replace('"anchorradius"', '"unknownMarker"'),
+    }),
+  ).toThrow();
+  expect(() =>
+    parse({
+      ...data,
+      body: data.body.replace(
+        /"anchorradius"\s*:\s*"6"/,
+        '"anchorradius":"invalid"',
+      ),
+    }),
+  ).toThrow();
   expect(() =>
     parse({
       ...data,

@@ -270,7 +270,7 @@ test('E2E-API-264 edit and remove retain immutable original minimal receipts and
   try {
     await expect(
       pool.query(
-        'UPDATE app_research_connection_revisions SET payload=payload WHERE connection_id=$1',
+        "UPDATE app_research_connection_revisions SET content_hash=repeat('0',64) WHERE connection_id=$1",
         [id],
       ),
     ).rejects.toThrow('immutable');
@@ -706,8 +706,24 @@ test('E2E-API-276 recovery revokes admitted connection waiters before private re
       expect(JSON.stringify(await response.json())).not.toContain(saved.note);
     }
     const revisions = await blocker.query(
-      'SELECT payload FROM app_research_connection_revisions WHERE user_id=$1 ORDER BY version',
+      'SELECT * FROM app_research_connection_revisions WHERE user_id=$1 ORDER BY version',
       [exported.account.id],
+    );
+    const { decryptConnectionRows } = await import(
+      new URL(
+        '../../../../apps/api/dist/private-connections.js',
+        import.meta.url,
+      ).href
+    );
+    expect(
+      revisions.rows.every((row: { payload: unknown }) => row.payload === null),
+    ).toBe(true);
+    await decryptConnectionRows(
+      blocker,
+      'connection-revision',
+      exported.account.id,
+      revisions.rows,
+      feedbackSandbox.privateDataKeys,
     );
     expect(
       revisions.rows.map((row: { payload: unknown }) => row.payload),

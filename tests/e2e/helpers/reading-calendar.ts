@@ -43,7 +43,12 @@ export async function seedReadingCalendar(sandbox: FeedbackSandbox) {
   try {
     await db.query(
       'INSERT INTO research_calendar_editions(hash,source_id,retrieved_at,data) VALUES($1,$2,$3,$4)',
-      [value.edition, value.sourceId, value.retrievedAt, value.events],
+      [
+        value.edition,
+        value.sourceId,
+        value.retrievedAt,
+        JSON.stringify(value.events),
+      ],
     );
   } finally {
     await db.end();

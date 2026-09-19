@@ -7,6 +7,12 @@ test('E2E-WEB-1070 calendar source switching clears editions and BLS history ret
 }) => {
   const hashes = await seedBlsCalendar(feedbackSandbox);
   await seedResearchCalendar(feedbackSandbox);
+  await page.route('**/api/v1/research-calendar*', (route) => {
+    const url = new URL(route.request().url());
+    return route.continue({
+      url: feedbackSandbox.apiOrigin + url.pathname + url.search,
+    });
+  });
   await page.goto('/#research-calendar');
   const region = page.getByRole('region', {
     name: 'Release calendar',
@@ -14,7 +20,7 @@ test('E2E-WEB-1070 calendar source switching clears editions and BLS history ret
   });
   await expect(region).toContainText('Synthetic release');
   await region
-    .getByLabel('Calendar source', { exact: true })
+    .getByRole('combobox', { name: 'Calendar source', exact: true })
     .selectOption('bls-calendar');
   await expect(region).toContainText('Synthetic BLS release');
   await expect(
@@ -24,16 +30,16 @@ test('E2E-WEB-1070 calendar source switching clears editions and BLS history ret
     'https://www.bls.gov/schedule/news_release/bls.ics',
   );
   await region
-    .getByLabel('Calendar capture', { exact: true })
+    .getByRole('combobox', { name: 'Calendar capture', exact: true })
     .selectOption(hashes[0]!);
   await expect(region).toContainText('Source revision 1');
   await region
-    .getByLabel('Calendar source', { exact: true })
+    .getByRole('combobox', { name: 'Calendar source', exact: true })
     .selectOption('bea-calendar');
   await expect(region).toContainText('Synthetic release');
   await expect(region).not.toContainText('Synthetic BLS release');
   await expect(
-    region.getByLabel('Calendar capture', { exact: true }),
+    region.getByRole('combobox', { name: 'Calendar capture', exact: true }),
   ).toHaveValue('');
   await page.route(
     '**/api/v1/research-calendar?source=bls-calendar',
@@ -46,7 +52,7 @@ test('E2E-WEB-1070 calendar source switching clears editions and BLS history ret
     { times: 1 },
   );
   await region
-    .getByLabel('Calendar source', { exact: true })
+    .getByRole('combobox', { name: 'Calendar source', exact: true })
     .selectOption('bls-calendar');
   await expect(region.getByRole('alert')).toContainText(
     'Synthetic unavailable calendar',

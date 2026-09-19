@@ -19,7 +19,7 @@ export function FeedbackEncryption() {
           if (!confirmed || busy) return;
           setBusy(true);
           setNotice('');
-          void json('/ops/feedback/encryption', { confirm: true })
+          void json('/ops/feedback/encryption', { confirm: true }, 'POST')
             .then((value) => {
               const result = FeedbackEncryptionResultSchema.parse(value);
               setNotice(

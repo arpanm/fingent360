@@ -5,7 +5,7 @@
 - Stories: REPORTS-002
 - First seen: 2026-09-16T22:26:46.819Z
 - Evidence: artifacts/sdlc/1789569622822-36573/06-pnpm-e2e_run.log
-- Resolution run: 1789719717196-80383
+- Resolution run: 1789752953639-97020
 
 Failure excerpt (untrusted; local original has full details):
 

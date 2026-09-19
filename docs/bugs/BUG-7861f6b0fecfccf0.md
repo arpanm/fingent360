@@ -1,11 +1,11 @@
 # BUG-7861f6b0fecfccf0
 
-- Status: Open
+- Status: Resolved
 - Case/project: E2E-WEB-1711 / mobile
 - Stories: SRC-009
 - First seen: 2026-09-16T22:26:46.819Z
 - Evidence: artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log
-- Resolution run: Unresolved
+- Resolution run: 1789752953639-97020
 
 Failure excerpt (untrusted; local original has full details):
 

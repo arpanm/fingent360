@@ -58,6 +58,8 @@ test('E2E-OFFLINE-1394 exact issuer quarterly revenue and forward range remain d
       randomUUID,
     );
   event.graph.events[0]!.publicationState = 'published';
+  expect(event.graph.edges.length).toBeGreaterThan(0);
+  for (const edge of event.graph.edges) edge.reviewState = 'reviewed';
   const publicEvent = EventPublicSchema.parse({
       id,
       status: 'published',

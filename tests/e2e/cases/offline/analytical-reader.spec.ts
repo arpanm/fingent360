@@ -235,6 +235,8 @@ test('E2E-OFFLINE-1502 released qualitative snapshot context is admitted then re
     randomUUID,
   );
   event.graph.events[0]!.publicationState = 'published';
+  expect(event.graph.edges.length).toBeGreaterThan(0);
+  for (const edge of event.graph.edges) edge.reviewState = 'reviewed';
   const publicEvent = EventPublicSchema.parse({
     id,
     status: 'published',

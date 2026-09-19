@@ -70,10 +70,12 @@ test('E2E-WEB-1710 actual commodity upload independent review monthly reader his
       reader.getByRole('list', { name: 'Monthly source observations' }),
     ).toContainText('2026-08: 4411');
     await reader
-      .getByLabel('Commodity', { exact: true })
+      .getByRole('combobox', { name: 'Commodity', exact: true })
       .selectOption('COPPER');
     await expect(reader).toContainText('USD-per-metric-ton');
-    await reader.getByLabel('Observation year').selectOption('2000');
+    await reader
+      .getByRole('combobox', { name: 'Observation year', exact: true })
+      .selectOption('2000');
     await expect(
       reader.getByRole('list', { name: 'Monthly source observations' }),
     ).toContainText('2000-01: 1844');

@@ -27,7 +27,7 @@ test('E2E-WEB-1390 reviewed historical GDP vintage extraction feeds real save pu
     exact: true,
   });
   await region
-    .getByLabel('Reviewed source event', { exact: true })
+    .getByRole('combobox', { name: 'Reviewed source event', exact: true })
     .selectOption(event.id);
   await region
     .getByRole('button', { name: 'Extract BEA GDP vintages', exact: true })

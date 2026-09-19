@@ -1,32 +1,24 @@
 # BUG-07d0fcb49db3c16b
 
-- Status: Resolved
+- Status: Open
 - Case/project: E2E-WEB-120 / desktop
 - Stories: UX-002D
 - First seen: 2026-09-18T05:00:49.248Z
-- Evidence: artifacts/sdlc/1789669163056-59061/06-pnpm-e2e_run.log
-- Resolution run: 1789752953639-97020
+- Evidence: artifacts/sdlc/1789836492361-20464/06-pnpm-e2e_run.log
+- Resolution run: Unresolved
 
 Failure excerpt (untrusted; local original has full details):
 
-    Test timeout of 60000ms exceeded.
-    Error: expect(locator).toBeVisible() failed
-
-    Locator: getByRole('link', { name: 'Sign in or create an account', exact: true })
-    Expected: visible
-    Timeout: 10000ms
-    Error: element(s) not found
-
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:5176/#saved
     Call log:
-      - Expect "toBeVisible" with timeout 10000ms
-      - waiting for getByRole('link', { name: 'Sign in or create an account', exact: true })
+      - navigating to "http://127.0.0.1:5176/#saved", waiting until "load"
 
 
-      15 |       exact: true,
-      16 |     }),
-    > 17 |   ).toBeVisible();
-         |     ^
-      18 |   const feed = FeedSchema.parse(
-      19 |     await (await page.request.get('/api/v1/discovery/feed')).json(),
-      20 |   );
-        at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/library.spec.ts:17:5
+       9 | }) => {
+      10 |   test.setTimeout(60000);
+    > 11 |   await page.goto('/#saved');
+         |              ^
+      12 |   await expect(
+      13 |     page.getByRole('link', {
+      14 |       name: 'Sign in or create an account',
+        at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/library.spec.ts:11:14

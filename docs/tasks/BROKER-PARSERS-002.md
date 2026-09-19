@@ -70,5 +70,5 @@ Targeted public official-site searches for holdings statement samples/XLSX did n
 
 ## Automated validation
 
-Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789836377279-19314.
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789836492361-20464.
 <!-- sdlc-validation:end -->

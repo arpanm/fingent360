@@ -1,6 +1,6 @@
 # Story validation
 
-Latest SDLC invocation: 1789836377279-19314. Only actual test receipts count.
+Latest SDLC invocation: 1789836492361-20464. Only actual test receipts count.
 
 Automated acceptance is separate from implementation, live-source permission and physical-device acceptance.
 
@@ -18,7 +18,7 @@ Automated acceptance is separate from implementation, live-source permission and
 - [BROKER-PARSERS-002](../tasks/BROKER-PARSERS-002.md): **Stale — rerun required**.
 - [BUG-002](../tasks/BUG-002.md): **Stale — rerun required**.
 - [CONNECTION-REVIEWS-001](../tasks/CONNECTION-REVIEWS-001.md): **Stale — rerun required**.
-- [CONSENT-LIFECYCLE-001](../tasks/CONSENT-LIFECYCLE-001.md): **Stale — rerun required**.
+- [CONSENT-LIFECYCLE-001](../tasks/CONSENT-LIFECYCLE-001.md): **Selected cases passed — acceptance matrix needed**.
 - [DATA-001](../tasks/DATA-001.md): **Stale — rerun required**.
 - [DB-LEAST-PRIVILEGE-001](../tasks/DB-LEAST-PRIVILEGE-001.md): **Stale — rerun required**.
 - [DEV-006](../tasks/DEV-006.md): **Stale — rerun required**.
@@ -103,8 +103,8 @@ Automated acceptance is separate from implementation, live-source permission and
 - [STORY-MEDIA-002](../tasks/STORY-MEDIA-002.md): **Stale — rerun required**.
 - [UI-RACES-001](../tasks/UI-RACES-001.md): **Stale — rerun required**.
 - [UX-001](../tasks/UX-001.md): **Failed — unresolved bug**.
-- [UX-002](../tasks/UX-002.md): **Stale — rerun required**.
-- [UX-002D](../tasks/UX-002D.md): **Stale — rerun required**.
+- [UX-002](../tasks/UX-002.md): **Failed — unresolved bug**.
+- [UX-002D](../tasks/UX-002D.md): **Failed — unresolved bug**.
 - [UX-002G](../tasks/UX-002G.md): **Failed — unresolved bug**.
 - [WORKER-HEALTH-001](../tasks/WORKER-HEALTH-001.md): **Failed — unresolved bug**.
 - [XLSX-001](../tasks/XLSX-001.md): **Stale — rerun required**.

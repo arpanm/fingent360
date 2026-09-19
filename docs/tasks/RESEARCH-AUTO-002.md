@@ -136,13 +136,13 @@ All initial implementation rows are authored. No new dependency/migration/code w
 
 Manual document acceptance: follow each matrix implementation/case reference, verify no source activation/test pass is implied, and confirm old preserved Partial paragraphs are historical snapshots superseded by this current top. For new runtime validation, use the relevant documented source-specific command rather than rerunning every suite. Minimal existing worker/control sample: `pnpm sdlc "Validate research scheduling" -- --grep "E2E-API-(1050|1056|1057)"`. Existing configured PostgreSQL/MongoDB/API required; Operations automatic research on the printed dev URL shows schedules/run outcomes and explicit publication gates. Report case/project, saved run path and response/assertion evidence. No tests, gates, migrations, services, worker activation or commit were run; local HEAD `a2c53a0` and unrelated concurrent authoring remain preserved.
 
+## Saved full-inventory repair — 2026-09-19
+
+The saved full run1789752953639-97020 includes failed cases tagged to this task. Confirmed causes, scoped authored repairs and remaining verification are recorded in [the full-audit RCA](../development/full-audit-2026-09-19.md). User runs `SDLC_AUTO_REPAIR=0 pnpm sdlc "Repair full audit failures" --story SDLC-REPAIR-016`. No new passing evidence or automatic bug resolution is claimed; this bounded repair does not remove broader source/device/functional requirements recorded above.
+
 <!-- sdlc-validation:start -->
 
 ## Automated validation
 
-Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789752953639-97020.
+Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789836377279-19314.
 <!-- sdlc-validation:end -->
-
-## Saved full-inventory repair — 2026-09-19
-
-The saved full run1789752953639-97020 includes failed cases tagged to this task. Confirmed causes, scoped authored repairs and remaining verification are recorded in [the full-audit RCA](../development/full-audit-2026-09-19.md). User runs `SDLC_AUTO_REPAIR=0 pnpm sdlc "Repair full audit failures" --story SDLC-REPAIR-016`. No new passing evidence or automatic bug resolution is claimed; this bounded repair does not remove broader source/device/functional requirements recorded above.

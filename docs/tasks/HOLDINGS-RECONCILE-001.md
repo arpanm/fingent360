@@ -1,9 +1,9 @@
 # HOLDINGS-RECONCILE-001 — Reconcile imported holdings
 
-- **Status:** Completed (recorded scope)
+- **Status:** Needs repair
 - **Implemented / recorded:** - HOLDINGS-RECONCILE-001 (DEV-008/SRC-013): Implemented and verified for the bounded scope;31connected and14offline passes. Show exactly what a holdings replacement will change before confirmation. Detailed Codex prompt: read current manual/CSV/XLSX preview/confirm/idempotency/version rules, exact decimal contracts, allocations/research connections, privacy and actual offline storage. Specify baseline → proposed rows → added/removed/changed/unchanged quantities and acquisition costs → explic
-- **Pending:** No new action for the recorded scope; later changes need new validation.
-- **Next action / inputs:** User: run `SDLC_AUTO_REPAIR=0 pnpm sdlc "Complete HOLDINGS-RECONCILE-001" --story HOLDINGS-RECONCILE-001`. Complete current-revision passing evidence now permits automatic Done for the reviewed scope.
+- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
+- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Implementation handoff rule
@@ -22,15 +22,15 @@ The entries below are migrated records, not new execution instructions or curren
 
 Read AGENTS.md, the task-maintenance guide and this task’s current summary. Work only on HOLDINGS-RECONCILE-001 unless the user expands the scope. Treat the preserved specification/history as context; current user instructions take precedence. Implement the listed remaining acceptance end to end, or reconcile recorded completion evidence if no implementation remains. Keep tests, documentation and the root index consistent. Record exact remaining work and who needs to act. Do not execute deterministic validation or commit without the user-authorized gates.
 
-<!-- sdlc-validation:start -->
-
-## Automated validation
-
-Selected cases passed — acceptance matrix needed. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789752953639-97020.
-<!-- sdlc-validation:end -->
-
 ## Reviewed completion definition — 2026-09-19
 
 Exact baseline-to-proposed holdings reconciliation, additions/removals/cost deltas, explicit removal acknowledgement, stale/expired preview recovery, immutable successful replay, dependency disclosure and shared offline export/deletion. Broker-specific parsing and market valuations remain separate.
 
 The reviewed case/project requirements and conditional completion metadata are now in `docs/tasks/acceptance.json`. [Layer review, coverage and manual commands](../development/main-module-closure-2026-09-19.md). This is not a test pass: generated validation blocks and bug states are preserved. No runtime/API/database rewrite is justified for an already implemented workflow solely because its acceptance mapping was missing. The new portfolio guided offline UI case closes a coverage gap; existing connected/private/offline cases are reused.
+
+<!-- sdlc-validation:start -->
+
+## Automated validation
+
+Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789836377279-19314.
+<!-- sdlc-validation:end -->

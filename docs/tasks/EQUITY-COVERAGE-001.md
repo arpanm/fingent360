@@ -102,13 +102,13 @@ Remaining parent scope: automatic action acquisition, broader action grammars/co
 
 NSE rendered IndAS parser v2 now authors reported balance-sheet and indirect cash-flow totals with exact aggregate equations, original unit/period/basis, named independent review, retained-original reparse, web/app reader and offline reconstruction. See [SRC-005](SRC-005.md) for full scope,1510–1511 cases and manual next actions. This removes the balance-sheet/cash-flow-total authoring gap only; broad source coverage and real 25-company validation are not declared complete. No deterministic execution or commit.
 
+## Saved full-inventory repair — 2026-09-19
+
+The saved full run1789752953639-97020 includes failed cases tagged to this task. Confirmed causes, scoped authored repairs and remaining verification are recorded in [the full-audit RCA](../development/full-audit-2026-09-19.md). User runs `SDLC_AUTO_REPAIR=0 pnpm sdlc "Repair full audit failures" --story SDLC-REPAIR-016`. No new passing evidence or automatic bug resolution is claimed; this bounded repair does not remove broader source/device/functional requirements recorded above.
+
 <!-- sdlc-validation:start -->
 
 ## Automated validation
 
-Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789752953639-97020.
+Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789836377279-19314.
 <!-- sdlc-validation:end -->
-
-## Saved full-inventory repair — 2026-09-19
-
-The saved full run1789752953639-97020 includes failed cases tagged to this task. Confirmed causes, scoped authored repairs and remaining verification are recorded in [the full-audit RCA](../development/full-audit-2026-09-19.md). User runs `SDLC_AUTO_REPAIR=0 pnpm sdlc "Repair full audit failures" --story SDLC-REPAIR-016`. No new passing evidence or automatic bug resolution is claimed; this bounded repair does not remove broader source/device/functional requirements recorded above.

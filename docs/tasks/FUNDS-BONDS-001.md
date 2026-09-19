@@ -118,13 +118,13 @@ The supplied user-run API1982 failure showed that the receipt schema accepted a 
 
 Authored only: formatting, checks, builds and tests were not run. With the existing dependencies and no services required for this contract-only API case, the smallest exact retry is `pnpm e2e:run tests/e2e/cases/api/bond-evidence.spec.ts --project=api --grep 'E2E-API-1982 saved receipt contract rejects altered source facts and unreferenced opinions while preserving historical originals @FUNDS-BONDS-001$'`. Expected: the valid retained receipt parses, every altered receipt throws, and the case passes. On failure report the case/project, assertion, run ID and saved report path. BUG-e3878578217ee412 remains Open until user-run passing evidence is reconciled. Current price and trading-liquidity source gaps, broader source activation and physical-device acceptance remain unchanged.
 
+## Saved full-inventory repair — 2026-09-19
+
+The saved full run1789752953639-97020 includes failed cases tagged to this task. Confirmed causes, scoped authored repairs and remaining verification are recorded in [the full-audit RCA](../development/full-audit-2026-09-19.md). User runs `SDLC_AUTO_REPAIR=0 pnpm sdlc "Repair full audit failures" --story SDLC-REPAIR-016`. No new passing evidence or automatic bug resolution is claimed; this bounded repair does not remove broader source/device/functional requirements recorded above.
+
 <!-- sdlc-validation:start -->
 
 ## Automated validation
 
-Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789752953639-97020.
+Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789836377279-19314.
 <!-- sdlc-validation:end -->
-
-## Saved full-inventory repair — 2026-09-19
-
-The saved full run1789752953639-97020 includes failed cases tagged to this task. Confirmed causes, scoped authored repairs and remaining verification are recorded in [the full-audit RCA](../development/full-audit-2026-09-19.md). User runs `SDLC_AUTO_REPAIR=0 pnpm sdlc "Repair full audit failures" --story SDLC-REPAIR-016`. No new passing evidence or automatic bug resolution is claimed; this bounded repair does not remove broader source/device/functional requirements recorded above.

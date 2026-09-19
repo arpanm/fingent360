@@ -176,13 +176,13 @@ See [specification, original source research, exact fixture provenance and hando
 
 The existing retained-original Mongo/edition-review-view PostgreSQL workflow now accepts an exact historical target month/day; source review reparses the same original selection. Shared web/app Operations supports the actual JSON file/fetch and independent review, reading shows acquisition/vintage limits, offline validates the same immutable selection. No new migration/dependency, no automatic source activation. Cases API1850–1851, WEB1850 and OFFLINE1850 authored; WEB1672 updated for the source-file label. No deterministic validation or commit executed. Local HEAD inspected `a2c53a0`; pre-existing concurrent work remains uncommitted for user-run gates.
 
+## Saved full-inventory repair — 2026-09-19
+
+CPI historical marker schema and offline published graph fixtures (API1850/1851, WEB1850, OFFLINE1850/1394/1020/1021) repaired from saved run1789752953639-97020. See [RCA and scoped retry](../development/full-audit-2026-09-19.md). Regression assertions remain strict; authored changes are not passing evidence. User runs `SDLC_AUTO_REPAIR=0 pnpm sdlc "Repair full audit failures" --story SDLC-REPAIR-016`; no new dependency or migration. Existing broader scope and saved validation remain unchanged.
+
 <!-- sdlc-validation:start -->
 
 ## Automated validation
 
-Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789752953639-97020.
+Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789836377279-19314.
 <!-- sdlc-validation:end -->
-
-## Saved full-inventory repair — 2026-09-19
-
-CPI historical marker schema and offline published graph fixtures (API1850/1851, WEB1850, OFFLINE1850/1394/1020/1021) repaired from saved run1789752953639-97020. See [RCA and scoped retry](../development/full-audit-2026-09-19.md). Regression assertions remain strict; authored changes are not passing evidence. User runs `SDLC_AUTO_REPAIR=0 pnpm sdlc "Repair full audit failures" --story SDLC-REPAIR-016`; no new dependency or migration. Existing broader scope and saved validation remain unchanged.

@@ -1,9 +1,9 @@
 # PORTFOLIO-001 — Manage portfolio holdings
 
-- **Status:** Completed implementation; validation pending
+- **Status:** Needs repair
 - **Implemented / recorded:** - PORTFOLIO-001 (DEV-007/008): Account-owned, user-entered Indian-equity holdings with exact quantities/cost basis and strict CSV preview/confirmation, independent of fictional virtual exercise. Prompt: contracts/migration009/API/UI, revision conflicts, validation/isolation/persistence tests and privacy export. No live valuations or verified-source claims. Implemented.
-- **Pending:** User: run the task’s documented validation; implementation is not a test pass.
-- **Next action / inputs:** User: run `SDLC_AUTO_REPAIR=0 pnpm sdlc "Complete PORTFOLIO-001" --story PORTFOLIO-001`. Complete current-revision passing evidence now permits automatic Done for the reviewed scope.
+- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
+- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Implementation handoff rule
@@ -34,13 +34,6 @@ Read AGENTS.md, the task-maintenance guide and this task’s current summary. Wo
 - **Research/evidence:** See [dated source checks and existing answers](input-research-2026-09-15.md). Source-specific permissions, complete parser layouts and legal classification are not claimed resolved by triage.
 - **Completion boundary:** This updates readiness only, not test passes, live activation or full feature completion. On later pickup, refresh saved evidence and update this record plus the TODO row.
 
-<!-- sdlc-validation:start -->
-
-## Automated validation
-
-Selected cases passed — acceptance matrix needed. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789752953639-97020.
-<!-- sdlc-validation:end -->
-
 ## Main functional module closure — 2026-09-19
 
 Review the implemented manual/standard-CSV portfolio workflow end to end. Existing connected cases cover exact accounting, ownership, consent, preview/confirmation, replay/conflict, history/export and removal. Existing offline cases use actual handlers but do not exercise the full guided manual-entry UI. Add that missing offline UI acceptance using the shared app and real local storage, then define the complete case/project matrix and conditional completion metadata. No runtime or DB change is justified by an unrun status alone; broker-specific parsers and market valuations remain their own requirements. Completion requires the current gates and all matrix cases, never a manual status promotion.
@@ -52,3 +45,10 @@ Latest user clarification: “I m not sure I ran whatever command you shared... 
 Owned user-entered Indian-equity holdings: manual and standard CSV preview/consent, exact quantities and acquisition costs, encrypted connected records, guarded replacement/replay, history/export, account isolation/deletion, guided shared offline UI and durable local storage. Named broker formats and market valuation remain separate tasks; physical APK certification remains under Android/device acceptance.
 
 The reviewed case/project requirements and conditional completion metadata are now in `docs/tasks/acceptance.json`. [Layer review, coverage and manual commands](../development/main-module-closure-2026-09-19.md). This is not a test pass: generated validation blocks and bug states are preserved. No runtime/API/database rewrite is justified for an already implemented workflow solely because its acceptance mapping was missing. The new portfolio guided offline UI case closes a coverage gap; existing connected/private/offline cases are reused.
+
+<!-- sdlc-validation:start -->
+
+## Automated validation
+
+Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789836377279-19314.
+<!-- sdlc-validation:end -->

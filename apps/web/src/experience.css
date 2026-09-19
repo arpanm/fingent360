@@ -1589,3 +1589,46 @@ p {
   cursor: grabbing;
   background: var(--soft);
 }
+
+/* Keep native keyboard scrolling clear of persistent navigation and feedback. */
+:root {
+  --focus-safe-top: 16px;
+  --focus-safe-bottom: 112px;
+}
+html {
+  scroll-padding-block: var(--focus-safe-top) var(--focus-safe-bottom);
+}
+:is(button, a, input, textarea, select, summary, [tabindex]) {
+  scroll-margin-block: 12px;
+}
+.experience-workspace main,
+.operations main {
+  padding-bottom: var(--focus-safe-bottom);
+}
+/* These action rows share the fixed feedback launcher's right-hand lane. */
+.unobscured-actions {
+  gap: 14px;
+  align-items: flex-start;
+  padding-inline-end: 76px;
+  margin-block: 12px;
+}
+.unobscured-actions > :is(button, a) {
+  min-width: 0;
+  max-width: 100%;
+  margin: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.unobscured-actions > p {
+  margin: 0;
+  flex-basis: 100%;
+}
+@media (max-width: 760px) {
+  :root {
+    --focus-safe-top: 78px;
+    --focus-safe-bottom: calc(176px + env(safe-area-inset-bottom));
+  }
+  html:has(.reading-layout) {
+    --focus-safe-bottom: calc(267px + env(safe-area-inset-bottom));
+  }
+}

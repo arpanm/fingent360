@@ -1,3 +1,4 @@
+import { expectUnobscuredControl } from './focus-visibility';
 import {
   expect,
   type Locator,
@@ -16,6 +17,7 @@ export async function tabToObservationControl(page: Page, target: Locator) {
     await page.keyboard.press('Tab');
   }
   await expect(target).toBeFocused();
+  await expectUnobscuredControl(target);
 }
 
 export async function activateObservationControl(

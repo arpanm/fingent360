@@ -1,3 +1,4 @@
+import { expectUnobscuredControl } from '../../helpers/focus-visibility';
 import { test, expect } from '../../helpers/app-fixture';
 import { operatorKey } from '../../helpers/operator';
 test('E2E-WEB-630 current quality empty error retry and publishing navigation @QUALITY-OVERVIEW-001', async ({
@@ -53,6 +54,7 @@ test('E2E-WEB-630 current quality empty error retry and publishing navigation @Q
   });
   await retry.focus();
   await expect(retry).toBeFocused();
+  await expectUnobscuredControl(retry);
   await expect
     .poll(() =>
       region.evaluate((element) => {
@@ -82,6 +84,7 @@ test('E2E-WEB-630 current quality empty error retry and publishing navigation @Q
     exact: true,
   });
   await expect(publishing).toBeFocused();
+  await expectUnobscuredControl(publishing);
   await expect
     .poll(() =>
       region.evaluate((element) => {

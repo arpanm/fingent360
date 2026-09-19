@@ -1123,3 +1123,5 @@ These cases preserve their actual storage/API or on-device paths. Synthetic prov
 - **E2E-OFFLINE-081** (offline): original observation mute, restore and exact receipt survive reload @ALERT-001 @ALERT-002 — `tests/e2e/cases/offline/observation-inbox.spec.ts`.
 - **E2E-OFFLINE-041** (offline): exact on-device receipts do not acknowledge a later correction or withdrawal @ALERT-001 @TEST-SIMULATION — `tests/e2e/cases/offline/observation-revisions.spec.ts`.
 - **E2E-OFFLINE-071** (offline): downloaded approved registry metadata and connected-only editing remain truthful after reload @SOURCES-001 — `tests/e2e/cases/offline/source-registry.spec.ts`.
+
+Focused visual closure additionally requires WEB041/630/790/830/831 and OFFLINE081 controls to remain unobscured during native keyboard navigation. Full case matrices include newly reviewed AUTH-WAIT-001, DATA-001, SRC-007-GDP, SLICE-001, PWA-001, SOURCES-002-DIRECTORY and DEV-009; their explicit remaining gates are retained in acceptance.json.

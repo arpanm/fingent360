@@ -38,5 +38,13 @@ Read AGENTS.md, the task-maintenance guide and this task’s current summary. Wo
 
 ## Automated validation
 
-Selected cases passed — acceptance matrix needed. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789846773980-36608.
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789847379056-38783.
 <!-- sdlc-validation:end -->
+
+## Reviewed acceptance scope — 20 September 2026
+
+Reauthorization after actual PostgreSQL account/report waits, recovery and wall-clock expiry, unchanged owned state on rejection, replay paths and browser recovery with keyboard sign-in. Serialized on-device storage has no PostgreSQL lock wait; native certification is outside this server race.
+
+The complete required case/project matrix is now recorded in `acceptance.json`. This review is not a test pass; actual current-revision receipts determine validation.
+
+Remaining gates: None for this bounded functional scope.

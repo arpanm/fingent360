@@ -92,3 +92,9 @@ The run is held awake using a process-bound sleep assertion. No permanent power 
 ## Added acceptance, not invented scope
 
 Review found missing keyboard focus assertions, narrow-layout evidence, evaluation inspector/export coverage and actual offline image/video workflow coverage. Drafts preserve real isolated storage/API behavior and clearly label synthetic transport. Configured live providers, source rights and physical-device acceptance remain separate. Existing compiler/formatting-only repairs use actual successful check evidence instead of fabricated application E2E cases.
+
+## Focused repair evidence
+
+Run2026-09-19T19-40-29-161Z-37323:76 passed,10 failed. The next SDLC1789847379056-38783 passed format/check and committed `ebc3881`; focused connected coverage passed18 and failed only desktop policy1295/1296/1297. Confirmed repairs now pass for empty-provider query fallback, public-feed continuation, classification selectors, operator identifiers and evaluation hash wrapping. Native Chrome keyboard investigation reproduced failed arrow/popup sequences in a minimal select and verified type-ahead selection; that final helper repair awaits retry.
+
+Seven further task scopes now have reviewed required matrices: AUTH-WAIT-001, DATA-001, SRC-007-GDP, SLICE-001, PWA-001, SOURCES-002-DIRECTORY and DEV-009. Physical-device/source permissions and explicitly missing automated scenarios remain gates rather than inferred passes.

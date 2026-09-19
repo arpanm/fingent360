@@ -19,3 +19,11 @@ Read AGENTS.md and the linked parent specification before changing this workflow
 With the documented database/API/web setup and required migrations, run `pnpm sdlc "Validate SOURCES-002-DIRECTORY" -- --grep "E2E-(API|WEB|OFFLINE)-176[01]"`. Use the web URL printed by `pnpm dev`; keep test watch mode off. Check the corresponding Operations/reader flow documented in the parent. Installed Android/iOS bundles require the documented rebuild/reinstall. Report the exact failed case, saved artifact run and error. The user-operated SDLC command owns gated commit and execution.
 
 Fund/bond directory copy now identifies merger notices, dated fees and historical sovereign auction calculations. WEB1760 additionally asserts that the shared sovereign reader is reachable from Sources. API/persistence/calculator scope belongs to SRC-017; no additional migration. Authored, not executed.
+
+## Reviewed acceptance scope — 20 September 2026
+
+Specialized real source readers reachable independently of discovery-feed coverage, including GDP and sovereign destinations.
+
+The complete required case/project matrix is now recorded in `acceptance.json`. This review is not a test pass; actual current-revision receipts determine validation.
+
+Remaining gates: Authored physical offline Sources-to-specialist reader navigation scenario is not replaced by connected WEB1760/1761; retain manual package/reinstall/no-network evidence gate.

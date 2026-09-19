@@ -38,5 +38,5 @@ No additional input is needed for this bounded automated scope. Run the complete
 
 ## Automated validation
 
-Partial — required cases not run. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789846773980-36608.
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789847379056-38783.
 <!-- sdlc-validation:end -->

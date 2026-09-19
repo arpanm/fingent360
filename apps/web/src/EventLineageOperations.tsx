@@ -507,29 +507,31 @@ export function EventLineageOperations({
             and evidence are rechecked on application.
           </p>
           <EventLineagePlanView plan={plan} />
-          <button disabled={busy} onClick={() => void action(submit)}>
-            {named
-              ? 'Submit lineage for independent approval'
-              : 'Apply reviewed lineage in bootstrap mode'}
-          </button>
-          <button
-            disabled={busy}
-            onClick={() =>
-              void action(async () => {
-                const result = EventLineageOperationsSchema.parse(
-                  await request('/ops/event-lineage/' + plan.id),
-                );
-                if (live.current)
-                  setMessage(
-                    result.receipt
-                      ? `Applied at ${new Date(result.receipt.reviewedAt).toLocaleString()}. Historical receipt retained.`
-                      : 'This plan has not been applied. Publication proposal decisions are listed in Named operators; rejected plans require a new proposal request.',
+          <div className="page-actions unobscured-actions">
+            <button disabled={busy} onClick={() => void action(submit)}>
+              {named
+                ? 'Submit lineage for independent approval'
+                : 'Apply reviewed lineage in bootstrap mode'}
+            </button>
+            <button
+              disabled={busy}
+              onClick={() =>
+                void action(async () => {
+                  const result = EventLineageOperationsSchema.parse(
+                    await request('/ops/event-lineage/' + plan.id),
                   );
-              })
-            }
-          >
-            Read application receipt
-          </button>
+                  if (live.current)
+                    setMessage(
+                      result.receipt
+                        ? `Applied at ${new Date(result.receipt.reviewedAt).toLocaleString()}. Historical receipt retained.`
+                        : 'This plan has not been applied. Publication proposal decisions are listed in Named operators; rejected plans require a new proposal request.',
+                    );
+                })
+              }
+            >
+              Read application receipt
+            </button>
+          </div>
         </section>
       )}
       <button

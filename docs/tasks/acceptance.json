@@ -957,6 +957,52 @@
       "implementationComplete": true,
       "externalGates": [],
       "scope": "Explicit individual report deletion, metadata-only tombstones, stored-byte removal, capacity reclamation, cancellation prerequisite, replay and late-worker resurrection prevention, authorization after waits, confirmation and recovery, authoritative refresh and equivalent durable offline behavior. Live source activation and physical-device release certification remain separate. Broader parent coverage is not completed."
+    },
+    "AUTH-WAIT-001": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Reauthorization after actual PostgreSQL account/report waits, recovery and wall-clock expiry, unchanged owned state on rejection, replay paths and browser recovery with keyboard sign-in. Serialized on-device storage has no PostgreSQL lock wait; native certification is outside this server race."
+    },
+    "DATA-001": {
+      "implementationComplete": true,
+      "externalGates": [
+        "Review parser precision/quarantine unit results from current check gate; API020/021 do not directly fault every upstream/stale-cache branch.",
+        "Explicit offline/no-cache acceptance for this annual macro route is not established by WEB020; do not infer full offline coverage from connected navigation."
+      ],
+      "scope": "World Bank annual India GDP growth/CPI original retrieval, hashed evidence, immutable numerical revisions, deduplicated refresh, protected operator refresh and responsive contextual history/source reader."
+    },
+    "SRC-007-GDP": {
+      "implementationComplete": true,
+      "externalGates": [
+        "Actual source-specific retention/display/offline permissions and documented physical-device source acceptance remain activation gates."
+      ],
+      "scope": "Original India quarterly GDP vintages, publication cutoff/base isolation, independent review/quarantine/shared reader/offline projection and actual scheduled draft acquisition with retained synthetic transport."
+    },
+    "SLICE-001": {
+      "implementationComplete": true,
+      "externalGates": [
+        "Separate keyboard acceptance for the full virtual journey remains unrecorded; connected browser cases exercise click controls and mobile width, not a complete keyboard journey."
+      ],
+      "scope": "Explicitly synthetic educational virtual workspace, catalog/event/company navigation, exact quantities/valuation, CSV preview/reconciliation, revision/idempotency/ownership, repeated goals, immutable review and persisted responsive journey."
+    },
+    "PWA-001": {
+      "implementationComplete": true,
+      "externalGates": [
+        "Actual browser-supported installation prompt/install behavior requires manual evidence; WEB100 checks manifest and neutral fallback only."
+      ],
+      "scope": "Manifest, neutral offline service-worker fallback, no API/private HTML caching and reconnect recovery."
+    },
+    "SOURCES-002-DIRECTORY": {
+      "implementationComplete": true,
+      "externalGates": [
+        "Authored physical offline Sources-to-specialist reader navigation scenario is not replaced by connected WEB1760/1761; retain manual package/reinstall/no-network evidence gate."
+      ],
+      "scope": "Specialized real source readers reachable independently of discovery-feed coverage, including GDP and sovereign destinations."
+    },
+    "DEV-009": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Repeated goal types, explicit editable contribution/horizon assumptions, saved versioned contribution/date scenarios, exact owned holding-to-goal allocations and immutable affordability/interruption/protected-reserve downside-capacity receipts with equivalent offline persistence. Forecasts, risk suitability and regulated advice are expressly excluded by current task."
     }
   },
   "SDLC-REPAIR-016": [
@@ -8108,6 +8154,260 @@
     },
     {
       "caseId": "E2E-OFFLINE-264",
+      "projects": ["offline"]
+    }
+  ],
+  "AUTH-WAIT-001": [
+    {
+      "caseId": "E2E-API-300",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-301",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-302",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-303",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-304",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-305",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-306",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-307",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-308",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-309",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-300",
+      "projects": ["desktop", "mobile"]
+    }
+  ],
+  "DATA-001": [
+    {
+      "caseId": "E2E-API-020",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-021",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-020",
+      "projects": ["desktop", "mobile"]
+    }
+  ],
+  "SRC-007-GDP": [
+    {
+      "caseId": "E2E-API-1770",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1771",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1772",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1773",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-1770",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1770",
+      "projects": ["offline"]
+    }
+  ],
+  "SLICE-001": [
+    {
+      "caseId": "E2E-API-010",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-011",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-012",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-013",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-010",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-011",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-012",
+      "projects": ["desktop", "mobile"]
+    }
+  ],
+  "PWA-001": [
+    {
+      "caseId": "E2E-WEB-100",
+      "projects": ["desktop", "mobile"]
+    }
+  ],
+  "SOURCES-002-DIRECTORY": [
+    {
+      "caseId": "E2E-WEB-1760",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1761",
+      "projects": ["desktop", "mobile"]
+    }
+  ],
+  "DEV-009": [
+    {
+      "caseId": "E2E-API-060",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-061",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-060",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-062",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-066",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-067",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-010",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-WEB-068",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-069",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-068",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-API-200",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-201",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-304",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-200",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-201",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-240",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-API-280",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-281",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-282",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-280",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-281",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-282",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-283",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-320",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-API-600",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-601",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-602",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-600",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-601",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-600",
       "projects": ["offline"]
     }
   ]

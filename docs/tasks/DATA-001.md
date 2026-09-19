@@ -46,5 +46,13 @@ Read AGENTS.md, the task-maintenance guide and this task’s current summary. Wo
 
 ## Automated validation
 
-Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789846773980-36608.
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789847379056-38783.
 <!-- sdlc-validation:end -->
+
+## Reviewed acceptance scope — 20 September 2026
+
+World Bank annual India GDP growth/CPI original retrieval, hashed evidence, immutable numerical revisions, deduplicated refresh, protected operator refresh and responsive contextual history/source reader.
+
+The complete required case/project matrix is now recorded in `acceptance.json`. This review is not a test pass; actual current-revision receipts determine validation.
+
+Remaining gates: Review parser precision/quarantine unit results from current check gate; API020/021 do not directly fault every upstream/stale-cache branch.; Explicit offline/no-cache acceptance for this annual macro route is not established by WEB020; do not infer full offline coverage from connected navigation.

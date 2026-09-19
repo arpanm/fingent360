@@ -47,5 +47,9 @@ No additional input is needed for this bounded automated scope. Run the complete
 
 ## Automated validation
 
-Partial — required cases not run. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789846773980-36608.
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789847379056-38783.
 <!-- sdlc-validation:end -->
+
+## Visual acceptance repair — 20 September 2026
+
+Actual focused screenshots exposed controls under persistent navigation/feedback and colliding wrapped action buttons. Preserve all controls; reserve native focus scroll space and wrap affected action rows with gaps and a feedback lane. Existing browser cases now require focused controls to be actual visible hit targets, without forced scrolling. Shared web/Android presentation changes only; no API, contract, database or migration change. Current user authorization covers focused execution; saved post-repair visual and test evidence remains required.

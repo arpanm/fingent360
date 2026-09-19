@@ -17,3 +17,11 @@ Read AGENTS.md and the linked parent specification before changing this workflow
 ## Manual acceptance
 
 With the documented database/API/web setup and required migrations, run `pnpm sdlc "Validate SRC-007-GDP" -- --grep "E2E-(API|WEB|OFFLINE)-177[0-2]"`. Use the web URL printed by `pnpm dev`; keep test watch mode off. Check the corresponding Operations/reader flow documented in the parent. Installed Android/iOS bundles require the documented rebuild/reinstall. Report the exact failed case, saved artifact run and error. The user-operated SDLC command owns gated commit and execution.
+
+## Reviewed acceptance scope — 20 September 2026
+
+Original India quarterly GDP vintages, publication cutoff/base isolation, independent review/quarantine/shared reader/offline projection and actual scheduled draft acquisition with retained synthetic transport.
+
+The complete required case/project matrix is now recorded in `acceptance.json`. This review is not a test pass; actual current-revision receipts determine validation.
+
+Remaining gates: Actual source-specific retention/display/offline permissions and documented physical-device source acceptance remain activation gates.

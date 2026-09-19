@@ -881,3 +881,7 @@ These cases preserve their actual storage/API or on-device paths. Synthetic prov
 - **E2E-OFFLINE-081** (offline): original observation mute, restore and exact receipt survive reload @ALERT-001 @ALERT-002 — `tests/e2e/cases/offline/observation-inbox.spec.ts`.
 - **E2E-OFFLINE-041** (offline): exact on-device receipts do not acknowledge a later correction or withdrawal @ALERT-001 @TEST-SIMULATION — `tests/e2e/cases/offline/observation-revisions.spec.ts`.
 - **E2E-OFFLINE-071** (offline): downloaded approved registry metadata and connected-only editing remain truthful after reload @SOURCES-001 — `tests/e2e/cases/offline/source-registry.spec.ts`.
+
+### Focus visibility acceptance — 20 September 2026
+
+WEB041/630/790/830/831 and OFFLINE081 retain their original workflows and now require focused actions to fit inside the viewport and receive actual hit targets clear of fixed navigation/feedback. Review their narrow screenshots independently of API correctness. WEB1295–1297 use native keyboard type-ahead for desktop Chrome after a minimal native-select reproduction; mobile retains its verified keyboard sequence. No case is skipped or converted to a mocked interaction.

@@ -105,7 +105,7 @@ export function AlertPreferences({
             ? 'GDP growth'
             : 'Consumer inflation';
         return (
-          <div className="section-heading" key={item.indicator}>
+          <div className="page-actions unobscured-actions" key={item.indicator}>
             <p>
               {name}: {item.muted ? 'Muted' : 'Enabled'}
             </p>

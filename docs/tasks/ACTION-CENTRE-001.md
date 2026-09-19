@@ -60,15 +60,15 @@ Detailed implementation and scoped cases: [action-plan completion](../developmen
 
 Current completion boundary: [supported policy, explicit exclusions and manual tests](../development/action-plan-completion.md). Earlier broad missing buy/rebalance/FIFO statements are superseded; no test pass or universal tax filing is claimed.
 
-<!-- sdlc-validation:start -->
-
-## Automated validation
-
-Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789846773980-36608.
-<!-- sdlc-validation:end -->
-
 ## Focused acceptance repair — 20 September 2026
 
 WEB1295/1296/1297 pass mobile but desktop native select did not commit Home/ArrowDown before Tab. Explicitly open/select/confirm desktop popup; preserve passing mobile sequence, full policy/source/replay/stale-source assertions and actual keyboard navigation.
 
 Evidence: connected run2026-09-19T19-40-29-161Z-37323 completed76 passes and10 failures. Repair authored; subsequent validation pending. User explicitly authorized agent execution for this closure pass. Reuse the existing specification and full acceptance matrix; no dependencies or migrations added.
+
+<!-- sdlc-validation:start -->
+
+## Automated validation
+
+Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789847379056-38783.
+<!-- sdlc-validation:end -->

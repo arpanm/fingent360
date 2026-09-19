@@ -1,6 +1,6 @@
 # NAMED-OPERATORS-001 — identities, permissions and independent publication approval
 
-- **Status:** Needs repair
+- **Status:** Implementation complete; validation pending
 - **Implemented / recorded:** - Implementation: Implemented; user validation pending. Parents: DEV015/017 retain broader gaps. Explicit named authentication mode with hashed personal operator credentials, role/session version admission, disable/revoke, default-deny server permissions on all operations and legacy protected mutation paths, and two distinct named identities for material publication/source-rights/media decisions. Preserve bootstrap local mode explicitly until named mode is configured. No shared-key bypass under named mode. Version-bound immutable proposals/receipts commit with their approved action, stale-head conflict and self-approval rejection even across two sessions. Add safe user-invoked first-admin setup, migration038, roster/review UI, actual role/lock/replay cases and documentation. Code must enforce controls, not merely hide UI. No agent provisioning or service/test execution.
 - **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
 - **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
@@ -42,15 +42,15 @@ The required API, browser-project and offline case IDs are now explicit in [acce
 
 No additional input is needed for this bounded automated scope. Run the complete required matrix and review attached keyboard/narrow-layout artifacts where applicable before claiming accepted delivery.
 
-<!-- sdlc-validation:start -->
-
-## Automated validation
-
-Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789846773980-36608.
-<!-- sdlc-validation:end -->
-
 ## Focused acceptance repair — 20 September 2026
 
 WEB640 completes actual independent approval/replay but fails360px containment on a long proposal identifier. Bound and wrap the proposal button while preserving the full identifier and Tab/Enter flow. Regression additionally checks control containment.
 
 Evidence: connected run2026-09-19T19-40-29-161Z-37323 completed76 passes and10 failures. Repair authored; subsequent validation pending. User explicitly authorized agent execution for this closure pass. Reuse the existing specification and full acceptance matrix; no dependencies or migrations added.
+
+<!-- sdlc-validation:start -->
+
+## Automated validation
+
+Partial — required cases not run. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789847379056-38783.
+<!-- sdlc-validation:end -->

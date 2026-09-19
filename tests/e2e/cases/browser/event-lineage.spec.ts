@@ -1,3 +1,4 @@
+import { expectUnobscuredControl } from '../../helpers/focus-visibility';
 import type { Locator, Page, TestInfo } from '@playwright/test';
 import { test, expect } from '../../helpers/event-fixture';
 import { eventHeaders } from '../../helpers/event-fixture';
@@ -18,6 +19,7 @@ async function keyboardActivate(
     await page.keyboard.press('Tab');
   }
   await expect(target).toBeFocused();
+  await expectUnobscuredControl(target);
   await page.keyboard.press(key);
 }
 

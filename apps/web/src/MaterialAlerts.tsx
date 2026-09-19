@@ -489,31 +489,33 @@ export function MaterialAlerts({
                   I permit automatic use of my followed indicators and saved
                   material thresholds for these stored-data checks.
                 </label>
-                <button
-                  disabled={!backgroundConsent}
-                  onClick={() =>
-                    void save(
-                      MaterialWriteSchema.parse({
-                        action: 'automatic-settings',
-                        requestId: crypto.randomUUID(),
-                        expectedVersion: view.state.version,
-                        enabled: true,
-                        backgroundConsent,
-                      }),
-                    )
-                  }
-                >
-                  Enable automatic checks
-                </button>
-                <button
-                  onClick={() => {
-                    setAutomaticReview(false);
-                    setBackgroundConsent(false);
-                  }}
-                >
-                  Back without enabling
-                </button>
-                <a href="#privacy">Review or revoke purpose consent</a>
+                <div className="page-actions unobscured-actions">
+                  <button
+                    disabled={!backgroundConsent}
+                    onClick={() =>
+                      void save(
+                        MaterialWriteSchema.parse({
+                          action: 'automatic-settings',
+                          requestId: crypto.randomUUID(),
+                          expectedVersion: view.state.version,
+                          enabled: true,
+                          backgroundConsent,
+                        }),
+                      )
+                    }
+                  >
+                    Enable automatic checks
+                  </button>
+                  <button
+                    onClick={() => {
+                      setAutomaticReview(false);
+                      setBackgroundConsent(false);
+                    }}
+                  >
+                    Back without enabling
+                  </button>
+                  <a href="#privacy">Review or revoke purpose consent</a>
+                </div>
               </fieldset>
             )}
           </section>

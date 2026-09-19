@@ -60,10 +60,12 @@ export function QualityOverview({
         retrieval age; they do not establish that a source is true or that
         markets are current.
       </p>
-      <button disabled={busy} onClick={() => void load()}>
-        {error ? 'Retry quality overview' : 'Refresh quality overview'}
-      </button>
-      <button onClick={onPublishing}>Open publishing review</button>
+      <div className="page-actions unobscured-actions">
+        <button disabled={busy} onClick={() => void load()}>
+          {error ? 'Retry quality overview' : 'Refresh quality overview'}
+        </button>
+        <button onClick={onPublishing}>Open publishing review</button>
+      </div>
       {busy && <p role="status">Reading current quality…</p>}
       {error && <p role="alert">{error}</p>}
       {data && (

@@ -81,6 +81,11 @@ test('E2E-OFFLINE-081 original observation mute, restore and exact receipt survi
       }),
     ).toBeVisible();
     await page.reload();
+    // Navigation can finish before the async device runtime installs local fetch.
+    // The signed-in view proves local transport and account hydration completed.
+    await expect(
+      page.getByRole('heading', { name: /Signed in as/ }),
+    ).toBeVisible();
     expect(await readInbox()).toEqual([]);
     await tabToObservationControl(
       page,
@@ -158,6 +163,11 @@ test('E2E-OFFLINE-081 original observation mute, restore and exact receipt survi
       }),
     ).toBeVisible();
     await page.reload();
+    // Navigation can finish before the async device runtime installs local fetch.
+    // The signed-in view proves local transport and account hydration completed.
+    await expect(
+      page.getByRole('heading', { name: /Signed in as/ }),
+    ).toBeVisible();
     expect(await readInbox()).toEqual([]);
     await activateObservationControl(
       page,
@@ -169,6 +179,11 @@ test('E2E-OFFLINE-081 original observation mute, restore and exact receipt survi
     );
     await expect(inbox).toContainText('Acknowledged');
     await page.reload();
+    // Navigation can finish before the async device runtime installs local fetch.
+    // The signed-in view proves local transport and account hydration completed.
+    await expect(
+      page.getByRole('heading', { name: /Signed in as/ }),
+    ).toBeVisible();
     expect(await readInbox()).toEqual([{ ...original, read: true }]);
     await expect(
       inbox.getByRole('button', {
@@ -185,10 +200,26 @@ test('E2E-OFFLINE-081 original observation mute, restore and exact receipt survi
       expect.objectContaining({ observationId: original?.observationId }),
     ]);
   } finally {
-    const deleted = await beaBrowserCall(page, '/api/v1/account', 'DELETE', {
-      password,
-    });
-    expect(deleted.status).toBe(200);
+    // A failed post-reload assertion must not send cleanup to the static server.
+    // Cleanup failures are additional evidence, never replacements for that failure.
+    try {
+      await expect(
+        page.getByRole('heading', { name: /Signed in as/ }),
+      ).toBeVisible();
+      const deleted = await beaBrowserCall(page, '/api/v1/account', 'DELETE', {
+        password,
+      });
+      expect
+        .soft(deleted.status, 'Owned on-device account cleanup status')
+        .toBe(200);
+    } catch {
+      expect
+        .soft(
+          false,
+          'Owned on-device account cleanup could not finish; preserve the original workflow failure.',
+        )
+        .toBe(true);
+    }
   }
   expect(requests).toEqual([]);
 });

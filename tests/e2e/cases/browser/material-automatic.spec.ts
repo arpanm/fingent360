@@ -1,3 +1,4 @@
+import { expectUnobscuredControl } from '../../helpers/focus-visibility';
 import { test, expect } from '../../helpers/app-fixture';
 import {
   prepareMaterialBrowser,
@@ -38,6 +39,7 @@ test('E2E-WEB-790 explicit automatic review Back enable reload disable preserves
   await expect(consent).not.toBeChecked();
   await page.keyboard.press('Tab');
   await expect(back).toBeFocused();
+  await expectUnobscuredControl(back);
   await page.keyboard.press('Enter');
   await expect(region).toContainText('Manual mode');
   await expect(consent).toHaveCount(0);
@@ -50,6 +52,7 @@ test('E2E-WEB-790 explicit automatic review Back enable reload disable preserves
   await expect(consent).toBeChecked();
   await page.keyboard.press('Tab');
   await expect(enable).toBeFocused();
+  await expectUnobscuredControl(enable);
   await expect(enable).toBeEnabled();
   await expect
     .poll(() =>

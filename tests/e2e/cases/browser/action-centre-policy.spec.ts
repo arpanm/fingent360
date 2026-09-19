@@ -57,9 +57,12 @@ async function enterComparison(page: Page, policyId: string) {
     await policy.press('ArrowDown');
     await policy.press('Tab');
   } else {
-    // Commit the desktop native popup before Tab moves focus away.
-    await policy.press('Space');
-    await policy.press('End');
+    // Headless macOS Chrome keeps arrow navigation inside its native popup.
+    // Native type-ahead commits the owned fixture's uniquely named policy.
+    await expect(policy.locator('option[value="' + policyId + '"]')).toHaveText(
+      /^Synthetic conservative educational limits/,
+    );
+    await policy.press('s');
     await policy.press('Enter');
     await expect(policy).toHaveValue(policyId);
     await policy.press('Tab');

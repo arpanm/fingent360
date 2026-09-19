@@ -48,5 +48,13 @@ Read AGENTS.md, the task-maintenance guide and this task’s current summary. Wo
 
 ## Automated validation
 
-Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789846773980-36608.
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789847379056-38783.
 <!-- sdlc-validation:end -->
+
+## Reviewed acceptance scope — 20 September 2026
+
+Explicitly synthetic educational virtual workspace, catalog/event/company navigation, exact quantities/valuation, CSV preview/reconciliation, revision/idempotency/ownership, repeated goals, immutable review and persisted responsive journey.
+
+The complete required case/project matrix is now recorded in `acceptance.json`. This review is not a test pass; actual current-revision receipts determine validation.
+
+Remaining gates: Separate keyboard acceptance for the full virtual journey remains unrecorded; connected browser cases exercise click controls and mobile width, not a complete keyboard journey.

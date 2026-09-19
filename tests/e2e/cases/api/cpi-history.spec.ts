@@ -132,7 +132,14 @@ test('E2E-API-1851 chart vintage selection rejects blank actual days and wrong m
       ),
     }),
   ).toThrow();
-  expect(() =>
-    parse({ ...data, body: data.body.replace('0.242424629147151', '0.9') }),
-  ).toThrow();
+  // The same value occurs on earlier days. Corrupt only the selected Feb 11
+  // value, leaving its original tooltip unchanged to exercise reconciliation.
+  const selectedPoint =
+    /("value"\s*:\s*")0\.242424629147151("\s*,\s*"tooltext"\s*:\s*"CPI Inflation\{br\}02\/11\{br\})/g;
+  expect([...data.body.matchAll(selectedPoint)]).toHaveLength(1);
+  const inconsistentSelectedPoint = data.body.replace(
+    selectedPoint,
+    (_match: string, before: string, after: string) => `${before}0.9${after}`,
+  );
+  expect(() => parse({ ...data, body: inconsistentSelectedPoint })).toThrow();
 });

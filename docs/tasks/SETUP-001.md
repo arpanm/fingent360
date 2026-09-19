@@ -47,9 +47,19 @@ Read AGENTS.md, the task-maintenance guide and this task’s current summary. Wo
 - **Research/evidence:** See [dated source checks and existing answers](input-research-2026-09-15.md). Source-specific permissions, complete parser layouts and legal classification are not claimed resolved by triage.
 - **Completion boundary:** This updates readiness only, not test passes, live activation or full feature completion. On later pickup, refresh saved evidence and update this record plus the TODO row.
 
+## Current acceptance review — 20 September 2026
+
+Reviewed scope: Initial local development foundation: documented local bootstrap/dev, strict shared-contract health/readiness, actual PostgreSQL/Mongo readiness and selected database outage with independent liveness, JSON unknown-route errors, scoped credentialed CORS, real browser/API connectivity with honest synthetic scope, unavailable/malformed response handling, responsive layout and keyboard navigation. Format/check and gated local commit remain normal SDLC requirements. This does not complete general SDLC tooling, production deployment, hosted CI, offline/native functionality or physical-device certification.
+
+The required API, browser-project and offline case IDs are now explicit in [acceptance.json](acceptance.json). Only actual current receipts plus successful normal gates can close this scope. Existing API/contracts/database/source workflows are reused; a matrix correction itself adds no migration or source permission. Physical-device and deployment claims require their separate evidence. The user authorized this validation/repair run; older manual-only handoff wording is historical for this run.
+
+Remaining gates:
+
+- Saved evidence for the six explicit manual runner acceptance scenarios in tests/e2e/CATALOG.md (listing has no side effects, selected execution, all-project results and intentional outage skip, actionable deliberate connection failure, saved HTML/JSON reports, watch-off no automatic execution). SETUP-001 explicitly references these scenarios; no evidence establishing their completion was found in this review.
+
 <!-- sdlc-validation:start -->
 
 ## Automated validation
 
-Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789837362616-23249.
+Blocked — workflow failure. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789846657524-36112.
 <!-- sdlc-validation:end -->

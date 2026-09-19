@@ -1,10 +1,10 @@
 # SDLC-REPAIR-009 — Formatter syntax failures
 
-- **Status:** Completed implementation; manual validation pending.
+- **Status:** Done (verified gate scope)
 - **Implemented:** Restored the closing JSX expression brace after the older-page button in CPI and GDP operations, closed the conditional fragment in WhatsApp scheduling, and removed an extra parenthesis from the invalid-unit EIA offline assertion.
-- **Pending:** Parent/user retry of the exact failed formatting command. No passing validation is claimed.
-- **Next action / inputs:** Parent retries `pnpm format`; if it fails, retain the exact file, location and diagnostic from this command.
-- **Verification:** Read-only inspection only. Saved format log `artifacts/sdlc/1789526568080-8379/01-pnpm-format.log` matches the supplied output tail and contains these four parser errors. No whole-suite report inspected.
+- **Pending:** None for this bounded compiler, formatter or tooling repair; functional stories own their application acceptance.
+- **Next action / inputs:** No pickup needed for this recorded repair.
+- **Verification:** Actual format/check/unit gates passed in SDLC1789837762812-24470, gated commit4549ca1; see recorded gate acceptance below.
 
 ## Specification and acceptance
 
@@ -28,3 +28,9 @@ Smallest exact failed-command retry: `pnpm format`. Existing installed dependenc
 ## Reusable task prompt
 
 Read AGENTS.md and this record. Repair only parser diagnostics from the supplied format invocation. Inspect its format log only, preserve assertions and unrelated changes, and document focused regression acceptance. Do not run validation, services, ingestion, commits, agents or follow-ups. Do not infer success from the edits.
+
+## Recorded gate acceptance — 20 September 2026
+
+Scope: Four formatter syntax delimiters; no runtime behavior change.
+
+User-authorized SDLC run `1789837762812-24470` completed formatting and the entire check stage successfully before connected acceptance began. The [check log](../../artifacts/sdlc/1789837762812-24470/02-pnpm-check.log) includes strict application/E2E compilation and contracts/API/tooling unit coverage; its final tooling suite reports72 passes, zero failures. Gated commit `4549ca1` records that source revision. This closes the bounded repair, not all application features or later source revisions. No fabricated E2E matrix is added for a compiler/formatting-only task.

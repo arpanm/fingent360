@@ -1,12 +1,12 @@
 # SDLC-REPAIR-014 — E2E compiler repair
 
-- **Status:** Completed implementation; manual validation pending.
+- **Status:** Done (verified gate scope)
 - **Input (2026-09-16):** User supplied only the E2E TypeScript diagnostics from `pnpm check` exit 2. Authoring and read-only inspection only; no report, execution, commit or delegation. Pickup/input records reviewed; no private input needed.
 - **Scope:** Repair the named test/helper type boundaries, missing imports, browser response status access and root ZIP dependency. Preserve assertions, strict validation and real workflow paths.
 - **Dependencies:** Existing workspace dependencies; declare the already locked fflate version for root-owned test helpers.
 - **Acceptance:** Supplied diagnostics disappear without casts that bypass validation; reconciliation and active consent are required; scenario mutations retain their narrowed family; downloaded evidence remains runtime validated; native fixtures use shared bridge declarations.
 - **Layers:** Specification, test fixtures, TypeScript contracts and documentation apply. No product UI/UX, navigation, loading/empty/error/recovery/saved states, database, provenance or automation behavior changes. Keyboard/mobile/visual acceptance and parent feature completion are unchanged.
-- **Verification:** Not run. Parent owns the exact check retry; preserve HEAD and unrelated edits.
+- **Verification:** Actual format/check/unit gates passed in SDLC1789837762812-24470, gated commit4549ca1; see recorded gate acceptance below.
 
 ## Reusable prompt
 
@@ -36,3 +36,9 @@ Regression assertions: API1406 explicitly requires reconciliation before checkin
 Affected existing cases: E2E-API-1406,1503–1504,1890–1892,1254; E2E-WEB-1610–1612,1881,1831; E2E-OFFLINE-1980,1960,1920,1270,1890,1990,1433,1380. SBI/Axis helper consumers retain their existing structural workbook regressions. These are API, desktop/mobile and offline cases respectively; compilation selects no Playwright project or tags. No new fixture data, provider calls or database changes are required.
 
 Remaining gap: dependency linking and user/parent validation. No formatting, lint, typecheck, builds, tests, SDLC, installation, services, migrations, ingestion or commit was run. No suite report was read. Existing HEAD `a2c53a0` and extensive pre-existing tracked/untracked work are preserved and remain uncommitted under the explicit boundary. Broader feature/parent statuses remain unchanged.
+
+## Recorded gate acceptance — 20 September 2026
+
+Scope: E2E type-boundary, root locked fflate dependency declaration and shared native bridge declaration repair, preserving runtime assertions.
+
+User-authorized SDLC run `1789837762812-24470` completed formatting and the entire check stage successfully before connected acceptance began. The [check log](../../artifacts/sdlc/1789837762812-24470/02-pnpm-check.log) includes strict application/E2E compilation and contracts/API/tooling unit coverage; its final tooling suite reports72 passes, zero failures. Gated commit `4549ca1` records that source revision. This closes the bounded repair, not all application features or later source revisions. No fabricated E2E matrix is added for a compiler/formatting-only task.

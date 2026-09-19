@@ -34,9 +34,20 @@ Read AGENTS.md, the task-maintenance guide and this task’s current summary. Wo
 - **Research/evidence:** See [dated source checks and existing answers](input-research-2026-09-15.md). Source-specific permissions, complete parser layouts and legal classification are not claimed resolved by triage.
 - **Completion boundary:** This updates readiness only, not test passes, live activation or full feature completion. On later pickup, refresh saved evidence and update this record plus the TODO row.
 
+## Current acceptance review — 20 September 2026
+
+Reviewed scope: Configurable grounded OpenAI, Gemini and Anthropic assistance and truthful deterministic query fallback, explicit consent for optional owned-history context, original reference binding, credentials restricted to server configuration, explicit Apply or Dismiss, no silent saved-data changes and strict rejection of unsupported provider text. Full task retains configured live provider and documented offline acceptance requirements. Physical-device release certification and wider parent requirements remain separate.
+
+The required API, browser-project and offline case IDs are now explicit in [acceptance.json](acceptance.json). Only actual current receipts plus successful normal gates can close this scope. Existing API/contracts/database/source workflows are reused; a matrix correction itself adds no migration or source permission. Physical-device and deployment claims require their separate evidence. The user authorized this validation/repair run; older manual-only handoff wording is historical for this run.
+
+Remaining gates:
+
+- Saved acceptance for configured provider/model choices is explicitly pending in ASSIST-001; fallback is not a live-provider pass.
+- Confirm documented offline assistance/query acceptance; located existing ASSIST-001 cases cover connected API/browser and normal check-gate adapter fixtures, not a complete offline browser workflow.
+
 <!-- sdlc-validation:start -->
 
 ## Automated validation
 
-Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789837362616-23249.
+Blocked — workflow failure. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789846657524-36112.
 <!-- sdlc-validation:end -->

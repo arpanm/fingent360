@@ -1,9 +1,9 @@
 # WORKER-HEALTH-001 — Background worker health
 
-- **Status:** Done (recorded scope)
+- **Status:** Implementation complete; validation pending
 - **Implemented / recorded:** - WORKER-HEALTH-001 (DEV-015/021): Implemented and selected verification passed; physical/production acceptance remains separate. Make existing report/reminder worker health and explicit pause/resume visible in Operations. Detailed Codex prompt: inspect the existing leased report worker and in-app reminder worker, then specify aggregate heartbeat/last-success/bounded safe failure classification, queue age/due/expired-lease counts, stale versus unavailable, and control semantics. Add strict c
-- **Pending:** No new action for the recorded scope; later changes need new validation.
-- **Next action / inputs:** No new action for the recorded scope; later changes need new validation.
+- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
+- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 Status reconciliation (2026-09-16): Done refers to the previously recorded bounded delivery, not fresh validation of the current working tree. No new implementation or test pass is claimed.
@@ -28,9 +28,17 @@ Read AGENTS.md, the task-maintenance guide and this task’s current summary. Wo
 
 API359 report preparation classification and API360 storage-failure companion repaired from saved run1789752953639-97020. See [RCA and scoped retry](../development/full-audit-2026-09-19.md). Regression assertions remain strict; authored changes are not passing evidence. User runs `SDLC_AUTO_REPAIR=0 pnpm sdlc "Repair full audit failures" --story SDLC-REPAIR-016`; no new dependency or migration. Existing broader scope and saved validation remain unchanged.
 
+## Current acceptance review — 20 September 2026
+
+Reviewed scope: Aggregate report/reminder health, pause/resume, immutable bounded controls, cross-instance claim fencing, already-claimed completion, lease recovery and safe failure categories, responsive Operations and connected-only local behavior. Physical/production monitoring acceptance remains separate. This covers only the recorded child, not broader parents or source activation.
+
+The required API, browser-project and offline case IDs are now explicit in [acceptance.json](acceptance.json). Only actual current receipts plus successful normal gates can close this scope. Existing API/contracts/database/source workflows are reused; a matrix correction itself adds no migration or source permission. Physical-device and deployment claims require their separate evidence. The user authorized this validation/repair run; older manual-only handoff wording is historical for this run.
+
+No additional input is needed for this bounded automated scope. Run the complete required matrix and review attached keyboard/narrow-layout artifacts where applicable before claiming accepted delivery.
+
 <!-- sdlc-validation:start -->
 
 ## Automated validation
 
-Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789837362616-23249.
+Blocked — workflow failure. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789846657524-36112.
 <!-- sdlc-validation:end -->

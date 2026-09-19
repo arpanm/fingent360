@@ -1,9 +1,9 @@
 # MATERIAL-AUTO-001 — opt-in durable stored-observation checks
 
-- **Status:** Completed implementation; validation pending
+- **Status:** Implementation complete; validation pending
 - **Implemented / recorded:** - Implementation: Implemented; user validation pending. Parents: DEV011/018 retain release-calendar and wider evidence-pipeline scope; extends MATERIAL-ALERTS-001. Complete automatic checking of already stored annual observations with an explicit opt-in, visible cadence and dated receipts. Never imply provider refresh, release calendar knowledge, email/push or investment advice. Existing manual checks and thresholds remain. Default existing accounts to manual; enable/resume starts a fresh baseline without backlog. Persist due state and perform bounded account-serialized checks that survive process restart and avoid duplicate notices across API instances; pause/disable/unfollow takes effect against the same account lock. Use the shared exact material reducer and public-source freshness policy, with actual receipt provenance distinguishing automatic versus manual checks. Do not silently turn a storage checkbox into background-use permission. Provide responsive settings/review/disable/loading/error/retry UI and current next-check/last-result information. Offline performs only due checks while the app is open using its dated installed bundle, no background OS/network promise. Include private export/delete and meaningful actual database concurrency/restart/no-duplicate plus browser/offline cases. Design against existing material state/receipt structures; reserve migration044 only if needed and API/WEB/OFFLINE790–809. User runs all deterministic gates, migrations/services and the conditional commit via pnpm sdlc; agents only author and review.
-- **Pending:** User: run the task’s documented validation; implementation is not a test pass.
-- **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.
+- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
+- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Implementation handoff rule
@@ -34,9 +34,17 @@ Read AGENTS.md, the task-maintenance guide and this task’s current summary. Wo
 - **Research/evidence:** See [dated source checks and existing answers](input-research-2026-09-15.md). Source-specific permissions, complete parser layouts and legal classification are not claimed resolved by triage.
 - **Completion boundary:** This updates readiness only, not test passes, live activation or full feature completion. On later pickup, refresh saved evidence and update this record plus the TODO row.
 
+## Current acceptance review — 20 September 2026
+
+Reviewed scope: Explicit background-purpose opt-in and future-baseline cadence over stored annual observations, bounded concurrent worker/restart/failure isolation, immutable dated receipts and local checks while app open. No provider refresh, release predictions, OS scheduling, external notifications or advice. Completion applies only to this bounded child.
+
+The required API, browser-project and offline case IDs are now explicit in [acceptance.json](acceptance.json). Only actual current receipts plus successful normal gates can close this scope. Existing API/contracts/database/source workflows are reused; a matrix correction itself adds no migration or source permission. Physical-device and deployment claims require their separate evidence. The user authorized this validation/repair run; older manual-only handoff wording is historical for this run.
+
+No additional input is needed for this bounded automated scope. Run the complete required matrix and review attached keyboard/narrow-layout artifacts where applicable before claiming accepted delivery.
+
 <!-- sdlc-validation:start -->
 
 ## Automated validation
 
-Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789837362616-23249.
+Blocked — workflow failure. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789846657524-36112.
 <!-- sdlc-validation:end -->

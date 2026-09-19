@@ -180,9 +180,20 @@ The existing retained-original Mongo/edition-review-view PostgreSQL workflow now
 
 CPI historical marker schema and offline published graph fixtures (API1850/1851, WEB1850, OFFLINE1850/1394/1020/1021) repaired from saved run1789752953639-97020. See [RCA and scoped retry](../development/full-audit-2026-09-19.md). Regression assertions remain strict; authored changes are not passing evidence. User runs `SDLC_AUTO_REPAIR=0 pnpm sdlc "Repair full audit failures" --story SDLC-REPAIR-016`; no new dependency or migration. Existing broader scope and saved validation remain unchanged.
 
+## Current acceptance review — 20 September 2026
+
+Reviewed scope: Current accepted seven-family educational source-to-event/scenario workflow: exact researched RBI/Fed policy, original BLS CPI and BEA GDP vintages, issuer revenue versus guidance, FIU subject and institutional-flow packs; legitimate SPF survey and dated Cleveland model comparisons with retrospective provenance; immutable review/history/withdrawal; qualitative reviewed transmission and no-action outcomes, shared web/offline. No calibrated causal forecast, marketwide consensus, prior app availability or financial advice is asserted.
+
+The required API, browser-project and offline case IDs are now explicit in [acceptance.json](acceptance.json). Only actual current receipts plus successful normal gates can close this scope. Existing API/contracts/database/source workflows are reused; a matrix correction itself adds no migration or source permission. Physical-device and deployment claims require their separate evidence. The user authorized this validation/repair run; older manual-only handoff wording is historical for this run.
+
+Remaining gates:
+
+- Record actual source-specific retention, display, linking and offline rights plus permitted operator activation; simulated attestations do not establish permission.
+- Record physical Android downloaded-package acceptance required by the shared app delivery; desktop/mobile Playwright is not native certification.
+
 <!-- sdlc-validation:start -->
 
 ## Automated validation
 
-Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789837362616-23249.
+Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789846657524-36112.
 <!-- sdlc-validation:end -->

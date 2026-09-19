@@ -191,6 +191,25 @@ function Comparison({ receipt }: { receipt: ActionCentreReceipt }) {
           {receipt.input.price.basis}. Tax/fee basis: {receipt.input.costs.note}
           .
         </p>
+        {receipt.researchPolicy?.event.event && (
+          <section aria-label="Bound educational policy sources">
+            <p>
+              <a href={'#events/' + receipt.researchPolicy.event.id}>
+                Bound policy event
+              </a>{' '}
+              · version {receipt.researchPolicy.event.event.version}. Review by{' '}
+              {receipt.researchPolicy.input.reviewBy}.
+            </p>
+            <ul>
+              {receipt.researchPolicy.event.event.sources.map((source) => (
+                <li key={source.id}>
+                  {source.title} · source version {source.version} · hash{' '}
+                  {source.sourceHash}
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
         <p>
           Policy {receipt.policy}; holdings edition {receipt.holdings.version},
           goal edition {receipt.goal.version}.

@@ -1,7 +1,55 @@
+import type { Locator, Page, TestInfo } from '@playwright/test';
 import { randomUUID } from 'node:crypto';
 import { test, expect } from '../../helpers/app-fixture';
 import { seedConnectionSource } from '../../helpers/research-connection-fixture';
 import { PublicationProposalSchema } from '../../../../packages/contracts/src/index';
+
+// Traverse the real tab order. Do not focus the target programmatically: that
+// would hide an unreachable or trapped control from this keyboard regression.
+async function keyboardActivate(
+  page: Page,
+  target: Locator,
+  key: 'Enter' | 'Space' = 'Enter',
+) {
+  await expect(target).toBeVisible();
+  await expect(target).toBeEnabled();
+  for (let step = 0; step < 120; step++) {
+    if (await target.evaluate((element) => element === document.activeElement))
+      break;
+    await page.keyboard.press('Tab');
+  }
+  await expect(target).toBeFocused();
+  await page.keyboard.press(key);
+}
+
+async function captureReviewedLayout(
+  page: Page,
+  region: Locator,
+  testInfo: TestInfo,
+  name: string,
+) {
+  await expect(region).toBeVisible();
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= window.innerWidth,
+    ),
+  ).toBe(true);
+  const bounds = await region.boundingBox();
+  expect(bounds).not.toBeNull();
+  expect(bounds!.x).toBeGreaterThanOrEqual(0);
+  expect(bounds!.x + bounds!.width).toBeLessThanOrEqual(
+    await page.evaluate(() => window.innerWidth),
+  );
+  // This test owns disposable synthetic identities and data. Capture only the
+  // named workflow region, with every form value masked; never capture login.
+  await testInfo.attach(name, {
+    body: await region.screenshot({
+      animations: 'disabled',
+      mask: [region.locator('input, textarea')],
+    }),
+    contentType: 'image/png',
+  });
+}
 
 test.use({
   namedOperators: true,
@@ -15,7 +63,7 @@ test('E2E-WEB-640 named independent review recovers a lost committed approval re
   page,
   request,
   feedbackSandbox,
-}) => {
+}, testInfo) => {
   const source = await seedConnectionSource(feedbackSandbox);
   expect(
     (
@@ -61,18 +109,25 @@ test('E2E-WEB-640 named independent review recovers a lost committed approval re
   await page
     .getByLabel('Named operator password', { exact: true })
     .fill(credentials.password);
-  await page
-    .getByRole('button', { name: 'Sign in to operations', exact: true })
-    .click();
-  await page
-    .getByRole('button', { name: 'Named operators and proposals', exact: true })
-    .click();
-  await page
-    .getByRole('button', { name: new RegExp('discovery.*' + source.id) })
-    .click();
-  await page
-    .getByRole('button', { name: 'Inspect bound target', exact: true })
-    .click();
+  await keyboardActivate(
+    page,
+    page.getByRole('button', { name: 'Sign in to operations', exact: true }),
+  );
+  await keyboardActivate(
+    page,
+    page.getByRole('button', {
+      name: 'Named operators and proposals',
+      exact: true,
+    }),
+  );
+  await keyboardActivate(
+    page,
+    page.getByRole('button', { name: new RegExp('discovery.*' + source.id) }),
+  );
+  await keyboardActivate(
+    page,
+    page.getByRole('button', { name: 'Inspect bound target', exact: true }),
+  );
   await expect(
     page.getByText('Protected target read for this proposal.', {
       exact: false,
@@ -99,13 +154,32 @@ test('E2E-WEB-640 named independent review recovers a lost committed approval re
     },
     { times: 1 },
   );
-  await page
-    .getByRole('button', { name: 'Approve exact publication', exact: true })
-    .click();
+  await keyboardActivate(
+    page,
+    page.getByRole('button', {
+      name: 'Approve exact publication',
+      exact: true,
+    }),
+  );
   await expect(page.getByRole('alert')).toBeVisible();
-  await page
-    .getByRole('button', { name: 'Approve exact publication', exact: true })
-    .click();
+  await expect(page.getByRole('alert')).toBeFocused();
+  // Recover the real committed-but-lost approval using keyboard traversal.
+  await captureReviewedLayout(
+    page,
+    page.getByRole('region', {
+      name: 'Named operators and publication proposals',
+      exact: true,
+    }),
+    testInfo,
+    'synthetic-named-approval-recovery',
+  );
+  await keyboardActivate(
+    page,
+    page.getByRole('button', {
+      name: 'Approve exact publication',
+      exact: true,
+    }),
+  );
   await expect(
     page.getByText('Saved approved receipt.', { exact: false }),
   ).toBeVisible();
@@ -119,26 +193,44 @@ test('E2E-WEB-640 named independent review recovers a lost committed approval re
       exact: true,
     }),
   ).toHaveCount(0);
-  await page
-    .getByRole('button', { name: 'Close proposal', exact: true })
-    .click();
-  await page
-    .getByRole('button', {
+  await keyboardActivate(
+    page,
+    page.getByRole('button', { name: 'Close proposal', exact: true }),
+  );
+  await expect(
+    page.getByRole('button', {
       name: 'Reload proposals and operators',
       exact: true,
-    })
-    .click();
+    }),
+  ).toBeFocused();
+  await keyboardActivate(
+    page,
+    page.getByRole('button', {
+      name: 'Reload proposals and operators',
+      exact: true,
+    }),
+  );
   await expect(
     page.getByRole('button', {
       name: new RegExp('discovery.*' + source.id + '.*approved'),
     }),
   ).toBeVisible();
+  await page.setViewportSize({ width: 360, height: 800 });
+  await captureReviewedLayout(
+    page,
+    page.getByRole('region', {
+      name: 'Named operators and publication proposals',
+      exact: true,
+    }),
+    testInfo,
+    'synthetic-named-operators-narrow',
+  );
 });
 
 test('E2E-WEB-641 named administrator creates a viewer and independent review remains required @NAMED-OPERATORS-001', async ({
   page,
   feedbackSandbox,
-}) => {
+}, testInfo) => {
   await page.goto('/#ops');
   await page
     .getByLabel('Named operator username', { exact: true })
@@ -146,12 +238,17 @@ test('E2E-WEB-641 named administrator creates a viewer and independent review re
   await page
     .getByLabel('Named operator password', { exact: true })
     .fill(feedbackSandbox.namedCredentials!.password);
-  await page
-    .getByRole('button', { name: 'Sign in to operations', exact: true })
-    .click();
-  await page
-    .getByRole('button', { name: 'Named operators and proposals', exact: true })
-    .click();
+  await keyboardActivate(
+    page,
+    page.getByRole('button', { name: 'Sign in to operations', exact: true }),
+  );
+  await keyboardActivate(
+    page,
+    page.getByRole('button', {
+      name: 'Named operators and proposals',
+      exact: true,
+    }),
+  );
   const username = 'viewer_' + randomUUID().slice(0, 8);
   await page
     .getByLabel('New operator username', { exact: true })
@@ -162,9 +259,10 @@ test('E2E-WEB-641 named administrator creates a viewer and independent review re
   await page
     .getByLabel('New operator role', { exact: true })
     .selectOption('viewer');
-  await page
-    .getByRole('button', { name: 'Create named operator', exact: true })
-    .click();
+  await keyboardActivate(
+    page,
+    page.getByRole('button', { name: 'Create named operator', exact: true }),
+  );
   await expect(
     page.getByRole('heading', { name: username, exact: true }),
   ).toBeVisible();
@@ -172,17 +270,32 @@ test('E2E-WEB-641 named administrator creates a viewer and independent review re
     page.getByLabel('New operator password', { exact: true }),
   ).toHaveValue('');
   page.once('dialog', (dialog) => dialog.accept());
-  await page
-    .getByRole('button', { name: 'Disable ' + username, exact: true })
-    .click();
+  await keyboardActivate(
+    page,
+    page.getByRole('button', { name: 'Disable ' + username, exact: true }),
+  );
   await expect(
     page.getByRole('button', { name: 'Enable ' + username, exact: true }),
   ).toBeVisible();
   await page.reload();
-  await page
-    .getByRole('button', { name: 'Named operators and proposals', exact: true })
-    .click();
+  await keyboardActivate(
+    page,
+    page.getByRole('button', {
+      name: 'Named operators and proposals',
+      exact: true,
+    }),
+  );
   await expect(
     page.getByRole('button', { name: 'Enable ' + username, exact: true }),
   ).toBeVisible();
+  await page.setViewportSize({ width: 360, height: 800 });
+  await captureReviewedLayout(
+    page,
+    page.getByRole('region', {
+      name: 'Named operators and publication proposals',
+      exact: true,
+    }),
+    testInfo,
+    'synthetic-named-operators-narrow',
+  );
 });

@@ -2,23 +2,30 @@
 
 - Status: Open
 - Case/project: E2E-WEB-1672 / mobile
-- Stories: EVENT-SCENARIOS-001
+- Stories: EVENT-SCENARIOS-001, SDLC-REPAIR-016
 - First seen: 2026-09-16T22:26:46.819Z
-- Evidence: artifacts/sdlc/1789752953639-97020/06-pnpm-e2e_run.log
+- Evidence: artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log
 - Resolution run: Unresolved
 
 Failure excerpt (untrusted; local original has full details):
 
-    TimeoutError: locator.fill: Timeout 10000ms exceeded.
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: getByRole('region', { name: 'CPI expectation operations' }).getByRole('alert')
+    Expected substring: "Another named operator"
+    Timeout: 10000ms
+    Error: element(s) not found
+
     Call log:
-      - waiting for getByRole('region', { name: 'CPI expectation operations' }).getByLabel('Original CPI report URL')
+      - Expect "toContainText" with timeout 10000ms
+      - waiting for getByRole('region', { name: 'CPI expectation operations' }).getByRole('alert')
 
 
-      77 |       name: 'CPI expectation operations',
-      78 |     });
-    > 79 |     await region.getByLabel('Original CPI report URL').fill(data.url);
-         |                                                        ^
-      80 |     await region.getByLabel('Original CPI HTML or JSON file').setInputFiles({
-      81 |       name: 'synthetic-spf.html',
-      82 |       mimeType: 'text/html',
-        at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/cpi-expectations.spec.ts:79:56
+      114 |       .getByRole('button', { name: 'Publish expectation', exact: true })
+      115 |       .click();
+    > 116 |     await expect(region.getByRole('alert')).toContainText(
+          |                                             ^
+      117 |       'Another named operator',
+      118 |     );
+      119 |     await sourceOpsBrowser(
+        at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/cpi-expectations.spec.ts:116:45

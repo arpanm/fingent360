@@ -5,13 +5,14 @@ import {
   MediaAssetSchema,
 } from '../../../../packages/contracts/src/index';
 import { operatorKey } from '../../helpers/operator';
+import { expectCaptionClipPlayback } from '../../helpers/media-playback';
 test.use({
   trace: 'off',
   video: 'off',
   screenshot: 'off',
   contextOptions: { reducedMotion: 'reduce' },
 });
-test('E2E-WEB-160 reviewed illustration, controlled captions and actual video download @UX-002', async ({
+test('E2E-WEB-160 reviewed illustration, controlled captions and actual video download @UX-002 @MEDIA-001', async ({
   page,
 }, testInfo) => {
   test.setTimeout(90000);
@@ -84,43 +85,12 @@ test('E2E-WEB-160 reviewed illustration, controlled captions and actual video do
         .click();
       const clip = await download;
       expect(clip.suggestedFilename()).toMatch(/\.webm$/);
-      const clipPath = `artifacts/ux2-caption-${testInfo.project.name}.webm`;
+      const clipPath = testInfo.outputPath('reviewed-source-caption.webm');
       await clip.saveAs(clipPath);
       const bytes = await readFile(clipPath);
       expect(bytes.byteLength).toBeGreaterThan(1000);
       expect(bytes.subarray(0, 4).toString('hex')).toBe('1a45dfa3');
-      const dimensions = await page.evaluate(async (encoded) => {
-        const bytes = Uint8Array.from(atob(encoded), (c) => c.charCodeAt(0));
-        const url = URL.createObjectURL(
-          new Blob([bytes], { type: 'video/webm' }),
-        );
-        const video = document.createElement('video');
-        try {
-          return await new Promise<{ width: number; height: number }>(
-            (resolve, reject) => {
-              const timer = setTimeout(
-                () => reject(new Error('Downloaded clip did not decode')),
-                15000,
-              );
-              video.onloadeddata = () => {
-                clearTimeout(timer);
-                resolve({ width: video.videoWidth, height: video.videoHeight });
-              };
-              video.onerror = () => {
-                clearTimeout(timer);
-                reject(new Error('Downloaded clip is not playable'));
-              };
-              video.src = url;
-              video.load();
-            },
-          );
-        } finally {
-          video.removeAttribute('src');
-          video.load();
-          URL.revokeObjectURL(url);
-        }
-      }, bytes.toString('base64'));
-      expect(dimensions).toEqual({ width: 960, height: 640 });
+      await expectCaptionClipPlayback(page, bytes.toString('base64'));
       await expect(media.getByRole('status')).toContainText(
         'Video clip downloaded',
       );

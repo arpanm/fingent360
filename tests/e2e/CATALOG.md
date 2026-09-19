@@ -818,3 +818,66 @@ Saved user-run inventory1789752953639-97020 has119 failed case/project attempts.
 ## Main module completion — 2026-09-19
 
 PORTFOLIO-001 now includes actual guided offline UI case E2E-OFFLINE-090: local signup, exact manual entry, preview-only state, confirmation, reload/receipt check, explicit full-removal consent and history, with zero API traffic. Existing API090/091/400–403/1404, WEB090/092/400–402 and OFFLINE010/011/410 complete the matrix. HOLDINGS-RECONCILE-001 is fully included in that selection. UX-002D links API121/122/761, WEB120/121/131/134 and OFFLINE201/204/761 to complete saved reading/reminders/preferences acceptance. Shared mobile projects are required. [Reviewed layers and user commands](../../docs/development/main-module-closure-2026-09-19.md). Cases are authored or reused, not executed by the agent; previous saved results are not fresh acceptance.
+
+## Acceptance closure regressions — 20 September 2026
+
+These cases preserve their actual storage/API or on-device paths. Synthetic provider/fault transport is explicitly labelled; no live-provider or native-device pass is inferred. Existing IDs below have strengthened assertions; newly authored IDs extend the reviewed story matrices. All require current saved execution evidence.
+
+- **E2E-API-1850** (api): original dated Cleveland model and matching BLS release retain exact historical error @EVENT-SCENARIOS-001 @SOURCE-EXCERPT — `tests/e2e/cases/api/cpi-history.spec.ts`.
+- **E2E-API-1851** (api): chart vintage selection rejects blank actual days and wrong measure while preserving source precision @EVENT-SCENARIOS-001 @SOURCE-EXCERPT — `tests/e2e/cases/api/cpi-history.spec.ts`.
+- **E2E-API-041** (api): actual stored correction and withdrawal keep old acknowledgement separate @ALERT-001 @TEST-SIMULATION — `tests/e2e/cases/api/inbox-revisions.spec.ts`.
+- **E2E-API-1773** (api): actual scheduled GDP tick retains original drafts deduplicates quarantines and rechecks pause during acquisition @SRC-007 @RESEARCH-AUTO-002 @TEST-SIMULATION — `tests/e2e/cases/api/india-gdp-scheduled.spec.ts`.
+- **E2E-API-1118** (api): private history enforces seven-day expiry consent cutoff and newest50 encrypted entries with complete export @EVAL-LINEAGE-001 @TEST-SIMULATION — `tests/e2e/cases/api/private-ai-history-lifecycle.spec.ts`.
+- **E2E-API-1119** (api): private history deletion requires owner and Origin preserves consent rejects late resurrection and cascades account removal @EVAL-LINEAGE-001 @TEST-SIMULATION — `tests/e2e/cases/api/private-ai-history-lifecycle.spec.ts`.
+- **E2E-API-1120** (api): actual query assistance leaves transcripts absent while opted-in simulated provider fallback retains encrypted raw and final outcome @EVAL-LINEAGE-001 @TEST-SIMULATION — `tests/e2e/cases/api/private-ai-history-lifecycle.spec.ts`.
+- **E2E-API-1880** (api): exact source calendar context preserves cancellation without creating reading notices @DEV-018 @TEST-SIMULATION — `tests/e2e/cases/api/reading-calendar.spec.ts`.
+- **E2E-API-1061** (api): deployment advisory lock excludes concurrent actual research worker without corrupting active capture @RESEARCH-AUTO-002 @DEV-011 @TEST-SIMULATION — `tests/e2e/cases/api/research-auto-durability.spec.ts`.
+- **E2E-API-1062** (api): new actual worker recovers abandoned attempt and retries identical retained source without duplicate editions @RESEARCH-AUTO-002 @DEV-011 @TEST-SIMULATION — `tests/e2e/cases/api/research-auto-durability.spec.ts`.
+- **E2E-API-1063** (api): source failure persists fifteen-minute retry across worker recreation and recovers only when due without replacing evidence @RESEARCH-AUTO-002 @DEV-011 @TEST-SIMULATION — `tests/e2e/cases/api/research-auto-durability.spec.ts`.
+- **E2E-API-250** (api): fixed expiry cleanup preserves current data receipts issued reports and count-only history @RETENTION-001 — `tests/e2e/cases/api/retention.spec.ts`.
+- **E2E-API-251** (api): operator authorization Origin strict fields and server cutoff protect cleanup @RETENTION-001 — `tests/e2e/cases/api/retention.spec.ts`.
+- **E2E-API-252** (api): bounded batches replay across concurrent operators and preserve records expiring after the saved cutoff @RETENTION-001 — `tests/e2e/cases/api/retention.spec.ts`.
+- **E2E-API-253** (api): later-category failure rolls the complete batch back and retries the durable preview without private error text @RETENTION-001 — `tests/e2e/cases/api/retention.spec.ts`.
+- **E2E-API-254** (api): confirmed receipts survive ordinary preview expiry and draft capacity while history pagination remains bounded @RETENTION-001 — `tests/e2e/cases/api/retention.spec.ts`.
+- **E2E-API-255** (api): owned backend interruption rolls back unfinished cleanup and preserves its original preview for retry @RETENTION-001 — `tests/e2e/cases/api/retention.spec.ts`.
+- **E2E-API-256** (api): concurrent normal feedback expiry keeps tombstones and reports only actual cleanup changes @RETENTION-001 — `tests/e2e/cases/api/retention.spec.ts`.
+- **E2E-API-257** (api): every allowlisted category caps truthful counts including the smaller attachment batch @RETENTION-001 — `tests/e2e/cases/api/retention.spec.ts`.
+- **E2E-API-1600** (api): actual recipient verification encrypted queue idempotency and STOP cancellation @DEV-029 @TEST-SIMULATION — `tests/e2e/cases/api/whatsapp-channel.spec.ts`.
+- **E2E-API-1601** (api): signed provider status rejects forged signature duplicates and backwards delivery plus uncertain retry @DEV-029 @TEST-SIMULATION — `tests/e2e/cases/api/whatsapp-channel.spec.ts`.
+- **E2E-API-1602** (api): owner export contains consent data and actual account deletion removes queue and webhook receipts @DEV-029 @PRIVACY-001 @TEST-SIMULATION — `tests/e2e/cases/api/whatsapp-channel.spec.ts`.
+- **E2E-API-1603** (api): actual queue worker captures template acceptance lost acknowledgment and withdrawn source without external send @DEV-029 @TEST-SIMULATION — `tests/e2e/cases/api/whatsapp-channel.spec.ts`.
+- **E2E-API-1604** (api): verification idempotency throttle and daily delivery quota preserve bounded requests @DEV-029 @TEST-SIMULATION — `tests/e2e/cases/api/whatsapp-channel.spec.ts`.
+- **E2E-API-1605** (api): recipient history rechecks session after actual outbox storage wait @DEV-029 @TEST-SIMULATION — `tests/e2e/cases/api/whatsapp-channel.spec.ts`.
+- **E2E-WEB-1295** (desktop/mobile): released policy keyboard comparison retains sources and no-action through lost-response replay reload and withdrawal @DEV-019 @ACTION-CENTRE-001 @TEST-SIMULATION — `tests/e2e/cases/browser/action-centre-policy.spec.ts`.
+- **E2E-WEB-1296** (desktop/mobile): real session revocation clears policy review and saved private comparisons before recovery @DEV-019 @ACTION-CENTRE-001 @TEST-SIMULATION — `tests/e2e/cases/browser/action-centre-policy.spec.ts`.
+- **E2E-WEB-1297** (desktop/mobile): changed source edition rejects stale policy preview and removes its selection @DEV-019 @ACTION-CENTRE-001 @TEST-SIMULATION — `tests/e2e/cases/browser/action-centre-policy.spec.ts`.
+- **E2E-WEB-1540** (desktop/mobile): historical NAV navigation shows dated observations and expandable retained provenance @SRC-015 @TEST-SIMULATION — `tests/e2e/cases/browser/amfi-history.spec.ts`.
+- **E2E-WEB-1542** (desktop/mobile): official catalog selector builds scoped history requests and rejects oversized periods @SRC-015 @TEST-SIMULATION — `tests/e2e/cases/browser/amfi-history.spec.ts`.
+- **E2E-WEB-1480** (desktop/mobile): actual reviewed GDP vintages expose original and captured times with keyboard detail and retry @RESEARCH-AUTO-002 @TEST-SIMULATION — `tests/e2e/cases/browser/bea-gdp-original.spec.ts`.
+- **E2E-WEB-1360** (desktop/mobile): independent crosswalk reviewer inspects actual label publishes and reads history @SRC-006 @TEST-SIMULATION — `tests/e2e/cases/browser/classification-crosswalk.spec.ts`.
+- **E2E-WEB-1670** (desktop/mobile): CPI reader shows model basis and missing actual without presenting consensus @EVENT-SCENARIOS-001 @TEST-SIMULATION — `tests/e2e/cases/browser/cpi-expectations.spec.ts`.
+- **E2E-WEB-1672** (desktop/mobile): actual CPI capture and independent Operations review preserve source confirmation and withdrawal @EVENT-SCENARIOS-001 @TEST-SIMULATION — `tests/e2e/cases/browser/cpi-expectations.spec.ts`.
+- **E2E-WEB-137** (desktop/mobile): explicit new-reading admission preserves story identity keyboard focus and complete cursor collection @UX-002C @TEST-SIMULATION — `tests/e2e/cases/browser/discovery-updates.spec.ts`.
+- **E2E-WEB-138** (desktop/mobile): failed and superseded explicit reading checks cannot replace the current selection @UX-002C @TEST-SIMULATION — `tests/e2e/cases/browser/discovery-updates.spec.ts`.
+- **E2E-WEB-1118** (desktop/mobile): actual evaluation inspector filters retries exports retained evidence and withholds withdrawn content with keyboard navigation @EVAL-LINEAGE-001 @TEST-SIMULATION — `tests/e2e/cases/browser/eval-lineage-operations.spec.ts`.
+- **E2E-WEB-1119** (desktop/mobile): real response captures paginate exact source editions without duplicate or sibling leakage @EVAL-LINEAGE-001 @TEST-SIMULATION — `tests/e2e/cases/browser/eval-lineage-operations.spec.ts`.
+- **E2E-WEB-830** (desktop/mobile): guided merge review Back real application and replacement navigation @EVENT-LINEAGE-001 — `tests/e2e/cases/browser/event-lineage.spec.ts`.
+- **E2E-WEB-831** (desktop/mobile): actual revoked operator clears saved lineage inspection on the next protected read @EVENT-LINEAGE-001 — `tests/e2e/cases/browser/event-lineage.spec.ts`.
+- **E2E-WEB-1620** (desktop/mobile): published GDP survey median reader keeps publication capture and unavailable comparison explicit @EVENT-SCENARIOS-001 @TEST-SIMULATION — `tests/e2e/cases/browser/gdp-expectations.spec.ts`.
+- **E2E-WEB-1622** (desktop/mobile): actual SPF capture and independent Operations review preserve source confirmation and withdrawal @EVENT-SCENARIOS-001 @TEST-SIMULATION — `tests/e2e/cases/browser/gdp-expectations.spec.ts`.
+- **E2E-WEB-870** (desktop/mobile): candidate review Back saved plan and public provider-vs-judgement display @IDENTITY-ADJUDICATION-001 — `tests/e2e/cases/browser/identity-selection.spec.ts`.
+- **E2E-WEB-871** (desktop/mobile): actual revoked session clears candidate review without leaking stored plans @IDENTITY-ADJUDICATION-001 — `tests/e2e/cases/browser/identity-selection.spec.ts`.
+- **E2E-WEB-872** (desktop/mobile): actual empty selection history has bounded loading and recovers to an explicit empty result @IDENTITY-ADJUDICATION-001 — `tests/e2e/cases/browser/identity-selection.spec.ts`.
+- **E2E-WEB-873** (desktop/mobile): competing selection requires explicit draft discard and current reload before a fresh plan @IDENTITY-ADJUDICATION-001 — `tests/e2e/cases/browser/identity-selection.spec.ts`.
+- **E2E-WEB-041** (desktop/mobile): real corrected observation is unread and stale source context remains explicit @ALERT-001 @ALERT-002 @TEST-SIMULATION — `tests/e2e/cases/browser/inbox-revisions.spec.ts`.
+- **E2E-WEB-790** (desktop/mobile): explicit automatic review Back enable reload disable preserves manual controls @MATERIAL-AUTO-001 — `tests/e2e/cases/browser/material-automatic.spec.ts`.
+- **E2E-WEB-160** (desktop/mobile): reviewed illustration, controlled captions and actual video download @UX-002 @MEDIA-001 — `tests/e2e/cases/browser/media.spec.ts`.
+- **E2E-WEB-640** (desktop/mobile): named independent review recovers a lost committed approval receipt @NAMED-OPERATORS-001 — `tests/e2e/cases/browser/named-operators.spec.ts`.
+- **E2E-WEB-641** (desktop/mobile): named administrator creates a viewer and independent review remains required @NAMED-OPERATORS-001 — `tests/e2e/cases/browser/named-operators.spec.ts`.
+- **E2E-WEB-630** (desktop/mobile): current quality empty error retry and publishing navigation @QUALITY-OVERVIEW-001 — `tests/e2e/cases/browser/quality-overview.spec.ts`.
+- **E2E-WEB-1145** (desktop/mobile): generated retained PNG survives real offline packaging and reload; a newly packaged withdrawal suppresses it @STORY-MEDIA-002 @TEST-SIMULATION — `tests/e2e/cases/browser/story-image-offline.spec.ts`.
+- **E2E-OFFLINE-1295** (offline): downloaded educational policy binds exact source and receipt and rejects expiry changed source and removed release without network @DEV-019 @ACTION-CENTRE-001 @TEST-SIMULATION — `tests/e2e/cases/offline/action-centre-policy.spec.ts`.
+- **E2E-OFFLINE-160** (offline): downloaded template visual captions and actual WebM play without API transport @MEDIA-001 — `tests/e2e/cases/offline/media.spec.ts`.
+- **E2E-OFFLINE-081** (offline): original observation mute, restore and exact receipt survive reload @ALERT-001 @ALERT-002 — `tests/e2e/cases/offline/observation-inbox.spec.ts`.
+- **E2E-OFFLINE-041** (offline): exact on-device receipts do not acknowledge a later correction or withdrawal @ALERT-001 @TEST-SIMULATION — `tests/e2e/cases/offline/observation-revisions.spec.ts`.
+- **E2E-OFFLINE-071** (offline): downloaded approved registry metadata and connected-only editing remain truthful after reload @SOURCES-001 — `tests/e2e/cases/offline/source-registry.spec.ts`.

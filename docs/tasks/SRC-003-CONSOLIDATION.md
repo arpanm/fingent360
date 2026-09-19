@@ -33,3 +33,11 @@ Read AGENTS.md and the linked parent specification before changing this workflow
 ## Manual acceptance
 
 With the documented database/API/web setup and required migrations, run `pnpm sdlc "Validate SRC-003-CONSOLIDATION" -- --grep "E2E-(API|WEB|OFFLINE)-178[0-3]"`. Use the web URL printed by `pnpm dev`; keep test watch mode off. Check the corresponding Operations/reader flow documented in the parent. Installed Android/iOS bundles require the documented rebuild/reinstall. Report the exact failed case, saved artifact run and error. The user-operated SDLC command owns gated commit and execution.
+
+## Current acceptance review — 20 September 2026
+
+Reviewed scope: Original consolidation notices, independently reviewed old and new security identities, exact nominal comparison, immutable source histories, paginated review queue, withdrawal, suspension-aware calibration exclusion, shared company readers and downloaded admission. User holdings remain unchanged. Actual source permission and activation, independent operational original review and physical-device release certification remain separate. This does not complete wider parent scope.
+
+The required API, browser-project and offline case IDs are now explicit in [acceptance.json](acceptance.json). Only actual current receipts plus successful normal gates can close this scope. Existing API/contracts/database/source workflows are reused; a matrix correction itself adds no migration or source permission. Physical-device and deployment claims require their separate evidence. The user authorized this validation/repair run; older manual-only handoff wording is historical for this run.
+
+No additional input is needed for this bounded automated scope. Run the complete required matrix and review attached keyboard/narrow-layout artifacts where applicable before claiming accepted delivery.

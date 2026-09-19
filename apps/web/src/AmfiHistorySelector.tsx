@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { ZodError } from 'zod';
 import { AMFI_HISTORY_CATALOG, amfiHistoryUrl } from '@fingent360/contracts';
 export function AmfiHistorySelector({
   onChoose,
@@ -76,9 +77,11 @@ export function AmfiHistorySelector({
             setError('');
           } catch (failure) {
             setError(
-              failure instanceof Error
-                ? failure.message
-                : 'Choose a valid source interval.',
+              failure instanceof ZodError
+                ? failure.issues.map((issue) => issue.message).join(' ')
+                : failure instanceof Error
+                  ? failure.message
+                  : 'Choose a valid source interval.',
             );
           }
         }}

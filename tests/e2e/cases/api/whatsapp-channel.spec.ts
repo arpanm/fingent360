@@ -9,7 +9,10 @@ import {
   syntheticPhone,
   whatsappHeaders,
 } from '../../helpers/whatsapp-channel';
-import { connectionDatabase } from '../../helpers/research-connection-fixture';
+import {
+  connectionDatabase,
+  reviseConnectionSourceFixture,
+} from '../../helpers/research-connection-fixture';
 test.use({ whatsappSimulation: true });
 test('E2E-API-1600 actual recipient verification encrypted queue idempotency and STOP cancellation @DEV-029 @TEST-SIMULATION', async ({
   request,
@@ -321,10 +324,9 @@ test('E2E-API-1603 actual queue worker captures template acceptance lost acknowl
       ).rows[0].state,
     ).toBe('uncertain');
     const withdrawn = await enqueue();
-    await pool.query(
-      "UPDATE discovery_versions SET data=jsonb_set(data,'{status}','\"withdrawn\"'::jsonb) WHERE item_id=$1",
-      [source.id],
-    );
+    // Source revisions are append-only: retain a withdrawn head and preserve
+    // the exact published edition already bound to the queued delivery.
+    await reviseConnectionSourceFixture(feedbackSandbox, source, 'withdrawn');
     await worker.tick();
     expect(calls).toBe(2);
     expect(

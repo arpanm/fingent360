@@ -1,4 +1,4 @@
-import { test, expect } from '../../helpers/app-fixture';
+import { test, expect } from '../../helpers/equity-coverage';
 import { crosswalkFixture } from '../../helpers/classification-crosswalk';
 test.use({
   namedOperators: true,

@@ -28,6 +28,11 @@ export function NamedOperations({
     [password, setPassword] = useState('');
   const [role, setRole] = useState<OperatorRole>('viewer'),
     [note, setNote] = useState('');
+  const errorFocus = useRef<HTMLParagraphElement>(null);
+  const reloadFocus = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    if (error && !busy) errorFocus.current?.focus();
+  }, [error, busy]);
   const live = useRef(false),
     generation = useRef(0);
   async function load(after?: string) {
@@ -104,9 +109,13 @@ export function NamedOperations({
         publisher or administrator must approve every proposed public-content
         change. Fixed numerical ingestion is separately permission-controlled.
       </p>
-      {error && <p role="alert">{error}</p>}
+      {error && (
+        <p role="alert" tabIndex={-1} ref={errorFocus}>
+          {error}
+        </p>
+      )}
       {notice && <p role="status">{notice}</p>}
-      <button disabled={busy} onClick={() => void load()}>
+      <button ref={reloadFocus} disabled={busy} onClick={() => void load()}>
         Reload proposals and operators
       </button>
       {!rows.length && !busy && (
@@ -223,7 +232,13 @@ export function NamedOperations({
               </div>
             </>
           )}
-          <button disabled={busy} onClick={() => setSelected(null)}>
+          <button
+            disabled={busy}
+            onClick={() => {
+              setSelected(null);
+              reloadFocus.current?.focus();
+            }}
+          >
             Close proposal
           </button>
         </section>

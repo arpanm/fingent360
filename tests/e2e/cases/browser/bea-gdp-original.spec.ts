@@ -32,20 +32,20 @@ test('E2E-WEB-1480 actual reviewed GDP vintages expose original and captured tim
     'href',
     /\/news\/2025\/gross-domestic-product-2nd-quarter-2025-second-estimate/,
   );
-  await page.route(
-    '**/api/v1/discovery/gdp-vintages*',
-    (route) =>
-      route.fulfill({
-        status: 503,
-        contentType: 'application/json',
-        body: JSON.stringify({ message: 'Synthetic vintage storage failure' }),
-      }),
-    { times: 1 },
-  );
+  // Keep the fault active for every mount request until the visible error is
+  // asserted; an aborted development StrictMode request must not consume it.
+  const failVintages = (route: import('@playwright/test').Route) =>
+    route.fulfill({
+      status: 503,
+      contentType: 'application/json',
+      body: JSON.stringify({ message: 'Synthetic vintage storage failure' }),
+    });
+  await page.route('**/api/v1/discovery/gdp-vintages*', failVintages);
   await page.reload();
   await expect(region.getByRole('alert')).toContainText(
     'Synthetic vintage storage failure',
   );
+  await page.unroute('**/api/v1/discovery/gdp-vintages*', failVintages);
   await region.getByRole('button', { name: 'Retry GDP vintages' }).click();
   await expect(region).toContainText('2026-Q2 · second estimate · 1.5%');
 });

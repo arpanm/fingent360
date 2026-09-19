@@ -1,10 +1,10 @@
 # REGRESSION-014 — provider literal types and named cursor signing
 
-- **Status:** Completed implementation; validation pending
+- **Status:** Done (verified gate scope)
 - **Implemented / recorded:** - Implementation: Corrections authored; user verification pending. User confirms formatting/lint/contracts typecheck passed; API typecheck reports widened provider URL literals and internal authorization Symbols passed to HMAC. Explicitly type the three captured provider records against their existing fixed-URL receipt shapes. Keep the internal capability unchanged: audit/publishing cursors use the existing bootstrap secret when available and an independent random server-only controller key in named mode. Never cast/stringify a Symbol into a signing secret. Named cursors reset after API restart; existing reset-page recovery applies. No new configuration, migration or dependency.
-- **Pending:** User: run the task’s documented validation; implementation is not a test pass.
-- **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.
-- **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
+- **Pending:** None for this bounded compiler, formatter or tooling repair; functional stories own their application acceptance.
+- **Next action / inputs:** No pickup needed for this recorded repair.
+- **Verification:** Actual format/check/unit gates passed in SDLC1789837762812-24470, gated commit4549ca1; see recorded gate acceptance below.
 
 ## Implementation handoff rule
 
@@ -34,3 +34,9 @@ Read AGENTS.md, the task-maintenance guide and this task’s current summary. Wo
 - **Next action:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.
 - **Research/evidence:** See [dated source checks and existing answers](input-research-2026-09-15.md). Source-specific permissions, complete parser layouts and legal classification are not claimed resolved by triage.
 - **Completion boundary:** This updates readiness only, not test passes, live activation or full feature completion. On later pickup, refresh saved evidence and update this record plus the TODO row.
+
+## Recorded gate acceptance — 20 September 2026
+
+Scope: Provider literal receipt typing and private cursor-signing keys with named/bootstrap compatibility and tamper/restart isolation.
+
+User-authorized SDLC run `1789837762812-24470` completed formatting and the entire check stage successfully before connected acceptance began. The [check log](../../artifacts/sdlc/1789837762812-24470/02-pnpm-check.log) includes strict application/E2E compilation and contracts/API/tooling unit coverage; its final tooling suite reports72 passes, zero failures. Gated commit `4549ca1` records that source revision. This closes the bounded repair, not all application features or later source revisions. No fabricated E2E matrix is added for a compiler/formatting-only task.

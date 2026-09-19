@@ -51,3 +51,11 @@ E2E-WEB-1290 now checks the initial form and resetting an opened revision to a n
 - E2E-WEB-1290: optional user-run `pnpm e2e:run --project=desktop --project=mobile --grep E2E-WEB-1290` with documented databases/migrations and current API/web services. Use the web origin printed by user-started `pnpm dev`, route `/#ops`; retain the existing synthetic operator fixture. Initial/new draft must render with no selected event and disabled save, while existing simulation/release/history/withdrawal still work. Keyboard/mobile/visual acceptance remains user-owned.
 
 On failure report command, exit status and exact compiler diagnostic or selected-case assertion, with secrets/private data removed. No formatting, lint, compilation, build, tests, SDLC, install, service action, ingestion or commit was run. HEAD remains `a2c53a0`; extensive pre-existing tracked/untracked changes are preserved and left uncommitted under the explicit boundary. Remaining gap: user/parent validation of the authored changes.
+
+## Current acceptance review — 20 September 2026
+
+Reviewed scope: Repair web optional body/prop and receipt-ID types, prevent initial or reset null governance selection dereference, and preserve validated brief correction receipts and exact native-bridge declaration return/callback types. This bounded repair does not complete wider feature parents.
+
+The required API, browser-project and offline case IDs are now explicit in [acceptance.json](acceptance.json). Only actual current receipts plus successful normal gates can close this scope. Existing API/contracts/database/source workflows are reused; a matrix correction itself adds no migration or source permission. Physical-device and deployment claims require their separate evidence. The user authorized this validation/repair run; older manual-only handoff wording is historical for this run.
+
+No additional input is needed for this bounded automated scope. Run the complete required matrix and review attached keyboard/narrow-layout artifacts where applicable before claiming accepted delivery.

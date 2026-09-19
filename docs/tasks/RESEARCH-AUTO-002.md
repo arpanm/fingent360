@@ -140,9 +140,20 @@ Manual document acceptance: follow each matrix implementation/case reference, ve
 
 The saved full run1789752953639-97020 includes failed cases tagged to this task. Confirmed causes, scoped authored repairs and remaining verification are recorded in [the full-audit RCA](../development/full-audit-2026-09-19.md). User runs `SDLC_AUTO_REPAIR=0 pnpm sdlc "Repair full audit failures" --story SDLC-REPAIR-016`. No new passing evidence or automatic bug resolution is claimed; this bounded repair does not remove broader source/device/functional requirements recorded above.
 
+## Current acceptance review — 20 September 2026
+
+Reviewed scope: Initial scheduled evidence acquisition and independently approved publication policies, source-isolated BEA/BLS/FOMC/RBI-MPC calendars, original BEA and India GDP publication vintages/current or bounded selected-month pickup, exact dated Cleveland model/first BLS CPI comparison, shared reader/Operations and downloaded-only offline projections. This is the complete initial scope explicitly reconciled 2026-09-15, not universal archives or additional RBI calendar families.
+
+The required API, browser-project and offline case IDs are now explicit in [acceptance.json](acceptance.json). Only actual current receipts plus successful normal gates can close this scope. Existing API/contracts/database/source workflows are reused; a matrix correction itself adds no migration or source permission. Physical-device and deployment claims require their separate evidence. The user authorized this validation/repair run; older manual-only handoff wording is historical for this run.
+
+Remaining gates:
+
+- Actual RBI permission reference covering caching, display, internal linking and offline redistribution before enabling rbi-mpc-calendar.
+- Operator must deliberately approve eligible source publication policies and activate permitted source schedules/workers; authored fixtures do not establish live capture or deployment acceptance.
+
 <!-- sdlc-validation:start -->
 
 ## Automated validation
 
-Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789837362616-23249.
+Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789846657524-36112.
 <!-- sdlc-validation:end -->

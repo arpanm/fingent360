@@ -315,6 +315,22 @@
     {
       "caseId": "E2E-WEB-990",
       "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1295",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1296",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1297",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1295",
+      "projects": ["offline"]
     }
   ],
   "REPORTS-001": [
@@ -428,6 +444,519 @@
       "implementationComplete": true,
       "externalGates": [],
       "scope": "Owned saved reading, reactions/undo, reading progress, explicit preferences and consent, deterministic ranking, version-aware in-app reminders and correction/withdrawal handling, export/isolation, shared web/mobile controls and offline persistence. Physical phone ergonomics remain UX-002G; external push/email channels are separate."
+    },
+    "DEV-019": {
+      "implementationComplete": true,
+      "externalGates": [
+        "Record actual rebuilt shared Android/physical-device acceptance: landscape, large text/TalkBack and offline comparison reuse. Browser emulation and API/offline handler cases do not establish this release requirement."
+      ],
+      "scope": "Current educational deterministic action-centre parent: exact sell/FIFO/buy/rebalance comparisons; explicit suitability/materiality/cost and no-action bounds; independent released educational policy with source/version reconstruction; supported restricted source-documented disposal tax or reviewed tax assumptions; encrypted immutable owned receipts; real policy selection/save/replay/reload/withdrawal/source-change/session recovery and equivalent on-device policy admission. No automatic tax filing, trade execution, personalized regulated advice or unimplemented calibrated causal forecast is claimed."
+    },
+    "UX-002C": {
+      "implementationComplete": false,
+      "externalGates": [
+        "Review and implement/verify explicit duplicate-event grouping required by the task. Current append item-ID deduplication does not establish grouping distinct source releases of one event. Do not substitute URL ingestion deduplication for event grouping. This is agent-actionable behavior, not a permission gate.",
+        "Complete UX-ACC-010 assistive reading order/contrast/large-text and B-reader nested focus/Back restoration acceptance, including UX-ACC-006 iOS Safari/Android Chrome physical keyboard/safe-area scope. WEB135 emulation does not establish physical-device or assistive acceptance."
+      ],
+      "scope": "Original UX-ACC007\u2013010 and referenced B reader scope: real permitted-source capture/review/versioned publication, source/topic/search filtering, stable collection cursors, typographic Scan/Stories, contextual full reader and terms/hover/focus preview, corrections/history, exact return navigation, explicit incoming-reading staging/apply preserving selected identity, no-action end-of-brief and complete keyboard/phone/assistive reading. Broader source catalogue onboarding is separate, but the explicit duplicate-event grouping requirement is not dropped."
+    },
+    "ALERT-001": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Original followed macro-observation inbox, exact immutable observation receipts, actual later correction and withdrawal unread semantics, receipt replay, reload/login persistence, owner separation and non-followed rejection, explicit stale-source context and correction labels. Actual installed-bundle local inbox and receipts, with labeled synthetic revision-transition reducer coverage. No materiality, investment action, push/email delivery or provider activation claim."
+    },
+    "ALERT-002": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Account-owned original-observation indicator mute preferences, ownership and non-followed/Origin admission, actual inbox filtering, unmute restoring the identical observation and its read receipt, reload durability, privacy export, and no-network installed-bundle original inbox parity. Does not substitute material-alerts policy settings for original observation preferences."
+    },
+    "IDENTITY-001": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Bounded operator-entered public-ISIN OpenFIGI mapping, immutable retained provider evidence and canonical revisions, duplicate-safe refresh and durable failures, public searchable directory/detail/history/evidence and keyboard navigation, dated offline parity. No verified ownership, price, exchange-listing or complete security-master claim. Wider parents, actual source permissions, operational provider activation and native release certification remain separate; gaps listed in externalGates prevent automatic Done."
+    },
+    "IDENTITY-ADJUDICATION-001": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Separate editorial choice among retained OpenFIGI candidates, unchanged provider ambiguity, exact version/hash/candidate plans and replay, independent named approval, stale/fabricated/empty refusal, withdrawal/history, current event binding and suppression, conflict/authentication recovery, public judgement labels and offline event admission. No external identity certification. Wider parents, actual source permissions, operational provider activation and native release certification remain separate; gaps listed in externalGates prevent automatic Done."
+    },
+    "EVENT-EXTRACTION-001": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Source-bound template or configured exact-excerpt selection, immutable attempt/candidate receipts, explicit human metadata and normal draft creation, independent named publication, replay/conflict/quota/concurrency/storage/source/session races, truthful provider fallback, keyboard/source-preview/recovery workflow and connected-only offline preparation with published-event access. No causal policy, automatic entity identification or model-to-publication path. Wider parents, actual source permissions, operational provider activation and native release certification remain separate; gaps listed in externalGates prevent automatic Done."
+    },
+    "EVAL-LINEAGE-001": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Retained public source response/model transport/composed-view/feedback linkage and separately opted-in owner-only private request history, revoke and late-write erasure, local public context and offline consent. Stored view models are not rendered-pixel proof or automated evaluator scores. Wider parents, actual source permissions, operational provider activation and native release certification remain separate; gaps listed in externalGates prevent automatic Done."
+    },
+    "STORY-MEDIA-002": {
+      "implementationComplete": true,
+      "externalGates": [
+        "Save actual image preparation request/replay/concurrency/source-change/named-approval and Operations error/retry acceptance; API1140 seeds a synthetic retained image attempt and tests review/public bytes, not the full generation workflow.",
+        "Record required live provider/model/attempt review and physical-device visual/touch acceptance separately; current synthetic image fixtures establish neither."
+      ],
+      "scope": "Source-bound reviewed conceptual images and once-per-document gesture help with reduced-motion fallback. This is generated-image scope; provider-generated video remains unimplemented and excluded. Wider parents, actual source permissions, operational provider activation and native release certification remain separate; gaps listed in externalGates prevent automatic Done."
+    },
+    "MEDIA-001": {
+      "implementationComplete": true,
+      "externalGates": [
+        "Save documented configured-provider metadata/fallback acceptance and physical playback/narrow-transcript visual review. API160/WEB160 cover connected preparation/review/withdrawal and browser decode, not live-provider or physical-device acceptance."
+      ],
+      "scope": "Reviewed source-version SVG illustration, complete-block caption selection/template fallback, idempotent preparation, publication and withdrawal, manual caption controls/transcript and real WebM caption-clip download or honest unsupported state. Cinematic generated video and adaptive curriculum excluded. Wider parents, actual source permissions, operational provider activation and native release certification remain separate; gaps listed in externalGates prevent automatic Done."
+    },
+    "SOURCES-001": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Operator-managed source metadata, strict rights-review fields, immutable versioned registry history, authorization/Origin control, draft privacy, stale-write rejection, approved public metadata and withdrawal. No arbitrary fetching, adapter activation, actual legal approval or complete source catalogue onboarding. Wider parents, actual source permissions, operational provider activation and native release certification remain separate; gaps listed in externalGates prevent automatic Done."
+    },
+    "SRC-007-ARCHIVE": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Verified monthly PIB GDP archive discovery, legacy release identity, retained index and retrieval receipts, original drafts and quarantine, independent review and downloaded vintage cutoff admission. Actual source permission and activation, independent operational original review and physical-device release certification remain separate. This does not complete wider parent scope."
+    },
+    "SRC-016-AXIS": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Verified original Axis ETF workbook grammar, exact equity, TREPS and current-assets reconciliation, independent exact AMFI mapping, retained originals, fund reader and downloaded NAV-identity admission. Actual source permission and activation, independent operational original review and physical-device release certification remain separate. This does not complete wider parent scope."
+    },
+    "SRC-016-FACTSHEET": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Initial Kotak original HTML factsheet retention, explicit Direct and Regular plan bindings, exact BER and AUM/AAUM semantics, independent publication and withdrawal, source re-admission, paginated Operations and reader history, complete-or-error snapshots, replay authorization after storage waits and offline admission. BER is not total expense ratio. Actual source permission and activation, independent operational original review and physical-device release certification remain separate. This does not complete wider parent scope."
+    },
+    "SRC-003-TERMS": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Retained original fully-paid rights and pure stock-swap terms, exact source-bound rational theoretical comparisons, distinct named review, source re-admission and withdrawal, company reader and downloaded receipt reconstruction. No investor election, holding mutation, cash-in-lieu calculation or return calibration. Actual source permission and activation, independent operational original review and physical-device release certification remain separate. This does not complete wider parent scope."
+    },
+    "DEV-022-MERGERS": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Original HDFC merger-notice retention, exact admitted AMFI plan bindings, independent publication and withdrawal, shared fund-reader lineage and downloaded identity admission without invented investor conversions. Actual source permission and activation, independent operational original review and physical-device release certification remain separate. This does not complete wider parent scope."
+    },
+    "SRC-017-SOVEREIGN": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Four-original historical sovereign security, issue, auction and convention pack, independently reviewed exact terms version, explicit historical clean, accrued and dirty consideration, file replacement and consent recovery, withdrawal and equivalent downloaded calculation. No current secondary quote or semantic PDF-parser claim. Actual source permission and activation, independent operational original review and physical-device release certification remain separate. This does not complete wider parent scope."
+    },
+    "SRC-009-DAILY": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Verified EIA daily WTI and Brent HTML cells and missing observations, original retention, contributor permission gate, independent review, bounded scheduled drafts with permission re-admission, exact transport limits, edition history, selected-edition retry and Back navigation, and downloaded admission. No complete historical archive or live quotation claim. Actual source permission and activation, independent operational original review and physical-device release certification remain separate. This does not complete wider parent scope."
+    },
+    "SRC-018-RATINGS": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Exact attributed historical ICRA HUDCO original retention and verified ISIN-level coupon, maturity and rating transcription, independent publication, distinct agency and editorial withdrawal, source replacement denial, shared historical reader and downloaded evidence. No general PDF parser, evaluated prices, trading liquidity or ongoing surveillance. Actual source permission and activation, independent operational original review and physical-device release certification remain separate. This does not complete wider parent scope."
+    },
+    "SRC-017-CURVE": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Retained CCIL static NSS parameters and inert JSON source-reported zero-rate points, exact original labels and dates, default-disabled permission admission, independent publication and withdrawal, exact decoded-byte transport bounds, paginated Operations and public history and complete-or-error downloaded snapshots. Unknown maturity and compounding conventions remain explicit; no interpolation, valuation or tradable-price claim. Actual source permission and activation, independent operational original review and physical-device release certification remain separate. This does not complete wider parent scope."
+    },
+    "SRC-004-WATCH": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Permission-bound fixed researched 25-company original-URL watch, at most three originals per due run, unchanged, corrected, quarantined and unavailable immutable outcomes, draft-only acquisition, independent source publication, central current source admission, attempt pagination, schedule controls and dated offline facts. New-release discovery and original XBRL remain separate. Actual source permission and activation, independent operational original review and physical-device release certification remain separate. This does not complete wider parent scope."
+    },
+    "SRC-004-DISCOVERY": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Official NSE RSS original upload, bounded fetch and disabled-by-default scheduled capture, immutable original and revision pointers, literal publication text with unknown timezone, retained originals, permission re-admission and paginated Operations inbox. Security identity and financial contents remain unverified; offline refuses financial projection and source writes. Actual source permission and activation, independent operational original review and physical-device release certification remain separate. This does not complete wider parent scope."
+    },
+    "SRC-003-CONSOLIDATION": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Original consolidation notices, independently reviewed old and new security identities, exact nominal comparison, immutable source histories, paginated review queue, withdrawal, suspension-aware calibration exclusion, shared company readers and downloaded admission. User holdings remain unchanged. Actual source permission and activation, independent operational original review and physical-device release certification remain separate. This does not complete wider parent scope."
+    },
+    "FEEDBACK-001": {
+      "implementationComplete": true,
+      "externalGates": [
+        "Physical Android and iOS acceptance remains required: actual microphone allow/deny/interruption/background stop, app-only masked capture, queue restart/update/origin behavior, native storage/Keychain error preservation, controlled trusted HTTPS receipt/status/deletion and unchanged private finances. WEB1610\u20131612 are bridge simulations; historical Android emulator evidence is not physical acceptance. Use feedback-native.md and IOS1612\u20131619, with exact build identity.",
+        "Agent-actionable submission-context coverage remains: WEB1112 only reads sessionStorage for a reader item and excludes holdings; it never submits feedback or navigates to a different/private screen. Add or perform explicit actual submitted-payload acceptance for matching reader/story source version and media/model lineage, stale/mismatched/private-screen exclusion, and exact linked retained provider/model/input/output. API1110/1111/1114 plus new inspector cases prove separate server pieces, not this complete browser boundary.",
+        "Agent-actionable durable-delivery coverage remains: explicitly exercise attempted-report destination binding across enabled-origin changes, in-flight pause semantics, lease expiry/concurrent sender recovery and bounded429/5xx retry. WEB194 proves a committed lost acknowledgment and reload retry, OFFLINE233\u2013235 cover deletion/version/cross-tab races; those assertions do not prove every destination/lease/backoff requirement in feedback-sync.md.",
+        "Complete supported UI acceptance with safe synthetic evidence: current WEB190 crop-slider keys and WEB191 Enter/Escape/focus return are meaningful, but do not establish all keyboard-only consent/history/status/deletion controls or narrow composer/crop/inbox containment. Physical assistive-device acceptance is separate. Support-history failed refresh must preserve and date prior history: WEB1251 verifies successful refresh then offline display, not failed refresh recovery."
+      ],
+      "scope": "Explicit viewport screenshot/crop/cover/retake, text and reviewed audio, strict consent/bounds, separate durable capability-owned queue, truthful destination-bound foreground delivery/retry/delete, server idempotency/tombstones/quotas/expiry, private administrator support and owner access history, encryption maintenance, public view/model evaluation linkage and shared iOS bridge parity. No transcription, implicit private-record synchronization, closed-app background guarantee or native certification."
+    },
+    "DEV-017": {
+      "implementationComplete": true,
+      "externalGates": [
+        "User-controlled key/migration/historical rollout: configure payload key ring plus stable identity lookup key; apply relevant additive migrations and prove complete historical inventory/conversion before old-key retirement. Admission-time rewrap and bounded feedback maintenance do not establish all dormant/historical rows or backups converted. Never replace a missing identity lookup key or infer deployment activation from fixture keys.",
+        "Deployment/security operational acceptance remains: HTTPS cookie/transport configuration, least-privilege production role grants, secret/file/process access, backup retention and tested restore, operational abuse budgets/monitoring, and review of the documented residual threat model. Local fixture tests and local DB activation are not a deployment security certification.",
+        "Physical native privacy acceptance remains separate: local/connected account isolation, source/import/export and private screenshot/microphone controls, installed build/update and OS storage boundaries on Android/iOS. Shared browser tests and encrypted server payloads do not establish physical-device security or a general offline hardware vault.",
+        "Broker activation stays independently gated for Kite, Upstox and Angel: registered provider apps, applicable permissions/retention and deployment identity, actual token privileges and configured live authorization/revoke. Synthetic transport tests prove application vault/owner/callback/expiry behavior only; trading-capable provider tokens do not become least-privilege tokens because this app calls only holdings routes.",
+        "Agent-actionable supported browser privacy coverage remains: WEB1400 covers enrollment/confirmation, while API1402 covers disable/recovery step-up; complete keyboard/narrow/error/recovery acceptance of MFA management and private-history controls is not established by those cases. Keep safe synthetic evidence distinct from actual authenticator/device acceptance.",
+        "Carry the feedback child remaining acceptance: matching submitted source/model context, destination/lease/backoff transitions, failed support-history refresh and full keyboard/narrow feedback controls. These are documented coverage gaps, not claims of an observed product defect. Do not auto-complete the privacy parent while these required boundaries remain unreviewed."
+      ],
+      "scope": "Supported server and shared/offline privacy controls: own-account/session authorization and wait rechecks, granular purpose consent, coherent complete export and explicit cascade/removal, encrypted supported customer identity/financial/AI/feedback/anonymous/broker payloads, stable blind lookup and key lifecycle, TOTP/recovery, administrator audited support, bounded isolated import parsing/provider authority, runtime DB privileges and neutral private-cache exclusion. Intentional queryable preference/admission metadata remains personal under owner/consent/export/delete, not claimed anonymous/ciphertext. Parent is not production/physical/live-provider certification."
+    },
+    "SETUP-001": {
+      "implementationComplete": true,
+      "externalGates": [
+        "Saved evidence for the six explicit manual runner acceptance scenarios in tests/e2e/CATALOG.md (listing has no side effects, selected execution, all-project results and intentional outage skip, actionable deliberate connection failure, saved HTML/JSON reports, watch-off no automatic execution). SETUP-001 explicitly references these scenarios; no evidence establishing their completion was found in this review."
+      ],
+      "scope": "Initial local development foundation: documented local bootstrap/dev, strict shared-contract health/readiness, actual PostgreSQL/Mongo readiness and selected database outage with independent liveness, JSON unknown-route errors, scoped credentialed CORS, real browser/API connectivity with honest synthetic scope, unavailable/malformed response handling, responsive layout and keyboard navigation. Format/check and gated local commit remain normal SDLC requirements. This does not complete general SDLC tooling, production deployment, hosted CI, offline/native functionality or physical-device certification."
+    },
+    "RETENTION-001": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Fixed existing-expiry cleanup only: explicit bounded preview/run, server cutoff, immutable count-only receipts/history, rollback/replay, current and issued-record preservation and connected-only device behavior. No automatic timer, arbitrary financial retention policy or production cleanup authorization. Completion applies only to this bounded child."
+    },
+    "SOURCE-WITHDRAWAL-001": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Current/history/evidence tombstones, safe selected-source projection, saved-reading/reminder/export privacy, final publication admission and protected retained originals, explicit republication and dated local withdrawal parity. Cannot recall disconnected copies, external downloads or immutable issued private records; provider licensing remains separate. Completion applies only to this bounded child."
+    },
+    "CONSENT-LIFECYCLE-001": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Versioned purpose consent, expiry/revoke/renew and immutable receipts, actual dispatch/background re-admission, complete paginated export/deletion, keyboard responsive recovery and local parity. Essential owned-data access remains independent. No legal certification, broader key management or provider activation. Completion applies only to this bounded child."
+    },
+    "MATERIAL-AUTO-001": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Explicit background-purpose opt-in and future-baseline cadence over stored annual observations, bounded concurrent worker/restart/failure isolation, immutable dated receipts and local checks while app open. No provider refresh, release predictions, OS scheduling, external notifications or advice. Completion applies only to this bounded child."
+    },
+    "DB-LEAST-PRIVILEGE-001": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Safe repeatable owner/runtime PostgreSQL role separation, restricted DML/default grants, actual denied DDL/escalation, migration rollback and guarded cancellation cleanup. Local activation is recorded separately; no new remote provisioning or production security certification. Completion applies only to this bounded child."
+    },
+    "QUALITY-OVERVIEW-001": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Protected bounded actual-current-publication quality counts with explicit observation/truncation/freshness semantics, safe request diagnostics and existing Publishing navigation/recovery. No fictitious uptime, measured SLA, production log retention, restore drill or broader deployment observability completion. Completion applies only to this bounded child."
+    },
+    "READER-DIAGNOSTICS-001": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Fixed safe transaction phase/category/incident diagnostics, missing-table fault/recovery and unchanged successful public reader/capture behavior. API120 companion must verify the originally observed reader journey; diagnostics alone do not establish the historical SQL failure cause. Completion applies only to this bounded child."
+    },
+    "OPS-READ-ADMISSION-001": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Final wall-clock operator admission after legacy discovery items/runs and registry list/history storage waits; protected-content clearing, late-success barrier, recovered session and connected-only local behavior. Reuses existing UI/storage; no broader roles/source-rights/provider activation. Completion applies only to this bounded child."
+    },
+    "NAMED-OPERATORS-001": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Explicit bootstrap/named authentication, default-deny roles, roster, independent version-bound publication/rights/media proposals and immutable replay. Real owner provisioning, organization identity governance, deployment mode switch and source licences remain separate. This covers only the recorded child, not broader parents or source activation."
+    },
+    "PUBLISHING-QUEUE-001": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Protected paginated publication heads, strict filters/cursors, final operator admission, exact-head review, stale-session clearing and responsive connected-only Operations. This covers only the recorded child, not broader parents or source activation."
+    },
+    "OPS-AUDIT-001": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Protected read-only request-stage audit history, safe projection, exact pagination/filtering, expiry/revocation/recovery, immutable originals and connected-only local behavior. Request rows do not certify completed actions. This covers only the recorded child, not broader parents or source activation."
+    },
+    "SOURCE-REVIEW-DIFF-001": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Exact retained current/prior comparison and protected evidence, first/withdrawn predecessor states, exact-head conflicts, expiry/late-session clearing, responsive dialog and connected-only local explanation. Independent approval and source licences remain separate. This covers only the recorded child, not broader parents or source activation."
+    },
+    "EVENT-REVIEW-001": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Source-bound versioned authored events, exact quote/security admission, independent publication and immutable review, public context/evidence exploration and dated local invalidation. Numerical causal models, extraction/adjudication parents and source activation remain separate. This covers only the recorded child, not broader parents or source activation."
+    },
+    "EVENT-LINEAGE-001": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Version-bound merge/split, distinct named approval, atomic application/replay/competing consumption, replacement chains and public/local navigation. Reuses source-lock authorization acceptance; not numerical causal-policy completion. This covers only the recorded child, not broader parents or source activation."
+    },
+    "WORKER-HEALTH-001": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Aggregate report/reminder health, pause/resume, immutable bounded controls, cross-instance claim fencing, already-claimed completion, lease recovery and safe failure categories, responsive Operations and connected-only local behavior. Physical/production monitoring acceptance remains separate. This covers only the recorded child, not broader parents or source activation."
+    },
+    "RESEARCH-AUTO-002": {
+      "implementationComplete": true,
+      "externalGates": [
+        "Actual RBI permission reference covering caching, display, internal linking and offline redistribution before enabling rbi-mpc-calendar.",
+        "Operator must deliberately approve eligible source publication policies and activate permitted source schedules/workers; authored fixtures do not establish live capture or deployment acceptance."
+      ],
+      "scope": "Initial scheduled evidence acquisition and independently approved publication policies, source-isolated BEA/BLS/FOMC/RBI-MPC calendars, original BEA and India GDP publication vintages/current or bounded selected-month pickup, exact dated Cleveland model/first BLS CPI comparison, shared reader/Operations and downloaded-only offline projections. This is the complete initial scope explicitly reconciled 2026-09-15, not universal archives or additional RBI calendar families."
+    },
+    "DEV-011": {
+      "implementationComplete": true,
+      "externalGates": [
+        "Inherited RESEARCH-AUTO-002 source permissions and deliberate publication/worker activation remain unresolved."
+      ],
+      "scope": "Complete initial durable immutable saved-record reports, research-reference reports, daily/weekly opted-in schedules, leases/retries/cancel/replay, freshness-aware material receipts/notices and automatic stored-observation checks, plus initial scheduled source research, original vintages and verified release context. Reports and research automation are separate dependencies; neither one alone closes this parent."
+    },
+    "DEV-018": {
+      "implementationComplete": true,
+      "externalGates": [
+        "Actual permitted source capture and deliberately enabled material worker are operational activation, not established by saved-observation simulations.",
+        "Review newly produced alert keyboard/narrow-layout screenshots and complete shared mobile visual acceptance."
+      ],
+      "scope": "Complete accepted educational account controls: owned watchlists and exact observation receipts, original mute/unmute, reading follows/baseline/coalescing/history, exact annual GDP/CPI thresholds, bounded batches and no false urgency, manual/automatic stored-observation checks, exact BEA follow-calendar context with cancellation/staleness/source edition and no schedule-created notice. No email/push/trade requirement is inferred."
+    },
+    "DEV-016": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Progressive one-line/beginner/portfolio/analytical/source reading, exact admitted edition/offset/hash/time binding, original correction/history/withdrawal, dated private notes, reviewed source-bound scenario arithmetic and released qualitative contexts, visible fact/expectation/scenario/inference distinctions and explicit unassessed conflict/unsupported prediction limits, connected navigation and offline parity. Quantified causal forecasts and independent verification are not silently claimed."
+    },
+    "DEV-010": {
+      "implementationComplete": true,
+      "externalGates": [
+        "Actual issuer permission covering original retention, display and offline distribution; no issuer permission or NSE agreement has been supplied.",
+        "Actual canonical source/identity admission and release remain external activation; reconstructed fixtures are not live original-byte evidence.",
+        "Complete shared mobile visual and physical APK release acceptance if claiming the task release, not merely web/offline functional validation."
+      ],
+      "scope": "Accepted oil-cost educational evidence-factor-sector-company-holding-goal walkthrough using the exact researched IndiGo issuer source/ISIN, independent source/context release, encrypted versioned private trace, unchanged holding/no-growth goal comparator, stale/conflict/withdrawal/revocation protection, source capture/review and shared web/offline reconstruction. No universal oil-price coefficient, current oil feed, forecast or completed broader IMPACT-TRACE parent."
+    },
+    "BUG-002": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Unknown nested API routes return HTTP404 and structured JSON with the correct content type under the normalized prefix; health and readiness remain unchanged. This bounded repair does not complete wider feature parents."
+    },
+    "BUG-003": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Safe cause-specific workspace storage diagnostics, unchanged error statuses and redaction, plus successful current workspace creation, persistence, CSV reconciliation, ownership and deletion acceptance for the originally reported failures. This bounded repair does not complete wider feature parents."
+    },
+    "BUG-006": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Responsive macro evidence-table containment, horizontal scrolling, normal History and Source clicks and expanded viewport bounds, preserving the real source/API and desktop journey. This bounded repair does not complete wider feature parents."
+    },
+    "REGRESSION-011": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Exact owned database-lock observation and rollback acceptance, BEA quarantine receipt disambiguation and mobile pointer access, Operations publishing queue admission and report comparison loading/empty recovery for the complete reported failure set. This bounded repair does not complete wider feature parents."
+    },
+    "SDLC-REPAIR-010": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Remove redundant initializer assignments without altering source-family branches or absent-event fallback, retain strict schemas and failure behavior, and preserve five-point offline brief admission when one retained event is unavailable. This bounded repair does not complete wider feature parents."
+    },
+    "SDLC-REPAIR-011": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Repair contracts compiler boundaries without permissive casts or weakened schemas: historical credit receipt strict unknown-field rejection, action purpose validation, exact SBI derivative row parsing and offline normalization source-binding admission. This bounded repair does not complete wider feature parents."
+    },
+    "SDLC-REPAIR-012": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Repair API compiler boundaries while preserving generic encrypted identity metadata, GDP optional originals, hashless governance context refusal, key-required WhatsApp identity and real HTTP verification response semantics. Existing unit boundary regressions remain mandatory under pnpm check. This bounded repair does not complete wider feature parents."
+    },
+    "SDLC-REPAIR-013": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Repair web optional body/prop and receipt-ID types, prevent initial or reset null governance selection dereference, and preserve validated brief correction receipts and exact native-bridge declaration return/callback types. This bounded repair does not complete wider feature parents."
+    },
+    "UI-RACES-001": {
+      "implementationComplete": true,
+      "externalGates": [
+        "The original scope explicitly requires rebuilt shared Android delivery and airplane-mode paused-settings/input verification; preserve device acceptance until saved evidence is confirmed for the intended delivered build."
+      ],
+      "scope": "Feedback controls wait for persisted settings or explicit storage-error recovery; synchronous goal and holding step focus cannot redirect entered amounts; original failure cases, controlled timing regressions, associated connected financial workflows and persisted offline feedback/financial behavior remain intact. This bounded repair does not complete wider feature parents."
+    },
+    "EVENT-SCENARIOS-001": {
+      "implementationComplete": true,
+      "externalGates": [
+        "Record actual source-specific retention, display, linking and offline rights plus permitted operator activation; simulated attestations do not establish permission.",
+        "Record physical Android downloaded-package acceptance required by the shared app delivery; desktop/mobile Playwright is not native certification."
+      ],
+      "scope": "Current accepted seven-family educational source-to-event/scenario workflow: exact researched RBI/Fed policy, original BLS CPI and BEA GDP vintages, issuer revenue versus guidance, FIU subject and institutional-flow packs; legitimate SPF survey and dated Cleveland model comparisons with retrospective provenance; immutable review/history/withdrawal; qualitative reviewed transmission and no-action outcomes, shared web/offline. No calibrated causal forecast, marketwide consensus, prior app availability or financial advice is asserted."
+    },
+    "DEV-020": {
+      "implementationComplete": true,
+      "externalGates": [
+        "Record actual source-specific retention, display, linking and offline rights plus permitted operator activation; simulated attestations do not establish permission.",
+        "Record physical Android downloaded-package acceptance required by the shared app delivery; desktop/mobile Playwright is not native certification."
+      ],
+      "scope": "Additional verified event slices rollup of the full current EVENT-SCENARIOS-001 scope: Current accepted seven-family educational source-to-event/scenario workflow: exact researched RBI/Fed policy, original BLS CPI and BEA GDP vintages, issuer revenue versus guidance, FIU subject and institutional-flow packs; legitimate SPF survey and dated Cleveland model comparisons with retrospective provenance; immutable review/history/withdrawal; qualitative reviewed transmission and no-action outcomes, shared web/offline. No calibrated causal forecast, marketwide consensus, prior app availability or financial advice is asserted."
+    },
+    "SRC-007": {
+      "implementationComplete": true,
+      "externalGates": [
+        "Record actual source-specific retention, display, linking and offline rights plus permitted operator activation; simulated attestations do not establish permission.",
+        "Record physical Android downloaded-package acceptance required by the shared app delivery; desktop/mobile Playwright is not native certification.",
+        "Acceptance coverage gate: add and pass actual scheduled india-gdp ResearchAutoStore tick case. This is agent-actionable validation coverage, not unavailable private input."
+      ],
+      "scope": "Current initial India macro onboarding: exact CPI2024 original and current API reconciliation; reviewed official PDF calendar transcription; precise original PIB quarterly GDP and separate base years; quarantine/replay/independent review; current-day scheduled original discovery and bounded monthly archive recovery; public known-at reader and offline edition parity. IIP/RBI numerical adapters and additional GDP measures/layouts remain separate expansion."
+    },
+    "SRC-008": {
+      "implementationComplete": true,
+      "externalGates": [
+        "Record permitted source retrieval/attribution acceptance for the selected direct-agency adapters; provider fixture/simulation results alone do not prove live operation.",
+        "Record physical Android downloaded-package acceptance required by the shared app delivery; desktop/mobile Playwright is not native certification."
+      ],
+      "scope": "Accepted direct-agency initial global onboarding: ECB DFR/MRR_FR/MLFR and daily reference FX; reviewed Fed/ECB/BLS/BEA releases, fixed historical Fed decisions and retained source-separated BEA/BLS calendars; coverage counts, evidence/history/retry/navigation and downloaded parity. Optional FRED/Treasury/paid adapters, comprehensive BLS/BEA numerical archives and numerical India-impact forecasts are excluded by the task\u2019s explicit selected-provider scope."
+    },
+    "SRC-009": {
+      "implementationComplete": true,
+      "externalGates": [
+        "Applicable EIA Refinitiv/LSEG contributor permission covering retention/display/offline plus operator activation; source gate/schedule stay disabled until recorded.",
+        "Record actual source-specific retention, display, linking and offline rights plus permitted operator activation; simulated attestations do not establish permission.",
+        "Record physical Android downloaded-package acceptance required by the shared app delivery; desktop/mobile Playwright is not native certification."
+      ],
+      "scope": "Current initial benchmarks: exact daily ECB INR/USD cross-rate; World Bank monthly Brent/WTI and Gold/Silver/Copper originals/history; actual EIA daily six-day WTI/Brent table retention, independent review, original evidence/missing cells/history and durable acquisition. Daily versus monthly cadence remains explicit. Complete EIA historical XLS/additional products are coverage expansion."
+    },
+    "SRC-012": {
+      "implementationComplete": true,
+      "externalGates": [
+        "Record actual source-specific retention, display, linking and offline rights plus permitted operator activation; simulated attestations do not establish permission.",
+        "Record physical Android downloaded-package acceptance required by the shared app delivery; desktop/mobile Playwright is not native certification.",
+        "Record required manual keyboard/visual source-form, lost-reply retry and session-expiry clearing acceptance; current WEB1594 covers real mutation but is not complete evidence for every listed recovery state."
+      ],
+      "scope": "Curated company-news evidence onboarding: reviewed canonical ISIN, independently originated corroborating sources, permission-reviewed link-only/original editorial or specifically licensed text, immutable evidence/review, named separation of duties, public navigation/proof and offline withdrawal propagation. No unrestricted paid feed or automated article-verification claim."
+    },
+    "SRC-014": {
+      "implementationComplete": true,
+      "externalGates": [
+        "Record actual source-specific retention, display, linking and offline rights plus permitted operator activation; simulated attestations do not establish permission.",
+        "Record physical Android downloaded-package acceptance required by the shared app delivery; desktop/mobile Playwright is not native certification."
+      ],
+      "scope": "Versioned SEBI/RBI/IncomeTax/FinanceMinistry original registry with precise or unknown effective/publication metadata, immutable retained revisions, independent review, supersession/withdrawal, current/history pagination, Ops capture and offline read-only projection. Registry publication neither interprets legal applicability nor enables regulated advice."
+    },
+    "SRC-015": {
+      "implementationComplete": true,
+      "externalGates": [
+        "Actual AMFI permission covering original retention, connected display and offline redistribution, followed by permitted activation.",
+        "Record physical Android downloaded-package acceptance required by the shared app delivery; desktop/mobile Playwright is not native certification."
+      ],
+      "scope": "Current and legacy AMFI NAV, exact plan/option/scheme identity, retained observations and conflict/history diagnostics; verified current historical grammar with all76 published AMC choices, three types/All and exact single-date/range URL rules; independent review/raw retention, catalog provenance, shared reader and bounded offline history. No contiguous-coverage, active-fund or full holdings/bond-source claim."
+    },
+    "ECB-FX-001": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Fixed ECB reference XML capture, exact USD/EUR and INR/EUR preservation and explicitly reconstructed INR/USD calculation; rolling-window absence, lexical precision revisions, immutable raw/numerical evidence, quarantine, replay, concurrency, independent review/withdrawal, responsive month/history/evidence navigation and offline admission. Production source permission, live activation/refresh, physical-device and native release certification, and broader parent requirements remain separate. Passing this matrix establishes only the reviewed bounded functional scope."
+    },
+    "ECB-RATES-001": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Selected ECB DFR, fixed MRO and marginal lending change-date series, exact signed percentage observations and current/future-effective separation; bounded SDMX capture, immutable raw/numerical evidence, quarantine, replay, rollback/concurrency, independent review/withdrawal, responsive history/evidence navigation and offline admission. Production source permission, live activation/refresh, physical-device and native release certification, and broader parent requirements remain separate. Passing this matrix establishes only the reviewed bounded functional scope."
+    },
+    "EIA-BENCHMARKS-001": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Selected World Bank monthly Brent/WTI distribution, preserved lexical source values and exact display precision, negative/null observations, rejected disappearing months, immutable evidence, quarantine, replay/rollback/concurrency, independent review/withdrawal, responsive year/history/evidence navigation and offline admission. The historical task identifier does not claim EIA daily-series integration. Production source permission, live activation/refresh, physical-device and native release certification, and broader parent requirements remain separate. Passing this matrix establishes only the reviewed bounded functional scope."
+    },
+    "BEA-001": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Fixed official BEA headline RSS ingestion including ordinary-provider acceptance, retained original evidence and bounded metadata excerpts, immutable drafts/revisions and explicit review, withdrawal/redaction, source catalogue/filter/reader/history/evidence navigation and recovery, owned research/report/review receipts, privacy lifecycle and actual dated offline bundle plus pre-BEA/withdrawal behavior. Production source permission, live activation/refresh, physical-device and native release certification, and broader parent requirements remain separate. Passing this matrix establishes only the reviewed bounded functional scope."
+    },
+    "BEA-QUARANTINE-001": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "BEA-only retained-response recovery: immutable attempt/body linkage, incomplete/tampered-response refusal, zero-provider revalidation, exact replay, fingerprint/head-bound atomic staging, concurrent retries and authorization after waits, honest finalization failure receipts, bounded validation history, responsive inspect/Back/revalidate/stage/publication navigation, lost-reply/authentication recovery and connected-only offline denial. Production source permission, live activation/refresh, physical-device and native release certification, and broader parent requirements remain separate. Passing this matrix establishes only the reviewed bounded functional scope."
+    },
+    "GOAL-FEASIBILITY-001": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Explicit affordability, interruption and protected-reserve assessment of an actual saved owned goal, exact no-growth baseline and stressed totals, unknown inputs, immutable goal-version receipts, review and consent, replay and conflict recovery, removal without resurrection, account export and deletion, and durable offline parity. No expected returns, probability, inferred suitability or regulated advice. Physical-device release certification and wider parent requirements remain separate."
+    },
+    "REPORTS-003": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Explicitly selected owned research-connection editions in immutable v2 saved reports, preserving v1 and exact financial arithmetic; minimal dated source receipts and personal reasons, opt-in review, issuance and worker retry, JSON and print, ownership and stale-source admission, replay, cancellation, deletion and late-worker fences, privacy lifecycle and no-network offline persistence. Historical captures never imply current source availability. Physical-device release certification and wider parent requirements remain separate."
+    },
+    "RECOVERY-001": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Explicit authenticated strong recovery-code creation and one-time display, rotation and single-use consumption, confirmed password reset, revoked sessions and serialized old-password login, preserved owned records, generic bounded failures and counter cardinality, export exclusion, keyboard and mobile recovery, durable on-device equivalence and masking in actual feedback captures. No email or verified-identity claim. Physical-device release certification and wider parent requirements remain separate."
+    },
+    "EVIDENCE-LAYERS-001": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "One-line, beginner, user-owned portfolio-context, analytical and source reading layers bound to exact admitted stored editions, source-field excerpts and provenance, explicit unsupported analysis, current revision and withdrawal admission, failed-read and stale-response recovery, private-note ownership and session invalidation, and dated downloaded parity. No fabricated causal, impact or suitability inference. Physical-device release certification and wider parent requirements remain separate."
+    },
+    "MATERIAL-ALERTS-001": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Explicit percentage-point thresholds over followed stored annual World Bank GDP and CPI observations, fresh configuration and unmute baselines, bounded two-indicator checks, exact immutable comparison receipts and versioned coalesced notices, null, stale and revised-source handling, acknowledgement, mute and watchlist changes, lock and replay admission, complete paginated export, account deletion and durable offline behavior. No provider refresh, background delivery, urgency inference, forecast or investment action. Physical-device release certification and wider parent requirements remain separate."
+    },
+    "ASSIST-001": {
+      "implementationComplete": true,
+      "externalGates": [
+        "Saved acceptance for configured provider/model choices is explicitly pending in ASSIST-001; fallback is not a live-provider pass.",
+        "Confirm documented offline assistance/query acceptance; located existing ASSIST-001 cases cover connected API/browser and normal check-gate adapter fixtures, not a complete offline browser workflow."
+      ],
+      "scope": "Configurable grounded OpenAI, Gemini and Anthropic assistance and truthful deterministic query fallback, explicit consent for optional owned-history context, original reference binding, credentials restricted to server configuration, explicit Apply or Dismiss, no silent saved-data changes and strict rejection of unsupported provider text. Full task retains configured live provider and documented offline acceptance requirements. Physical-device release certification and wider parent requirements remain separate."
+    },
+    "SRC-002-HISTORY": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Retained equity price-history date ranges, complete-date pagination, conflicting source receipts, withdrawal, recovery and downloaded snapshot completeness refusal. Live source activation and physical-device release certification remain separate. Broader parent coverage is not completed."
+    },
+    "SRC-007-QUEUE": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Independent India-macro edition and quarantine pagination, 101-record continuation, refresh reset and named-session replay admission after storage waits. Connected Operations only. Live source activation and physical-device release certification remain separate. Broader parent coverage is not completed."
+    },
+    "SRC-004-BANKING": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Verified rendered banking-format retention, exact amount and percentage separation and reconciliation, independent publication, company reader, withdrawal and offline proof and reader admission. Live source activation and physical-device release certification remain separate. Broader parent coverage is not completed."
+    },
+    "SRC-004-GENERAL-INSURANCE": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Verified general-insurance operating-format retention, reconciliation, distinct solvency and percentage units, independent publication, reader and offline proof and admission. Live source activation and physical-device release certification remain separate. Broader parent coverage is not completed."
+    },
+    "SRC-004-LIFE-INSURANCE": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Verified life-insurance policyholder and shareholder accounts and exact transfers, independent publication, company reader and offline proof and admission. Live source activation and physical-device release certification remain separate. Broader parent coverage is not completed."
+    },
+    "SRC-009-METALS": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Monthly World Bank gold, silver and copper originals, exact units, quarantine, independent publication, paginated history, permission-bound scheduled drafts and downloaded evidence handling. Live source activation and physical-device release certification remain separate. Broader parent coverage is not completed."
+    },
+    "UX-002G-HISTORY": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Keyboard price-history pagination and recovery focus, and exact commodity edition preservation through failure, retry and browser Back. Navigation behavior reuses existing source APIs and downloaded readers. Live source activation and physical-device release certification remain separate. Broader parent coverage is not completed."
+    },
+    "REPORT-COMPARE-001": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Compare actual owned issued v1 and v2 reports with exact input, quantity, cost and allocation differences, historical research receipts, chronological direction, ownership and deletion admission, selection-race recovery, original navigation and durable offline parity. No market-performance inference or hidden report copies. Live source activation and physical-device release certification remain separate. Broader parent coverage is not completed."
+    },
+    "REPORT-SCHEDULES-001": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Explicit daily or weekly v1 saved-record schedules, timezone and DST policy, immutable edits and consent, unique latest-due capture, worker, capacity and tombstone behavior, pause, resume and delete, complete paginated export and on-device next-open execution. No closed-app background guarantee or external notifications. Live source activation and physical-device release certification remain separate. Broader parent coverage is not completed."
+    },
+    "ALLOCATIONS-001": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Exact owned holding quantities allocated to saved goals, immutable revisions and history, no oversubscription, stale-input and removed or reduced-record review, guided consent, edit and release, authorization after waits, export, deletion and durable offline parity. Acquisition cost is not market value. Live source activation and physical-device release certification remain separate. Broader parent coverage is not completed."
+    },
+    "GOAL-SCENARIOS-001": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Saved-goal baseline plus up to three explicit contribution and horizon alternatives, exact no-growth comparisons, immutable receipts, explicit version-checked adoption, stale, replay and session recovery, unchanged unrelated finances, export, deletion and offline parity. Live source activation and physical-device release certification remain separate. Broader parent coverage is not completed."
+    },
+    "READING-FOLLOW-001": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Explicit source and topic subscriptions, fresh baseline, manual stored-edition checks, coalesced notices, acknowledgement, reopen, mute and unfollow, withdrawal-safe current navigation, replay and session recovery, complete paginated history and export, and local persistence. No provider refresh or continuous monitoring. Live source activation and physical-device release certification remain separate. Broader parent coverage is not completed."
+    },
+    "EVIDENCE-LINKS-001": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "User-owned dated source-edition connections to actual holdings or goals with consent, reasons, edit, remove and history, explicit reaffirmation, source and target withdrawal or change admission, immutable minimal receipts, ownership, replay and recovery, privacy lifecycle and no-network local parity. No causal or exposure inference. Live source activation and physical-device release certification remain separate. Broader parent coverage is not completed."
+    },
+    "CONNECTION-REVIEWS-001": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Manual review checks against owned research connections, durable dated coalesced notices, acknowledgement, reopen and resolution, receipt and current-context distinction, navigation and recovery, concurrent, replay, capacity and session controls, export, deletion and serialized offline parity. Live source activation and physical-device release certification remain separate. Broader parent coverage is not completed."
+    },
+    "REPORTS-002": {
+      "implementationComplete": true,
+      "externalGates": [],
+      "scope": "Explicit individual report deletion, metadata-only tombstones, stored-byte removal, capacity reclamation, cancellation prerequisite, replay and late-worker resurrection prevention, authorization after waits, confirmation and recovery, authoritative refresh and equivalent durable offline behavior. Live source activation and physical-device release certification remain separate. Broader parent coverage is not completed."
     }
   },
   "SDLC-REPAIR-016": [
@@ -903,6 +1432,6682 @@
     },
     {
       "caseId": "E2E-OFFLINE-761",
+      "projects": ["offline"]
+    }
+  ],
+  "DEV-019": [
+    {
+      "caseId": "E2E-API-990",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-991",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1280",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1281",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1282",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1283",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1290",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-990",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-991",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1280",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1283",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1290",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1295",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-WEB-990",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1280",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1283",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1290",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1295",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1296",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1297",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1593",
+      "projects": ["desktop", "mobile"]
+    }
+  ],
+  "UX-002C": [
+    {
+      "caseId": "E2E-API-120",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-121",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-122",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-123",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-180",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-181",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-182",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-370",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-371",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-372",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-373",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-374",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-375",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-376",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-377",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-378",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-379",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-380",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-381",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-382",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-383",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-460",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-461",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-462",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1250",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-201",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-202",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-204",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-220",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-390",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-391",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-392",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-393",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-470",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-WEB-120",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-121",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-130",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-131",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-132",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-133",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-134",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-135",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-136",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-137",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-138",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-180",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-181",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-182",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-370",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-371",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-372",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-373",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-374",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-460",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-461",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-462",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-463",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-464",
+      "projects": ["desktop", "mobile"]
+    }
+  ],
+  "ALERT-001": [
+    {
+      "caseId": "E2E-API-040",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-041",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-040",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-041",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-041",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-081",
+      "projects": ["offline"]
+    }
+  ],
+  "ALERT-002": [
+    {
+      "caseId": "E2E-API-080",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-050",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-080",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-041",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-081",
+      "projects": ["offline"]
+    }
+  ],
+  "IDENTITY-001": [
+    {
+      "caseId": "E2E-API-230",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-231",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-232",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-233",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-230",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-231",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-270",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-271",
+      "projects": ["offline"]
+    }
+  ],
+  "IDENTITY-ADJUDICATION-001": [
+    {
+      "caseId": "E2E-API-870",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-871",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-872",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-873",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-874",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-875",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-870",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-871",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-872",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-873",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-870",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-871",
+      "projects": ["offline"]
+    }
+  ],
+  "EVENT-EXTRACTION-001": [
+    {
+      "caseId": "E2E-API-850",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-851",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-852",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-853",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-854",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-855",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-856",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-857",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-858",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-859",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-860",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-861",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-862",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-850",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-851",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-852",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-853",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-854",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-855",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-850",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-851",
+      "projects": ["offline"]
+    }
+  ],
+  "EVAL-LINEAGE-001": [
+    {
+      "caseId": "E2E-API-1110",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1111",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1114",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1115",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-1112",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1116",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1113",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1117",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-WEB-1118",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1119",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-API-1118",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1119",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1120",
+      "projects": ["api"]
+    }
+  ],
+  "STORY-MEDIA-002": [
+    {
+      "caseId": "E2E-API-1140",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1141",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-1142",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1143",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1144",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-API-160",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-160",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1145",
+      "projects": ["desktop", "mobile"]
+    }
+  ],
+  "MEDIA-001": [
+    {
+      "caseId": "E2E-API-160",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-160",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-160",
+      "projects": ["offline"]
+    }
+  ],
+  "SOURCES-001": [
+    {
+      "caseId": "E2E-API-070",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-070",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-071",
+      "projects": ["offline"]
+    }
+  ],
+  "SRC-007-ARCHIVE": [
+    {
+      "caseId": "E2E-API-1790",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1791",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1792",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-1790",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1790",
+      "projects": ["offline"]
+    }
+  ],
+  "SRC-016-AXIS": [
+    {
+      "caseId": "E2E-API-1720",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1721",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-1720",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1720",
+      "projects": ["offline"]
+    }
+  ],
+  "SRC-016-FACTSHEET": [
+    {
+      "caseId": "E2E-API-1910",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1911",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1912",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1913",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1914",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1915",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1916",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-1910",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1914",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1910",
+      "projects": ["offline"]
+    }
+  ],
+  "SRC-003-TERMS": [
+    {
+      "caseId": "E2E-API-1930",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1931",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1932",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-1930",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1930",
+      "projects": ["offline"]
+    }
+  ],
+  "DEV-022-MERGERS": [
+    {
+      "caseId": "E2E-API-1900",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1901",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-1900",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1901",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1900",
+      "projects": ["offline"]
+    }
+  ],
+  "SRC-017-SOVEREIGN": [
+    {
+      "caseId": "E2E-API-1920",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1921",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-1920",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1921",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1922",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1920",
+      "projects": ["offline"]
+    }
+  ],
+  "SRC-009-DAILY": [
+    {
+      "caseId": "E2E-API-1940",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1941",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1942",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1944",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1713",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-1940",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1943",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1940",
+      "projects": ["offline"]
+    }
+  ],
+  "SRC-018-RATINGS": [
+    {
+      "caseId": "E2E-API-1960",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1961",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-1960",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1961",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1962",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1960",
+      "projects": ["offline"]
+    }
+  ],
+  "SRC-017-CURVE": [
+    {
+      "caseId": "E2E-API-1970",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1971",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1972",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1973",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1974",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1975",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1977",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-1970",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1971",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1975",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1970",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1971",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1976",
+      "projects": ["offline"]
+    }
+  ],
+  "SRC-004-WATCH": [
+    {
+      "caseId": "E2E-API-1990",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1991",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1992",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-1990",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1990",
+      "projects": ["offline"]
+    }
+  ],
+  "SRC-004-DISCOVERY": [
+    {
+      "caseId": "E2E-API-2000",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-2001",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-2002",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-2003",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-2000",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-2000",
+      "projects": ["offline"]
+    }
+  ],
+  "SRC-003-CONSOLIDATION": [
+    {
+      "caseId": "E2E-API-1780",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1781",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1782",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1783",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-1780",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1780",
+      "projects": ["offline"]
+    }
+  ],
+  "FEEDBACK-001": [
+    {
+      "caseId": "E2E-API-190",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-191",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-192",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-193",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-194",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-195",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-256",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1110",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1111",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1114",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1251",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1252",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1253",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1256",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1257",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1610",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-230",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-231",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-232",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-233",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-234",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-235",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-253",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1113",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-WEB-190",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-191",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-192",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-193",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-194",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-195",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-196",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-197",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-210",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1112",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1118",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1119",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1251",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1256",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1610",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1611",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1612",
+      "projects": ["desktop", "mobile"]
+    }
+  ],
+  "DEV-017": [
+    {
+      "caseId": "E2E-API-030",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-031",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-050",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-150",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-190",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-191",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-192",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-193",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-194",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-195",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-210",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-211",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-212",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-240",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-241",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-242",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-250",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-251",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-252",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-253",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-254",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-255",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-256",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-257",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-269",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-299",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-300",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-301",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-302",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-303",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-304",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-305",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-306",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-307",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-308",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-309",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-334",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-370",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-371",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-372",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-373",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-374",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-375",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-376",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-377",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-378",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-379",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-380",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-381",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-382",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-383",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-445",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-480",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-481",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-482",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-483",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-484",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-485",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-486",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-487",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-520",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-521",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-522",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-523",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-580",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-581",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-582",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-583",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-584",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-585",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-586",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-640",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-641",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-642",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-643",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-644",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-690",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-702",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-750",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-760",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-761",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-762",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-763",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-764",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-765",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-766",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-767",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-768",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-820",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-833",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-862",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1110",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1111",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1114",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1115",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1118",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1119",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1120",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1251",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1252",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1253",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1254",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1256",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1257",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1280",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1282",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1331",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1400",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1401",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1402",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1403",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1404",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1405",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1406",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1407",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1408",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1409",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1410",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1411",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1412",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1420",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1421",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1422",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1423",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1424",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1425",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1426",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1450",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1451",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1452",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1453",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1454",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1455",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1456",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1490",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1491",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1492",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1493",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1494",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1495",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1496",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1602",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1610",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1690",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-011",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-012",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-034",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-230",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-231",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-232",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-233",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-234",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-235",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-250",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-251",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-252",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-253",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-280",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-281",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-290",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-302",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-308",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-333",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-337",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-360",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-390",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-391",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-392",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-393",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-432",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-490",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-530",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-550",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-760",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-761",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-762",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1113",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1117",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1420",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1450",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1490",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-WEB-030",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-033",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-034",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-050",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-100",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-150",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-190",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-191",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-192",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-193",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-194",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-195",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-196",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-197",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-210",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-240",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-250",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-251",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-252",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-253",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-254",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-300",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-370",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-371",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-372",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-373",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-374",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-480",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-481",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-482",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-483",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-484",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-485",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-486",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-520",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-521",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-522",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-640",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-641",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-760",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-761",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-762",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-763",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-764",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1112",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1116",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1118",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1119",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1251",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1254",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1256",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1400",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1420",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1421",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1450",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1451",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1490",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1491",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1610",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1611",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1612",
+      "projects": ["desktop", "mobile"]
+    }
+  ],
+  "SETUP-001": [
+    {
+      "caseId": "E2E-API-001",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-002",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-003",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-004",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-006",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-001",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-002",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-003",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-004",
+      "projects": ["desktop", "mobile"]
+    }
+  ],
+  "RETENTION-001": [
+    {
+      "caseId": "E2E-API-250",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-251",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-252",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-253",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-254",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-255",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-256",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-257",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-250",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-251",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-252",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-253",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-254",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-280",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-281",
+      "projects": ["offline"]
+    }
+  ],
+  "SOURCE-WITHDRAWAL-001": [
+    {
+      "caseId": "E2E-API-370",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-371",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-372",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-373",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-374",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-375",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-376",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-377",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-378",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-379",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-380",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-381",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-382",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-383",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-370",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-371",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-372",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-373",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-374",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-390",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-391",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-392",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-393",
+      "projects": ["offline"]
+    }
+  ],
+  "CONSENT-LIFECYCLE-001": [
+    {
+      "caseId": "E2E-API-760",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-761",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-762",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-763",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-764",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-765",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-766",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-767",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-768",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-760",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-761",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-762",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-763",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-764",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-760",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-761",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-762",
+      "projects": ["offline"]
+    }
+  ],
+  "MATERIAL-AUTO-001": [
+    {
+      "caseId": "E2E-API-790",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-791",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-792",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-790",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-790",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-791",
+      "projects": ["offline"]
+    }
+  ],
+  "DB-LEAST-PRIVILEGE-001": [
+    {
+      "caseId": "E2E-API-580",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-581",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-582",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-583",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-584",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-585",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-586",
+      "projects": ["api"]
+    }
+  ],
+  "QUALITY-OVERVIEW-001": [
+    {
+      "caseId": "E2E-API-630",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-630",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-630",
+      "projects": ["offline"]
+    }
+  ],
+  "READER-DIAGNOSTICS-001": [
+    {
+      "caseId": "E2E-API-1250",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-120",
+      "projects": ["api"]
+    }
+  ],
+  "OPS-READ-ADMISSION-001": [
+    {
+      "caseId": "E2E-API-520",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-521",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-522",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-523",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-520",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-521",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-522",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-530",
+      "projects": ["offline"]
+    }
+  ],
+  "NAMED-OPERATORS-001": [
+    {
+      "caseId": "E2E-API-640",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-641",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-642",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-643",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-644",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-690",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-702",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-750",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-820",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-833",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-862",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-640",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-641",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-550",
+      "projects": ["offline"]
+    }
+  ],
+  "PUBLISHING-QUEUE-001": [
+    {
+      "caseId": "E2E-API-560",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-561",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-562",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-563",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-564",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-565",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-566",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-567",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-560",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-561",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-562",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-563",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-564",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-565",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-550",
+      "projects": ["offline"]
+    }
+  ],
+  "OPS-AUDIT-001": [
+    {
+      "caseId": "E2E-API-480",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-481",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-482",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-483",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-484",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-485",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-486",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-487",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-480",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-481",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-482",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-483",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-484",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-485",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-486",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-490",
+      "projects": ["offline"]
+    }
+  ],
+  "SOURCE-REVIEW-DIFF-001": [
+    {
+      "caseId": "E2E-API-460",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-461",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-462",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-460",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-461",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-462",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-463",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-464",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-470",
+      "projects": ["offline"]
+    }
+  ],
+  "EVENT-REVIEW-001": [
+    {
+      "caseId": "E2E-API-700",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-701",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-702",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-703",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-704",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-700",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-701",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-700",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-701",
+      "projects": ["offline"]
+    }
+  ],
+  "EVENT-LINEAGE-001": [
+    {
+      "caseId": "E2E-API-830",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-831",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-832",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-833",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-834",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-835",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-703",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-830",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-831",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-830",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-831",
+      "projects": ["offline"]
+    }
+  ],
+  "RESEARCH-AUTO-002": [
+    {
+      "caseId": "E2E-API-1050",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1051",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1052",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1056",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1057",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1058",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1060",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1061",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1062",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1063",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1070",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1440",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1441",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1480",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1481",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1550",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1551",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1770",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1771",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1772",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1773",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1790",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1791",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1792",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1850",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1851",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1942",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1054",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1055",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1070",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1440",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1480",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1550",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1770",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1790",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1850",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-WEB-1053",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1059",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1070",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1440",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1480",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1550",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1770",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1790",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1850",
+      "projects": ["desktop", "mobile"]
+    }
+  ],
+  "DEV-011": [
+    {
+      "caseId": "E2E-API-1050",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1051",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1052",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1056",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1057",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1058",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1060",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1061",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1062",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1063",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1070",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1440",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1441",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1480",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1481",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1550",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1551",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1770",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1771",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1772",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1773",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1790",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1791",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1792",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1850",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1851",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1942",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-220",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-221",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-222",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-223",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-227",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-290",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-291",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-292",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-293",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-294",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-295",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-296",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-297",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-298",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-299",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-330",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-331",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-332",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-333",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-334",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-335",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-352",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-660",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-661",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-662",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-663",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-664",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-665",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-666",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-667",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-668",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-790",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-791",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-792",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1054",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1055",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1070",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1440",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1480",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1550",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1770",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1790",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1850",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-260",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-261",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-262",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-330",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-331",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-332",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-333",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-334",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-335",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-336",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-337",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-338",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-339",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-360",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-361",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-660",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-661",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-662",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-790",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-791",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-WEB-1053",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1059",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1070",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1440",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1480",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1550",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1770",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1790",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1850",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-220",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-221",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-222",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-224",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-290",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-291",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-292",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-293",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-294",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-295",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-296",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-297",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-298",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-299",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-301",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-330",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-331",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-332",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-333",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-334",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-335",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-425",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-660",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-661",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-662",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-663",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-664",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-665",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-790",
+      "projects": ["desktop", "mobile"]
+    }
+  ],
+  "DEV-018": [
+    {
+      "caseId": "E2E-API-030",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-031",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-040",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-041",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-050",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-080",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1880",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-440",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-441",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-442",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-443",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-444",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-445",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-660",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-661",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-662",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-663",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-664",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-665",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-666",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-667",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-668",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-790",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-791",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-792",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-034",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-041",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-081",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1882",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-450",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-451",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-660",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-661",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-662",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-790",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-791",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-WEB-030",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-033",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-034",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-040",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-041",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-080",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1881",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-440",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-441",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-442",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-443",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-444",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-445",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-660",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-661",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-662",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-663",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-664",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-665",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-790",
+      "projects": ["desktop", "mobile"]
+    }
+  ],
+  "DEV-016": [
+    {
+      "caseId": "E2E-API-120",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1500",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1501",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1502",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1503",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1504",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-620",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-621",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-622",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-623",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1500",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1501",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1502",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-204",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-620",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-621",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-WEB-130",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1500",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1501",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-620",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-621",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-622",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-623",
+      "projects": ["desktop", "mobile"]
+    }
+  ],
+  "DEV-010": [
+    {
+      "caseId": "E2E-API-1470",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1471",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1630",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-960",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-961",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1470",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-960",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-961",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-WEB-1470",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1472",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-960",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-961",
+      "projects": ["desktop", "mobile"]
+    }
+  ],
+  "BUG-002": [
+    {
+      "caseId": "E2E-API-001",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-002",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-003",
+      "projects": ["api"]
+    }
+  ],
+  "BUG-003": [
+    {
+      "caseId": "E2E-API-011",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-012",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-013",
+      "projects": ["api"]
+    }
+  ],
+  "BUG-006": [
+    {
+      "caseId": "E2E-API-020",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-021",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-020",
+      "projects": ["desktop", "mobile"]
+    }
+  ],
+  "REGRESSION-011": [
+    {
+      "caseId": "E2E-API-586",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-500",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-501",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-502",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-503",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-521",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-421",
+      "projects": ["desktop", "mobile"]
+    }
+  ],
+  "SDLC-REPAIR-010": [
+    {
+      "caseId": "E2E-OFFLINE-1520",
+      "projects": ["offline"]
+    }
+  ],
+  "SDLC-REPAIR-011": [
+    {
+      "caseId": "E2E-API-1982",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1530",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1340",
+      "projects": ["offline"]
+    }
+  ],
+  "SDLC-REPAIR-012": [
+    {
+      "caseId": "E2E-API-1600",
+      "projects": ["api"]
+    }
+  ],
+  "SDLC-REPAIR-013": [
+    {
+      "caseId": "E2E-WEB-1290",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1522",
+      "projects": ["desktop", "mobile"]
+    }
+  ],
+  "UI-RACES-001": [
+    {
+      "caseId": "E2E-WEB-060",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-062",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-063",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-064",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-065",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-066",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-067",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-090",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-092",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-093",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-094",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-095",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-194",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-196",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-197",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-010",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-090",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-230",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-231",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-232",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-233",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-234",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-235",
+      "projects": ["offline"]
+    }
+  ],
+  "EVENT-SCENARIOS-001": [
+    {
+      "caseId": "E2E-API-1020",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1021",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1260",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1380",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1390",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1394",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1395",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1396",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1433",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1480",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1481",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1620",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1621",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1622",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1623",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1624",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1670",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1671",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1672",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1673",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1700",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1701",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1850",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1851",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1860",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1861",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1862",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1863",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1864",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1865",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1866",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1020",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1021",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1022",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1260",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1380",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1390",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1394",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1396",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1433",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1480",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1620",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1670",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1700",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1850",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-WEB-1020",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1260",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1380",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1390",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1394",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1395",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1396",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1480",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1620",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1622",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1624",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1670",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1672",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1673",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1700",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1702",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1850",
+      "projects": ["desktop", "mobile"]
+    }
+  ],
+  "DEV-020": [
+    {
+      "caseId": "E2E-API-1020",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1021",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1260",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1380",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1390",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1394",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1395",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1396",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1433",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1480",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1481",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1620",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1621",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1622",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1623",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1624",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1670",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1671",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1672",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1673",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1700",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1701",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1850",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1851",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1860",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1861",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1862",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1863",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1864",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1865",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1866",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1020",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1021",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1022",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1260",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1380",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1390",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1394",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1396",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1433",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1480",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1620",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1670",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1700",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1850",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-WEB-1020",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1260",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1380",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1390",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1394",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1395",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1396",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1480",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1620",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1622",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1624",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1670",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1672",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1673",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1700",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1702",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1850",
+      "projects": ["desktop", "mobile"]
+    }
+  ],
+  "SRC-007": [
+    {
+      "caseId": "E2E-API-1320",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1321",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1322",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1323",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1770",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1771",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1772",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1790",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1791",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1792",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1810",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1811",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1320",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1770",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1790",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-WEB-1320",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1321",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1590",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1770",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1790",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1810",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-API-1773",
+      "projects": ["api"]
+    }
+  ],
+  "SRC-008": [
+    {
+      "caseId": "E2E-API-120",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-180",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-181",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-182",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-320",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-321",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-322",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-323",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-324",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-325",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-326",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-327",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-328",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-500",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-501",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-502",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-503",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-504",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-505",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-506",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-680",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-681",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-682",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-683",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-684",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-685",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-686",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-687",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-688",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-689",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-690",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-691",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-810",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-811",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-812",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-813",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-814",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-815",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-816",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-817",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-818",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-819",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-820",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-821",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-822",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1050",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1051",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1052",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1070",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1260",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1350",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-350",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-351",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-352",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-353",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-510",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-680",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-681",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-810",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-811",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1054",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1055",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1070",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1260",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1350",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-WEB-320",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-321",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-322",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-323",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-324",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-500",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-501",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-502",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-503",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-680",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-681",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-682",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-683",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-684",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-810",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-811",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-812",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-813",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-814",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1053",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1070",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1260",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1350",
+      "projects": ["desktop", "mobile"]
+    }
+  ],
+  "SRC-009": [
+    {
+      "caseId": "E2E-API-740",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-741",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-742",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-743",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-744",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-745",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-746",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-747",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-748",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-749",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-750",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-751",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-810",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-811",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-812",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-813",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-814",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-815",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-816",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-817",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-818",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-819",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-820",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-821",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-822",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1710",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1711",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1712",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1713",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1714",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1940",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1941",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1942",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1944",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-740",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-741",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-810",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-811",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1710",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1940",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-WEB-740",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-741",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-742",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-743",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-744",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-810",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-811",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-812",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-813",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-814",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1710",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1711",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1831",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1940",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1943",
+      "projects": ["desktop", "mobile"]
+    }
+  ],
+  "SRC-012": [
+    {
+      "caseId": "E2E-API-1300",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1301",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1300",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-WEB-1300",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1594",
+      "projects": ["desktop", "mobile"]
+    }
+  ],
+  "SRC-014": [
+    {
+      "caseId": "E2E-API-1680",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1681",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1682",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1683",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1684",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1685",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1680",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-WEB-1680",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1681",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1682",
+      "projects": ["desktop", "mobile"]
+    }
+  ],
+  "SRC-015": [
+    {
+      "caseId": "E2E-API-1080",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1082",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1084",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1460",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1540",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1541",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1542",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1543",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1080",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1084",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1460",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1540",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-WEB-1080",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1084",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1460",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1540",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1542",
+      "projects": ["desktop", "mobile"]
+    }
+  ],
+  "ECB-FX-001": [
+    {
+      "caseId": "E2E-API-810",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-811",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-812",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-813",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-814",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-815",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-816",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-817",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-818",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-819",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-820",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-821",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-822",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-810",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-811",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-812",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-813",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-814",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-810",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-811",
+      "projects": ["offline"]
+    }
+  ],
+  "ECB-RATES-001": [
+    {
+      "caseId": "E2E-API-680",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-681",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-682",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-683",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-684",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-685",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-686",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-687",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-688",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-689",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-690",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-691",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-680",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-681",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-682",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-683",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-684",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-680",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-681",
+      "projects": ["offline"]
+    }
+  ],
+  "EIA-BENCHMARKS-001": [
+    {
+      "caseId": "E2E-API-740",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-741",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-742",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-743",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-744",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-745",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-746",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-747",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-748",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-749",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-750",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-751",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-740",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-741",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-742",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-743",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-744",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-740",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-741",
+      "projects": ["offline"]
+    }
+  ],
+  "BEA-001": [
+    {
+      "caseId": "E2E-API-320",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-321",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-322",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-323",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-324",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-325",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-326",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-327",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-328",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-320",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-321",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-322",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-323",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-324",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-350",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-351",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-352",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-353",
+      "projects": ["offline"]
+    }
+  ],
+  "BEA-QUARANTINE-001": [
+    {
+      "caseId": "E2E-API-500",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-501",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-502",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-503",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-504",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-505",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-506",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-500",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-501",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-502",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-503",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-510",
+      "projects": ["offline"]
+    }
+  ],
+  "GOAL-FEASIBILITY-001": [
+    {
+      "caseId": "E2E-API-600",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-601",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-602",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-600",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-601",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-600",
+      "projects": ["offline"]
+    }
+  ],
+  "REPORTS-003": [
+    {
+      "caseId": "E2E-API-290",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-291",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-292",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-293",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-294",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-295",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-296",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-297",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-298",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-299",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-290",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-291",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-292",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-293",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-294",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-295",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-296",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-297",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-298",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-299",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-301",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-330",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-331",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-332",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-333",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-334",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-335",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-336",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-337",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-338",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-339",
+      "projects": ["offline"]
+    }
+  ],
+  "RECOVERY-001": [
+    {
+      "caseId": "E2E-API-210",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-211",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-212",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-210",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-250",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-251",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-252",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-253",
+      "projects": ["offline"]
+    }
+  ],
+  "EVIDENCE-LAYERS-001": [
+    {
+      "caseId": "E2E-API-620",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-621",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-622",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-623",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-620",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-621",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-622",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-623",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-620",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-621",
+      "projects": ["offline"]
+    }
+  ],
+  "MATERIAL-ALERTS-001": [
+    {
+      "caseId": "E2E-API-660",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-661",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-662",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-663",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-664",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-665",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-666",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-667",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-668",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-660",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-661",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-662",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-663",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-664",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-665",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-660",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-661",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-662",
+      "projects": ["offline"]
+    }
+  ],
+  "ASSIST-001": [
+    {
+      "caseId": "E2E-API-141",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-150",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-064",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-094",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-150",
+      "projects": ["desktop", "mobile"]
+    }
+  ],
+  "SRC-002-HISTORY": [
+    {
+      "caseId": "E2E-API-1800",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-1800",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1800",
+      "projects": ["offline"]
+    }
+  ],
+  "SRC-007-QUEUE": [
+    {
+      "caseId": "E2E-API-1810",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1811",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-1810",
+      "projects": ["desktop", "mobile"]
+    }
+  ],
+  "SRC-004-BANKING": [
+    {
+      "caseId": "E2E-API-1730",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1731",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-1730",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1730",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1731",
+      "projects": ["offline"]
+    }
+  ],
+  "SRC-004-GENERAL-INSURANCE": [
+    {
+      "caseId": "E2E-API-1820",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1821",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-1820",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1820",
+      "projects": ["offline"]
+    }
+  ],
+  "SRC-004-LIFE-INSURANCE": [
+    {
+      "caseId": "E2E-API-1840",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1841",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-1840",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1840",
+      "projects": ["offline"]
+    }
+  ],
+  "SRC-009-METALS": [
+    {
+      "caseId": "E2E-API-1710",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1711",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1712",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1713",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1714",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-1710",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1711",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1710",
+      "projects": ["offline"]
+    }
+  ],
+  "UX-002G-HISTORY": [
+    {
+      "caseId": "E2E-WEB-1830",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1831",
+      "projects": ["desktop", "mobile"]
+    }
+  ],
+  "REPORT-COMPARE-001": [
+    {
+      "caseId": "E2E-API-420",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-421",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-422",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-423",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-424",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-425",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-426",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-420",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-421",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-422",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-423",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-424",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-425",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-430",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-431",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-432",
+      "projects": ["offline"]
+    }
+  ],
+  "REPORT-SCHEDULES-001": [
+    {
+      "caseId": "E2E-API-330",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-331",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-332",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-333",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-334",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-335",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-330",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-331",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-332",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-333",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-334",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-335",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-360",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-361",
+      "projects": ["offline"]
+    }
+  ],
+  "ALLOCATIONS-001": [
+    {
+      "caseId": "E2E-API-200",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-201",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-304",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-200",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-201",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-240",
+      "projects": ["offline"]
+    }
+  ],
+  "GOAL-SCENARIOS-001": [
+    {
+      "caseId": "E2E-API-280",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-281",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-282",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-280",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-281",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-282",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-283",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-320",
+      "projects": ["offline"]
+    }
+  ],
+  "READING-FOLLOW-001": [
+    {
+      "caseId": "E2E-API-440",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-441",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-442",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-443",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-444",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-445",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-440",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-441",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-442",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-443",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-444",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-445",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-450",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-451",
+      "projects": ["offline"]
+    }
+  ],
+  "EVIDENCE-LINKS-001": [
+    {
+      "caseId": "E2E-API-260",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-261",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-262",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-263",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-264",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-265",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-266",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-267",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-268",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-269",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-276",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-277",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-260",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-261",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-262",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-263",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-264",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-265",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-266",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-267",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-268",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-269",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-276",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-277",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-278",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-300",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-301",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-302",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-303",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-304",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-305",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-306",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-307",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-308",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-309",
+      "projects": ["offline"]
+    }
+  ],
+  "CONNECTION-REVIEWS-001": [
+    {
+      "caseId": "E2E-API-310",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-311",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-312",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-313",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-314",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-310",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-311",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-312",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-313",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-340",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-341",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-342",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-343",
+      "projects": ["offline"]
+    }
+  ],
+  "REPORTS-002": [
+    {
+      "caseId": "E2E-API-224",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-225",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-226",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-306",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-223",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-224",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-225",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-263",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-264",
       "projects": ["offline"]
     }
   ]

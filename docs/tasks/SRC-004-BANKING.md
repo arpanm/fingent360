@@ -17,3 +17,11 @@ Read AGENTS.md and the linked parent specification before changing this workflow
 ## Manual acceptance
 
 With the documented database/API/web setup and required migrations, run `pnpm sdlc "Validate SRC-004-BANKING" -- --grep "E2E-(API|WEB|OFFLINE)-173[01]"`. Use the web URL printed by `pnpm dev`; keep test watch mode off. Check the corresponding Operations/reader flow documented in the parent. Installed Android/iOS bundles require the documented rebuild/reinstall. Report the exact failed case, saved artifact run and error. The user-operated SDLC command owns gated commit and execution.
+
+## Current acceptance review — 20 September 2026
+
+Reviewed scope: Verified rendered banking-format retention, exact amount and percentage separation and reconciliation, independent publication, company reader, withdrawal and offline proof and reader admission. Live source activation and physical-device release certification remain separate. Broader parent coverage is not completed.
+
+The required API, browser-project and offline case IDs are now explicit in [acceptance.json](acceptance.json). Only actual current receipts plus successful normal gates can close this scope. Existing API/contracts/database/source workflows are reused; a matrix correction itself adds no migration or source permission. Physical-device and deployment claims require their separate evidence. The user authorized this validation/repair run; older manual-only handoff wording is historical for this run.
+
+No additional input is needed for this bounded automated scope. Run the complete required matrix and review attached keyboard/narrow-layout artifacts where applicable before claiming accepted delivery.

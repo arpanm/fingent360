@@ -38,10 +38,10 @@ export function GdpExpectationOperations({
     };
   }, []);
   const deny = useCallback(
-    (failure: unknown) => {
+    (failure: unknown, protectedRead = true) => {
       if (
         failure instanceof RequestError &&
-        (failure.status === 401 || failure.status === 403)
+        (failure.status === 401 || (protectedRead && failure.status === 403))
       ) {
         selection.current++;
         pageSequence.current++;
@@ -123,7 +123,10 @@ export function GdpExpectationOperations({
       );
       await reload();
     } catch (error) {
-      if (alive.current && activeSelection === selection.current) deny(error);
+      // A denied mutation (for example self-review) is not session expiry.
+      // Protected reads still clear state on403; all401 responses do so.
+      if (alive.current && activeSelection === selection.current)
+        deny(error, false);
     } finally {
       if (alive.current) setBusy(false);
     }

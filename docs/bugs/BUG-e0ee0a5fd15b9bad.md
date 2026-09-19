@@ -1,11 +1,11 @@
 # BUG-e0ee0a5fd15b9bad
 
-- Status: Open
+- Status: Resolved
 - Case/project: E2E-OFFLINE-1850 / offline
 - Stories: EVENT-SCENARIOS-001
 - First seen: 2026-09-18T19:39:46.662Z
 - Evidence: artifacts/sdlc/1789752953639-97020/08-pnpm-android_test.log
-- Resolution run: Unresolved
+- Resolution run: 1789837762812-24470
 
 Failure excerpt (untrusted; local original has full details):
 

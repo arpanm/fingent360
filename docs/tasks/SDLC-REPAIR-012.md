@@ -23,3 +23,11 @@ Manual acceptance SDLC-REPAIR-012-A: `pnpm typecheck` must eliminate all supplie
 Optional connected regression: `pnpm e2e:run --project=api --grep E2E-API-1600`, with the existing documented database prerequisites and fixture-managed API. No browser URL/project is needed for this API-only change. No dependency, migration, UI or deployment changes. On failure report the command, exit status and exact diagnostic or selected-case failure; omit credentials and private artifacts.
 
 All verification remains pending. No execution, formatting, installation, service action or commit was performed. HEAD remains `a2c53a0`; the extensive pre-existing tracked and untracked work remains uncommitted and preserved. Parent feature acceptance is unchanged; this task repairs only the supplied compiler failure.
+
+## Current acceptance review — 20 September 2026
+
+Reviewed scope: Repair API compiler boundaries while preserving generic encrypted identity metadata, GDP optional originals, hashless governance context refusal, key-required WhatsApp identity and real HTTP verification response semantics. Existing unit boundary regressions remain mandatory under pnpm check. This bounded repair does not complete wider feature parents.
+
+The required API, browser-project and offline case IDs are now explicit in [acceptance.json](acceptance.json). Only actual current receipts plus successful normal gates can close this scope. Existing API/contracts/database/source workflows are reused; a matrix correction itself adds no migration or source permission. Physical-device and deployment claims require their separate evidence. The user authorized this validation/repair run; older manual-only handoff wording is historical for this run.
+
+No additional input is needed for this bounded automated scope. Run the complete required matrix and review attached keyboard/narrow-layout artifacts where applicable before claiming accepted delivery.

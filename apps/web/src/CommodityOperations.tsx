@@ -5,6 +5,7 @@ import {
   CommodityCaptureSchema,
 } from '@fingent360/contracts';
 import { json, RequestError } from './net';
+import './source-workflows.css';
 export function CommodityOperations({
   request = json,
   onDenied,
@@ -85,7 +86,7 @@ export function CommodityOperations({
   }
   return (
     <section
-      className="panel"
+      className="panel source-workflow"
       aria-label="Commodity benchmark operations"
       aria-busy={busy}
     >

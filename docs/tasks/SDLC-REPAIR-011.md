@@ -43,3 +43,11 @@ Manual regression acceptance:
 Implementation: chain wrapping authored; README and TODO updated. Verification remains pending; no formatter, lint, typecheck, build, test or SDLC command was run. No dependencies changed; installed repository dependencies suffice. Services, migrations, UI URL and browser/mobile/keyboard acceptance are not applicable to this formatting-only change. API/contracts, database, provenance, automation and application workflow are unchanged. Parent compilation and runtime regression acceptance remain open.
 
 The parent retries `pnpm check`. If validation fails, report the exact command, exit status and flagged-file diagnostics. No commit was made; HEAD remains `a2c53a0`, with pre-existing work preserved uncommitted. Follow-up prompt: repair only the supplied formatting warning, preserve behavior and all assertions, update this record and its README/TODO references, and leave all execution to the user/parent.
+
+## Current acceptance review — 20 September 2026
+
+Reviewed scope: Repair contracts compiler boundaries without permissive casts or weakened schemas: historical credit receipt strict unknown-field rejection, action purpose validation, exact SBI derivative row parsing and offline normalization source-binding admission. This bounded repair does not complete wider feature parents.
+
+The required API, browser-project and offline case IDs are now explicit in [acceptance.json](acceptance.json). Only actual current receipts plus successful normal gates can close this scope. Existing API/contracts/database/source workflows are reused; a matrix correction itself adds no migration or source permission. Physical-device and deployment claims require their separate evidence. The user authorized this validation/repair run; older manual-only handoff wording is historical for this run.
+
+No additional input is needed for this bounded automated scope. Run the complete required matrix and review attached keyboard/narrow-layout artifacts where applicable before claiming accepted delivery.

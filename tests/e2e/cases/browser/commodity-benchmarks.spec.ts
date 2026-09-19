@@ -12,7 +12,7 @@ test('E2E-WEB-1710 actual commodity upload independent review monthly reader his
   request,
   playwright,
   feedbackSandbox,
-}) => {
+}, testInfo) => {
   const reviewer = await indiaActors(request, playwright, feedbackSandbox);
   try {
     await sourceOpsBrowser(page, request, feedbackSandbox, 'Commodities');
@@ -48,9 +48,36 @@ test('E2E-WEB-1710 actual commodity upload independent review monthly reader his
         name: 'I independently verified the original values and retention/display/offline rights.',
       })
       .check();
-    await panel
-      .getByRole('button', { name: 'Publish commodity capture' })
-      .click();
+    const publish = panel.getByRole('button', {
+      name: 'Publish commodity capture',
+    });
+    await publish.scrollIntoViewIfNeeded();
+    await expect
+      .poll(() =>
+        page.evaluate(
+          () =>
+            document.documentElement.scrollWidth <=
+            document.documentElement.clientWidth,
+        ),
+      )
+      .toBe(true);
+    await expect
+      .poll(() =>
+        publish.evaluate((button) => {
+          const box = button.getBoundingClientRect();
+          const target = document.elementFromPoint(
+            box.x + box.width / 2,
+            box.y + box.height / 2,
+          );
+          return target === button || (!!target && button.contains(target));
+        }),
+      )
+      .toBe(true);
+    await testInfo.attach('commodity-review-synthetic', {
+      body: await panel.screenshot(),
+      contentType: 'image/png',
+    });
+    await publish.click();
     await expect(
       panel.getByText('publish · 2026-09-02', { exact: true }),
     ).toBeVisible();

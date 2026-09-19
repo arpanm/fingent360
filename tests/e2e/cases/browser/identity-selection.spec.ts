@@ -14,7 +14,7 @@ test('E2E-WEB-870 candidate review Back saved plan and public provider-vs-judgem
   request,
   feedbackSandbox,
   baseURL,
-}) => {
+}, testInfo) => {
   await eventFixture(request, feedbackSandbox);
   const provider = await seedSelectionIdentity(feedbackSandbox);
   await context.addCookies(
@@ -43,40 +43,57 @@ test('E2E-WEB-870 candidate review Back saved plan and public provider-vs-judgem
   await expect(
     page.getByRole('radio', { name: /Synthetic candidate 1/ }),
   ).toBeEnabled();
-  await page.getByRole('radio', { name: /Synthetic candidate 1/ }).check();
+  const candidate = page.getByRole('radio', {
+    name: /Synthetic candidate 1/,
+  });
+  await candidate.focus();
+  await expect(candidate).toBeFocused();
+  await page.keyboard.press('Space');
+  await expect(candidate).toBeChecked();
   await page
     .getByLabel('Editorial selection rationale', { exact: true })
     .fill(
       'Synthetic independent judgement based only on retained candidate membership.',
     );
-  await page
-    .getByRole('button', { name: 'Review selection plan', exact: true })
-    .click();
-  await page
-    .getByRole('button', { name: 'Back to candidate review', exact: true })
-    .click();
+  const review = page.getByRole('button', {
+    name: 'Review selection plan',
+    exact: true,
+  });
+  const save = page.getByRole('button', {
+    name: 'Save selection plan',
+    exact: true,
+  });
+  const back = page.getByRole('button', {
+    name: 'Back to candidate review',
+    exact: true,
+  });
+  await review.focus();
+  await expect(review).toBeFocused();
+  await page.keyboard.press('Enter');
+  await expect(save).toBeFocused();
+  await page.keyboard.press('Tab');
+  await expect(back).toBeFocused();
+  await page.keyboard.press('Enter');
+  await expect(review).toBeFocused();
   await expect(
     page.getByLabel('Editorial selection rationale', { exact: true }),
   ).toHaveValue(
     'Synthetic independent judgement based only on retained candidate membership.',
   );
-  await page
-    .getByRole('button', { name: 'Review selection plan', exact: true })
-    .click();
-  await page
-    .getByRole('button', { name: 'Save selection plan', exact: true })
-    .click();
+  await page.keyboard.press('Enter');
+  await expect(save).toBeFocused();
+  await page.keyboard.press('Enter');
   const saved = page.getByRole('region', {
     name: 'Saved identity selection plan',
     exact: true,
   });
   await expect(saved).toContainText('Synthetic candidate 1');
-  await page
-    .getByRole('button', {
-      name: 'Apply selection in bootstrap mode',
-      exact: true,
-    })
-    .click();
+  const apply = saved.getByRole('button', {
+    name: 'Apply selection in bootstrap mode',
+    exact: true,
+  });
+  await expect(apply).toBeFocused();
+  await page.keyboard.press('Enter');
   await expect(
     page.getByText(/Saved historical selection receipt: approved/),
   ).toBeVisible();
@@ -93,15 +110,23 @@ test('E2E-WEB-870 candidate review Back saved plan and public provider-vs-judgem
   });
   await expect(detail).toContainText('Selection status: current');
   await expect(detail).toContainText('Synthetic candidate 1');
-  await detail
-    .getByRole('button', { name: 'Read selection history', exact: true })
-    .click();
+  const history = detail.getByRole('button', {
+    name: 'Read selection history',
+    exact: true,
+  });
+  await history.focus();
+  await expect(history).toBeFocused();
+  await page.keyboard.press('Enter');
   await expect(detail).toContainText('Revision 1: approved');
   expect(
     await page.evaluate(
       () => document.documentElement.scrollWidth <= innerWidth,
     ),
   ).toBe(true);
+  await page.screenshot({
+    path: testInfo.outputPath('synthetic-identity-selection-keyboard.png'),
+    fullPage: true,
+  });
 });
 test('E2E-WEB-871 actual revoked session clears candidate review without leaking stored plans @IDENTITY-ADJUDICATION-001', async ({
   page,

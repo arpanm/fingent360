@@ -1,9 +1,9 @@
 # REPORTS-003 — Saved report comparisons and lifecycle
 
-- **Status:** Completed (recorded scope)
+- **Status:** Implementation complete; validation pending
 - **Implemented / recorded:** - REPORTS-003 (DEV-011/016/021): Implemented and integration verified. Extend saved record reports with explicitly selected owned research connections. Dependencies: REPORTS-001/002, EVIDENCE-LINKS-001 and privacy. Detailed Codex prompt: inspect immutable v1 reports and the authored connection schema/workflow; specify opt-in selection and versioned v2 snapshots without rewriting any v1 record. Capture selected owned connection editions, personal reasons, minimal source receipts and review fl
-- **Pending:** No new action for the recorded scope; later changes need new validation.
-- **Next action / inputs:** No new action for the recorded scope; later changes need new validation.
+- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
+- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Implementation handoff rule
@@ -22,9 +22,17 @@ The entries below are migrated records, not new execution instructions or curren
 
 Read AGENTS.md, the task-maintenance guide and this task’s current summary. Work only on REPORTS-003 unless the user expands the scope. Treat the preserved specification/history as context; current user instructions take precedence. Implement the listed remaining acceptance end to end, or reconcile recorded completion evidence if no implementation remains. Keep tests, documentation and the root index consistent. Record exact remaining work and who needs to act. Do not execute deterministic validation or commit without the user-authorized gates.
 
+## Current acceptance review — 20 September 2026
+
+Reviewed scope: Explicitly selected owned research-connection editions in immutable v2 saved reports, preserving v1 and exact financial arithmetic; minimal dated source receipts and personal reasons, opt-in review, issuance and worker retry, JSON and print, ownership and stale-source admission, replay, cancellation, deletion and late-worker fences, privacy lifecycle and no-network offline persistence. Historical captures never imply current source availability. Physical-device release certification and wider parent requirements remain separate.
+
+The required API, browser-project and offline case IDs are now explicit in [acceptance.json](acceptance.json). Only actual current receipts plus successful normal gates can close this scope. Existing API/contracts/database/source workflows are reused; a matrix correction itself adds no migration or source permission. Physical-device and deployment claims require their separate evidence. The user authorized this validation/repair run; older manual-only handoff wording is historical for this run.
+
+No additional input is needed for this bounded automated scope. Run the complete required matrix and review attached keyboard/narrow-layout artifacts where applicable before claiming accepted delivery.
+
 <!-- sdlc-validation:start -->
 
 ## Automated validation
 
-Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789837362616-23249.
+Blocked — workflow failure. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789846657524-36112.
 <!-- sdlc-validation:end -->

@@ -12,3 +12,11 @@
 ## Reusable task prompt
 
 Read AGENTS.md and the linked parent/specification. Resolve concrete failures in source-pack retention, source-version review, historical arithmetic, shared UI or offline admission. Never treat an envelope check as proof of document meaning or a historical auction as a current quote. Update contracts, cases and docs when behavior changes; leave deterministic execution and conditional commit to the user.
+
+## Current acceptance review — 20 September 2026
+
+Reviewed scope: Four-original historical sovereign security, issue, auction and convention pack, independently reviewed exact terms version, explicit historical clean, accrued and dirty consideration, file replacement and consent recovery, withdrawal and equivalent downloaded calculation. No current secondary quote or semantic PDF-parser claim. Actual source permission and activation, independent operational original review and physical-device release certification remain separate. This does not complete wider parent scope.
+
+The required API, browser-project and offline case IDs are now explicit in [acceptance.json](acceptance.json). Only actual current receipts plus successful normal gates can close this scope. Existing API/contracts/database/source workflows are reused; a matrix correction itself adds no migration or source permission. Physical-device and deployment claims require their separate evidence. The user authorized this validation/repair run; older manual-only handoff wording is historical for this run.
+
+No additional input is needed for this bounded automated scope. Run the complete required matrix and review attached keyboard/narrow-layout artifacts where applicable before claiming accepted delivery.

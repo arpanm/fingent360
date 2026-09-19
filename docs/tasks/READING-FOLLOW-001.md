@@ -1,9 +1,9 @@
 # READING-FOLLOW-001 — Follow sources and topics
 
-- **Status:** Completed implementation; repair validation pending
+- **Status:** Implementation complete; validation pending
 - **Implemented / recorded:** - READING-FOLLOW-001 (DEV-018): Implemented and verified for the bounded scope;25 connected and10 selected offline scenarios passed, with final navigation reruns passing. Explicit source/topic subscriptions with a manual check of newly reviewed stored editions, dated coalesced private inbox, mute/acknowledge/reopen and withdrawal-safe navigation. Dependencies: SOURCE-WITHDRAWAL-001, current library/privacy and complete schedule export. Initial follow/re-add/unmute establishes a visible fresh
-- **Pending:** User-run WEB444 mobile acceptance after repairing the canonical historical-source label; the supplied mobile failure remains unresolved until a passing run.
-- **Next action / inputs:** User runs the scoped SDLC command below and returns any saved failing case/project evidence.
+- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
+- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Implementation handoff rule
@@ -42,9 +42,17 @@ Authored repair: WEB444 now locates both legitimate choices by their complete ca
 
 Validation remains pending for mobile. The supplied failure (run ID and start time unavailable) is the mobile WEB444 instance at the nonexistent shortened label. The newer saved handoff `1789720496239-da65e456-0861-45b3-b644-49563e18693b`, started 2026-09-18T08:34:56.239Z against API4104/web5176, covers desktop only and therefore does not close the supplied mobile failure. No dependencies, migrations, services or product behavior changed. Smallest retry: `pnpm e2e:run tests/e2e/cases/browser/reading-follow.spec.ts --project=mobile --grep "E2E-WEB-444 first-read recovery and pending subscription save preserve disabled draft controls @READING-FOLLOW-001 @TEST-SIMULATION$"`. Expect the outage/malformed-read recovery, pending disabled controls, real `fed` save, reload persistence and distinct unchecked historical-source assertions to complete. Report the new run ID, project and redacted assertion excerpt on failure. No deterministic command or commit was run during this repair; inspected HEAD was `2dbbceb` and these edits await the parent retry.
 
+## Current acceptance review — 20 September 2026
+
+Reviewed scope: Explicit source and topic subscriptions, fresh baseline, manual stored-edition checks, coalesced notices, acknowledgement, reopen, mute and unfollow, withdrawal-safe current navigation, replay and session recovery, complete paginated history and export, and local persistence. No provider refresh or continuous monitoring. Live source activation and physical-device release certification remain separate. Broader parent coverage is not completed.
+
+The required API, browser-project and offline case IDs are now explicit in [acceptance.json](acceptance.json). Only actual current receipts plus successful normal gates can close this scope. Existing API/contracts/database/source workflows are reused; a matrix correction itself adds no migration or source permission. Physical-device and deployment claims require their separate evidence. The user authorized this validation/repair run; older manual-only handoff wording is historical for this run.
+
+No additional input is needed for this bounded automated scope. Run the complete required matrix and review attached keyboard/narrow-layout artifacts where applicable before claiming accepted delivery.
+
 <!-- sdlc-validation:start -->
 
 ## Automated validation
 
-Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789837362616-23249.
+Blocked — workflow failure. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789846657524-36112.
 <!-- sdlc-validation:end -->

@@ -1,9 +1,9 @@
 # QUALITY-OVERVIEW-001 — protected current data-quality overview
 
-- **Status:** Completed implementation; validation pending
+- **Status:** Implementation complete; validation pending
 - **Implemented / recorded:** - Implementation: Implemented; user validation pending. Parent: DEV021 retains deployment/observability gaps. Add a bounded read-only Operations data-quality view over actual current publication heads and ingestion runs, explicit observation time, invalid-schema and stale counts, source-specific freshness semantics, safe aggregate-only output and session revalidation after storage reads. Show loading/empty/error/retry states, responsive counts and navigation to existing review tools. No fictitious uptime/metrics or automatic provider calls. Reuse stored tables, no migration needed. Add strict contracts, API/browser cases, operational objectives and restore/rollback guidance. Broader observability/release acceptance remains explicit.
-- **Pending:** User: run the task’s documented validation; implementation is not a test pass.
-- **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.
+- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
+- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Implementation handoff rule
@@ -34,9 +34,17 @@ Read AGENTS.md, the task-maintenance guide and this task’s current summary. Wo
 - **Research/evidence:** See [dated source checks and existing answers](input-research-2026-09-15.md). Source-specific permissions, complete parser layouts and legal classification are not claimed resolved by triage.
 - **Completion boundary:** This updates readiness only, not test passes, live activation or full feature completion. On later pickup, refresh saved evidence and update this record plus the TODO row.
 
+## Current acceptance review — 20 September 2026
+
+Reviewed scope: Protected bounded actual-current-publication quality counts with explicit observation/truncation/freshness semantics, safe request diagnostics and existing Publishing navigation/recovery. No fictitious uptime, measured SLA, production log retention, restore drill or broader deployment observability completion. Completion applies only to this bounded child.
+
+The required API, browser-project and offline case IDs are now explicit in [acceptance.json](acceptance.json). Only actual current receipts plus successful normal gates can close this scope. Existing API/contracts/database/source workflows are reused; a matrix correction itself adds no migration or source permission. Physical-device and deployment claims require their separate evidence. The user authorized this validation/repair run; older manual-only handoff wording is historical for this run.
+
+No additional input is needed for this bounded automated scope. Run the complete required matrix and review attached keyboard/narrow-layout artifacts where applicable before claiming accepted delivery.
+
 <!-- sdlc-validation:start -->
 
 ## Automated validation
 
-Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789837362616-23249.
+Blocked — workflow failure. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789846657524-36112.
 <!-- sdlc-validation:end -->

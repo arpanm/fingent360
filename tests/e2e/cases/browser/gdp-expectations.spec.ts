@@ -1,3 +1,4 @@
+import { connectionDatabase } from '../../helpers/research-connection-fixture';
 import { sourceOpsBrowser } from '../../helpers/source-ops-browser';
 import { randomUUID } from 'node:crypto';
 import {
@@ -111,12 +112,36 @@ test('E2E-WEB-1622 actual SPF capture and independent Operations review preserve
       .fill(
         'Synthetic source author cannot independently publish their own capture.',
       );
+    const selfReview = page.waitForResponse(
+      (response) =>
+        new URL(response.url()).pathname ===
+          '/api/v1/ops/gdp-expectations/review' &&
+        response.request().method() === 'POST',
+    );
     await region
       .getByRole('button', { name: 'Publish expectation', exact: true })
       .click();
+    expect((await selfReview).status()).toBe(403);
+    await expect(region).toBeVisible();
+    await expect(
+      page.getByRole('button', { name: 'Sign in to operations', exact: true }),
+    ).toHaveCount(0);
+    await expect(region.getByLabel('Expectation review reason')).toHaveValue(
+      'Synthetic source author cannot independently publish their own capture.',
+    );
     await expect(region.getByRole('alert')).toContainText(
       'Another named operator',
     );
+    const stillAdmitted = page.waitForResponse(
+      (response) =>
+        new URL(response.url()).pathname === '/api/v1/ops/gdp-expectations' &&
+        response.request().method() === 'GET',
+    );
+    await region
+      .getByRole('button', { name: 'Refresh expectation queue', exact: true })
+      .click();
+    expect((await stillAdmitted).status()).toBe(200);
+    await expect(region).toBeVisible();
     await sourceOpsBrowser(
       page,
       reviewer,
@@ -142,6 +167,32 @@ test('E2E-WEB-1622 actual SPF capture and independent Operations review preserve
       .getByRole('button', { name: 'Withdraw expectation', exact: true })
       .click();
     await expect(region).toContainText('2025-Q2: 1.5% · withdrawn');
+    const database = await connectionDatabase(feedbackSandbox);
+    try {
+      await database.query(
+        "UPDATE operator_sessions SET expires_at=clock_timestamp()-interval '1 second'",
+      );
+    } finally {
+      await database.end();
+    }
+    const expiredRead = page.waitForResponse(
+      (response) =>
+        new URL(response.url()).pathname === '/api/v1/ops/gdp-expectations' &&
+        response.request().method() === 'GET',
+    );
+    await region
+      .getByRole('button', { name: 'Refresh expectation queue', exact: true })
+      .click();
+    expect((await expiredRead).status()).toBe(401);
+    await expect(
+      page.getByLabel('Named operator username', { exact: true }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole('region', {
+        name: 'GDP expectation operations',
+        exact: true,
+      }),
+    ).toHaveCount(0);
   } finally {
     await reviewer.dispose();
   }

@@ -1,9 +1,9 @@
 # EVAL-LINEAGE-001 — Retained source, LLM call/output, final-view and feedback evaluation lineage
 
-- **Status:** Implemented; validation pending
+- **Status:** Implementation complete; validation pending
 - **Implemented / recorded:** Source captures, model requests/raw outputs, composed-view records, feedback links and opt-in private history are authored.
-- **Pending:** Live/provider acceptance remains pending. Automated evaluator scoring is not included; stored view data does not prove rendered pixels.
-- **Next action / inputs:** No new code decision. Use existing provider/offline choices; collect actual validation and activation evidence.
+- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
+- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 See [current delivery summary](current-delivery.md) for the batch-wide distinction between code, missing functionality and validation.
@@ -38,9 +38,17 @@ Read AGENTS.md, the task-maintenance guide and this task’s current summary. Wo
 - **Research/evidence:** See [dated source checks and existing answers](input-research-2026-09-15.md). Source-specific permissions, complete parser layouts and legal classification are not claimed resolved by triage.
 - **Completion boundary:** This updates readiness only, not test passes, live activation or full feature completion. On later pickup, refresh saved evidence and update this record plus the TODO row.
 
+## Current acceptance review — 20 September 2026
+
+Reviewed scope: Retained public source response/model transport/composed-view/feedback linkage and separately opted-in owner-only private request history, revoke and late-write erasure, local public context and offline consent. Stored view models are not rendered-pixel proof or automated evaluator scores. Wider parents, actual source permissions, operational provider activation and native release certification remain separate; gaps listed in externalGates prevent automatic Done.
+
+The required API, browser-project and offline case IDs are now explicit in [acceptance.json](acceptance.json). Only actual current receipts plus successful normal gates can close this scope. Existing API/contracts/database/source workflows are reused; a matrix correction itself adds no migration or source permission. Physical-device and deployment claims require their separate evidence. The user authorized this validation/repair run; older manual-only handoff wording is historical for this run.
+
+No additional input is needed for this bounded automated scope. Run the complete required matrix and review attached keyboard/narrow-layout artifacts where applicable before claiming accepted delivery.
+
 <!-- sdlc-validation:start -->
 
 ## Automated validation
 
-Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789837362616-23249.
+Blocked — workflow failure. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789846657524-36112.
 <!-- sdlc-validation:end -->

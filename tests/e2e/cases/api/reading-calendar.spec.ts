@@ -1,12 +1,18 @@
 import { randomUUID } from 'node:crypto';
 import { test, expect } from '../../helpers/app-fixture';
-import { connectionHeaders as headers } from '../../helpers/research-connection-fixture';
+import {
+  connectionHeaders as headers,
+  seedConnectionSource,
+} from '../../helpers/research-connection-fixture';
 import { seedReadingCalendar } from '../../helpers/reading-calendar';
 import { ReadingFollowViewSchema } from '../../../../packages/contracts/src/index';
 test('E2E-API-1880 exact source calendar context preserves cancellation without creating reading notices @DEV-018 @TEST-SIMULATION', async ({
   request,
   feedbackSandbox,
 }) => {
+  const source = await seedConnectionSource(feedbackSandbox);
+  const topic = source.topics[0];
+  if (!topic) throw Error('Published source fixture requires an actual topic.');
   const calendar = await seedReadingCalendar(feedbackSandbox),
     base = '/api/v1/account/reading-follow';
   expect(
@@ -76,6 +82,7 @@ test('E2E-API-1880 exact source calendar context preserves cancellation without 
     events: [],
     edition: null,
   });
-  view = await save(4, [], ['GDP']);
+  // Topic-only follows must use an actually published source topic.
+  view = await save(4, [], [topic]);
   expect(view.calendarContext?.state).toBe('not-selected');
 });

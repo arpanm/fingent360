@@ -1,10 +1,10 @@
 # REGRESSION-013 — roadmap lint gate corrections
 
-- **Status:** Completed implementation; validation pending
+- **Status:** Done (verified gate scope)
 - **Implemented / recorded:** - Implementation: Corrections authored; user verification pending. User confirms format:check passed, then lint stopped on11 errors before typechecks, commit or E2E. Remove dead initial/reset assignments without removing rollback or post-commit state guards; retain caught provisioning failure as Error.cause while keeping CLI output redacted; replace the CSV control-character regex with equivalent character-code validation; correct the consent-worker exit branch and immutable test receipt declaration. Preserve all prior roadmap changes and the gated SDLC sequence.
-- **Pending:** The implementation is recorded; user-run validation remains separate.
-- **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.
-- **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
+- **Pending:** None for this bounded compiler, formatter or tooling repair; functional stories own their application acceptance.
+- **Next action / inputs:** No pickup needed for this recorded repair.
+- **Verification:** Actual format/check/unit gates passed in SDLC1789837762812-24470, gated commit4549ca1; see recorded gate acceptance below.
 
 ## Implementation handoff rule
 
@@ -34,3 +34,9 @@ Read AGENTS.md, the task-maintenance guide and this task’s current summary. Wo
 - **Next action:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.
 - **Research/evidence:** See [dated source checks and existing answers](input-research-2026-09-15.md). Source-specific permissions, complete parser layouts and legal classification are not claimed resolved by triage.
 - **Completion boundary:** This updates readiness only, not test passes, live activation or full feature completion. On later pickup, refresh saved evidence and update this record plus the TODO row.
+
+## Recorded gate acceptance — 20 September 2026
+
+Scope: Eleven lint repairs preserving rollback/state guards, redacted Error.cause, CSV control-range validation and consent-worker exit.
+
+User-authorized SDLC run `1789837762812-24470` completed formatting and the entire check stage successfully before connected acceptance began. The [check log](../../artifacts/sdlc/1789837762812-24470/02-pnpm-check.log) includes strict application/E2E compilation and contracts/API/tooling unit coverage; its final tooling suite reports72 passes, zero failures. Gated commit `4549ca1` records that source revision. This closes the bounded repair, not all application features or later source revisions. No fabricated E2E matrix is added for a compiler/formatting-only task.

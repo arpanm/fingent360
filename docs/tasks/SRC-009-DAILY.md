@@ -12,3 +12,11 @@
 ## Reusable task prompt
 
 Read AGENTS.md and linked acceptance/source evidence. Resolve concrete failures in original parsing, permissions, independent publication, scheduled draft capture or shared/offline history. Preserve daily frequency, source dates, missing cells and contributor rights. Update cases/docs/status without executing gates or claiming activation.
+
+## Current acceptance review — 20 September 2026
+
+Reviewed scope: Verified EIA daily WTI and Brent HTML cells and missing observations, original retention, contributor permission gate, independent review, bounded scheduled drafts with permission re-admission, exact transport limits, edition history, selected-edition retry and Back navigation, and downloaded admission. No complete historical archive or live quotation claim. Actual source permission and activation, independent operational original review and physical-device release certification remain separate. This does not complete wider parent scope.
+
+The required API, browser-project and offline case IDs are now explicit in [acceptance.json](acceptance.json). Only actual current receipts plus successful normal gates can close this scope. Existing API/contracts/database/source workflows are reused; a matrix correction itself adds no migration or source permission. Physical-device and deployment claims require their separate evidence. The user authorized this validation/repair run; older manual-only handoff wording is historical for this run.
+
+No additional input is needed for this bounded automated scope. Run the complete required matrix and review attached keyboard/narrow-layout artifacts where applicable before claiming accepted delivery.

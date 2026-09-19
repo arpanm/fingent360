@@ -35,6 +35,10 @@ export function IdentitySelectionOperations({
       typeof IdentitySelectionPlansSchema.parse
     > | null>(null);
   const [contextReady, setContextReady] = useState(false);
+  const reviewButton = useRef<HTMLButtonElement>(null),
+    saveButton = useRef<HTMLButtonElement>(null),
+    applyButton = useRef<HTMLButtonElement>(null),
+    nextFocus = useRef<'review' | 'save' | 'apply' | null>(null);
   const [review, setReview] = useState(false),
     [busy, setBusy] = useState(false),
     [error, setError] = useState(''),
@@ -131,6 +135,18 @@ export function IdentitySelectionOperations({
     setAction('select');
     setEvidence(null);
   }
+  useEffect(() => {
+    if (busy || !nextFocus.current) return;
+    const target = {
+      review: reviewButton,
+      save: saveButton,
+      apply: applyButton,
+    }[nextFocus.current].current;
+    if (target && !target.disabled) {
+      nextFocus.current = null;
+      target.focus();
+    }
+  }, [busy, review, plan]);
   const identity = items.find((item) => item.isin === isin);
   function draft() {
     if (!contextReady)
@@ -162,6 +178,7 @@ export function IdentitySelectionOperations({
     if (!live.current) return;
     pending.current = null;
     proposal.current = null;
+    nextFocus.current = 'apply';
     setPlan(result);
     setRationale('');
     setReview(false);
@@ -331,19 +348,30 @@ export function IdentitySelectionOperations({
                 Review exact provider revision, chosen candidate and judgement
                 above. Nothing is externally verified.
               </p>
-              <button disabled={!contextReady} onClick={() => void run(save)}>
+              <button
+                ref={saveButton}
+                disabled={!contextReady}
+                onClick={() => void run(save)}
+              >
                 Save selection plan
               </button>
-              <button onClick={() => setReview(false)}>
+              <button
+                onClick={() => {
+                  nextFocus.current = 'review';
+                  setReview(false);
+                }}
+              >
                 Back to candidate review
               </button>
             </>
           ) : (
             <button
+              ref={reviewButton}
               disabled={!contextReady}
               onClick={() => {
                 try {
                   draft();
+                  nextFocus.current = 'save';
                   setReview(true);
                 } catch {
                   setError(
@@ -387,7 +415,11 @@ export function IdentitySelectionOperations({
             {plan.input.expectedVersion}.
           </p>
           <pre>{JSON.stringify(plan, null, 2)}</pre>
-          <button disabled={busy} onClick={() => void run(decide)}>
+          <button
+            ref={applyButton}
+            disabled={busy}
+            onClick={() => void run(decide)}
+          >
             {named
               ? 'Submit selection for independent approval'
               : 'Apply selection in bootstrap mode'}

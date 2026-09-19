@@ -12,3 +12,11 @@
 ## Reusable task prompt
 
 Read AGENTS.md and linked acceptance/source evidence. Resolve concrete parser, review, pagination, shared-reader or offline-admission failures. Never evaluate source JavaScript or infer numerical conventions from bare labels. Update cases/docs/status; leave deterministic validation and commit manual.
+
+## Current acceptance review — 20 September 2026
+
+Reviewed scope: Retained CCIL static NSS parameters and inert JSON source-reported zero-rate points, exact original labels and dates, default-disabled permission admission, independent publication and withdrawal, exact decoded-byte transport bounds, paginated Operations and public history and complete-or-error downloaded snapshots. Unknown maturity and compounding conventions remain explicit; no interpolation, valuation or tradable-price claim. Actual source permission and activation, independent operational original review and physical-device release certification remain separate. This does not complete wider parent scope.
+
+The required API, browser-project and offline case IDs are now explicit in [acceptance.json](acceptance.json). Only actual current receipts plus successful normal gates can close this scope. Existing API/contracts/database/source workflows are reused; a matrix correction itself adds no migration or source permission. Physical-device and deployment claims require their separate evidence. The user authorized this validation/repair run; older manual-only handoff wording is historical for this run.
+
+No additional input is needed for this bounded automated scope. Run the complete required matrix and review attached keyboard/narrow-layout artifacts where applicable before claiming accepted delivery.

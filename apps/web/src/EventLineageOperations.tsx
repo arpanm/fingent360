@@ -37,6 +37,11 @@ export function EventLineageOperations({
   >([]);
   const [reason, setReason] = useState('');
   const [review, setReview] = useState(false);
+  const firstOutputFocus = useRef<HTMLInputElement>(null);
+  const saveFocus = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    if (review) saveFocus.current?.focus();
+  }, [review]);
   const [plan, setPlan] = useState<Plan | null>(null);
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
@@ -299,6 +304,7 @@ export function EventLineageOperations({
                 Output {index + 1} title
               </label>
               <input
+                ref={index === 0 ? firstOutputFocus : undefined}
                 id={`lineage-title-${index}`}
                 value={output.editorial.title}
                 onChange={(event) =>
@@ -450,10 +456,15 @@ export function EventLineageOperations({
           />
           {review ? (
             <>
-              <button onClick={() => void action(save)}>
+              <button ref={saveFocus} onClick={() => void action(save)}>
                 Save immutable lineage plan
               </button>
-              <button onClick={() => setReview(false)}>
+              <button
+                onClick={() => {
+                  setReview(false);
+                  firstOutputFocus.current?.focus();
+                }}
+              >
                 Back to output editing
               </button>
             </>

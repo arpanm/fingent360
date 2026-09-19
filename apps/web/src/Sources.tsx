@@ -231,6 +231,9 @@ export function Sources() {
           <button onClick={() => setRetry((n) => n + 1)}>Try again</button>
         </div>
       )}
+      {!loading && !error && items.length === 0 && (
+        <p>No approved source metadata is included in this view.</p>
+      )}
       <div className="source-directory">
         {items.map((s) => (
           <article className="panel" key={s.id}>

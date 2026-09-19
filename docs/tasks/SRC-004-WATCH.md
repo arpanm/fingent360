@@ -26,3 +26,11 @@ Expected: on the mobile viewport, Automatic research exposes the filing-watch sc
 ## Reusable task prompt
 
 Read AGENTS.md and linked acceptance. Resolve concrete failures in permission-bound original acquisition, unchanged/correction handling, immutable source review or central admission. Never substitute a known historical-URL watch for new-release discovery; never auto-publish findings or accept arbitrary fetch URLs. Update cases/docs/status, leaving deterministic execution manual.
+
+## Current acceptance review — 20 September 2026
+
+Reviewed scope: Permission-bound fixed researched 25-company original-URL watch, at most three originals per due run, unchanged, corrected, quarantined and unavailable immutable outcomes, draft-only acquisition, independent source publication, central current source admission, attempt pagination, schedule controls and dated offline facts. New-release discovery and original XBRL remain separate. Actual source permission and activation, independent operational original review and physical-device release certification remain separate. This does not complete wider parent scope.
+
+The required API, browser-project and offline case IDs are now explicit in [acceptance.json](acceptance.json). Only actual current receipts plus successful normal gates can close this scope. Existing API/contracts/database/source workflows are reused; a matrix correction itself adds no migration or source permission. Physical-device and deployment claims require their separate evidence. The user authorized this validation/repair run; older manual-only handoff wording is historical for this run.
+
+No additional input is needed for this bounded automated scope. Run the complete required matrix and review attached keyboard/narrow-layout artifacts where applicable before claiming accepted delivery.

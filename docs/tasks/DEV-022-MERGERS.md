@@ -12,3 +12,11 @@
 ## Reusable task prompt
 
 Read AGENTS.md, this child and the parent specification. Preserve exact provenance and reviewed source admission while resolving any supplied failure in this scope. Update API/browser/offline cases and task status for code changes. Do not rerun tests, format/check, migrations, builds or commits; retain honest manual-validation status and hand off the focused user command.
+
+## Current acceptance review — 20 September 2026
+
+Reviewed scope: Original HDFC merger-notice retention, exact admitted AMFI plan bindings, independent publication and withdrawal, shared fund-reader lineage and downloaded identity admission without invented investor conversions. Actual source permission and activation, independent operational original review and physical-device release certification remain separate. This does not complete wider parent scope.
+
+The required API, browser-project and offline case IDs are now explicit in [acceptance.json](acceptance.json). Only actual current receipts plus successful normal gates can close this scope. Existing API/contracts/database/source workflows are reused; a matrix correction itself adds no migration or source permission. Physical-device and deployment claims require their separate evidence. The user authorized this validation/repair run; older manual-only handoff wording is historical for this run.
+
+No additional input is needed for this bounded automated scope. Run the complete required matrix and review attached keyboard/narrow-layout artifacts where applicable before claiming accepted delivery.

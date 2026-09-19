@@ -87,6 +87,11 @@ test('E2E-WEB-1542 official catalog selector builds scoped history requests and 
       { exact: true },
     ),
   ).toHaveValue(/mf=9.*tp=2/);
+  const reportUrl = page.getByLabel(
+    'Historical report URL (optional; leave empty for latest NAV)',
+    { exact: true },
+  );
+  const lastValidUrl = await reportUrl.inputValue();
   await page
     .getByLabel('History from date', { exact: true })
     .fill('2026-01-01');
@@ -98,6 +103,15 @@ test('E2E-WEB-1542 official catalog selector builds scoped history requests and 
       exact: true,
     }),
   ).toBeVisible();
+  await expect(reportUrl).toHaveValue(lastValidUrl);
+  const selector = page.getByRole('group', {
+    name: 'Build an official historical NAV request',
+    exact: true,
+  });
+  await expect(selector.getByRole('alert')).toHaveText(
+    'Choose a history interval of 1 to 90 calendar days.',
+  );
+  await expect(selector.getByRole('alert')).not.toContainText('invalid_format');
   await page
     .getByRole('combobox', { name: 'History mutual fund', exact: true })
     .selectOption('');

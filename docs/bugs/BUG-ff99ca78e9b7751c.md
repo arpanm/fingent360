@@ -1,11 +1,11 @@
 # BUG-ff99ca78e9b7751c
 
-- Status: Open
+- Status: Resolved
 - Case/project: E2E-API-255 / api
 - Stories: RETENTION-001
 - First seen: 2026-09-16T22:26:46.819Z
 - Evidence: artifacts/sdlc/1789752953639-97020/06-pnpm-e2e_run.log
-- Resolution run: Unresolved
+- Resolution run: 1789837762812-24470
 
 Failure excerpt (untrusted; local original has full details):
 

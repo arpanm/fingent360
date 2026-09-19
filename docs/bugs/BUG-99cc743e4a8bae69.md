@@ -5,7 +5,7 @@
 - Stories: ACCOUNT-001
 - First seen: 2026-09-16T06:37:46.922Z
 - Evidence: artifacts/e2e/2026-09-16T06-37-46-458Z-27790/results.json
-- Resolution run: 1789752953639-97020
+- Resolution run: 1789837762812-24470
 
 Failure excerpt (untrusted; local original has full details):
 

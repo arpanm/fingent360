@@ -1,9 +1,9 @@
 # EVENT-LINEAGE-001 — reviewed event merge and split
 
-- **Status:** Completed implementation; validation pending
+- **Status:** Implementation complete; validation pending
 - **Implemented / recorded:** - Implementation: Implemented; user validation pending. Parents: DEV015/020 retain causal-policy scope; extraction and entity adjudication are tracked as separate children; depends on EVENT-REVIEW-001 and NAMED-OPERATORS-001. Complete event merge/split with exact version-bound lineage, actual evidence and immutable reviews. Researcher selects two to five inputs/one output for merge, or one input/two to five outputs for split. Outputs use explicitly authored editorial text/citations, never inferred synthesis. Preserve originals and issued/private records. Publication atomically admits outputs and records input supersession, with final source/identity/version admission and independent named approval. Cancel/reject leaves public state unchanged. Public details expose safe reviewed replacement links/history/Back; offline retains the same dated relationships without stale or draft body disclosure. Define no-cycle/self-link, bounded membership, replay and concurrent-review rules before code. Migration046 and API/WEB/OFFLINE830–849 reserved. User owns gates/migrations/commit.
-- **Pending:** User: run the task’s documented validation; implementation is not a test pass.
-- **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.
+- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
+- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Implementation handoff rule
@@ -35,9 +35,17 @@ Read AGENTS.md, the task-maintenance guide and this task’s current summary. Wo
 - **Research/evidence:** See [dated source checks and existing answers](input-research-2026-09-15.md). Source-specific permissions, complete parser layouts and legal classification are not claimed resolved by triage.
 - **Completion boundary:** This updates readiness only, not test passes, live activation or full feature completion. On later pickup, refresh saved evidence and update this record plus the TODO row.
 
+## Current acceptance review — 20 September 2026
+
+Reviewed scope: Version-bound merge/split, distinct named approval, atomic application/replay/competing consumption, replacement chains and public/local navigation. Reuses source-lock authorization acceptance; not numerical causal-policy completion. This covers only the recorded child, not broader parents or source activation.
+
+The required API, browser-project and offline case IDs are now explicit in [acceptance.json](acceptance.json). Only actual current receipts plus successful normal gates can close this scope. Existing API/contracts/database/source workflows are reused; a matrix correction itself adds no migration or source permission. Physical-device and deployment claims require their separate evidence. The user authorized this validation/repair run; older manual-only handoff wording is historical for this run.
+
+No additional input is needed for this bounded automated scope. Run the complete required matrix and review attached keyboard/narrow-layout artifacts where applicable before claiming accepted delivery.
+
 <!-- sdlc-validation:start -->
 
 ## Automated validation
 
-Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789837362616-23249.
+Blocked — workflow failure. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789846657524-36112.
 <!-- sdlc-validation:end -->

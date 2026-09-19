@@ -1,9 +1,9 @@
 # MATERIAL-ALERTS-001 — explicit annual observation materiality
 
-- **Status:** Completed implementation; validation pending
+- **Status:** Implementation complete; validation pending
 - **Implemented / recorded:** - Implementation: Implemented; user validation pending. Parents: DEV011/018 retain calendar and broader pipeline gaps. Opt-in exact percentage-point threshold over followed actual stored World Bank GDP/CPI observations, explicit enable/edit/unmute baseline without backlog, max-two-indicator check batch, immutable comparison receipts and one versioned coalesced notice per indicator. Unchanged, nonmaterial, revised-same-year, null or stale source values never invent urgent/material notifications. Explain annual period versus retrieval date and unknown release calendar. Bind acknowledgement to exact notice version; support history, privacy export/deletion, mute/watchlist changes and local storage. Migration039, strict API/contracts/UI/cases/docs. No provider fetch, background test, forecast, email/push or investment action is implied.
-- **Pending:** User: run the task’s documented validation; implementation is not a test pass.
-- **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.
+- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
+- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Implementation handoff rule
@@ -38,9 +38,17 @@ Read AGENTS.md, the task-maintenance guide and this task’s current summary. Wo
 
 The saved full run1789752953639-97020 includes failed cases tagged to this task. Confirmed causes, scoped authored repairs and remaining verification are recorded in [the full-audit RCA](../development/full-audit-2026-09-19.md). User runs `SDLC_AUTO_REPAIR=0 pnpm sdlc "Repair full audit failures" --story SDLC-REPAIR-016`. No new passing evidence or automatic bug resolution is claimed; this bounded repair does not remove broader source/device/functional requirements recorded above.
 
+## Current acceptance review — 20 September 2026
+
+Reviewed scope: Explicit percentage-point thresholds over followed stored annual World Bank GDP and CPI observations, fresh configuration and unmute baselines, bounded two-indicator checks, exact immutable comparison receipts and versioned coalesced notices, null, stale and revised-source handling, acknowledgement, mute and watchlist changes, lock and replay admission, complete paginated export, account deletion and durable offline behavior. No provider refresh, background delivery, urgency inference, forecast or investment action. Physical-device release certification and wider parent requirements remain separate.
+
+The required API, browser-project and offline case IDs are now explicit in [acceptance.json](acceptance.json). Only actual current receipts plus successful normal gates can close this scope. Existing API/contracts/database/source workflows are reused; a matrix correction itself adds no migration or source permission. Physical-device and deployment claims require their separate evidence. The user authorized this validation/repair run; older manual-only handoff wording is historical for this run.
+
+No additional input is needed for this bounded automated scope. Run the complete required matrix and review attached keyboard/narrow-layout artifacts where applicable before claiming accepted delivery.
+
 <!-- sdlc-validation:start -->
 
 ## Automated validation
 
-Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789837362616-23249.
+Blocked — workflow failure. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789846657524-36112.
 <!-- sdlc-validation:end -->

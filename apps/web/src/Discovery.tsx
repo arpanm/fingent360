@@ -47,6 +47,12 @@ const labels = {
   term: 'A LITTLE KNOWLEDGE',
   annual: 'ANNUAL DATA',
 };
+type ReadingUpdate = {
+  items: FeedItem[];
+  reasons: Record<string, string>;
+  cursor: string | null;
+  authenticated: boolean;
+};
 type ReadingView = {
   mode: 'scan' | 'stories';
   index: number;
@@ -58,6 +64,7 @@ type ReadingView = {
   cursor: string | null;
   loaded: boolean;
   authenticated: boolean;
+  pendingUpdates?: ReadingUpdate | null;
 };
 const memory = new Map<string, ReadingView>();
 window.addEventListener('f360-session-changed', () => memory.clear());
@@ -97,6 +104,17 @@ export function Discovery({ explore = false }: { explore?: boolean }) {
   const [moreLoading, setMoreLoading] = useState(false);
   const [error, setError] = useState('');
   const [revision, setRevision] = useState(0);
+  const [pendingUpdates, setPendingUpdates] = useState<ReadingUpdate | null>(
+    stored?.pendingUpdates ?? null,
+  );
+  const [checkingUpdates, setCheckingUpdates] = useState(false);
+  const [updateError, setUpdateError] = useState('');
+  const [updateNotice, setUpdateNotice] = useState('');
+  const currentReading = useRef({ items, index });
+  const readingFocus = useRef<HTMLDivElement>(null);
+  const headingFocus = useRef<HTMLHeadingElement>(null);
+  const focusAfterUpdate = useRef(false);
+  currentReading.current = { items, index };
   const initial = useRef(!!stored?.loaded);
   const requestId = useRef(0);
   const touch = useRef<{ x: number; y: number } | null>(null);
@@ -134,6 +152,10 @@ export function Discovery({ explore = false }: { explore?: boolean }) {
     const reset = () => {
       initial.current = false;
       setItems([]);
+      setPendingUpdates(null);
+      setCheckingUpdates(false);
+      setUpdateError('');
+      setUpdateNotice('');
       setReasons({});
       setCursor(null);
       setRevision((n) => n + 1);
@@ -148,6 +170,10 @@ export function Discovery({ explore = false }: { explore?: boolean }) {
       return;
     }
     const generation = ++requestId.current;
+    setPendingUpdates(null);
+    setCheckingUpdates(false);
+    setUpdateError('');
+    setUpdateNotice('');
     setLoading(true);
     setError('');
     setMoreLoading(false);
@@ -220,6 +246,7 @@ export function Discovery({ explore = false }: { explore?: boolean }) {
       cursor,
       loaded: !loading && !error,
       authenticated,
+      pendingUpdates,
     });
   }, [
     key,
@@ -237,6 +264,7 @@ export function Discovery({ explore = false }: { explore?: boolean }) {
     loading,
     error,
     authenticated,
+    pendingUpdates,
   ]);
   useEffect(() => {
     const sync = () => {
@@ -271,7 +299,7 @@ export function Discovery({ explore = false }: { explore?: boolean }) {
     );
   }, [key, query, kind, source, topic, region, mode]);
   async function more() {
-    if (!cursor || moreLoading) return;
+    if (!cursor || moreLoading || checkingUpdates || pendingUpdates) return;
     const generation = requestId.current;
     setMoreLoading(true);
     setError('');
@@ -306,6 +334,124 @@ export function Discovery({ explore = false }: { explore?: boolean }) {
       if (generation === requestId.current) setMoreLoading(false);
     }
   }
+  async function checkReading(apply = false) {
+    if (checkingUpdates || moreLoading) return;
+    const generation = ++requestId.current;
+    setCheckingUpdates(true);
+    setUpdateError('');
+    setUpdateNotice('');
+    try {
+      let signedIn = authenticated;
+      const fresh: ReadingUpdate = {
+        items: [],
+        reasons: {},
+        cursor: null,
+        authenticated: signedIn,
+      };
+      let next: string | undefined;
+      for (let page = 0; ; page++) {
+        // Bound an explicit check; never silently truncate a refreshed selection.
+        if (page >= 100)
+          throw Error(
+            'This reading selection is too large to refresh together. Narrow its filters and try again.',
+          );
+        let result: unknown;
+        try {
+          result = await json(`/account/library/feed${params(next)}`);
+          signedIn = true;
+        } catch (failure) {
+          if (!(failure instanceof RequestError) || failure.status !== 401)
+            throw failure;
+          // Do not combine pages from different account/public selections.
+          if (next && signedIn)
+            throw Error(
+              'Your reading session changed. Refresh the selection before continuing.',
+              { cause: failure },
+            );
+          result = await json(`/discovery/feed${params(next)}`);
+          signedIn = false;
+        }
+        if (generation !== requestId.current) return;
+        const parsed = signedIn
+          ? FeedRankingSchema.parse(result)
+          : FeedSchema.parse(result);
+        for (const item of parsed.items) {
+          if (fresh.items.some((previous) => previous.id === item.id))
+            throw Error('Reading pages overlapped. Check the selection again.');
+          fresh.items.push(item);
+        }
+        if (signedIn)
+          Object.assign(
+            fresh.reasons,
+            FeedRankingSchema.parse(result).whyShown,
+          );
+        fresh.cursor = parsed.nextCursor;
+        fresh.authenticated = signedIn;
+        const current = currentReading.current;
+        const selectedId =
+          current.items[
+            Math.min(current.index, Math.max(0, current.items.length - 1))
+          ]?.id;
+        if (
+          !parsed.nextCursor ||
+          (fresh.items.length >= current.items.length &&
+            (!selectedId || fresh.items.some((item) => item.id === selectedId)))
+        )
+          break;
+        if (parsed.nextCursor === next)
+          throw Error(
+            'Reading pagination did not advance. Check the selection again.',
+          );
+        next = parsed.nextCursor;
+      }
+      if (generation !== requestId.current) return;
+      const current = currentReading.current;
+      const selectedId =
+        current.items[
+          Math.min(current.index, Math.max(0, current.items.length - 1))
+        ]?.id;
+      const priorIds = new Set(current.items.map((item) => item.id));
+      const additions = fresh.items.filter(
+        (item) => !priorIds.has(item.id),
+      ).length;
+      // Existing items adopt their newly admitted editions immediately; absent
+      // entries cannot remain as old public source text while additions wait.
+      const admitted = new Map(fresh.items.map((item) => [item.id, item]));
+      const retained = current.items.flatMap(
+        (item) => admitted.get(item.id) ?? [],
+      );
+      const show = !apply && additions > 0 ? retained : fresh.items;
+      const selectedIndex = show.findIndex((item) => item.id === selectedId);
+      if (apply) focusAfterUpdate.current = true;
+      setItems(show);
+      setIndex(Math.max(0, selectedIndex));
+      setReasons(fresh.reasons);
+      setAuthenticated(fresh.authenticated);
+      setCursor(!apply && additions > 0 ? null : fresh.cursor);
+      setPendingUpdates(!apply && additions > 0 ? fresh : null);
+      setUpdateNotice(
+        selectedId && selectedIndex < 0
+          ? 'Your previous story is no longer in this selection. Choose another available story.'
+          : apply
+            ? 'Reading updated. Your selected story is preserved.'
+            : additions > 0
+              ? 'New reading is available. Your current story stays selected.'
+              : 'Reading checked. No new items were added.',
+      );
+    } catch (failure) {
+      if (generation === requestId.current) {
+        setPendingUpdates(null);
+        setCursor(null);
+        setUpdateError(
+          failure instanceof Error
+            ? failure.message
+            : 'New reading could not be checked. Try again.',
+        );
+      }
+    } finally {
+      if (generation === requestId.current) setCheckingUpdates(false);
+    }
+  }
   const visible = items;
   const selected = Math.min(index, Math.max(0, visible.length - 1));
   const story = visible[selected];
@@ -314,6 +460,15 @@ export function Discovery({ explore = false }: { explore?: boolean }) {
       rememberPublicView(story, 'story');
     else clearPublicView();
   }, [story, mode, loading]);
+  useEffect(() => {
+    if (!checkingUpdates && focusAfterUpdate.current) {
+      focusAfterUpdate.current = false;
+      (mode === 'stories' && story
+        ? readingFocus.current
+        : headingFocus.current
+      )?.focus();
+    }
+  }, [checkingUpdates, mode, story]);
   const step = (delta: number) =>
     setIndex((n) => Math.max(0, Math.min(visible.length - 1, n + delta)));
   const prepareReader = (at: number) => {
@@ -337,7 +492,7 @@ export function Discovery({ explore = false }: { explore?: boolean }) {
           <p className="page-kicker">
             {explore ? 'FOLLOW YOUR CURIOSITY' : 'YOUR DAILY PERSPECTIVE'}
           </p>
-          <h1 id="discovery-title">
+          <h1 id="discovery-title" ref={headingFocus} tabIndex={-1}>
             {explore ? (
               'Make sense of it.'
             ) : (
@@ -529,6 +684,29 @@ export function Discovery({ explore = false }: { explore?: boolean }) {
           </div>
         </>
       )}
+      {(checkingUpdates || pendingUpdates || updateNotice || updateError) && (
+        <div className="reading-updates" aria-label="Reading updates">
+          {checkingUpdates && <p role="status">Checking for new reading…</p>}
+          {updateNotice && <p role="status">{updateNotice}</p>}
+          {updateError && <p role="alert">{updateError}</p>}
+          {pendingUpdates && (
+            <button
+              disabled={checkingUpdates}
+              onClick={() => void checkReading(true)}
+            >
+              Apply updated reading
+            </button>
+          )}
+          {updateError && (
+            <button
+              disabled={checkingUpdates}
+              onClick={() => void checkReading()}
+            >
+              Retry new reading check
+            </button>
+          )}
+        </div>
+      )}
       {loading && (
         <div className="feed-loading" role="status">
           Gathering your reading…
@@ -544,7 +722,10 @@ export function Discovery({ explore = false }: { explore?: boolean }) {
             Refresh reading
           </button>
           {cursor && (
-            <button disabled={moreLoading} onClick={() => void more()}>
+            <button
+              disabled={moreLoading || checkingUpdates || !!pendingUpdates}
+              onClick={() => void more()}
+            >
               Retry more reading
             </button>
           )}
@@ -637,6 +818,7 @@ export function Discovery({ explore = false }: { explore?: boolean }) {
       {!loading && mode === 'stories' && story && (
         <div
           className="story-stage"
+          ref={readingFocus}
           tabIndex={0}
           role="region"
           aria-label="Reading story"
@@ -752,7 +934,7 @@ export function Discovery({ explore = false }: { explore?: boolean }) {
               cursor && (
                 <button
                   className="secondary"
-                  disabled={moreLoading}
+                  disabled={moreLoading || checkingUpdates || !!pendingUpdates}
                   onClick={() => void more()}
                 >
                   {moreLoading ? 'Loading more…' : 'More reading'}
@@ -766,7 +948,8 @@ export function Discovery({ explore = false }: { explore?: boolean }) {
           </div>
           <button
             className="text-link"
-            onClick={() => setRevision((n) => n + 1)}
+            disabled={checkingUpdates || moreLoading}
+            onClick={() => void checkReading()}
           >
             Check for new reading
           </button>

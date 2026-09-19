@@ -1,9 +1,9 @@
 # REPORT-COMPARE-001 — Compare saved reports
 
-- **Status:** Completed (recorded scope)
+- **Status:** Implementation complete; validation pending
 - **Implemented / recorded:** - REPORT-COMPARE-001 (DEV-011/016): Implemented and verified for the bounded scope;37connected scenarios passing across corrections and20offline passes. Compare two actual owned issued record reports without creating hidden snapshot copies. Detailed Codex prompt: read immutable v1/v2 report shapes, exact planning math, ownership/session/tombstone/capacity and offline report storage before specifying select two → review dates/baselines → compare → open original → Back/reload/deep link. Add st
-- **Pending:** No new action for the recorded scope; later changes need new validation.
-- **Next action / inputs:** No new action for the recorded scope; later changes need new validation.
+- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
+- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Implementation handoff rule
@@ -22,9 +22,17 @@ The entries below are migrated records, not new execution instructions or curren
 
 Read AGENTS.md, the task-maintenance guide and this task’s current summary. Work only on REPORT-COMPARE-001 unless the user expands the scope. Treat the preserved specification/history as context; current user instructions take precedence. Implement the listed remaining acceptance end to end, or reconcile recorded completion evidence if no implementation remains. Keep tests, documentation and the root index consistent. Record exact remaining work and who needs to act. Do not execute deterministic validation or commit without the user-authorized gates.
 
+## Current acceptance review — 20 September 2026
+
+Reviewed scope: Compare actual owned issued v1 and v2 reports with exact input, quantity, cost and allocation differences, historical research receipts, chronological direction, ownership and deletion admission, selection-race recovery, original navigation and durable offline parity. No market-performance inference or hidden report copies. Live source activation and physical-device release certification remain separate. Broader parent coverage is not completed.
+
+The required API, browser-project and offline case IDs are now explicit in [acceptance.json](acceptance.json). Only actual current receipts plus successful normal gates can close this scope. Existing API/contracts/database/source workflows are reused; a matrix correction itself adds no migration or source permission. Physical-device and deployment claims require their separate evidence. The user authorized this validation/repair run; older manual-only handoff wording is historical for this run.
+
+No additional input is needed for this bounded automated scope. Run the complete required matrix and review attached keyboard/narrow-layout artifacts where applicable before claiming accepted delivery.
+
 <!-- sdlc-validation:start -->
 
 ## Automated validation
 
-Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789837362616-23249.
+Blocked — workflow failure. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789846657524-36112.
 <!-- sdlc-validation:end -->

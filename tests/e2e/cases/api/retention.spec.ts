@@ -96,7 +96,7 @@ test('E2E-API-250 fixed expiry cleanup preserves current data receipts issued re
     expect(
       (
         await pool.query(
-          'SELECT 1 FROM feedback_reports WHERE id=$1 AND text IS NOT NULL AND deleted_at IS NULL',
+          'SELECT 1 FROM feedback_reports WHERE id=$1 AND encrypted_payload IS NOT NULL AND text IS NULL AND deleted_at IS NULL',
           [fixture.expiredFeedback.id],
         )
       ).rows,

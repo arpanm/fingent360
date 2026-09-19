@@ -1,9 +1,9 @@
 # RECOVERY-001 — Recover account access
 
-- **Status:** Completed (recorded scope)
+- **Status:** Implementation complete; validation pending
 - **Implemented / recorded:** - RECOVERY-001 (DEV-007/017): Implemented and verified for the bounded scope. Let a user explicitly create a strong recovery code while authenticated, retain it privately, and reset a forgotten password using that code without email/provider dependencies. Prompt: specify one-time display, hashing, rotation/consumption, password confirmation, session revocation, generic failure and abuse bounds; add strict contracts and migration018, secure API and account/privacy UI, accessible mobile recove
-- **Pending:** No new action for the recorded scope; later changes need new validation.
-- **Next action / inputs:** No new action for the recorded scope; later changes need new validation.
+- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
+- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Implementation handoff rule
@@ -22,9 +22,17 @@ The entries below are migrated records, not new execution instructions or curren
 
 Read AGENTS.md, the task-maintenance guide and this task’s current summary. Work only on RECOVERY-001 unless the user expands the scope. Treat the preserved specification/history as context; current user instructions take precedence. Implement the listed remaining acceptance end to end, or reconcile recorded completion evidence if no implementation remains. Keep tests, documentation and the root index consistent. Record exact remaining work and who needs to act. Do not execute deterministic validation or commit without the user-authorized gates.
 
+## Current acceptance review — 20 September 2026
+
+Reviewed scope: Explicit authenticated strong recovery-code creation and one-time display, rotation and single-use consumption, confirmed password reset, revoked sessions and serialized old-password login, preserved owned records, generic bounded failures and counter cardinality, export exclusion, keyboard and mobile recovery, durable on-device equivalence and masking in actual feedback captures. No email or verified-identity claim. Physical-device release certification and wider parent requirements remain separate.
+
+The required API, browser-project and offline case IDs are now explicit in [acceptance.json](acceptance.json). Only actual current receipts plus successful normal gates can close this scope. Existing API/contracts/database/source workflows are reused; a matrix correction itself adds no migration or source permission. Physical-device and deployment claims require their separate evidence. The user authorized this validation/repair run; older manual-only handoff wording is historical for this run.
+
+No additional input is needed for this bounded automated scope. Run the complete required matrix and review attached keyboard/narrow-layout artifacts where applicable before claiming accepted delivery.
+
 <!-- sdlc-validation:start -->
 
 ## Automated validation
 
-Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789837362616-23249.
+Blocked — workflow failure. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789846657524-36112.
 <!-- sdlc-validation:end -->

@@ -1,9 +1,9 @@
 # BEA-QUARANTINE-001 — Inspect and recover rejected BEA data
 
-- **Status:** Done (accepted scope)
+- **Status:** Implementation complete; validation pending
 - **Implemented / recorded:** - BEA-QUARANTINE-001 (DEV-005/015/021): Implemented; migration035, verification and commit await user-run SDLC. Detailed Codex prompt: implement a bounded BEA-only retained-response recovery workflow using the existing fixed official RSS endpoint, permitted source evidence and shared bounded parser. Spec first. Add additive035 for immutable attempt/response-link/revalidation/staging receipts with truthful network/non-200/oversize/unavailable/pending/parsed/failed states, parser revision, ori
-- **Pending:** None for the reviewed acceptance scope; native release certification remains separate.
-- **Next action / inputs:** No further action for this accepted scope.
+- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
+- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Implementation handoff rule
@@ -46,5 +46,5 @@ No additional input is needed for this bounded automated scope. Run the complete
 
 ## Automated validation
 
-Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789848189876-42077.
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: outage-final-1789852687840.
 <!-- sdlc-validation:end -->

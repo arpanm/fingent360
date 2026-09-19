@@ -1,6 +1,6 @@
 # SDLC-REPAIR-013 — Web compiler boundary repair
 
-- **Status:** Done (accepted scope)
+- **Status:** Implementation complete; validation pending
 - **Input (2026-09-16):** User supplied the web TypeScript failure from `pnpm check` (exit 2) and authorized only scoped authoring/read-only inspection. No suite report was read. No private input or new decision is needed.
 - **Scope:** Repair explicit undefined request bodies/forwarded props, narrow UUID state inference and nullable governance selection. Preserve strict compiler settings and runtime schemas.
 - **Dependencies:** Existing workspace dependencies and generated contracts; no dependency or migration changes.
@@ -64,5 +64,5 @@ No additional input is needed for this bounded automated scope. Run the complete
 
 ## Automated validation
 
-Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789848189876-42077.
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: outage-final-1789852687840.
 <!-- sdlc-validation:end -->

@@ -1,6 +1,6 @@
 # SRC-017-CURVE — Retained CCIL curve originals
 
-- **Status:** Done (accepted scope)
+- **Status:** Implementation complete; validation pending
 - **Scope:** Parse original static NSS parameters and inert JSON containing source-reported zero-rate points. Retain originals, dates and decimals; independently review/withdraw; browse paginated Operations/public history and downloaded offline evidence. Source labels do not establish compounding, maturity units or tradable prices.
 - **Specification and primary evidence:** [Curve source research](../development/ccil-zero-curve.md); [parent](SRC-017.md).
 - **Data:** Migration126, Mongo original bytes, PostgreSQL edition/review history. Separate server permission configuration defaults disabled. Snapshot exports are complete or explicitly fail, rather than omit records silently.
@@ -25,5 +25,5 @@ No additional input is needed for this bounded automated scope. Run the complete
 
 ## Automated validation
 
-Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789848189876-42077.
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: outage-final-1789852687840.
 <!-- sdlc-validation:end -->

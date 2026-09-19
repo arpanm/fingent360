@@ -1,9 +1,9 @@
 # QUALITY-OVERVIEW-001 — protected current data-quality overview
 
-- **Status:** Done (accepted scope)
+- **Status:** Implementation complete; validation pending
 - **Implemented / recorded:** - Implementation: Implemented; user validation pending. Parent: DEV021 retains deployment/observability gaps. Add a bounded read-only Operations data-quality view over actual current publication heads and ingestion runs, explicit observation time, invalid-schema and stale counts, source-specific freshness semantics, safe aggregate-only output and session revalidation after storage reads. Show loading/empty/error/retry states, responsive counts and navigation to existing review tools. No fictitious uptime/metrics or automatic provider calls. Reuse stored tables, no migration needed. Add strict contracts, API/browser cases, operational objectives and restore/rollback guidance. Broader observability/release acceptance remains explicit.
-- **Pending:** None for the reviewed acceptance scope; native release certification remains separate.
-- **Next action / inputs:** No further action for this accepted scope.
+- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
+- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Implementation handoff rule
@@ -50,5 +50,5 @@ Actual focused screenshots exposed controls under persistent navigation/feedback
 
 ## Automated validation
 
-Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789848189876-42077.
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: outage-final-1789852687840.
 <!-- sdlc-validation:end -->

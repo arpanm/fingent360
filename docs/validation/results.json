@@ -1830,13 +1830,13 @@
       "title": "E2E-API-004 database outage reports 503 @manual-outage @SETUP-001 @SDLC-001",
       "file": "api/database-outage.spec.ts",
       "stories": ["SETUP-001", "SDLC-001"],
-      "status": "skipped",
+      "status": "passed",
       "details": "",
-      "run": "1789848189876-42077",
-      "time": "2026-09-19T21:11:56.762Z",
-      "fingerprint": "ed7ac3367913cafa7778b29a0464da0ad12c082cb57f5ee8923cfdb7954b6880",
-      "log": "artifacts/sdlc/1789848189876-42077/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T20-04-05-987Z-42799/results.json"
+      "run": "outage-final-1789852687840",
+      "time": "2026-09-19T21:18:13.290Z",
+      "fingerprint": "adcaf88ae7f65f19990282ccf9acd2763ad20fd146f414e37c21d89781af6c01",
+      "log": "artifacts/sdlc/outage-final-1789852687840/outage.log",
+      "report": "artifacts/e2e/2026-09-19T21-18-08-742Z-49882/results.json"
     },
     "6b1cf73e6415f071d337de42195de9e0414062a04406229ad34e3fc2963fe6d8": {
       "key": "6b1cf73e6415f071d337de42195de9e0414062a04406229ad34e3fc2963fe6d8",
@@ -10691,11 +10691,11 @@
       "stories": ["SRC-009", "SRC-009-DAILY"],
       "status": "passed",
       "details": "",
-      "run": "1789848189876-42077",
-      "time": "2026-09-19T21:11:56.762Z",
-      "fingerprint": "ed7ac3367913cafa7778b29a0464da0ad12c082cb57f5ee8923cfdb7954b6880",
-      "log": "artifacts/sdlc/1789848189876-42077/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T20-04-05-987Z-42799/results.json"
+      "run": "1789852475505-48970",
+      "time": "2026-09-19T21:15:49.846Z",
+      "fingerprint": "adcaf88ae7f65f19990282ccf9acd2763ad20fd146f414e37c21d89781af6c01",
+      "log": "artifacts/sdlc/1789852475505-48970/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T21-15-34-303Z-49720/results.json"
     },
     "62f433bb0762ef7e5261cc772899218587cadb7aa9a9aa9745860a9905d69008": {
       "key": "62f433bb0762ef7e5261cc772899218587cadb7aa9a9aa9745860a9905d69008",
@@ -10719,13 +10719,13 @@
       "title": "E2E-WEB-1940 daily oil permission capture independent review and reader navigation @SRC-009 @TEST-SIMULATION",
       "file": "browser/eia-spot.spec.ts",
       "stories": ["SRC-009", "SRC-009-DAILY"],
-      "status": "failed",
-      "details": "TimeoutError: locator.click: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('region', { name: 'Daily oil source operations' }).getByRole('button', { name: 'Save daily source permission' })\n    - locator resolved to <button disabled>Save daily source permission</button>\n  - attempting click action\n    2 × waiting for element to be visible, enabled and stable\n      - element is not enabled\n    - retrying click action\n    - waiting 20ms\n    2 × waiting for element to be visible, enabled and stable\n      - element is not enabled\n    - retrying click action\n      - waiting 100ms\n    19 × waiting for element to be visible, enabled and stable\n       - element is not enabled\n     - retrying click action\n       - waiting 500ms\n\n\n  35 |     await ops\n  36 |       .getByRole('button', { name: 'Save daily source permission' })\n> 37 |       .click();\n     |        ^\n  38 |     await expect(ops.getByLabel('Original EIA daily HTML')).toBeEnabled();\n  39 |     await ops.getByLabel('Original EIA daily HTML').setInputFiles({\n  40 |       name: 'synthetic-daily.html',\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/eia-spot.spec.ts:37:8",
-      "run": "1789848189876-42077",
-      "time": "2026-09-19T21:11:56.762Z",
-      "fingerprint": "ed7ac3367913cafa7778b29a0464da0ad12c082cb57f5ee8923cfdb7954b6880",
-      "log": "artifacts/sdlc/1789848189876-42077/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T20-04-05-987Z-42799/results.json"
+      "status": "passed",
+      "details": "",
+      "run": "1789852475505-48970",
+      "time": "2026-09-19T21:15:49.846Z",
+      "fingerprint": "adcaf88ae7f65f19990282ccf9acd2763ad20fd146f414e37c21d89781af6c01",
+      "log": "artifacts/sdlc/1789852475505-48970/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T21-15-34-303Z-49720/results.json"
     },
     "dc7370ec19c18c86cac529ebb5c48148f9213bbc60d95d5996f169d154f4328b": {
       "key": "dc7370ec19c18c86cac529ebb5c48148f9213bbc60d95d5996f169d154f4328b",
@@ -25907,11 +25907,11 @@
       "id": "BUG-cc0be6358d60ffad",
       "firstSeen": "2026-09-16T22:26:46.819Z",
       "resolvedBy": {
-        "run": "1789848189876-42077",
-        "time": "2026-09-19T21:11:56.762Z",
-        "fingerprint": "ed7ac3367913cafa7778b29a0464da0ad12c082cb57f5ee8923cfdb7954b6880",
-        "log": "artifacts/sdlc/1789848189876-42077/06-pnpm-e2e_run.log",
-        "report": "artifacts/e2e/2026-09-19T20-04-05-987Z-42799/results.json"
+        "run": "1789852475505-48970",
+        "time": "2026-09-19T21:15:49.846Z",
+        "fingerprint": "adcaf88ae7f65f19990282ccf9acd2763ad20fd146f414e37c21d89781af6c01",
+        "log": "artifacts/sdlc/1789852475505-48970/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T21-15-34-303Z-49720/results.json"
       }
     },
     "BUG-86c04f84d2ac9f30": {
@@ -25921,7 +25921,7 @@
       "title": "E2E-WEB-1940 daily oil permission capture independent review and reader navigation @SRC-009 @TEST-SIMULATION",
       "file": "browser/eia-spot.spec.ts",
       "stories": ["SRC-009", "SRC-009-DAILY"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "TimeoutError: locator.click: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('region', { name: 'Daily oil source operations' }).getByRole('button', { name: 'Save daily source permission' })\n    - locator resolved to <button disabled>Save daily source permission</button>\n  - attempting click action\n    2 × waiting for element to be visible, enabled and stable\n      - element is not enabled\n    - retrying click action\n    - waiting 20ms\n    2 × waiting for element to be visible, enabled and stable\n      - element is not enabled\n    - retrying click action\n      - waiting 100ms\n    19 × waiting for element to be visible, enabled and stable\n       - element is not enabled\n     - retrying click action\n       - waiting 500ms\n\n\n  35 |     await ops\n  36 |       .getByRole('button', { name: 'Save daily source permission' })\n> 37 |       .click();\n     |        ^\n  38 |     await expect(ops.getByLabel('Original EIA daily HTML')).toBeEnabled();\n  39 |     await ops.getByLabel('Original EIA daily HTML').setInputFiles({\n  40 |       name: 'synthetic-daily.html',\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/eia-spot.spec.ts:37:8",
       "run": "1789848189876-42077",
       "time": "2026-09-19T21:11:56.762Z",
@@ -25929,7 +25929,14 @@
       "log": "artifacts/sdlc/1789848189876-42077/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-19T20-04-05-987Z-42799/results.json",
       "id": "BUG-86c04f84d2ac9f30",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789852475505-48970",
+        "time": "2026-09-19T21:15:49.846Z",
+        "fingerprint": "adcaf88ae7f65f19990282ccf9acd2763ad20fd146f414e37c21d89781af6c01",
+        "log": "artifacts/sdlc/1789852475505-48970/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T21-15-34-303Z-49720/results.json"
+      }
     },
     "BUG-c0c43a96c1cc0339": {
       "key": "c0c43a96c1cc0339409d6742422009d4f070ed0a6fd4a7a7dbaa7441c256c8ae",
@@ -29503,10 +29510,10 @@
       "id": "BUG-a47611ab64789eb8",
       "firstSeen": "2026-09-18T05:33:44.718Z",
       "resolvedBy": {
-        "run": "1789848189876-42077",
-        "time": "2026-09-19T20:04:05.492Z",
-        "fingerprint": "ed7ac3367913cafa7778b29a0464da0ad12c082cb57f5ee8923cfdb7954b6880",
-        "log": "artifacts/sdlc/1789848189876-42077/02-pnpm-check.log"
+        "run": "1789852475505-48970",
+        "time": "2026-09-19T21:15:33.795Z",
+        "fingerprint": "adcaf88ae7f65f19990282ccf9acd2763ad20fd146f414e37c21d89781af6c01",
+        "log": "artifacts/sdlc/1789852475505-48970/02-pnpm-check.log"
       }
     },
     "BUG-a0826694511b6915": {
@@ -30735,6 +30742,6 @@
     }
   },
   "gates": {
-    "check": "ed7ac3367913cafa7778b29a0464da0ad12c082cb57f5ee8923cfdb7954b6880"
+    "check": "adcaf88ae7f65f19990282ccf9acd2763ad20fd146f414e37c21d89781af6c01"
   }
 }

@@ -1,9 +1,9 @@
 # IMPACT-TRACE-001 — Real evidence to factor, sector, company, holding and goal trace
 
-- **Status:** Done (accepted scope)
+- **Status:** Implementation complete; validation pending
 - **Implemented / recorded:** Saved evidence/context/company/holding/goal links, independently released seven-family qualitative mechanisms, empirical calibration, reconstructed outcomes, downloaded parity and stale/conflict checks are authored.
-- **Pending:** None for the reviewed acceptance scope; native release certification remains separate.
-- **Next action / inputs:** No further action for this accepted scope.
+- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
+- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
 - **Verification:** The shared-fixture repair is authored but not run. Preserved evidence below applies only to its recorded scope/revision.
 
 See [current delivery summary](current-delivery.md) for the batch-wide distinction between code, missing functionality and validation.
@@ -140,5 +140,5 @@ Optional future work is separate: broader per-edge strength/confidence modeling,
 
 ## Automated validation
 
-Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789848189876-42077.
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: outage-final-1789852687840.
 <!-- sdlc-validation:end -->

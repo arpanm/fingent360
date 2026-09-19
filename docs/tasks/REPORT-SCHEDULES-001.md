@@ -1,9 +1,9 @@
 # REPORT-SCHEDULES-001 — Schedule saved reports
 
-- **Status:** Done (accepted scope)
+- **Status:** Implementation complete; validation pending
 - **Implemented / recorded:** - REPORT-SCHEDULES-001 (DEV-011/017/021): Implemented and selected verification passed; physical/production acceptance remains separate. Opt-in daily or weekly saved-record reports, generated in app from existing owned financial snapshots. Dependencies: REPORTS-001/002/003, current account/privacy and workers. Detailed Codex prompt: specify consent, IANA timezone/local time/day, next occurrence, immutable configuration editions, pause/edit/delete and missed-run policy before code. Add strict
-- **Pending:** None for the reviewed acceptance scope; native release certification remains separate.
-- **Next action / inputs:** No further action for this accepted scope.
+- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
+- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Implementation handoff rule
@@ -34,5 +34,5 @@ No additional input is needed for this bounded automated scope. Run the complete
 
 ## Automated validation
 
-Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789848189876-42077.
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: outage-final-1789852687840.
 <!-- sdlc-validation:end -->

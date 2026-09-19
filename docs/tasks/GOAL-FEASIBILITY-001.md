@@ -1,9 +1,9 @@
 # GOAL-FEASIBILITY-001 — saved downside-capacity assessments
 
-- **Status:** Done (accepted scope)
+- **Status:** Implementation complete; validation pending
 - **Implemented / recorded:** - Implementation: Implemented; user validation pending. Parent: DEV009. Complete explicit affordability/interruption/protected-reserve assessment of an actual owned saved goal, with exact no-growth baseline and stressed totals, unknown inputs, immutable goal-version receipt, retry/conflict handling, removal without replay resurrection, account export/deletion, offline parity and mobile/keyboard cases. Use migration037. Do not infer expected market returns, probabilities, subjective suitability or regulated advice. Detailed implementation and acceptance are in the feature specification/handoff; user owns migrations/gates.
-- **Pending:** None for the reviewed acceptance scope; native release certification remains separate.
-- **Next action / inputs:** No further action for this accepted scope.
+- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
+- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Implementation handoff rule
@@ -50,5 +50,5 @@ No additional input is needed for this bounded automated scope. Run the complete
 
 ## Automated validation
 
-Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789848189876-42077.
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: outage-final-1789852687840.
 <!-- sdlc-validation:end -->

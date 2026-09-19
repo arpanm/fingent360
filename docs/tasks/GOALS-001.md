@@ -1,9 +1,9 @@
 # GOALS-001 — Create and manage goals
 
-- **Status:** Done (accepted scope)
+- **Status:** Implementation complete; validation pending
 - **Implemented / recorded:** - GOALS-001 (DEV-009): Persist authenticated account-owned repeatable financial goals, exact amounts, visible/versioned assumptions, CRUD UI and ownership/conflict tests. Prompt: deliver contracts → additive migration 005 → API → responsive Goals UI → API/browser cases and docs. No invented returns or investment recommendations. Implemented.
-- **Pending:** None for the reviewed acceptance scope; native release certification remains separate.
-- **Next action / inputs:** No further action for this accepted scope.
+- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
+- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
 - **Verification:** User-run SDLC1789667338688-55776 passed the reviewed connected and offline acceptance matrix on2026-09-17. Gated implementation commit846e990; final offline report `artifacts/e2e/offline-1789667442248-57214/results.json`. This accepts that scope/revision, not later unrelated changes.
 
 ## Implementation handoff rule
@@ -50,5 +50,5 @@ Read AGENTS.md, the task-maintenance guide and this task’s current summary. Wo
 
 ## Automated validation
 
-Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789848189876-42077.
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: outage-final-1789852687840.
 <!-- sdlc-validation:end -->

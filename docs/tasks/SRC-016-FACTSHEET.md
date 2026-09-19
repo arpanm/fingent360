@@ -1,6 +1,6 @@
 # SRC-016-FACTSHEET — Reviewed AMC factsheet fees and fund size
 
-- **Status:** Done (accepted scope)
+- **Status:** Implementation complete; validation pending
 - **Parent:** [SRC-016](SRC-016.md).
 - **Scope:** Initial original Kotak Multi Asset Omni FOF HTML factsheet adapter. Retain and parse source bytes, effective date, fund-level AUM/AAUM and direct/regular scheme-plus-underlying base expense ratios. Preserve the explicit exclusion of brokerage/transaction costs; never label BER as total expense ratio. Do not project third-party performance/risk figures without their methodology and rights.
 - **Evidence:** [Official August2026 factsheet](https://www.kotakmf.com/factsheet/August_2026/kotak/ASSET-ALLOCATOR.html), inspected15September2026. Original table distinguishes Direct and Regular, Scheme/Underlying Funds/Total; a separate footnote identifies Base Expense Ratio. Fund size is INR crore; AUM and average AUM are separate measures. Folio count has a different date and is excluded from this initial projection.
@@ -52,5 +52,5 @@ No additional input is needed for this bounded automated scope. Run the complete
 
 ## Automated validation
 
-Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789848189876-42077.
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: outage-final-1789852687840.
 <!-- sdlc-validation:end -->

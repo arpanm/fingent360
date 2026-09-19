@@ -1,9 +1,9 @@
 # EVENT-REVIEW-001 — reviewed source-bound event and entity exploration
 
-- **Status:** Implementation complete; validation pending
+- **Status:** Done (accepted scope)
 - **Implemented / recorded:** - Implementation: Implemented; user validation pending. Parents: DEV006/015/016/020 retain separate extraction, adjudication and numerical-policy gaps. Implement the missing consumer workflow for the reusable domain event/evidence graph contracts using actual admitted stored source editions and actual retained security identities. Researchers create bounded versioned event drafts with exact source excerpts and clearly distinguished facts versus explicitly authored inference/scenario/expectation; never infer source claims, sectors, numerical impacts or causal certainty. Add persisted draft/revision/review receipts, independent named publication approval and bootstrap compatibility, source/version/withdrawal revalidation, reviewed sector/instrument links, public event list/detail/connected exploration with accessible Back/loading/empty/retry states and dated offline snapshot parity. Define each edge's evidence and semantics before code; invalid or unavailable evidence cannot publish. No trade/recommendation or fabricated event seed. Author API/browser/offline goldens against isolated real retained source records with synthetic editorial input clearly labelled. Include privacy boundaries, migrations, contracts, documentation and parent gaps; use migration041 and API/WEB/OFFLINE700–719. Manual gates and commit remain user-owned. This completes a real event exploration workflow, not unproven numerical causal models or the separately gated oil-shock policy.
-- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
-- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
+- **Pending:** None for the reviewed acceptance scope; native release certification remains separate.
+- **Next action / inputs:** No further action for this accepted scope.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Implementation handoff rule
@@ -46,5 +46,5 @@ No additional input is needed for this bounded automated scope. Run the complete
 
 ## Automated validation
 
-Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789847795826-40501.
+Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789848189876-42077.
 <!-- sdlc-validation:end -->

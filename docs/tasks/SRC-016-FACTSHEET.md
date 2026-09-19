@@ -1,6 +1,6 @@
 # SRC-016-FACTSHEET — Reviewed AMC factsheet fees and fund size
 
-- **Status:** Initial Kotak BER/AUM factsheet workflow authored; user validation and real plan/source activation pending.
+- **Status:** Done (accepted scope)
 - **Parent:** [SRC-016](SRC-016.md).
 - **Scope:** Initial original Kotak Multi Asset Omni FOF HTML factsheet adapter. Retain and parse source bytes, effective date, fund-level AUM/AAUM and direct/regular scheme-plus-underlying base expense ratios. Preserve the explicit exclusion of brokerage/transaction costs; never label BER as total expense ratio. Do not project third-party performance/risk figures without their methodology and rights.
 - **Evidence:** [Official August2026 factsheet](https://www.kotakmf.com/factsheet/August_2026/kotak/ASSET-ALLOCATOR.html), inspected15September2026. Original table distinguishes Direct and Regular, Scheme/Underlying Funds/Total; a separate footnote identifies Base Expense Ratio. Fund size is INR crore; AUM and average AUM are separate measures. Folio count has a different date and is excluded from this initial projection.
@@ -47,3 +47,10 @@ Reviewed scope: Initial Kotak original HTML factsheet retention, explicit Direct
 The required API, browser-project and offline case IDs are now explicit in [acceptance.json](acceptance.json). Only actual current receipts plus successful normal gates can close this scope. Existing API/contracts/database/source workflows are reused; a matrix correction itself adds no migration or source permission. Physical-device and deployment claims require their separate evidence. The user authorized this validation/repair run; older manual-only handoff wording is historical for this run.
 
 No additional input is needed for this bounded automated scope. Run the complete required matrix and review attached keyboard/narrow-layout artifacts where applicable before claiming accepted delivery.
+
+<!-- sdlc-validation:start -->
+
+## Automated validation
+
+Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789848189876-42077.
+<!-- sdlc-validation:end -->

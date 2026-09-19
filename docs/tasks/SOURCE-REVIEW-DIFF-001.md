@@ -1,9 +1,9 @@
 # SOURCE-REVIEW-DIFF-001 — Compare source revisions before publication
 
-- **Status:** Implementation complete; validation pending
+- **Status:** Done (accepted scope)
 - **Implemented / recorded:** - SOURCE-REVIEW-DIFF-001 (DEV-015/016): Implemented;23 prior connected passes, final offline locator fix and commit await user-run SDLC. Detailed Codex prompt: specify and implement an operator's comparison of one actual stored draft/head and its prior published edition, including first publication, corrections and withdrawn predecessors. Read current discovery immutable editions, protected operator sessions, source-withdrawal history/evidence and explicit publish/withdraw version rules. Add
-- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
-- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
+- **Pending:** None for the reviewed acceptance scope; native release certification remains separate.
+- **Next action / inputs:** No further action for this accepted scope.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Implementation handoff rule
@@ -46,5 +46,5 @@ No additional input is needed for this bounded automated scope. Run the complete
 
 ## Automated validation
 
-Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789847795826-40501.
+Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789848189876-42077.
 <!-- sdlc-validation:end -->

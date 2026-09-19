@@ -1,9 +1,9 @@
 # EVENT-LINEAGE-001 — reviewed event merge and split
 
-- **Status:** Implementation complete; validation pending
+- **Status:** Done (accepted scope)
 - **Implemented / recorded:** - Implementation: Implemented; user validation pending. Parents: DEV015/020 retain causal-policy scope; extraction and entity adjudication are tracked as separate children; depends on EVENT-REVIEW-001 and NAMED-OPERATORS-001. Complete event merge/split with exact version-bound lineage, actual evidence and immutable reviews. Researcher selects two to five inputs/one output for merge, or one input/two to five outputs for split. Outputs use explicitly authored editorial text/citations, never inferred synthesis. Preserve originals and issued/private records. Publication atomically admits outputs and records input supersession, with final source/identity/version admission and independent named approval. Cancel/reject leaves public state unchanged. Public details expose safe reviewed replacement links/history/Back; offline retains the same dated relationships without stale or draft body disclosure. Define no-cycle/self-link, bounded membership, replay and concurrent-review rules before code. Migration046 and API/WEB/OFFLINE830–849 reserved. User owns gates/migrations/commit.
-- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
-- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
+- **Pending:** None for the reviewed acceptance scope; native release certification remains separate.
+- **Next action / inputs:** No further action for this accepted scope.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Implementation handoff rule
@@ -51,5 +51,5 @@ Actual focused screenshots exposed controls under persistent navigation/feedback
 
 ## Automated validation
 
-Partial — required cases not run. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789847795826-40501.
+Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789848189876-42077.
 <!-- sdlc-validation:end -->

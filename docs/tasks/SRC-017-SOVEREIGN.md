@@ -1,6 +1,6 @@
 # SRC-017-SOVEREIGN — Historical sovereign auction settlement
 
-- **Status:** Completed implementation; validation pending.
+- **Status:** Done (accepted scope)
 - **Scope:** Retain four original security/issue/auction/convention documents; independent named review binds the exact originals and terms version. Shared web/native reader calculates historical clean, accrued and dirty consideration with transparent assumptions. Downloaded reviews enable the same offline calculation.
 - **Specification, sources and implementation:** [Parent source record](SRC-017.md); [fund/bond acceptance](FUNDS-BONDS-001.md).
 - **Data:** Migration121; original bytes in existing Mongo raw store, canonical editions and append-only review receipts in PostgreSQL. Calculation is transient and creates no holding.
@@ -20,3 +20,10 @@ Reviewed scope: Four-original historical sovereign security, issue, auction and 
 The required API, browser-project and offline case IDs are now explicit in [acceptance.json](acceptance.json). Only actual current receipts plus successful normal gates can close this scope. Existing API/contracts/database/source workflows are reused; a matrix correction itself adds no migration or source permission. Physical-device and deployment claims require their separate evidence. The user authorized this validation/repair run; older manual-only handoff wording is historical for this run.
 
 No additional input is needed for this bounded automated scope. Run the complete required matrix and review attached keyboard/narrow-layout artifacts where applicable before claiming accepted delivery.
+
+<!-- sdlc-validation:start -->
+
+## Automated validation
+
+Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789848189876-42077.
+<!-- sdlc-validation:end -->

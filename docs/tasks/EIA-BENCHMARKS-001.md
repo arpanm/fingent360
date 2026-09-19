@@ -1,9 +1,9 @@
 # EIA-BENCHMARKS-001 — documented free oil benchmark onboarding
 
-- **Status:** Implementation complete; validation pending
+- **Status:** Done (accepted scope)
 - **Implemented / recorded:** - Implementation: Implemented World Bank monthly Brent/WTI; user validation pending. Parent: SRC009/DEV010 retains FX, EOD and causal-policy scope. Research the official EIA spot-price series, API schema, series-specific attribution/rights and limits before selecting a minimal Brent/WTI scope. EIA's general reuse policy permits its government information with attribution but excludes protected third-party material; do not infer blanket permission from API availability. If supported by primary evidence, implement a fixed bounded provider with private optional API-key configuration, exact USD-per-barrel values, explicit observation/retrieval/revision dates, null/gap/negative-value handling, retained evidence and reconciliation, immutable storage and independent operator review, public benchmark history/evidence/navigation and dated offline parity. No FX conversion, inferred Indian landed costs, forecasts, trades or fabricated live seed. Missing private configuration must produce a useful operator state without leaking key-bearing URLs or echoed credentials. Author contracts, representative labelled fixtures, API/browser/offline cases and full docs. Reserve migration042 and API/WEB/OFFLINE740–759 only after source selection is confirmed. Documentation lookup is read-only; provider ingestion, gates, tests, migrations/services and commits remain user-run.
-- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
-- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
+- **Pending:** None for the reviewed acceptance scope; native release certification remains separate.
+- **Next action / inputs:** No further action for this accepted scope.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Implementation handoff rule
@@ -50,5 +50,5 @@ No additional input is needed for this bounded automated scope. Run the complete
 
 ## Automated validation
 
-Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789847795826-40501.
+Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789848189876-42077.
 <!-- sdlc-validation:end -->

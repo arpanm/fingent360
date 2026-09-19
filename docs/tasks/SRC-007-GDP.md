@@ -25,3 +25,10 @@ Original India quarterly GDP vintages, publication cutoff/base isolation, indepe
 The complete required case/project matrix is now recorded in `acceptance.json`. This review is not a test pass; actual current-revision receipts determine validation.
 
 Remaining gates: Actual source-specific retention/display/offline permissions and documented physical-device source acceptance remain activation gates.
+
+<!-- sdlc-validation:start -->
+
+## Automated validation
+
+Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789848189876-42077.
+<!-- sdlc-validation:end -->

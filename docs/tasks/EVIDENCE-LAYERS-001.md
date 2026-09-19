@@ -1,9 +1,9 @@
 # EVIDENCE-LAYERS-001 — source-bound progressive reading
 
-- **Status:** Implementation complete; validation pending
+- **Status:** Done (accepted scope)
 - **Implemented / recorded:** - Implementation: Implemented for admitted edition layers; user validation pending. Parent: DEV016 remains partial for approved causal mappings. Expose one-line, beginner, portfolio-context, analytical and source layers bound to the precise admitted stored edition. Excerpts carry exact field offsets, hash, dates and correction/version context. Private context reads actual user connections with ownership and explicitly user-authored notes; unknown causal/impact/suitability claims remain unavailable. Public/API/local paths must agree on withdrawal and expected-version changes. Author contracts, reader UI, actual stored-data and offline cases and documentation. No generated source facts or fabricated claims.
-- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
-- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
+- **Pending:** None for the reviewed acceptance scope; native release certification remains separate.
+- **Next action / inputs:** No further action for this accepted scope.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Implementation handoff rule
@@ -46,5 +46,5 @@ No additional input is needed for this bounded automated scope. Run the complete
 
 ## Automated validation
 
-Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789847795826-40501.
+Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789848189876-42077.
 <!-- sdlc-validation:end -->

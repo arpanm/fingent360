@@ -1,9 +1,9 @@
 # READER-DIAGNOSTICS-001 — Diagnose public-reader transaction failures safely
 
-- **Status:** Implementation complete; validation pending
+- **Status:** Done (accepted scope)
 - **Implemented:** Correlated fixed-category/phase diagnostics now cover public reader transactions; safe incident references reach the failing API120 assertion. API1250 authors actual missing capture-table failure, restore and idempotent retry.
-- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
-- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
+- **Pending:** None for the reviewed acceptance scope; native release certification remains separate.
+- **Next action / inputs:** No further action for this accepted scope.
 - **Verification:** Not run. Saved API120 run1789453542513-64097e49-6063-45b6-804f-2c60dcbfcc2e confirms503, not its underlying SQLSTATE.
 
 ## Specification
@@ -22,5 +22,5 @@ No additional input is needed for this bounded automated scope. Run the complete
 
 ## Automated validation
 
-Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789847795826-40501.
+Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789848189876-42077.
 <!-- sdlc-validation:end -->

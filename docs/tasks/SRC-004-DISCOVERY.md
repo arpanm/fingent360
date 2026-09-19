@@ -1,6 +1,6 @@
 # SRC-004-DISCOVERY — Official financial filing RSS discovery
 
-- **Status:** Completed discovery implementation; validation pending.
+- **Status:** Done (accepted scope)
 - **Scope:** Capture verified official NSE RSS by original upload, bounded fetch or disabled-by-default schedule. Preserve original/revision pointers and literal publication text with unknown timezone, immutable source versions and paginated Operations inbox. Security identity and financial contents remain explicitly unverified.
 - **Specification and source research:** [Parent](SRC-004.md); [discovery implementation](../development/filing-discovery.md).
 - **Data:** Migration128 adds permission and immutable discovery records. Exact RSS originals remain in MongoDB. No public financial API or offline financial projection is created from discovery metadata.
@@ -20,3 +20,10 @@ Reviewed scope: Official NSE RSS original upload, bounded fetch and disabled-by-
 The required API, browser-project and offline case IDs are now explicit in [acceptance.json](acceptance.json). Only actual current receipts plus successful normal gates can close this scope. Existing API/contracts/database/source workflows are reused; a matrix correction itself adds no migration or source permission. Physical-device and deployment claims require their separate evidence. The user authorized this validation/repair run; older manual-only handoff wording is historical for this run.
 
 No additional input is needed for this bounded automated scope. Run the complete required matrix and review attached keyboard/narrow-layout artifacts where applicable before claiming accepted delivery.
+
+<!-- sdlc-validation:start -->
+
+## Automated validation
+
+Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789848189876-42077.
+<!-- sdlc-validation:end -->

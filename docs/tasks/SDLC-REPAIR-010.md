@@ -1,9 +1,9 @@
 # SDLC-REPAIR-010 — Unused initial assignments
 
-- **Status:** Completed implementation; manual validation pending.
+- **Status:** Done (accepted scope)
 - **Implemented:** Removed five overwritten initial values with explicit types; extended E2E-OFFLINE-1520 for a missing retained event.
-- **Pending:** Parent/user validation; no passing result claimed.
-- **Next action / inputs:** Parent retries the supplied `pnpm check` failure after repair.
+- **Pending:** None for the reviewed acceptance scope; native release certification remains separate.
+- **Next action / inputs:** No further action for this accepted scope.
 - **Verification:** Read-only inspection; no commands for validation executed.
 
 ## Specification and dated input
@@ -44,3 +44,10 @@ Reviewed scope: Remove redundant initializer assignments without altering source
 The required API, browser-project and offline case IDs are now explicit in [acceptance.json](acceptance.json). Only actual current receipts plus successful normal gates can close this scope. Existing API/contracts/database/source workflows are reused; a matrix correction itself adds no migration or source permission. Physical-device and deployment claims require their separate evidence. The user authorized this validation/repair run; older manual-only handoff wording is historical for this run.
 
 No additional input is needed for this bounded automated scope. Run the complete required matrix and review attached keyboard/narrow-layout artifacts where applicable before claiming accepted delivery.
+
+<!-- sdlc-validation:start -->
+
+## Automated validation
+
+Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789848189876-42077.
+<!-- sdlc-validation:end -->

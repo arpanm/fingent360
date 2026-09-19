@@ -1,6 +1,6 @@
 # SRC-004-WATCH — Watch verified original financial filings
 
-- **Status:** Completed implementation; validation pending.
+- **Status:** Done (accepted scope)
 - **Scope:** Check a fixed researched25-company original-URL registry, at most three selected originals per due run. Preserve unchanged/corrected/quarantined/unavailable outcomes and raw bytes, create drafts only, independently review through the existing equity workflow, and expose admitted facts in company/derived/offline views.
 - **Specification:** [Original filing watch](../development/filing-watch.md); [parent](SRC-004.md).
 - **Data:** Migration127 adds disabled permission/schedule controls and immutable attempts; existing equity editions/observations and Mongo originals are reused. Gate revocation is enforced centrally for fresh company and downstream fundamental reads. Offline copies remain dated snapshots.
@@ -34,3 +34,10 @@ Reviewed scope: Permission-bound fixed researched 25-company original-URL watch,
 The required API, browser-project and offline case IDs are now explicit in [acceptance.json](acceptance.json). Only actual current receipts plus successful normal gates can close this scope. Existing API/contracts/database/source workflows are reused; a matrix correction itself adds no migration or source permission. Physical-device and deployment claims require their separate evidence. The user authorized this validation/repair run; older manual-only handoff wording is historical for this run.
 
 No additional input is needed for this bounded automated scope. Run the complete required matrix and review attached keyboard/narrow-layout artifacts where applicable before claiming accepted delivery.
+
+<!-- sdlc-validation:start -->
+
+## Automated validation
+
+Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789848189876-42077.
+<!-- sdlc-validation:end -->

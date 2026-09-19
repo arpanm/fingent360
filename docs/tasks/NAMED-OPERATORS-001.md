@@ -1,9 +1,9 @@
 # NAMED-OPERATORS-001 — identities, permissions and independent publication approval
 
-- **Status:** Implementation complete; validation pending
+- **Status:** Done (accepted scope)
 - **Implemented / recorded:** - Implementation: Implemented; user validation pending. Parents: DEV015/017 retain broader gaps. Explicit named authentication mode with hashed personal operator credentials, role/session version admission, disable/revoke, default-deny server permissions on all operations and legacy protected mutation paths, and two distinct named identities for material publication/source-rights/media decisions. Preserve bootstrap local mode explicitly until named mode is configured. No shared-key bypass under named mode. Version-bound immutable proposals/receipts commit with their approved action, stale-head conflict and self-approval rejection even across two sessions. Add safe user-invoked first-admin setup, migration038, roster/review UI, actual role/lock/replay cases and documentation. Code must enforce controls, not merely hide UI. No agent provisioning or service/test execution.
-- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
-- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
+- **Pending:** None for the reviewed acceptance scope; native release certification remains separate.
+- **Next action / inputs:** No further action for this accepted scope.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Implementation handoff rule
@@ -52,5 +52,5 @@ Evidence: connected run2026-09-19T19-40-29-161Z-37323 completed76 passes and10 f
 
 ## Automated validation
 
-Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789847795826-40501.
+Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789848189876-42077.
 <!-- sdlc-validation:end -->

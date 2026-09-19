@@ -1,6 +1,6 @@
 # SDLC-REPAIR-013 — Web compiler boundary repair
 
-- **Status:** Completed implementation; manual validation pending.
+- **Status:** Done (accepted scope)
 - **Input (2026-09-16):** User supplied the web TypeScript failure from `pnpm check` (exit 2) and authorized only scoped authoring/read-only inspection. No suite report was read. No private input or new decision is needed.
 - **Scope:** Repair explicit undefined request bodies/forwarded props, narrow UUID state inference and nullable governance selection. Preserve strict compiler settings and runtime schemas.
 - **Dependencies:** Existing workspace dependencies and generated contracts; no dependency or migration changes.
@@ -59,3 +59,10 @@ Reviewed scope: Repair web optional body/prop and receipt-ID types, prevent init
 The required API, browser-project and offline case IDs are now explicit in [acceptance.json](acceptance.json). Only actual current receipts plus successful normal gates can close this scope. Existing API/contracts/database/source workflows are reused; a matrix correction itself adds no migration or source permission. Physical-device and deployment claims require their separate evidence. The user authorized this validation/repair run; older manual-only handoff wording is historical for this run.
 
 No additional input is needed for this bounded automated scope. Run the complete required matrix and review attached keyboard/narrow-layout artifacts where applicable before claiming accepted delivery.
+
+<!-- sdlc-validation:start -->
+
+## Automated validation
+
+Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789848189876-42077.
+<!-- sdlc-validation:end -->

@@ -1,9 +1,9 @@
 # GOAL-SCENARIOS-001 — Compare contribution and goal-date scenarios
 
-- **Status:** Implementation complete; validation pending
+- **Status:** Done (accepted scope)
 - **Implemented / recorded:** - GOAL-SCENARIOS-001 (DEV-009/019): Implemented and integration verified. Compare a saved goal with up to three explicit contribution/horizon alternatives without assumptions about investment returns. Dependencies: existing owned goals, ALLOCATIONS-001, privacy and local persistence. Detailed Codex prompt: specify baseline and alternative lifecycle before code; introduce strict exact-integer-paise, month and version contracts, additive migration025 for owned immutable comparison receipts and
-- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
-- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
+- **Pending:** None for the reviewed acceptance scope; native release certification remains separate.
+- **Next action / inputs:** No further action for this accepted scope.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Implementation handoff rule
@@ -34,5 +34,5 @@ No additional input is needed for this bounded automated scope. Run the complete
 
 ## Automated validation
 
-Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789847795826-40501.
+Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789848189876-42077.
 <!-- sdlc-validation:end -->

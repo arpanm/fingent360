@@ -1,6 +1,6 @@
 # SRC-003-TERMS — Reviewed rights and stock-swap terms
 
-- **Status:** Completed implementation; validation pending.
+- **Status:** Done (accepted scope)
 - **Scope:** Retained originals, exact rights/stock-swap terms, independent source-bound review, explicit theoretical comparisons, company reader and downloaded offline receipts.
 - **Specification and implementation:** [Detailed acceptance and handoff](../../docs/development/equity-action-terms.md); [parent](SRC-003.md).
 - **Data/API/UI/app:** Existing shared web/Android flow, runtime contracts, immutable source/review persistence and offline admission. Migration122 is authored, not applied.
@@ -20,3 +20,10 @@ Reviewed scope: Retained original fully-paid rights and pure stock-swap terms, e
 The required API, browser-project and offline case IDs are now explicit in [acceptance.json](acceptance.json). Only actual current receipts plus successful normal gates can close this scope. Existing API/contracts/database/source workflows are reused; a matrix correction itself adds no migration or source permission. Physical-device and deployment claims require their separate evidence. The user authorized this validation/repair run; older manual-only handoff wording is historical for this run.
 
 No additional input is needed for this bounded automated scope. Run the complete required matrix and review attached keyboard/narrow-layout artifacts where applicable before claiming accepted delivery.
+
+<!-- sdlc-validation:start -->
+
+## Automated validation
+
+Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789848189876-42077.
+<!-- sdlc-validation:end -->

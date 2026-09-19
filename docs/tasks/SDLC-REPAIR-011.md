@@ -1,9 +1,9 @@
 # SDLC-REPAIR-011 — Contracts compiler repair
 
-- **Status:** Completed implementation; manual validation pending.
+- **Status:** Done (accepted scope)
 - **Implemented:** Removed invalid Zod shape members, validated action purpose at parsing, widened the SBI row counter, and extended E2E-API-1982, E2E-API-1530 and E2E-OFFLINE-1340.
-- **Pending:** User/parent formatting, compilation and regression validation.
-- **Next action / inputs:** Parent retries `pnpm check` after this attempt.
+- **Pending:** None for the reviewed acceptance scope; native release certification remains separate.
+- **Next action / inputs:** No further action for this accepted scope.
 - **Verification:** No deterministic commands run.
 
 ## Specification and dated input
@@ -51,3 +51,10 @@ Reviewed scope: Repair contracts compiler boundaries without permissive casts or
 The required API, browser-project and offline case IDs are now explicit in [acceptance.json](acceptance.json). Only actual current receipts plus successful normal gates can close this scope. Existing API/contracts/database/source workflows are reused; a matrix correction itself adds no migration or source permission. Physical-device and deployment claims require their separate evidence. The user authorized this validation/repair run; older manual-only handoff wording is historical for this run.
 
 No additional input is needed for this bounded automated scope. Run the complete required matrix and review attached keyboard/narrow-layout artifacts where applicable before claiming accepted delivery.
+
+<!-- sdlc-validation:start -->
+
+## Automated validation
+
+Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789848189876-42077.
+<!-- sdlc-validation:end -->

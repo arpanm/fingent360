@@ -5,6 +5,7 @@ import {
   indiaActors,
   eiaInput,
   eiaRights,
+  retentionHeaders,
 } from '../../helpers/eia-spot';
 test.use({ namedOperators: true });
 test('E2E-WEB-1940 daily oil permission capture independent review and reader navigation @SRC-009 @TEST-SIMULATION', async ({
@@ -15,13 +16,73 @@ test('E2E-WEB-1940 daily oil permission capture independent review and reader na
 }) => {
   const reviewer = await indiaActors(request, playwright, feedbackSandbox),
     data = eiaInput();
+  let releaseInitial!: () => void;
+  const initialGate = new Promise<void>((resolve) => {
+    releaseInitial = resolve;
+  });
+  const queueRoute = /\/api\/v1\/ops\/eia-spot(?:\?.*)?$/;
+  let holdInitial = true;
+  let retainedInitialResponses = 0;
   try {
-    await sourceOpsBrowser(page, request, feedbackSandbox, 'Daily oil source');
+    // Establish the actual actor before installing the more specific queue hold.
+    // No registry operation is performed; the next tab mounts a fresh daily form.
+    await sourceOpsBrowser(page, request, feedbackSandbox, 'Source registry');
+    await page.route(queueRoute, async (route) => {
+      if (!holdInitial || route.request().method() !== 'GET')
+        return route.fallback();
+      const url = new URL(route.request().url());
+      const response = await route.fetch({
+        url: feedbackSandbox.apiOrigin + url.pathname + url.search,
+        headers: { ...route.request().headers(), ...retentionHeaders },
+      });
+      expect(response.status()).toBe(200);
+      retainedInitialResponses++;
+      // Retain all real initial responses, including StrictMode's second read.
+      await initialGate;
+      await route.fulfill({ response });
+    });
+    await page
+      .getByRole('button', { name: 'Daily oil source', exact: true })
+      .click();
     let ops = page.getByRole('region', { name: 'Daily oil source operations' });
+    const permission = ops.getByLabel('Contributor permission reference');
+    await expect.poll(() => retainedInitialResponses).toBeGreaterThan(0);
     await expect(
-      ops.getByRole('button', { name: 'Fetch original daily table' }),
+      ops.getByText('Working on daily source…', { exact: true }),
+    ).toBeVisible();
+    await expect(permission).toBeDisabled();
+    await expect(
+      ops.getByRole('checkbox', {
+        name: 'Enable permitted acquisition and display',
+        exact: true,
+      }),
     ).toBeDisabled();
-    await ops.getByLabel('Contributor permission reference').fill(eiaRights);
+    await expect(
+      ops.getByRole('checkbox', {
+        name: 'I verified contributor storage, display and offline rights.',
+        exact: true,
+      }),
+    ).toBeDisabled();
+    await expect(
+      ops.getByRole('button', {
+        name: 'Save daily source permission',
+        exact: true,
+      }),
+    ).toBeDisabled();
+    await expect(
+      ops.getByRole('button', {
+        name: 'Fetch original daily table',
+        exact: true,
+      }),
+    ).toBeDisabled();
+    holdInitial = false;
+    releaseInitial();
+    await expect(
+      ops.getByText('No daily captures yet.', { exact: true }),
+    ).toBeVisible();
+    await expect(permission).toBeEnabled();
+    await page.unroute(queueRoute);
+    await permission.fill(eiaRights);
     await ops
       .getByRole('checkbox', {
         name: 'Enable permitted acquisition and display',
@@ -32,6 +93,11 @@ test('E2E-WEB-1940 daily oil permission capture independent review and reader na
         name: 'I verified contributor storage, display and offline rights.',
       })
       .check();
+    // Hydrating the initial queue must not erase an editable permission draft.
+    await expect(permission).toHaveValue(eiaRights);
+    await expect(
+      ops.getByRole('button', { name: 'Save daily source permission' }),
+    ).toBeEnabled();
     await ops
       .getByRole('button', { name: 'Save daily source permission' })
       .click();
@@ -76,6 +142,9 @@ test('E2E-WEB-1940 daily oil permission capture independent review and reader na
     await details.press('Enter');
     await expect(reader).toContainText('Missing cells are not zero.');
   } finally {
+    holdInitial = false;
+    releaseInitial();
+    await page.unroute(queueRoute);
     await reviewer.dispose();
   }
 });

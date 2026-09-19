@@ -1,9 +1,9 @@
 # CONNECTION-REVIEWS-001 — Review evidence connections
 
-- **Status:** Implementation complete; validation pending
+- **Status:** Done (accepted scope)
 - **Implemented / recorded:** - CONNECTION-REVIEWS-001 (DEV-010/012/016/017): Implemented and verified;54/54 connected,7/7 offline regressions,110unit gates. A durable private review inbox helps users revisit their own research connections when a source edition or owned financial record changes. Detailed Codex prompt: specify explicit Check for updates → consistent current evaluation → coalesced saved review notices → open original connection/source context → acknowledge, with acknowledgement separate from reaffirmation.
-- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
-- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
+- **Pending:** None for the reviewed acceptance scope; native release certification remains separate.
+- **Next action / inputs:** No further action for this accepted scope.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Implementation handoff rule
@@ -34,5 +34,5 @@ No additional input is needed for this bounded automated scope. Run the complete
 
 ## Automated validation
 
-Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789847795826-40501.
+Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789848189876-42077.
 <!-- sdlc-validation:end -->

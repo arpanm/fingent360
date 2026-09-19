@@ -1,9 +1,9 @@
 # ALERT-002 — Alert delivery controls
 
-- **Status:** Needs repair
+- **Status:** Done (accepted scope)
 - **Implemented / recorded:** - ALERT-002 (DEV-018): Persist account-owned indicator mute preferences and integrate actual inbox filtering/unmute restoration without deleting evidence or receipts. Prompt: contracts/migration008/API/UI, ownership and not-followed rejection, real inbox tests and privacy export integration. Implemented.
-- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
-- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
+- **Pending:** None for the reviewed acceptance scope; native release certification remains separate.
+- **Next action / inputs:** No further action for this accepted scope.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Implementation handoff rule
@@ -50,5 +50,5 @@ Actual focused screenshots exposed controls under persistent navigation/feedback
 
 ## Automated validation
 
-Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789847795826-40501.
+Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789848189876-42077.
 <!-- sdlc-validation:end -->

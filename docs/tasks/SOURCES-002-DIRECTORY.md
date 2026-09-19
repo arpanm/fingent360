@@ -27,3 +27,10 @@ Specialized real source readers reachable independently of discovery-feed covera
 The complete required case/project matrix is now recorded in `acceptance.json`. This review is not a test pass; actual current-revision receipts determine validation.
 
 Remaining gates: Authored physical offline Sources-to-specialist reader navigation scenario is not replaced by connected WEB1760/1761; retain manual package/reinstall/no-network evidence gate.
+
+<!-- sdlc-validation:start -->
+
+## Automated validation
+
+Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789848189876-42077.
+<!-- sdlc-validation:end -->

@@ -885,3 +885,5 @@ These cases preserve their actual storage/API or on-device paths. Synthetic prov
 ### Focus visibility acceptance — 20 September 2026
 
 WEB041/630/790/830/831 and OFFLINE081 retain their original workflows and now require focused actions to fit inside the viewport and receive actual hit targets clear of fixed navigation/feedback. Review their narrow screenshots independently of API correctness. WEB1295–1297 use native keyboard type-ahead for desktop Chrome after a minimal native-select reproduction; mobile retains its verified keyboard sequence. No case is skipped or converted to a mocked interaction.
+
+WEB1940 now additionally holds real daily-oil queue responses and verifies loading disables permission controls before completing the existing save/capture/independent-review/reader flow. This covers the confirmed startup draft-erasure race; simulated provider originals remain labeled.

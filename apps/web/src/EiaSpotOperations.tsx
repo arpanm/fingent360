@@ -24,10 +24,11 @@ export function EiaSpotOperations({
     [reason, setReason] = useState(''),
     [reviewed, setReviewed] = useState(false),
     [raw, setRaw] = useState(''),
-    [busy, setBusy] = useState(false),
+    [busy, setBusy] = useState(true),
     [error, setError] = useState('');
   const live = useRef(true),
     epoch = useRef(0),
+    loadSequence = useRef(0),
     pending = useRef<{ key: string; id: string } | null>(null);
   function fail(e: unknown) {
     if (!live.current) return;
@@ -40,6 +41,7 @@ export function EiaSpotOperations({
     setError(e instanceof Error ? e.message : 'Daily source operation failed.');
   }
   async function load(older = false) {
+    const sequence = ++loadSequence.current;
     setBusy(true);
     try {
       const data = EiaSpotQueueSchema.parse(
@@ -47,7 +49,7 @@ export function EiaSpotOperations({
           '/ops/eia-spot' + (older && q?.next ? '?after=' + q.next : ''),
         ),
       );
-      if (live.current) {
+      if (live.current && sequence === loadSequence.current) {
         setQ((v) =>
           older && v ? { ...data, items: [...v.items, ...data.items] } : data,
         );
@@ -57,9 +59,14 @@ export function EiaSpotOperations({
         }
       }
     } catch (e) {
-      fail(e);
+      if (
+        live.current &&
+        (sequence === loadSequence.current ||
+          (e instanceof RequestError && e.status === 401))
+      )
+        fail(e);
     } finally {
-      if (live.current) setBusy(false);
+      if (live.current && sequence === loadSequence.current) setBusy(false);
     }
   }
   useEffect(() => {
@@ -68,6 +75,7 @@ export function EiaSpotOperations({
     return () => {
       live.current = false;
       epoch.current++;
+      loadSequence.current++;
     };
   }, []);
   async function send(path: string, value: Record<string, unknown>) {
@@ -115,7 +123,7 @@ export function EiaSpotOperations({
       )}
       {error && <p role="alert">{error}</p>}
       {busy && <p role="status">Working on daily source…</p>}
-      <fieldset disabled={busy}>
+      <fieldset disabled={busy || !q}>
         <legend>Source permission</legend>
         <label>
           Contributor permission reference

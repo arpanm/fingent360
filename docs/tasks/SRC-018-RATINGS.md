@@ -1,6 +1,6 @@
 # SRC-018-RATINGS — Reviewed instrument rating originals
 
-- **Status:** Completed initial implementation; supplied `pnpm check` repair authored; validation pending.
+- **Status:** Done (accepted scope)
 - **Scope:** Retain the exact attributed ICRA HUDCO original, three ISIN-level coupon/maturity/rating observations, independent named source review, agency-withdrawal versus editorial-withdrawal history, shared web/native reader and offline evidence.
 - **Specification/source evidence:** [Corporate source record](SRC-018.md); [fund/bond parent](FUNDS-BONDS-001.md).
 - **Data:** Migration125. Mongo original bytes and PostgreSQL immutable edition/review metadata. Original document hash binds the explicit verified transcription; this is not a general PDF parser.
@@ -26,3 +26,10 @@ Reviewed scope: Exact attributed historical ICRA HUDCO original retention and ve
 The required API, browser-project and offline case IDs are now explicit in [acceptance.json](acceptance.json). Only actual current receipts plus successful normal gates can close this scope. Existing API/contracts/database/source workflows are reused; a matrix correction itself adds no migration or source permission. Physical-device and deployment claims require their separate evidence. The user authorized this validation/repair run; older manual-only handoff wording is historical for this run.
 
 No additional input is needed for this bounded automated scope. Run the complete required matrix and review attached keyboard/narrow-layout artifacts where applicable before claiming accepted delivery.
+
+<!-- sdlc-validation:start -->
+
+## Automated validation
+
+Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789848189876-42077.
+<!-- sdlc-validation:end -->

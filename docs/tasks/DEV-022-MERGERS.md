@@ -1,6 +1,6 @@
 # DEV-022-MERGERS — Announced mutual-fund merger lineage
 
-- **Status:** Completed implementation; validation pending.
+- **Status:** Done (accepted scope)
 - **Scope:** Original HDFC notices, exact admitted AMFI plan bindings, independent review and withdrawal, shared fund reader and offline lineage without invented investor conversions.
 - **Specification and implementation:** [Detailed acceptance and handoff](../../docs/tasks/FUNDS-BONDS-001.md); [parent](FUNDS-BONDS-001.md).
 - **Data/API/UI/app:** Existing shared web/Android flow, runtime contracts, immutable source/review persistence and offline admission. Migration119 is authored, not applied.
@@ -20,3 +20,10 @@ Reviewed scope: Original HDFC merger-notice retention, exact admitted AMFI plan 
 The required API, browser-project and offline case IDs are now explicit in [acceptance.json](acceptance.json). Only actual current receipts plus successful normal gates can close this scope. Existing API/contracts/database/source workflows are reused; a matrix correction itself adds no migration or source permission. Physical-device and deployment claims require their separate evidence. The user authorized this validation/repair run; older manual-only handoff wording is historical for this run.
 
 No additional input is needed for this bounded automated scope. Run the complete required matrix and review attached keyboard/narrow-layout artifacts where applicable before claiming accepted delivery.
+
+<!-- sdlc-validation:start -->
+
+## Automated validation
+
+Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789848189876-42077.
+<!-- sdlc-validation:end -->

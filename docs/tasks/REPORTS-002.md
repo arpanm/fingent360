@@ -1,9 +1,9 @@
 # REPORTS-002 — Private report lifecycle
 
-- **Status:** Implementation complete; validation pending
+- **Status:** Done (accepted scope)
 - **Implemented / recorded:** - REPORTS-002 (DEV-011/017/021): Implemented and verified for the bounded scope. Users can delete an individual issued/failed/cancelled report, reclaim the100-report capacity, and see a clear confirmation/result. Dependencies: REPORTS-001/PRIVACY-001. Prompt: specify retained metadata and deletion semantics before code; add strict delete/capacity contracts and migration021 with metadata-only owned tombstones. Under consistent account/request/job locks, verify expected version/ownership, reco
-- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
-- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
+- **Pending:** None for the reviewed acceptance scope; native release certification remains separate.
+- **Next action / inputs:** No further action for this accepted scope.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Implementation handoff rule
@@ -34,5 +34,5 @@ No additional input is needed for this bounded automated scope. Run the complete
 
 ## Automated validation
 
-Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789847795826-40501.
+Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789848189876-42077.
 <!-- sdlc-validation:end -->

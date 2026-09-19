@@ -1,9 +1,9 @@
 # ECB-FX-001 — official daily reference rates and explicit USD/INR derivation
 
-- **Status:** Implementation complete; validation pending
+- **Status:** Done (accepted scope)
 - **Implemented / recorded:** - Implementation: Implemented; user validation pending. Parent: SRC009 retains EOD scope. Select free official ECB USD/EUR and INR/EUR reference rates after primary methodology/reuse review. Keep unchanged exact source decimals and dates alongside an explicitly Fingent360-derived INR-per-USD ratio using matching observation dates, bounded exact integer/rational arithmetic and documented rounding; never label the derived ratio an ECB/RBI/FBIL direct quote, executable price or Indian market close. Implement fixed-host bounded source capture, immutable raw/retrieval editions, missing-date/revision/quarantine policy and independent review/withdrawal, responsive latest/history/evidence/derived-method UI and dated offline parity. Do not forward-fill a missing pair or join different dates. Published reference rates are information-only; no trade/valuation/tax settlement inference. Retain source availability and actual known-at limitations. Use strict contracts and meaningful parser/numeric/storage/replay/concurrency/API/browser/offline cases and full docs. Reserve migration045 and API/WEB/OFFLINE810–829. No live ingestion, tests/gates, migration/service actions or commit by agents. Source research and selection evidence in docs/product/ecb-fx.md; the complete spec must precede code.
-- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
-- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
+- **Pending:** None for the reviewed acceptance scope; native release certification remains separate.
+- **Next action / inputs:** No further action for this accepted scope.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Implementation handoff rule
@@ -50,5 +50,5 @@ No additional input is needed for this bounded automated scope. Run the complete
 
 ## Automated validation
 
-Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789847795826-40501.
+Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789848189876-42077.
 <!-- sdlc-validation:end -->

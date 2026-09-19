@@ -32,5 +32,5 @@ The reviewed case/project requirements and conditional completion metadata are n
 
 ## Automated validation
 
-Blocked — workflow failure. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789846657524-36112.
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789846773980-36608.
 <!-- sdlc-validation:end -->

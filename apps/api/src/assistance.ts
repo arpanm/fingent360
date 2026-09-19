@@ -532,11 +532,13 @@ export class AssistanceController {
           const response = await started.response;
           if (!response.ok) throw new Error('Provider request failed.');
           historyText = response.text;
-          suggestions = validateModelAssistance(
+          const selectedSuggestions = validateModelAssistance(
             response.text,
             started.permitted,
           );
-          if (!suggestions.length) throw new Error('No grounded result.');
+          if (!selectedSuggestions.length)
+            throw new Error('No grounded result.');
+          suggestions = selectedSuggestions;
           provider = selected.provider;
           model = selected.model;
           fallback = false;

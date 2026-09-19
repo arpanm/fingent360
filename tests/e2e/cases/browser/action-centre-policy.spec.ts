@@ -48,10 +48,22 @@ async function enterComparison(page: Page, policyId: string) {
   await expect(policy.locator('option[value="' + policyId + '"]')).toHaveCount(
     1,
   );
+  // This owned fixture offers only explicit limits and its one released policy.
+  await expect(policy.locator('option')).toHaveCount(2);
   await tabTo(policy);
-  await policy.press('Home');
-  await policy.press('ArrowDown');
-  await policy.press('Tab');
+  if (test.info().project.use.hasTouch) {
+    // Preserve the keyboard interaction verified by the mobile project.
+    await policy.press('Home');
+    await policy.press('ArrowDown');
+    await policy.press('Tab');
+  } else {
+    // Commit the desktop native popup before Tab moves focus away.
+    await policy.press('Space');
+    await policy.press('End');
+    await policy.press('Enter');
+    await expect(policy).toHaveValue(policyId);
+    await policy.press('Tab');
+  }
   await expect(policy).toHaveValue(policyId);
   await panel
     .getByLabel('Saved holding', { exact: true })

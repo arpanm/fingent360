@@ -1,6 +1,6 @@
 # RETENTION-001 — Delete expired private data
 
-- **Status:** Needs repair
+- **Status:** Implementation complete; validation pending
 - **Implemented / recorded:** - RETENTION-001 (DEV-017/021): Implemented and integration verified for fixed existing-expiry cleanup. Operator previews and explicitly runs bounded cleanup using existing expiry rules; no timer or arbitrary new financial retention policy. Prompt: specify fixed allowed tables/predicates and exact server cutoff; add migration022 for durable count-only maintenance previews/results and strict contracts. Build authenticated Origin-protected Operations preview → explicit confirmation → bounded tr
 - **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
 - **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
@@ -38,5 +38,5 @@ No additional input is needed for this bounded automated scope. Run the complete
 
 ## Automated validation
 
-Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789846657524-36112.
+Partial — required cases not run. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789846773980-36608.
 <!-- sdlc-validation:end -->

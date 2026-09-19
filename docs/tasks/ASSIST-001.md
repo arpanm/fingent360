@@ -49,5 +49,11 @@ Remaining gates:
 
 ## Automated validation
 
-Blocked — workflow failure. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789846657524-36112.
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789846773980-36608.
 <!-- sdlc-validation:end -->
+
+## Focused acceptance repair — 20 September 2026
+
+Empty provider suggestions previously replaced valid query defaults before rejection. Validate the provider result before assigning it; API1120 requires exact query fallback while preserving encrypted rejected output and final outcome. No database or contract change.
+
+Evidence: connected run2026-09-19T19-40-29-161Z-37323 completed76 passes and10 failures. Repair authored; subsequent validation pending. User explicitly authorized agent execution for this closure pass. Reuse the existing specification and full acceptance matrix; no dependencies or migrations added.

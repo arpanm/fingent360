@@ -104,7 +104,10 @@ export function EvaluationLineage({
     }
   }
   return (
-    <section aria-label="Research evaluation">
+    <section
+      aria-label="Research evaluation"
+      style={{ minWidth: 0, overflowWrap: 'anywhere' }}
+    >
       <h3>Evidence, generation and feedback</h3>
       <p>
         Inspect retained public research and the feedback linked to it. Private

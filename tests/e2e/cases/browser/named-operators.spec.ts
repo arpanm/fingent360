@@ -40,6 +40,22 @@ async function captureReviewedLayout(
   expect(bounds!.x + bounds!.width).toBeLessThanOrEqual(
     await page.evaluate(() => window.innerWidth),
   );
+  // Long exact source identifiers must remain readable within their controls,
+  // not merely clipped by a parent or hidden with document overflow CSS.
+  const buttons = region.getByRole('button');
+  for (let index = 0; index < (await buttons.count()); index++) {
+    const button = buttons.nth(index);
+    if (!(await button.isVisible())) continue;
+    const box = await button.boundingBox();
+    expect(box).not.toBeNull();
+    expect(box!.x).toBeGreaterThanOrEqual(bounds!.x);
+    expect(box!.x + box!.width).toBeLessThanOrEqual(bounds!.x + bounds!.width);
+    expect(
+      await button.evaluate(
+        (element) => element.scrollWidth <= element.clientWidth,
+      ),
+    ).toBe(true);
+  }
   // This test owns disposable synthetic identities and data. Capture only the
   // named workflow region, with every form value masked; never capture login.
   await testInfo.attach(name, {

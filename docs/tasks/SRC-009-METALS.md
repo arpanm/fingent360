@@ -1,6 +1,6 @@
 # SRC-009-METALS — Monthly gold silver copper source workflow
 
-- **Status:** Completed implementation; manual validation pending.
+- **Status:** Implementation complete; validation pending
 - **Parent:** [SRC-009](SRC-009.md). This completed scope does not complete its broader parent.
 - **Implemented:** Retained original monthly benchmarks, precise units, independent review, paginated Operations and default-disabled scheduled draft capture.
 - **Specification and source evidence:** Use the dated implementation specification, original-source research and detailed handoff in the parent task. This child makes the finished scope visible in the task index; it does not replace or duplicate that evidence.
@@ -25,3 +25,10 @@ Reviewed scope: Monthly World Bank gold, silver and copper originals, exact unit
 The required API, browser-project and offline case IDs are now explicit in [acceptance.json](acceptance.json). Only actual current receipts plus successful normal gates can close this scope. Existing API/contracts/database/source workflows are reused; a matrix correction itself adds no migration or source permission. Physical-device and deployment claims require their separate evidence. The user authorized this validation/repair run; older manual-only handoff wording is historical for this run.
 
 No additional input is needed for this bounded automated scope. Run the complete required matrix and review attached keyboard/narrow-layout artifacts where applicable before claiming accepted delivery.
+
+<!-- sdlc-validation:start -->
+
+## Automated validation
+
+Partial — required cases not run. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789846773980-36608.
+<!-- sdlc-validation:end -->

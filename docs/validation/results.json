@@ -727,14 +727,14 @@
       "project": "api",
       "title": "E2E-API-308 report retry cannot resume after reset while a job row was unavailable @AUTH-WAIT-001",
       "file": "api/auth-wait.spec.ts",
-      "stories": ["AUTH-WAIT-001"],
-      "status": "failed",
-      "details": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: \"succeeded\"\nReceived: \"queued\"\n\nCall Log:\n- Timeout 20000ms exceeded while waiting on the predicate\n\n  452 |     expect(result.version).toBe(current.version + 1);\n  453 |     if (action === 'retry')\n> 454 |       await expect\n      |       ^\n  455 |         .poll(\n  456 |           async () =>\n  457 |             ReportJobSchema.parse(\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/api/auth-wait.spec.ts:454:7",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "stories": ["AUTH-WAIT-001", "DEV-017"],
+      "status": "passed",
+      "details": "",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "a2ef8e70c58d1fdf2541fcda48a77b3568cd8221196e4efa55edbe99613491f2": {
       "key": "a2ef8e70c58d1fdf2541fcda48a77b3568cd8221196e4efa55edbe99613491f2",
@@ -1208,13 +1208,13 @@
       "title": "E2E-API-1573 actual blocked original replay rechecks expired named operator before returning evidence @SRC-017 @TEST-SIMULATION",
       "file": "api/ccil-yields.spec.ts",
       "stories": ["SRC-017"],
-      "status": "failed",
-      "details": "Error: Isolated feedback API shutdown timed out; inspect its annotated owned schema.\n\n   at ../helpers/feedback-fixture.ts:164\n\n  162 |               child.kill('SIGKILL');\n  163 |               reject(\n> 164 |                 Error(\n      |                 ^\n  165 |                   'Isolated feedback API shutdown timed out; inspect its annotated owned schema.',\n  166 |                 ),\n  167 |               );\n    at Timeout.<anonymous> (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/feedback-fixture.ts:164:17)",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "status": "passed",
+      "details": "",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "77fffa82f5966c44effa58fa40f362e7650d165e7b3f8230f6b34373a5fe299b": {
       "key": "77fffa82f5966c44effa58fa40f362e7650d165e7b3f8230f6b34373a5fe299b",
@@ -1777,14 +1777,20 @@
       "project": "api",
       "title": "E2E-API-1850 original dated Cleveland model and matching BLS release retain exact historical error @EVENT-SCENARIOS-001 @SOURCE-EXCERPT",
       "file": "api/cpi-history.spec.ts",
-      "stories": ["EVENT-SCENARIOS-001", "SDLC-REPAIR-016"],
+      "stories": [
+        "EVENT-SCENARIOS-001",
+        "SDLC-REPAIR-016",
+        "RESEARCH-AUTO-002",
+        "DEV-011",
+        "DEV-020"
+      ],
       "status": "passed",
       "details": "",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "6b324ac1b305e37ff8aa24876123619d23817840cca0727b4da4e8bfb31031f9": {
       "key": "6b324ac1b305e37ff8aa24876123619d23817840cca0727b4da4e8bfb31031f9",
@@ -1792,14 +1798,20 @@
       "project": "api",
       "title": "E2E-API-1851 chart vintage selection rejects blank actual days and wrong measure while preserving source precision @EVENT-SCENARIOS-001 @SOURCE-EXCERPT",
       "file": "api/cpi-history.spec.ts",
-      "stories": ["EVENT-SCENARIOS-001", "SDLC-REPAIR-016"],
-      "status": "failed",
-      "details": "Error: expect(received).toThrow()\n\nReceived function did not throw\n\n  135 |   expect(() =>\n  136 |     parse({ ...data, body: data.body.replace('0.242424629147151', '0.9') }),\n> 137 |   ).toThrow();\n      |     ^\n  138 | });\n  139 |\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/api/cpi-history.spec.ts:137:5",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "stories": [
+        "EVENT-SCENARIOS-001",
+        "SDLC-REPAIR-016",
+        "RESEARCH-AUTO-002",
+        "DEV-011",
+        "DEV-020"
+      ],
+      "status": "passed",
+      "details": "",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "f7dd4b8abb299c2c30e439720608547decedef80d0e90b7f786a2bea2db8cd9b": {
       "key": "f7dd4b8abb299c2c30e439720608547decedef80d0e90b7f786a2bea2db8cd9b",
@@ -2362,14 +2374,14 @@
       "project": "api",
       "title": "E2E-API-1940 disabled contributor gate actual retention independent review missing cells history and revocation @SRC-009 @TEST-SIMULATION",
       "file": "api/eia-spot.spec.ts",
-      "stories": ["SRC-009"],
-      "status": "failed",
-      "details": "ZodError: [\n  {\n    \"expected\": \"object\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"receipt\"\n    ],\n    \"message\": \"Invalid input: expected object, received undefined\"\n  },\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"reviewedAt\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"array\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"editions\"\n    ],\n    \"message\": \"Invalid input: expected array, received undefined\"\n  },\n  {\n    \"code\": \"unrecognized_keys\",\n    \"keys\": [\n      \"message\",\n      \"error\",\n      \"statusCode\"\n    ],\n    \"path\": [],\n    \"message\": \"Unrecognized keys: \\\"message\\\", \\\"error\\\", \\\"statusCode\\\"\"\n  }\n]\n\n  63 |       ).status(),\n  64 |     ).toBe(201);\n> 65 |     const view = EiaSpotPublicSchema.parse(\n     |                                      ^\n  66 |       await (await request.get('/api/v1/eia-spot')).json(),\n  67 |     );\n  68 |     expect(view.receipt.points.filter((p) => p.value === null)).toHaveLength(2);\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/api/eia-spot.spec.ts:65:38",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "stories": ["SRC-009", "SRC-009-DAILY"],
+      "status": "passed",
+      "details": "",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "b939def6bba689f8f2a28047aab9eec0b4264cea80271762c3ce3593ab89a7ec": {
       "key": "b939def6bba689f8f2a28047aab9eec0b4264cea80271762c3ce3593ab89a7ec",
@@ -6113,13 +6125,13 @@
       "title": "E2E-API-1880 exact source calendar context preserves cancellation without creating reading notices @DEV-018 @TEST-SIMULATION",
       "file": "api/reading-calendar.spec.ts",
       "stories": ["DEV-018", "SDLC-REPAIR-016"],
-      "status": "failed",
-      "details": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 200\nReceived: 400\n\n  42 |         })\n  43 |       ).status(),\n> 44 |     ).toBe(200);\n     |       ^\n  45 |     return ReadingFollowViewSchema.parse(\n  46 |       await (await request.get(base)).json(),\n  47 |     );\n    at save (/Users/arpanmacmini/code/fingent360/tests/e2e/cases/api/reading-calendar.spec.ts:44:7)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/api/reading-calendar.spec.ts:79:10",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "status": "passed",
+      "details": "",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "627127b2bbc5e0bd179a166956f074faf3a0287c0b0c0d63bcbd58467c0de2f1": {
       "key": "627127b2bbc5e0bd179a166956f074faf3a0287c0b0c0d63bcbd58467c0de2f1",
@@ -7192,14 +7204,14 @@
       "project": "api",
       "title": "E2E-API-250 fixed expiry cleanup preserves current data receipts issued reports and count-only history @RETENTION-001",
       "file": "api/retention.spec.ts",
-      "stories": ["RETENTION-001", "SDLC-REPAIR-016"],
-      "status": "failed",
-      "details": "Error: expect(received).toHaveLength(expected)\n\nExpected length: 1\nReceived length: 0\nReceived array:  []\n\n  101 |         )\n  102 |       ).rows,\n> 103 |     ).toHaveLength(1);\n      |       ^\n  104 |     const saved = RetentionRecordSchema.parse(\n  105 |       await (\n  106 |         await request.get(`/api/v1/ops/retention/runs/${preview.id}`)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/api/retention.spec.ts:103:7",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "stories": ["RETENTION-001", "SDLC-REPAIR-016", "DEV-017"],
+      "status": "passed",
+      "details": "",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "55c092cea5786bd7afb2ee3b9e103b02265ffe6bb414080004522f345f33abde": {
       "key": "55c092cea5786bd7afb2ee3b9e103b02265ffe6bb414080004522f345f33abde",
@@ -7207,14 +7219,14 @@
       "project": "api",
       "title": "E2E-API-251 operator authorization Origin strict fields and server cutoff protect cleanup @RETENTION-001",
       "file": "api/retention.spec.ts",
-      "stories": ["RETENTION-001"],
+      "stories": ["RETENTION-001", "DEV-017"],
       "status": "passed",
       "details": "",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "72f9584e35d1d23d571f1580fbde16f9bb30625a435df0bfc02aa4fa9ef7ecb0": {
       "key": "72f9584e35d1d23d571f1580fbde16f9bb30625a435df0bfc02aa4fa9ef7ecb0",
@@ -7222,14 +7234,14 @@
       "project": "api",
       "title": "E2E-API-252 bounded batches replay across concurrent operators and preserve records expiring after the saved cutoff @RETENTION-001",
       "file": "api/retention.spec.ts",
-      "stories": ["RETENTION-001"],
+      "stories": ["RETENTION-001", "DEV-017"],
       "status": "passed",
       "details": "",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "b22f3a68e2d81e56c324dc0870388f575c7791810f3ecf1d18e69a476c0655cb": {
       "key": "b22f3a68e2d81e56c324dc0870388f575c7791810f3ecf1d18e69a476c0655cb",
@@ -7237,14 +7249,14 @@
       "project": "api",
       "title": "E2E-API-253 later-category failure rolls the complete batch back and retries the durable preview without private error text @RETENTION-001",
       "file": "api/retention.spec.ts",
-      "stories": ["RETENTION-001", "SDLC-REPAIR-016"],
+      "stories": ["RETENTION-001", "SDLC-REPAIR-016", "DEV-017"],
       "status": "passed",
       "details": "",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "9907bf36214d262617044dc0a43b56c5a17d19a14a683c98b09a6954c4754ec6": {
       "key": "9907bf36214d262617044dc0a43b56c5a17d19a14a683c98b09a6954c4754ec6",
@@ -7252,14 +7264,14 @@
       "project": "api",
       "title": "E2E-API-254 confirmed receipts survive ordinary preview expiry and draft capacity while history pagination remains bounded @RETENTION-001",
       "file": "api/retention.spec.ts",
-      "stories": ["RETENTION-001", "SDLC-REPAIR-016"],
+      "stories": ["RETENTION-001", "SDLC-REPAIR-016", "DEV-017"],
       "status": "passed",
       "details": "",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "ff99ca78e9b7751c1842e496837dd6c280b1f47960338b55182872d888fe2315": {
       "key": "ff99ca78e9b7751c1842e496837dd6c280b1f47960338b55182872d888fe2315",
@@ -7267,14 +7279,14 @@
       "project": "api",
       "title": "E2E-API-255 owned backend interruption rolls back unfinished cleanup and preserves its original preview for retry @RETENTION-001",
       "file": "api/retention.spec.ts",
-      "stories": ["RETENTION-001", "SDLC-REPAIR-016"],
+      "stories": ["RETENTION-001", "SDLC-REPAIR-016", "DEV-017"],
       "status": "passed",
       "details": "",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "a1785746810225b194c645a8859f1b5bb44b9745015c87a339f647109637889f": {
       "key": "a1785746810225b194c645a8859f1b5bb44b9745015c87a339f647109637889f",
@@ -7282,14 +7294,19 @@
       "project": "api",
       "title": "E2E-API-256 concurrent normal feedback expiry keeps tombstones and reports only actual cleanup changes @RETENTION-001",
       "file": "api/retention.spec.ts",
-      "stories": ["RETENTION-001", "SDLC-REPAIR-016"],
+      "stories": [
+        "RETENTION-001",
+        "SDLC-REPAIR-016",
+        "FEEDBACK-001",
+        "DEV-017"
+      ],
       "status": "passed",
       "details": "",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "ecbb8bf56a5880ea41910bb84e4b4d4456d822a33591942bf69bcc8141b37dd3": {
       "key": "ecbb8bf56a5880ea41910bb84e4b4d4456d822a33591942bf69bcc8141b37dd3",
@@ -7297,14 +7314,14 @@
       "project": "api",
       "title": "E2E-API-257 every allowlisted category caps truthful counts including the smaller attachment batch @RETENTION-001",
       "file": "api/retention.spec.ts",
-      "stories": ["RETENTION-001", "SDLC-REPAIR-016"],
+      "stories": ["RETENTION-001", "SDLC-REPAIR-016", "DEV-017"],
       "status": "passed",
       "details": "",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "aa6c661d796426c1f18f628bb1d4fec072ea4855b684d27a0ef2fd9a26afd501": {
       "key": "aa6c661d796426c1f18f628bb1d4fec072ea4855b684d27a0ef2fd9a26afd501",
@@ -8092,14 +8109,14 @@
       "project": "api",
       "title": "E2E-API-1600 actual recipient verification encrypted queue idempotency and STOP cancellation @DEV-029 @TEST-SIMULATION",
       "file": "api/whatsapp-channel.spec.ts",
-      "stories": ["DEV-029", "SDLC-REPAIR-016"],
+      "stories": ["DEV-029", "SDLC-REPAIR-016", "SDLC-REPAIR-012"],
       "status": "passed",
       "details": "",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "df39f8ff03485a3a3dbbffc4cf692edb23b94f9aa78e6e003a059f1c27c2ad6b": {
       "key": "df39f8ff03485a3a3dbbffc4cf692edb23b94f9aa78e6e003a059f1c27c2ad6b",
@@ -8110,11 +8127,11 @@
       "stories": ["DEV-029", "SDLC-REPAIR-016"],
       "status": "passed",
       "details": "",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "73eba4fc7574f9ef668fdb984e3b9474b61c9e1b6e0a6aeda9ad3a581e63c2a3": {
       "key": "73eba4fc7574f9ef668fdb984e3b9474b61c9e1b6e0a6aeda9ad3a581e63c2a3",
@@ -8122,14 +8139,14 @@
       "project": "api",
       "title": "E2E-API-1602 owner export contains consent data and actual account deletion removes queue and webhook receipts @DEV-029 @PRIVACY-001 @TEST-SIMULATION",
       "file": "api/whatsapp-channel.spec.ts",
-      "stories": ["DEV-029", "PRIVACY-001", "SDLC-REPAIR-016"],
+      "stories": ["DEV-029", "PRIVACY-001", "SDLC-REPAIR-016", "DEV-017"],
       "status": "passed",
       "details": "",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "01b67627f51fa50a2bba0c53fe47ef3b71b321e0cb9b42fe1e6deffef186b4cf": {
       "key": "01b67627f51fa50a2bba0c53fe47ef3b71b321e0cb9b42fe1e6deffef186b4cf",
@@ -8138,13 +8155,13 @@
       "title": "E2E-API-1603 actual queue worker captures template acceptance lost acknowledgment and withdrawn source without external send @DEV-029 @TEST-SIMULATION",
       "file": "api/whatsapp-channel.spec.ts",
       "stories": ["DEV-029", "SDLC-REPAIR-016"],
-      "status": "failed",
-      "details": "error: Discovery revisions are append only\n\n  322 |     ).toBe('uncertain');\n  323 |     const withdrawn = await enqueue();\n> 324 |     await pool.query(\n      |     ^\n  325 |       \"UPDATE discovery_versions SET data=jsonb_set(data,'{status}','\\\"withdrawn\\\"'::jsonb) WHERE item_id=$1\",\n  326 |       [source.id],\n  327 |     );\n    at /Users/arpanmacmini/code/fingent360/node_modules/.pnpm/pg-pool@3.14.0_pg@8.23.0/node_modules/pg-pool/index.js:45:11\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/api/whatsapp-channel.spec.ts:324:5",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "status": "passed",
+      "details": "",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "3bbaf88a773e61fe895df75c778cb3e74ffc0ac9da5cfdc08332e60d42db2b90": {
       "key": "3bbaf88a773e61fe895df75c778cb3e74ffc0ac9da5cfdc08332e60d42db2b90",
@@ -8155,11 +8172,11 @@
       "stories": ["DEV-029", "SDLC-REPAIR-016"],
       "status": "passed",
       "details": "",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "cfbe484f87bae0abe632bdec39cccb245f5a3b01d2ba9cf3da37656df05aa56f": {
       "key": "cfbe484f87bae0abe632bdec39cccb245f5a3b01d2ba9cf3da37656df05aa56f",
@@ -8170,11 +8187,11 @@
       "stories": ["DEV-029", "SDLC-REPAIR-016"],
       "status": "passed",
       "details": "",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "a0b2a32cdb5d6430787f1f02f5ee0170d6ec4834d52f8c301c1ba88b6db5b53d": {
       "key": "a0b2a32cdb5d6430787f1f02f5ee0170d6ec4834d52f8c301c1ba88b6db5b53d",
@@ -8665,11 +8682,11 @@
       "stories": ["SRC-015"],
       "status": "passed",
       "details": "",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "23a32f24700f7b8260af5304444c90fea760dbf82b99dde61cc6188cd6b5f8ff": {
       "key": "23a32f24700f7b8260af5304444c90fea760dbf82b99dde61cc6188cd6b5f8ff",
@@ -8678,13 +8695,13 @@
       "title": "E2E-WEB-1542 official catalog selector builds scoped history requests and rejects oversized periods @SRC-015 @TEST-SIMULATION",
       "file": "browser/amfi-history.spec.ts",
       "stories": ["SRC-015", "SDLC-REPAIR-016"],
-      "status": "failed",
-      "details": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByText('Choose a history interval of 1 to 90 calendar days.', { exact: true })\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" with timeout 10000ms\n  - waiting for getByText('Choose a history interval of 1 to 90 calendar days.', { exact: true })\n\n\n   98 |       exact: true,\n   99 |     }),\n> 100 |   ).toBeVisible();\n      |     ^\n  101 |   await page\n  102 |     .getByRole('combobox', { name: 'History mutual fund', exact: true })\n  103 |     .selectOption('');\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/amfi-history.spec.ts:100:5\nTest timeout of 30000ms exceeded.",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "status": "passed",
+      "details": "",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "fe3882a41a2d9aa5bde0079b6961a2657f06f574800ebcc2a3f322fd93b42779": {
       "key": "fe3882a41a2d9aa5bde0079b6961a2657f06f574800ebcc2a3f322fd93b42779",
@@ -8695,11 +8712,11 @@
       "stories": ["SRC-015"],
       "status": "passed",
       "details": "",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "a72db50e4218b4b33a567e0e1afcd32ccc1fd9a2025ff1354556e8c7b895db97": {
       "key": "a72db50e4218b4b33a567e0e1afcd32ccc1fd9a2025ff1354556e8c7b895db97",
@@ -8708,13 +8725,13 @@
       "title": "E2E-WEB-1542 official catalog selector builds scoped history requests and rejects oversized periods @SRC-015 @TEST-SIMULATION",
       "file": "browser/amfi-history.spec.ts",
       "stories": ["SRC-015", "SDLC-REPAIR-016"],
-      "status": "failed",
-      "details": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByText('Choose a history interval of 1 to 90 calendar days.', { exact: true })\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" with timeout 10000ms\n  - waiting for getByText('Choose a history interval of 1 to 90 calendar days.', { exact: true })\n\n\n   98 |       exact: true,\n   99 |     }),\n> 100 |   ).toBeVisible();\n      |     ^\n  101 |   await page\n  102 |     .getByRole('combobox', { name: 'History mutual fund', exact: true })\n  103 |     .selectOption('');\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/amfi-history.spec.ts:100:5",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "status": "passed",
+      "details": "",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "8b67c3b55daf436343e18bff97a7b74ef8dafc587504d137e47e61d50b0e9824": {
       "key": "8b67c3b55daf436343e18bff97a7b74ef8dafc587504d137e47e61d50b0e9824",
@@ -8932,14 +8949,19 @@
       "project": "desktop",
       "title": "E2E-WEB-1480 actual reviewed GDP vintages expose original and captured times with keyboard detail and retry @RESEARCH-AUTO-002 @TEST-SIMULATION",
       "file": "browser/bea-gdp-original.spec.ts",
-      "stories": ["RESEARCH-AUTO-002"],
+      "stories": [
+        "RESEARCH-AUTO-002",
+        "DEV-011",
+        "EVENT-SCENARIOS-001",
+        "DEV-020"
+      ],
       "status": "passed",
       "details": "",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "2aace0d599078a77b45bc24122d6c9cf60dcd803906c7732f1b235e49e30cb92": {
       "key": "2aace0d599078a77b45bc24122d6c9cf60dcd803906c7732f1b235e49e30cb92",
@@ -8947,14 +8969,19 @@
       "project": "mobile",
       "title": "E2E-WEB-1480 actual reviewed GDP vintages expose original and captured times with keyboard detail and retry @RESEARCH-AUTO-002 @TEST-SIMULATION",
       "file": "browser/bea-gdp-original.spec.ts",
-      "stories": ["RESEARCH-AUTO-002"],
-      "status": "failed",
-      "details": "Error: expect(locator).toContainText(expected) failed\n\nLocator: getByRole('region', { name: 'Original GDP vintages', exact: true }).getByRole('alert')\nExpected substring: \"Synthetic vintage storage failure\"\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toContainText\" with timeout 10000ms\n  - waiting for getByRole('region', { name: 'Original GDP vintages', exact: true }).getByRole('alert')\n\n\n  44 |   );\n  45 |   await page.reload();\n> 46 |   await expect(region.getByRole('alert')).toContainText(\n     |                                           ^\n  47 |     'Synthetic vintage storage failure',\n  48 |   );\n  49 |   await region.getByRole('button', { name: 'Retry GDP vintages' }).click();\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/bea-gdp-original.spec.ts:46:43\nTest timeout of 30000ms exceeded.",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "stories": [
+        "RESEARCH-AUTO-002",
+        "DEV-011",
+        "EVENT-SCENARIOS-001",
+        "DEV-020"
+      ],
+      "status": "passed",
+      "details": "",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "588dcf45af255421cfa7914f4cb42660f518adf5de9cf57cd26f7e86716c801e": {
       "key": "588dcf45af255421cfa7914f4cb42660f518adf5de9cf57cd26f7e86716c801e",
@@ -9445,11 +9472,11 @@
       "stories": ["SRC-006", "SDLC-REPAIR-016"],
       "status": "failed",
       "details": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByRole('region', { name: 'Classification crosswalk operations', exact: true }).getByLabel('Exact provider classification', { exact: true })\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" with timeout 10000ms\n  - waiting for getByRole('region', { name: 'Classification crosswalk operations', exact: true }).getByLabel('Exact provider classification', { exact: true })\n\n\n  65 |     await expect(\n  66 |       panel.getByLabel('Exact provider classification', { exact: true }),\n> 67 |     ).toBeVisible();\n     |       ^\n  68 |     await panel\n  69 |       .getByLabel('Classification company ISIN', { exact: true })\n  70 |       .fill('INE009A01021');\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/classification-crosswalk.spec.ts:67:7",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "3ba161c37fd384b839f807f81ac686f62415a7f539a5f0a1b73ebda9c52de54c": {
       "key": "3ba161c37fd384b839f807f81ac686f62415a7f539a5f0a1b73ebda9c52de54c",
@@ -9460,11 +9487,11 @@
       "stories": ["SRC-006", "SDLC-REPAIR-016"],
       "status": "failed",
       "details": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByRole('region', { name: 'Classification crosswalk operations', exact: true }).getByLabel('Exact provider classification', { exact: true })\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" with timeout 10000ms\n  - waiting for getByRole('region', { name: 'Classification crosswalk operations', exact: true }).getByLabel('Exact provider classification', { exact: true })\n\n\n  65 |     await expect(\n  66 |       panel.getByLabel('Exact provider classification', { exact: true }),\n> 67 |     ).toBeVisible();\n     |       ^\n  68 |     await panel\n  69 |       .getByLabel('Classification company ISIN', { exact: true })\n  70 |       .fill('INE009A01021');\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/classification-crosswalk.spec.ts:67:7",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "ea3ff24d462322e593632510b0811352a557ecc34328ed45cef6a6153a825c26": {
       "key": "ea3ff24d462322e593632510b0811352a557ecc34328ed45cef6a6153a825c26",
@@ -9472,14 +9499,14 @@
       "project": "desktop",
       "title": "E2E-WEB-1710 actual commodity upload independent review monthly reader history evidence and withdrawal @SRC-009 @TEST-SIMULATION",
       "file": "browser/commodity-benchmarks.spec.ts",
-      "stories": ["SRC-009", "SDLC-REPAIR-016"],
+      "stories": ["SRC-009", "SDLC-REPAIR-016", "SRC-009-METALS"],
       "status": "passed",
       "details": "",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "1626b9540b9ae70e3df8e7651b427ff1509c3a72d7f8dcc93f1bcce45f67a910": {
       "key": "1626b9540b9ae70e3df8e7651b427ff1509c3a72d7f8dcc93f1bcce45f67a910",
@@ -9502,14 +9529,14 @@
       "project": "mobile",
       "title": "E2E-WEB-1710 actual commodity upload independent review monthly reader history evidence and withdrawal @SRC-009 @TEST-SIMULATION",
       "file": "browser/commodity-benchmarks.spec.ts",
-      "stories": ["SRC-009", "SDLC-REPAIR-016"],
-      "status": "failed",
-      "details": "TimeoutError: locator.click: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('region', { name: 'Commodity benchmark operations' }).getByRole('button', { name: 'Publish commodity capture' })\n    - locator resolved to <button>Publish commodity capture</button>\n  - attempting click action\n    - waiting for element to be visible, enabled and stable\n    - element is visible, enabled and stable\n    - scrolling into view if needed\n    - done scrolling\n    - <h3>Capture eabfa8dd-0f5f-4815-bd19-bc0b327de183</h3> intercepts pointer events\n  - retrying click action\n    - waiting for element to be visible, enabled and stable\n    - element is visible, enabled and stable\n    - scrolling into view if needed\n    - done scrolling\n    - <li>…</li> intercepts pointer events\n  - retrying click action\n    - waiting 20ms\n    2 × waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <h3>Capture eabfa8dd-0f5f-4815-bd19-bc0b327de183</h3> intercepts pointer events\n    - retrying click action\n      - waiting 100ms\n    4 × waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <h3>Capture eabfa8dd-0f5f-4815-bd19-bc0b327de183</h3> intercepts pointer events\n    - retrying click action\n      - waiting 500ms\n      - waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <li>…</li> intercepts pointer events\n    - retrying click action\n      - waiting 500ms\n      - waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <h3>Capture eabfa8dd-0f5f-4815-bd19-bc0b327de183</h3> intercepts pointer events\n    - retrying click action\n      - waiting 500ms\n      - waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <h3>Capture eabfa8dd-0f5f-4815-bd19-bc0b327de183</h3> intercepts pointer events\n    - retrying click action\n      - waiting 500ms\n    - waiting for element to be visible, enabled and stable\n    - element is visible, enabled and stable\n    - scrolling into view if needed\n    - done scrolling\n    - <h3>Capture eabfa8dd-0f5f-4815-bd19-bc0b327de183</h3> intercepts pointer events\n  - retrying click action\n    - waiting 500ms\n    - waiting for element to be visible, enabled and stable\n    - element is visible, enabled and stable\n    - scrolling into view if needed\n    - done scrolling\n    - <li>…</li> intercepts pointer events\n  - retrying click action\n    - waiting 500ms\n    - waiting for element to be visible, enabled and stable\n    - element is visible, enabled and stable\n    - scrolling into view if needed\n    - done scrolling\n    - <h3>Capture eabfa8dd-0f5f-4815-bd19-bc0b327de183</h3> intercepts pointer events\n  - retrying click action\n    - waiting 500ms\n\n\n  51 |     await panel\n  52 |       .getByRole('button', { name: 'Publish commodity capture' })\n> 53 |       .click();\n     |        ^\n  54 |     await expect(\n  55 |       panel.getByText('publish · 2026-09-02', { exact: true }),\n  56 |     ).toBeVisible();\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/commodity-benchmarks.spec.ts:53:8",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "stories": ["SRC-009", "SDLC-REPAIR-016", "SRC-009-METALS"],
+      "status": "passed",
+      "details": "",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "7861f6b0fecfccf0c8b59119b4ae057733b22d77ac6ff253b60bfbbcd257b67b": {
       "key": "7861f6b0fecfccf0c8b59119b4ae057733b22d77ac6ff253b60bfbbcd257b67b",
@@ -10012,14 +10039,14 @@
       "project": "desktop",
       "title": "E2E-WEB-1670 CPI reader shows model basis and missing actual without presenting consensus @EVENT-SCENARIOS-001 @TEST-SIMULATION",
       "file": "browser/cpi-expectations.spec.ts",
-      "stories": ["EVENT-SCENARIOS-001"],
+      "stories": ["EVENT-SCENARIOS-001", "DEV-020"],
       "status": "passed",
       "details": "",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "4572812e3a37ab255cfaac9398d6a69db724111b6a7f12dbefa37bf3fda7a465": {
       "key": "4572812e3a37ab255cfaac9398d6a69db724111b6a7f12dbefa37bf3fda7a465",
@@ -10027,14 +10054,14 @@
       "project": "desktop",
       "title": "E2E-WEB-1672 actual CPI capture and independent Operations review preserve source confirmation and withdrawal @EVENT-SCENARIOS-001 @TEST-SIMULATION",
       "file": "browser/cpi-expectations.spec.ts",
-      "stories": ["EVENT-SCENARIOS-001", "SDLC-REPAIR-016"],
-      "status": "failed",
-      "details": "Error: expect(locator).toContainText(expected) failed\n\nLocator: getByRole('region', { name: 'CPI expectation operations' }).getByRole('alert')\nExpected substring: \"Another named operator\"\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toContainText\" with timeout 10000ms\n  - waiting for getByRole('region', { name: 'CPI expectation operations' }).getByRole('alert')\n\n\n  114 |       .getByRole('button', { name: 'Publish expectation', exact: true })\n  115 |       .click();\n> 116 |     await expect(region.getByRole('alert')).toContainText(\n      |                                             ^\n  117 |       'Another named operator',\n  118 |     );\n  119 |     await sourceOpsBrowser(\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/cpi-expectations.spec.ts:116:45",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "stories": ["EVENT-SCENARIOS-001", "SDLC-REPAIR-016", "DEV-020"],
+      "status": "passed",
+      "details": "",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "4ec513b93dd6bcbcf30ce47b7cb32b0a9d2f16c9a9da613c389cd8127a8f9390": {
       "key": "4ec513b93dd6bcbcf30ce47b7cb32b0a9d2f16c9a9da613c389cd8127a8f9390",
@@ -10042,14 +10069,14 @@
       "project": "mobile",
       "title": "E2E-WEB-1670 CPI reader shows model basis and missing actual without presenting consensus @EVENT-SCENARIOS-001 @TEST-SIMULATION",
       "file": "browser/cpi-expectations.spec.ts",
-      "stories": ["EVENT-SCENARIOS-001"],
+      "stories": ["EVENT-SCENARIOS-001", "DEV-020"],
       "status": "passed",
       "details": "",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "4aec0f5744cedda1e50c4f3cc9544bcb10c50b22b4c0972860ec845627ab2b2f": {
       "key": "4aec0f5744cedda1e50c4f3cc9544bcb10c50b22b4c0972860ec845627ab2b2f",
@@ -10057,14 +10084,14 @@
       "project": "mobile",
       "title": "E2E-WEB-1672 actual CPI capture and independent Operations review preserve source confirmation and withdrawal @EVENT-SCENARIOS-001 @TEST-SIMULATION",
       "file": "browser/cpi-expectations.spec.ts",
-      "stories": ["EVENT-SCENARIOS-001", "SDLC-REPAIR-016"],
-      "status": "failed",
-      "details": "Error: expect(locator).toContainText(expected) failed\n\nLocator: getByRole('region', { name: 'CPI expectation operations' }).getByRole('alert')\nExpected substring: \"Another named operator\"\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toContainText\" with timeout 10000ms\n  - waiting for getByRole('region', { name: 'CPI expectation operations' }).getByRole('alert')\n\n\n  114 |       .getByRole('button', { name: 'Publish expectation', exact: true })\n  115 |       .click();\n> 116 |     await expect(region.getByRole('alert')).toContainText(\n      |                                             ^\n  117 |       'Another named operator',\n  118 |     );\n  119 |     await sourceOpsBrowser(\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/cpi-expectations.spec.ts:116:45",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "stories": ["EVENT-SCENARIOS-001", "SDLC-REPAIR-016", "DEV-020"],
+      "status": "passed",
+      "details": "",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "9daf62fbb26d502330af8f0cffd099a902cbad361f3652934640be05f14cf94b": {
       "key": "9daf62fbb26d502330af8f0cffd099a902cbad361f3652934640be05f14cf94b",
@@ -11335,11 +11362,11 @@
       "stories": ["EVENT-LINEAGE-001"],
       "status": "passed",
       "details": "",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "79f9088a1c3d7247696ef0ef15b11179b8795d8fbe9f871b17ebce09c47bdde5": {
       "key": "79f9088a1c3d7247696ef0ef15b11179b8795d8fbe9f871b17ebce09c47bdde5",
@@ -11350,11 +11377,11 @@
       "stories": ["EVENT-LINEAGE-001"],
       "status": "passed",
       "details": "",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "bd6ac615a9d2d9a88535c14894e2cd774b9af943592cd5dd3db9b8f121f66cb3": {
       "key": "bd6ac615a9d2d9a88535c14894e2cd774b9af943592cd5dd3db9b8f121f66cb3",
@@ -11365,11 +11392,11 @@
       "stories": ["EVENT-LINEAGE-001"],
       "status": "passed",
       "details": "",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "9d234a46a42e291c6cc0b91a64f03d164283a35119217d443779008b767a8972": {
       "key": "9d234a46a42e291c6cc0b91a64f03d164283a35119217d443779008b767a8972",
@@ -11380,11 +11407,11 @@
       "stories": ["EVENT-LINEAGE-001"],
       "status": "passed",
       "details": "",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "ccfd0813d79dbef1d31534ec00595ca14f4727a6273123ae4fb27c9124b3497c": {
       "key": "ccfd0813d79dbef1d31534ec00595ca14f4727a6273123ae4fb27c9124b3497c",
@@ -12442,14 +12469,14 @@
       "project": "desktop",
       "title": "E2E-WEB-1620 published GDP survey median reader keeps publication capture and unavailable comparison explicit @EVENT-SCENARIOS-001 @TEST-SIMULATION",
       "file": "browser/gdp-expectations.spec.ts",
-      "stories": ["EVENT-SCENARIOS-001"],
+      "stories": ["EVENT-SCENARIOS-001", "DEV-020"],
       "status": "passed",
       "details": "",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "0775c87b41b8e5eec09563a88fc426c35c238584f404bca6d989369aa140d7e0": {
       "key": "0775c87b41b8e5eec09563a88fc426c35c238584f404bca6d989369aa140d7e0",
@@ -12457,14 +12484,14 @@
       "project": "desktop",
       "title": "E2E-WEB-1622 actual SPF capture and independent Operations review preserve source confirmation and withdrawal @EVENT-SCENARIOS-001 @TEST-SIMULATION",
       "file": "browser/gdp-expectations.spec.ts",
-      "stories": ["EVENT-SCENARIOS-001", "SDLC-REPAIR-016"],
-      "status": "failed",
-      "details": "Error: expect(locator).toContainText(expected) failed\n\nLocator: getByRole('region', { name: 'GDP expectation operations' }).getByRole('alert')\nExpected substring: \"Another named operator\"\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toContainText\" with timeout 10000ms\n  - waiting for getByRole('region', { name: 'GDP expectation operations' }).getByRole('alert')\n\n\n  115 |       .getByRole('button', { name: 'Publish expectation', exact: true })\n  116 |       .click();\n> 117 |     await expect(region.getByRole('alert')).toContainText(\n      |                                             ^\n  118 |       'Another named operator',\n  119 |     );\n  120 |     await sourceOpsBrowser(\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/gdp-expectations.spec.ts:117:45",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "stories": ["EVENT-SCENARIOS-001", "SDLC-REPAIR-016", "DEV-020"],
+      "status": "passed",
+      "details": "",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "637e856432e3f0b18b4173287e70d8f57b20334b220011a5982118644af2b875": {
       "key": "637e856432e3f0b18b4173287e70d8f57b20334b220011a5982118644af2b875",
@@ -12472,14 +12499,14 @@
       "project": "mobile",
       "title": "E2E-WEB-1620 published GDP survey median reader keeps publication capture and unavailable comparison explicit @EVENT-SCENARIOS-001 @TEST-SIMULATION",
       "file": "browser/gdp-expectations.spec.ts",
-      "stories": ["EVENT-SCENARIOS-001"],
+      "stories": ["EVENT-SCENARIOS-001", "DEV-020"],
       "status": "passed",
       "details": "",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "5c78c458827127ffe09a2b05d356b78058263179ba373374143f884bfced9c50": {
       "key": "5c78c458827127ffe09a2b05d356b78058263179ba373374143f884bfced9c50",
@@ -12487,14 +12514,14 @@
       "project": "mobile",
       "title": "E2E-WEB-1622 actual SPF capture and independent Operations review preserve source confirmation and withdrawal @EVENT-SCENARIOS-001 @TEST-SIMULATION",
       "file": "browser/gdp-expectations.spec.ts",
-      "stories": ["EVENT-SCENARIOS-001", "SDLC-REPAIR-016"],
-      "status": "failed",
-      "details": "Error: expect(locator).toContainText(expected) failed\n\nLocator: getByRole('region', { name: 'GDP expectation operations' }).getByRole('alert')\nExpected substring: \"Another named operator\"\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toContainText\" with timeout 10000ms\n  - waiting for getByRole('region', { name: 'GDP expectation operations' }).getByRole('alert')\n\n\n  115 |       .getByRole('button', { name: 'Publish expectation', exact: true })\n  116 |       .click();\n> 117 |     await expect(region.getByRole('alert')).toContainText(\n      |                                             ^\n  118 |       'Another named operator',\n  119 |     );\n  120 |     await sourceOpsBrowser(\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/gdp-expectations.spec.ts:117:45",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "stories": ["EVENT-SCENARIOS-001", "SDLC-REPAIR-016", "DEV-020"],
+      "status": "passed",
+      "details": "",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "ba853b059cee2cfa2dcebaf969335d7b103d0ea1852b74815f318842ee38e424": {
       "key": "ba853b059cee2cfa2dcebaf969335d7b103d0ea1852b74815f318842ee38e424",
@@ -13105,11 +13132,11 @@
       "stories": ["IDENTITY-ADJUDICATION-001"],
       "status": "passed",
       "details": "",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "37323e50136e1cb7db9bf444acd0068d7ae0e6377abbf0fb104251c0ddd85cbb": {
       "key": "37323e50136e1cb7db9bf444acd0068d7ae0e6377abbf0fb104251c0ddd85cbb",
@@ -13120,11 +13147,11 @@
       "stories": ["IDENTITY-ADJUDICATION-001"],
       "status": "passed",
       "details": "",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "d657f1d9476f5a24bc054966b7ee2eefaa48f9db1f695e694f906aee69a79807": {
       "key": "d657f1d9476f5a24bc054966b7ee2eefaa48f9db1f695e694f906aee69a79807",
@@ -13135,11 +13162,11 @@
       "stories": ["IDENTITY-ADJUDICATION-001"],
       "status": "passed",
       "details": "",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "b0c12e6e1756da1b9d74660f84e01fab5be334edd8c5f4371ad047ed0aea3d7a": {
       "key": "b0c12e6e1756da1b9d74660f84e01fab5be334edd8c5f4371ad047ed0aea3d7a",
@@ -13150,11 +13177,11 @@
       "stories": ["IDENTITY-ADJUDICATION-001"],
       "status": "passed",
       "details": "",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "0fbcfa0e8fcce24410d538972c5d3112645516b3fcd8c1b0a0c07a19c33582f2": {
       "key": "0fbcfa0e8fcce24410d538972c5d3112645516b3fcd8c1b0a0c07a19c33582f2",
@@ -13165,11 +13192,11 @@
       "stories": ["IDENTITY-ADJUDICATION-001"],
       "status": "passed",
       "details": "",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "724ad2ef1647f4f6dca52b7c3e4d307ad01545b36eaf47018742b85ee91f8361": {
       "key": "724ad2ef1647f4f6dca52b7c3e4d307ad01545b36eaf47018742b85ee91f8361",
@@ -13180,11 +13207,11 @@
       "stories": ["IDENTITY-ADJUDICATION-001"],
       "status": "passed",
       "details": "",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "4cd120048e971488bd8b157f696a3c68462f64e6886fe3966b976cbf8a873c2c": {
       "key": "4cd120048e971488bd8b157f696a3c68462f64e6886fe3966b976cbf8a873c2c",
@@ -13195,11 +13222,11 @@
       "stories": ["IDENTITY-ADJUDICATION-001"],
       "status": "passed",
       "details": "",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "cc05f35256bd7056ddffdecb7fd30660328ed27cc28dc422257932c7c30f75ea": {
       "key": "cc05f35256bd7056ddffdecb7fd30660328ed27cc28dc422257932c7c30f75ea",
@@ -13210,11 +13237,11 @@
       "stories": ["IDENTITY-ADJUDICATION-001"],
       "status": "passed",
       "details": "",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "60fd7eb3b2dc231e0e8742672b04f7fa37a8cb643a3e964f40178d83e414fd3c": {
       "key": "60fd7eb3b2dc231e0e8742672b04f7fa37a8cb643a3e964f40178d83e414fd3c",
@@ -14692,14 +14719,14 @@
       "project": "desktop",
       "title": "E2E-WEB-790 explicit automatic review Back enable reload disable preserves manual controls @MATERIAL-AUTO-001",
       "file": "browser/material-automatic.spec.ts",
-      "stories": ["MATERIAL-AUTO-001"],
+      "stories": ["MATERIAL-AUTO-001", "DEV-011", "DEV-018"],
       "status": "passed",
       "details": "",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "64287d99a041782fc1e88ab89fc0229890ad6262ab6f58148954a299626054ca": {
       "key": "64287d99a041782fc1e88ab89fc0229890ad6262ab6f58148954a299626054ca",
@@ -14707,14 +14734,14 @@
       "project": "mobile",
       "title": "E2E-WEB-790 explicit automatic review Back enable reload disable preserves manual controls @MATERIAL-AUTO-001",
       "file": "browser/material-automatic.spec.ts",
-      "stories": ["MATERIAL-AUTO-001"],
+      "stories": ["MATERIAL-AUTO-001", "DEV-011", "DEV-018"],
       "status": "passed",
       "details": "",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "373b52f34b3c2082c3f68f6ffce48a89da82f500187a6e79341153e585ae6d41": {
       "key": "373b52f34b3c2082c3f68f6ffce48a89da82f500187a6e79341153e585ae6d41",
@@ -14752,14 +14779,14 @@
       "project": "desktop",
       "title": "E2E-WEB-640 named independent review recovers a lost committed approval receipt @NAMED-OPERATORS-001",
       "file": "browser/named-operators.spec.ts",
-      "stories": ["NAMED-OPERATORS-001"],
-      "status": "passed",
-      "details": "",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "stories": ["NAMED-OPERATORS-001", "DEV-017"],
+      "status": "failed",
+      "details": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: true\nReceived: false\n\n  34 |       () => document.documentElement.scrollWidth <= window.innerWidth,\n  35 |     ),\n> 36 |   ).toBe(true);\n     |     ^\n  37 |   const bounds = await region.boundingBox();\n  38 |   expect(bounds).not.toBeNull();\n  39 |   expect(bounds!.x).toBeGreaterThanOrEqual(0);\n    at captureReviewedLayout (/Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/named-operators.spec.ts:36:5)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/named-operators.spec.ts:219:3",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "216aa77ec7c67736cfa84f8eb59ca45eb482775420aceb13aa37eacce71932ce": {
       "key": "216aa77ec7c67736cfa84f8eb59ca45eb482775420aceb13aa37eacce71932ce",
@@ -14767,14 +14794,14 @@
       "project": "desktop",
       "title": "E2E-WEB-641 named administrator creates a viewer and independent review remains required @NAMED-OPERATORS-001",
       "file": "browser/named-operators.spec.ts",
-      "stories": ["NAMED-OPERATORS-001"],
+      "stories": ["NAMED-OPERATORS-001", "DEV-017"],
       "status": "passed",
       "details": "",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "888173a52edf4b5c30b56ed0367d44956b298bce3752c045d6fba989219ab3ab": {
       "key": "888173a52edf4b5c30b56ed0367d44956b298bce3752c045d6fba989219ab3ab",
@@ -14782,14 +14809,14 @@
       "project": "mobile",
       "title": "E2E-WEB-640 named independent review recovers a lost committed approval receipt @NAMED-OPERATORS-001",
       "file": "browser/named-operators.spec.ts",
-      "stories": ["NAMED-OPERATORS-001"],
+      "stories": ["NAMED-OPERATORS-001", "DEV-017"],
       "status": "passed",
       "details": "",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "e40087114687c1aed482789b471d950b1ff148c4a01c5cd9dfd2dd45f0524339": {
       "key": "e40087114687c1aed482789b471d950b1ff148c4a01c5cd9dfd2dd45f0524339",
@@ -14797,14 +14824,14 @@
       "project": "mobile",
       "title": "E2E-WEB-641 named administrator creates a viewer and independent review remains required @NAMED-OPERATORS-001",
       "file": "browser/named-operators.spec.ts",
-      "stories": ["NAMED-OPERATORS-001"],
+      "stories": ["NAMED-OPERATORS-001", "DEV-017"],
       "status": "passed",
       "details": "",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "36d0544cebb23c9203aca4d77c623757d32570a0ec28f8299b6aa70e0a1e8698": {
       "key": "36d0544cebb23c9203aca4d77c623757d32570a0ec28f8299b6aa70e0a1e8698",
@@ -15805,11 +15832,11 @@
       "stories": ["QUALITY-OVERVIEW-001"],
       "status": "passed",
       "details": "",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "2a2928a44870ce0a1c63dfab6c583d1d66211a82a28af80d298657f6289419a8": {
       "key": "2a2928a44870ce0a1c63dfab6c583d1d66211a82a28af80d298657f6289419a8",
@@ -15820,11 +15847,11 @@
       "stories": ["QUALITY-OVERVIEW-001"],
       "status": "passed",
       "details": "",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     },
     "796b05223aefadde137c5a005d5f7de02db4a55cfa35b545e9704f6971c29f4d": {
       "key": "796b05223aefadde137c5a005d5f7de02db4a55cfa35b545e9704f6971c29f4d",
@@ -22440,6 +22467,426 @@
       "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
       "log": "artifacts/sdlc/1789837762812-24470/08-pnpm-android_test.log",
       "report": "artifacts/e2e/offline-1789846242402-34897/results.json"
+    },
+    "d4493234fda10262602e18ea1983eca61ca9580750a70a7e29b1e077879f51ab": {
+      "key": "d4493234fda10262602e18ea1983eca61ca9580750a70a7e29b1e077879f51ab",
+      "caseId": "E2E-API-041",
+      "project": "api",
+      "title": "E2E-API-041 actual stored correction and withdrawal keep old acknowledgement separate @ALERT-001 @TEST-SIMULATION",
+      "file": "api/inbox-revisions.spec.ts",
+      "stories": ["ALERT-001", "DEV-018"],
+      "status": "passed",
+      "details": "",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+    },
+    "6ca6094d53135e78601a0f842f2093c770dec168afd02102f0de79231d981daf": {
+      "key": "6ca6094d53135e78601a0f842f2093c770dec168afd02102f0de79231d981daf",
+      "caseId": "E2E-API-1773",
+      "project": "api",
+      "title": "E2E-API-1773 actual scheduled GDP tick retains original drafts deduplicates quarantines and rechecks pause during acquisition @SRC-007 @RESEARCH-AUTO-002 @TEST-SIMULATION",
+      "file": "api/india-gdp-scheduled.spec.ts",
+      "stories": ["SRC-007", "RESEARCH-AUTO-002", "DEV-011"],
+      "status": "passed",
+      "details": "",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+    },
+    "19140f34c01d91967e638ad01b5738a05bda9379977428da1288e5ba37046a9b": {
+      "key": "19140f34c01d91967e638ad01b5738a05bda9379977428da1288e5ba37046a9b",
+      "caseId": "E2E-API-1118",
+      "project": "api",
+      "title": "E2E-API-1118 private history enforces seven-day expiry consent cutoff and newest50 encrypted entries with complete export @EVAL-LINEAGE-001 @TEST-SIMULATION",
+      "file": "api/private-ai-history-lifecycle.spec.ts",
+      "stories": ["EVAL-LINEAGE-001", "DEV-017"],
+      "status": "passed",
+      "details": "",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+    },
+    "a50728b0d9be3a6fb633d708b5b8a808b0892cabd8374894d2ecb6c43d3de64e": {
+      "key": "a50728b0d9be3a6fb633d708b5b8a808b0892cabd8374894d2ecb6c43d3de64e",
+      "caseId": "E2E-API-1119",
+      "project": "api",
+      "title": "E2E-API-1119 private history deletion requires owner and Origin preserves consent rejects late resurrection and cascades account removal @EVAL-LINEAGE-001 @TEST-SIMULATION",
+      "file": "api/private-ai-history-lifecycle.spec.ts",
+      "stories": ["EVAL-LINEAGE-001", "DEV-017"],
+      "status": "passed",
+      "details": "",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+    },
+    "9e7a6c07e6f928173ce6a156ce297ff99aeb45a718e0544a114c45f375449c05": {
+      "key": "9e7a6c07e6f928173ce6a156ce297ff99aeb45a718e0544a114c45f375449c05",
+      "caseId": "E2E-API-1120",
+      "project": "api",
+      "title": "E2E-API-1120 actual query assistance leaves transcripts absent while opted-in simulated provider fallback retains encrypted raw and final outcome @EVAL-LINEAGE-001 @TEST-SIMULATION",
+      "file": "api/private-ai-history-lifecycle.spec.ts",
+      "stories": ["EVAL-LINEAGE-001", "DEV-017"],
+      "status": "failed",
+      "details": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: true\nReceived: false\n\n  373 |   expect(\n  374 |     fallback.result.suggestions.some((v) => v.text === authGoal.name),\n> 375 |   ).toBe(true);\n      |     ^\n  376 |   const saved = await history(request);\n  377 |   expect(saved.entries).toHaveLength(1);\n  378 |   expect(saved.entries[0]).toMatchObject({\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/api/private-ai-history-lifecycle.spec.ts:375:5",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+    },
+    "8535f4ad2333bd1b89b2f5eab9f97c8c576b9558dc3f752567797208092f02f1": {
+      "key": "8535f4ad2333bd1b89b2f5eab9f97c8c576b9558dc3f752567797208092f02f1",
+      "caseId": "E2E-API-1061",
+      "project": "api",
+      "title": "E2E-API-1061 deployment advisory lock excludes concurrent actual research worker without corrupting active capture @RESEARCH-AUTO-002 @DEV-011 @TEST-SIMULATION",
+      "file": "api/research-auto-durability.spec.ts",
+      "stories": ["RESEARCH-AUTO-002", "DEV-011"],
+      "status": "passed",
+      "details": "",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+    },
+    "1a15a7d2a58a17488019d00c426910854e4433bfbb5cd39769e37bfc5d75b45a": {
+      "key": "1a15a7d2a58a17488019d00c426910854e4433bfbb5cd39769e37bfc5d75b45a",
+      "caseId": "E2E-API-1062",
+      "project": "api",
+      "title": "E2E-API-1062 new actual worker recovers abandoned attempt and retries identical retained source without duplicate editions @RESEARCH-AUTO-002 @DEV-011 @TEST-SIMULATION",
+      "file": "api/research-auto-durability.spec.ts",
+      "stories": ["RESEARCH-AUTO-002", "DEV-011"],
+      "status": "passed",
+      "details": "",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+    },
+    "362fbf9d20235c4a8a83fa9c3a3e17a4da99a66e1044002c827a7ae7bb0e0611": {
+      "key": "362fbf9d20235c4a8a83fa9c3a3e17a4da99a66e1044002c827a7ae7bb0e0611",
+      "caseId": "E2E-API-1063",
+      "project": "api",
+      "title": "E2E-API-1063 source failure persists fifteen-minute retry across worker recreation and recovers only when due without replacing evidence @RESEARCH-AUTO-002 @DEV-011 @TEST-SIMULATION",
+      "file": "api/research-auto-durability.spec.ts",
+      "stories": ["RESEARCH-AUTO-002", "DEV-011"],
+      "status": "passed",
+      "details": "",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+    },
+    "009a3dd57d58b56d307b72ee23c7d133f455612780bd8bccefc563cde55ced0e": {
+      "key": "009a3dd57d58b56d307b72ee23c7d133f455612780bd8bccefc563cde55ced0e",
+      "caseId": "E2E-WEB-1295",
+      "project": "desktop",
+      "title": "E2E-WEB-1295 released policy keyboard comparison retains sources and no-action through lost-response replay reload and withdrawal @DEV-019 @ACTION-CENTRE-001 @TEST-SIMULATION",
+      "file": "browser/action-centre-policy.spec.ts",
+      "stories": ["DEV-019", "ACTION-CENTRE-001"],
+      "status": "failed",
+      "details": "Error: expect(locator).toHaveValue(expected) failed\n\nLocator:  getByRole('region', { name: 'Educational action centre', exact: true }).getByLabel('Released educational policy', { exact: true })\nExpected: \"eea68238-cc09-42e2-83cb-5fdf46a9b9f2\"\nReceived: \"\"\nTimeout:  10000ms\n\nCall log:\n  - Expect \"toHaveValue\" with timeout 10000ms\n  - waiting for getByRole('region', { name: 'Educational action centre', exact: true }).getByLabel('Released educational policy', { exact: true })\n    14 × locator resolved to <select aria-label=\"Released educational policy\">…</select>\n       - unexpected value \"\"\n\n\n  53 |   await policy.press('ArrowDown');\n  54 |   await policy.press('Tab');\n> 55 |   await expect(policy).toHaveValue(policyId);\n     |                        ^\n  56 |   await panel\n  57 |     .getByLabel('Saved holding', { exact: true })\n  58 |     .selectOption('INE002A01018');\n    at enterComparison (/Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/action-centre-policy.spec.ts:55:24)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/action-centre-policy.spec.ts:150:35",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+    },
+    "084ea181539ddb1a4896251ed1274b9a6cd04b242b01739ffdaeaaef79a98ce9": {
+      "key": "084ea181539ddb1a4896251ed1274b9a6cd04b242b01739ffdaeaaef79a98ce9",
+      "caseId": "E2E-WEB-1296",
+      "project": "desktop",
+      "title": "E2E-WEB-1296 real session revocation clears policy review and saved private comparisons before recovery @DEV-019 @ACTION-CENTRE-001 @TEST-SIMULATION",
+      "file": "browser/action-centre-policy.spec.ts",
+      "stories": ["DEV-019", "ACTION-CENTRE-001"],
+      "status": "failed",
+      "details": "Error: expect(locator).toHaveValue(expected) failed\n\nLocator:  getByRole('region', { name: 'Educational action centre', exact: true }).getByLabel('Released educational policy', { exact: true })\nExpected: \"bb5d3ef8-86ab-4bf2-8837-95c7225a6968\"\nReceived: \"\"\nTimeout:  10000ms\n\nCall log:\n  - Expect \"toHaveValue\" with timeout 10000ms\n  - waiting for getByRole('region', { name: 'Educational action centre', exact: true }).getByLabel('Released educational policy', { exact: true })\n    14 × locator resolved to <select aria-label=\"Released educational policy\">…</select>\n       - unexpected value \"\"\n\n\n  53 |   await policy.press('ArrowDown');\n  54 |   await policy.press('Tab');\n> 55 |   await expect(policy).toHaveValue(policyId);\n     |                        ^\n  56 |   await panel\n  57 |     .getByLabel('Saved holding', { exact: true })\n  58 |     .selectOption('INE002A01018');\n    at enterComparison (/Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/action-centre-policy.spec.ts:55:24)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/action-centre-policy.spec.ts:295:37",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+    },
+    "8dd1f7a289b3a6109c35a45647a5020ff04e50c7b9fc42c5e3d38b4b427947c8": {
+      "key": "8dd1f7a289b3a6109c35a45647a5020ff04e50c7b9fc42c5e3d38b4b427947c8",
+      "caseId": "E2E-WEB-1297",
+      "project": "desktop",
+      "title": "E2E-WEB-1297 changed source edition rejects stale policy preview and removes its selection @DEV-019 @ACTION-CENTRE-001 @TEST-SIMULATION",
+      "file": "browser/action-centre-policy.spec.ts",
+      "stories": ["DEV-019", "ACTION-CENTRE-001"],
+      "status": "failed",
+      "details": "Error: expect(locator).toHaveValue(expected) failed\n\nLocator:  getByRole('region', { name: 'Educational action centre', exact: true }).getByLabel('Released educational policy', { exact: true })\nExpected: \"2250b6b4-5217-40a9-927f-31ba56334a81\"\nReceived: \"\"\nTimeout:  10000ms\n\nCall log:\n  - Expect \"toHaveValue\" with timeout 10000ms\n  - waiting for getByRole('region', { name: 'Educational action centre', exact: true }).getByLabel('Released educational policy', { exact: true })\n    14 × locator resolved to <select aria-label=\"Released educational policy\">…</select>\n       - unexpected value \"\"\n\n\n  53 |   await policy.press('ArrowDown');\n  54 |   await policy.press('Tab');\n> 55 |   await expect(policy).toHaveValue(policyId);\n     |                        ^\n  56 |   await panel\n  57 |     .getByLabel('Saved holding', { exact: true })\n  58 |     .selectOption('INE002A01018');\n    at enterComparison (/Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/action-centre-policy.spec.ts:55:24)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/action-centre-policy.spec.ts:345:29",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+    },
+    "ce29c20346c49707169a7eebb5708a280363a7e1394f1a01b322029c8fa5717d": {
+      "key": "ce29c20346c49707169a7eebb5708a280363a7e1394f1a01b322029c8fa5717d",
+      "caseId": "E2E-WEB-1295",
+      "project": "mobile",
+      "title": "E2E-WEB-1295 released policy keyboard comparison retains sources and no-action through lost-response replay reload and withdrawal @DEV-019 @ACTION-CENTRE-001 @TEST-SIMULATION",
+      "file": "browser/action-centre-policy.spec.ts",
+      "stories": ["DEV-019", "ACTION-CENTRE-001"],
+      "status": "passed",
+      "details": "",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+    },
+    "acf4234d445d16583ad1fd7b008a5920205672d53b6868eb795f4d922a579883": {
+      "key": "acf4234d445d16583ad1fd7b008a5920205672d53b6868eb795f4d922a579883",
+      "caseId": "E2E-WEB-1296",
+      "project": "mobile",
+      "title": "E2E-WEB-1296 real session revocation clears policy review and saved private comparisons before recovery @DEV-019 @ACTION-CENTRE-001 @TEST-SIMULATION",
+      "file": "browser/action-centre-policy.spec.ts",
+      "stories": ["DEV-019", "ACTION-CENTRE-001"],
+      "status": "passed",
+      "details": "",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+    },
+    "73d5123d4cfe0d85cb06163be8a1db57cefbc513e456c4e7c142f6904a32b49e": {
+      "key": "73d5123d4cfe0d85cb06163be8a1db57cefbc513e456c4e7c142f6904a32b49e",
+      "caseId": "E2E-WEB-1297",
+      "project": "mobile",
+      "title": "E2E-WEB-1297 changed source edition rejects stale policy preview and removes its selection @DEV-019 @ACTION-CENTRE-001 @TEST-SIMULATION",
+      "file": "browser/action-centre-policy.spec.ts",
+      "stories": ["DEV-019", "ACTION-CENTRE-001"],
+      "status": "passed",
+      "details": "",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+    },
+    "04066f3cf8c676df0c690d285c7def4a9eeae2b33d886abaff7842fcde6e848b": {
+      "key": "04066f3cf8c676df0c690d285c7def4a9eeae2b33d886abaff7842fcde6e848b",
+      "caseId": "E2E-WEB-137",
+      "project": "desktop",
+      "title": "E2E-WEB-137 explicit new-reading admission preserves story identity keyboard focus and complete cursor collection @UX-002C @TEST-SIMULATION",
+      "file": "browser/discovery-updates.spec.ts",
+      "stories": ["UX-002C"],
+      "status": "failed",
+      "details": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByText('Reading checked. No new items were added.', { exact: true })\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" with timeout 10000ms\n  - waiting for getByText('Reading checked. No new items were added.', { exact: true })\n\n\n  68 |       exact: true,\n  69 |     }),\n> 70 |   ).toBeVisible();\n     |     ^\n  71 |   await expect(apply).toHaveCount(0);\n  72 |   // A second publication is staged, then a real withdrawal occurs before Apply.\n  73 |   await f.publish();\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/discovery-updates.spec.ts:70:5\nTest timeout of 30000ms exceeded.",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+    },
+    "7a61aba84bd618b2250deda430bdd3473e3a8ac0d0cff62154176c880281eed4": {
+      "key": "7a61aba84bd618b2250deda430bdd3473e3a8ac0d0cff62154176c880281eed4",
+      "caseId": "E2E-WEB-138",
+      "project": "desktop",
+      "title": "E2E-WEB-138 failed and superseded explicit reading checks cannot replace the current selection @UX-002C @TEST-SIMULATION",
+      "file": "browser/discovery-updates.spec.ts",
+      "stories": ["UX-002C"],
+      "status": "passed",
+      "details": "",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+    },
+    "872a2302cd32aba177996b6ed161cd89dd1fa9b3eea596e0c3785ffd4814ee88": {
+      "key": "872a2302cd32aba177996b6ed161cd89dd1fa9b3eea596e0c3785ffd4814ee88",
+      "caseId": "E2E-WEB-137",
+      "project": "mobile",
+      "title": "E2E-WEB-137 explicit new-reading admission preserves story identity keyboard focus and complete cursor collection @UX-002C @TEST-SIMULATION",
+      "file": "browser/discovery-updates.spec.ts",
+      "stories": ["UX-002C"],
+      "status": "failed",
+      "details": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByText('Reading checked. No new items were added.', { exact: true })\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" with timeout 10000ms\n  - waiting for getByText('Reading checked. No new items were added.', { exact: true })\n\n\n  68 |       exact: true,\n  69 |     }),\n> 70 |   ).toBeVisible();\n     |     ^\n  71 |   await expect(apply).toHaveCount(0);\n  72 |   // A second publication is staged, then a real withdrawal occurs before Apply.\n  73 |   await f.publish();\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/discovery-updates.spec.ts:70:5",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+    },
+    "a33c070c4a23198d073d10e92bdd7c9c0f1ffbd95b86dee120647c060de799dc": {
+      "key": "a33c070c4a23198d073d10e92bdd7c9c0f1ffbd95b86dee120647c060de799dc",
+      "caseId": "E2E-WEB-138",
+      "project": "mobile",
+      "title": "E2E-WEB-138 failed and superseded explicit reading checks cannot replace the current selection @UX-002C @TEST-SIMULATION",
+      "file": "browser/discovery-updates.spec.ts",
+      "stories": ["UX-002C"],
+      "status": "passed",
+      "details": "",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+    },
+    "48c575f9dc8af51c2f55727aeebcefa2b2dfe3a576189df5b1a7be2d46bb1914": {
+      "key": "48c575f9dc8af51c2f55727aeebcefa2b2dfe3a576189df5b1a7be2d46bb1914",
+      "caseId": "E2E-WEB-1118",
+      "project": "desktop",
+      "title": "E2E-WEB-1118 actual evaluation inspector filters retries exports retained evidence and withholds withdrawn content with keyboard navigation @EVAL-LINEAGE-001 @TEST-SIMULATION",
+      "file": "browser/eval-lineage-operations.spec.ts",
+      "stories": ["EVAL-LINEAGE-001", "FEEDBACK-001", "DEV-017"],
+      "status": "passed",
+      "details": "",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+    },
+    "569f6f925741ac54dd53862722a685b5e35db39516341f9903797beacea83f3f": {
+      "key": "569f6f925741ac54dd53862722a685b5e35db39516341f9903797beacea83f3f",
+      "caseId": "E2E-WEB-1119",
+      "project": "desktop",
+      "title": "E2E-WEB-1119 real response captures paginate exact source editions without duplicate or sibling leakage @EVAL-LINEAGE-001 @TEST-SIMULATION",
+      "file": "browser/eval-lineage-operations.spec.ts",
+      "stories": ["EVAL-LINEAGE-001", "FEEDBACK-001", "DEV-017"],
+      "status": "passed",
+      "details": "",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+    },
+    "8e4d007ab8358c99e50f6805b2a663ebcb1d9b62934508885632b47cd25475be": {
+      "key": "8e4d007ab8358c99e50f6805b2a663ebcb1d9b62934508885632b47cd25475be",
+      "caseId": "E2E-WEB-1118",
+      "project": "mobile",
+      "title": "E2E-WEB-1118 actual evaluation inspector filters retries exports retained evidence and withholds withdrawn content with keyboard navigation @EVAL-LINEAGE-001 @TEST-SIMULATION",
+      "file": "browser/eval-lineage-operations.spec.ts",
+      "stories": ["EVAL-LINEAGE-001", "FEEDBACK-001", "DEV-017"],
+      "status": "failed",
+      "details": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: true\nReceived: false\n\nCall Log:\n- Timeout 10000ms exceeded while waiting on the predicate\n\n  34 | }\n  35 | async function contained(region: Locator) {\n> 36 |   await expect\n     |   ^\n  37 |     .poll(() =>\n  38 |       region.evaluate((element) => {\n  39 |         const box = element.getBoundingClientRect();\n    at contained (/Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/eval-lineage-operations.spec.ts:36:3)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/eval-lineage-operations.spec.ts:152:3",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+    },
+    "c8090b41e77ac34d60e53438caf443ad4af9d27190663d49c7938ce344a7fe4e": {
+      "key": "c8090b41e77ac34d60e53438caf443ad4af9d27190663d49c7938ce344a7fe4e",
+      "caseId": "E2E-WEB-1119",
+      "project": "mobile",
+      "title": "E2E-WEB-1119 real response captures paginate exact source editions without duplicate or sibling leakage @EVAL-LINEAGE-001 @TEST-SIMULATION",
+      "file": "browser/eval-lineage-operations.spec.ts",
+      "stories": ["EVAL-LINEAGE-001", "FEEDBACK-001", "DEV-017"],
+      "status": "passed",
+      "details": "",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+    },
+    "72830ddbb577982e91062f97990b5de70083ecc8b5d54f27430258a91a8897af": {
+      "key": "72830ddbb577982e91062f97990b5de70083ecc8b5d54f27430258a91a8897af",
+      "caseId": "E2E-WEB-041",
+      "project": "desktop",
+      "title": "E2E-WEB-041 real corrected observation is unread and stale source context remains explicit @ALERT-001 @ALERT-002 @TEST-SIMULATION",
+      "file": "browser/inbox-revisions.spec.ts",
+      "stories": ["ALERT-001", "ALERT-002", "DEV-018"],
+      "status": "passed",
+      "details": "",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+    },
+    "25789591666eea0cccdb0ca68864e41845674d9f5c438248085cd7318c7dd097": {
+      "key": "25789591666eea0cccdb0ca68864e41845674d9f5c438248085cd7318c7dd097",
+      "caseId": "E2E-WEB-041",
+      "project": "mobile",
+      "title": "E2E-WEB-041 real corrected observation is unread and stale source context remains explicit @ALERT-001 @ALERT-002 @TEST-SIMULATION",
+      "file": "browser/inbox-revisions.spec.ts",
+      "stories": ["ALERT-001", "ALERT-002", "DEV-018"],
+      "status": "passed",
+      "details": "",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+    },
+    "0b344f93ef7c976cde625463e034df01374fd15cd6289c2b9eafef6787ca6d40": {
+      "key": "0b344f93ef7c976cde625463e034df01374fd15cd6289c2b9eafef6787ca6d40",
+      "caseId": "E2E-WEB-160",
+      "project": "desktop",
+      "title": "E2E-WEB-160 reviewed illustration, controlled captions and actual video download @UX-002 @MEDIA-001",
+      "file": "browser/media.spec.ts",
+      "stories": ["UX-002", "MEDIA-001", "STORY-MEDIA-002"],
+      "status": "passed",
+      "details": "",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+    },
+    "d2123fa20fa6e0b13d42911ddd0414cf35207143e3c9048bbda84ac22bcf25ca": {
+      "key": "d2123fa20fa6e0b13d42911ddd0414cf35207143e3c9048bbda84ac22bcf25ca",
+      "caseId": "E2E-WEB-160",
+      "project": "mobile",
+      "title": "E2E-WEB-160 reviewed illustration, controlled captions and actual video download @UX-002 @MEDIA-001",
+      "file": "browser/media.spec.ts",
+      "stories": ["UX-002", "MEDIA-001", "STORY-MEDIA-002"],
+      "status": "passed",
+      "details": "",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+    },
+    "79f5d0bdf9c0092a1390564da0d75e888d427ebbe79c857f509d7222ef517e38": {
+      "key": "79f5d0bdf9c0092a1390564da0d75e888d427ebbe79c857f509d7222ef517e38",
+      "caseId": "E2E-WEB-1145",
+      "project": "desktop",
+      "title": "E2E-WEB-1145 generated retained PNG survives real offline packaging and reload; a newly packaged withdrawal suppresses it @STORY-MEDIA-002 @TEST-SIMULATION",
+      "file": "browser/story-image-offline.spec.ts",
+      "stories": ["STORY-MEDIA-002"],
+      "status": "passed",
+      "details": "",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+    },
+    "d0e46f9e9fb93039731c2fad3de95b5b4ca4a63395d014b6b4fd2a13be4a8eea": {
+      "key": "d0e46f9e9fb93039731c2fad3de95b5b4ca4a63395d014b6b4fd2a13be4a8eea",
+      "caseId": "E2E-WEB-1145",
+      "project": "mobile",
+      "title": "E2E-WEB-1145 generated retained PNG survives real offline packaging and reload; a newly packaged withdrawal suppresses it @STORY-MEDIA-002 @TEST-SIMULATION",
+      "file": "browser/story-image-offline.spec.ts",
+      "stories": ["STORY-MEDIA-002"],
+      "status": "passed",
+      "details": "",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
     }
   },
   "bugs": {
@@ -22636,7 +23083,7 @@
       "title": "E2E-API-1573 actual blocked original replay rechecks expired named operator before returning evidence @SRC-017 @TEST-SIMULATION",
       "file": "api/ccil-yields.spec.ts",
       "stories": ["SRC-017"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: Isolated feedback API shutdown timed out; inspect its annotated owned schema.\n\n   at ../helpers/feedback-fixture.ts:164\n\n  162 |               child.kill('SIGKILL');\n  163 |               reject(\n> 164 |                 Error(\n      |                 ^\n  165 |                   'Isolated feedback API shutdown timed out; inspect its annotated owned schema.',\n  166 |                 ),\n  167 |               );\n    at Timeout.<anonymous> (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/feedback-fixture.ts:164:17)",
       "run": "1789837762812-24470",
       "time": "2026-09-19T19:30:31.748Z",
@@ -22644,7 +23091,14 @@
       "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json",
       "id": "BUG-1b3cc598cfdf6360",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789846773980-36608",
+        "time": "2026-09-19T19:49:13.237Z",
+        "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+        "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+      }
     },
     "BUG-f7ca6b06b3adc3bd": {
       "key": "f7ca6b06b3adc3bd6e7b69fb83b6681fa828734e08334d1874fb623b9ef66c5a",
@@ -22803,11 +23257,11 @@
       "id": "BUG-dcb3af502d7de96f",
       "firstSeen": "2026-09-16T22:26:46.819Z",
       "resolvedBy": {
-        "run": "1789837762812-24470",
-        "time": "2026-09-19T19:30:31.748Z",
-        "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-        "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-        "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+        "run": "1789846773980-36608",
+        "time": "2026-09-19T19:49:13.237Z",
+        "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+        "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
       }
     },
     "BUG-6b324ac1b305e37f": {
@@ -22817,7 +23271,7 @@
       "title": "E2E-API-1851 chart vintage selection rejects blank actual days and wrong measure while preserving source precision @EVENT-SCENARIOS-001 @SOURCE-EXCERPT",
       "file": "api/cpi-history.spec.ts",
       "stories": ["EVENT-SCENARIOS-001", "SDLC-REPAIR-016"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(received).toThrow()\n\nReceived function did not throw\n\n  135 |   expect(() =>\n  136 |     parse({ ...data, body: data.body.replace('0.242424629147151', '0.9') }),\n> 137 |   ).toThrow();\n      |     ^\n  138 | });\n  139 |\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/api/cpi-history.spec.ts:137:5",
       "run": "1789837762812-24470",
       "time": "2026-09-19T19:30:31.748Z",
@@ -22825,7 +23279,14 @@
       "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json",
       "id": "BUG-6b324ac1b305e37f",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789846773980-36608",
+        "time": "2026-09-19T19:49:13.237Z",
+        "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+        "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+      }
     },
     "BUG-54261f4a82c32e89": {
       "key": "54261f4a82c32e893a072bc74275008afbce58dcff3ffc2315309debf008eba7",
@@ -23303,7 +23764,7 @@
       "title": "E2E-API-1880 exact source calendar context preserves cancellation without creating reading notices @DEV-018 @TEST-SIMULATION",
       "file": "api/reading-calendar.spec.ts",
       "stories": ["DEV-018", "SDLC-REPAIR-016"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 200\nReceived: 400\n\n  42 |         })\n  43 |       ).status(),\n> 44 |     ).toBe(200);\n     |       ^\n  45 |     return ReadingFollowViewSchema.parse(\n  46 |       await (await request.get(base)).json(),\n  47 |     );\n    at save (/Users/arpanmacmini/code/fingent360/tests/e2e/cases/api/reading-calendar.spec.ts:44:7)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/api/reading-calendar.spec.ts:79:10",
       "run": "1789837762812-24470",
       "time": "2026-09-19T19:30:31.748Z",
@@ -23311,7 +23772,14 @@
       "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json",
       "id": "BUG-23164e18a5381e68",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789846773980-36608",
+        "time": "2026-09-19T19:49:13.237Z",
+        "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+        "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+      }
     },
     "BUG-8383e07ae65fb617": {
       "key": "8383e07ae65fb617f0cc3a0773f2f4218e920ae74aa01ff96d862382ca18cda4",
@@ -23506,7 +23974,7 @@
       "title": "E2E-API-250 fixed expiry cleanup preserves current data receipts issued reports and count-only history @RETENTION-001",
       "file": "api/retention.spec.ts",
       "stories": ["RETENTION-001", "SDLC-REPAIR-016"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(received).toHaveLength(expected)\n\nExpected length: 1\nReceived length: 0\nReceived array:  []\n\n  101 |         )\n  102 |       ).rows,\n> 103 |     ).toHaveLength(1);\n      |       ^\n  104 |     const saved = RetentionRecordSchema.parse(\n  105 |       await (\n  106 |         await request.get(`/api/v1/ops/retention/runs/${preview.id}`)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/api/retention.spec.ts:103:7",
       "run": "1789837762812-24470",
       "time": "2026-09-19T19:30:31.748Z",
@@ -23514,7 +23982,14 @@
       "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json",
       "id": "BUG-486817a41a830769",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789846773980-36608",
+        "time": "2026-09-19T19:49:13.237Z",
+        "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+        "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+      }
     },
     "BUG-b22f3a68e2d81e56": {
       "key": "b22f3a68e2d81e56c324dc0870388f575c7791810f3ecf1d18e69a476c0655cb",
@@ -23533,11 +24008,11 @@
       "id": "BUG-b22f3a68e2d81e56",
       "firstSeen": "2026-09-16T22:26:46.819Z",
       "resolvedBy": {
-        "run": "1789837762812-24470",
-        "time": "2026-09-19T19:30:31.748Z",
-        "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-        "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-        "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+        "run": "1789846773980-36608",
+        "time": "2026-09-19T19:49:13.237Z",
+        "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+        "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
       }
     },
     "BUG-9907bf36214d2626": {
@@ -23557,11 +24032,11 @@
       "id": "BUG-9907bf36214d2626",
       "firstSeen": "2026-09-16T22:26:46.819Z",
       "resolvedBy": {
-        "run": "1789837762812-24470",
-        "time": "2026-09-19T19:30:31.748Z",
-        "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-        "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-        "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+        "run": "1789846773980-36608",
+        "time": "2026-09-19T19:49:13.237Z",
+        "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+        "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
       }
     },
     "BUG-ff99ca78e9b7751c": {
@@ -23581,11 +24056,11 @@
       "id": "BUG-ff99ca78e9b7751c",
       "firstSeen": "2026-09-16T22:26:46.819Z",
       "resolvedBy": {
-        "run": "1789837762812-24470",
-        "time": "2026-09-19T19:30:31.748Z",
-        "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-        "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-        "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+        "run": "1789846773980-36608",
+        "time": "2026-09-19T19:49:13.237Z",
+        "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+        "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
       }
     },
     "BUG-a1785746810225b1": {
@@ -23605,11 +24080,11 @@
       "id": "BUG-a1785746810225b1",
       "firstSeen": "2026-09-16T22:26:46.819Z",
       "resolvedBy": {
-        "run": "1789837762812-24470",
-        "time": "2026-09-19T19:30:31.748Z",
-        "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-        "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-        "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+        "run": "1789846773980-36608",
+        "time": "2026-09-19T19:49:13.237Z",
+        "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+        "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
       }
     },
     "BUG-ecbb8bf56a5880ea": {
@@ -23629,11 +24104,11 @@
       "id": "BUG-ecbb8bf56a5880ea",
       "firstSeen": "2026-09-16T22:26:46.819Z",
       "resolvedBy": {
-        "run": "1789837762812-24470",
-        "time": "2026-09-19T19:30:31.748Z",
-        "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-        "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-        "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+        "run": "1789846773980-36608",
+        "time": "2026-09-19T19:49:13.237Z",
+        "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+        "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
       }
     },
     "BUG-8ed8dd9ea75b3c2d": {
@@ -23977,11 +24452,11 @@
       "id": "BUG-a8d437da2ec3c1ad",
       "firstSeen": "2026-09-16T22:26:46.819Z",
       "resolvedBy": {
-        "run": "1789837762812-24470",
-        "time": "2026-09-19T19:30:31.748Z",
-        "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-        "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-        "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+        "run": "1789846773980-36608",
+        "time": "2026-09-19T19:49:13.237Z",
+        "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+        "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
       }
     },
     "BUG-df39f8ff03485a3a": {
@@ -24001,11 +24476,11 @@
       "id": "BUG-df39f8ff03485a3a",
       "firstSeen": "2026-09-16T22:26:46.819Z",
       "resolvedBy": {
-        "run": "1789837762812-24470",
-        "time": "2026-09-19T19:30:31.748Z",
-        "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-        "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-        "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+        "run": "1789846773980-36608",
+        "time": "2026-09-19T19:49:13.237Z",
+        "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+        "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
       }
     },
     "BUG-73eba4fc7574f9ef": {
@@ -24025,11 +24500,11 @@
       "id": "BUG-73eba4fc7574f9ef",
       "firstSeen": "2026-09-16T22:26:46.819Z",
       "resolvedBy": {
-        "run": "1789837762812-24470",
-        "time": "2026-09-19T19:30:31.748Z",
-        "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-        "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-        "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+        "run": "1789846773980-36608",
+        "time": "2026-09-19T19:49:13.237Z",
+        "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+        "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
       }
     },
     "BUG-01b67627f51fa50a": {
@@ -24039,7 +24514,7 @@
       "title": "E2E-API-1603 actual queue worker captures template acceptance lost acknowledgment and withdrawn source without external send @DEV-029 @TEST-SIMULATION",
       "file": "api/whatsapp-channel.spec.ts",
       "stories": ["DEV-029", "SDLC-REPAIR-016"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "error: Discovery revisions are append only\n\n  322 |     ).toBe('uncertain');\n  323 |     const withdrawn = await enqueue();\n> 324 |     await pool.query(\n      |     ^\n  325 |       \"UPDATE discovery_versions SET data=jsonb_set(data,'{status}','\\\"withdrawn\\\"'::jsonb) WHERE item_id=$1\",\n  326 |       [source.id],\n  327 |     );\n    at /Users/arpanmacmini/code/fingent360/node_modules/.pnpm/pg-pool@3.14.0_pg@8.23.0/node_modules/pg-pool/index.js:45:11\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/api/whatsapp-channel.spec.ts:324:5",
       "run": "1789837762812-24470",
       "time": "2026-09-19T19:30:31.748Z",
@@ -24047,7 +24522,14 @@
       "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json",
       "id": "BUG-01b67627f51fa50a",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789846773980-36608",
+        "time": "2026-09-19T19:49:13.237Z",
+        "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+        "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+      }
     },
     "BUG-3bbaf88a773e61fe": {
       "key": "3bbaf88a773e61fe895df75c778cb3e74ffc0ac9da5cfdc08332e60d42db2b90",
@@ -24066,11 +24548,11 @@
       "id": "BUG-3bbaf88a773e61fe",
       "firstSeen": "2026-09-16T22:26:46.819Z",
       "resolvedBy": {
-        "run": "1789837762812-24470",
-        "time": "2026-09-19T19:30:31.748Z",
-        "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-        "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-        "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+        "run": "1789846773980-36608",
+        "time": "2026-09-19T19:49:13.237Z",
+        "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+        "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
       }
     },
     "BUG-cfbe484f87bae0ab": {
@@ -24090,11 +24572,11 @@
       "id": "BUG-cfbe484f87bae0ab",
       "firstSeen": "2026-09-16T22:26:46.819Z",
       "resolvedBy": {
-        "run": "1789837762812-24470",
-        "time": "2026-09-19T19:30:31.748Z",
-        "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-        "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-        "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+        "run": "1789846773980-36608",
+        "time": "2026-09-19T19:49:13.237Z",
+        "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+        "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
       }
     },
     "BUG-a0b2a32cdb5d6430": {
@@ -24313,7 +24795,7 @@
       "title": "E2E-WEB-1542 official catalog selector builds scoped history requests and rejects oversized periods @SRC-015 @TEST-SIMULATION",
       "file": "browser/amfi-history.spec.ts",
       "stories": ["SRC-015", "SDLC-REPAIR-016"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByText('Choose a history interval of 1 to 90 calendar days.', { exact: true })\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" with timeout 10000ms\n  - waiting for getByText('Choose a history interval of 1 to 90 calendar days.', { exact: true })\n\n\n   98 |       exact: true,\n   99 |     }),\n> 100 |   ).toBeVisible();\n      |     ^\n  101 |   await page\n  102 |     .getByRole('combobox', { name: 'History mutual fund', exact: true })\n  103 |     .selectOption('');\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/amfi-history.spec.ts:100:5\nTest timeout of 30000ms exceeded.",
       "run": "1789837762812-24470",
       "time": "2026-09-19T19:30:31.748Z",
@@ -24321,7 +24803,14 @@
       "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json",
       "id": "BUG-23a32f24700f7b82",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789846773980-36608",
+        "time": "2026-09-19T19:49:13.237Z",
+        "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+        "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+      }
     },
     "BUG-a72db50e4218b4b3": {
       "key": "a72db50e4218b4b33a567e0e1afcd32ccc1fd9a2025ff1354556e8c7b895db97",
@@ -24330,7 +24819,7 @@
       "title": "E2E-WEB-1542 official catalog selector builds scoped history requests and rejects oversized periods @SRC-015 @TEST-SIMULATION",
       "file": "browser/amfi-history.spec.ts",
       "stories": ["SRC-015", "SDLC-REPAIR-016"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByText('Choose a history interval of 1 to 90 calendar days.', { exact: true })\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" with timeout 10000ms\n  - waiting for getByText('Choose a history interval of 1 to 90 calendar days.', { exact: true })\n\n\n   98 |       exact: true,\n   99 |     }),\n> 100 |   ).toBeVisible();\n      |     ^\n  101 |   await page\n  102 |     .getByRole('combobox', { name: 'History mutual fund', exact: true })\n  103 |     .selectOption('');\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/amfi-history.spec.ts:100:5",
       "run": "1789837762812-24470",
       "time": "2026-09-19T19:30:31.748Z",
@@ -24338,7 +24827,14 @@
       "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json",
       "id": "BUG-a72db50e4218b4b3",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789846773980-36608",
+        "time": "2026-09-19T19:49:13.237Z",
+        "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+        "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+      }
     },
     "BUG-8b67c3b55daf4363": {
       "key": "8b67c3b55daf436343e18bff97a7b74ef8dafc587504d137e47e61d50b0e9824",
@@ -24767,11 +25263,11 @@
       "stories": ["SRC-006", "SDLC-REPAIR-016"],
       "status": "Open",
       "details": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByRole('region', { name: 'Classification crosswalk operations', exact: true }).getByLabel('Exact provider classification', { exact: true })\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" with timeout 10000ms\n  - waiting for getByRole('region', { name: 'Classification crosswalk operations', exact: true }).getByLabel('Exact provider classification', { exact: true })\n\n\n  65 |     await expect(\n  66 |       panel.getByLabel('Exact provider classification', { exact: true }),\n> 67 |     ).toBeVisible();\n     |       ^\n  68 |     await panel\n  69 |       .getByLabel('Classification company ISIN', { exact: true })\n  70 |       .fill('INE009A01021');\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/classification-crosswalk.spec.ts:67:7",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json",
       "id": "BUG-1c18706b05336163",
       "firstSeen": "2026-09-16T22:26:46.819Z"
     },
@@ -24784,11 +25280,11 @@
       "stories": ["SRC-006", "SDLC-REPAIR-016"],
       "status": "Open",
       "details": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByRole('region', { name: 'Classification crosswalk operations', exact: true }).getByLabel('Exact provider classification', { exact: true })\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" with timeout 10000ms\n  - waiting for getByRole('region', { name: 'Classification crosswalk operations', exact: true }).getByLabel('Exact provider classification', { exact: true })\n\n\n  65 |     await expect(\n  66 |       panel.getByLabel('Exact provider classification', { exact: true }),\n> 67 |     ).toBeVisible();\n     |       ^\n  68 |     await panel\n  69 |       .getByLabel('Classification company ISIN', { exact: true })\n  70 |       .fill('INE009A01021');\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/classification-crosswalk.spec.ts:67:7",
-      "run": "1789837762812-24470",
-      "time": "2026-09-19T19:30:31.748Z",
-      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json",
       "id": "BUG-3ba161c37fd384b8",
       "firstSeen": "2026-09-16T22:26:46.819Z"
     },
@@ -24809,11 +25305,11 @@
       "id": "BUG-ea3ff24d462322e5",
       "firstSeen": "2026-09-16T22:26:46.819Z",
       "resolvedBy": {
-        "run": "1789837762812-24470",
-        "time": "2026-09-19T19:30:31.748Z",
-        "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-        "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-        "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+        "run": "1789846773980-36608",
+        "time": "2026-09-19T19:49:13.237Z",
+        "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+        "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
       }
     },
     "BUG-1626b9540b9ae70e": {
@@ -24846,7 +25342,7 @@
       "title": "E2E-WEB-1710 actual commodity upload independent review monthly reader history evidence and withdrawal @SRC-009 @TEST-SIMULATION",
       "file": "browser/commodity-benchmarks.spec.ts",
       "stories": ["SRC-009", "SDLC-REPAIR-016"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "TimeoutError: locator.click: Timeout 10000ms exceeded.\nCall log:\n  - waiting for getByRole('region', { name: 'Commodity benchmark operations' }).getByRole('button', { name: 'Publish commodity capture' })\n    - locator resolved to <button>Publish commodity capture</button>\n  - attempting click action\n    - waiting for element to be visible, enabled and stable\n    - element is visible, enabled and stable\n    - scrolling into view if needed\n    - done scrolling\n    - <h3>Capture eabfa8dd-0f5f-4815-bd19-bc0b327de183</h3> intercepts pointer events\n  - retrying click action\n    - waiting for element to be visible, enabled and stable\n    - element is visible, enabled and stable\n    - scrolling into view if needed\n    - done scrolling\n    - <li>…</li> intercepts pointer events\n  - retrying click action\n    - waiting 20ms\n    2 × waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <h3>Capture eabfa8dd-0f5f-4815-bd19-bc0b327de183</h3> intercepts pointer events\n    - retrying click action\n      - waiting 100ms\n    4 × waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <h3>Capture eabfa8dd-0f5f-4815-bd19-bc0b327de183</h3> intercepts pointer events\n    - retrying click action\n      - waiting 500ms\n      - waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <li>…</li> intercepts pointer events\n    - retrying click action\n      - waiting 500ms\n      - waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <h3>Capture eabfa8dd-0f5f-4815-bd19-bc0b327de183</h3> intercepts pointer events\n    - retrying click action\n      - waiting 500ms\n      - waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <h3>Capture eabfa8dd-0f5f-4815-bd19-bc0b327de183</h3> intercepts pointer events\n    - retrying click action\n      - waiting 500ms\n    - waiting for element to be visible, enabled and stable\n    - element is visible, enabled and stable\n    - scrolling into view if needed\n    - done scrolling\n    - <h3>Capture eabfa8dd-0f5f-4815-bd19-bc0b327de183</h3> intercepts pointer events\n  - retrying click action\n    - waiting 500ms\n    - waiting for element to be visible, enabled and stable\n    - element is visible, enabled and stable\n    - scrolling into view if needed\n    - done scrolling\n    - <li>…</li> intercepts pointer events\n  - retrying click action\n    - waiting 500ms\n    - waiting for element to be visible, enabled and stable\n    - element is visible, enabled and stable\n    - scrolling into view if needed\n    - done scrolling\n    - <h3>Capture eabfa8dd-0f5f-4815-bd19-bc0b327de183</h3> intercepts pointer events\n  - retrying click action\n    - waiting 500ms\n\n\n  51 |     await panel\n  52 |       .getByRole('button', { name: 'Publish commodity capture' })\n> 53 |       .click();\n     |        ^\n  54 |     await expect(\n  55 |       panel.getByText('publish · 2026-09-02', { exact: true }),\n  56 |     ).toBeVisible();\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/commodity-benchmarks.spec.ts:53:8",
       "run": "1789837762812-24470",
       "time": "2026-09-19T19:30:31.748Z",
@@ -24854,7 +25350,14 @@
       "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json",
       "id": "BUG-c150f07b567893c2",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789846773980-36608",
+        "time": "2026-09-19T19:49:13.237Z",
+        "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+        "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+      }
     },
     "BUG-7861f6b0fecfccf0": {
       "key": "7861f6b0fecfccf0c8b59119b4ae057733b22d77ac6ff253b60bfbbcd257b67b",
@@ -25124,7 +25627,7 @@
       "title": "E2E-WEB-1672 actual CPI capture and independent Operations review preserve source confirmation and withdrawal @EVENT-SCENARIOS-001 @TEST-SIMULATION",
       "file": "browser/cpi-expectations.spec.ts",
       "stories": ["EVENT-SCENARIOS-001", "SDLC-REPAIR-016"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(locator).toContainText(expected) failed\n\nLocator: getByRole('region', { name: 'CPI expectation operations' }).getByRole('alert')\nExpected substring: \"Another named operator\"\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toContainText\" with timeout 10000ms\n  - waiting for getByRole('region', { name: 'CPI expectation operations' }).getByRole('alert')\n\n\n  114 |       .getByRole('button', { name: 'Publish expectation', exact: true })\n  115 |       .click();\n> 116 |     await expect(region.getByRole('alert')).toContainText(\n      |                                             ^\n  117 |       'Another named operator',\n  118 |     );\n  119 |     await sourceOpsBrowser(\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/cpi-expectations.spec.ts:116:45",
       "run": "1789837762812-24470",
       "time": "2026-09-19T19:30:31.748Z",
@@ -25132,7 +25635,14 @@
       "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json",
       "id": "BUG-4572812e3a37ab25",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789846773980-36608",
+        "time": "2026-09-19T19:49:13.237Z",
+        "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+        "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+      }
     },
     "BUG-4aec0f5744cedda1": {
       "key": "4aec0f5744cedda1e50c4f3cc9544bcb10c50b22b4c0972860ec845627ab2b2f",
@@ -25141,7 +25651,7 @@
       "title": "E2E-WEB-1672 actual CPI capture and independent Operations review preserve source confirmation and withdrawal @EVENT-SCENARIOS-001 @TEST-SIMULATION",
       "file": "browser/cpi-expectations.spec.ts",
       "stories": ["EVENT-SCENARIOS-001", "SDLC-REPAIR-016"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(locator).toContainText(expected) failed\n\nLocator: getByRole('region', { name: 'CPI expectation operations' }).getByRole('alert')\nExpected substring: \"Another named operator\"\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toContainText\" with timeout 10000ms\n  - waiting for getByRole('region', { name: 'CPI expectation operations' }).getByRole('alert')\n\n\n  114 |       .getByRole('button', { name: 'Publish expectation', exact: true })\n  115 |       .click();\n> 116 |     await expect(region.getByRole('alert')).toContainText(\n      |                                             ^\n  117 |       'Another named operator',\n  118 |     );\n  119 |     await sourceOpsBrowser(\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/cpi-expectations.spec.ts:116:45",
       "run": "1789837762812-24470",
       "time": "2026-09-19T19:30:31.748Z",
@@ -25149,7 +25659,14 @@
       "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json",
       "id": "BUG-4aec0f5744cedda1",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789846773980-36608",
+        "time": "2026-09-19T19:49:13.237Z",
+        "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+        "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+      }
     },
     "BUG-9daf62fbb26d5023": {
       "key": "9daf62fbb26d502330af8f0cffd099a902cbad361f3652934640be05f14cf94b",
@@ -26100,7 +26617,7 @@
       "title": "E2E-WEB-1622 actual SPF capture and independent Operations review preserve source confirmation and withdrawal @EVENT-SCENARIOS-001 @TEST-SIMULATION",
       "file": "browser/gdp-expectations.spec.ts",
       "stories": ["EVENT-SCENARIOS-001", "SDLC-REPAIR-016"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(locator).toContainText(expected) failed\n\nLocator: getByRole('region', { name: 'GDP expectation operations' }).getByRole('alert')\nExpected substring: \"Another named operator\"\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toContainText\" with timeout 10000ms\n  - waiting for getByRole('region', { name: 'GDP expectation operations' }).getByRole('alert')\n\n\n  115 |       .getByRole('button', { name: 'Publish expectation', exact: true })\n  116 |       .click();\n> 117 |     await expect(region.getByRole('alert')).toContainText(\n      |                                             ^\n  118 |       'Another named operator',\n  119 |     );\n  120 |     await sourceOpsBrowser(\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/gdp-expectations.spec.ts:117:45",
       "run": "1789837762812-24470",
       "time": "2026-09-19T19:30:31.748Z",
@@ -26108,7 +26625,14 @@
       "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json",
       "id": "BUG-0775c87b41b8e5ee",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789846773980-36608",
+        "time": "2026-09-19T19:49:13.237Z",
+        "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+        "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+      }
     },
     "BUG-5c78c458827127ff": {
       "key": "5c78c458827127ffe09a2b05d356b78058263179ba373374143f884bfced9c50",
@@ -26117,7 +26641,7 @@
       "title": "E2E-WEB-1622 actual SPF capture and independent Operations review preserve source confirmation and withdrawal @EVENT-SCENARIOS-001 @TEST-SIMULATION",
       "file": "browser/gdp-expectations.spec.ts",
       "stories": ["EVENT-SCENARIOS-001", "SDLC-REPAIR-016"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(locator).toContainText(expected) failed\n\nLocator: getByRole('region', { name: 'GDP expectation operations' }).getByRole('alert')\nExpected substring: \"Another named operator\"\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toContainText\" with timeout 10000ms\n  - waiting for getByRole('region', { name: 'GDP expectation operations' }).getByRole('alert')\n\n\n  115 |       .getByRole('button', { name: 'Publish expectation', exact: true })\n  116 |       .click();\n> 117 |     await expect(region.getByRole('alert')).toContainText(\n      |                                             ^\n  118 |       'Another named operator',\n  119 |     );\n  120 |     await sourceOpsBrowser(\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/gdp-expectations.spec.ts:117:45",
       "run": "1789837762812-24470",
       "time": "2026-09-19T19:30:31.748Z",
@@ -26125,7 +26649,14 @@
       "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json",
       "id": "BUG-5c78c458827127ff",
-      "firstSeen": "2026-09-16T22:26:46.819Z"
+      "firstSeen": "2026-09-16T22:26:46.819Z",
+      "resolvedBy": {
+        "run": "1789846773980-36608",
+        "time": "2026-09-19T19:49:13.237Z",
+        "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+        "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+      }
     },
     "BUG-016262e90f77e313": {
       "key": "016262e90f77e313d348c47034d6b00d4fcd67f1b4dc465d400f4998b8c0e1e4",
@@ -28389,11 +28920,11 @@
       "id": "BUG-bd2759d97a22fdea",
       "firstSeen": "2026-09-18T05:00:49.248Z",
       "resolvedBy": {
-        "run": "1789837762812-24470",
-        "time": "2026-09-19T19:30:31.748Z",
-        "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-        "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
-        "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json"
+        "run": "1789846773980-36608",
+        "time": "2026-09-19T19:49:13.237Z",
+        "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+        "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
       }
     },
     "BUG-2aace0d599078a77": {
@@ -28403,7 +28934,7 @@
       "title": "E2E-WEB-1480 actual reviewed GDP vintages expose original and captured times with keyboard detail and retry @RESEARCH-AUTO-002 @TEST-SIMULATION",
       "file": "browser/bea-gdp-original.spec.ts",
       "stories": ["RESEARCH-AUTO-002"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(locator).toContainText(expected) failed\n\nLocator: getByRole('region', { name: 'Original GDP vintages', exact: true }).getByRole('alert')\nExpected substring: \"Synthetic vintage storage failure\"\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toContainText\" with timeout 10000ms\n  - waiting for getByRole('region', { name: 'Original GDP vintages', exact: true }).getByRole('alert')\n\n\n  44 |   );\n  45 |   await page.reload();\n> 46 |   await expect(region.getByRole('alert')).toContainText(\n     |                                           ^\n  47 |     'Synthetic vintage storage failure',\n  48 |   );\n  49 |   await region.getByRole('button', { name: 'Retry GDP vintages' }).click();\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/bea-gdp-original.spec.ts:46:43\nTest timeout of 30000ms exceeded.",
       "run": "1789837762812-24470",
       "time": "2026-09-19T19:30:31.748Z",
@@ -28411,7 +28942,14 @@
       "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json",
       "id": "BUG-2aace0d599078a77",
-      "firstSeen": "2026-09-18T05:00:49.248Z"
+      "firstSeen": "2026-09-18T05:00:49.248Z",
+      "resolvedBy": {
+        "run": "1789846773980-36608",
+        "time": "2026-09-19T19:49:13.237Z",
+        "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+        "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+      }
     },
     "BUG-110a62947adb1de2": {
       "key": "110a62947adb1de2e5006abd00d186619091bbff708e6632d242cb12bc3f0ca3",
@@ -28787,14 +29325,20 @@
       "title": "pnpm check",
       "file": "",
       "stories": [],
-      "status": "Open",
+      "status": "Resolved",
       "details": " { sourceId: string; enabled: boolean; intervalMinutes: number; nextAt: string; lastStatus: \"never\" | ... 2 more ... | \"failed\"; lastRunId: string | null; message: string; rightsEvidence?: string | undefined; }[]...'.\napps/api/src/research-auto.ts(402,5): error TS1206: Decorators are not valid here.\napps/api/src/research-auto.ts(403,5): error TS1206: Decorators are not valid here.\napps/api/src/research-auto.ts(404,5): error TS1206: Decorators are not valid here.\napps/api/src/research-auto.ts(418,5): error TS1206: Decorators are not valid here.\napps/api/src/research-auto.ts(420,3): error TS1241: Unable to resolve signature of method decorator when called as an expression.\n  The runtime will invoke the decorator with 2 arguments, but the decorator expects 3.\napps/api/src/research-auto.ts(420,4): error TS1270: Decorator function return type 'void | TypedPropertyDescriptor<unknown>' is not assignable to type 'void | ((edition?: string | undefined) => Promise<{ sourceId: \"rbi-mpc-calendar\"; sourceUrl: \"https://www.rbi.org.in/Scripts/BS_PressReleaseDisplay.aspx?prid=62422\"; version: \"rbi-mpc-html-v1\"; edition: string | null; retrievedAt: string | null; data: { ...; } | null; editions: { ...; }[]; }>)'.\n  Type 'TypedPropertyDescriptor<unknown>' is not assignable to type 'void | ((edition?: string | undefined) => Promise<{ sourceId: \"rbi-mpc-calendar\"; sourceUrl: \"https://www.rbi.org.in/Scripts/BS_PressReleaseDisplay.aspx?prid=62422\"; version: \"rbi-mpc-html-v1\"; edition: string | null; retrievedAt: string | null; data: { ...; } | null; editions: { ...; }[]; }>)'.\napps/api/src/research-auto.ts(420,27): error TS1206: Decorators are not valid here.\napps/api/src/research-auto.ts(423,3): error TS1241: Unable to resolve signature of method decorator when called as an expression.\n  The runtime will invoke the decorator with 2 arguments, but the decorator expects 3.\napps/api/src/research-auto.ts(423,4): error TS1270: Decorator function return type 'void | TypedPropertyDescriptor<unknown>' is not assignable to type 'void | ((edition?: string | undefined) => Promise<{ sourceId: \"fomc-calendar\"; sourceUrl: \"https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm\"; version: \"fomc-calendar-html-v1\"; ... 4 more ...; editions: { ...; }[]; }>)'.\n  Type 'TypedPropertyDescriptor<unknown>' is not assignable to type 'void | ((edition?: string | undefined) => Promise<{ sourceId: \"fomc-calendar\"; sourceUrl: \"https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm\"; version: \"fomc-calendar-html-v1\"; ... 4 more ...; editions: { ...; }[]; }>)'.\napps/api/src/research-auto.ts(423,33): error TS1206: Decorators are not valid here.\napps/api/src/research-auto.ts(426,3): error TS1241: Unable to resolve signature of method decorator when called as an expression.\n  The runtime will invoke the decorator with 2 arguments, but the decorator expects 3.\napps/api/src/research-auto.ts(426,4): error TS1270: Decorator function return type 'void | TypedPropertyDescriptor<unknown>' is not assignable to type 'void | ((edition?: string | undefined, source?: string | undefined) => Promise<{ sourceId: \"bea-calendar\" | \"bls-calendar\"; edition: string | null; retrievedAt: string | null; sourceUrl: \"https://www.bea.gov/news/schedule/ics/online-calendar-subscription.ics\" | \"https://www.bls.gov/schedule/news_release/bls.ics\"; ba...'.\n  Type 'TypedPropertyDescriptor<unknown>' is not assignable to type 'void | ((edition?: string | undefined, source?: string | undefined) => Promise<{ sourceId: \"bea-calendar\" | \"bls-calendar\"; edition: string | null; retrievedAt: string | null; sourceUrl: \"https://www.bea.gov/news/schedule/ics/online-calendar-subscription.ics\" | \"https://www.bls.gov/schedule/news_release/bls.ics\"; ba...'.\napps/api/src/research-auto.ts(427,5): error TS1206: Decorators are not valid here.\napps/api/src/research-auto.ts(428,5): error TS1206: Decorators are not valid here.\n[ELIFECYCLE] Command failed with exit code 2.\n[ELIFECYCLE] Command failed with exit code 2.\n",
       "run": "1789846657524-36112",
       "time": "2026-09-19T19:38:19.086Z",
       "fingerprint": "6ca5166dcee9739918b4959988a05fbc4d6d61057c9276c83ad511e8c4070161",
       "log": "artifacts/sdlc/1789846657524-36112/02-pnpm-check.log",
       "id": "BUG-a47611ab64789eb8",
-      "firstSeen": "2026-09-18T05:33:44.718Z"
+      "firstSeen": "2026-09-18T05:33:44.718Z",
+      "resolvedBy": {
+        "run": "1789846773980-36608",
+        "time": "2026-09-19T19:40:28.598Z",
+        "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+        "log": "artifacts/sdlc/1789846773980-36608/02-pnpm-check.log"
+      }
     },
     "BUG-a0826694511b6915": {
       "key": "a0826694511b6915fe7d41d8f1dbf13d1c3c75dd8003b30e25336b0c639002b6",
@@ -29739,7 +30283,7 @@
       "title": "E2E-API-308 report retry cannot resume after reset while a job row was unavailable @AUTH-WAIT-001",
       "file": "api/auth-wait.spec.ts",
       "stories": ["AUTH-WAIT-001"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: \"succeeded\"\nReceived: \"queued\"\n\nCall Log:\n- Timeout 20000ms exceeded while waiting on the predicate\n\n  452 |     expect(result.version).toBe(current.version + 1);\n  453 |     if (action === 'retry')\n> 454 |       await expect\n      |       ^\n  455 |         .poll(\n  456 |           async () =>\n  457 |             ReportJobSchema.parse(\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/api/auth-wait.spec.ts:454:7",
       "run": "1789837762812-24470",
       "time": "2026-09-19T19:30:31.748Z",
@@ -29747,7 +30291,14 @@
       "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json",
       "id": "BUG-113d641d05625c43",
-      "firstSeen": "2026-09-19T19:30:31.748Z"
+      "firstSeen": "2026-09-19T19:30:31.748Z",
+      "resolvedBy": {
+        "run": "1789846773980-36608",
+        "time": "2026-09-19T19:49:13.237Z",
+        "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+        "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+      }
     },
     "BUG-d1654bb405862931": {
       "key": "d1654bb405862931a7fb0d7432952ecd6c71b1c37e8acd2f1c1ef901725ebd7e",
@@ -29756,7 +30307,7 @@
       "title": "E2E-API-1940 disabled contributor gate actual retention independent review missing cells history and revocation @SRC-009 @TEST-SIMULATION",
       "file": "api/eia-spot.spec.ts",
       "stories": ["SRC-009"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "ZodError: [\n  {\n    \"expected\": \"object\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"receipt\"\n    ],\n    \"message\": \"Invalid input: expected object, received undefined\"\n  },\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"reviewedAt\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"array\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"editions\"\n    ],\n    \"message\": \"Invalid input: expected array, received undefined\"\n  },\n  {\n    \"code\": \"unrecognized_keys\",\n    \"keys\": [\n      \"message\",\n      \"error\",\n      \"statusCode\"\n    ],\n    \"path\": [],\n    \"message\": \"Unrecognized keys: \\\"message\\\", \\\"error\\\", \\\"statusCode\\\"\"\n  }\n]\n\n  63 |       ).status(),\n  64 |     ).toBe(201);\n> 65 |     const view = EiaSpotPublicSchema.parse(\n     |                                      ^\n  66 |       await (await request.get('/api/v1/eia-spot')).json(),\n  67 |     );\n  68 |     expect(view.receipt.points.filter((p) => p.value === null)).toHaveLength(2);\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/api/eia-spot.spec.ts:65:38",
       "run": "1789837762812-24470",
       "time": "2026-09-19T19:30:31.748Z",
@@ -29764,8 +30315,153 @@
       "log": "artifacts/sdlc/1789837762812-24470/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-19T17-25-29-087Z-25373/results.json",
       "id": "BUG-d1654bb405862931",
-      "firstSeen": "2026-09-19T19:30:31.748Z"
+      "firstSeen": "2026-09-19T19:30:31.748Z",
+      "resolvedBy": {
+        "run": "1789846773980-36608",
+        "time": "2026-09-19T19:49:13.237Z",
+        "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+        "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json"
+      }
+    },
+    "BUG-9e7a6c07e6f92817": {
+      "key": "9e7a6c07e6f928173ce6a156ce297ff99aeb45a718e0544a114c45f375449c05",
+      "caseId": "E2E-API-1120",
+      "project": "api",
+      "title": "E2E-API-1120 actual query assistance leaves transcripts absent while opted-in simulated provider fallback retains encrypted raw and final outcome @EVAL-LINEAGE-001 @TEST-SIMULATION",
+      "file": "api/private-ai-history-lifecycle.spec.ts",
+      "stories": ["EVAL-LINEAGE-001", "DEV-017"],
+      "status": "Open",
+      "details": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: true\nReceived: false\n\n  373 |   expect(\n  374 |     fallback.result.suggestions.some((v) => v.text === authGoal.name),\n> 375 |   ).toBe(true);\n      |     ^\n  376 |   const saved = await history(request);\n  377 |   expect(saved.entries).toHaveLength(1);\n  378 |   expect(saved.entries[0]).toMatchObject({\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/api/private-ai-history-lifecycle.spec.ts:375:5",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json",
+      "id": "BUG-9e7a6c07e6f92817",
+      "firstSeen": "2026-09-19T19:49:13.237Z"
+    },
+    "BUG-009a3dd57d58b56d": {
+      "key": "009a3dd57d58b56d307b72ee23c7d133f455612780bd8bccefc563cde55ced0e",
+      "caseId": "E2E-WEB-1295",
+      "project": "desktop",
+      "title": "E2E-WEB-1295 released policy keyboard comparison retains sources and no-action through lost-response replay reload and withdrawal @DEV-019 @ACTION-CENTRE-001 @TEST-SIMULATION",
+      "file": "browser/action-centre-policy.spec.ts",
+      "stories": ["DEV-019", "ACTION-CENTRE-001"],
+      "status": "Open",
+      "details": "Error: expect(locator).toHaveValue(expected) failed\n\nLocator:  getByRole('region', { name: 'Educational action centre', exact: true }).getByLabel('Released educational policy', { exact: true })\nExpected: \"eea68238-cc09-42e2-83cb-5fdf46a9b9f2\"\nReceived: \"\"\nTimeout:  10000ms\n\nCall log:\n  - Expect \"toHaveValue\" with timeout 10000ms\n  - waiting for getByRole('region', { name: 'Educational action centre', exact: true }).getByLabel('Released educational policy', { exact: true })\n    14 × locator resolved to <select aria-label=\"Released educational policy\">…</select>\n       - unexpected value \"\"\n\n\n  53 |   await policy.press('ArrowDown');\n  54 |   await policy.press('Tab');\n> 55 |   await expect(policy).toHaveValue(policyId);\n     |                        ^\n  56 |   await panel\n  57 |     .getByLabel('Saved holding', { exact: true })\n  58 |     .selectOption('INE002A01018');\n    at enterComparison (/Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/action-centre-policy.spec.ts:55:24)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/action-centre-policy.spec.ts:150:35",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json",
+      "id": "BUG-009a3dd57d58b56d",
+      "firstSeen": "2026-09-19T19:49:13.237Z"
+    },
+    "BUG-084ea181539ddb1a": {
+      "key": "084ea181539ddb1a4896251ed1274b9a6cd04b242b01739ffdaeaaef79a98ce9",
+      "caseId": "E2E-WEB-1296",
+      "project": "desktop",
+      "title": "E2E-WEB-1296 real session revocation clears policy review and saved private comparisons before recovery @DEV-019 @ACTION-CENTRE-001 @TEST-SIMULATION",
+      "file": "browser/action-centre-policy.spec.ts",
+      "stories": ["DEV-019", "ACTION-CENTRE-001"],
+      "status": "Open",
+      "details": "Error: expect(locator).toHaveValue(expected) failed\n\nLocator:  getByRole('region', { name: 'Educational action centre', exact: true }).getByLabel('Released educational policy', { exact: true })\nExpected: \"bb5d3ef8-86ab-4bf2-8837-95c7225a6968\"\nReceived: \"\"\nTimeout:  10000ms\n\nCall log:\n  - Expect \"toHaveValue\" with timeout 10000ms\n  - waiting for getByRole('region', { name: 'Educational action centre', exact: true }).getByLabel('Released educational policy', { exact: true })\n    14 × locator resolved to <select aria-label=\"Released educational policy\">…</select>\n       - unexpected value \"\"\n\n\n  53 |   await policy.press('ArrowDown');\n  54 |   await policy.press('Tab');\n> 55 |   await expect(policy).toHaveValue(policyId);\n     |                        ^\n  56 |   await panel\n  57 |     .getByLabel('Saved holding', { exact: true })\n  58 |     .selectOption('INE002A01018');\n    at enterComparison (/Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/action-centre-policy.spec.ts:55:24)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/action-centre-policy.spec.ts:295:37",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json",
+      "id": "BUG-084ea181539ddb1a",
+      "firstSeen": "2026-09-19T19:49:13.237Z"
+    },
+    "BUG-8dd1f7a289b3a610": {
+      "key": "8dd1f7a289b3a6109c35a45647a5020ff04e50c7b9fc42c5e3d38b4b427947c8",
+      "caseId": "E2E-WEB-1297",
+      "project": "desktop",
+      "title": "E2E-WEB-1297 changed source edition rejects stale policy preview and removes its selection @DEV-019 @ACTION-CENTRE-001 @TEST-SIMULATION",
+      "file": "browser/action-centre-policy.spec.ts",
+      "stories": ["DEV-019", "ACTION-CENTRE-001"],
+      "status": "Open",
+      "details": "Error: expect(locator).toHaveValue(expected) failed\n\nLocator:  getByRole('region', { name: 'Educational action centre', exact: true }).getByLabel('Released educational policy', { exact: true })\nExpected: \"2250b6b4-5217-40a9-927f-31ba56334a81\"\nReceived: \"\"\nTimeout:  10000ms\n\nCall log:\n  - Expect \"toHaveValue\" with timeout 10000ms\n  - waiting for getByRole('region', { name: 'Educational action centre', exact: true }).getByLabel('Released educational policy', { exact: true })\n    14 × locator resolved to <select aria-label=\"Released educational policy\">…</select>\n       - unexpected value \"\"\n\n\n  53 |   await policy.press('ArrowDown');\n  54 |   await policy.press('Tab');\n> 55 |   await expect(policy).toHaveValue(policyId);\n     |                        ^\n  56 |   await panel\n  57 |     .getByLabel('Saved holding', { exact: true })\n  58 |     .selectOption('INE002A01018');\n    at enterComparison (/Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/action-centre-policy.spec.ts:55:24)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/action-centre-policy.spec.ts:345:29",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json",
+      "id": "BUG-8dd1f7a289b3a610",
+      "firstSeen": "2026-09-19T19:49:13.237Z"
+    },
+    "BUG-04066f3cf8c676df": {
+      "key": "04066f3cf8c676df0c690d285c7def4a9eeae2b33d886abaff7842fcde6e848b",
+      "caseId": "E2E-WEB-137",
+      "project": "desktop",
+      "title": "E2E-WEB-137 explicit new-reading admission preserves story identity keyboard focus and complete cursor collection @UX-002C @TEST-SIMULATION",
+      "file": "browser/discovery-updates.spec.ts",
+      "stories": ["UX-002C"],
+      "status": "Open",
+      "details": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByText('Reading checked. No new items were added.', { exact: true })\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" with timeout 10000ms\n  - waiting for getByText('Reading checked. No new items were added.', { exact: true })\n\n\n  68 |       exact: true,\n  69 |     }),\n> 70 |   ).toBeVisible();\n     |     ^\n  71 |   await expect(apply).toHaveCount(0);\n  72 |   // A second publication is staged, then a real withdrawal occurs before Apply.\n  73 |   await f.publish();\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/discovery-updates.spec.ts:70:5\nTest timeout of 30000ms exceeded.",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json",
+      "id": "BUG-04066f3cf8c676df",
+      "firstSeen": "2026-09-19T19:49:13.237Z"
+    },
+    "BUG-872a2302cd32aba1": {
+      "key": "872a2302cd32aba177996b6ed161cd89dd1fa9b3eea596e0c3785ffd4814ee88",
+      "caseId": "E2E-WEB-137",
+      "project": "mobile",
+      "title": "E2E-WEB-137 explicit new-reading admission preserves story identity keyboard focus and complete cursor collection @UX-002C @TEST-SIMULATION",
+      "file": "browser/discovery-updates.spec.ts",
+      "stories": ["UX-002C"],
+      "status": "Open",
+      "details": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByText('Reading checked. No new items were added.', { exact: true })\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" with timeout 10000ms\n  - waiting for getByText('Reading checked. No new items were added.', { exact: true })\n\n\n  68 |       exact: true,\n  69 |     }),\n> 70 |   ).toBeVisible();\n     |     ^\n  71 |   await expect(apply).toHaveCount(0);\n  72 |   // A second publication is staged, then a real withdrawal occurs before Apply.\n  73 |   await f.publish();\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/discovery-updates.spec.ts:70:5",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json",
+      "id": "BUG-872a2302cd32aba1",
+      "firstSeen": "2026-09-19T19:49:13.237Z"
+    },
+    "BUG-8e4d007ab8358c99": {
+      "key": "8e4d007ab8358c99e50f6805b2a663ebcb1d9b62934508885632b47cd25475be",
+      "caseId": "E2E-WEB-1118",
+      "project": "mobile",
+      "title": "E2E-WEB-1118 actual evaluation inspector filters retries exports retained evidence and withholds withdrawn content with keyboard navigation @EVAL-LINEAGE-001 @TEST-SIMULATION",
+      "file": "browser/eval-lineage-operations.spec.ts",
+      "stories": ["EVAL-LINEAGE-001", "FEEDBACK-001", "DEV-017"],
+      "status": "Open",
+      "details": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: true\nReceived: false\n\nCall Log:\n- Timeout 10000ms exceeded while waiting on the predicate\n\n  34 | }\n  35 | async function contained(region: Locator) {\n> 36 |   await expect\n     |   ^\n  37 |     .poll(() =>\n  38 |       region.evaluate((element) => {\n  39 |         const box = element.getBoundingClientRect();\n    at contained (/Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/eval-lineage-operations.spec.ts:36:3)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/eval-lineage-operations.spec.ts:152:3",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json",
+      "id": "BUG-8e4d007ab8358c99",
+      "firstSeen": "2026-09-19T19:49:13.237Z"
+    },
+    "BUG-4053be5c496faf9b": {
+      "key": "4053be5c496faf9b5643bf0977587949c70dcb71c8b39988023698d122866402",
+      "caseId": "E2E-WEB-640",
+      "project": "desktop",
+      "title": "E2E-WEB-640 named independent review recovers a lost committed approval receipt @NAMED-OPERATORS-001",
+      "file": "browser/named-operators.spec.ts",
+      "stories": ["NAMED-OPERATORS-001", "DEV-017"],
+      "status": "Open",
+      "details": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: true\nReceived: false\n\n  34 |       () => document.documentElement.scrollWidth <= window.innerWidth,\n  35 |     ),\n> 36 |   ).toBe(true);\n     |     ^\n  37 |   const bounds = await region.boundingBox();\n  38 |   expect(bounds).not.toBeNull();\n  39 |   expect(bounds!.x).toBeGreaterThanOrEqual(0);\n    at captureReviewedLayout (/Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/named-operators.spec.ts:36:5)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/named-operators.spec.ts:219:3",
+      "run": "1789846773980-36608",
+      "time": "2026-09-19T19:49:13.237Z",
+      "fingerprint": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75",
+      "log": "artifacts/sdlc/1789846773980-36608/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T19-40-29-161Z-37323/results.json",
+      "id": "BUG-4053be5c496faf9b",
+      "firstSeen": "2026-09-19T19:49:13.237Z"
     }
   },
-  "gates": {}
+  "gates": {
+    "check": "b02fcdad78259ad0548307bf4c3fd4b87ecb64d37749c2c96e6bb23d2ed19d75"
+  }
 }

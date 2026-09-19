@@ -63,13 +63,19 @@ test('E2E-WEB-1360 independent crosswalk reviewer inspects actual label publishe
       })
       .click();
     await expect(
-      panel.getByLabel('Exact provider classification', { exact: true }),
+      panel.getByRole('combobox', {
+        name: 'Exact provider classification',
+        exact: true,
+      }),
     ).toBeVisible();
     await panel
       .getByLabel('Classification company ISIN', { exact: true })
       .fill('INE009A01021');
     await expect(
-      panel.getByLabel('Exact provider classification', { exact: true }),
+      panel.getByRole('combobox', {
+        name: 'Exact provider classification',
+        exact: true,
+      }),
     ).toHaveCount(0);
     await expect(
       panel.getByRole('button', { name: 'Save crosswalk draft', exact: true }),

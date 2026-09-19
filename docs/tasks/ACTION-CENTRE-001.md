@@ -1,6 +1,6 @@
 # ACTION-CENTRE-001 — Deterministic educational action comparison and suitability constraints
 
-- **Status:** Implementation complete; validation pending
+- **Status:** Needs repair
 - **Implemented / recorded:** Versioned educational sell/FIFO/buy/rebalance comparisons, materiality and suitability guards, no-action baseline, independently released policy bounds, restricted source-documented disposal tax plus reviewed tax-input fallback, encrypted immutable receipts, API/web/Android-shared/offline workflows and authored tests.
 - **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
 - **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
@@ -64,5 +64,11 @@ Current completion boundary: [supported policy, explicit exclusions and manual t
 
 ## Automated validation
 
-Blocked — workflow failure. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789846657524-36112.
+Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789846773980-36608.
 <!-- sdlc-validation:end -->
+
+## Focused acceptance repair — 20 September 2026
+
+WEB1295/1296/1297 pass mobile but desktop native select did not commit Home/ArrowDown before Tab. Explicitly open/select/confirm desktop popup; preserve passing mobile sequence, full policy/source/replay/stale-source assertions and actual keyboard navigation.
+
+Evidence: connected run2026-09-19T19-40-29-161Z-37323 completed76 passes and10 failures. Repair authored; subsequent validation pending. User explicitly authorized agent execution for this closure pass. Reuse the existing specification and full acceptance matrix; no dependencies or migrations added.

@@ -9,6 +9,15 @@ test('E2E-WEB-137 explicit new-reading admission preserves story identity keyboa
 }, testInfo) => {
   test.setTimeout(120000);
   const f = await discoveryUpdates(request, feedbackSandbox);
+  const privateCursorRequests: string[] = [];
+  page.on('request', (request) => {
+    const url = new URL(request.url());
+    if (
+      url.pathname === '/api/v1/account/library/feed' &&
+      url.searchParams.has('cursor')
+    )
+      privateCursorRequests.push(url.pathname);
+  });
   await page.route('**/api/v1/discovery/**', (route) => {
     const url = new URL(route.request().url());
     return route.continue({
@@ -68,6 +77,10 @@ test('E2E-WEB-137 explicit new-reading admission preserves story identity keyboa
       exact: true,
     }),
   ).toBeVisible();
+  // All pages in this signed-out refresh use the public cursor namespace.
+  // The first page may probe account admission, but its public continuation
+  // must never be sent to the private cursor decoder.
+  expect(privateCursorRequests).toEqual([]);
   await expect(apply).toHaveCount(0);
   // A second publication is staged, then a real withdrawal occurs before Apply.
   await f.publish();

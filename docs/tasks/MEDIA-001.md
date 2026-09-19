@@ -43,3 +43,10 @@ The required API, browser-project and offline case IDs are now explicit in [acce
 Remaining gates:
 
 - Save documented configured-provider metadata/fallback acceptance and physical playback/narrow-transcript visual review. API160/WEB160 cover connected preparation/review/withdrawal and browser decode, not live-provider or physical-device acceptance.
+
+<!-- sdlc-validation:start -->
+
+## Automated validation
+
+Partial — required cases not run. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789846773980-36608.
+<!-- sdlc-validation:end -->

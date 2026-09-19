@@ -1,111 +1,119 @@
 # Story validation
 
-Latest SDLC invocation: 1789846657524-36112. Only actual test receipts count.
+Latest SDLC invocation: 1789846773980-36608. Only actual test receipts count.
 
 Automated acceptance is separate from implementation, live-source permission and physical-device acceptance.
 
-- [ACCOUNT-001](../tasks/ACCOUNT-001.md): **Blocked — workflow failure**.
-- [ACTION-CENTRE-001](../tasks/ACTION-CENTRE-001.md): **Blocked — workflow failure**.
-- [ALERT-001](../tasks/ALERT-001.md): **Blocked — workflow failure**.
-- [ALERT-002](../tasks/ALERT-002.md): **Blocked — workflow failure**.
-- [ALLOCATIONS-001](../tasks/ALLOCATIONS-001.md): **Blocked — workflow failure**.
-- [ANDROID-001](../tasks/ANDROID-001.md): **Blocked — workflow failure**.
-- [ASSIST-001](../tasks/ASSIST-001.md): **Blocked — workflow failure**.
-- [AUTH-WAIT-001](../tasks/AUTH-WAIT-001.md): **Failed — unresolved bug**.
-- [BEA-001](../tasks/BEA-001.md): **Blocked — workflow failure**.
-- [BEA-QUARANTINE-001](../tasks/BEA-QUARANTINE-001.md): **Blocked — workflow failure**.
-- [BROKER-DIALECTS-001](../tasks/BROKER-DIALECTS-001.md): **Blocked — workflow failure**.
-- [BROKER-PARSERS-002](../tasks/BROKER-PARSERS-002.md): **Blocked — workflow failure**.
-- [BUG-002](../tasks/BUG-002.md): **Blocked — workflow failure**.
-- [CONNECTION-REVIEWS-001](../tasks/CONNECTION-REVIEWS-001.md): **Blocked — workflow failure**.
-- [CONSENT-LIFECYCLE-001](../tasks/CONSENT-LIFECYCLE-001.md): **Blocked — workflow failure**.
-- [DATA-001](../tasks/DATA-001.md): **Blocked — workflow failure**.
-- [DB-LEAST-PRIVILEGE-001](../tasks/DB-LEAST-PRIVILEGE-001.md): **Blocked — workflow failure**.
-- [DEV-006](../tasks/DEV-006.md): **Blocked — workflow failure**.
-- [DEV-010](../tasks/DEV-010.md): **Blocked — workflow failure**.
-- [DEV-015](../tasks/DEV-015.md): **Blocked — workflow failure**.
-- [DEV-016](../tasks/DEV-016.md): **Blocked — workflow failure**.
-- [DEV-017](../tasks/DEV-017.md): **Blocked — workflow failure**.
-- [DEV-018](../tasks/DEV-018.md): **Failed — unresolved bug**.
-- [DEV-021](../tasks/DEV-021.md): **Blocked — workflow failure**.
-- [DEV-022](../tasks/DEV-022.md): **Blocked — workflow failure**.
-- [DEV-028](../tasks/DEV-028.md): **Blocked — workflow failure**.
-- [DEV-029](../tasks/DEV-029.md): **Failed — unresolved bug**.
-- [ECB-FX-001](../tasks/ECB-FX-001.md): **Blocked — workflow failure**.
-- [ECB-RATES-001](../tasks/ECB-RATES-001.md): **Blocked — workflow failure**.
-- [EIA-BENCHMARKS-001](../tasks/EIA-BENCHMARKS-001.md): **Blocked — workflow failure**.
-- [EQUITY-COVERAGE-001](../tasks/EQUITY-COVERAGE-001.md): **Blocked — workflow failure**.
-- [EVAL-LINEAGE-001](../tasks/EVAL-LINEAGE-001.md): **Blocked — workflow failure**.
-- [EVENT-EXTRACTION-001](../tasks/EVENT-EXTRACTION-001.md): **Blocked — workflow failure**.
-- [EVENT-LINEAGE-001](../tasks/EVENT-LINEAGE-001.md): **Blocked — workflow failure**.
-- [EVENT-REVIEW-001](../tasks/EVENT-REVIEW-001.md): **Blocked — workflow failure**.
-- [EVENT-SCENARIOS-001](../tasks/EVENT-SCENARIOS-001.md): **Failed — unresolved bug**.
-- [EVIDENCE-LAYERS-001](../tasks/EVIDENCE-LAYERS-001.md): **Blocked — workflow failure**.
-- [EVIDENCE-LINKS-001](../tasks/EVIDENCE-LINKS-001.md): **Blocked — workflow failure**.
-- [FEEDBACK-001](../tasks/FEEDBACK-001.md): **Blocked — workflow failure**.
-- [FEEDBACK-TEST-001](../tasks/FEEDBACK-TEST-001.md): **Blocked — workflow failure**.
-- [FUNDS-BONDS-001](../tasks/FUNDS-BONDS-001.md): **Blocked — workflow failure**.
-- [GOAL-FEASIBILITY-001](../tasks/GOAL-FEASIBILITY-001.md): **Blocked — workflow failure**.
-- [GOAL-SCENARIOS-001](../tasks/GOAL-SCENARIOS-001.md): **Blocked — workflow failure**.
-- [GOALS-001](../tasks/GOALS-001.md): **Blocked — workflow failure**.
-- [HOLDINGS-RECONCILE-001](../tasks/HOLDINGS-RECONCILE-001.md): **Blocked — workflow failure**.
-- [IDENTITY-001](../tasks/IDENTITY-001.md): **Blocked — workflow failure**.
-- [IDENTITY-ADJUDICATION-001](../tasks/IDENTITY-ADJUDICATION-001.md): **Blocked — workflow failure**.
-- [IMPACT-TRACE-001](../tasks/IMPACT-TRACE-001.md): **Blocked — workflow failure**.
-- [INDIA-EQUITY-001](../tasks/INDIA-EQUITY-001.md): **Blocked — workflow failure**.
-- [LEGACY-FIXTURE-ISOLATION-001](../tasks/LEGACY-FIXTURE-ISOLATION-001.md): **Blocked — workflow failure**.
-- [MAPPED-IMPORT-001](../tasks/MAPPED-IMPORT-001.md): **Blocked — workflow failure**.
-- [MATERIAL-ALERTS-001](../tasks/MATERIAL-ALERTS-001.md): **Blocked — workflow failure**.
-- [MATERIAL-AUTO-001](../tasks/MATERIAL-AUTO-001.md): **Blocked — workflow failure**.
-- [NAMED-OPERATORS-001](../tasks/NAMED-OPERATORS-001.md): **Blocked — workflow failure**.
-- [OPS-AUDIT-001](../tasks/OPS-AUDIT-001.md): **Blocked — workflow failure**.
-- [OPS-READ-ADMISSION-001](../tasks/OPS-READ-ADMISSION-001.md): **Blocked — workflow failure**.
-- [PORTFOLIO-001](../tasks/PORTFOLIO-001.md): **Blocked — workflow failure**.
-- [PRIVACY-001](../tasks/PRIVACY-001.md): **Blocked — workflow failure**.
-- [PUBLISHING-QUEUE-001](../tasks/PUBLISHING-QUEUE-001.md): **Blocked — workflow failure**.
-- [PWA-001](../tasks/PWA-001.md): **Blocked — workflow failure**.
-- [QUALITY-OVERVIEW-001](../tasks/QUALITY-OVERVIEW-001.md): **Blocked — workflow failure**.
-- [READER-DIAGNOSTICS-001](../tasks/READER-DIAGNOSTICS-001.md): **Blocked — workflow failure**.
-- [READING-FOLLOW-001](../tasks/READING-FOLLOW-001.md): **Blocked — workflow failure**.
-- [RECOVERY-001](../tasks/RECOVERY-001.md): **Blocked — workflow failure**.
-- [REGRESSION-011](../tasks/REGRESSION-011.md): **Blocked — workflow failure**.
-- [REPORT-COMPARE-001](../tasks/REPORT-COMPARE-001.md): **Blocked — workflow failure**.
-- [REPORT-SCHEDULES-001](../tasks/REPORT-SCHEDULES-001.md): **Blocked — workflow failure**.
-- [REPORTS-001](../tasks/REPORTS-001.md): **Blocked — workflow failure**.
-- [REPORTS-002](../tasks/REPORTS-002.md): **Blocked — workflow failure**.
-- [REPORTS-003](../tasks/REPORTS-003.md): **Blocked — workflow failure**.
-- [RESEARCH-AUTO-002](../tasks/RESEARCH-AUTO-002.md): **Failed — unresolved bug**.
-- [RETENTION-001](../tasks/RETENTION-001.md): **Failed — unresolved bug**.
-- [SDLC-001](../tasks/SDLC-001.md): **Blocked — workflow failure**.
+- [ACCOUNT-001](../tasks/ACCOUNT-001.md): **Stale — rerun required**.
+- [ACTION-CENTRE-001](../tasks/ACTION-CENTRE-001.md): **Failed — unresolved bug**.
+- [ALERT-001](../tasks/ALERT-001.md): **Partial — required cases not run**.
+- [ALERT-002](../tasks/ALERT-002.md): **Partial — required cases not run**.
+- [ALLOCATIONS-001](../tasks/ALLOCATIONS-001.md): **Stale — rerun required**.
+- [ANDROID-001](../tasks/ANDROID-001.md): **Stale — rerun required**.
+- [ASSIST-001](../tasks/ASSIST-001.md): **Stale — rerun required**.
+- [AUTH-WAIT-001](../tasks/AUTH-WAIT-001.md): **Selected cases passed — acceptance matrix needed**.
+- [BEA-001](../tasks/BEA-001.md): **Stale — rerun required**.
+- [BEA-QUARANTINE-001](../tasks/BEA-QUARANTINE-001.md): **Stale — rerun required**.
+- [BROKER-DIALECTS-001](../tasks/BROKER-DIALECTS-001.md): **Stale — rerun required**.
+- [BROKER-PARSERS-002](../tasks/BROKER-PARSERS-002.md): **Stale — rerun required**.
+- [BUG-002](../tasks/BUG-002.md): **Stale — rerun required**.
+- [CONNECTION-REVIEWS-001](../tasks/CONNECTION-REVIEWS-001.md): **Stale — rerun required**.
+- [CONSENT-LIFECYCLE-001](../tasks/CONSENT-LIFECYCLE-001.md): **Stale — rerun required**.
+- [DATA-001](../tasks/DATA-001.md): **Stale — rerun required**.
+- [DB-LEAST-PRIVILEGE-001](../tasks/DB-LEAST-PRIVILEGE-001.md): **Stale — rerun required**.
+- [DEV-006](../tasks/DEV-006.md): **Stale — rerun required**.
+- [DEV-010](../tasks/DEV-010.md): **Stale — rerun required**.
+- [DEV-011](../tasks/DEV-011.md): **Partial — required cases not run**.
+- [DEV-015](../tasks/DEV-015.md): **Stale — rerun required**.
+- [DEV-016](../tasks/DEV-016.md): **Stale — rerun required**.
+- [DEV-017](../tasks/DEV-017.md): **Failed — unresolved bug**.
+- [DEV-018](../tasks/DEV-018.md): **Partial — required cases not run**.
+- [DEV-019](../tasks/DEV-019.md): **Failed — unresolved bug**.
+- [DEV-020](../tasks/DEV-020.md): **Partial — required cases not run**.
+- [DEV-021](../tasks/DEV-021.md): **Stale — rerun required**.
+- [DEV-022](../tasks/DEV-022.md): **Stale — rerun required**.
+- [DEV-028](../tasks/DEV-028.md): **Stale — rerun required**.
+- [DEV-029](../tasks/DEV-029.md): **Selected cases passed — acceptance matrix needed**.
+- [ECB-FX-001](../tasks/ECB-FX-001.md): **Stale — rerun required**.
+- [ECB-RATES-001](../tasks/ECB-RATES-001.md): **Stale — rerun required**.
+- [EIA-BENCHMARKS-001](../tasks/EIA-BENCHMARKS-001.md): **Stale — rerun required**.
+- [EQUITY-COVERAGE-001](../tasks/EQUITY-COVERAGE-001.md): **Stale — rerun required**.
+- [EVAL-LINEAGE-001](../tasks/EVAL-LINEAGE-001.md): **Failed — unresolved bug**.
+- [EVENT-EXTRACTION-001](../tasks/EVENT-EXTRACTION-001.md): **Stale — rerun required**.
+- [EVENT-LINEAGE-001](../tasks/EVENT-LINEAGE-001.md): **Partial — required cases not run**.
+- [EVENT-REVIEW-001](../tasks/EVENT-REVIEW-001.md): **Stale — rerun required**.
+- [EVENT-SCENARIOS-001](../tasks/EVENT-SCENARIOS-001.md): **Partial — required cases not run**.
+- [EVIDENCE-LAYERS-001](../tasks/EVIDENCE-LAYERS-001.md): **Stale — rerun required**.
+- [EVIDENCE-LINKS-001](../tasks/EVIDENCE-LINKS-001.md): **Stale — rerun required**.
+- [FEEDBACK-001](../tasks/FEEDBACK-001.md): **Failed — unresolved bug**.
+- [FEEDBACK-TEST-001](../tasks/FEEDBACK-TEST-001.md): **Stale — rerun required**.
+- [FUNDS-BONDS-001](../tasks/FUNDS-BONDS-001.md): **Stale — rerun required**.
+- [GOAL-FEASIBILITY-001](../tasks/GOAL-FEASIBILITY-001.md): **Stale — rerun required**.
+- [GOAL-SCENARIOS-001](../tasks/GOAL-SCENARIOS-001.md): **Stale — rerun required**.
+- [GOALS-001](../tasks/GOALS-001.md): **Stale — rerun required**.
+- [HOLDINGS-RECONCILE-001](../tasks/HOLDINGS-RECONCILE-001.md): **Stale — rerun required**.
+- [IDENTITY-001](../tasks/IDENTITY-001.md): **Stale — rerun required**.
+- [IDENTITY-ADJUDICATION-001](../tasks/IDENTITY-ADJUDICATION-001.md): **Partial — required cases not run**.
+- [IMPACT-TRACE-001](../tasks/IMPACT-TRACE-001.md): **Stale — rerun required**.
+- [INDIA-EQUITY-001](../tasks/INDIA-EQUITY-001.md): **Stale — rerun required**.
+- [LEGACY-FIXTURE-ISOLATION-001](../tasks/LEGACY-FIXTURE-ISOLATION-001.md): **Stale — rerun required**.
+- [MAPPED-IMPORT-001](../tasks/MAPPED-IMPORT-001.md): **Stale — rerun required**.
+- [MATERIAL-ALERTS-001](../tasks/MATERIAL-ALERTS-001.md): **Stale — rerun required**.
+- [MATERIAL-AUTO-001](../tasks/MATERIAL-AUTO-001.md): **Partial — required cases not run**.
+- [MEDIA-001](../tasks/MEDIA-001.md): **Partial — required cases not run**.
+- [NAMED-OPERATORS-001](../tasks/NAMED-OPERATORS-001.md): **Failed — unresolved bug**.
+- [OPS-AUDIT-001](../tasks/OPS-AUDIT-001.md): **Stale — rerun required**.
+- [OPS-READ-ADMISSION-001](../tasks/OPS-READ-ADMISSION-001.md): **Stale — rerun required**.
+- [PORTFOLIO-001](../tasks/PORTFOLIO-001.md): **Stale — rerun required**.
+- [PRIVACY-001](../tasks/PRIVACY-001.md): **Selected cases passed — acceptance matrix needed**.
+- [PUBLISHING-QUEUE-001](../tasks/PUBLISHING-QUEUE-001.md): **Stale — rerun required**.
+- [PWA-001](../tasks/PWA-001.md): **Stale — rerun required**.
+- [QUALITY-OVERVIEW-001](../tasks/QUALITY-OVERVIEW-001.md): **Partial — required cases not run**.
+- [READER-DIAGNOSTICS-001](../tasks/READER-DIAGNOSTICS-001.md): **Stale — rerun required**.
+- [READING-FOLLOW-001](../tasks/READING-FOLLOW-001.md): **Stale — rerun required**.
+- [RECOVERY-001](../tasks/RECOVERY-001.md): **Stale — rerun required**.
+- [REGRESSION-011](../tasks/REGRESSION-011.md): **Stale — rerun required**.
+- [REPORT-COMPARE-001](../tasks/REPORT-COMPARE-001.md): **Stale — rerun required**.
+- [REPORT-SCHEDULES-001](../tasks/REPORT-SCHEDULES-001.md): **Stale — rerun required**.
+- [REPORTS-001](../tasks/REPORTS-001.md): **Stale — rerun required**.
+- [REPORTS-002](../tasks/REPORTS-002.md): **Stale — rerun required**.
+- [REPORTS-003](../tasks/REPORTS-003.md): **Stale — rerun required**.
+- [RESEARCH-AUTO-002](../tasks/RESEARCH-AUTO-002.md): **Partial — required cases not run**.
+- [RETENTION-001](../tasks/RETENTION-001.md): **Partial — required cases not run**.
+- [SDLC-001](../tasks/SDLC-001.md): **Stale — rerun required**.
+- [SDLC-REPAIR-012](../tasks/SDLC-REPAIR-012.md): **Passed — automated acceptance**.
 - [SDLC-REPAIR-016](../tasks/SDLC-REPAIR-016.md): **Failed — unresolved bug**.
-- [SETUP-001](../tasks/SETUP-001.md): **Blocked — workflow failure**.
-- [SLICE-001](../tasks/SLICE-001.md): **Blocked — workflow failure**.
-- [SOURCE-REVIEW-DIFF-001](../tasks/SOURCE-REVIEW-DIFF-001.md): **Blocked — workflow failure**.
-- [SOURCE-WITHDRAWAL-001](../tasks/SOURCE-WITHDRAWAL-001.md): **Blocked — workflow failure**.
-- [SOURCES-001](../tasks/SOURCES-001.md): **Blocked — workflow failure**.
-- [SOURCES-002](../tasks/SOURCES-002.md): **Blocked — workflow failure**.
-- [SRC-001](../tasks/SRC-001.md): **Blocked — workflow failure**.
-- [SRC-002](../tasks/SRC-002.md): **Blocked — workflow failure**.
-- [SRC-003](../tasks/SRC-003.md): **Blocked — workflow failure**.
-- [SRC-004](../tasks/SRC-004.md): **Blocked — workflow failure**.
-- [SRC-005](../tasks/SRC-005.md): **Blocked — workflow failure**.
+- [SETUP-001](../tasks/SETUP-001.md): **Stale — rerun required**.
+- [SLICE-001](../tasks/SLICE-001.md): **Stale — rerun required**.
+- [SOURCE-REVIEW-DIFF-001](../tasks/SOURCE-REVIEW-DIFF-001.md): **Stale — rerun required**.
+- [SOURCE-WITHDRAWAL-001](../tasks/SOURCE-WITHDRAWAL-001.md): **Stale — rerun required**.
+- [SOURCES-001](../tasks/SOURCES-001.md): **Stale — rerun required**.
+- [SOURCES-002](../tasks/SOURCES-002.md): **Stale — rerun required**.
+- [SRC-001](../tasks/SRC-001.md): **Stale — rerun required**.
+- [SRC-002](../tasks/SRC-002.md): **Stale — rerun required**.
+- [SRC-003](../tasks/SRC-003.md): **Stale — rerun required**.
+- [SRC-004](../tasks/SRC-004.md): **Stale — rerun required**.
+- [SRC-005](../tasks/SRC-005.md): **Stale — rerun required**.
 - [SRC-006](../tasks/SRC-006.md): **Failed — unresolved bug**.
-- [SRC-007](../tasks/SRC-007.md): **Blocked — workflow failure**.
-- [SRC-008](../tasks/SRC-008.md): **Blocked — workflow failure**.
-- [SRC-009](../tasks/SRC-009.md): **Failed — unresolved bug**.
-- [SRC-010](../tasks/SRC-010.md): **Blocked — workflow failure**.
-- [SRC-011](../tasks/SRC-011.md): **Blocked — workflow failure**.
-- [SRC-012](../tasks/SRC-012.md): **Blocked — workflow failure**.
-- [SRC-014](../tasks/SRC-014.md): **Blocked — workflow failure**.
-- [SRC-015](../tasks/SRC-015.md): **Failed — unresolved bug**.
-- [SRC-016](../tasks/SRC-016.md): **Blocked — workflow failure**.
-- [SRC-017](../tasks/SRC-017.md): **Failed — unresolved bug**.
-- [SRC-018](../tasks/SRC-018.md): **Blocked — workflow failure**.
-- [STORY-MEDIA-002](../tasks/STORY-MEDIA-002.md): **Blocked — workflow failure**.
-- [UI-RACES-001](../tasks/UI-RACES-001.md): **Blocked — workflow failure**.
-- [UX-001](../tasks/UX-001.md): **Blocked — workflow failure**.
-- [UX-002](../tasks/UX-002.md): **Blocked — workflow failure**.
-- [UX-002D](../tasks/UX-002D.md): **Blocked — workflow failure**.
-- [UX-002G](../tasks/UX-002G.md): **Blocked — workflow failure**.
-- [WORKER-HEALTH-001](../tasks/WORKER-HEALTH-001.md): **Blocked — workflow failure**.
-- [XLSX-001](../tasks/XLSX-001.md): **Blocked — workflow failure**.
+- [SRC-007](../tasks/SRC-007.md): **Partial — required cases not run**.
+- [SRC-008](../tasks/SRC-008.md): **Stale — rerun required**.
+- [SRC-009](../tasks/SRC-009.md): **Partial — required cases not run**.
+- [SRC-009-DAILY](../tasks/SRC-009-DAILY.md): **Partial — required cases not run**.
+- [SRC-009-METALS](../tasks/SRC-009-METALS.md): **Partial — required cases not run**.
+- [SRC-010](../tasks/SRC-010.md): **Stale — rerun required**.
+- [SRC-011](../tasks/SRC-011.md): **Stale — rerun required**.
+- [SRC-012](../tasks/SRC-012.md): **Stale — rerun required**.
+- [SRC-014](../tasks/SRC-014.md): **Stale — rerun required**.
+- [SRC-015](../tasks/SRC-015.md): **Partial — required cases not run**.
+- [SRC-016](../tasks/SRC-016.md): **Stale — rerun required**.
+- [SRC-017](../tasks/SRC-017.md): **Selected cases passed — acceptance matrix needed**.
+- [SRC-018](../tasks/SRC-018.md): **Stale — rerun required**.
+- [STORY-MEDIA-002](../tasks/STORY-MEDIA-002.md): **Partial — required cases not run**.
+- [UI-RACES-001](../tasks/UI-RACES-001.md): **Stale — rerun required**.
+- [UX-001](../tasks/UX-001.md): **Stale — rerun required**.
+- [UX-002](../tasks/UX-002.md): **Selected cases passed — acceptance matrix needed**.
+- [UX-002C](../tasks/UX-002C.md): **Failed — unresolved bug**.
+- [UX-002D](../tasks/UX-002D.md): **Stale — rerun required**.
+- [UX-002G](../tasks/UX-002G.md): **Stale — rerun required**.
+- [WORKER-HEALTH-001](../tasks/WORKER-HEALTH-001.md): **Stale — rerun required**.
+- [XLSX-001](../tasks/XLSX-001.md): **Stale — rerun required**.

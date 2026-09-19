@@ -1,6 +1,6 @@
 # EVAL-LINEAGE-001 — Retained source, LLM call/output, final-view and feedback evaluation lineage
 
-- **Status:** Implementation complete; validation pending
+- **Status:** Needs repair
 - **Implemented / recorded:** Source captures, model requests/raw outputs, composed-view records, feedback links and opt-in private history are authored.
 - **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
 - **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
@@ -50,5 +50,11 @@ No additional input is needed for this bounded automated scope. Run the complete
 
 ## Automated validation
 
-Blocked — workflow failure. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789846657524-36112.
+Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789846773980-36608.
 <!-- sdlc-validation:end -->
+
+## Focused acceptance repair — 20 September 2026
+
+API1120 confirms empty provider output discarded query fallback suggestions; assignment is now atomic. WEB1118 mobile confirms long raw-source hashes overflow the evaluation inspector; allow wrapping without truncating evidence. Existing encrypted lifecycle, raw export, ownership and layout assertions remain.
+
+Evidence: connected run2026-09-19T19-40-29-161Z-37323 completed76 passes and10 failures. Repair authored; subsequent validation pending. User explicitly authorized agent execution for this closure pass. Reuse the existing specification and full acceptance matrix; no dependencies or migrations added.

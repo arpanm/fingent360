@@ -1,6 +1,6 @@
 # SRC-009-DAILY — Daily WTI and Brent observations
 
-- **Status:** Completed implementation; validation pending.
+- **Status:** Implementation complete; validation pending
 - **Scope:** Verified original EIA daily HTML grammar, USD/barrel cells and explicit missing observations, immutable captures, contributor-permission gate, independent review, shared daily history and offline snapshot. Scheduled acquisition creates drafts; it does not publish automatically.
 - **Specification/source evidence:** [Daily-source handoff](../development/eia-daily-spot.md); [parent](SRC-009.md).
 - **Data:** Migration123 creates source/review/gate records and a disabled source schedule. Original HTML retained in MongoDB. No source or service was activated.
@@ -20,3 +20,10 @@ Reviewed scope: Verified EIA daily WTI and Brent HTML cells and missing observat
 The required API, browser-project and offline case IDs are now explicit in [acceptance.json](acceptance.json). Only actual current receipts plus successful normal gates can close this scope. Existing API/contracts/database/source workflows are reused; a matrix correction itself adds no migration or source permission. Physical-device and deployment claims require their separate evidence. The user authorized this validation/repair run; older manual-only handoff wording is historical for this run.
 
 No additional input is needed for this bounded automated scope. Run the complete required matrix and review attached keyboard/narrow-layout artifacts where applicable before claiming accepted delivery.
+
+<!-- sdlc-validation:start -->
+
+## Automated validation
+
+Partial — required cases not run. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789846773980-36608.
+<!-- sdlc-validation:end -->

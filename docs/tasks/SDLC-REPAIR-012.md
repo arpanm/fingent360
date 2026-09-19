@@ -1,6 +1,6 @@
 # SDLC-REPAIR-012 — API compiler boundary repair
 
-- **Status:** Completed implementation; manual validation pending.
+- **Status:** Done (accepted scope)
 - **Input (2026-09-16):** User supplied only the `pnpm check` API TypeScript failure (exit 2). No suite report is needed or read. No new private input is needed.
 - **Scope:** Preserve decoded identity row fields; repair optional GDP/holdings/fetch types, monitoring counter types, sovereign original inference, nullable evidence binding and WhatsApp request/key boundaries. Preserve strict schemas, ownership, signatures and provenance.
 - **Dependencies:** Existing installed workspace dependencies; no installation or migration.
@@ -31,3 +31,10 @@ Reviewed scope: Repair API compiler boundaries while preserving generic encrypte
 The required API, browser-project and offline case IDs are now explicit in [acceptance.json](acceptance.json). Only actual current receipts plus successful normal gates can close this scope. Existing API/contracts/database/source workflows are reused; a matrix correction itself adds no migration or source permission. Physical-device and deployment claims require their separate evidence. The user authorized this validation/repair run; older manual-only handoff wording is historical for this run.
 
 No additional input is needed for this bounded automated scope. Run the complete required matrix and review attached keyboard/narrow-layout artifacts where applicable before claiming accepted delivery.
+
+<!-- sdlc-validation:start -->
+
+## Automated validation
+
+Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789846773980-36608.
+<!-- sdlc-validation:end -->

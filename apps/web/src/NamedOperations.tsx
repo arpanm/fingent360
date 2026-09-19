@@ -128,6 +128,12 @@ export function NamedOperations({
         {rows.map((row) => (
           <li key={row.id}>
             <button
+              style={{
+                minWidth: 0,
+                maxWidth: '100%',
+                whiteSpace: 'normal',
+                overflowWrap: 'anywhere',
+              }}
               disabled={busy}
               onClick={() => {
                 setSelected(row);

@@ -354,8 +354,17 @@ test('E2E-API-1120 actual query assistance leaves transcripts absent while opted
     data: query,
   });
   expect(before.status()).toBe(200);
-  expect(AssistanceResultSchema.parse(await before.json()).provider).toBe(
-    'query',
+  const queryResult = AssistanceResultSchema.parse(await before.json());
+  expect(queryResult.provider).toBe('query');
+  expect(queryResult.usedHistory).toBe(true);
+  expect(queryResult.suggestions).toEqual(
+    expect.arrayContaining([
+      expect.objectContaining({
+        text: authGoal.name,
+        type: 'goal_name',
+        source: expect.objectContaining({ private: true, href: '#my-goals' }),
+      }),
+    ]),
   );
   expect(await history(request)).toMatchObject({ enabled: false, entries: [] });
   await consentWrite(request, 'private-ai-history', 'grant');
@@ -370,6 +379,9 @@ test('E2E-API-1120 actual query assistance leaves transcripts absent while opted
   expect(fallback.calls).toBe(1);
   expect(fallback.network).toBe(0);
   expect(fallback.result).toMatchObject({ provider: 'query', fallback: true });
+  // An empty provider selection must preserve the actual admitted query results,
+  // including the exact owned goal name; it cannot replace fallback with [].
+  expect(fallback.result.suggestions).toEqual(queryResult.suggestions);
   expect(
     fallback.result.suggestions.some((v) => v.text === authGoal.name),
   ).toBe(true);

@@ -356,20 +356,26 @@ export function Discovery({ explore = false }: { explore?: boolean }) {
             'This reading selection is too large to refresh together. Narrow its filters and try again.',
           );
         let result: unknown;
-        try {
-          result = await json(`/account/library/feed${params(next)}`);
-          signedIn = true;
-        } catch (failure) {
-          if (!(failure instanceof RequestError) || failure.status !== 401)
-            throw failure;
-          // Do not combine pages from different account/public selections.
-          if (next && signedIn)
-            throw Error(
-              'Your reading session changed. Refresh the selection before continuing.',
-              { cause: failure },
-            );
+        if (next && !signedIn) {
+          // A public cursor belongs only to the public feed. The private feed
+          // validates its distinct cursor before checking account admission.
           result = await json(`/discovery/feed${params(next)}`);
-          signedIn = false;
+        } else {
+          try {
+            result = await json(`/account/library/feed${params(next)}`);
+            signedIn = true;
+          } catch (failure) {
+            if (!(failure instanceof RequestError) || failure.status !== 401)
+              throw failure;
+            // Do not combine pages from different account/public selections.
+            if (next && signedIn)
+              throw Error(
+                'Your reading session changed. Refresh the selection before continuing.',
+                { cause: failure },
+              );
+            result = await json(`/discovery/feed${params(next)}`);
+            signedIn = false;
+          }
         }
         if (generation !== requestId.current) return;
         const parsed = signedIn

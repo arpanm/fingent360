@@ -1,11 +1,11 @@
 # BUG-efc6153b6b15cf6f
 
-- Status: Open
+- Status: Resolved
 - Case/project: E2E-WEB-402 / desktop
 - Stories: HOLDINGS-RECONCILE-001, PORTFOLIO-001
 - First seen: 2026-09-19T16:48:09.225Z
 - Evidence: artifacts/sdlc/1789836377279-19314/06-pnpm-e2e_run.log
-- Resolution run: Unresolved
+- Resolution run: 1789837057413-22117
 
 Failure excerpt (untrusted; local original has full details):
 

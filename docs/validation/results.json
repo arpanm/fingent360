@@ -4225,11 +4225,11 @@
       "stories": ["DEV-017", "PORTFOLIO-001"],
       "status": "passed",
       "details": "",
-      "run": "1789836377279-19314",
-      "time": "2026-09-19T16:48:09.225Z",
+      "run": "1789837057413-22117",
+      "time": "2026-09-19T16:59:40.311Z",
       "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789836377279-19314/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T16-47-23-825Z-20185/results.json"
+      "log": "artifacts/sdlc/1789837057413-22117/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T16-58-38-607Z-22840/results.json"
     },
     "b98aec3a509a45c806b08aa240b3ada1103fbc2c7788ce1469fb309a33d43d27": {
       "key": "b98aec3a509a45c806b08aa240b3ada1103fbc2c7788ce1469fb309a33d43d27",
@@ -4240,11 +4240,11 @@
       "stories": ["HOLDINGS-RECONCILE-001", "PORTFOLIO-001"],
       "status": "passed",
       "details": "",
-      "run": "1789836377279-19314",
-      "time": "2026-09-19T16:48:09.225Z",
+      "run": "1789837057413-22117",
+      "time": "2026-09-19T16:59:40.311Z",
       "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789836377279-19314/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T16-47-23-825Z-20185/results.json"
+      "log": "artifacts/sdlc/1789837057413-22117/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T16-58-38-607Z-22840/results.json"
     },
     "d19aa90f6483190575378898c2bbec193d5d017f2cb1d9e8b045a6578da3fc11": {
       "key": "d19aa90f6483190575378898c2bbec193d5d017f2cb1d9e8b045a6578da3fc11",
@@ -4255,11 +4255,11 @@
       "stories": ["HOLDINGS-RECONCILE-001", "PORTFOLIO-001"],
       "status": "passed",
       "details": "",
-      "run": "1789836377279-19314",
-      "time": "2026-09-19T16:48:09.225Z",
+      "run": "1789837057413-22117",
+      "time": "2026-09-19T16:59:40.311Z",
       "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789836377279-19314/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T16-47-23-825Z-20185/results.json"
+      "log": "artifacts/sdlc/1789837057413-22117/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T16-58-38-607Z-22840/results.json"
     },
     "8f62003093f8b164d1b959231d0c658ea189cd518c048627e1441f3366a017f9": {
       "key": "8f62003093f8b164d1b959231d0c658ea189cd518c048627e1441f3366a017f9",
@@ -4270,11 +4270,11 @@
       "stories": ["HOLDINGS-RECONCILE-001", "PORTFOLIO-001"],
       "status": "passed",
       "details": "",
-      "run": "1789836377279-19314",
-      "time": "2026-09-19T16:48:09.225Z",
+      "run": "1789837057413-22117",
+      "time": "2026-09-19T16:59:40.311Z",
       "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789836377279-19314/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T16-47-23-825Z-20185/results.json"
+      "log": "artifacts/sdlc/1789837057413-22117/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T16-58-38-607Z-22840/results.json"
     },
     "51ef427cb527ef549cc3336a73f6839edb06dd28b7d16f8bd2bc3a03d0c895f4": {
       "key": "51ef427cb527ef549cc3336a73f6839edb06dd28b7d16f8bd2bc3a03d0c895f4",
@@ -4285,11 +4285,11 @@
       "stories": ["HOLDINGS-RECONCILE-001", "PORTFOLIO-001"],
       "status": "passed",
       "details": "",
-      "run": "1789836377279-19314",
-      "time": "2026-09-19T16:48:09.225Z",
+      "run": "1789837057413-22117",
+      "time": "2026-09-19T16:59:40.311Z",
       "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789836377279-19314/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T16-47-23-825Z-20185/results.json"
+      "log": "artifacts/sdlc/1789837057413-22117/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T16-58-38-607Z-22840/results.json"
     },
     "51c6532662e4947df2659e6b2628226f72d47982591b02f534e17aa8f19e7380": {
       "key": "51c6532662e4947df2659e6b2628226f72d47982591b02f534e17aa8f19e7380",
@@ -4298,13 +4298,13 @@
       "title": "E2E-API-090 holdings preview, confirm, isolate, replay and revisions @PORTFOLIO-001",
       "file": "api/holdings.spec.ts",
       "stories": ["PORTFOLIO-001"],
-      "status": "failed",
-      "details": "Error: apiRequestContext.delete: connect ECONNREFUSED 127.0.0.1:4104\nCall log:\n  - → DELETE http://127.0.0.1:4104/api/v1/account\n    - user-agent: Playwright/1.58.2 (arm64; macOS 15.3) node/26.7\n    - accept: */*\n    - accept-encoding: gzip,deflate,br\n    - Origin: http://127.0.0.1:5176\n    - content-type: application/json\n    - content-length: 43\n\n\n  127 |     ).toEqual([]);\n  128 |   } finally {\n> 129 |     await request.delete('/api/v1/account', { headers, data: { password } });\n      |                         ^\n  130 |     await other.delete('/api/v1/account', { headers, data: { password } });\n  131 |     await other.dispose();\n  132 |   }\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/api/holdings.spec.ts:129:25",
-      "run": "1789836377279-19314",
-      "time": "2026-09-19T16:48:09.225Z",
+      "status": "passed",
+      "details": "",
+      "run": "1789837057413-22117",
+      "time": "2026-09-19T16:59:40.311Z",
       "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789836377279-19314/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T16-47-23-825Z-20185/results.json"
+      "log": "artifacts/sdlc/1789837057413-22117/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T16-58-38-607Z-22840/results.json"
     },
     "56186d56992e0dd11a284642e3f55d885afacd270b55479b5e155762480c27f3": {
       "key": "56186d56992e0dd11a284642e3f55d885afacd270b55479b5e155762480c27f3",
@@ -4313,13 +4313,13 @@
       "title": "E2E-API-091 malformed holdings CSV, consent and CSRF reject @PORTFOLIO-001",
       "file": "api/holdings.spec.ts",
       "stories": ["PORTFOLIO-001"],
-      "status": "failed",
-      "details": "Error: apiRequestContext.delete: connect ECONNREFUSED 127.0.0.1:4104\nCall log:\n  - → DELETE http://127.0.0.1:4104/api/v1/account\n    - user-agent: Playwright/1.58.2 (arm64; macOS 15.3) node/26.7\n    - accept: */*\n    - accept-encoding: gzip,deflate,br\n    - Origin: http://127.0.0.1:5176\n    - content-type: application/json\n    - content-length: 43\n\n\n  196 |     ).toBe(0);\n  197 |   } finally {\n> 198 |     await request.delete('/api/v1/account', { headers, data: { password } });\n      |                         ^\n  199 |   }\n  200 | });\n  201 |\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/api/holdings.spec.ts:198:25",
-      "run": "1789836377279-19314",
-      "time": "2026-09-19T16:48:09.225Z",
+      "status": "passed",
+      "details": "",
+      "run": "1789837057413-22117",
+      "time": "2026-09-19T16:59:40.311Z",
       "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789836377279-19314/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T16-47-23-825Z-20185/results.json"
+      "log": "artifacts/sdlc/1789837057413-22117/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T16-58-38-607Z-22840/results.json"
     },
     "b29c97380f90aef77fefe6d63c9a10c60c62310cc48c3e48bfba7719d5d78b1a": {
       "key": "b29c97380f90aef77fefe6d63c9a10c60c62310cc48c3e48bfba7719d5d78b1a",
@@ -12953,13 +12953,13 @@
       "title": "E2E-WEB-400 mobile keyboard review requires removal acknowledgement and persists replacement @HOLDINGS-RECONCILE-001",
       "file": "browser/holdings-reconciliation.spec.ts",
       "stories": ["HOLDINGS-RECONCILE-001", "PORTFOLIO-001"],
-      "status": "failed",
-      "details": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:5176/#holdings\nCall log:\n  - navigating to \"http://127.0.0.1:5176/#holdings\", waiting until \"load\"\n\n\n  18 | const replacement = 'isin,quantity,total_cost_paise\\nINE009A01021,2,20002';\n  19 | async function setup(page: Page) {\n> 20 |   await page.goto('/#holdings');\n     |              ^\n  21 |   expect(\n  22 |     (\n  23 |       await api(page, '/register', {\n    at setup (/Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/holdings-reconciliation.spec.ts:20:14)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/holdings-reconciliation.spec.ts:64:9",
-      "run": "1789836377279-19314",
-      "time": "2026-09-19T16:48:09.225Z",
+      "status": "passed",
+      "details": "",
+      "run": "1789837057413-22117",
+      "time": "2026-09-19T16:59:40.311Z",
       "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789836377279-19314/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T16-47-23-825Z-20185/results.json"
+      "log": "artifacts/sdlc/1789837057413-22117/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T16-58-38-607Z-22840/results.json"
     },
     "01d4139c6235cb7abd13ec5b052d389c3cf8a3987d9cff8cd62f9d4662bc0c23": {
       "key": "01d4139c6235cb7abd13ec5b052d389c3cf8a3987d9cff8cd62f9d4662bc0c23",
@@ -12968,13 +12968,13 @@
       "title": "E2E-WEB-401 stale preview preserves draft and committed confirmation survives following read outage @HOLDINGS-RECONCILE-001",
       "file": "browser/holdings-reconciliation.spec.ts",
       "stories": ["HOLDINGS-RECONCILE-001", "PORTFOLIO-001"],
-      "status": "failed",
-      "details": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:5176/#holdings\nCall log:\n  - navigating to \"http://127.0.0.1:5176/#holdings\", waiting until \"load\"\n\n\n  18 | const replacement = 'isin,quantity,total_cost_paise\\nINE009A01021,2,20002';\n  19 | async function setup(page: Page) {\n> 20 |   await page.goto('/#holdings');\n     |              ^\n  21 |   expect(\n  22 |     (\n  23 |       await api(page, '/register', {\n    at setup (/Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/holdings-reconciliation.spec.ts:20:14)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/holdings-reconciliation.spec.ts:113:9",
-      "run": "1789836377279-19314",
-      "time": "2026-09-19T16:48:09.225Z",
+      "status": "passed",
+      "details": "",
+      "run": "1789837057413-22117",
+      "time": "2026-09-19T16:59:40.311Z",
       "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789836377279-19314/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T16-47-23-825Z-20185/results.json"
+      "log": "artifacts/sdlc/1789837057413-22117/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T16-58-38-607Z-22840/results.json"
     },
     "efc6153b6b15cf6f54790fbc0f017ee07a9283afe2b173069103b11c315cf2d1": {
       "key": "efc6153b6b15cf6f54790fbc0f017ee07a9283afe2b173069103b11c315cf2d1",
@@ -12983,13 +12983,13 @@
       "title": "E2E-WEB-402 newer explicit reload and edited draft survive a held initial actual holdings response @HOLDINGS-RECONCILE-001 @TEST-SIMULATION",
       "file": "browser/holdings-reconciliation.spec.ts",
       "stories": ["HOLDINGS-RECONCILE-001", "PORTFOLIO-001"],
-      "status": "failed",
-      "details": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:5176/#overview\nCall log:\n  - navigating to \"http://127.0.0.1:5176/#overview\", waiting until \"load\"\n\n\n  193 |   page,\n  194 | }) => {\n> 195 |   await page.goto('/#overview');\n      |              ^\n  196 |   expect(\n  197 |     (\n  198 |       await api(page, '/register', {\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/holdings-reconciliation.spec.ts:195:14",
-      "run": "1789836377279-19314",
-      "time": "2026-09-19T16:48:09.225Z",
+      "status": "passed",
+      "details": "",
+      "run": "1789837057413-22117",
+      "time": "2026-09-19T16:59:40.311Z",
       "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789836377279-19314/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T16-47-23-825Z-20185/results.json"
+      "log": "artifacts/sdlc/1789837057413-22117/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T16-58-38-607Z-22840/results.json"
     },
     "c23507df28134d106385a701aa54be1111256c4de6e7f135d9247c6194672021": {
       "key": "c23507df28134d106385a701aa54be1111256c4de6e7f135d9247c6194672021",
@@ -12998,13 +12998,13 @@
       "title": "E2E-WEB-400 mobile keyboard review requires removal acknowledgement and persists replacement @HOLDINGS-RECONCILE-001",
       "file": "browser/holdings-reconciliation.spec.ts",
       "stories": ["HOLDINGS-RECONCILE-001", "PORTFOLIO-001"],
-      "status": "failed",
-      "details": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:5176/#holdings\nCall log:\n  - navigating to \"http://127.0.0.1:5176/#holdings\", waiting until \"load\"\n\n\n  18 | const replacement = 'isin,quantity,total_cost_paise\\nINE009A01021,2,20002';\n  19 | async function setup(page: Page) {\n> 20 |   await page.goto('/#holdings');\n     |              ^\n  21 |   expect(\n  22 |     (\n  23 |       await api(page, '/register', {\n    at setup (/Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/holdings-reconciliation.spec.ts:20:14)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/holdings-reconciliation.spec.ts:64:9",
-      "run": "1789836377279-19314",
-      "time": "2026-09-19T16:48:09.225Z",
+      "status": "passed",
+      "details": "",
+      "run": "1789837057413-22117",
+      "time": "2026-09-19T16:59:40.311Z",
       "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789836377279-19314/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T16-47-23-825Z-20185/results.json"
+      "log": "artifacts/sdlc/1789837057413-22117/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T16-58-38-607Z-22840/results.json"
     },
     "044144bec3e8d696b592fa31fdd40529f575ed2711b0560f3716781c7b10a2e8": {
       "key": "044144bec3e8d696b592fa31fdd40529f575ed2711b0560f3716781c7b10a2e8",
@@ -13013,13 +13013,13 @@
       "title": "E2E-WEB-401 stale preview preserves draft and committed confirmation survives following read outage @HOLDINGS-RECONCILE-001",
       "file": "browser/holdings-reconciliation.spec.ts",
       "stories": ["HOLDINGS-RECONCILE-001", "PORTFOLIO-001"],
-      "status": "failed",
-      "details": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:5176/#holdings\nCall log:\n  - navigating to \"http://127.0.0.1:5176/#holdings\", waiting until \"load\"\n\n\n  18 | const replacement = 'isin,quantity,total_cost_paise\\nINE009A01021,2,20002';\n  19 | async function setup(page: Page) {\n> 20 |   await page.goto('/#holdings');\n     |              ^\n  21 |   expect(\n  22 |     (\n  23 |       await api(page, '/register', {\n    at setup (/Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/holdings-reconciliation.spec.ts:20:14)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/holdings-reconciliation.spec.ts:113:9",
-      "run": "1789836377279-19314",
-      "time": "2026-09-19T16:48:09.225Z",
+      "status": "passed",
+      "details": "",
+      "run": "1789837057413-22117",
+      "time": "2026-09-19T16:59:40.311Z",
       "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789836377279-19314/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T16-47-23-825Z-20185/results.json"
+      "log": "artifacts/sdlc/1789837057413-22117/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T16-58-38-607Z-22840/results.json"
     },
     "6751f95e5584585053a4f6fa9f9c41abef42981c4b128acc29b25bb9e030dcd4": {
       "key": "6751f95e5584585053a4f6fa9f9c41abef42981c4b128acc29b25bb9e030dcd4",
@@ -13028,13 +13028,13 @@
       "title": "E2E-WEB-402 newer explicit reload and edited draft survive a held initial actual holdings response @HOLDINGS-RECONCILE-001 @TEST-SIMULATION",
       "file": "browser/holdings-reconciliation.spec.ts",
       "stories": ["HOLDINGS-RECONCILE-001", "PORTFOLIO-001"],
-      "status": "failed",
-      "details": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:5176/#overview\nCall log:\n  - navigating to \"http://127.0.0.1:5176/#overview\", waiting until \"load\"\n\n\n  193 |   page,\n  194 | }) => {\n> 195 |   await page.goto('/#overview');\n      |              ^\n  196 |   expect(\n  197 |     (\n  198 |       await api(page, '/register', {\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/holdings-reconciliation.spec.ts:195:14",
-      "run": "1789836377279-19314",
-      "time": "2026-09-19T16:48:09.225Z",
+      "status": "passed",
+      "details": "",
+      "run": "1789837057413-22117",
+      "time": "2026-09-19T16:59:40.311Z",
       "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789836377279-19314/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T16-47-23-825Z-20185/results.json"
+      "log": "artifacts/sdlc/1789837057413-22117/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T16-58-38-607Z-22840/results.json"
     },
     "26878813d15b8a9852281ba1de696548e503d0913d34dcf18cc19316a897368a": {
       "key": "26878813d15b8a9852281ba1de696548e503d0913d34dcf18cc19316a897368a",
@@ -13043,13 +13043,13 @@
       "title": "E2E-WEB-090 review, save, reload, export and clear entered holdings @PORTFOLIO-001",
       "file": "browser/holdings.spec.ts",
       "stories": ["PORTFOLIO-001"],
-      "status": "failed",
-      "details": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:5176/#account\nCall log:\n  - navigating to \"http://127.0.0.1:5176/#account\", waiting until \"load\"\n\n\n  10 |     Origin: process.env.E2E_WEB_URL || 'http://localhost:5173',\n  11 |   };\n> 12 |   await page.goto('/#account');\n     |              ^\n  13 |   await page\n  14 |     .getByRole('button', { name: 'Create a new account', exact: true })\n  15 |     .click();\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/holdings.spec.ts:12:14",
-      "run": "1789836377279-19314",
-      "time": "2026-09-19T16:48:09.225Z",
+      "status": "passed",
+      "details": "",
+      "run": "1789837057413-22117",
+      "time": "2026-09-19T16:59:40.311Z",
       "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789836377279-19314/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T16-47-23-825Z-20185/results.json"
+      "log": "artifacts/sdlc/1789837057413-22117/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T16-58-38-607Z-22840/results.json"
     },
     "329cec90e75817de5fc1874e54e7ad80054f0690a22011d7c304603bb9887417": {
       "key": "329cec90e75817de5fc1874e54e7ad80054f0690a22011d7c304603bb9887417",
@@ -13058,13 +13058,13 @@
       "title": "E2E-WEB-092 holdings auth gates distinguish outages and preserve unsaved entries @PORTFOLIO-001 @UX-001",
       "file": "browser/holdings.spec.ts",
       "stories": ["PORTFOLIO-001", "UX-001"],
-      "status": "failed",
-      "details": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:5176/#holdings\nCall log:\n  - navigating to \"http://127.0.0.1:5176/#holdings\", waiting until \"load\"\n\n\n  157 |     }),\n  158 |   );\n> 159 |   await page.goto('/#holdings');\n      |              ^\n  160 |   await expect(page.getByRole('alert')).toContainText('unreadable response');\n  161 |   await expect(\n  162 |     page.getByRole('link', {\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/holdings.spec.ts:159:14",
-      "run": "1789836377279-19314",
-      "time": "2026-09-19T16:48:09.225Z",
+      "status": "passed",
+      "details": "",
+      "run": "1789837057413-22117",
+      "time": "2026-09-19T16:59:40.311Z",
       "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789836377279-19314/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T16-47-23-825Z-20185/results.json"
+      "log": "artifacts/sdlc/1789837057413-22117/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T16-58-38-607Z-22840/results.json"
     },
     "c64fbbba325c228b292db94edc09c36cea543412b4a6fa61099daca4688008e2": {
       "key": "c64fbbba325c228b292db94edc09c36cea543412b4a6fa61099daca4688008e2",
@@ -13073,13 +13073,13 @@
       "title": "E2E-WEB-090 review, save, reload, export and clear entered holdings @PORTFOLIO-001",
       "file": "browser/holdings.spec.ts",
       "stories": ["PORTFOLIO-001"],
-      "status": "failed",
-      "details": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:5176/#account\nCall log:\n  - navigating to \"http://127.0.0.1:5176/#account\", waiting until \"load\"\n\n\n  10 |     Origin: process.env.E2E_WEB_URL || 'http://localhost:5173',\n  11 |   };\n> 12 |   await page.goto('/#account');\n     |              ^\n  13 |   await page\n  14 |     .getByRole('button', { name: 'Create a new account', exact: true })\n  15 |     .click();\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/holdings.spec.ts:12:14",
-      "run": "1789836377279-19314",
-      "time": "2026-09-19T16:48:09.225Z",
+      "status": "passed",
+      "details": "",
+      "run": "1789837057413-22117",
+      "time": "2026-09-19T16:59:40.311Z",
       "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789836377279-19314/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T16-47-23-825Z-20185/results.json"
+      "log": "artifacts/sdlc/1789837057413-22117/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T16-58-38-607Z-22840/results.json"
     },
     "52257125b04193e948ce848836f1f35545080f58f56257d2023a9afddde8237f": {
       "key": "52257125b04193e948ce848836f1f35545080f58f56257d2023a9afddde8237f",
@@ -13088,13 +13088,13 @@
       "title": "E2E-WEB-092 holdings auth gates distinguish outages and preserve unsaved entries @PORTFOLIO-001 @UX-001",
       "file": "browser/holdings.spec.ts",
       "stories": ["PORTFOLIO-001", "UX-001"],
-      "status": "failed",
-      "details": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:5176/#holdings\nCall log:\n  - navigating to \"http://127.0.0.1:5176/#holdings\", waiting until \"load\"\n\n\n  157 |     }),\n  158 |   );\n> 159 |   await page.goto('/#holdings');\n      |              ^\n  160 |   await expect(page.getByRole('alert')).toContainText('unreadable response');\n  161 |   await expect(\n  162 |     page.getByRole('link', {\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/holdings.spec.ts:159:14",
-      "run": "1789836377279-19314",
-      "time": "2026-09-19T16:48:09.225Z",
+      "status": "passed",
+      "details": "",
+      "run": "1789837057413-22117",
+      "time": "2026-09-19T16:59:40.311Z",
       "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-      "log": "artifacts/sdlc/1789836377279-19314/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T16-47-23-825Z-20185/results.json"
+      "log": "artifacts/sdlc/1789837057413-22117/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-19T16-58-38-607Z-22840/results.json"
     },
     "f81d3fb2f9622e7788df124cd29402eed35de1a874304b33c4a8f3653bce81d8": {
       "key": "f81d3fb2f9622e7788df124cd29402eed35de1a874304b33c4a8f3653bce81d8",
@@ -19372,14 +19372,14 @@
       "project": "offline",
       "title": "E2E-OFFLINE-010 exact goals and confirmed holdings survive reload without a server @ANDROID-001",
       "file": "offline/finance.spec.ts",
-      "stories": ["ANDROID-001", "GOALS-001"],
+      "stories": ["ANDROID-001", "GOALS-001", "PORTFOLIO-001"],
       "status": "passed",
       "details": "",
-      "run": "1789752953639-97020",
-      "time": "2026-09-18T19:39:46.662Z",
-      "fingerprint": "c8bf5e6587dc0d47cb9a1a8b67bd10a471f32f3dfe65afd70a30566c85459ad4",
-      "log": "artifacts/sdlc/1789752953639-97020/08-pnpm-android_test.log",
-      "report": "artifacts/e2e/offline-1789760138287-6597/results.json"
+      "run": "1789837057413-22117",
+      "time": "2026-09-19T16:59:58.818Z",
+      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
+      "log": "artifacts/sdlc/1789837057413-22117/08-pnpm-android_test.log",
+      "report": "artifacts/e2e/offline-1789837190617-23122/results.json"
     },
     "9750c3141c7f29c8877d97676c35a9fa99513d80eae4e317c0807503bbc4cc91": {
       "key": "9750c3141c7f29c8877d97676c35a9fa99513d80eae4e317c0807503bbc4cc91",
@@ -20797,14 +20797,14 @@
       "project": "offline",
       "title": "E2E-OFFLINE-011 local ownership and deletion preserve the other account @ANDROID-001",
       "file": "offline/finance.spec.ts",
-      "stories": ["ANDROID-001"],
+      "stories": ["ANDROID-001", "PORTFOLIO-001"],
       "status": "passed",
       "details": "",
-      "run": "1789752953639-97020",
-      "time": "2026-09-18T19:39:46.662Z",
-      "fingerprint": "c8bf5e6587dc0d47cb9a1a8b67bd10a471f32f3dfe65afd70a30566c85459ad4",
-      "log": "artifacts/sdlc/1789752953639-97020/08-pnpm-android_test.log",
-      "report": "artifacts/e2e/offline-1789760138287-6597/results.json"
+      "run": "1789837057413-22117",
+      "time": "2026-09-19T16:59:58.818Z",
+      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
+      "log": "artifacts/sdlc/1789837057413-22117/08-pnpm-android_test.log",
+      "report": "artifacts/e2e/offline-1789837190617-23122/results.json"
     },
     "7f324f3ea8767e15d867e79f825e1845d3c8f9b2ee3794c19abdd6aea4f62b92": {
       "key": "7f324f3ea8767e15d867e79f825e1845d3c8f9b2ee3794c19abdd6aea4f62b92",
@@ -20977,14 +20977,14 @@
       "project": "offline",
       "title": "E2E-OFFLINE-410 exact replacement review, removal acknowledgement, export and deletion stay on device @HOLDINGS-RECONCILE-001",
       "file": "offline/holdings-reconciliation.spec.ts",
-      "stories": ["HOLDINGS-RECONCILE-001"],
+      "stories": ["HOLDINGS-RECONCILE-001", "PORTFOLIO-001"],
       "status": "passed",
       "details": "",
-      "run": "1789752953639-97020",
-      "time": "2026-09-18T19:39:46.662Z",
-      "fingerprint": "c8bf5e6587dc0d47cb9a1a8b67bd10a471f32f3dfe65afd70a30566c85459ad4",
-      "log": "artifacts/sdlc/1789752953639-97020/08-pnpm-android_test.log",
-      "report": "artifacts/e2e/offline-1789760138287-6597/results.json"
+      "run": "1789837057413-22117",
+      "time": "2026-09-19T16:59:58.818Z",
+      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
+      "log": "artifacts/sdlc/1789837057413-22117/08-pnpm-android_test.log",
+      "report": "artifacts/e2e/offline-1789837190617-23122/results.json"
     },
     "5028fe22a5664b72cccb5f6437eb02581ced6f3c7b6c54587fb699ec93d85023": {
       "key": "5028fe22a5664b72cccb5f6437eb02581ced6f3c7b6c54587fb699ec93d85023",
@@ -22425,6 +22425,21 @@
       "fingerprint": "c8bf5e6587dc0d47cb9a1a8b67bd10a471f32f3dfe65afd70a30566c85459ad4",
       "log": "artifacts/sdlc/1789752953639-97020/08-pnpm-android_test.log",
       "report": "artifacts/e2e/offline-1789760138287-6597/results.json"
+    },
+    "9622d4a120ace0dff53ce0923d9014ddbf715a26993c209d93b398b843eb5ce1": {
+      "key": "9622d4a120ace0dff53ce0923d9014ddbf715a26993c209d93b398b843eb5ce1",
+      "caseId": "E2E-OFFLINE-090",
+      "project": "offline",
+      "title": "E2E-OFFLINE-090 guided manual holdings review save reload and removal use actual device storage @PORTFOLIO-001 @ANDROID-001",
+      "file": "offline/holdings-ui.spec.ts",
+      "stories": ["PORTFOLIO-001", "ANDROID-001"],
+      "status": "passed",
+      "details": "",
+      "run": "1789837057413-22117",
+      "time": "2026-09-19T16:59:58.818Z",
+      "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
+      "log": "artifacts/sdlc/1789837057413-22117/08-pnpm-android_test.log",
+      "report": "artifacts/e2e/offline-1789837190617-23122/results.json"
     }
   },
   "bugs": {
@@ -27803,7 +27818,7 @@
       "title": "E2E-WEB-092 holdings auth gates distinguish outages and preserve unsaved entries @PORTFOLIO-001 @UX-001",
       "file": "browser/holdings.spec.ts",
       "stories": ["PORTFOLIO-001", "UX-001"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:5176/#holdings\nCall log:\n  - navigating to \"http://127.0.0.1:5176/#holdings\", waiting until \"load\"\n\n\n  157 |     }),\n  158 |   );\n> 159 |   await page.goto('/#holdings');\n      |              ^\n  160 |   await expect(page.getByRole('alert')).toContainText('unreadable response');\n  161 |   await expect(\n  162 |     page.getByRole('link', {\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/holdings.spec.ts:159:14",
       "run": "1789836377279-19314",
       "time": "2026-09-19T16:48:09.225Z",
@@ -27811,7 +27826,14 @@
       "log": "artifacts/sdlc/1789836377279-19314/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-19T16-47-23-825Z-20185/results.json",
       "id": "BUG-329cec90e75817de",
-      "firstSeen": "2026-09-18T05:00:49.248Z"
+      "firstSeen": "2026-09-18T05:00:49.248Z",
+      "resolvedBy": {
+        "run": "1789837057413-22117",
+        "time": "2026-09-19T16:59:40.311Z",
+        "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
+        "log": "artifacts/sdlc/1789837057413-22117/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T16-58-38-607Z-22840/results.json"
+      }
     },
     "BUG-fb4ca6ebaf321422": {
       "key": "fb4ca6ebaf3214221c3b1577485f5efd71878028a29d20cc12d5c77aee0953c4",
@@ -28142,10 +28164,10 @@
       "id": "BUG-a47611ab64789eb8",
       "firstSeen": "2026-09-18T05:33:44.718Z",
       "resolvedBy": {
-        "run": "1789836492361-20464",
-        "time": "2026-09-19T16:49:12.350Z",
+        "run": "1789837057413-22117",
+        "time": "2026-09-19T16:58:38.152Z",
         "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
-        "log": "artifacts/sdlc/1789836492361-20464/02-pnpm-check.log"
+        "log": "artifacts/sdlc/1789837057413-22117/02-pnpm-check.log"
       }
     },
     "BUG-a0826694511b6915": {
@@ -28506,7 +28528,7 @@
       "title": "E2E-API-090 holdings preview, confirm, isolate, replay and revisions @PORTFOLIO-001",
       "file": "api/holdings.spec.ts",
       "stories": ["PORTFOLIO-001"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: apiRequestContext.delete: connect ECONNREFUSED 127.0.0.1:4104\nCall log:\n  - → DELETE http://127.0.0.1:4104/api/v1/account\n    - user-agent: Playwright/1.58.2 (arm64; macOS 15.3) node/26.7\n    - accept: */*\n    - accept-encoding: gzip,deflate,br\n    - Origin: http://127.0.0.1:5176\n    - content-type: application/json\n    - content-length: 43\n\n\n  127 |     ).toEqual([]);\n  128 |   } finally {\n> 129 |     await request.delete('/api/v1/account', { headers, data: { password } });\n      |                         ^\n  130 |     await other.delete('/api/v1/account', { headers, data: { password } });\n  131 |     await other.dispose();\n  132 |   }\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/api/holdings.spec.ts:129:25",
       "run": "1789836377279-19314",
       "time": "2026-09-19T16:48:09.225Z",
@@ -28514,7 +28536,14 @@
       "log": "artifacts/sdlc/1789836377279-19314/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-19T16-47-23-825Z-20185/results.json",
       "id": "BUG-51c6532662e4947d",
-      "firstSeen": "2026-09-19T16:48:09.225Z"
+      "firstSeen": "2026-09-19T16:48:09.225Z",
+      "resolvedBy": {
+        "run": "1789837057413-22117",
+        "time": "2026-09-19T16:59:40.311Z",
+        "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
+        "log": "artifacts/sdlc/1789837057413-22117/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T16-58-38-607Z-22840/results.json"
+      }
     },
     "BUG-56186d56992e0dd1": {
       "key": "56186d56992e0dd11a284642e3f55d885afacd270b55479b5e155762480c27f3",
@@ -28523,7 +28552,7 @@
       "title": "E2E-API-091 malformed holdings CSV, consent and CSRF reject @PORTFOLIO-001",
       "file": "api/holdings.spec.ts",
       "stories": ["PORTFOLIO-001"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: apiRequestContext.delete: connect ECONNREFUSED 127.0.0.1:4104\nCall log:\n  - → DELETE http://127.0.0.1:4104/api/v1/account\n    - user-agent: Playwright/1.58.2 (arm64; macOS 15.3) node/26.7\n    - accept: */*\n    - accept-encoding: gzip,deflate,br\n    - Origin: http://127.0.0.1:5176\n    - content-type: application/json\n    - content-length: 43\n\n\n  196 |     ).toBe(0);\n  197 |   } finally {\n> 198 |     await request.delete('/api/v1/account', { headers, data: { password } });\n      |                         ^\n  199 |   }\n  200 | });\n  201 |\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/api/holdings.spec.ts:198:25",
       "run": "1789836377279-19314",
       "time": "2026-09-19T16:48:09.225Z",
@@ -28531,7 +28560,14 @@
       "log": "artifacts/sdlc/1789836377279-19314/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-19T16-47-23-825Z-20185/results.json",
       "id": "BUG-56186d56992e0dd1",
-      "firstSeen": "2026-09-19T16:48:09.225Z"
+      "firstSeen": "2026-09-19T16:48:09.225Z",
+      "resolvedBy": {
+        "run": "1789837057413-22117",
+        "time": "2026-09-19T16:59:40.311Z",
+        "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
+        "log": "artifacts/sdlc/1789837057413-22117/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T16-58-38-607Z-22840/results.json"
+      }
     },
     "BUG-8381a5128407ac7b": {
       "key": "8381a5128407ac7b94c1a003f4d04478248e616238f3d2685da4fc91ad9e3286",
@@ -28540,7 +28576,7 @@
       "title": "E2E-WEB-400 mobile keyboard review requires removal acknowledgement and persists replacement @HOLDINGS-RECONCILE-001",
       "file": "browser/holdings-reconciliation.spec.ts",
       "stories": ["HOLDINGS-RECONCILE-001", "PORTFOLIO-001"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:5176/#holdings\nCall log:\n  - navigating to \"http://127.0.0.1:5176/#holdings\", waiting until \"load\"\n\n\n  18 | const replacement = 'isin,quantity,total_cost_paise\\nINE009A01021,2,20002';\n  19 | async function setup(page: Page) {\n> 20 |   await page.goto('/#holdings');\n     |              ^\n  21 |   expect(\n  22 |     (\n  23 |       await api(page, '/register', {\n    at setup (/Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/holdings-reconciliation.spec.ts:20:14)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/holdings-reconciliation.spec.ts:64:9",
       "run": "1789836377279-19314",
       "time": "2026-09-19T16:48:09.225Z",
@@ -28548,7 +28584,14 @@
       "log": "artifacts/sdlc/1789836377279-19314/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-19T16-47-23-825Z-20185/results.json",
       "id": "BUG-8381a5128407ac7b",
-      "firstSeen": "2026-09-19T16:48:09.225Z"
+      "firstSeen": "2026-09-19T16:48:09.225Z",
+      "resolvedBy": {
+        "run": "1789837057413-22117",
+        "time": "2026-09-19T16:59:40.311Z",
+        "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
+        "log": "artifacts/sdlc/1789837057413-22117/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T16-58-38-607Z-22840/results.json"
+      }
     },
     "BUG-01d4139c6235cb7a": {
       "key": "01d4139c6235cb7abd13ec5b052d389c3cf8a3987d9cff8cd62f9d4662bc0c23",
@@ -28557,7 +28600,7 @@
       "title": "E2E-WEB-401 stale preview preserves draft and committed confirmation survives following read outage @HOLDINGS-RECONCILE-001",
       "file": "browser/holdings-reconciliation.spec.ts",
       "stories": ["HOLDINGS-RECONCILE-001", "PORTFOLIO-001"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:5176/#holdings\nCall log:\n  - navigating to \"http://127.0.0.1:5176/#holdings\", waiting until \"load\"\n\n\n  18 | const replacement = 'isin,quantity,total_cost_paise\\nINE009A01021,2,20002';\n  19 | async function setup(page: Page) {\n> 20 |   await page.goto('/#holdings');\n     |              ^\n  21 |   expect(\n  22 |     (\n  23 |       await api(page, '/register', {\n    at setup (/Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/holdings-reconciliation.spec.ts:20:14)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/holdings-reconciliation.spec.ts:113:9",
       "run": "1789836377279-19314",
       "time": "2026-09-19T16:48:09.225Z",
@@ -28565,7 +28608,14 @@
       "log": "artifacts/sdlc/1789836377279-19314/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-19T16-47-23-825Z-20185/results.json",
       "id": "BUG-01d4139c6235cb7a",
-      "firstSeen": "2026-09-19T16:48:09.225Z"
+      "firstSeen": "2026-09-19T16:48:09.225Z",
+      "resolvedBy": {
+        "run": "1789837057413-22117",
+        "time": "2026-09-19T16:59:40.311Z",
+        "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
+        "log": "artifacts/sdlc/1789837057413-22117/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T16-58-38-607Z-22840/results.json"
+      }
     },
     "BUG-efc6153b6b15cf6f": {
       "key": "efc6153b6b15cf6f54790fbc0f017ee07a9283afe2b173069103b11c315cf2d1",
@@ -28574,7 +28624,7 @@
       "title": "E2E-WEB-402 newer explicit reload and edited draft survive a held initial actual holdings response @HOLDINGS-RECONCILE-001 @TEST-SIMULATION",
       "file": "browser/holdings-reconciliation.spec.ts",
       "stories": ["HOLDINGS-RECONCILE-001", "PORTFOLIO-001"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:5176/#overview\nCall log:\n  - navigating to \"http://127.0.0.1:5176/#overview\", waiting until \"load\"\n\n\n  193 |   page,\n  194 | }) => {\n> 195 |   await page.goto('/#overview');\n      |              ^\n  196 |   expect(\n  197 |     (\n  198 |       await api(page, '/register', {\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/holdings-reconciliation.spec.ts:195:14",
       "run": "1789836377279-19314",
       "time": "2026-09-19T16:48:09.225Z",
@@ -28582,7 +28632,14 @@
       "log": "artifacts/sdlc/1789836377279-19314/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-19T16-47-23-825Z-20185/results.json",
       "id": "BUG-efc6153b6b15cf6f",
-      "firstSeen": "2026-09-19T16:48:09.225Z"
+      "firstSeen": "2026-09-19T16:48:09.225Z",
+      "resolvedBy": {
+        "run": "1789837057413-22117",
+        "time": "2026-09-19T16:59:40.311Z",
+        "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
+        "log": "artifacts/sdlc/1789837057413-22117/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T16-58-38-607Z-22840/results.json"
+      }
     },
     "BUG-c23507df28134d10": {
       "key": "c23507df28134d106385a701aa54be1111256c4de6e7f135d9247c6194672021",
@@ -28591,7 +28648,7 @@
       "title": "E2E-WEB-400 mobile keyboard review requires removal acknowledgement and persists replacement @HOLDINGS-RECONCILE-001",
       "file": "browser/holdings-reconciliation.spec.ts",
       "stories": ["HOLDINGS-RECONCILE-001", "PORTFOLIO-001"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:5176/#holdings\nCall log:\n  - navigating to \"http://127.0.0.1:5176/#holdings\", waiting until \"load\"\n\n\n  18 | const replacement = 'isin,quantity,total_cost_paise\\nINE009A01021,2,20002';\n  19 | async function setup(page: Page) {\n> 20 |   await page.goto('/#holdings');\n     |              ^\n  21 |   expect(\n  22 |     (\n  23 |       await api(page, '/register', {\n    at setup (/Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/holdings-reconciliation.spec.ts:20:14)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/holdings-reconciliation.spec.ts:64:9",
       "run": "1789836377279-19314",
       "time": "2026-09-19T16:48:09.225Z",
@@ -28599,7 +28656,14 @@
       "log": "artifacts/sdlc/1789836377279-19314/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-19T16-47-23-825Z-20185/results.json",
       "id": "BUG-c23507df28134d10",
-      "firstSeen": "2026-09-19T16:48:09.225Z"
+      "firstSeen": "2026-09-19T16:48:09.225Z",
+      "resolvedBy": {
+        "run": "1789837057413-22117",
+        "time": "2026-09-19T16:59:40.311Z",
+        "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
+        "log": "artifacts/sdlc/1789837057413-22117/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T16-58-38-607Z-22840/results.json"
+      }
     },
     "BUG-044144bec3e8d696": {
       "key": "044144bec3e8d696b592fa31fdd40529f575ed2711b0560f3716781c7b10a2e8",
@@ -28608,7 +28672,7 @@
       "title": "E2E-WEB-401 stale preview preserves draft and committed confirmation survives following read outage @HOLDINGS-RECONCILE-001",
       "file": "browser/holdings-reconciliation.spec.ts",
       "stories": ["HOLDINGS-RECONCILE-001", "PORTFOLIO-001"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:5176/#holdings\nCall log:\n  - navigating to \"http://127.0.0.1:5176/#holdings\", waiting until \"load\"\n\n\n  18 | const replacement = 'isin,quantity,total_cost_paise\\nINE009A01021,2,20002';\n  19 | async function setup(page: Page) {\n> 20 |   await page.goto('/#holdings');\n     |              ^\n  21 |   expect(\n  22 |     (\n  23 |       await api(page, '/register', {\n    at setup (/Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/holdings-reconciliation.spec.ts:20:14)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/holdings-reconciliation.spec.ts:113:9",
       "run": "1789836377279-19314",
       "time": "2026-09-19T16:48:09.225Z",
@@ -28616,7 +28680,14 @@
       "log": "artifacts/sdlc/1789836377279-19314/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-19T16-47-23-825Z-20185/results.json",
       "id": "BUG-044144bec3e8d696",
-      "firstSeen": "2026-09-19T16:48:09.225Z"
+      "firstSeen": "2026-09-19T16:48:09.225Z",
+      "resolvedBy": {
+        "run": "1789837057413-22117",
+        "time": "2026-09-19T16:59:40.311Z",
+        "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
+        "log": "artifacts/sdlc/1789837057413-22117/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T16-58-38-607Z-22840/results.json"
+      }
     },
     "BUG-6751f95e55845850": {
       "key": "6751f95e5584585053a4f6fa9f9c41abef42981c4b128acc29b25bb9e030dcd4",
@@ -28625,7 +28696,7 @@
       "title": "E2E-WEB-402 newer explicit reload and edited draft survive a held initial actual holdings response @HOLDINGS-RECONCILE-001 @TEST-SIMULATION",
       "file": "browser/holdings-reconciliation.spec.ts",
       "stories": ["HOLDINGS-RECONCILE-001", "PORTFOLIO-001"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:5176/#overview\nCall log:\n  - navigating to \"http://127.0.0.1:5176/#overview\", waiting until \"load\"\n\n\n  193 |   page,\n  194 | }) => {\n> 195 |   await page.goto('/#overview');\n      |              ^\n  196 |   expect(\n  197 |     (\n  198 |       await api(page, '/register', {\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/holdings-reconciliation.spec.ts:195:14",
       "run": "1789836377279-19314",
       "time": "2026-09-19T16:48:09.225Z",
@@ -28633,7 +28704,14 @@
       "log": "artifacts/sdlc/1789836377279-19314/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-19T16-47-23-825Z-20185/results.json",
       "id": "BUG-6751f95e55845850",
-      "firstSeen": "2026-09-19T16:48:09.225Z"
+      "firstSeen": "2026-09-19T16:48:09.225Z",
+      "resolvedBy": {
+        "run": "1789837057413-22117",
+        "time": "2026-09-19T16:59:40.311Z",
+        "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
+        "log": "artifacts/sdlc/1789837057413-22117/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T16-58-38-607Z-22840/results.json"
+      }
     },
     "BUG-26878813d15b8a98": {
       "key": "26878813d15b8a9852281ba1de696548e503d0913d34dcf18cc19316a897368a",
@@ -28642,7 +28720,7 @@
       "title": "E2E-WEB-090 review, save, reload, export and clear entered holdings @PORTFOLIO-001",
       "file": "browser/holdings.spec.ts",
       "stories": ["PORTFOLIO-001"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:5176/#account\nCall log:\n  - navigating to \"http://127.0.0.1:5176/#account\", waiting until \"load\"\n\n\n  10 |     Origin: process.env.E2E_WEB_URL || 'http://localhost:5173',\n  11 |   };\n> 12 |   await page.goto('/#account');\n     |              ^\n  13 |   await page\n  14 |     .getByRole('button', { name: 'Create a new account', exact: true })\n  15 |     .click();\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/holdings.spec.ts:12:14",
       "run": "1789836377279-19314",
       "time": "2026-09-19T16:48:09.225Z",
@@ -28650,7 +28728,14 @@
       "log": "artifacts/sdlc/1789836377279-19314/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-19T16-47-23-825Z-20185/results.json",
       "id": "BUG-26878813d15b8a98",
-      "firstSeen": "2026-09-19T16:48:09.225Z"
+      "firstSeen": "2026-09-19T16:48:09.225Z",
+      "resolvedBy": {
+        "run": "1789837057413-22117",
+        "time": "2026-09-19T16:59:40.311Z",
+        "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
+        "log": "artifacts/sdlc/1789837057413-22117/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T16-58-38-607Z-22840/results.json"
+      }
     },
     "BUG-c64fbbba325c228b": {
       "key": "c64fbbba325c228b292db94edc09c36cea543412b4a6fa61099daca4688008e2",
@@ -28659,7 +28744,7 @@
       "title": "E2E-WEB-090 review, save, reload, export and clear entered holdings @PORTFOLIO-001",
       "file": "browser/holdings.spec.ts",
       "stories": ["PORTFOLIO-001"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:5176/#account\nCall log:\n  - navigating to \"http://127.0.0.1:5176/#account\", waiting until \"load\"\n\n\n  10 |     Origin: process.env.E2E_WEB_URL || 'http://localhost:5173',\n  11 |   };\n> 12 |   await page.goto('/#account');\n     |              ^\n  13 |   await page\n  14 |     .getByRole('button', { name: 'Create a new account', exact: true })\n  15 |     .click();\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/holdings.spec.ts:12:14",
       "run": "1789836377279-19314",
       "time": "2026-09-19T16:48:09.225Z",
@@ -28667,7 +28752,14 @@
       "log": "artifacts/sdlc/1789836377279-19314/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-19T16-47-23-825Z-20185/results.json",
       "id": "BUG-c64fbbba325c228b",
-      "firstSeen": "2026-09-19T16:48:09.225Z"
+      "firstSeen": "2026-09-19T16:48:09.225Z",
+      "resolvedBy": {
+        "run": "1789837057413-22117",
+        "time": "2026-09-19T16:59:40.311Z",
+        "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
+        "log": "artifacts/sdlc/1789837057413-22117/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T16-58-38-607Z-22840/results.json"
+      }
     },
     "BUG-52257125b04193e9": {
       "key": "52257125b04193e948ce848836f1f35545080f58f56257d2023a9afddde8237f",
@@ -28676,7 +28768,7 @@
       "title": "E2E-WEB-092 holdings auth gates distinguish outages and preserve unsaved entries @PORTFOLIO-001 @UX-001",
       "file": "browser/holdings.spec.ts",
       "stories": ["PORTFOLIO-001", "UX-001"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:5176/#holdings\nCall log:\n  - navigating to \"http://127.0.0.1:5176/#holdings\", waiting until \"load\"\n\n\n  157 |     }),\n  158 |   );\n> 159 |   await page.goto('/#holdings');\n      |              ^\n  160 |   await expect(page.getByRole('alert')).toContainText('unreadable response');\n  161 |   await expect(\n  162 |     page.getByRole('link', {\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/holdings.spec.ts:159:14",
       "run": "1789836377279-19314",
       "time": "2026-09-19T16:48:09.225Z",
@@ -28684,7 +28776,14 @@
       "log": "artifacts/sdlc/1789836377279-19314/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-19T16-47-23-825Z-20185/results.json",
       "id": "BUG-52257125b04193e9",
-      "firstSeen": "2026-09-19T16:48:09.225Z"
+      "firstSeen": "2026-09-19T16:48:09.225Z",
+      "resolvedBy": {
+        "run": "1789837057413-22117",
+        "time": "2026-09-19T16:59:40.311Z",
+        "fingerprint": "ce682e06a5da59dafb07148c2431c92765dbd618662e745fe4718448e15423b8",
+        "log": "artifacts/sdlc/1789837057413-22117/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-19T16-58-38-607Z-22840/results.json"
+      }
     },
     "BUG-fcf6658b39787480": {
       "key": "fcf6658b39787480bd1e3586be212f72227c5d92f8d61f3c3ebe0b84ed04fdbc",

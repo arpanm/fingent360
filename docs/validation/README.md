@@ -1,6 +1,6 @@
 # Story validation
 
-Latest SDLC invocation: 1789836492361-20464. Only actual test receipts count.
+Latest SDLC invocation: 1789837057413-22117. Only actual test receipts count.
 
 Automated acceptance is separate from implementation, live-source permission and physical-device acceptance.
 
@@ -9,7 +9,7 @@ Automated acceptance is separate from implementation, live-source permission and
 - [ALERT-001](../tasks/ALERT-001.md): **Stale — rerun required**.
 - [ALERT-002](../tasks/ALERT-002.md): **Stale — rerun required**.
 - [ALLOCATIONS-001](../tasks/ALLOCATIONS-001.md): **Stale — rerun required**.
-- [ANDROID-001](../tasks/ANDROID-001.md): **Stale — rerun required**.
+- [ANDROID-001](../tasks/ANDROID-001.md): **Selected cases passed — acceptance matrix needed**.
 - [ASSIST-001](../tasks/ASSIST-001.md): **Stale — rerun required**.
 - [AUTH-WAIT-001](../tasks/AUTH-WAIT-001.md): **Stale — rerun required**.
 - [BEA-001](../tasks/BEA-001.md): **Stale — rerun required**.
@@ -47,8 +47,8 @@ Automated acceptance is separate from implementation, live-source permission and
 - [FUNDS-BONDS-001](../tasks/FUNDS-BONDS-001.md): **Failed — unresolved bug**.
 - [GOAL-FEASIBILITY-001](../tasks/GOAL-FEASIBILITY-001.md): **Failed — unresolved bug**.
 - [GOAL-SCENARIOS-001](../tasks/GOAL-SCENARIOS-001.md): **Stale — rerun required**.
-- [GOALS-001](../tasks/GOALS-001.md): **Stale — rerun required**.
-- [HOLDINGS-RECONCILE-001](../tasks/HOLDINGS-RECONCILE-001.md): **Failed — unresolved bug**.
+- [GOALS-001](../tasks/GOALS-001.md): **Partial — required cases not run**.
+- [HOLDINGS-RECONCILE-001](../tasks/HOLDINGS-RECONCILE-001.md): **Passed — automated acceptance**.
 - [IDENTITY-001](../tasks/IDENTITY-001.md): **Stale — rerun required**.
 - [IDENTITY-ADJUDICATION-001](../tasks/IDENTITY-ADJUDICATION-001.md): **Stale — rerun required**.
 - [IMPACT-TRACE-001](../tasks/IMPACT-TRACE-001.md): **Stale — rerun required**.
@@ -60,7 +60,7 @@ Automated acceptance is separate from implementation, live-source permission and
 - [NAMED-OPERATORS-001](../tasks/NAMED-OPERATORS-001.md): **Stale — rerun required**.
 - [OPS-AUDIT-001](../tasks/OPS-AUDIT-001.md): **Stale — rerun required**.
 - [OPS-READ-ADMISSION-001](../tasks/OPS-READ-ADMISSION-001.md): **Stale — rerun required**.
-- [PORTFOLIO-001](../tasks/PORTFOLIO-001.md): **Failed — unresolved bug**.
+- [PORTFOLIO-001](../tasks/PORTFOLIO-001.md): **Passed — automated acceptance**.
 - [PRIVACY-001](../tasks/PRIVACY-001.md): **Failed — unresolved bug**.
 - [PUBLISHING-QUEUE-001](../tasks/PUBLISHING-QUEUE-001.md): **Stale — rerun required**.
 - [PWA-001](../tasks/PWA-001.md): **Stale — rerun required**.
@@ -102,7 +102,7 @@ Automated acceptance is separate from implementation, live-source permission and
 - [SRC-018](../tasks/SRC-018.md): **Failed — unresolved bug**.
 - [STORY-MEDIA-002](../tasks/STORY-MEDIA-002.md): **Stale — rerun required**.
 - [UI-RACES-001](../tasks/UI-RACES-001.md): **Stale — rerun required**.
-- [UX-001](../tasks/UX-001.md): **Failed — unresolved bug**.
+- [UX-001](../tasks/UX-001.md): **Selected cases passed — acceptance matrix needed**.
 - [UX-002](../tasks/UX-002.md): **Failed — unresolved bug**.
 - [UX-002D](../tasks/UX-002D.md): **Failed — unresolved bug**.
 - [UX-002G](../tasks/UX-002G.md): **Failed — unresolved bug**.

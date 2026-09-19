@@ -1,9 +1,9 @@
 # PORTFOLIO-001 — Manage portfolio holdings
 
-- **Status:** Needs repair
+- **Status:** Done (accepted scope)
 - **Implemented / recorded:** - PORTFOLIO-001 (DEV-007/008): Account-owned, user-entered Indian-equity holdings with exact quantities/cost basis and strict CSV preview/confirmation, independent of fictional virtual exercise. Prompt: contracts/migration009/API/UI, revision conflicts, validation/isolation/persistence tests and privacy export. No live valuations or verified-source claims. Implemented.
-- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
-- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
+- **Pending:** None for the reviewed acceptance scope; native release certification remains separate.
+- **Next action / inputs:** No further action for this accepted scope.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Implementation handoff rule
@@ -46,15 +46,15 @@ Owned user-entered Indian-equity holdings: manual and standard CSV preview/conse
 
 The reviewed case/project requirements and conditional completion metadata are now in `docs/tasks/acceptance.json`. [Layer review, coverage and manual commands](../development/main-module-closure-2026-09-19.md). This is not a test pass: generated validation blocks and bug states are preserved. No runtime/API/database rewrite is justified for an already implemented workflow solely because its acceptance mapping was missing. The new portfolio guided offline UI case closes a coverage gap; existing connected/private/offline cases are reused.
 
-<!-- sdlc-validation:start -->
-
-## Automated validation
-
-Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789836492361-20464.
-<!-- sdlc-validation:end -->
-
 ## Saved retry diagnosis — 2026-09-19
 
 Run `1789836377279-19314` completed format/check and gated commit, then recorded 12 failed, 5 passed. Every reported failure is a connection refusal to configured API127.0.0.1:4104 or web127.0.0.1:5176; several API cleanup errors mask the earlier unreachable request. The saved artifacts do not establish why those targets stopped or whether a different session uses other ports. Connected failure prevented offline execution. No feature assertion is weakened and no pass is inferred.
 
 User next action: in a separate terminal run `pnpm db:up` then `pnpm dev`, leave dev running, and wait for both printed API/web startup messages. In another terminal rerun this task's scoped SDLC command. The launcher reads configured ports from .env; any explicit E2E_API_URL/E2E_WEB_URL override must match the running app. Existing generated failures remain open until an actual passing retry. No install or migration change is needed by this diagnosis. Agents did not start services or execute validation.
+
+<!-- sdlc-validation:start -->
+
+## Automated validation
+
+Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789837057413-22117.
+<!-- sdlc-validation:end -->

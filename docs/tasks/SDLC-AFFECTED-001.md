@@ -1,10 +1,10 @@
 # SDLC-AFFECTED-001 — deterministic impacted E2E selection
 
-- **Status:** Completed implementation; validation pending
-- **Implemented / recorded:** - Implementation: Authored; verification pending. Added conservative layer/file selection, explicit baseline and preview. No formatter/check/build/tests/commit executed. Feature-level backend dependency selection remains a documented limitation; shared/unknown changes run full coverage. User requests an option selecting tests affected by current changes rather than always executing all E2E.
-- **Pending:** User: run the task’s documented validation; implementation is not a test pass.
-- **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.
-- **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
+- **Status:** Done (verified gate scope)
+- **Implemented / recorded:** Conservative changed-file/layer selection, baseline/preview, unknown fallback and rebuilt offline selections.
+- **Pending:** No remaining implemented selector acceptance. It is not semantic dependency proof or a way to carry old source fingerprints forward.
+- **Next action / inputs:** No new run is required for this bounded historical scope. Follow the named child/source gates for broader delivery.
+- **Verification:** Saved artifacts/sdlc/1789852776002-50046/02-pnpm-check.log records successful format validation, lint, application/E2E typechecks, builds and unit suites; final tooling summary is 72 passed, zero failed. Stage05 records gated commit a9e4f43. Full E2E completion is not inferred from those gates. Log lines1021–1028; tests/unit/sdlc-impact.test.mjs and scripts/sdlc-impact.mjs. Reviewed README option/reference alignment. Unit cases preserve selection after gated commit and exact escaped file filters.
 
 ## Implementation handoff rule
 
@@ -36,3 +36,11 @@ Read AGENTS.md, the task-maintenance guide and this task’s current summary. Wo
 - **Next action:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.
 - **Research/evidence:** See [dated source checks and existing answers](input-research-2026-09-15.md). Source-specific permissions, complete parser layouts and legal classification are not claimed resolved by triage.
 - **Completion boundary:** This updates readiness only, not test passes, live activation or full feature completion. On later pickup, refresh saved evidence and update this record plus the TODO row.
+
+## Bounded evidence reconciliation — 20 September 2026
+
+Conservative changed-file/layer selection, baseline/preview, unknown fallback and rebuilt offline selections.
+
+Saved artifacts/sdlc/1789852776002-50046/02-pnpm-check.log records successful format validation, lint, application/E2E typechecks, builds and unit suites; final tooling summary is 72 passed, zero failed. Stage05 records gated commit a9e4f43. Full E2E completion is not inferred from those gates. Log lines1021–1028; tests/unit/sdlc-impact.test.mjs and scripts/sdlc-impact.mjs. Reviewed README option/reference alignment. Unit cases preserve selection after gated commit and exact escaped file filters.
+
+No remaining implemented selector acceptance. It is not semantic dependency proof or a way to carry old source fingerprints forward. This scope does not require an invented API/browser acceptance matrix. Existing generated functional validation, if present, remains verbatim and refers only to its explicit matrix. Historical authored/unrun statements below describe their original dates.

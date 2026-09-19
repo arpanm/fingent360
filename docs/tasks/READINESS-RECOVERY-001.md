@@ -1,0 +1,11 @@
+# READINESS-RECOVERY-001 — Mongo readiness remains down after database restoration
+
+- **Status:** Open investigation — observed recovery defect
+- **Implemented / recorded:** API004 passes outage reporting. On two authorized local checks, MongoDB was restarted and healthy, but the API continued reporting MongoDB down. Restarting only the existing API watcher child restored readiness200.
+- **Pending:** Diagnose startup-failed and previously connected client recovery separately; implement recovery if confirmed, with a bounded regression covering restoration without restarting the API.
+- **Next action / inputs:** Agent-ready. No new credential, database reset or user decision is needed. Preserve existing data and runtime/owner separation.
+- **Verification:** Outage receipts2026-09-19T21-18-08-742Z-49882 and2026-09-19T22-31-20-475Z-56976 passed their existing down-state assertion. They do not test restoration. Following each, the observed readiness response remained unavailable with postgres up and mongodb down after the container became healthy; an API watcher-child restart restored both up. Direct configured Mongo ping also succeeded during the first occurrence. No original driver rejection class was captured.
+
+## Specification and reusable prompt
+
+Read DatabaseProbe in apps/api/src/readiness.ts and the installed Mongo driver before changing behavior. Preserve health200/readiness503 contracts during genuine outages and suppress credential-bearing errors. Prove whether a failed first connection leaves a closed topology, whether an established connection also fails to recover, and whether a watcher restart occurred between probes. The installed driver can retain a closed topology after a failed initial connect, but that is a candidate cause, not a proven incident diagnosis. Cover first-connect failure, restoration, established-client outage, recovery without API restart and graceful shutdown. Use bounded probes and the existing local databases; no volume removal. No UI or data migration is expected unless the confirmed fix requires one. Add/update the foundation API regression and task/index/docs; execute only under current user authorization. Keep this issue open until saved restoration evidence demonstrates the fix.

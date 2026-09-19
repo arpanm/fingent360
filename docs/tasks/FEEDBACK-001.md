@@ -62,5 +62,14 @@ Remaining gates:
 
 ## Automated validation
 
-Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: outage-final-1789852687840.
+Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: final-scoped-1789857073654.
 <!-- sdlc-validation:end -->
+
+## Remaining completion gates — 20 September 2026
+
+The complete current automated matrix passed. The reviewed manifest retains these separate requirements; rerunning passing cases does not satisfy them:
+
+- Physical Android and iOS acceptance remains required: actual microphone allow/deny/interruption/background stop, app-only masked capture, queue restart/update/origin behavior, native storage/Keychain error preservation, controlled trusted HTTPS receipt/status/deletion and unchanged private finances. WEB1610–1612 are bridge simulations; historical Android emulator evidence is not physical acceptance. Use feedback-native.md and IOS1612–1619, with exact build identity.
+- Agent-actionable submission-context coverage remains: WEB1112 only reads sessionStorage for a reader item and excludes holdings; it never submits feedback or navigates to a different/private screen. Add or perform explicit actual submitted-payload acceptance for matching reader/story source version and media/model lineage, stale/mismatched/private-screen exclusion, and exact linked retained provider/model/input/output. API1110/1111/1114 plus new inspector cases prove separate server pieces, not this complete browser boundary.
+- Agent-actionable durable-delivery coverage remains: explicitly exercise attempted-report destination binding across enabled-origin changes, in-flight pause semantics, lease expiry/concurrent sender recovery and bounded429/5xx retry. WEB194 proves a committed lost acknowledgment and reload retry, OFFLINE233–235 cover deletion/version/cross-tab races; those assertions do not prove every destination/lease/backoff requirement in feedback-sync.md.
+- Complete supported UI acceptance with safe synthetic evidence: current WEB190 crop-slider keys and WEB191 Enter/Escape/focus return are meaningful, but do not establish all keyboard-only consent/history/status/deletion controls or narrow composer/crop/inbox containment. Physical assistive-device acceptance is separate. Support-history failed refresh must preserve and date prior history: WEB1251 verifies successful refresh then offline display, not failed refresh recovery.

@@ -195,5 +195,12 @@ Remaining gates:
 
 ## Automated validation
 
-Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: outage-final-1789852687840.
+Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: final-scoped-1789857073654.
 <!-- sdlc-validation:end -->
+
+## Remaining completion gates — 20 September 2026
+
+The complete current automated matrix passed. The reviewed manifest retains these separate requirements; rerunning passing cases does not satisfy them:
+
+- Record actual source-specific retention, display, linking and offline rights plus permitted operator activation; simulated attestations do not establish permission.
+- Record physical Android downloaded-package acceptance required by the shared app delivery; desktop/mobile Playwright is not native certification.

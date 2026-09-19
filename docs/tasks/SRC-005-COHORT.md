@@ -1,4 +1,6 @@
-# SRC-005 — Initial25-company reported-fundamentals acceptance set
+# SRC-005-COHORT — Initial 25-company reported-fundamentals acceptance set
+
+<a id="src-005--initial25-company-reported-fundamentals-acceptance-set"></a>
 
 Status: initial25-company two-metric acceptance cohort authored; user validation pending. Source inspection15September2026. Parent [SRC-005](SRC-005.md).
 

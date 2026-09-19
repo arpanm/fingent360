@@ -1,9 +1,9 @@
 # RECOVERY-001 — Recover account access
 
-- **Status:** Implementation complete; validation pending
+- **Status:** Done (accepted scope)
 - **Implemented / recorded:** - RECOVERY-001 (DEV-007/017): Implemented and verified for the bounded scope. Let a user explicitly create a strong recovery code while authenticated, retain it privately, and reset a forgotten password using that code without email/provider dependencies. Prompt: specify one-time display, hashing, rotation/consumption, password confirmation, session revocation, generic failure and abuse bounds; add strict contracts and migration018, secure API and account/privacy UI, accessible mobile recove
-- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
-- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
+- **Pending:** None for the reviewed acceptance scope; native release certification remains separate.
+- **Next action / inputs:** No further action for this accepted scope.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Implementation handoff rule
@@ -34,5 +34,5 @@ No additional input is needed for this bounded automated scope. Run the complete
 
 ## Automated validation
 
-Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: outage-final-1789852687840.
+Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: final-scoped-1789857073654.
 <!-- sdlc-validation:end -->

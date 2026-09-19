@@ -1,10 +1,10 @@
 # TRACKER-001 — Readable task index and honest delivery status
 
-- **Status:** Completed implementation; validation pending
-- **Implemented / recorded:** Moved task details into separate files and created a concise task index plus current delivery summary.
-- **Pending:** Manual review of status accuracy and user-run documentation gates remain pending.
-- **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.
-- **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
+- **Status:** Done (documentation review)
+- **Implemented / recorded:** Reconciled omitted records, stable child IDs, current-versus-historical delivery notes and documentation-only next actions. All original task history is retained.
+- **Pending:** None for the reviewed index/history scope. This does not close product requirements.
+- **Next action / inputs:** Keep task and index paired; functional/source/device requirements stay with their owners.
+- **Verification:** Read-only review established 212 unique resolving original index links, all 178 migration entries and all 177 former declared IDs preserved; archive matches09b3b1e byte-for-byte. The two omitted later records are now indexed with matching IDs; original aliases and generated evidence are retained. Final link/uniqueness review accompanies this reconciliation.
 
 ## Implementation handoff rule
 

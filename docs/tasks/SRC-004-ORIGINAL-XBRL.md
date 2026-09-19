@@ -1,4 +1,7 @@
-# SRC-004 — Original NSE XBRL instance adapter
+# SRC-004-ORIGINAL-XBRL — Original NSE XBRL instance adapter
+
+- **Next action / inputs:** Obtain the verified original XBRL instance and taxonomy bytes; then implement and validate the original-source adapter.
+  <a id="src-004--original-nse-xbrl-instance-adapter"></a>
 
 Status: researched; implementation pending original instance and taxonomy bytes. This is a child of [SRC-004](SRC-004.md) and [SRC-005](SRC-005.md), not a completed source integration. Research date: 15 September 2026. Public research found the exact originals, but their bytes remain unavailable in this session. A normal-browser download availability question is pending; no answer is assumed.
 

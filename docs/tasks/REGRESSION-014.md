@@ -4,7 +4,7 @@
 - **Implemented / recorded:** - Implementation: Corrections authored; user verification pending. User confirms formatting/lint/contracts typecheck passed; API typecheck reports widened provider URL literals and internal authorization Symbols passed to HMAC. Explicitly type the three captured provider records against their existing fixed-URL receipt shapes. Keep the internal capability unchanged: audit/publishing cursors use the existing bootstrap secret when available and an independent random server-only controller key in named mode. Never cast/stringify a Symbol into a signing secret. Named cursors reset after API restart; existing reset-page recovery applies. No new configuration, migration or dependency.
 - **Pending:** None for this bounded compiler, formatter or tooling repair; functional stories own their application acceptance.
 - **Next action / inputs:** No pickup needed for this recorded repair.
-- **Verification:** Actual format/check/unit gates passed in SDLC1789837762812-24470, gated commit4549ca1; see recorded gate acceptance below.
+- **Verification:** The complete check at SDLC1789852776002-50046 passed at a9e4f43; this closes the recorded formatter/compiler/unit repair only. Product acceptance is separate.
 
 ## Implementation handoff rule
 

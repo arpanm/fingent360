@@ -1,10 +1,10 @@
 # SDLC-003 — One manual format/check/commit/E2E command
 
-- **Status:** Completed implementation; validation pending
-- **Implemented / recorded:** - Implementation: Implemented; verification not run.
-- **Pending:** User: run the task’s documented validation; implementation is not a test pass.
-- **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.
-- **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
+- **Status:** Done (recorded workflow scope)
+- **Implemented / recorded:** Format/check/conditional commit/E2E sequencing, quoted-message parsing, explicit filters and installed Chrome selection on macOS.
+- **Pending:** None for this command scope; this is not a claim that every broader product requirement is complete.
+- **Next action / inputs:** No remaining sequencing or Chrome-launch repair; product cases and intermittent failures retain their own records.
+- **Verification:** Invocation1789852475505-48970 completed format/check, gated commit c8e4bb8 and both Chrome desktop/mobile WEB1940 cases successfully. Invocation1789852776002-50046 additionally exercised full inventory and failure retention; current check includes the sequencing, clean-tree, argument and failure-boundary unit regressions. No push occurred.
 
 ## Implementation handoff rule
 

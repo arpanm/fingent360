@@ -1,9 +1,9 @@
 # BROKER-DIALECTS-001 — resolve named platform import formats
 
-- **Status:** Completed implementation; validation pending
+- **Status:** Partial — five verified named formats remain
 - **Implemented / recorded:** - Implementation: Supplemental-cost fallback and primary research implemented; user validation pending. Named broker formats remain unproved. Parent: DEV008/SRC013; extends MAPPED-IMPORT-001. User authorizes choosing every platform's order and researching formats independently. Start Zerodha, Groww, Upstox, Angel One and ICICI Direct; inspect first-party export samples/layout specifications and public demonstrations, without private account access. Implement versioned named parsers only when actual columns/sheets/quantity/cost meanings are established, using the existing owned preview/confirmation/metadata/export/offline workflow. Missing or rounded average costs must never become zero or fabricated exact total cost; an explicit supplementary user-attested cost can be supported with distinct provenance and exact reconciliation. Author representative synthetic fixtures derived from documented structure, failure/recovery/mobile/keyboard cases and documentation; preserve remaining precise evidence gates. Reserve API/WEB/OFFLINE720–739. No tests, builds, provider ingestion, installs, migration/service operations or commits by agents.
-- **Pending:** User: run the task’s documented validation; implementation is not a test pass.
-- **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.
+- **Pending:** Verified/versioned Zerodha, Groww, Upstox, Angel One and ICICI Direct export parsers and representative quantity/cost reconciliation. Generic mapped imports and supplemental-cost fallback do not implement those named layouts.
+- **Next action / inputs:** Continue BROKER-PARSERS-002 primary-format research and obtain specific unavailable export templates when necessary; do not relabel the fallback as five completed parsers.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Implementation handoff rule
@@ -42,5 +42,5 @@ The saved full run1789752953639-97020 includes failed cases tagged to this task.
 
 ## Automated validation
 
-Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: outage-final-1789852687840.
+Selected cases passed — acceptance matrix needed. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: final-scoped-1789857073654.
 <!-- sdlc-validation:end -->

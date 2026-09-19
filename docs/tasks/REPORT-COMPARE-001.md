@@ -1,9 +1,9 @@
 # REPORT-COMPARE-001 — Compare saved reports
 
-- **Status:** Implementation complete; validation pending
+- **Status:** Done (accepted scope)
 - **Implemented / recorded:** - REPORT-COMPARE-001 (DEV-011/016): Implemented and verified for the bounded scope;37connected scenarios passing across corrections and20offline passes. Compare two actual owned issued record reports without creating hidden snapshot copies. Detailed Codex prompt: read immutable v1/v2 report shapes, exact planning math, ownership/session/tombstone/capacity and offline report storage before specifying select two → review dates/baselines → compare → open original → Back/reload/deep link. Add st
-- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
-- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
+- **Pending:** None for the reviewed acceptance scope; native release certification remains separate.
+- **Next action / inputs:** No further action for this accepted scope.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Implementation handoff rule
@@ -34,5 +34,5 @@ No additional input is needed for this bounded automated scope. Run the complete
 
 ## Automated validation
 
-Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: outage-final-1789852687840.
+Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: final-scoped-1789857073654.
 <!-- sdlc-validation:end -->

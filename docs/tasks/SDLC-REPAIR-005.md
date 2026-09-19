@@ -2,11 +2,11 @@
 
 Current evidence reconciliation (2026-09-15): the summary below supersedes the historical source-edit collision. Closure applies only to that saved formatting failure, not this batch or E2E acceptance.
 
-- **Status:** Done (recorded failure)
+- **Status:** Done (verified gate scope)
 - **Implemented / recorded:** Saved user-run SDLC log1789457453614-67049 passed formatting and all check stages and advanced to git-add. The earlier concurrent-edit formatting blocker is no longer current.
 - **Pending:** None for the recorded two-script formatting failure. New working-tree changes still need their own manual gates.
 - **Next action / inputs:** No repeat repair needed. Use the normal user-owned SDLC workflow for new changes.
-- **Verification:** Read existing artifacts/sdlc/1789457453614-67049/02-pnpm-check.log: all files matched Prettier; later checks reached51 root unit passes/0fails. Following03-git-add.log exists. No new commands were executed; no new-batch pass is inferred.
+- **Verification:** The complete check at SDLC1789852776002-50046 passed at a9e4f43; this closes the recorded formatter/compiler/unit repair only. Product acceptance is separate.
 
 Status reconciliation (2026-09-16): Done refers to the previously recorded bounded delivery, not fresh validation of the current working tree. No new implementation or test pass is claimed.
 

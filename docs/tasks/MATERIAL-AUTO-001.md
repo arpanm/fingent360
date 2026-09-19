@@ -1,9 +1,9 @@
 # MATERIAL-AUTO-001 — opt-in durable stored-observation checks
 
-- **Status:** Implementation complete; validation pending
+- **Status:** Done (accepted scope)
 - **Implemented / recorded:** - Implementation: Implemented; user validation pending. Parents: DEV011/018 retain release-calendar and wider evidence-pipeline scope; extends MATERIAL-ALERTS-001. Complete automatic checking of already stored annual observations with an explicit opt-in, visible cadence and dated receipts. Never imply provider refresh, release calendar knowledge, email/push or investment advice. Existing manual checks and thresholds remain. Default existing accounts to manual; enable/resume starts a fresh baseline without backlog. Persist due state and perform bounded account-serialized checks that survive process restart and avoid duplicate notices across API instances; pause/disable/unfollow takes effect against the same account lock. Use the shared exact material reducer and public-source freshness policy, with actual receipt provenance distinguishing automatic versus manual checks. Do not silently turn a storage checkbox into background-use permission. Provide responsive settings/review/disable/loading/error/retry UI and current next-check/last-result information. Offline performs only due checks while the app is open using its dated installed bundle, no background OS/network promise. Include private export/delete and meaningful actual database concurrency/restart/no-duplicate plus browser/offline cases. Design against existing material state/receipt structures; reserve migration044 only if needed and API/WEB/OFFLINE790–809. User runs all deterministic gates, migrations/services and the conditional commit via pnpm sdlc; agents only author and review.
-- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
-- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
+- **Pending:** None for the reviewed acceptance scope; native release certification remains separate.
+- **Next action / inputs:** No further action for this accepted scope.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Implementation handoff rule
@@ -50,5 +50,5 @@ Actual focused screenshots exposed controls under persistent navigation/feedback
 
 ## Automated validation
 
-Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: outage-final-1789852687840.
+Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: final-scoped-1789857073654.
 <!-- sdlc-validation:end -->

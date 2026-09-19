@@ -1,10 +1,10 @@
 # SDLC-REPAIR-004 — Feedback delivery assertion formatting
 
-- **Status:** Completed implementation; validation pending
-- **Implemented / recorded:** - Implementation/verification: Whitespace repair authored; verification pending parent/user retry. No validation commands or commits executed.
-- **Pending:** User: run the task’s documented validation; implementation is not a test pass.
-- **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.
-- **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
+- **Status:** Done (verified gate scope)
+- **Implemented / recorded:** Feedback delivery assertion wrapping only; reviewing status and initial/close/reopen assertions remain present.
+- **Pending:** No remaining work for this whitespace repair. FEEDBACK-001 owns runtime/UI acceptance.
+- **Next action / inputs:** No new run is required for this bounded historical scope. Follow the named child/source gates for broader delivery.
+- **Verification:** Saved artifacts/sdlc/1789852776002-50046/02-pnpm-check.log records successful format validation, lint, application/E2E typechecks, builds and unit suites; final tooling summary is 72 passed, zero failed. Stage05 records gated commit a9e4f43. Full E2E completion is not inferred from those gates. Log line4; tests/e2e/cases/browser/feedback-delivery.spec.ts:210–249 preserves initial empty selection, save, close, list status and reopen assertions.
 
 ## Implementation handoff rule
 
@@ -37,3 +37,11 @@ Read AGENTS.md, the task-maintenance guide and this task’s current summary. Wo
 - **Next action:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.
 - **Research/evidence:** See [dated source checks and existing answers](input-research-2026-09-15.md). Source-specific permissions, complete parser layouts and legal classification are not claimed resolved by triage.
 - **Completion boundary:** This updates readiness only, not test passes, live activation or full feature completion. On later pickup, refresh saved evidence and update this record plus the TODO row.
+
+## Bounded evidence reconciliation — 20 September 2026
+
+Feedback delivery assertion wrapping only; reviewing status and initial/close/reopen assertions remain present.
+
+Saved artifacts/sdlc/1789852776002-50046/02-pnpm-check.log records successful format validation, lint, application/E2E typechecks, builds and unit suites; final tooling summary is 72 passed, zero failed. Stage05 records gated commit a9e4f43. Full E2E completion is not inferred from those gates. Log line4; tests/e2e/cases/browser/feedback-delivery.spec.ts:210–249 preserves initial empty selection, save, close, list status and reopen assertions.
+
+No remaining work for this whitespace repair. FEEDBACK-001 owns runtime/UI acceptance. This scope does not require an invented API/browser acceptance matrix. Existing generated functional validation, if present, remains verbatim and refers only to its explicit matrix. Historical authored/unrun statements below describe their original dates.

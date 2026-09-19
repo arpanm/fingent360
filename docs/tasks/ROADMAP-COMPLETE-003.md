@@ -3,7 +3,7 @@
 - **Status:** Partial
 - **Implemented / recorded:** - Implementation: In progress. Verification: not run. User requests completion of all Partial and Planned tasks end to end. Preserve prior uncommitted REGRESSION-011 corrections. Work in dependency order; never promote a parent merely because a child or document exists. Implemented children: goal feasibility, mapped CSV imports, source explanation layers, quality diagnostics, named operator review and material alerts. ECB-RATES-001 is also implemented for its selected numerical family. EVENT-REVIEW-001 and BROKER-DIALECTS-001 supplemental-cost reconciliation are implemented. World Bank monthly oil benchmarks and opt-in durable material checks are also implemented. CONSENT-LIFECYCLE-001 is also implemented for four explicit purposes. ECB-FX-001 is implemented. EVENT-LINEAGE-001 is implemented. IDENTITY-ADJUDICATION-001 is implemented. EVENT-EXTRACTION-001 is implemented. This batch is authored; broader remaining acceptance is listed in each Partial/Planned parent and docs/development/roadmap-gaps.md. Further first-party Zerodha/Groww inspection still did not establish a complete named export layout.
 - **Pending:** Developer: finish the remaining acceptance criteria in this task.
-- **Next action / inputs:** Developer: finish partial DEV/SRC tasks in dependency order; do not mark the parent complete early.
+- **Next action / inputs:** Complete the explicitly partial DEV/SRC children; do not rerun the full suite for roadmap closure.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Implementation handoff rule

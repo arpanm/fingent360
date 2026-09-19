@@ -1,144 +1,144 @@
 # Story validation
 
-Latest SDLC invocation: outage-final-1789852687840. Only actual test receipts count.
+Latest SDLC invocation: final-scoped-1789857073654. Only actual test receipts count.
 
 Automated acceptance is separate from implementation, live-source permission and physical-device acceptance.
 
-- [ACCOUNT-001](../tasks/ACCOUNT-001.md): **Stale — rerun required**.
-- [ACTION-CENTRE-001](../tasks/ACTION-CENTRE-001.md): **Stale — rerun required**.
-- [ALERT-001](../tasks/ALERT-001.md): **Stale — rerun required**.
-- [ALERT-002](../tasks/ALERT-002.md): **Stale — rerun required**.
-- [ALLOCATIONS-001](../tasks/ALLOCATIONS-001.md): **Stale — rerun required**.
-- [ANDROID-001](../tasks/ANDROID-001.md): **Stale — rerun required**.
-- [ASSIST-001](../tasks/ASSIST-001.md): **Stale — rerun required**.
-- [AUTH-WAIT-001](../tasks/AUTH-WAIT-001.md): **Stale — rerun required**.
-- [BEA-001](../tasks/BEA-001.md): **Stale — rerun required**.
-- [BEA-QUARANTINE-001](../tasks/BEA-QUARANTINE-001.md): **Stale — rerun required**.
-- [BROKER-DIALECTS-001](../tasks/BROKER-DIALECTS-001.md): **Stale — rerun required**.
-- [BROKER-PARSERS-002](../tasks/BROKER-PARSERS-002.md): **Stale — rerun required**.
-- [BUG-002](../tasks/BUG-002.md): **Stale — rerun required**.
-- [BUG-003](../tasks/BUG-003.md): **Stale — rerun required**.
-- [BUG-006](../tasks/BUG-006.md): **Stale — rerun required**.
-- [CONNECTION-REVIEWS-001](../tasks/CONNECTION-REVIEWS-001.md): **Stale — rerun required**.
-- [CONSENT-LIFECYCLE-001](../tasks/CONSENT-LIFECYCLE-001.md): **Stale — rerun required**.
-- [DATA-001](../tasks/DATA-001.md): **Stale — rerun required**.
-- [DB-LEAST-PRIVILEGE-001](../tasks/DB-LEAST-PRIVILEGE-001.md): **Stale — rerun required**.
-- [DEV-006](../tasks/DEV-006.md): **Stale — rerun required**.
-- [DEV-009](../tasks/DEV-009.md): **Stale — rerun required**.
-- [DEV-010](../tasks/DEV-010.md): **Stale — rerun required**.
-- [DEV-011](../tasks/DEV-011.md): **Stale — rerun required**.
-- [DEV-015](../tasks/DEV-015.md): **Stale — rerun required**.
-- [DEV-016](../tasks/DEV-016.md): **Stale — rerun required**.
-- [DEV-017](../tasks/DEV-017.md): **Stale — rerun required**.
-- [DEV-018](../tasks/DEV-018.md): **Stale — rerun required**.
-- [DEV-019](../tasks/DEV-019.md): **Stale — rerun required**.
-- [DEV-020](../tasks/DEV-020.md): **Stale — rerun required**.
-- [DEV-021](../tasks/DEV-021.md): **Stale — rerun required**.
-- [DEV-022](../tasks/DEV-022.md): **Stale — rerun required**.
-- [DEV-022-MERGERS](../tasks/DEV-022-MERGERS.md): **Stale — rerun required**.
-- [DEV-028](../tasks/DEV-028.md): **Stale — rerun required**.
-- [DEV-029](../tasks/DEV-029.md): **Stale — rerun required**.
-- [ECB-FX-001](../tasks/ECB-FX-001.md): **Stale — rerun required**.
-- [ECB-RATES-001](../tasks/ECB-RATES-001.md): **Stale — rerun required**.
-- [EIA-BENCHMARKS-001](../tasks/EIA-BENCHMARKS-001.md): **Stale — rerun required**.
-- [EQUITY-COVERAGE-001](../tasks/EQUITY-COVERAGE-001.md): **Stale — rerun required**.
-- [EVAL-LINEAGE-001](../tasks/EVAL-LINEAGE-001.md): **Stale — rerun required**.
-- [EVENT-EXTRACTION-001](../tasks/EVENT-EXTRACTION-001.md): **Stale — rerun required**.
-- [EVENT-LINEAGE-001](../tasks/EVENT-LINEAGE-001.md): **Stale — rerun required**.
-- [EVENT-REVIEW-001](../tasks/EVENT-REVIEW-001.md): **Stale — rerun required**.
-- [EVENT-SCENARIOS-001](../tasks/EVENT-SCENARIOS-001.md): **Stale — rerun required**.
-- [EVIDENCE-LAYERS-001](../tasks/EVIDENCE-LAYERS-001.md): **Stale — rerun required**.
-- [EVIDENCE-LINKS-001](../tasks/EVIDENCE-LINKS-001.md): **Stale — rerun required**.
-- [FEEDBACK-001](../tasks/FEEDBACK-001.md): **Stale — rerun required**.
-- [FEEDBACK-TEST-001](../tasks/FEEDBACK-TEST-001.md): **Stale — rerun required**.
-- [FUNDS-BONDS-001](../tasks/FUNDS-BONDS-001.md): **Stale — rerun required**.
-- [GOAL-FEASIBILITY-001](../tasks/GOAL-FEASIBILITY-001.md): **Stale — rerun required**.
-- [GOAL-SCENARIOS-001](../tasks/GOAL-SCENARIOS-001.md): **Stale — rerun required**.
-- [GOALS-001](../tasks/GOALS-001.md): **Stale — rerun required**.
-- [HOLDINGS-RECONCILE-001](../tasks/HOLDINGS-RECONCILE-001.md): **Stale — rerun required**.
-- [IDENTITY-001](../tasks/IDENTITY-001.md): **Stale — rerun required**.
-- [IDENTITY-ADJUDICATION-001](../tasks/IDENTITY-ADJUDICATION-001.md): **Stale — rerun required**.
-- [IMPACT-TRACE-001](../tasks/IMPACT-TRACE-001.md): **Stale — rerun required**.
-- [INDIA-EQUITY-001](../tasks/INDIA-EQUITY-001.md): **Stale — rerun required**.
-- [LEGACY-FIXTURE-ISOLATION-001](../tasks/LEGACY-FIXTURE-ISOLATION-001.md): **Stale — rerun required**.
-- [MAPPED-IMPORT-001](../tasks/MAPPED-IMPORT-001.md): **Stale — rerun required**.
-- [MATERIAL-ALERTS-001](../tasks/MATERIAL-ALERTS-001.md): **Stale — rerun required**.
-- [MATERIAL-AUTO-001](../tasks/MATERIAL-AUTO-001.md): **Stale — rerun required**.
-- [MEDIA-001](../tasks/MEDIA-001.md): **Stale — rerun required**.
-- [NAMED-OPERATORS-001](../tasks/NAMED-OPERATORS-001.md): **Stale — rerun required**.
-- [OPS-AUDIT-001](../tasks/OPS-AUDIT-001.md): **Stale — rerun required**.
-- [OPS-READ-ADMISSION-001](../tasks/OPS-READ-ADMISSION-001.md): **Stale — rerun required**.
-- [PORTFOLIO-001](../tasks/PORTFOLIO-001.md): **Stale — rerun required**.
-- [PRIVACY-001](../tasks/PRIVACY-001.md): **Stale — rerun required**.
-- [PUBLISHING-QUEUE-001](../tasks/PUBLISHING-QUEUE-001.md): **Stale — rerun required**.
-- [PWA-001](../tasks/PWA-001.md): **Stale — rerun required**.
-- [QUALITY-OVERVIEW-001](../tasks/QUALITY-OVERVIEW-001.md): **Stale — rerun required**.
-- [READER-DIAGNOSTICS-001](../tasks/READER-DIAGNOSTICS-001.md): **Stale — rerun required**.
-- [READING-FOLLOW-001](../tasks/READING-FOLLOW-001.md): **Stale — rerun required**.
-- [RECOVERY-001](../tasks/RECOVERY-001.md): **Stale — rerun required**.
-- [REGRESSION-011](../tasks/REGRESSION-011.md): **Stale — rerun required**.
-- [REPORT-COMPARE-001](../tasks/REPORT-COMPARE-001.md): **Stale — rerun required**.
-- [REPORT-SCHEDULES-001](../tasks/REPORT-SCHEDULES-001.md): **Stale — rerun required**.
-- [REPORTS-001](../tasks/REPORTS-001.md): **Stale — rerun required**.
-- [REPORTS-002](../tasks/REPORTS-002.md): **Stale — rerun required**.
-- [REPORTS-003](../tasks/REPORTS-003.md): **Stale — rerun required**.
-- [RESEARCH-AUTO-002](../tasks/RESEARCH-AUTO-002.md): **Stale — rerun required**.
-- [RETENTION-001](../tasks/RETENTION-001.md): **Stale — rerun required**.
+- [ACCOUNT-001](../tasks/ACCOUNT-001.md): **Passed — automated acceptance**.
+- [ACTION-CENTRE-001](../tasks/ACTION-CENTRE-001.md): **Passed — automated acceptance**.
+- [ALERT-001](../tasks/ALERT-001.md): **Passed — automated acceptance**.
+- [ALERT-002](../tasks/ALERT-002.md): **Passed — automated acceptance**.
+- [ALLOCATIONS-001](../tasks/ALLOCATIONS-001.md): **Passed — automated acceptance**.
+- [ANDROID-001](../tasks/ANDROID-001.md): **Selected cases passed — acceptance matrix needed**.
+- [ASSIST-001](../tasks/ASSIST-001.md): **Passed — automated acceptance**.
+- [AUTH-WAIT-001](../tasks/AUTH-WAIT-001.md): **Passed — automated acceptance**.
+- [BEA-001](../tasks/BEA-001.md): **Passed — automated acceptance**.
+- [BEA-QUARANTINE-001](../tasks/BEA-QUARANTINE-001.md): **Passed — automated acceptance**.
+- [BROKER-DIALECTS-001](../tasks/BROKER-DIALECTS-001.md): **Selected cases passed — acceptance matrix needed**.
+- [BROKER-PARSERS-002](../tasks/BROKER-PARSERS-002.md): **Selected cases passed — acceptance matrix needed**.
+- [BUG-002](../tasks/BUG-002.md): **Passed — automated acceptance**.
+- [BUG-003](../tasks/BUG-003.md): **Passed — automated acceptance**.
+- [BUG-006](../tasks/BUG-006.md): **Passed — automated acceptance**.
+- [CONNECTION-REVIEWS-001](../tasks/CONNECTION-REVIEWS-001.md): **Passed — automated acceptance**.
+- [CONSENT-LIFECYCLE-001](../tasks/CONSENT-LIFECYCLE-001.md): **Passed — automated acceptance**.
+- [DATA-001](../tasks/DATA-001.md): **Passed — automated acceptance**.
+- [DB-LEAST-PRIVILEGE-001](../tasks/DB-LEAST-PRIVILEGE-001.md): **Passed — automated acceptance**.
+- [DEV-006](../tasks/DEV-006.md): **Passed — automated acceptance**.
+- [DEV-009](../tasks/DEV-009.md): **Passed — automated acceptance**.
+- [DEV-010](../tasks/DEV-010.md): **Passed — automated acceptance**.
+- [DEV-011](../tasks/DEV-011.md): **Passed — automated acceptance**.
+- [DEV-015](../tasks/DEV-015.md): **Selected cases passed — acceptance matrix needed**.
+- [DEV-016](../tasks/DEV-016.md): **Passed — automated acceptance**.
+- [DEV-017](../tasks/DEV-017.md): **Passed — automated acceptance**.
+- [DEV-018](../tasks/DEV-018.md): **Passed — automated acceptance**.
+- [DEV-019](../tasks/DEV-019.md): **Passed — automated acceptance**.
+- [DEV-020](../tasks/DEV-020.md): **Passed — automated acceptance**.
+- [DEV-021](../tasks/DEV-021.md): **Selected cases passed — acceptance matrix needed**.
+- [DEV-022](../tasks/DEV-022.md): **Selected cases passed — acceptance matrix needed**.
+- [DEV-022-MERGERS](../tasks/DEV-022-MERGERS.md): **Passed — automated acceptance**.
+- [DEV-028](../tasks/DEV-028.md): **Selected cases passed — acceptance matrix needed**.
+- [DEV-029](../tasks/DEV-029.md): **Selected cases passed — acceptance matrix needed**.
+- [ECB-FX-001](../tasks/ECB-FX-001.md): **Passed — automated acceptance**.
+- [ECB-RATES-001](../tasks/ECB-RATES-001.md): **Passed — automated acceptance**.
+- [EIA-BENCHMARKS-001](../tasks/EIA-BENCHMARKS-001.md): **Passed — automated acceptance**.
+- [EQUITY-COVERAGE-001](../tasks/EQUITY-COVERAGE-001.md): **Selected cases passed — acceptance matrix needed**.
+- [EVAL-LINEAGE-001](../tasks/EVAL-LINEAGE-001.md): **Passed — automated acceptance**.
+- [EVENT-EXTRACTION-001](../tasks/EVENT-EXTRACTION-001.md): **Passed — automated acceptance**.
+- [EVENT-LINEAGE-001](../tasks/EVENT-LINEAGE-001.md): **Passed — automated acceptance**.
+- [EVENT-REVIEW-001](../tasks/EVENT-REVIEW-001.md): **Passed — automated acceptance**.
+- [EVENT-SCENARIOS-001](../tasks/EVENT-SCENARIOS-001.md): **Passed — automated acceptance**.
+- [EVIDENCE-LAYERS-001](../tasks/EVIDENCE-LAYERS-001.md): **Passed — automated acceptance**.
+- [EVIDENCE-LINKS-001](../tasks/EVIDENCE-LINKS-001.md): **Passed — automated acceptance**.
+- [FEEDBACK-001](../tasks/FEEDBACK-001.md): **Passed — automated acceptance**.
+- [FEEDBACK-TEST-001](../tasks/FEEDBACK-TEST-001.md): **Selected cases passed — acceptance matrix needed**.
+- [FUNDS-BONDS-001](../tasks/FUNDS-BONDS-001.md): **Selected cases passed — acceptance matrix needed**.
+- [GOAL-FEASIBILITY-001](../tasks/GOAL-FEASIBILITY-001.md): **Passed — automated acceptance**.
+- [GOAL-SCENARIOS-001](../tasks/GOAL-SCENARIOS-001.md): **Passed — automated acceptance**.
+- [GOALS-001](../tasks/GOALS-001.md): **Passed — automated acceptance**.
+- [HOLDINGS-RECONCILE-001](../tasks/HOLDINGS-RECONCILE-001.md): **Passed — automated acceptance**.
+- [IDENTITY-001](../tasks/IDENTITY-001.md): **Passed — automated acceptance**.
+- [IDENTITY-ADJUDICATION-001](../tasks/IDENTITY-ADJUDICATION-001.md): **Passed — automated acceptance**.
+- [IMPACT-TRACE-001](../tasks/IMPACT-TRACE-001.md): **Passed — automated acceptance**.
+- [INDIA-EQUITY-001](../tasks/INDIA-EQUITY-001.md): **Selected cases passed — acceptance matrix needed**.
+- [LEGACY-FIXTURE-ISOLATION-001](../tasks/LEGACY-FIXTURE-ISOLATION-001.md): **Selected cases passed — acceptance matrix needed**.
+- [MAPPED-IMPORT-001](../tasks/MAPPED-IMPORT-001.md): **Selected cases passed — acceptance matrix needed**.
+- [MATERIAL-ALERTS-001](../tasks/MATERIAL-ALERTS-001.md): **Passed — automated acceptance**.
+- [MATERIAL-AUTO-001](../tasks/MATERIAL-AUTO-001.md): **Passed — automated acceptance**.
+- [MEDIA-001](../tasks/MEDIA-001.md): **Passed — automated acceptance**.
+- [NAMED-OPERATORS-001](../tasks/NAMED-OPERATORS-001.md): **Passed — automated acceptance**.
+- [OPS-AUDIT-001](../tasks/OPS-AUDIT-001.md): **Passed — automated acceptance**.
+- [OPS-READ-ADMISSION-001](../tasks/OPS-READ-ADMISSION-001.md): **Passed — automated acceptance**.
+- [PORTFOLIO-001](../tasks/PORTFOLIO-001.md): **Passed — automated acceptance**.
+- [PRIVACY-001](../tasks/PRIVACY-001.md): **Selected cases passed — acceptance matrix needed**.
+- [PUBLISHING-QUEUE-001](../tasks/PUBLISHING-QUEUE-001.md): **Passed — automated acceptance**.
+- [PWA-001](../tasks/PWA-001.md): **Passed — automated acceptance**.
+- [QUALITY-OVERVIEW-001](../tasks/QUALITY-OVERVIEW-001.md): **Passed — automated acceptance**.
+- [READER-DIAGNOSTICS-001](../tasks/READER-DIAGNOSTICS-001.md): **Passed — automated acceptance**.
+- [READING-FOLLOW-001](../tasks/READING-FOLLOW-001.md): **Passed — automated acceptance**.
+- [RECOVERY-001](../tasks/RECOVERY-001.md): **Passed — automated acceptance**.
+- [REGRESSION-011](../tasks/REGRESSION-011.md): **Passed — automated acceptance**.
+- [REPORT-COMPARE-001](../tasks/REPORT-COMPARE-001.md): **Passed — automated acceptance**.
+- [REPORT-SCHEDULES-001](../tasks/REPORT-SCHEDULES-001.md): **Passed — automated acceptance**.
+- [REPORTS-001](../tasks/REPORTS-001.md): **Passed — automated acceptance**.
+- [REPORTS-002](../tasks/REPORTS-002.md): **Passed — automated acceptance**.
+- [REPORTS-003](../tasks/REPORTS-003.md): **Passed — automated acceptance**.
+- [RESEARCH-AUTO-002](../tasks/RESEARCH-AUTO-002.md): **Passed — automated acceptance**.
+- [RETENTION-001](../tasks/RETENTION-001.md): **Passed — automated acceptance**.
 - [SDLC-001](../tasks/SDLC-001.md): **Selected cases passed — acceptance matrix needed**.
-- [SDLC-REPAIR-010](../tasks/SDLC-REPAIR-010.md): **Stale — rerun required**.
-- [SDLC-REPAIR-011](../tasks/SDLC-REPAIR-011.md): **Stale — rerun required**.
-- [SDLC-REPAIR-012](../tasks/SDLC-REPAIR-012.md): **Stale — rerun required**.
-- [SDLC-REPAIR-013](../tasks/SDLC-REPAIR-013.md): **Stale — rerun required**.
-- [SDLC-REPAIR-016](../tasks/SDLC-REPAIR-016.md): **Stale — rerun required**.
-- [SETUP-001](../tasks/SETUP-001.md): **Partial — required cases not run**.
-- [SLICE-001](../tasks/SLICE-001.md): **Stale — rerun required**.
-- [SOURCE-REVIEW-DIFF-001](../tasks/SOURCE-REVIEW-DIFF-001.md): **Stale — rerun required**.
-- [SOURCE-WITHDRAWAL-001](../tasks/SOURCE-WITHDRAWAL-001.md): **Stale — rerun required**.
-- [SOURCES-001](../tasks/SOURCES-001.md): **Stale — rerun required**.
-- [SOURCES-002](../tasks/SOURCES-002.md): **Stale — rerun required**.
-- [SOURCES-002-DIRECTORY](../tasks/SOURCES-002-DIRECTORY.md): **Stale — rerun required**.
-- [SRC-001](../tasks/SRC-001.md): **Stale — rerun required**.
-- [SRC-002](../tasks/SRC-002.md): **Stale — rerun required**.
-- [SRC-002-HISTORY](../tasks/SRC-002-HISTORY.md): **Stale — rerun required**.
-- [SRC-003](../tasks/SRC-003.md): **Stale — rerun required**.
-- [SRC-003-CONSOLIDATION](../tasks/SRC-003-CONSOLIDATION.md): **Stale — rerun required**.
-- [SRC-003-TERMS](../tasks/SRC-003-TERMS.md): **Stale — rerun required**.
-- [SRC-004](../tasks/SRC-004.md): **Stale — rerun required**.
-- [SRC-004-BANKING](../tasks/SRC-004-BANKING.md): **Stale — rerun required**.
-- [SRC-004-DISCOVERY](../tasks/SRC-004-DISCOVERY.md): **Stale — rerun required**.
-- [SRC-004-GENERAL-INSURANCE](../tasks/SRC-004-GENERAL-INSURANCE.md): **Stale — rerun required**.
-- [SRC-004-LIFE-INSURANCE](../tasks/SRC-004-LIFE-INSURANCE.md): **Stale — rerun required**.
-- [SRC-004-WATCH](../tasks/SRC-004-WATCH.md): **Stale — rerun required**.
-- [SRC-005](../tasks/SRC-005.md): **Stale — rerun required**.
-- [SRC-006](../tasks/SRC-006.md): **Stale — rerun required**.
-- [SRC-007](../tasks/SRC-007.md): **Stale — rerun required**.
-- [SRC-007-ARCHIVE](../tasks/SRC-007-ARCHIVE.md): **Stale — rerun required**.
-- [SRC-007-GDP](../tasks/SRC-007-GDP.md): **Stale — rerun required**.
-- [SRC-007-QUEUE](../tasks/SRC-007-QUEUE.md): **Stale — rerun required**.
-- [SRC-008](../tasks/SRC-008.md): **Stale — rerun required**.
-- [SRC-009](../tasks/SRC-009.md): **Partial — required cases not run**.
-- [SRC-009-DAILY](../tasks/SRC-009-DAILY.md): **Partial — required cases not run**.
-- [SRC-009-METALS](../tasks/SRC-009-METALS.md): **Stale — rerun required**.
-- [SRC-010](../tasks/SRC-010.md): **Stale — rerun required**.
-- [SRC-011](../tasks/SRC-011.md): **Stale — rerun required**.
-- [SRC-012](../tasks/SRC-012.md): **Stale — rerun required**.
-- [SRC-014](../tasks/SRC-014.md): **Stale — rerun required**.
-- [SRC-015](../tasks/SRC-015.md): **Stale — rerun required**.
-- [SRC-016](../tasks/SRC-016.md): **Stale — rerun required**.
-- [SRC-016-AXIS](../tasks/SRC-016-AXIS.md): **Stale — rerun required**.
-- [SRC-016-FACTSHEET](../tasks/SRC-016-FACTSHEET.md): **Stale — rerun required**.
-- [SRC-017](../tasks/SRC-017.md): **Stale — rerun required**.
-- [SRC-017-CURVE](../tasks/SRC-017-CURVE.md): **Stale — rerun required**.
-- [SRC-017-SOVEREIGN](../tasks/SRC-017-SOVEREIGN.md): **Stale — rerun required**.
-- [SRC-018](../tasks/SRC-018.md): **Stale — rerun required**.
-- [SRC-018-RATINGS](../tasks/SRC-018-RATINGS.md): **Stale — rerun required**.
-- [STORY-MEDIA-002](../tasks/STORY-MEDIA-002.md): **Stale — rerun required**.
-- [UI-RACES-001](../tasks/UI-RACES-001.md): **Stale — rerun required**.
-- [UX-001](../tasks/UX-001.md): **Stale — rerun required**.
-- [UX-002](../tasks/UX-002.md): **Stale — rerun required**.
-- [UX-002C](../tasks/UX-002C.md): **Stale — rerun required**.
-- [UX-002D](../tasks/UX-002D.md): **Stale — rerun required**.
-- [UX-002G](../tasks/UX-002G.md): **Stale — rerun required**.
-- [UX-002G-HISTORY](../tasks/UX-002G-HISTORY.md): **Stale — rerun required**.
-- [WORKER-HEALTH-001](../tasks/WORKER-HEALTH-001.md): **Stale — rerun required**.
-- [XLSX-001](../tasks/XLSX-001.md): **Stale — rerun required**.
+- [SDLC-REPAIR-010](../tasks/SDLC-REPAIR-010.md): **Passed — automated acceptance**.
+- [SDLC-REPAIR-011](../tasks/SDLC-REPAIR-011.md): **Passed — automated acceptance**.
+- [SDLC-REPAIR-012](../tasks/SDLC-REPAIR-012.md): **Passed — automated acceptance**.
+- [SDLC-REPAIR-013](../tasks/SDLC-REPAIR-013.md): **Passed — automated acceptance**.
+- [SDLC-REPAIR-016](../tasks/SDLC-REPAIR-016.md): **Passed — automated acceptance**.
+- [SETUP-001](../tasks/SETUP-001.md): **Passed — automated acceptance**.
+- [SLICE-001](../tasks/SLICE-001.md): **Passed — automated acceptance**.
+- [SOURCE-REVIEW-DIFF-001](../tasks/SOURCE-REVIEW-DIFF-001.md): **Passed — automated acceptance**.
+- [SOURCE-WITHDRAWAL-001](../tasks/SOURCE-WITHDRAWAL-001.md): **Passed — automated acceptance**.
+- [SOURCES-001](../tasks/SOURCES-001.md): **Passed — automated acceptance**.
+- [SOURCES-002](../tasks/SOURCES-002.md): **Selected cases passed — acceptance matrix needed**.
+- [SOURCES-002-DIRECTORY](../tasks/SOURCES-002-DIRECTORY.md): **Passed — automated acceptance**.
+- [SRC-001](../tasks/SRC-001.md): **Selected cases passed — acceptance matrix needed**.
+- [SRC-002](../tasks/SRC-002.md): **Selected cases passed — acceptance matrix needed**.
+- [SRC-002-HISTORY](../tasks/SRC-002-HISTORY.md): **Passed — automated acceptance**.
+- [SRC-003](../tasks/SRC-003.md): **Selected cases passed — acceptance matrix needed**.
+- [SRC-003-CONSOLIDATION](../tasks/SRC-003-CONSOLIDATION.md): **Passed — automated acceptance**.
+- [SRC-003-TERMS](../tasks/SRC-003-TERMS.md): **Passed — automated acceptance**.
+- [SRC-004](../tasks/SRC-004.md): **Selected cases passed — acceptance matrix needed**.
+- [SRC-004-BANKING](../tasks/SRC-004-BANKING.md): **Passed — automated acceptance**.
+- [SRC-004-DISCOVERY](../tasks/SRC-004-DISCOVERY.md): **Passed — automated acceptance**.
+- [SRC-004-GENERAL-INSURANCE](../tasks/SRC-004-GENERAL-INSURANCE.md): **Passed — automated acceptance**.
+- [SRC-004-LIFE-INSURANCE](../tasks/SRC-004-LIFE-INSURANCE.md): **Passed — automated acceptance**.
+- [SRC-004-WATCH](../tasks/SRC-004-WATCH.md): **Passed — automated acceptance**.
+- [SRC-005](../tasks/SRC-005.md): **Selected cases passed — acceptance matrix needed**.
+- [SRC-006](../tasks/SRC-006.md): **Selected cases passed — acceptance matrix needed**.
+- [SRC-007](../tasks/SRC-007.md): **Passed — automated acceptance**.
+- [SRC-007-ARCHIVE](../tasks/SRC-007-ARCHIVE.md): **Passed — automated acceptance**.
+- [SRC-007-GDP](../tasks/SRC-007-GDP.md): **Passed — automated acceptance**.
+- [SRC-007-QUEUE](../tasks/SRC-007-QUEUE.md): **Passed — automated acceptance**.
+- [SRC-008](../tasks/SRC-008.md): **Passed — automated acceptance**.
+- [SRC-009](../tasks/SRC-009.md): **Passed — automated acceptance**.
+- [SRC-009-DAILY](../tasks/SRC-009-DAILY.md): **Passed — automated acceptance**.
+- [SRC-009-METALS](../tasks/SRC-009-METALS.md): **Passed — automated acceptance**.
+- [SRC-010](../tasks/SRC-010.md): **Selected cases passed — acceptance matrix needed**.
+- [SRC-011](../tasks/SRC-011.md): **Selected cases passed — acceptance matrix needed**.
+- [SRC-012](../tasks/SRC-012.md): **Passed — automated acceptance**.
+- [SRC-014](../tasks/SRC-014.md): **Passed — automated acceptance**.
+- [SRC-015](../tasks/SRC-015.md): **Passed — automated acceptance**.
+- [SRC-016](../tasks/SRC-016.md): **Selected cases passed — acceptance matrix needed**.
+- [SRC-016-AXIS](../tasks/SRC-016-AXIS.md): **Passed — automated acceptance**.
+- [SRC-016-FACTSHEET](../tasks/SRC-016-FACTSHEET.md): **Passed — automated acceptance**.
+- [SRC-017](../tasks/SRC-017.md): **Selected cases passed — acceptance matrix needed**.
+- [SRC-017-CURVE](../tasks/SRC-017-CURVE.md): **Passed — automated acceptance**.
+- [SRC-017-SOVEREIGN](../tasks/SRC-017-SOVEREIGN.md): **Passed — automated acceptance**.
+- [SRC-018](../tasks/SRC-018.md): **Selected cases passed — acceptance matrix needed**.
+- [SRC-018-RATINGS](../tasks/SRC-018-RATINGS.md): **Passed — automated acceptance**.
+- [STORY-MEDIA-002](../tasks/STORY-MEDIA-002.md): **Passed — automated acceptance**.
+- [UI-RACES-001](../tasks/UI-RACES-001.md): **Passed — automated acceptance**.
+- [UX-001](../tasks/UX-001.md): **Selected cases passed — acceptance matrix needed**.
+- [UX-002](../tasks/UX-002.md): **Selected cases passed — acceptance matrix needed**.
+- [UX-002C](../tasks/UX-002C.md): **Passed — automated acceptance**.
+- [UX-002D](../tasks/UX-002D.md): **Passed — automated acceptance**.
+- [UX-002G](../tasks/UX-002G.md): **Selected cases passed — acceptance matrix needed**.
+- [UX-002G-HISTORY](../tasks/UX-002G-HISTORY.md): **Passed — automated acceptance**.
+- [WORKER-HEALTH-001](../tasks/WORKER-HEALTH-001.md): **Passed — automated acceptance**.
+- [XLSX-001](../tasks/XLSX-001.md): **Passed — automated acceptance**.

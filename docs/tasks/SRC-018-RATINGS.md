@@ -1,6 +1,6 @@
 # SRC-018-RATINGS — Reviewed instrument rating originals
 
-- **Status:** Implementation complete; validation pending
+- **Status:** Done (accepted scope)
 - **Scope:** Retain the exact attributed ICRA HUDCO original, three ISIN-level coupon/maturity/rating observations, independent named source review, agency-withdrawal versus editorial-withdrawal history, shared web/native reader and offline evidence.
 - **Specification/source evidence:** [Corporate source record](SRC-018.md); [fund/bond parent](FUNDS-BONDS-001.md).
 - **Data:** Migration125. Mongo original bytes and PostgreSQL immutable edition/review metadata. Original document hash binds the explicit verified transcription; this is not a general PDF parser.
@@ -31,5 +31,5 @@ No additional input is needed for this bounded automated scope. Run the complete
 
 ## Automated validation
 
-Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: outage-final-1789852687840.
+Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: final-scoped-1789857073654.
 <!-- sdlc-validation:end -->

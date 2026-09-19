@@ -6,7 +6,7 @@
 - **Dependencies:** Existing workspace dependencies; declare the already locked fflate version for root-owned test helpers.
 - **Acceptance:** Supplied diagnostics disappear without casts that bypass validation; reconciliation and active consent are required; scenario mutations retain their narrowed family; downloaded evidence remains runtime validated; native fixtures use shared bridge declarations.
 - **Layers:** Specification, test fixtures, TypeScript contracts and documentation apply. No product UI/UX, navigation, loading/empty/error/recovery/saved states, database, provenance or automation behavior changes. Keyboard/mobile/visual acceptance and parent feature completion are unchanged.
-- **Verification:** Actual format/check/unit gates passed in SDLC1789837762812-24470, gated commit4549ca1; see recorded gate acceptance below.
+- **Verification:** The complete check at SDLC1789852776002-50046 passed at a9e4f43; this closes the recorded formatter/compiler/unit repair only. Product acceptance is separate.
 
 ## Reusable prompt
 

@@ -4,7 +4,7 @@
 - **Implemented:** Restored the closing JSX expression brace after the older-page button in CPI and GDP operations, closed the conditional fragment in WhatsApp scheduling, and removed an extra parenthesis from the invalid-unit EIA offline assertion.
 - **Pending:** None for this bounded compiler, formatter or tooling repair; functional stories own their application acceptance.
 - **Next action / inputs:** No pickup needed for this recorded repair.
-- **Verification:** Actual format/check/unit gates passed in SDLC1789837762812-24470, gated commit4549ca1; see recorded gate acceptance below.
+- **Verification:** The complete check at SDLC1789852776002-50046 passed at a9e4f43; this closes the recorded formatter/compiler/unit repair only. Product acceptance is separate.
 
 ## Specification and acceptance
 

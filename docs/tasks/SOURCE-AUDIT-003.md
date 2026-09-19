@@ -1,10 +1,10 @@
 # SOURCE-AUDIT-003 — Audit initial exchange source coverage
 
-- **Status:** Completed implementation; validation pending
-- **Implemented / recorded:** - SOURCE-AUDIT-003 (SRC-001–003): Completed bounded source audit; OpenFIGI identity child is implemented; see IDENTITY-001. NSE EOD/corporate-action access and redistribution need explicit source rights. Parent researches primary free Indian-equity identity/EOD/corporate-action access and terms, records dated source evidence and precise blockers, then implements the next permitted complete source slice when evidence supports it. Public accessibility alone cannot approve ingestion/display. Ex
-- **Pending:** User: run the task’s documented validation; implementation is not a test pass.
-- **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.
-- **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
+- **Status:** Done (documentation review)
+- **Implemented / recorded:** Dated initial exchange access/rights audit, with the permitted OpenFIGI identity child separately owned.
+- **Pending:** The dated audit is complete; exchange permissions, source activation, coverage and IDENTITY-001 runtime acceptance remain explicit child/source gates.
+- **Next action / inputs:** No new run is required for this bounded historical scope. Follow the named child/source gates for broader delivery.
+- **Verification:** Read-only documentation review on20September2026; no runtime pass inferred. Reviewed docs/product/security-identities.md Source decision checked2026-09-13, docs/tasks/TEAM-002.md audit/identity entries and dated input research. Records distinguish the actual public-ISIN probe, identifier-metadata terms and absent NSE EOD/corporate-action redistribution agreement. No new live source/terms verification occurred.
 
 ## Implementation handoff rule
 
@@ -33,3 +33,11 @@ Read AGENTS.md, the task-maintenance guide and this task’s current summary. Wo
 - **Next action:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.
 - **Research/evidence:** See [dated source checks and existing answers](input-research-2026-09-15.md). Source-specific permissions, complete parser layouts and legal classification are not claimed resolved by triage.
 - **Completion boundary:** This updates readiness only, not test passes, live activation or full feature completion. On later pickup, refresh saved evidence and update this record plus the TODO row.
+
+## Bounded evidence reconciliation — 20 September 2026
+
+Dated initial exchange access/rights audit, with the permitted OpenFIGI identity child separately owned.
+
+Read-only documentation review on20September2026; no runtime pass inferred. Reviewed docs/product/security-identities.md Source decision checked2026-09-13, docs/tasks/TEAM-002.md audit/identity entries and dated input research. Records distinguish the actual public-ISIN probe, identifier-metadata terms and absent NSE EOD/corporate-action redistribution agreement. No new live source/terms verification occurred.
+
+The dated audit is complete; exchange permissions, source activation, coverage and IDENTITY-001 runtime acceptance remain explicit child/source gates. This scope does not require an invented API/browser acceptance matrix. Existing generated functional validation, if present, remains verbatim and refers only to its explicit matrix. Historical authored/unrun statements below describe their original dates.

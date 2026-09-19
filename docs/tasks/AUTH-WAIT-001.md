@@ -1,9 +1,9 @@
 # AUTH-WAIT-001 — Recheck authorization after storage waits
 
-- **Status:** Implementation complete; validation pending
+- **Status:** Done (accepted scope)
 - **Implemented / recorded:** Production authorization-after-wait behavior retains its earlier recorded evidence. The API304 fixture now observes recovery through owned blocker relationships and allows bounded pre-lock password derivation.
-- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
-- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
+- **Pending:** None for the reviewed acceptance scope; native release certification remains separate.
+- **Next action / inputs:** No further action for this accepted scope.
 - **Verification:** Not run for this repair. Earlier AUTH-WAIT-001 evidence applies only to its recorded revision.
 
 ## Scoped API304 fixture repair — 2026-09-17
@@ -46,5 +46,5 @@ Remaining gates: None for this bounded functional scope.
 
 ## Automated validation
 
-Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: outage-final-1789852687840.
+Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: final-scoped-1789857073654.
 <!-- sdlc-validation:end -->

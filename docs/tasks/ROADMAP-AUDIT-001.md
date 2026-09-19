@@ -3,7 +3,7 @@
 - **Status:** Implemented; validation pending
 - **Implemented / recorded:** - Implementation: Implemented audit and three gap closures; broader Partial parents remain pending. Verification/commit: awaiting user gates. Request: determine which In progress entries are implemented versus genuinely pending, finish feasible missing work, and remove stale statuses. Inspect original acceptance, actual source, migrations, cases and recorded evidence. Preserve stable IDs and accepted scope; separate implementation, verification and commit state. Use Partial for broad parents with implemented children and explicit remaining acceptance, Awaiting user verification for completed implementation, and Gated only for an actual prerequisite. Add a concise per-parent gap register with source evidence and dependencies; do not invent requirements or mark code missing merely because tests have not been run. Update root index, detailed entries, README and delivery matrix consistently. No format/check/build/migration/provider/test/commit execution; the user runs pnpm sdlc.
 - **Pending:** Audit changes are authored; broader product gaps remain in individual DEV/SRC tasks.
-- **Next action / inputs:** Use individual DEV/SRC tasks for development; validate the three audit deliverables.
+- **Next action / inputs:** Review the three dated audit deliverables and follow remaining DEV/SRC children; application reruns do not replace that review.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Implementation handoff rule

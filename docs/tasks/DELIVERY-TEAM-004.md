@@ -3,7 +3,7 @@
 - **Status:** Partial
 - **Implemented / recorded:** Nine workstreams have authored code and cases; two have their bounded implementation authored, seven retain functional gaps.
 - **Pending:** The seven partial workstreams must be completed; no batch-wide validation or new APK is established.
-- **Next action / inputs:** Developer: complete linked partial children; user-run gates remain separate.
+- **Next action / inputs:** Complete the linked partial workstreams; recorded child passes do not finish this parent.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 See [current delivery summary](current-delivery.md) for the batch-wide distinction between code, missing functionality and validation.

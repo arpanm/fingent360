@@ -1,6 +1,6 @@
 # DEV-022-MERGERS — Announced mutual-fund merger lineage
 
-- **Status:** Implementation complete; validation pending
+- **Status:** Done (accepted scope)
 - **Scope:** Original HDFC notices, exact admitted AMFI plan bindings, independent review and withdrawal, shared fund reader and offline lineage without invented investor conversions.
 - **Specification and implementation:** [Detailed acceptance and handoff](../../docs/tasks/FUNDS-BONDS-001.md); [parent](FUNDS-BONDS-001.md).
 - **Data/API/UI/app:** Existing shared web/Android flow, runtime contracts, immutable source/review persistence and offline admission. Migration119 is authored, not applied.
@@ -25,5 +25,5 @@ No additional input is needed for this bounded automated scope. Run the complete
 
 ## Automated validation
 
-Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: outage-final-1789852687840.
+Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: final-scoped-1789857073654.
 <!-- sdlc-validation:end -->

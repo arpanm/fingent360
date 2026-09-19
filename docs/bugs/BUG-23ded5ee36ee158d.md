@@ -5,7 +5,7 @@
 - Stories: SRC-007
 - First seen: 2026-09-16T22:26:46.819Z
 - Evidence: artifacts/sdlc/1789752953639-97020/06-pnpm-e2e_run.log
-- Resolution run: 1789848189876-42077
+- Resolution run: 1789852776002-50046
 
 Failure excerpt (untrusted; local original has full details):
 

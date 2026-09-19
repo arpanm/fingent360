@@ -5,7 +5,7 @@
 - Stories: IMPACT-TRACE-001
 - First seen: 2026-09-18T17:19:16.322Z
 - Evidence: artifacts/sdlc/1789751750850-92480/08-pnpm-android_test.log
-- Resolution run: 1789848189876-42077
+- Resolution run: 1789852776002-50046
 
 Failure excerpt (untrusted; local original has full details):
 

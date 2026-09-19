@@ -55,5 +55,12 @@ Evidence: connected run2026-09-19T19-40-29-161Z-37323 completed76 passes and10 f
 
 ## Automated validation
 
-Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: outage-final-1789852687840.
+Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: final-scoped-1789857073654.
 <!-- sdlc-validation:end -->
+
+## Remaining completion gates — 20 September 2026
+
+The complete current automated matrix passed. The reviewed manifest retains these separate requirements; rerunning passing cases does not satisfy them:
+
+- Saved acceptance for configured provider/model choices is explicitly pending in ASSIST-001; fallback is not a live-provider pass.
+- Confirm documented offline assistance/query acceptance; located existing ASSIST-001 cases cover connected API/browser and normal check-gate adapter fixtures, not a complete offline browser workflow.

@@ -4,7 +4,7 @@
 - **Implemented / recorded:** - Implementation: Corrections authored; user verification pending. User confirms format:check passed, then lint stopped on11 errors before typechecks, commit or E2E. Remove dead initial/reset assignments without removing rollback or post-commit state guards; retain caught provisioning failure as Error.cause while keeping CLI output redacted; replace the CSV control-character regex with equivalent character-code validation; correct the consent-worker exit branch and immutable test receipt declaration. Preserve all prior roadmap changes and the gated SDLC sequence.
 - **Pending:** None for this bounded compiler, formatter or tooling repair; functional stories own their application acceptance.
 - **Next action / inputs:** No pickup needed for this recorded repair.
-- **Verification:** Actual format/check/unit gates passed in SDLC1789837762812-24470, gated commit4549ca1; see recorded gate acceptance below.
+- **Verification:** The complete check at SDLC1789852776002-50046 passed at a9e4f43; this closes the recorded formatter/compiler/unit repair only. Product acceptance is separate.
 
 ## Implementation handoff rule
 

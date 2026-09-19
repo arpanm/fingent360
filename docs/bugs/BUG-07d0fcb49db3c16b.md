@@ -5,7 +5,7 @@
 - Stories: UX-002D
 - First seen: 2026-09-18T05:00:49.248Z
 - Evidence: artifacts/sdlc/1789836492361-20464/06-pnpm-e2e_run.log
-- Resolution run: 1789848189876-42077
+- Resolution run: 1789852776002-50046
 
 Failure excerpt (untrusted; local original has full details):
 

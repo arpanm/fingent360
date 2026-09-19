@@ -1,6 +1,6 @@
 # SRC-004-BANKING — Banking reported-results adapter
 
-- **Status:** Implementation complete; validation pending
+- **Status:** Done (accepted scope)
 - **Parent:** [SRC-004](SRC-004.md). This completed scope does not complete its broader parent.
 - **Implemented:** Retained original banking income, provisions and NPA amounts with separately identified percentage ratios and exact reconciliation.
 - **Specification and source evidence:** Use the dated implementation specification, original-source research and detailed handoff in the parent task. This child makes the finished scope visible in the task index; it does not replace or duplicate that evidence.
@@ -30,5 +30,5 @@ No additional input is needed for this bounded automated scope. Run the complete
 
 ## Automated validation
 
-Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: outage-final-1789852687840.
+Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: final-scoped-1789857073654.
 <!-- sdlc-validation:end -->

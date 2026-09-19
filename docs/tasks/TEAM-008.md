@@ -3,7 +3,7 @@
 - **Status:** Implemented; validation pending
 - **Implemented / recorded:** - LEGACY-FIXTURE-ISOLATION-001 (DEV-021): Implemented for API070/WEB070/WEB181; verification and commit await user-run SDLC. Detailed Codex prompt: audit legacy tests importing the global Playwright fixture for mutations to configured normal application data. At minimum move stable API070/WEB070 source-registry and WEB181 glossary operations to the existing actual isolated PostgreSQL/MongoDB/API fixture; include related source-registry cases and provider-triggering tests only where needed to
 - **Pending:** Protected-read and fixture-isolation child cases await their recorded validation.
-- **Next action / inputs:** User: validate OPS-READ-ADMISSION-001 and LEGACY-FIXTURE-ISOLATION-001.
+- **Next action / inputs:** OPS-READ-ADMISSION-001 passes; retain LEGACY-FIXTURE-ISOLATION-001 normal-data and cleanup acceptance.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Implementation handoff rule

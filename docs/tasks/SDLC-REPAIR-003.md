@@ -3,7 +3,7 @@
 - **Status:** Completed implementation; validation pending
 - **Implemented / recorded:** - Implementation: Authored; scoped repair of user-reported pnpm check TS18047 at FeedbackInbox.tsx:114/118.
 - **Pending:** User: run the task’s documented validation; implementation is not a test pass.
-- **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.
+- **Next action / inputs:** WEB195 passes in both projects; finish the specific initial/close/reopen visual acceptance retained by this repair.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Implementation handoff rule

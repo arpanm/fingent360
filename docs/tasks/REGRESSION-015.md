@@ -1,6 +1,6 @@
 # REGRESSION-015 — complete SDLC validation and repair
 
-- **Status:** Completed (recorded scope)
+- **Status:** Done (historical recorded scope)
 - **Implemented / recorded:** Recorded format/check and 268 unit tests passed; 31 affected E2E cases passed after fixes (a9ca213, 5fc0907).
 - **Pending:** Later feature edits need their own validation; this does not verify today’s working tree.
 - **Next action / inputs:** No action for this historical repair; validate subsequent changes separately.

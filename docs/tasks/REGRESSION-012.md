@@ -4,7 +4,7 @@
 - **Implemented / recorded:** - Implementation: Whitespace corrections authored; user rerun pending. Verification: user reports format completed, then format:check rejected four files; later gates/commit/E2E were not reached. Inspect events.ts, operator-permissions.ts and the mapped/supplemental import helpers. Preserve all behavior and existing pending changes. Correct inconsistent wrapping without ignoring files, weakening format:check, adding repeated formatter passes or changing commit ordering. The existing runner invokes format and check sequentially with the same configuration; the precise cause of the reported divergence is not established without execution.
 - **Pending:** None for this bounded compiler, formatter or tooling repair; functional stories own their application acceptance.
 - **Next action / inputs:** No pickup needed for this recorded repair.
-- **Verification:** Actual format/check/unit gates passed in SDLC1789837762812-24470, gated commit4549ca1; see recorded gate acceptance below.
+- **Verification:** The complete check at SDLC1789852776002-50046 passed at a9e4f43; this closes the recorded formatter/compiler/unit repair only. Product acceptance is separate.
 
 ## Implementation handoff rule
 

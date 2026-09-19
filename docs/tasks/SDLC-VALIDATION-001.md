@@ -1,13 +1,13 @@
 # SDLC-VALIDATION-001 — Story acceptance and unresolved bugs
 
-- **Status:** Implementation complete; validation pending
+- **Status:** Done (recorded tooling scope)
 - **Request:** The user-run SDLC must update validation against functional stories and retain unresolved failures in a separate bug tracker, including unsuccessful automatic repairs.
 - **Specification:** Collect only run-specific reports produced by commands in this invocation, including exact retries and offline tests. Map inherited story tags to existing task IDs. Distinguish passed, failed, skipped, interrupted and flaky outcomes. Maintain stable bug identities per case/project or command stage; close only on a later strict passing result for that identity. Record safe bounded failure details and local evidence links. Never copy credentials, attachments or full API payloads into tracked documentation.
 - **Acceptance boundary:** Every story receives observed-result status. Full automated acceptance additionally requires an explicit reviewed case/project matrix and all required cases passing against the same source fingerprint. Checks-only, partial selections, stale passes and unknown coverage cannot complete a story. Functional scope and live/native activation remain separate from automated acceptance.
 - **Implementation plan:** Pure validation reducer plus filesystem persistence, command observer in SDLC, unique offline report IDs, acceptance matrix, generated story summaries and separate docs/bugs index. Persist even on failed repair/command exit. Generated results after the gated commit remain uncommitted.
 - **Layers:** Developer workflow only; no product database/API migration. Existing API/browser/offline cases remain real. Author reducer and integration unit regressions; do not execute validation as an agent.
 - **Reusable prompt:** Implement this specification without expanding test reruns or weakening gates. Preserve partial story scope and existing tracker edits. Add real functional fixes in their own story records. User runs pnpm sdlc; agents only author.
-- **Verification:** Pending; no execution authorized. Record unresolved setup failures as bugs, never successful functional acceptance.
+- **Verification:** Current check passed reducer/integration units; full invocation1789852776002-50046 persisted the API2002 failure and actual offline results. final-scoped-1789857073654 recorded genuine API2002/API004 passes and reconciled107 matrices at the same fingerprint. ACCOUNT-001 meets its current complete matrix. Historical failures remain in their reports; neither unreviewed source permissions nor device certification was promoted.
 
 ## Authored delivery
 

@@ -1,10 +1,10 @@
 # SDLC-COST-001 — keep deterministic validation user-operated and scoped
 
-- **Status:** Completed implementation; validation pending
-- **Implemented / recorded:** - Implementation: Authored; validation and commit pending user-run gates. The user reinstated the manual execution boundary after the expensive full run. No agent-driven checks/tests/builds/commits for this optimization.
-- **Pending:** User: run the task’s documented validation; implementation is not a test pass.
-- **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.
-- **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
+- **Status:** Done (verified gate scope)
+- **Implemented / recorded:** Explicit checks-only mode preserves format/check/gated commit and refuses E2E/filter conflicts.
+- **Pending:** No remaining launcher-option acceptance; application E2E remains separately selected.
+- **Next action / inputs:** No new run is required for this bounded historical scope. Follow the named child/source gates for broader delivery.
+- **Verification:** Saved artifacts/sdlc/1789852776002-50046/02-pnpm-check.log records successful format validation, lint, application/E2E typechecks, builds and unit suites; final tooling summary is 72 passed, zero failed. Stage05 records gated commit a9e4f43. Full E2E completion is not inferred from those gates. Log lines1059–1060; tests/unit/sdlc.test.mjs:315–367 explicitly checks gate order, no E2E/push, contradictory filters and failed-check stop.
 
 ## Implementation handoff rule
 
@@ -35,3 +35,11 @@ Read AGENTS.md, the task-maintenance guide and this task’s current summary. Wo
 - **Next action:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.
 - **Research/evidence:** See [dated source checks and existing answers](input-research-2026-09-15.md). Source-specific permissions, complete parser layouts and legal classification are not claimed resolved by triage.
 - **Completion boundary:** This updates readiness only, not test passes, live activation or full feature completion. On later pickup, refresh saved evidence and update this record plus the TODO row.
+
+## Bounded evidence reconciliation — 20 September 2026
+
+Explicit checks-only mode preserves format/check/gated commit and refuses E2E/filter conflicts.
+
+Saved artifacts/sdlc/1789852776002-50046/02-pnpm-check.log records successful format validation, lint, application/E2E typechecks, builds and unit suites; final tooling summary is 72 passed, zero failed. Stage05 records gated commit a9e4f43. Full E2E completion is not inferred from those gates. Log lines1059–1060; tests/unit/sdlc.test.mjs:315–367 explicitly checks gate order, no E2E/push, contradictory filters and failed-check stop.
+
+No remaining launcher-option acceptance; application E2E remains separately selected. This scope does not require an invented API/browser acceptance matrix. Existing generated functional validation, if present, remains verbatim and refers only to its explicit matrix. Historical authored/unrun statements below describe their original dates.

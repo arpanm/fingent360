@@ -1,10 +1,10 @@
 # DOMAIN-CONTRACTS-002 — Domain models and golden fixtures
 
-- **Status:** Completed implementation; validation pending
-- **Implemented / recorded:** - DOMAIN-CONTRACTS-002 (DEV-003): Implemented and committed in b5cfcd0; user format/check passed. Remaining integration evidence is tracked separately. Detailed Codex prompt: close the missing contract-only acceptance in DEV003: versioned general event/evidence-edge, owned portfolio-lot, profile inputs and educational policy-result schemas with golden validation/reconciliation fixtures. Reuse existing identity/evidence/observation/goal/holdings schemas and exact decimal utilities; do not int
-- **Pending:** User: run the task’s documented validation; implementation is not a test pass.
-- **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.
-- **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
+- **Status:** Done (verified gate scope)
+- **Implemented / recorded:** Reusable strict domain schemas and all thirteen synthetic golden groups; no runtime feature claim.
+- **Pending:** No remaining schema/golden acceptance. Runtime event/lot/profile/policy workflows and source admission belong to their consumers.
+- **Next action / inputs:** No new run is required for this bounded historical scope. Follow the named child/source gates for broader delivery.
+- **Verification:** Saved artifacts/sdlc/1789852776002-50046/02-pnpm-check.log records successful format validation, lint, application/E2E typechecks, builds and unit suites; final tooling summary is 72 passed, zero failed. Stage05 records gated commit a9e4f43. Full E2E completion is not inferred from those gates. Log lines70–82; packages/contracts/test/domain-records.test.mjs; packages/contracts/src/domain-records.ts; docs/product/domain-contracts.md and docs/development/domain-contracts-handoff.md. Category mapping, exact values, chronology, ownership/reference joins, unknown/conflict handling and synthetic labels reviewed.
 
 ## Implementation handoff rule
 
@@ -33,3 +33,11 @@ Read AGENTS.md, the task-maintenance guide and this task’s current summary. Wo
 - **Next action:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.
 - **Research/evidence:** See [dated source checks and existing answers](input-research-2026-09-15.md). Source-specific permissions, complete parser layouts and legal classification are not claimed resolved by triage.
 - **Completion boundary:** This updates readiness only, not test passes, live activation or full feature completion. On later pickup, refresh saved evidence and update this record plus the TODO row.
+
+## Bounded evidence reconciliation — 20 September 2026
+
+Reusable strict domain schemas and all thirteen synthetic golden groups; no runtime feature claim.
+
+Saved artifacts/sdlc/1789852776002-50046/02-pnpm-check.log records successful format validation, lint, application/E2E typechecks, builds and unit suites; final tooling summary is 72 passed, zero failed. Stage05 records gated commit a9e4f43. Full E2E completion is not inferred from those gates. Log lines70–82; packages/contracts/test/domain-records.test.mjs; packages/contracts/src/domain-records.ts; docs/product/domain-contracts.md and docs/development/domain-contracts-handoff.md. Category mapping, exact values, chronology, ownership/reference joins, unknown/conflict handling and synthetic labels reviewed.
+
+No remaining schema/golden acceptance. Runtime event/lot/profile/policy workflows and source admission belong to their consumers. This scope does not require an invented API/browser acceptance matrix. Existing generated functional validation, if present, remains verbatim and refers only to its explicit matrix. Historical authored/unrun statements below describe their original dates.

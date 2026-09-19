@@ -1,10 +1,10 @@
 # DELIVERY-RECONCILE-002 — ad hoc request coverage and completed local delivery
 
-- **Status:** Completed implementation; validation pending
+- **Status:** Done (recorded coordination scope)
 - **Implemented / recorded:** - Implementation: Implemented for the three named scopes and visible request reconciliation. Local DB activation: confirmed; format/check/E2E/commit: awaiting user. User asks to reconcile all available session requests into TODO/README/docs, explain and finish DOMAIN-CONTRACTS-002, actually enable local DB-LEAST-PRIVILEGE-001, and finish PUBLISHING-QUEUE-001 across its API/UI/storage/test/documentation layers. These are continuations of existing IDs, not three new duplicated features.
-- **Pending:** User: run the task’s documented validation; implementation is not a test pass.
-- **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.
-- **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
+- **Pending:** None for the three named child deliveries and visible request register. Broader source/provider/device requirements remain in their own tasks.
+- **Next action / inputs:** Maintain the visible request register and paired task/index updates. No duplicate implementation or broad rerun is needed for this coordination record.
+- **Verification:** DOMAIN-CONTRACTS-002 passed its thirteen golden groups and normal gates at a9e4f43; DB-LEAST-PRIVILEGE-001 and PUBLISHING-QUEUE-001 meet their full current matrices in1789852776002-50046. Earlier local activation is documented separately. TRACKER-001 review retained original requests and indexed omitted records.
 
 ## Implementation handoff rule
 

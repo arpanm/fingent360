@@ -1,10 +1,10 @@
 # SDLC-REPAIR-016 — Repair failures from the complete validation inventory
 
-- **Status:** User-authorized agent validation and targeted repair in progress; no complete current pass claimed.
-- **Implemented / recorded:** The earlier119-failure repair batch is documented in [the original full-audit RCA](../development/full-audit-2026-09-19.md). The subsequent complete run `1789837762812-24470` finished with1478 passes,17 connected failures and one deliberate outage skip. Confirmed repairs and reviewed story matrices were integrated at gated commit `3e97222` for focused validation.
-- **Pending:** Finish the active focused run, diagnose its saved failures, integrate confirmed corrections after the running stage, and validate affected cases. Keep complete functional-story requirements, deliberate outage acceptance, source permissions and physical-device gates distinct.
-- **Next action / inputs:** The authorized parent owns the active validation and scoped retries; no repeated user permission or new private input is needed for these confirmed repairs. Preserve generated failures until actual saved passing evidence reconciles them.
-- **Verification:** Initial complete inventory:1275 connected passes,17 connected failures, one skip;203 offline passes. Focused E2E run `1789846831614-a2f50ba5-a13b-4918-ad13-91d1611b7b34` is still running at this update. See [current review](../development/functional-acceptance-2026-09-20.md) and generated validation below.
+- **Status:** Done (accepted recorded repair scope); two new investigations tracked separately
+- **Implemented / recorded:** Repaired the saved failure inventory and current browser/API regressions; full current reviewed repair matrix passes. The new scheduler intermittency and Mongo restoration findings have their own explicit task records.
+- **Pending:** No failed requirement remains in the reviewed repair matrix. Do not treat this as closing READINESS-RECOVERY-001, RESEARCH-WORKER-ISOLATION-001 or source/provider/device gates.
+- **Next action / inputs:** Follow the two specific investigations and remaining non-test gates; another complete suite is not requested for this unchanged revision.
+- **Verification:** SDLC1789852776002-50046 passed normal gates,1317 connected cases and208 offline cases, with one API2002 failure and deliberate API004 skip. final-scoped-1789857073654 then passed both exact cases unchanged. All107 reviewed matrices now pass at the same source fingerprint; original failure evidence is retained.
 
 ## Specification and acceptance
 
@@ -46,5 +46,5 @@ All newly found shared causes are repaired and their focused checks now pass: qu
 
 ## Automated validation
 
-Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: outage-final-1789852687840.
+Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: final-scoped-1789857073654.
 <!-- sdlc-validation:end -->

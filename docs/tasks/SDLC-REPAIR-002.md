@@ -1,10 +1,10 @@
 # SDLC-REPAIR-002 — formatting-only retry and repair CLI discovery
 
-- **Status:** Completed implementation; validation pending
-- **Implemented / recorded:** - Status: Fix authored, execution validation pending; user run1789445576136-52339 stopped at format:check before lint/tests. Installed CLI responds as codex-cli 0.153.4; no repair agent, formatter, checks or tests were run. Commit remains gated on user-run format/check.
-- **Pending:** The implementation is recorded; user-run validation remains separate.
-- **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.
-- **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
+- **Status:** Done (verified gate scope)
+- **Implemented / recorded:** Safe scoped formatting retry and deterministic repair-CLI discovery/precedence.
+- **Pending:** No remaining bounded launcher repair. An actual future failed invocation still needs its own evidence.
+- **Next action / inputs:** No new run is required for this bounded historical scope. Follow the named child/source gates for broader delivery.
+- **Verification:** Saved artifacts/sdlc/1789852776002-50046/02-pnpm-check.log records successful format validation, lint, application/E2E typechecks, builds and unit suites; final tooling summary is 72 passed, zero failed. Stage05 records gated commit a9e4f43. Full E2E completion is not inferred from those gates. Log lines1048–1053; tests/unit/sdlc.test.mjs:17–241 covers app/PATH/explicit discovery, missing executable, traversal/glob/escaping-symlink rejection, zero agent calls for formatting and repeated drift stop.
 
 ## Implementation handoff rule
 
@@ -36,3 +36,11 @@ Read AGENTS.md, the task-maintenance guide and this task’s current summary. Wo
 - **Next action:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.
 - **Research/evidence:** See [dated source checks and existing answers](input-research-2026-09-15.md). Source-specific permissions, complete parser layouts and legal classification are not claimed resolved by triage.
 - **Completion boundary:** This updates readiness only, not test passes, live activation or full feature completion. On later pickup, refresh saved evidence and update this record plus the TODO row.
+
+## Bounded evidence reconciliation — 20 September 2026
+
+Safe scoped formatting retry and deterministic repair-CLI discovery/precedence.
+
+Saved artifacts/sdlc/1789852776002-50046/02-pnpm-check.log records successful format validation, lint, application/E2E typechecks, builds and unit suites; final tooling summary is 72 passed, zero failed. Stage05 records gated commit a9e4f43. Full E2E completion is not inferred from those gates. Log lines1048–1053; tests/unit/sdlc.test.mjs:17–241 covers app/PATH/explicit discovery, missing executable, traversal/glob/escaping-symlink rejection, zero agent calls for formatting and repeated drift stop.
+
+No remaining bounded launcher repair. An actual future failed invocation still needs its own evidence. This scope does not require an invented API/browser acceptance matrix. Existing generated functional validation, if present, remains verbatim and refers only to its explicit matrix. Historical authored/unrun statements below describe their original dates.

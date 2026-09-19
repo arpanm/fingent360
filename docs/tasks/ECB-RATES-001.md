@@ -1,9 +1,9 @@
 # ECB-RATES-001 — official numerical policy-rate history
 
-- **Status:** Implementation complete; validation pending
+- **Status:** Done (accepted scope)
 - **Implemented / recorded:** - Implementation: Implemented for the selected three-series numerical family; user validation/live refresh pending. Parent: SRC008 initial onboarding implemented; broader analysis is separate and source acceptance remains user-run. Fixed official ECB DFR, fixed MRO and marginal lending rate change-date series, exact percent-per-annum decimals and reported effective dates. Bounded SDMX XML parsing, no arbitrary URL, raw evidence before immutable numerical editions, explicit current/future-effective separation, source rights/free-original attribution and no invented historical known-at timestamps. Migration040, operator refresh/review/publish/withdraw, shared named-mode independent approval, public current/history/evidence navigation and offline snapshot parity. Author representative explicitly synthetic syntax fixtures and actual isolated storage/rollback/replay/withdrawal cases; do not fetch live data as an ingestion run or claim newest values until user refreshes. Root integrates migration list and trackers.
-- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
-- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
+- **Pending:** None for the reviewed acceptance scope; native release certification remains separate.
+- **Next action / inputs:** No further action for this accepted scope.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Implementation handoff rule
@@ -50,5 +50,5 @@ No additional input is needed for this bounded automated scope. Run the complete
 
 ## Automated validation
 
-Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: outage-final-1789852687840.
+Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: final-scoped-1789857073654.
 <!-- sdlc-validation:end -->

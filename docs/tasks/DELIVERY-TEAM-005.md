@@ -3,7 +3,7 @@
 - **Status:** Implemented; validation pending for the bounded batch below. The whole roadmap is not complete.
 - **Implemented:** Nine authored slices across source coverage, privacy, monitoring, public sharing and reader diagnostics, with contracts, actual storage/API workflows, shared web/app behavior, cases and documentation.
 - **Pending:** User-run gates, additive migrations, applicable configuration and rebuilt Android acceptance. Parent functional gaps are listed below and remain Partial.
-- **Next action / inputs:** User runs the focused SDLC workflow below. Zerodha export-template availability question is unanswered. Other independent research/coding remains eligible in pickup-queue.md.
+- **Next action / inputs:** Reconcile its bounded source/privacy/operations children; retain explicitly missing source and device requirements.
 - **Verification:** No format/check/lint/typecheck/build/test/E2E/provider ingestion/service/migration/commit/push was executed by agents. Baseline HEAD `a2c53a0`; no earlier result establishes acceptance of this batch.
 
 ## Specification and implementation boundary

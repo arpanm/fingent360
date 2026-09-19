@@ -3,7 +3,7 @@
 - **Status:** Completed implementation; validation pending
 - **Implemented / recorded:** Handoff/evidence tooling plus explicit full connected/offline `--all` inventory; launcher regression cases authored. [Run RCA](../development/sdlc-run-rca-2026-09-18.md) records the mixed-revision acceptance failure.
 - **Pending:** User: run the task’s documented validation; implementation is not a test pass.
-- **Next action / inputs:** User runs `SDLC_AUTO_REPAIR=0 pnpm sdlc "Audit all pending validation" --all`; review saved results. Structured RCA linkage and dependency-aware evidence invalidation remain gaps.
+- **Next action / inputs:** Finish the named manual dashboard/runner scenarios; saved command execution and unit proofs are recorded separately.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Complete validation inventory and RCA audit — 2026-09-18

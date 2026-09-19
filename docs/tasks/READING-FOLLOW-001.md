@@ -1,9 +1,9 @@
 # READING-FOLLOW-001 — Follow sources and topics
 
-- **Status:** Implementation complete; validation pending
+- **Status:** Done (accepted scope)
 - **Implemented / recorded:** - READING-FOLLOW-001 (DEV-018): Implemented and verified for the bounded scope;25 connected and10 selected offline scenarios passed, with final navigation reruns passing. Explicit source/topic subscriptions with a manual check of newly reviewed stored editions, dated coalesced private inbox, mute/acknowledge/reopen and withdrawal-safe navigation. Dependencies: SOURCE-WITHDRAWAL-001, current library/privacy and complete schedule export. Initial follow/re-add/unmute establishes a visible fresh
-- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
-- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
+- **Pending:** None for the reviewed acceptance scope; native release certification remains separate.
+- **Next action / inputs:** No further action for this accepted scope.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Implementation handoff rule
@@ -54,5 +54,5 @@ No additional input is needed for this bounded automated scope. Run the complete
 
 ## Automated validation
 
-Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: outage-final-1789852687840.
+Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: final-scoped-1789857073654.
 <!-- sdlc-validation:end -->

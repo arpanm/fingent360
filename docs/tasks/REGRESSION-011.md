@@ -1,9 +1,9 @@
 # REGRESSION-011 — reported integration failures after gated commit
 
-- **Status:** Implementation complete; validation pending
+- **Status:** Done (accepted scope)
 - **Implemented / recorded:** - Implementation: Corrections authored; awaiting focused user rerun. Verification: user-reported baseline522 passed,11 failed,1 skipped; corrections not run. Evidence: run2026-09-14T08-28-33-631Z-98876, latest manifest started08:28:34.851Z, API4103/web5175,534 selected attempts. Current committed baseline b5cfcd0. Failures: API586 lock observation; WEB500/501 ambiguous status; WEB500–503 mobile pointer interception; WEB521 queue lock observation; WEB421 loading/empty status collision. Detailed Codex prompt: inspect attachment/latest/error contexts and actual source; fix underlying UI overlap and loading semantics, robust exact owned lock observation and scoped receipt assertions. Preserve real database cancellation/rollback/session-expiry tests, marker safeguards and original records. Do not use forced clicks, arbitrary sleeps, raised timeouts, suppressed failures or mock success. Reuse stable IDs, update relevant case/spec/docs/TODO/README, and provide focused user-run SDLC selection. No tests, format/check/build, service/DB actions or commit by agents. Previous local activation authorization is completed, not renewed by this report.
-- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
-- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
+- **Pending:** None for the reviewed acceptance scope; native release certification remains separate.
+- **Next action / inputs:** No further action for this accepted scope.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Implementation handoff rule
@@ -46,5 +46,5 @@ No additional input is needed for this bounded automated scope. Run the complete
 
 ## Automated validation
 
-Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: outage-final-1789852687840.
+Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: final-scoped-1789857073654.
 <!-- sdlc-validation:end -->

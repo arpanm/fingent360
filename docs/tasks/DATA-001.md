@@ -54,5 +54,12 @@ Remaining gates: Review parser precision/quarantine unit results from current ch
 
 ## Automated validation
 
-Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: outage-final-1789852687840.
+Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: final-scoped-1789857073654.
 <!-- sdlc-validation:end -->
+
+## Remaining completion gates — 20 September 2026
+
+The complete current automated matrix passed. The reviewed manifest retains these separate requirements; rerunning passing cases does not satisfy them:
+
+- Review parser precision/quarantine unit results from current check gate; API020/021 do not directly fault every upstream/stale-cache branch.
+- Explicit offline/no-cache acceptance for this annual macro route is not established by WEB020; do not infer full offline coverage from connected navigation.

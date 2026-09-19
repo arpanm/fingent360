@@ -1,10 +1,10 @@
 # SDLC-REPAIR-006 — event scenario callback type narrowing
 
-- **Status:** Completed implementation; validation pending
+- **Status:** Done (recorded repair scope)
 - **Implemented / recorded:** - Implementation: Authored: captured and narrowed a local constant model, preserving all golden and rejection assertions; extended the case to confirm negative variants leave the original comparison unchanged.
-- **Pending:** User: run the task’s documented validation; implementation is not a test pass.
-- **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.
-- **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
+- **Pending:** None for the callback-narrowing repair; broader event scenarios retain their own source and policy gates.
+- **Next action / inputs:** Typechecking and the exact OFFLINE1021 preservation regression passed.
+- **Verification:** The current normal check passed E2E typechecking; OFFLINE1021 passed in artifacts/e2e/offline-1789856943077-56414/results.json. All numeric/family/no-reference/hypothetical and fixture-preservation assertions remain.
 
 ## Implementation handoff rule
 

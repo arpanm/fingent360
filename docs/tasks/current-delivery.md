@@ -1,5 +1,7 @@
 # Current delivery — what exists and what remains
 
+This nine-workstream document preserves the dated15September2026 authoring reconciliation below. It is not the current run ledger. For current scope and remaining gates, read the individual linked task summaries and [remaining validation](../development/validation-remaining-2026-09-20.md); actual latest automated results belong to [generated story validation](../validation/README.md). Later passing child receipts do not close broader source/provider/device requirements. Historical statements below that validation was unrun describe their original date.
+
 This summary reconciles the previous nine-workstream handoff on 2026-09-15. **The supported educational action-centre implementation is complete; other remaining work is listed per row below. Evaluation lineage and image stories remain authored but unvalidated. The full batch is not complete.** Source files, migration registrations and the previous detailed handoffs were inspected; no gates, live provider calls or device tests were run for this reconciliation.
 
 “Implemented” below means code is present/authored. It does not mean the database migration is applied, a source/provider is configured, tests pass or an installed Android APK contains these changes. Recent repair records still report failed validation stages; no later clean batch-wide result is established here.

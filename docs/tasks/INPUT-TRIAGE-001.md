@@ -3,7 +3,7 @@
 - **Status:** Implemented; validation pending
 - **Implemented:** Reviewed 126 active records: 6 agent-ready, 17 research-ready, 16 parent rollups, 82 validation-only and 5 validation/activation records. Added readiness to the index and a dated input record to each task.
 - **Pending:** Future implementation and completed run/device/provider evidence remain separate. No new user answer is required for the next independent steps.
-- **Next action / inputs:** Agent owns source/format/regulatory research; ask the user only for non-inferable decisions or unavailable private access.
+- **Next action / inputs:** Review all126 dated input/readiness records against pickup-queue.md and input-research-2026-09-15.md; preserve exact existing answers and later private-input triggers.
 - **Verification:** Documentation/research only; no deterministic commands or provider activation.
 
 ## Request and acceptance

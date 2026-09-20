@@ -1,6 +1,6 @@
 # UX-002G-HISTORY — Source-history keyboard Back and retry flows
 
-- **Status:** Done (accepted scope)
+- **Status:** Implementation complete; validation pending
 - **Parent:** [UX-002G](UX-002G.md). This completed scope does not complete its broader parent.
 - **Implemented:** Keyboard focus follows explicit price-history navigation; commodity edition Back and retries preserve the exact selected original.
 - **Specification and source evidence:** Use the dated implementation specification, original-source research and detailed handoff in the parent task. This child makes the finished scope visible in the task index; it does not replace or duplicate that evidence.
@@ -30,5 +30,5 @@ No additional input is needed for this bounded automated scope. Run the complete
 
 ## Automated validation
 
-Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: final-scoped-1789857073654.
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789923079896-69469.
 <!-- sdlc-validation:end -->

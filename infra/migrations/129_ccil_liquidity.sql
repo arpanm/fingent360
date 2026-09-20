@@ -1,0 +1,5 @@
+CREATE TABLE ccil_liquidity_editions(id uuid PRIMARY KEY,hash text NOT NULL,source_url text NOT NULL,retrieved_at timestamptz NOT NULL,data jsonb,error text,prepared_by text NOT NULL,acquisition_mode text NOT NULL CHECK(acquisition_mode IN ('import','fetch')),permission_reference text NOT NULL);
+CREATE TABLE ccil_liquidity_reviews(seq bigserial PRIMARY KEY,request_id uuid NOT NULL UNIQUE,edition_id uuid NOT NULL REFERENCES ccil_liquidity_editions(id),fingerprint text NOT NULL,decision text NOT NULL CHECK(decision IN ('publish','withdraw')),reason text NOT NULL,reviewer text NOT NULL,reviewed_at timestamptz NOT NULL DEFAULT now());
+CREATE INDEX ccil_liquidity_review_head ON ccil_liquidity_reviews(edition_id,seq DESC);
+CREATE TRIGGER ccil_liquidity_editions_immutable BEFORE UPDATE OR DELETE ON ccil_liquidity_editions FOR EACH ROW EXECUTE FUNCTION protect_reviewed_event_history();
+CREATE TRIGGER ccil_liquidity_reviews_immutable BEFORE UPDATE OR DELETE ON ccil_liquidity_reviews FOR EACH ROW EXECUTE FUNCTION protect_reviewed_event_history();

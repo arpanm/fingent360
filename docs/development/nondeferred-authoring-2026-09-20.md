@@ -2,53 +2,83 @@
 
 ## What changed
 
-These are authored changes, not new passing receipts. The preceding validated
-baseline was source `a9e4f43`, with documentation at `c7874a5`. Source edits invalidate
-that baseline for current verification. Generated validation blocks preserve their
-historical run IDs; they must be reconciled by the user's next SDLC run.
+The first nine rows were originally authored against `c7874a5` and subsequently
+included by the user's `c99d62b` commit. Their current validation belongs to the
+saved user-run records, which this continuation preserves. The new index,
+liquidity and keyboard work is **authored, not validated**. No agent ran gates,
+tests, services or migrations. The older1527 baseline receipts never certify new
+source edits.
 
-| Task                          | Authored implementation and acceptance                                                                                                                                                                | Still required                                                                                                                                  |
-| ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| READINESS-RECOVERY-001        | Explicit Mongo reconnect, shared concurrent probes and orderly shutdown; actual driver refusal/restoration regression without stopping a shared database.                                             | API2302 and API002 current receipts. Exact original incident rejection was not captured.                                                        |
-| RESEARCH-WORKER-ISOLATION-001 | Distinct disabled/lock-busy/not-due/completed outcomes; bounded contention-only fixture retry; real advisory lock and failure propagation cases.                                                      | API2060–2063 and existing1990/1991/2002 receipts. Passing retries do not prove the earlier incident cause.                                      |
-| UX-002C                       | Explicit independently reviewed same-event release membership; Scan expansion/ungrouping, Stories context, conflict/stale fallback and shared offline projection.                                     | API/WEB2300/2301 and OFFLINE2300, existing story matrix, assistive/physical reading acceptance.                                                 |
-| ASSIST-001                    | Shared field explanations/editable names in connected and offline query help; truthful local copy, explicit Apply/Dismiss and no-match recovery.                                                      | OFFLINE150 plus connected matrix and separately configured live-provider acceptance.                                                            |
-| STORY-MEDIA-002               | Superseded image replay now409 instead of silently returning newer bytes. Real preparation/concurrency/replay/source-change/independent-review/error UI cases.                                        | API1146–1149/WEB1146 plus existing matrix; live-provider/model and physical-device acceptance.                                                  |
-| FEEDBACK-001                  | Real submitted context/model lineage, private/stale exclusions, destination/pause/lease/backoff/history recovery and keyboard/narrow-layout cases. Existing implementation reused.                    | WEB1121–1127 plus existing matrix, review synthetic layout screenshots and physical native capture/microphone/storage/HTTPS receipt acceptance. |
-| DATA-001                      | Explicit connected freshness and offline absent/unreadable-cache503; local freshness evaluation preserves observation dates. Actual provider failure, retained revisions/evidence and recovery cases. | API2310/WEB2310/OFFLINE2310/2311 plus existing matrix and normal parser/unit gates.                                                             |
-| DEV-017                       | Private AI history clears after401 and guards late completion; MFA/history keyboard, error and recovery acceptance.                                                                                   | New privacy cases and parent matrix, actual key/historical rollout, production security and physical-device requirements.                       |
-| SRC-012                       | Existing real company-news case now loses only committed acknowledgment, retries the same identity without duplicate capture, and clears after actual session revocation.                             | WEB1594/current matrix, full manual visual/tab-order review, source-specific permission and physical acceptance.                                |
+| Task                          | Authored implementation and acceptance                                                                                                                                                                            | Still required                                                                                                                                                                                  |
+| ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| READINESS-RECOVERY-001        | Explicit Mongo reconnect, shared concurrent probes and orderly shutdown; actual driver refusal/restoration regression without stopping a shared database.                                                         | API2302 and API002 current receipts. Exact original incident rejection was not captured.                                                                                                        |
+| RESEARCH-WORKER-ISOLATION-001 | Distinct disabled/lock-busy/not-due/completed outcomes; bounded contention-only fixture retry; real advisory lock and failure propagation cases.                                                                  | API2060–2063 and existing1990/1991/2002 receipts. Passing retries do not prove the earlier incident cause.                                                                                      |
+| UX-002C                       | Explicit independently reviewed same-event release membership; Scan expansion/ungrouping, Stories context, conflict/stale fallback and shared offline projection.                                                 | API/WEB2300/2301 and OFFLINE2300, existing story matrix, assistive/physical reading acceptance.                                                                                                 |
+| ASSIST-001                    | Shared field explanations/editable names in connected and offline query help; truthful local copy, explicit Apply/Dismiss and no-match recovery.                                                                  | OFFLINE150 plus connected matrix and separately configured live-provider acceptance.                                                                                                            |
+| STORY-MEDIA-002               | Superseded image replay now409 instead of silently returning newer bytes. Real preparation/concurrency/replay/source-change/independent-review/error UI cases.                                                    | API1146–1149/WEB1146 plus existing matrix; live-provider/model and physical-device acceptance.                                                                                                  |
+| FEEDBACK-001                  | Real submitted context/model lineage, private/stale exclusions, destination/pause/lease/backoff/history recovery and keyboard/narrow-layout cases. Existing implementation reused.                                | WEB1121–1127 plus existing matrix, review synthetic layout screenshots and physical native capture/microphone/storage/HTTPS receipt acceptance.                                                 |
+| DATA-001                      | Explicit connected freshness and offline absent/unreadable-cache503; local freshness evaluation preserves observation dates. Actual provider failure, retained revisions/evidence and recovery cases.             | API2310/WEB2310/OFFLINE2310/2311 plus existing matrix and normal parser/unit gates.                                                                                                             |
+| DEV-017                       | Private AI history clears after401 and guards late completion; MFA/history keyboard, error and recovery acceptance.                                                                                               | New privacy cases and parent matrix, actual key/historical rollout, production security and physical-device requirements.                                                                       |
+| SRC-012                       | Existing real company-news case now loses only committed acknowledgment, retries the same identity without duplicate capture, and clears after actual session revocation.                                         | WEB1594/current matrix, full manual visual/tab-order review, source-specific permission and physical acceptance.                                                                                |
+| INDEX-LEVELS-001              | Verified official daily Nifty50/Bank/IT CSV grammar; immutable original capture, independent review, corrections/withdrawal, public paginated history and complete offline snapshots. Migration124.               | API1950–1953, WEB1950–1952 and OFFLINE1950/1951; actual source permission and physical release acceptance. Wider constituent history/taxonomy remain outside this child.                        |
+| CCIL-LIQUIDITY-001            | Verified original July2026 government-security liquidity workbook; exact retained metrics, source descriptions, independent publication/withdrawal, paginated reader and complete offline snapshot. Migration129. | API2320–2325, WEB2320/2321 and OFFLINE2320/2321; source permission and physical release acceptance. This is historical evidence without ISIN, executable quotes or inferred metric conventions. |
+| SLICE-001                     | Full keyboard-only actual virtual-workspace journey: edits, rejected/corrected CSV import, repeated goals/funding, baseline/stale review, reload and deletion.                                                    | WEB2315 desktop/mobile and existing story matrix; no new production schema or fixture market claims.                                                                                            |
 
-No dependency or production schema migration is introduced. Event grouping reuses
-immutable versioned event payloads. All new SQL fixture tables are confined to owned
+The continuation adds two production schema migrations:124 for daily index
+captures/reviews and129 for historical CCIL liquidity captures/reviews. No new
+dependency is introduced. Event grouping reuses immutable versioned event payloads. All new SQL fixture tables are confined to owned
 E2E schemas and exist only when the user runs tests. Simulated upstreams do not
 claim a live source licence or provider-model pass.
 
 ## Execution boundary and integration
 
-The original checkout had active TypeScript/Vite/API watchers. To avoid triggering
-agent-run builds or restarts, all work was authored in
-`/Users/arpanmacmini/code/fingent360-authoring-20260920`, branch
-`codex/nondeferred-completion-20260920`, based on `c7874a5`. No gates, tests, API/browser
-smoke checks, builds, installs, services, migrations or commits were run.
+The original checkout had active TypeScript/Vite/API watchers, so authoring was
+isolated to avoid triggering builds or restarts. The first authoring checkout was
+`/Users/arpanmacmini/code/fingent360-authoring-20260920`. While work continued, the
+user committed the previous batch as `c99d62b` and generated newer validation
+records. The continuation was therefore merged into
+`/Users/arpanmacmini/code/fingent360-continuation-20260920`, branch
+`codex/nondeferred-continuation-20260920`, preserving those records and prior code.
+The main checkout was not overwritten. The old whole-batch patch is superseded
+by the continuation-only patch below; do not reapply the old patch.
 
-Do not copy source edits into running watched development sessions. Stop the
-original `pnpm dev` terminals first. If changes have not yet been brought back,
-apply the final authored patch supplied at handoff to the original checkout using
-`git apply --check` followed by `git apply`; a conflict means stop and preserve the
-newer local changes. Never use a reset to force application.
+Stop the original `pnpm dev` terminals before applying source changes. Then:
 
-No commit is claimed: the required format/check gates have not run. `pnpm sdlc`
-performs them and commits only after they pass; it never pushes. Existing source
-credentials remain in the original ignored `.env`; none is copied into the patch.
+```bash
+cd /Users/arpanmacmini/code/fingent360
+git apply --check /Users/arpanmacmini/code/fingent360-continuation-20260920.patch
+git apply /Users/arpanmacmini/code/fingent360-continuation-20260920.patch
+pnpm db:migrate
+pnpm dev
+```
+
+The patch is relative to the captured main working tree, including its existing
+validation records. If newer local edits cause an apply conflict, stop and retain
+those edits; never reset or overwrite them to force application. Dependencies are
+unchanged. Existing configured PostgreSQL/MongoDB must be available. No ignored
+`.env`, credentials, source workbook or private data is copied into the patch.
+
+There is **no new agent commit**. The user-invoked SDLC command owns format/check,
+the gated commit and case execution; it never pushes. The latest inspected user
+commit is `c99d62b`; the continuation awaits its own gates.
 
 ## Smallest complete story commands
 
 Run in the original checkout after integration. Use configured local PostgreSQL
-and MongoDB, existing migrations and the user-started API/web. No new migration
-is needed for this change. Use the web/API URLs printed by `pnpm dev`, rather than
+and MongoDB and the user-started API/web. Apply additive migrations124/129 using
+`pnpm db:migrate` with the configured migration-owner URL after integration; the
+existing migration flow refreshes the explicitly configured runtime grants. Use the web/API URLs printed by `pnpm dev`, rather than
 assuming port5173. The current saved targets were web5176/API4104, but port selection
 may change. The E2E UI, if used instead, must keep watch/eye toggles off.
+
+```bash
+pnpm sdlc "Complete reviewed daily index history" --story INDEX-LEVELS-001
+pnpm sdlc "Complete historical bond liquidity" --story CCIL-LIQUIDITY-001
+pnpm sdlc "Complete keyboard virtual journey" --story SLICE-001
+```
+
+Prior batch story commands remain available below if their saved current results
+require them; do not automatically repeat already accepted work:
 
 ```bash
 pnpm sdlc "Repair Mongo readiness recovery" --story READINESS-RECOVERY-001
@@ -81,9 +111,12 @@ do not update an existing APK automatically.
 - Five original broker export grammars/representative layouts remain unverified.
   Official download instructions are recorded in BROKER-PARSERS-002; generic mapping
   is not five named parsers. The prior template-availability question is unanswered.
-- Broader original exchange/XBRL/index/taxonomy coverage, current corporate-bond
-  pricing/liquidity and curve conventions remain scoped source work. The new
-  grouping/recovery tests do not implement those sources.
+- Broader original exchange/XBRL/taxonomy and constituent history, current
+  corporate-bond evaluated prices/liquidity and curve conventions remain source
+  work. The new daily price-index and historical government-liquidity children
+  resolve their verified source-format gaps; they do not substitute for these
+  different datasets.20September BSE requests returned403 and current original
+  XBRL/taxonomy requests timed out, as recorded in the corresponding tasks.
 - Groww/Breeze/private CAS/registrar/AA integration prerequisites remain with their
   recorded tasks; existing adapters do not prove these separate integrations.
 - Source retention/display/offline permissions and deliberate worker activation
@@ -96,3 +129,20 @@ do not update an existing APK automatically.
 
 These remain visible in TODO and linked tasks. No task was relabeled Done to hide
 unimplemented work or replace missing validation with code authoring.
+
+## Follow-up tracker reconciliation
+
+The obsolete scheduled GDP authoring blocker was removed: API1773 already exists
+in the required matrix with a saved passing receipt from1789852776002-50046. This
+is a correction of the task requirement, not a new pass for changed worker code.
+Old index-original availability questions are superseded by the successful primary
+download; actual licence questions remain separate. The new child rows do not
+silently complete broader equity/fund/bond parent coverage. The three continuation commands above select their full story matrices. Earlier
+batch commands are optional follow-ups governed by saved user-run results.
+
+New source UI: printed web URL → Sources → Daily price-index history (`#index-levels`),
+and More → Funds and bonds (`#funds-bonds`) → Historical government-bond liquidity.
+Operations owns source preparation and independent review. Original downloads in
+research were kept outside the repository; fixture data is explicitly synthetic.
+A new installed Android/iOS build is required for shared-web changes to reach an
+existing offline installation. No install/build/snapshot command was run here.

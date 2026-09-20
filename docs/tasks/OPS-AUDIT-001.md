@@ -1,9 +1,9 @@
 # OPS-AUDIT-001 — Operations audit history
 
-- **Status:** Done (accepted scope)
+- **Status:** Implementation complete; validation pending
 - **Implemented / recorded:** - OPS-AUDIT-001 (DEV-015/017/021): Implemented and verified for the bounded scope;34 connected scenarios passing across corrections and selected offline passes. Detailed Codex prompt: inspect existing immutable operator_audit rows and request-stage insertion semantics; specify a protected bounded audit-history browser without representing requests as completed work. Add strict filter/cursor/result contracts, keyset pages with stable upper bound, fixed safe event projection and authenticated
-- **Pending:** None for the reviewed acceptance scope; native release certification remains separate.
-- **Next action / inputs:** No further action for this accepted scope.
+- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
+- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Implementation handoff rule
@@ -34,5 +34,5 @@ No additional input is needed for this bounded automated scope. Run the complete
 
 ## Automated validation
 
-Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: final-scoped-1789857073654.
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789923079896-69469.
 <!-- sdlc-validation:end -->

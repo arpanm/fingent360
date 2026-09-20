@@ -1,6 +1,6 @@
 # SRC-003-TERMS — Reviewed rights and stock-swap terms
 
-- **Status:** Done (accepted scope)
+- **Status:** Implementation complete; validation pending
 - **Scope:** Retained originals, exact rights/stock-swap terms, independent source-bound review, explicit theoretical comparisons, company reader and downloaded offline receipts.
 - **Specification and implementation:** [Detailed acceptance and handoff](../../docs/development/equity-action-terms.md); [parent](SRC-003.md).
 - **Data/API/UI/app:** Existing shared web/Android flow, runtime contracts, immutable source/review persistence and offline admission. Migration122 is authored, not applied.
@@ -25,5 +25,5 @@ No additional input is needed for this bounded automated scope. Run the complete
 
 ## Automated validation
 
-Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: final-scoped-1789857073654.
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789923079896-69469.
 <!-- sdlc-validation:end -->

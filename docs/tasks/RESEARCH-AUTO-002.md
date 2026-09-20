@@ -151,16 +151,16 @@ Remaining gates:
 - Actual RBI permission reference covering caching, display, internal linking and offline redistribution before enabling rbi-mpc-calendar.
 - Operator must deliberately approve eligible source publication policies and activate permitted source schedules/workers; authored fixtures do not establish live capture or deployment acceptance.
 
-<!-- sdlc-validation:start -->
-
-## Automated validation
-
-Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: final-scoped-1789857073654.
-<!-- sdlc-validation:end -->
-
 ## Remaining completion gates — 20 September 2026
 
 The complete current automated matrix passed. The reviewed manifest retains these separate requirements; rerunning passing cases does not satisfy them:
 
 - Actual RBI permission reference covering caching, display, internal linking and offline redistribution before enabling rbi-mpc-calendar.
 - Operator must deliberately approve eligible source publication policies and activate permitted source schedules/workers; authored fixtures do not establish live capture or deployment acceptance.
+
+<!-- sdlc-validation:start -->
+
+## Automated validation
+
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789923079896-69469.
+<!-- sdlc-validation:end -->

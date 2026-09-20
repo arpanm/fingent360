@@ -1,9 +1,9 @@
 # CONSENT-LIFECYCLE-001 — explicit purpose, expiry and revocation controls
 
-- **Status:** Done (accepted scope)
+- **Status:** Implementation complete; validation pending
 - **Implemented / recorded:** - Implementation: Implemented; user validation pending. Parent: DEV017 retains encryption/key-management, support and broader security acceptance. Inspect actual existing per-action/storage and scheduling choices before defining a consent ledger. Implement explicit versioned purpose grants with optional expiry, clear review/revoke/renew UI, immutable receipts, ownership, actual enforcement at relevant private-context and background-use boundaries, complete export/deletion and offline parity. Start with external AI private-context sharing and existing personalization/scheduled report purposes where real consented actions are available. Preserve essential sign-in, own-data read/export/deletion and unrelated financial records; revocation stops the specified future use rather than silently deleting records. Do not infer consent from mere account existence, retroactively invent a grant or claim a legal certification. Any legacy basis must point to an actual recorded user choice and be labelled distinctly. Revalidate grant/expiry after waits and before dispatch/commit; generated/provider text cannot restore revoked authority. No automatic external requests or changed personal data while authoring. Design the concrete existing-flow integration before code, then deliver strict contracts, migration043, backend/UI/local/workers where relevant, tests and docs. Reserve API/WEB/OFFLINE760–779. User owns gates, migrations/services, deterministic execution and commits.
-- **Pending:** None for the reviewed acceptance scope; native release certification remains separate.
-- **Next action / inputs:** No further action for this accepted scope.
+- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
+- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Implementation handoff rule
@@ -46,5 +46,5 @@ No additional input is needed for this bounded automated scope. Run the complete
 
 ## Automated validation
 
-Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: final-scoped-1789857073654.
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789923079896-69469.
 <!-- sdlc-validation:end -->

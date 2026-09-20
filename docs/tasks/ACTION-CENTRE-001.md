@@ -1,9 +1,9 @@
 # ACTION-CENTRE-001 — Deterministic educational action comparison and suitability constraints
 
-- **Status:** Done (accepted scope)
+- **Status:** Implementation complete; validation pending
 - **Implemented / recorded:** Versioned educational sell/FIFO/buy/rebalance comparisons, materiality and suitability guards, no-action baseline, independently released policy bounds, restricted source-documented disposal tax plus reviewed tax-input fallback, encrypted immutable receipts, API/web/Android-shared/offline workflows and authored tests.
-- **Pending:** None for the reviewed acceptance scope; native release certification remains separate.
-- **Next action / inputs:** No further action for this accepted scope.
+- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
+- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 See [current delivery summary](current-delivery.md) for the batch-wide distinction between code, missing functionality and validation.
@@ -70,5 +70,5 @@ Evidence: connected run2026-09-19T19-40-29-161Z-37323 completed76 passes and10 f
 
 ## Automated validation
 
-Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: final-scoped-1789857073654.
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789923079896-69469.
 <!-- sdlc-validation:end -->

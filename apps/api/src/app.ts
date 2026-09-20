@@ -1,4 +1,14 @@
 import {
+  CcilLiquidityController,
+  OpsCcilLiquidityController,
+  CCIL_LIQUIDITY_GATE,
+} from './ccil-liquidity.js';
+import {
+  IndexLevelsController,
+  IndexLevelsOperationsController,
+  indexLevelsProvider,
+} from './index-levels.js';
+import {
   FilingDiscoveryOperationsController,
   filingDiscoveryProvider,
 } from './filing-discovery.js';
@@ -326,6 +336,8 @@ export async function createApp(
         IndiaMacroController,
         FilingDiscoveryOperationsController,
         FilingWatchOperationsController,
+        CcilLiquidityController,
+        OpsCcilLiquidityController,
         CcilZeroController,
         OpsCcilZeroController,
         CorporateRatingsController,
@@ -341,6 +353,8 @@ export async function createApp(
         EquityAdjustmentsController,
         ClassificationCrosswalkController,
         ClassificationCrosswalkPublicController,
+        IndexLevelsController,
+        IndexLevelsOperationsController,
         ParticipantPositioningController,
         IntelligenceBriefController,
         IntelligenceBriefOperationsController,
@@ -455,6 +469,13 @@ export async function createApp(
         companyNewsProvider(config),
         indiaMacroProvider(config),
         {
+          provide: CCIL_LIQUIDITY_GATE,
+          useValue: {
+            enabled: config.CCIL_LIQUIDITY_ENABLED,
+            permissionReference: config.CCIL_LIQUIDITY_PERMISSION_REFERENCE,
+          },
+        },
+        {
           provide: CCIL_ZERO_GATE,
           useValue: {
             enabled: config.CCIL_ZERO_ENABLED,
@@ -468,6 +489,7 @@ export async function createApp(
         consolidationProvider(config),
         equityAdjustmentProvider(config),
         ClassificationCrosswalkStore,
+        indexLevelsProvider(config),
         participantPositioningProvider(config),
         {
           provide: CCIL_GATE,
@@ -601,6 +623,8 @@ export async function createApp(
     ['/api/v1/ops/india-macro/import', 18_100_000],
     ['/api/v1/ops/india-macro/calendar', 9_000_000],
     ['/api/v1/ops/positioning/capture', 12_100_000],
+    ['/api/v1/ops/bond-liquidity/import', 2_700_000],
+    ['/api/v1/ops/index-levels/capture', 12_100_000],
     ['/api/v1/ops/institutional-flows/capture', 6_100_000],
     ['/api/v1/ops/oil-education/capture', 6_100_000],
     ['/api/v1/ops/fund-lookthrough/import', 2_800_000],

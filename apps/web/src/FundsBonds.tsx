@@ -1,3 +1,4 @@
+import { CcilLiquidityReader } from './CcilLiquidity';
 import { CcilZeroReader } from './CcilZero';
 import { CorporateRatingsReader } from './CorporateRatings';
 import { SovereignBondReader } from './SovereignBonds';
@@ -696,6 +697,7 @@ export function FundsBonds() {
         </p>
       </header>
       <CcilYieldsReader />
+      <CcilLiquidityReader />
       <CcilZeroReader />
       <SovereignBondReader />
       <CorporateRatingsReader />

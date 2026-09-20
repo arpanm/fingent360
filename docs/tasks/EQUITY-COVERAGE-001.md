@@ -2,7 +2,7 @@
 
 - **Status:** Partial
 - **Implemented / recorded:** NSE identities, Nifty50 constituents, retained UDiFF prices and paginated history, corporate-action CSV, IndAS/banking/general-insurance/life-insurance results, reviewed split/bonus/dividend normalization and pure-consolidation identity bridges are authored across API, Operations, reader and offline workflows. Validation is pending.
-- **Pending:** BSE security/price access and dual-source reconciliation, additional financial/XBRL formats, rights/merger/demerger accounting, broader index history and permitted automatic acquisition. These gaps are separate from user-run validation.
+- **Pending:** Daily Nifty50/Bank/IT index history is now authored under INDEX-LEVELS-001. Original XBRL/taxonomy, BSE originals, wider constituent history/official taxonomy and permitted acquisition remain specific gaps; source activation and physical/user validation stay separate.
 - **Next action / inputs:** Developer: verify remaining exchange formats and usage rights; implement missing ingestion.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
@@ -110,5 +110,9 @@ The saved full run1789752953639-97020 includes failed cases tagged to this task.
 
 ## Automated validation
 
-Selected cases passed — acceptance matrix needed. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: final-scoped-1789857073654.
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789923079896-69469.
 <!-- sdlc-validation:end -->
+
+## Source implementation follow-up — 20 September 2026
+
+See [INDEX-LEVELS-001](INDEX-LEVELS-001.md) for verified original research, authored full-stack workflow, migrations and API/browser/offline cases. This child resolves its documented source-format gap; it does not complete this broader parent or establish new test passes/source permission. No deterministic execution was performed.

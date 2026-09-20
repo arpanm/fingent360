@@ -117,10 +117,12 @@ try {
     '121_sovereign_bond.sql',
     '122_equity_action_terms.sql',
     '123_eia_spot.sql',
+    '124_index_levels.sql',
     '125_corporate_rating.sql',
     '126_ccil_zero_curve.sql',
     '127_filing_watch.sql',
     '128_filing_discovery.sql',
+    '129_ccil_liquidity.sql',
   ]) {
     await applyMigration(
       client,

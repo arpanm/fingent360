@@ -1,9 +1,9 @@
 # WORKER-HEALTH-001 — Background worker health
 
-- **Status:** Done (accepted scope)
+- **Status:** Implementation complete; validation pending
 - **Implemented / recorded:** - WORKER-HEALTH-001 (DEV-015/021): Implemented and selected verification passed; physical/production acceptance remains separate. Make existing report/reminder worker health and explicit pause/resume visible in Operations. Detailed Codex prompt: inspect the existing leased report worker and in-app reminder worker, then specify aggregate heartbeat/last-success/bounded safe failure classification, queue age/due/expired-lease counts, stale versus unavailable, and control semantics. Add strict c
-- **Pending:** None for the reviewed acceptance scope; native release certification remains separate.
-- **Next action / inputs:** No further action for this accepted scope.
+- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
+- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 Status reconciliation (2026-09-16): Done refers to the previously recorded bounded delivery, not fresh validation of the current working tree. No new implementation or test pass is claimed.
@@ -40,5 +40,5 @@ No additional input is needed for this bounded automated scope. Run the complete
 
 ## Automated validation
 
-Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: final-scoped-1789857073654.
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789923079896-69469.
 <!-- sdlc-validation:end -->

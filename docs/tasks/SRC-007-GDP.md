@@ -26,15 +26,15 @@ The complete required case/project matrix is now recorded in `acceptance.json`. 
 
 Remaining gates: Actual source-specific retention/display/offline permissions and documented physical-device source acceptance remain activation gates.
 
-<!-- sdlc-validation:start -->
-
-## Automated validation
-
-Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: final-scoped-1789857073654.
-<!-- sdlc-validation:end -->
-
 ## Remaining completion gates — 20 September 2026
 
 The complete current automated matrix passed. The reviewed manifest retains these separate requirements; rerunning passing cases does not satisfy them:
 
 - Actual source-specific retention/display/offline permissions and documented physical-device source acceptance remain activation gates.
+
+<!-- sdlc-validation:start -->
+
+## Automated validation
+
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789923079896-69469.
+<!-- sdlc-validation:end -->

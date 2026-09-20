@@ -1,6 +1,6 @@
 # SRC-003-CONSOLIDATION — Reviewed share-consolidation bridge
 
-- **Status:** Done (accepted scope)
+- **Status:** Implementation complete; validation pending
 - **Parent:** [SRC-003](SRC-003.md). This completed scope does not complete its broader parent.
 - **Implemented:** Original notices, old/new security identities, exact nominal comparison, suspension-aware calibration exclusion and independent review. Holdings are unchanged.
 - **Specification and source evidence:** Use the dated implementation specification, original-source research and detailed handoff in the parent task. This child makes the finished scope visible in the task index; it does not replace or duplicate that evidence.
@@ -46,5 +46,5 @@ No additional input is needed for this bounded automated scope. Run the complete
 
 ## Automated validation
 
-Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: final-scoped-1789857073654.
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789923079896-69469.
 <!-- sdlc-validation:end -->

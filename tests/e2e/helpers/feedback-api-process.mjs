@@ -156,6 +156,10 @@ async function start() {
     WHATSAPP_APPROVAL_REFERENCE:
       'TEST-SIMULATION only; no provider activation or actual permission.',
     WHATSAPP_ALLOWED_SOURCE_IDS: 'glossary',
+    CCIL_LIQUIDITY_ENABLED:
+      env.F360_TEST_CCIL_LIQUIDITY === '1' ? 'true' : 'false',
+    CCIL_LIQUIDITY_PERMISSION_REFERENCE:
+      'TEST-SIMULATION only; no live source rights',
     CCIL_ZERO_ENABLED: env.F360_TEST_CCIL_ZERO === '1' ? 'true' : 'false',
     CCIL_ZERO_PERMISSION_REFERENCE:
       'Synthetic fixture only; no live source rights',
@@ -255,6 +259,59 @@ async function start() {
   delete process.env.POSTGRES_USER;
   delete process.env.POSTGRES_PASSWORD;
   const { readConfig } = await import('../../../apps/api/dist/config.js');
+  // Explicit disposable-process upstream simulation; never enabled by normal app configuration.
+  if (env.F360_TEST_CCIL_LIQUIDITY === '1') {
+    const { CCIL_LIQUIDITY_URL } =
+      await import('../../../packages/contracts/dist/index.js');
+    if (
+      !/^e2e_feedback_[a-f0-9]{32}$/.test(schema) ||
+      (await pool.query('SELECT current_schema() AS schema')).rows[0]
+        ?.schema !== schema
+    )
+      throw Error('Owned liquidity schema required');
+    await pool.query(
+      'CREATE TABLE test_liquidity_provider (id boolean PRIMARY KEY CHECK(id), enabled boolean NOT NULL, calls integer NOT NULL DEFAULT 0)',
+    );
+    await pool.query(
+      'INSERT INTO test_liquidity_provider(id,enabled) VALUES(true,true)',
+    );
+    const originalFetch = globalThis.fetch;
+    const bytes = Buffer.from(
+      env.F360_TEST_CCIL_LIQUIDITY_BODY || '',
+      'base64',
+    );
+    if (!bytes.length || bytes.length > 2000000)
+      throw Error('Synthetic liquidity workbook missing');
+    globalThis.fetch = async (input, init) => {
+      const url =
+        typeof input === 'string'
+          ? input
+          : input instanceof URL
+            ? input.href
+            : input.url;
+      if (url === CCIL_LIQUIDITY_URL) {
+        if (init?.method && init.method !== 'GET')
+          throw Error('Unexpected source method');
+        const control = (
+          await pool.query(
+            'UPDATE test_liquidity_provider SET calls=calls+1 WHERE id=true RETURNING enabled',
+          )
+        ).rows[0];
+        if (!control.enabled)
+          return new Response('TEST-SIMULATION source unavailable', {
+            status: 503,
+          });
+        return new Response(bytes, {
+          status: 200,
+          headers: {
+            'content-type':
+              'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+          },
+        });
+      }
+      return originalFetch(input, init);
+    };
+  }
   const { createApp } = await import('../../../apps/api/dist/app.js');
   app = await createApp(readConfig(process.env));
   if (cancelled) return;

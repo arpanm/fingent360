@@ -1,9 +1,9 @@
 # PUBLISHING-QUEUE-001 — Paginated publishing review queue
 
-- **Status:** Done (accepted scope)
+- **Status:** Implementation complete; validation pending
 - **Implemented / recorded:** - PUBLISHING-QUEUE-001 (DEV-015): Implemented; user validation and commit pending. Detailed Codex prompt: replace the Operations screen's unbounded rendering of publication heads with a complete paginated review queue over actual stored heads. Preserve the legacy items endpoint for existing clients. Add strict protected source/status/text filters and bounded cursor pages with deterministic order and clear snapshot limitations; validate unknown/repeated fields, mismatched cursors and source l
-- **Pending:** None for the reviewed acceptance scope; native release certification remains separate.
-- **Next action / inputs:** No further action for this accepted scope.
+- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
+- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Implementation handoff rule
@@ -46,5 +46,5 @@ No additional input is needed for this bounded automated scope. Run the complete
 
 ## Automated validation
 
-Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: final-scoped-1789857073654.
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789923079896-69469.
 <!-- sdlc-validation:end -->

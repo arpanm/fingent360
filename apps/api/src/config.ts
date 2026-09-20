@@ -45,6 +45,16 @@ const ConfigSchema = z.object({
   WHATSAPP_APPROVAL_REFERENCE: z.string().max(2000).default(''),
   WHATSAPP_ALLOWED_SOURCE_IDS: z.string().max(10000).default(''),
 
+  CCIL_LIQUIDITY_ENABLED: z
+    .enum(['true', 'false'])
+    .default('false')
+    .transform((value) => value === 'true'),
+  CCIL_LIQUIDITY_PERMISSION_REFERENCE: z
+    .string()
+    .trim()
+    .min(10)
+    .max(2000)
+    .optional(),
   CCIL_ZERO_ENABLED: z
     .enum(['true', 'false'])
     .default('false')

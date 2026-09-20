@@ -1,6 +1,6 @@
 # SRC-004-DISCOVERY — Official financial filing RSS discovery
 
-- **Status:** Done (accepted scope)
+- **Status:** Implementation complete; validation pending
 - **Scope:** Capture verified official NSE RSS by original upload, bounded fetch or disabled-by-default schedule. Preserve original/revision pointers and literal publication text with unknown timezone, immutable source versions and paginated Operations inbox. Security identity and financial contents remain explicitly unverified.
 - **Specification and source research:** [Parent](SRC-004.md); [discovery implementation](../development/filing-discovery.md).
 - **Data:** Migration128 adds permission and immutable discovery records. Exact RSS originals remain in MongoDB. No public financial API or offline financial projection is created from discovery metadata.
@@ -25,5 +25,5 @@ No additional input is needed for this bounded automated scope. Run the complete
 
 ## Automated validation
 
-Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: final-scoped-1789857073654.
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789923079896-69469.
 <!-- sdlc-validation:end -->

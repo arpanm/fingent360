@@ -1,6 +1,6 @@
 # SRC-016-AXIS — Axis ETF original portfolio disclosure
 
-- **Status:** Done (accepted scope)
+- **Status:** Implementation complete; validation pending
 - **Parent:** [SRC-016](SRC-016.md). This completed scope does not complete its broader parent.
 - **Implemented:** Verified original workbook layout, equity/TREPS/current-assets reconciliation, independent AMFI identity mapping and downloaded NAV admission.
 - **Specification and source evidence:** Use the dated implementation specification, original-source research and detailed handoff in the parent task. This child makes the finished scope visible in the task index; it does not replace or duplicate that evidence.
@@ -54,5 +54,5 @@ No additional input is needed for this bounded automated scope. Run the complete
 
 ## Automated validation
 
-Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: final-scoped-1789857073654.
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789923079896-69469.
 <!-- sdlc-validation:end -->

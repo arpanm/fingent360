@@ -1,6 +1,6 @@
 # SRC-004-WATCH — Watch verified original financial filings
 
-- **Status:** Done (accepted scope)
+- **Status:** Implementation complete; validation pending
 - **Scope:** Check a fixed researched25-company original-URL registry, at most three selected originals per due run. Preserve unchanged/corrected/quarantined/unavailable outcomes and raw bytes, create drafts only, independently review through the existing equity workflow, and expose admitted facts in company/derived/offline views.
 - **Specification:** [Original filing watch](../development/filing-watch.md); [parent](SRC-004.md).
 - **Data:** Migration127 adds disabled permission/schedule controls and immutable attempts; existing equity editions/observations and Mongo originals are reused. Gate revocation is enforced centrally for fresh company and downstream fundamental reads. Offline copies remain dated snapshots.
@@ -39,5 +39,5 @@ No additional input is needed for this bounded automated scope. Run the complete
 
 ## Automated validation
 
-Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: final-scoped-1789857073654.
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789923079896-69469.
 <!-- sdlc-validation:end -->

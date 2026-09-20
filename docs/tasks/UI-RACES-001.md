@@ -49,15 +49,15 @@ Remaining gates:
 
 - The original scope explicitly requires rebuilt shared Android delivery and airplane-mode paused-settings/input verification; preserve device acceptance until saved evidence is confirmed for the intended delivered build.
 
-<!-- sdlc-validation:start -->
-
-## Automated validation
-
-Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: final-scoped-1789857073654.
-<!-- sdlc-validation:end -->
-
 ## Remaining completion gates — 20 September 2026
 
 The complete current automated matrix passed. The reviewed manifest retains these separate requirements; rerunning passing cases does not satisfy them:
 
 - The original scope explicitly requires rebuilt shared Android delivery and airplane-mode paused-settings/input verification; preserve device acceptance until saved evidence is confirmed for the intended delivered build.
+
+<!-- sdlc-validation:start -->
+
+## Automated validation
+
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789923079896-69469.
+<!-- sdlc-validation:end -->

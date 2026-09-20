@@ -1,9 +1,9 @@
 # DATA-001 — Real India macro ingestion, evidence and public screen
 
-- **Status:** Authored — upstream recovery and explicit offline annual-route acceptance added; validation pending
+- **Status:** Implementation complete; validation pending
 - **Implemented / recorded:** Existing real World Bank ingestion/evidence/revisions plus explicit annual freshness and absent/unreadable offline snapshot errors.
-- **Pending:** User: run the task’s documented validation; implementation is not a test pass.
-- **Next action / inputs:** User runs the final consolidated SDLC matrix including API2310/WEB2310/OFFLINE2310/2311; agent does not execute validation.
+- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
+- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Upstream failure and offline acceptance specification — 20 September 2026
@@ -75,16 +75,16 @@ The complete required case/project matrix is now recorded in `acceptance.json`. 
 
 Remaining gates: user-run validation of the newly authored API2310/WEB2310/OFFLINE2310/2311 branch coverage, retained real-source API020/021/WEB020 and the normal parser precision/quarantine check gate. No current new pass is claimed.
 
-<!-- sdlc-validation:start -->
-
-## Automated validation
-
-Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: final-scoped-1789857073654.
-<!-- sdlc-validation:end -->
-
 ## Remaining completion gates — 20 September 2026
 
 The complete current automated matrix passed. The reviewed manifest retains these separate requirements; rerunning passing cases does not satisfy them:
 
 - Run/review parser precision/quarantine check results and the newly authored API2310/WEB2310 upstream/stale-cache branch cases.
 - Run the newly authored OFFLINE2310/2311 annual route/cache absence cases. These remain independent of connected WEB020 and do not establish physical-device acceptance.
+
+<!-- sdlc-validation:start -->
+
+## Automated validation
+
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789923079896-69469.
+<!-- sdlc-validation:end -->

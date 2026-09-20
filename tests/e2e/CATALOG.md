@@ -908,3 +908,35 @@ These cases are authored, not executed; historical receipts do not validate them
 - **E2E-WEB-1127** (desktop/mobile): actual keyboard crop/consent/submission/history/status/deletion with360px containment, hit targets and safe synthetic layout artifacts @FEEDBACK-001. Artifacts require human review; this is not physical assistive certification.
 - **E2E-WEB-1403–1407** (desktop/mobile): real MFA enrollment/replay denial/recovery rotation/reset and private-history consent/export/delete/revoke, actual401 clearing and late-response suppression @DEV-017. Private tracing is disabled; only masked synthetic regions may be captured.
 - **E2E-API-2310**, **E2E-WEB-2310** (desktop/mobile), **E2E-OFFLINE-2310/2311**: World Bank transport/schema failure recovery preserves actual stored accepted revisions/evidence; stale state is visible; missing/unreadable offline macro snapshots return unavailable, not a null successful body @DATA-001 @TEST-SIMULATION. No live-provider permission is inferred.
+
+## Additional verified source workflows — authored 20 September 2026
+
+- **E2E-API-1950** (api): exact index-original capture/replay, independent rights review, correction and withdrawal with retained provenance. `cases/api/index-levels.spec.ts`.
+- **E2E-API-1951** (api): original index layout/date/identity/missing-value/OHLC quarantine, unsupported URL and UTF-8 bound.
+- **E2E-API-1952** (api): actual21-date history continuation and complete snapshot.
+- **E2E-WEB-1950** (desktop/mobile): Sources-to-index history, exact source values, keyboard detail and narrow containment. `cases/browser/index-levels.spec.ts`.
+- **E2E-WEB-1951** (desktop/mobile): actual original upload, changed-input permission reset, independent publish/withdraw and public reader.
+- **E2E-OFFLINE-1950** (offline): installed index provenance, pagination, absent/incomplete snapshot rejection and connected-only edits. `cases/offline/index-levels.spec.ts`.
+- **E2E-WEB-2315** (desktop/mobile): full keyboard-only synthetic virtual journey with actual storage, edits, invalid/corrected import, repeated goals, reviews, reload and deletion. `cases/browser/journey-keyboard.spec.ts`.
+
+These are authored cases, not recorded passes. Source fixtures reproduce verified
+original grammar with synthetic values; rights/live-provider/native-device
+acceptance remains separate. See INDEX-LEVELS-001 and SLICE-001 for manual commands.
+
+- **E2E-OFFLINE-1951** (offline): actual installed Sources→index history, empty/missing-cache/retry state and no API network; snapshot query parity is also asserted in OFFLINE1950. `cases/offline/index-levels.spec.ts`.
+
+- **E2E-API-1953** (api): index preparation queue uses exact microsecond/tie-aware keyset continuation across21actual captures, including older unreviewed work. `cases/api/index-levels.spec.ts`.
+- **E2E-WEB-1952** (desktop/mobile): actual index queue older/previous navigation preserves discoverability and correct selected source controls. `cases/browser/index-levels.spec.ts`.
+- **E2E-API-2320** (api): verified CCIL workbook grammar, exact lexical/null values and malformed ZIP/XML/date rejection. `cases/api/ccil-liquidity.spec.ts`.
+- **E2E-API-2321** (api): default source permission gate denies retention and public data.
+- **E2E-API-2322** (api): actual raw hash/replay, byte-only parsing with separately retained source-URL provenance, independent named review, quarantine, immutability and withdrawal.
+- **E2E-API-2323** (api): fixed source URL, canonical byte bounds, Origin and authenticated original access.
+- **E2E-API-2324** (api): complete public/Operations continuation and explicit snapshot capacity failure.
+- **E2E-API-2325** (api): real fixed-original fetch through synthetic upstream, retained receipt replay without another provider call.
+- **E2E-WEB-2320** (desktop/mobile): actual file/review/row-page/reader workflow by keyboard at narrow width. `cases/browser/ccil-liquidity.spec.ts`.
+- **E2E-WEB-2321** (desktop/mobile): pending permission, real committed-response loss/idempotent retry and reader recovery.
+- **E2E-OFFLINE-2320** (offline): frozen exact historical liquidity, missing-value semantics, withdrawal exclusion and mutation refusal. `cases/offline/ccil-liquidity.spec.ts`.
+- **E2E-OFFLINE-2321** (offline): actual installed Funds/Bonds reader navigation/search/paging or explicit unavailable state with no API traffic.
+
+CCIL-LIQUIDITY-001 source simulation does not enable the deployment or supply a
+current quote/ISIN mapping. New source and keyboard cases above remain unrun.

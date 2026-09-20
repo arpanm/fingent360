@@ -1,3 +1,5 @@
+import { CcilLiquidityOperations } from './CcilLiquidity';
+import { IndexLevelsOperations } from './IndexLevelsOperations';
 import { FilingDiscoveryOperations } from './FilingDiscoveryOperations';
 import { FilingWatchOperations } from './FilingWatchOperations';
 import { CcilZeroOperations } from './CcilZero';
@@ -345,6 +347,7 @@ export function Operations() {
                 ['company-news', 'Company news'],
                 ['india-macro', 'India macro'],
                 ['positioning', 'Participant positioning'],
+                ['index-levels', 'Daily index history'],
                 ['intelligence-briefs', 'Intelligence briefs'],
                 ['institutional-flows', 'Institutional activity'],
                 ['oil-education', 'Oil disclosure'],
@@ -375,6 +378,7 @@ export function Operations() {
                 ['fund-factsheets', 'Fund factsheets'],
                 ['sovereign-bonds', 'Sovereign bonds'],
                 ['corporate-ratings', 'Corporate ratings'],
+                ['bond-liquidity', 'CCIL liquidity'],
                 ['bond-zero-curve', 'CCIL NSS'],
                 ['filing-watch', 'Original filing watch'],
                 ['filing-discovery', 'Filing discovery'],
@@ -599,6 +603,11 @@ export function Operations() {
               />
             ) : tab === 'research-auto' ? (
               <ResearchAutomation request={request} />
+            ) : tab === 'index-levels' ? (
+              <IndexLevelsOperations
+                request={request}
+                onDenied={sessionExpired}
+              />
             ) : tab === 'positioning' ? (
               <ParticipantPositioningOperations
                 request={request}
@@ -650,6 +659,11 @@ export function Operations() {
               />
             ) : tab === 'filing-watch' ? (
               <FilingWatchOperations
+                request={request}
+                onDenied={sessionExpired}
+              />
+            ) : tab === 'bond-liquidity' ? (
+              <CcilLiquidityOperations
                 request={request}
                 onDenied={sessionExpired}
               />

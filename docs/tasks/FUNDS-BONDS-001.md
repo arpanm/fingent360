@@ -2,8 +2,8 @@
 
 - **Status:** Partial
 - **Implemented / recorded:** Current and historical AMFI NAV ingestion/review; July/August SBI Contra and February2026 Axis NIFTY50 ETF original disclosures with exact retained AMFI mapping and reconciliation; CCIL indicative government-yield history; shared reader/offline display and private cash-flow/accrual/XIRR/duration/deposit calculations are authored. See SRC015–SRC017 for current source-specific scope. Initial Kotak fee/fund-size factsheets, CCIL source-reported curve history, matched sovereign settlement and exact historical ICRA credit attachment to encrypted saved comparisons are also authored. The API1982 exact-row receipt-integrity repair is authored and awaits its scoped retry.
-- **Pending:** Actual evaluated-price and secondary-market trading-liquidity source evidence; verified conventions for any wider curve valuation/cashflow use. Manual validation, permitted source activation and physical-device acceptance remain separate. Broader issuer/agency/AMC coverage is expansion, not evidence that these authored initial workflows are missing.
-- **Next action / inputs:** Developer researches remaining credit/liquidity and current source quotation linkage; no repeated request for already-verified SBI/Axis workbooks. Operator records applicable source rights; user validates existing source-specific cases and device behavior.
+- **Pending:** CCIL-LIQUIDITY-001 adds historical government-security liquidity observations without ISIN matching or executable prices. Current corporate evaluated prices and verified wider curve conventions remain unavailable; source activation, physical acceptance and user validation are separate.
+- **Next action / inputs:** User validates CCIL-LIQUIDITY-001 after migration129. Operator provides applicable written source permission before activation. Developer continues current corporate-price/curve work only when its original formats/conventions can be verified.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 See [current delivery summary](current-delivery.md) for the batch-wide distinction between code, missing functionality and validation.
@@ -126,5 +126,9 @@ The saved full run1789752953639-97020 includes failed cases tagged to this task.
 
 ## Automated validation
 
-Selected cases passed — acceptance matrix needed. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: final-scoped-1789857073654.
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789923079896-69469.
 <!-- sdlc-validation:end -->
+
+## Source implementation follow-up — 20 September 2026
+
+See [CCIL-LIQUIDITY-001](CCIL-LIQUIDITY-001.md) for verified original research, authored full-stack workflow, migrations and API/browser/offline cases. This child resolves its documented source-format gap; it does not complete this broader parent or establish new test passes/source permission. No deterministic execution was performed.

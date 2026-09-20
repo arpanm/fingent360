@@ -1,5 +1,13 @@
 # Current implementation and validation
 
+## New authoring after the validated baseline — 20 September 2026
+
+The isolated follow-up checkout contains new recovery, grouping, offline help,
+feedback/image/privacy acceptance and source workflows. It has not run format,
+check, E2E, migrations or builds. The1527 receipts below belong to the earlier
+source revision and must not be presented as validation of these edits. See
+[the exact delivery and manual commands](nondeferred-authoring-2026-09-20.md).
+
 ## Authorized acceptance closure — 20 September 2026
 
 Current receipts: 1527 passed at one source fingerprint, 107 reviewed matrices passed and 107 Done scoped tasks (79 functional scopes plus bounded tooling/repair/documentation/history). Full run1789852776002-50046 had one scheduler failure and one deliberate outage skip; both scoped follow-ups passed unchanged. This is combined full-run/retry evidence, not an uninterrupted green full run. See [final reconciliation](functional-acceptance-2026-09-20.md#final-current-revision-reconciliation) and [remaining requirements](validation-remaining-2026-09-20.md). Scheduler intermittency and Mongo restoration remain open investigations. Source permissions, provider/device activation and missing broader implementation are not certified by this result.

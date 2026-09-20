@@ -3806,14 +3806,14 @@
       "project": "api",
       "title": "E2E-API-002 both real databases are ready",
       "file": "api/foundation.spec.ts",
-      "stories": ["SETUP-001", "SDLC-001", "BUG-002"],
+      "stories": ["SETUP-001", "SDLC-001", "READINESS-RECOVERY-001", "BUG-002"],
       "status": "passed",
       "details": "",
-      "run": "1789852776002-50046",
-      "time": "2026-09-19T22:28:52.506Z",
-      "fingerprint": "adcaf88ae7f65f19990282ccf9acd2763ad20fd146f414e37c21d89781af6c01",
-      "log": "artifacts/sdlc/1789852776002-50046/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T21-20-37-259Z-50913/results.json"
+      "run": "1789923079896-69469",
+      "time": "2026-09-20T16:53:15.109Z",
+      "fingerprint": "a4c69c2f1207ca61dcf3cb16e6bf16898ecf64781fb5534f4e7fc01058ffd165",
+      "log": "artifacts/sdlc/1789923079896-69469/08-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-20T16-53-09-601Z-70680/results.json"
     },
     "391d5009a72d60840b801d936d4207678673c4168167699a16e122c2a44e8ea4": {
       "key": "391d5009a72d60840b801d936d4207678673c4168167699a16e122c2a44e8ea4",
@@ -23048,6 +23048,21 @@
       "fingerprint": "adcaf88ae7f65f19990282ccf9acd2763ad20fd146f414e37c21d89781af6c01",
       "log": "artifacts/sdlc/1789852776002-50046/08-pnpm-android_test.log",
       "report": "artifacts/e2e/offline-1789856943077-56414/results.json"
+    },
+    "b185d1c1729f60af8b5a872efaf4eb2d95dedcb36ad6e4ae7459f1d0b96ed628": {
+      "key": "b185d1c1729f60af8b5a872efaf4eb2d95dedcb36ad6e4ae7459f1d0b96ed628",
+      "caseId": "E2E-API-2302",
+      "project": "api",
+      "title": "E2E-API-2302 Mongo readiness recovers after first-connect and established outages without process restart @READINESS-RECOVERY-001 @TEST-SIMULATION",
+      "file": "api/readiness-recovery.spec.ts",
+      "stories": ["READINESS-RECOVERY-001"],
+      "status": "passed",
+      "details": "",
+      "run": "1789923079896-69469",
+      "time": "2026-09-20T16:53:15.109Z",
+      "fingerprint": "a4c69c2f1207ca61dcf3cb16e6bf16898ecf64781fb5534f4e7fc01058ffd165",
+      "log": "artifacts/sdlc/1789923079896-69469/08-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-20T16-53-09-601Z-70680/results.json"
     }
   },
   "bugs": {
@@ -29502,18 +29517,18 @@
       "file": "",
       "stories": [],
       "status": "Resolved",
-      "details": " { sourceId: string; enabled: boolean; intervalMinutes: number; nextAt: string; lastStatus: \"never\" | ... 2 more ... | \"failed\"; lastRunId: string | null; message: string; rightsEvidence?: string | undefined; }[]...'.\napps/api/src/research-auto.ts(402,5): error TS1206: Decorators are not valid here.\napps/api/src/research-auto.ts(403,5): error TS1206: Decorators are not valid here.\napps/api/src/research-auto.ts(404,5): error TS1206: Decorators are not valid here.\napps/api/src/research-auto.ts(418,5): error TS1206: Decorators are not valid here.\napps/api/src/research-auto.ts(420,3): error TS1241: Unable to resolve signature of method decorator when called as an expression.\n  The runtime will invoke the decorator with 2 arguments, but the decorator expects 3.\napps/api/src/research-auto.ts(420,4): error TS1270: Decorator function return type 'void | TypedPropertyDescriptor<unknown>' is not assignable to type 'void | ((edition?: string | undefined) => Promise<{ sourceId: \"rbi-mpc-calendar\"; sourceUrl: \"https://www.rbi.org.in/Scripts/BS_PressReleaseDisplay.aspx?prid=62422\"; version: \"rbi-mpc-html-v1\"; edition: string | null; retrievedAt: string | null; data: { ...; } | null; editions: { ...; }[]; }>)'.\n  Type 'TypedPropertyDescriptor<unknown>' is not assignable to type 'void | ((edition?: string | undefined) => Promise<{ sourceId: \"rbi-mpc-calendar\"; sourceUrl: \"https://www.rbi.org.in/Scripts/BS_PressReleaseDisplay.aspx?prid=62422\"; version: \"rbi-mpc-html-v1\"; edition: string | null; retrievedAt: string | null; data: { ...; } | null; editions: { ...; }[]; }>)'.\napps/api/src/research-auto.ts(420,27): error TS1206: Decorators are not valid here.\napps/api/src/research-auto.ts(423,3): error TS1241: Unable to resolve signature of method decorator when called as an expression.\n  The runtime will invoke the decorator with 2 arguments, but the decorator expects 3.\napps/api/src/research-auto.ts(423,4): error TS1270: Decorator function return type 'void | TypedPropertyDescriptor<unknown>' is not assignable to type 'void | ((edition?: string | undefined) => Promise<{ sourceId: \"fomc-calendar\"; sourceUrl: \"https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm\"; version: \"fomc-calendar-html-v1\"; ... 4 more ...; editions: { ...; }[]; }>)'.\n  Type 'TypedPropertyDescriptor<unknown>' is not assignable to type 'void | ((edition?: string | undefined) => Promise<{ sourceId: \"fomc-calendar\"; sourceUrl: \"https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm\"; version: \"fomc-calendar-html-v1\"; ... 4 more ...; editions: { ...; }[]; }>)'.\napps/api/src/research-auto.ts(423,33): error TS1206: Decorators are not valid here.\napps/api/src/research-auto.ts(426,3): error TS1241: Unable to resolve signature of method decorator when called as an expression.\n  The runtime will invoke the decorator with 2 arguments, but the decorator expects 3.\napps/api/src/research-auto.ts(426,4): error TS1270: Decorator function return type 'void | TypedPropertyDescriptor<unknown>' is not assignable to type 'void | ((edition?: string | undefined, source?: string | undefined) => Promise<{ sourceId: \"bea-calendar\" | \"bls-calendar\"; edition: string | null; retrievedAt: string | null; sourceUrl: \"https://www.bea.gov/news/schedule/ics/online-calendar-subscription.ics\" | \"https://www.bls.gov/schedule/news_release/bls.ics\"; ba...'.\n  Type 'TypedPropertyDescriptor<unknown>' is not assignable to type 'void | ((edition?: string | undefined, source?: string | undefined) => Promise<{ sourceId: \"bea-calendar\" | \"bls-calendar\"; edition: string | null; retrievedAt: string | null; sourceUrl: \"https://www.bea.gov/news/schedule/ics/online-calendar-subscription.ics\" | \"https://www.bls.gov/schedule/news_release/bls.ics\"; ba...'.\napps/api/src/research-auto.ts(427,5): error TS1206: Decorators are not valid here.\napps/api/src/research-auto.ts(428,5): error TS1206: Decorators are not valid here.\n[ELIFECYCLE] Command failed with exit code 2.\n[ELIFECYCLE] Command failed with exit code 2.\n",
-      "run": "1789846657524-36112",
-      "time": "2026-09-19T19:38:19.086Z",
-      "fingerprint": "6ca5166dcee9739918b4959988a05fbc4d6d61057c9276c83ad511e8c4070161",
-      "log": "artifacts/sdlc/1789846657524-36112/02-pnpm-check.log",
+      "details": "$ pnpm format:check && pnpm lint && pnpm typecheck && pnpm e2e:typecheck && pnpm test\n$ prettier --check .\nChecking formatting...\n[warn] tests/e2e/cases/browser/story-image-generation.spec.ts\n[warn] Code style issues found in the above file. Run Prettier with --write to fix.\n[ELIFECYCLE] Command failed with exit code 1.\n[ELIFECYCLE] Command failed with exit code 1.\n",
+      "run": "1789923079896-69469",
+      "time": "2026-09-20T16:52:01.109Z",
+      "fingerprint": "e75e83085feec0c1f32b6bb08f413de60081fa02890eb3f5bb6582171ae09da9",
+      "log": "artifacts/sdlc/1789923079896-69469/02-pnpm-check.log",
       "id": "BUG-a47611ab64789eb8",
       "firstSeen": "2026-09-18T05:33:44.718Z",
       "resolvedBy": {
-        "run": "1789852776002-50046",
-        "time": "2026-09-19T21:20:36.787Z",
-        "fingerprint": "adcaf88ae7f65f19990282ccf9acd2763ad20fd146f414e37c21d89781af6c01",
-        "log": "artifacts/sdlc/1789852776002-50046/02-pnpm-check.log"
+        "run": "1789923079896-69469",
+        "time": "2026-09-20T16:53:09.170Z",
+        "fingerprint": "a4c69c2f1207ca61dcf3cb16e6bf16898ecf64781fb5534f4e7fc01058ffd165",
+        "log": "artifacts/sdlc/1789923079896-69469/04-pnpm-check.log"
       }
     },
     "BUG-a0826694511b6915": {
@@ -30766,6 +30781,6 @@
     }
   },
   "gates": {
-    "check": "adcaf88ae7f65f19990282ccf9acd2763ad20fd146f414e37c21d89781af6c01"
+    "check": "a4c69c2f1207ca61dcf3cb16e6bf16898ecf64781fb5534f4e7fc01058ffd165"
   }
 }

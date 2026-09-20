@@ -1,9 +1,9 @@
 # ACCOUNT-001 — Authenticated accounts and real-data watchlists
 
-- **Status:** Done (accepted scope)
+- **Status:** Implementation complete; validation pending
 - **Implemented / recorded:** - Implementation: Implemented
-- **Pending:** None for the reviewed acceptance scope; native release certification remains separate.
-- **Next action / inputs:** No further action for this accepted scope.
+- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
+- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
 - **Verification:** User-run SDLC1789569346007-35322 passed the full required API, desktop/mobile and offline matrix at implementation commit d1dd7e3. Registration bug BUG-99cc743e4a8bae69 is resolved. Later source changes require their own evidence; this is not a claim that every functional story passed.
 
 ## Implementation handoff rule
@@ -92,5 +92,5 @@ Read AGENTS.md, the task-maintenance guide and this task’s current summary. Wo
 
 ## Automated validation
 
-Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: final-scoped-1789857073654.
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789923079896-69469.
 <!-- sdlc-validation:end -->

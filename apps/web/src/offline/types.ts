@@ -51,6 +51,7 @@ export interface OfflineBundle {
   equityAdjustments?: Record<string, unknown>;
   classificationCrosswalks?: unknown;
   participantPositioning?: unknown;
+  indexLevels?: unknown;
   gdpExpectations?: unknown;
   cpiExpectations?: unknown;
   regulatorySources?: unknown;
@@ -62,6 +63,7 @@ export interface OfflineBundle {
   sovereignBonds?: unknown;
   eiaSpot?: unknown;
   corporateRatings?: unknown;
+  bondLiquidity?: unknown;
   bondZeroCurve?: unknown;
   rbiCalendar?: unknown;
   intelligenceBriefs?: unknown;

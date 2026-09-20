@@ -1,9 +1,9 @@
 # IDENTITY-001 — Resolve security identities
 
-- **Status:** Done (accepted scope)
+- **Status:** Implementation complete; validation pending
 - **Implemented / recorded:** - IDENTITY-001 (SRC-001; DEV-003/005/015/016): Implemented; five actual public ISINs matched and persisted with evidence. Offline/regression verification passed. OpenFIGI official terms/FAQ permit free identifier metadata reuse and an actual unauthenticated INR/India-equity mapping returned a Reliance identity on 2026-09-13. Deliver a bounded operator-entered public-ISIN mapping pipeline, immutable MongoDB raw evidence and PostgreSQL canonical revisions, public searchable identity directory/
-- **Pending:** None for the reviewed acceptance scope; native release certification remains separate.
-- **Next action / inputs:** No further action for this accepted scope.
+- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
+- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Implementation handoff rule
@@ -46,5 +46,5 @@ No additional input is needed for this bounded automated scope. Run the complete
 
 ## Automated validation
 
-Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: final-scoped-1789857073654.
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789923079896-69469.
 <!-- sdlc-validation:end -->

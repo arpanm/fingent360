@@ -1,9 +1,9 @@
 # EVENT-EXTRACTION-001 — source-bound event drafting
 
-- **Status:** Done (accepted scope)
+- **Status:** Implementation complete; validation pending
 - **Implemented / recorded:** - Implementation: Implemented; user validation pending. Parents: DEV015/020; reuses admitted discovery sources, event drafts and existing OpenAI/Gemini/Anthropic configuration. Complete the extraction-to-review gap from actual retained published source editions. Operator explicitly selects one source/version and requests a bounded candidate. Keyless mode supplies exact source-bound title/excerpt fields as a clearly labelled starting draft, without inferring actors, sectors, instruments, dates or causal effects. Configured AI may select/order only complete exact source excerpts under strict schema; metadata is human-authored; source claims and unknown dates cannot be invented. Treat source/model text as data; no tools, arbitrary links or private account context. Bind captured source hash/version, method/provider/model and request identity to immutable candidate/attempt receipts, retain safe outcomes and precise failure/retry state, never raw keys or arbitrary provider output. Revalidate source/identity/session after waits and before saving the candidate or creating a normal event draft. Human edits/review remain required; candidate creation never publishes. Support inspect/edit-to-event/decline, immutable exact replay and separate current source state, named prepare permissions, loading/empty/error/401/stale/mobile/keyboard UI, and offline explanation of connected-only preparation while published results use existing event snapshots. Author migration047 if needed, API/WEB/OFFLINE850–869, synthetic-labelled real-storage plus bounded transport cases, docs and trackers. Never run providers/gates/commit; preserve causal-policy and identity-adjudication gaps.
-- **Pending:** None for the reviewed acceptance scope; native release certification remains separate.
-- **Next action / inputs:** No further action for this accepted scope.
+- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
+- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Implementation handoff rule
@@ -47,5 +47,5 @@ No additional input is needed for this bounded automated scope. Run the complete
 
 ## Automated validation
 
-Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: final-scoped-1789857073654.
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789923079896-69469.
 <!-- sdlc-validation:end -->

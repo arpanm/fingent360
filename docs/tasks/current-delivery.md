@@ -2,7 +2,7 @@
 
 ## 20 September follow-up authoring
 
-See [current authored changes and manual validation](../development/nondeferred-authoring-2026-09-20.md). Recovery, scheduler contention, reviewed release grouping, offline assistance and feedback/image-generation acceptance are being completed in an isolated checkout to avoid active development watchers. New code and cases have not been executed. Baseline receipts remain historical and no source licence, live model call or physical-device acceptance is inferred.
+See [current authored changes and manual validation](../development/nondeferred-authoring-2026-09-20.md). Reviewed daily index history, historical CCIL liquidity, keyboard journey coverage, recovery, scheduler contention, release grouping, offline assistance and feedback/image-generation acceptance are authored in an isolated checkout to avoid active development watchers. New code and cases have not been executed. Baseline receipts remain historical and no source licence, live model call or physical-device acceptance is inferred.
 
 This nine-workstream document preserves the dated15September2026 authoring reconciliation below. It is not the current run ledger. For current scope and remaining gates, read the individual linked task summaries and [remaining validation](../development/validation-remaining-2026-09-20.md); actual latest automated results belong to [generated story validation](../validation/README.md). Later passing child receipts do not close broader source/provider/device requirements. Historical statements below that validation was unrun describe their original date.
 

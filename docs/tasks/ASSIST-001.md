@@ -51,13 +51,6 @@ Empty provider suggestions previously replaced valid query defaults before rejec
 
 Evidence: connected run2026-09-19T19-40-29-161Z-37323 completed76 passes and10 failures. Repair authored; subsequent validation pending. User explicitly authorized agent execution for this closure pass. Reuse the existing specification and full acceptance matrix; no dependencies or migrations added.
 
-<!-- sdlc-validation:start -->
-
-## Automated validation
-
-Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: final-scoped-1789857073654.
-<!-- sdlc-validation:end -->
-
 ## Remaining completion gates — 20 September 2026
 
 The complete current automated matrix passed. The reviewed manifest retains these separate requirements; rerunning passing cases does not satisfy them:
@@ -88,3 +81,10 @@ Manual next action: `pnpm sdlc "Complete offline assistance" --story ASSIST-001`
 Use the runner's connected and offline projects; installed Android additionally
 needs rebuilt assets/snapshot and reinstall. A passing query test does not validate
 configured OpenAI/Gemini/Anthropic model calls or physical-device behavior.
+
+<!-- sdlc-validation:start -->
+
+## Automated validation
+
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789923079896-69469.
+<!-- sdlc-validation:end -->

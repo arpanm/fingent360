@@ -85,6 +85,11 @@ export function Sources() {
         </p>
         <ul>
           <li>
+            <a href="#index-levels">Daily price-index history</a> — reviewed
+            Nifty50, Nifty Bank and Nifty IT levels, dates and original source
+            provenance.
+          </li>
+          <li>
             <a href="#equities">Company identities and exchange evidence</a> —
             dated identities, prices, actions and financial statements.
           </li>

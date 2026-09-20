@@ -2,8 +2,8 @@
 
 - **Status:** Completed implementation; validation pending
 - **Implemented / recorded:** - Implementation: Implemented
-- **Pending:** User: run the task’s documented validation; implementation is not a test pass.
-- **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.
+- **Pending:** User: validate newly authored E2E-WEB-2315 in desktop and mobile; implementation is not a test pass.
+- **Next action / inputs:** Run the bounded keyboard acceptance command below and retain its case/project receipts; earlier saved passes do not cover this new case.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Implementation handoff rule
@@ -50,17 +50,42 @@ Explicitly synthetic educational virtual workspace, catalog/event/company naviga
 
 The complete required case/project matrix is now recorded in `acceptance.json`. This review is not a test pass; actual current-revision receipts determine validation.
 
-Remaining gates: Separate keyboard acceptance for the full virtual journey remains unrecorded; connected browser cases exercise click controls and mobile width, not a complete keyboard journey.
+Remaining gates: Full virtual-journey keyboard acceptance is authored as E2E-WEB-2315 below; desktop/mobile execution remains unrecorded. Earlier connected cases cover click controls and mobile width.
+
+## Remaining completion gates — 20 September 2026
+
+The matrix recorded at the earlier reconciliation passed. The newly authored keyboard case has no execution receipt; rerunning older passing cases does not satisfy it:
 
 <!-- sdlc-validation:start -->
 
 ## Automated validation
 
-Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: final-scoped-1789857073654.
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789923079896-69469.
 <!-- sdlc-validation:end -->
 
-## Remaining completion gates — 20 September 2026
+- E2E-WEB-2315 must pass in desktop and mobile before the full virtual-journey keyboard requirement can close.
 
-The complete current automated matrix passed. The reviewed manifest retains these separate requirements; rerunning passing cases does not satisfy them:
+## Keyboard journey authoring — 20 September 2026
 
-- Separate keyboard acceptance for the full virtual journey remains unrecorded; connected browser cases exercise click controls and mobile width, not a complete keyboard journey.
+**Authority and scope:** The subsequent instruction to finish agent-actionable acceptance authorizes this bounded case despite the earlier validation-only pickup record. No new feature input or external account is needed. This is authored coverage, not a pass or physical assistive-technology certification.
+
+**Acceptance:** [journey-keyboard.spec.ts](../../tests/e2e/cases/browser/journey-keyboard.spec.ts), E2E-WEB-2315, uses the actual isolated API and synthetic persisted workspace. It traverses the brief, event and company using Tab/Enter; edits and saves holdings; rejects an unreconciled import without changing storage; corrects and confirms the import; saves two same-type goals and checks exact funding; issues and reconstructs an immutable review; exercises the stale-input assessment block; reloads and reopens saved history; then deletes through keyboard UI and verifies the old capability is rejected for workspace and history. Both browser projects use a 360px viewport. Every activated or edited control must be reached through actual Tab traversal and pass the existing viewport/occlusion assertion; no programmatic focus or successful-response mock is used.
+
+**Layers:** Specification, UI/UX and workflow are the acceptance sequence above. Contracts/API, exact valuation, persistence and immutable records reuse the existing implementation and are asserted against real API responses. Provenance remains explicitly fictional fixture-v1; live data, broker layouts and regulated advice are outside this slice. No production, database, dependency, worker or offline behavior changes are introduced. Existing API010–013 and WEB010–012 retain the other scope requirements; this case supplements them.
+
+**Manual validation:** Dependencies are unchanged. Use the existing documented PostgreSQL/MongoDB test prerequisites and web development service (the user starts them if needed); the fixture starts its isolated API only during the user-invoked run. Open the printed web URL at `/#brief` for manual inspection. Run:
+
+```bash
+pnpm sdlc "Validate full keyboard virtual journey" -- --project=desktop --project=mobile --grep 'E2E-WEB-2315 '
+```
+
+Expected: both project receipts pass, including real saved revisions 1–3, retained review after reload and unauthorized reads after deletion. For failure report the saved run ID, project, case and safe assertion/error; do not disclose the workspace capability. Trace/video/automatic screenshots are disabled for this capability-bearing workflow. Tags: `@SLICE-001 @TEST-SIMULATION`. No format/check, tests, builds, services, migrations or commit were executed while authoring. Local HEAD at handoff is `c7874a5`; unrelated authoring changes remain uncommitted and untouched. User-run gates own the next verified commit.
+
+## Integration handoff — 20 September 2026
+
+Continuation is reconciled in the unwatched `fingent360-continuation-20260920`
+checkout against user commit `c99d62b` and newer saved validation records. The
+main checkout and those records are preserved. Use the continuation-only patch
+and commands in [the current handoff](../development/nondeferred-authoring-2026-09-20.md).
+No new tests/gates/migrations/services or commit were run by the agent. Earlier
+base hashes above identify authoring history, not the current integration base.

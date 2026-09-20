@@ -1,3 +1,4 @@
+import { captureIndexLevels } from './index-levels-snapshot.mjs';
 import { captureIdentitySelections } from './identity-selection-snapshot.mjs';
 import { captureEvents } from './event-snapshot.mjs';
 import { captureEventLineage } from './event-lineage-snapshot.mjs';
@@ -18,6 +19,7 @@ import {
   SovereignSnapshotSchema,
   EiaSpotPublicSchema,
   CorporateRatingSnapshotSchema,
+  CcilLiquiditySnapshotSchema,
   CcilZeroSnapshotSchema,
   AdjustmentPublicSchema,
   ClassificationCrosswalkSnapshotSchema,
@@ -233,6 +235,7 @@ bundle.equityConsolidations = Object.fromEntries(
 bundle.classificationCrosswalks = ClassificationCrosswalkSnapshotSchema.parse(
   await get('/classifications'),
 );
+bundle.indexLevels = await captureIndexLevels(get);
 bundle.participantPositioning = PositioningPublicSchema.parse(
   await get('/positioning'),
 );
@@ -256,6 +259,9 @@ bundle.gdpExpectations = GdpExpectationPublicSchema.parse(
 );
 bundle.bondYields = CcilYieldsSnapshotSchema.parse(
   await get('/bond-yields/snapshot'),
+);
+bundle.bondLiquidity = CcilLiquiditySnapshotSchema.parse(
+  await get('/bond-liquidity/snapshot'),
 );
 bundle.bondZeroCurve = CcilZeroSnapshotSchema.parse(
   await get('/bond-zero-curve/snapshot'),

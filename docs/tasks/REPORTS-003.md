@@ -1,9 +1,9 @@
 # REPORTS-003 — Saved report comparisons and lifecycle
 
-- **Status:** Done (accepted scope)
+- **Status:** Implementation complete; validation pending
 - **Implemented / recorded:** - REPORTS-003 (DEV-011/016/021): Implemented and integration verified. Extend saved record reports with explicitly selected owned research connections. Dependencies: REPORTS-001/002, EVIDENCE-LINKS-001 and privacy. Detailed Codex prompt: inspect immutable v1 reports and the authored connection schema/workflow; specify opt-in selection and versioned v2 snapshots without rewriting any v1 record. Capture selected owned connection editions, personal reasons, minimal source receipts and review fl
-- **Pending:** None for the reviewed acceptance scope; native release certification remains separate.
-- **Next action / inputs:** No further action for this accepted scope.
+- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
+- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Implementation handoff rule
@@ -34,5 +34,5 @@ No additional input is needed for this bounded automated scope. Run the complete
 
 ## Automated validation
 
-Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: final-scoped-1789857073654.
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789923079896-69469.
 <!-- sdlc-validation:end -->

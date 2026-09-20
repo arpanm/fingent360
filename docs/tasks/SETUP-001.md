@@ -57,15 +57,15 @@ Remaining gates:
 
 - Saved evidence for the six explicit manual runner acceptance scenarios in tests/e2e/CATALOG.md (listing has no side effects, selected execution, all-project results and intentional outage skip, actionable deliberate connection failure, saved HTML/JSON reports, watch-off no automatic execution). SETUP-001 explicitly references these scenarios; no evidence establishing their completion was found in this review.
 
-<!-- sdlc-validation:start -->
-
-## Automated validation
-
-Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: final-scoped-1789857073654.
-<!-- sdlc-validation:end -->
-
 ## Remaining completion gates — 20 September 2026
 
 The complete current automated matrix passed. The reviewed manifest retains these separate requirements; rerunning passing cases does not satisfy them:
 
 - Saved evidence for the six explicit manual runner acceptance scenarios in tests/e2e/CATALOG.md (listing has no side effects, selected execution, all-project results and intentional outage skip, actionable deliberate connection failure, saved HTML/JSON reports, watch-off no automatic execution). SETUP-001 explicitly references these scenarios; no evidence establishing their completion was found in this review.
+
+<!-- sdlc-validation:start -->
+
+## Automated validation
+
+Partial — required cases not run. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789923079896-69469.
+<!-- sdlc-validation:end -->

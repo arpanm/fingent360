@@ -1,9 +1,9 @@
 # IDENTITY-ADJUDICATION-001 — independently reviewed candidate selection
 
-- **Status:** Done (accepted scope)
+- **Status:** Implementation complete; validation pending
 - **Implemented / recorded:** - Implementation: Implemented; user validation pending. Parents: DEV015/020; reuses actual retained OpenFIGI candidates and named publication review. Preserve provider identity revisions/resolution/raw evidence unchanged. Add a separate immutable, version-bound editorial candidate selection: exact ISIN/provider version/hash/full candidate fingerprint, rationale and review receipt. No-candidate/unresolved records cannot create candidates. Explicitly label this operator-authored judgement, not externally verified corporate identity or a changed provider match. Independent named approval, withdraw/reject/history/exact replay and current-source/provider admission are required. Public identity detail shows provider ambiguity separately from active reviewed selection. Events may explicitly bind an approved editorial selection and its underlying provider edition without silently changing old unique-match events; update graph reconstruction, API/UI/evidence/local snapshot together. Invalid/withdrawn/changed selections suppress dependent event content until review. No financial valuation, trade, holding or private-record rewrite. Migration048 and API/WEB/OFFLINE870–889 reserved. Add meaningful actual-storage/replay/auth/source races, browser/mobile/keyboard and offline cases/docs. Gates/provider calls/migrations/commits remain user-owned.
-- **Pending:** None for the reviewed acceptance scope; native release certification remains separate.
-- **Next action / inputs:** No further action for this accepted scope.
+- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
+- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Implementation handoff rule
@@ -47,5 +47,5 @@ No additional input is needed for this bounded automated scope. Run the complete
 
 ## Automated validation
 
-Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: final-scoped-1789857073654.
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789923079896-69469.
 <!-- sdlc-validation:end -->

@@ -1,3 +1,4 @@
+import { IndexLevels } from './IndexLevels';
 import { EiaSpot } from './EiaSpot';
 import { CommodityBenchmarks } from './CommodityBenchmarks';
 import { RegulatorySourcesReader } from './RegulatorySources';
@@ -105,6 +106,12 @@ const moreLinks = [
     'global-macro',
     'Global economic coverage',
     'Published releases, numerical editions and calendars',
+    'market',
+  ],
+  [
+    'index-levels',
+    'Daily index history',
+    'Reviewed Nifty50, Bank and IT price-index levels',
     'market',
   ],
   [
@@ -511,6 +518,8 @@ export function App() {
             <IndiaMacro />
           ) : base === 'global-macro' ? (
             <GlobalMacroCoverage />
+          ) : base === 'index-levels' ? (
+            <IndexLevels />
           ) : base === 'positioning' ? (
             <ParticipantPositioning />
           ) : base === 'daily-oil' ? (

@@ -1020,9 +1020,7 @@
     },
     "SLICE-001": {
       "implementationComplete": true,
-      "externalGates": [
-        "Separate keyboard acceptance for the full virtual journey remains unrecorded; connected browser cases exercise click controls and mobile width, not a complete keyboard journey."
-      ],
+      "externalGates": [],
       "scope": "Explicitly synthetic educational virtual workspace, catalog/event/company navigation, exact quantities/valuation, CSV preview/reconciliation, revision/idempotency/ownership, repeated goals, immutable review and persisted responsive journey."
     },
     "PWA-001": {
@@ -1043,6 +1041,22 @@
       "implementationComplete": true,
       "externalGates": [],
       "scope": "Repeated goal types, explicit editable contribution/horizon assumptions, saved versioned contribution/date scenarios, exact owned holding-to-goal allocations and immutable affordability/interruption/protected-reserve downside-capacity receipts with equivalent offline persistence. Forecasts, risk suitability and regulated advice are expressly excluded by current task."
+    },
+    "INDEX-LEVELS-001": {
+      "implementationComplete": true,
+      "externalGates": [
+        "Record actual applicable index-data storage, web display and offline redistribution permission before live publication. Research downloads and synthetic fixture attestations do not establish that permission.",
+        "Record physical installed-app and assistive/large-text acceptance for the intended build before native release; browser emulation is separate."
+      ],
+      "scope": "Verified three-index daily price-level CSV capture, immutable original/review, correction/withdrawal, public date history and complete offline snapshots. Excludes total returns, broader constituent history and official taxonomy."
+    },
+    "CCIL-LIQUIDITY-001": {
+      "implementationComplete": true,
+      "externalGates": [
+        "Record actual written CCIL source retention, web display and offline redistribution permission before enabling the default-off source gate.",
+        "Record physical installed-app and assistive/large-text acceptance for the intended build before native release; browser emulation is separate."
+      ],
+      "scope": "Verified July2026 CCIL historical government-security liquidity workbook, exact source-description/lexical metrics, immutable original/review, reader pagination and complete offline snapshots. No ISIN inference, executable prices, current corporate quotes or inferred numerical conventions."
     }
   },
   "SDLC-REPAIR-016": [
@@ -8447,6 +8461,10 @@
     {
       "caseId": "E2E-WEB-012",
       "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-2315",
+      "projects": ["desktop", "mobile"]
     }
   ],
   "PWA-001": [
@@ -8584,6 +8602,288 @@
     },
     {
       "caseId": "E2E-OFFLINE-600",
+      "projects": ["offline"]
+    }
+  ],
+  "INDEX-LEVELS-001": [
+    {
+      "caseId": "E2E-API-1950",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1951",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1952",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-1950",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1951",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1950",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1951",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-API-1953",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-1952",
+      "projects": ["desktop", "mobile"]
+    }
+  ],
+  "SRC-006": [
+    {
+      "caseId": "E2E-API-1950",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1951",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1952",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-1950",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1951",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1950",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1951",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-API-1953",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-1952",
+      "projects": ["desktop", "mobile"]
+    }
+  ],
+  "EQUITY-COVERAGE-001": [
+    {
+      "caseId": "E2E-API-1950",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1951",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-1952",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-1950",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-1951",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1950",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-1951",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-API-1953",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-1952",
+      "projects": ["desktop", "mobile"]
+    }
+  ],
+  "CCIL-LIQUIDITY-001": [
+    {
+      "caseId": "E2E-API-2320",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-2321",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-2322",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-2323",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-2324",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-2325",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-2320",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-2321",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-2320",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-2321",
+      "projects": ["offline"]
+    }
+  ],
+  "SRC-017": [
+    {
+      "caseId": "E2E-API-2320",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-2321",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-2322",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-2323",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-2324",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-2325",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-2320",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-2321",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-2320",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-2321",
+      "projects": ["offline"]
+    }
+  ],
+  "FUNDS-BONDS-001": [
+    {
+      "caseId": "E2E-API-2320",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-2321",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-2322",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-2323",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-2324",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-2325",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-2320",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-2321",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-2320",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-2321",
+      "projects": ["offline"]
+    }
+  ],
+  "DEV-022": [
+    {
+      "caseId": "E2E-API-2320",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-2321",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-2322",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-2323",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-2324",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-API-2325",
+      "projects": ["api"]
+    },
+    {
+      "caseId": "E2E-WEB-2320",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-WEB-2321",
+      "projects": ["desktop", "mobile"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-2320",
+      "projects": ["offline"]
+    },
+    {
+      "caseId": "E2E-OFFLINE-2321",
       "projects": ["offline"]
     }
   ]

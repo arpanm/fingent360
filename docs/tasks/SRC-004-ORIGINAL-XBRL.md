@@ -3,7 +3,7 @@
 - **Next action / inputs:** Obtain the verified original XBRL instance and taxonomy bytes; then implement and validate the original-source adapter.
   <a id="src-004--original-nse-xbrl-instance-adapter"></a>
 
-Status: researched; implementation pending original instance and taxonomy bytes. This is a child of [SRC-004](SRC-004.md) and [SRC-005](SRC-005.md), not a completed source integration. Research date: 15 September 2026. Public research found the exact originals, but their bytes remain unavailable in this session. A normal-browser download availability question is pending; no answer is assumed.
+Status: researched; implementation pending original instance and taxonomy bytes. This is a child of [SRC-004](SRC-004.md) and [SRC-005](SRC-005.md), not a completed source integration. Research dates: 15 and20September2026. Public research found the exact originals, but their bytes remain unavailable in this session. A normal-browser download availability question is pending; no answer is assumed.
 
 ## Verified acquisition discovery
 
@@ -37,3 +37,28 @@ Documentation-only acceptance: confirm both original links correspond to the nam
 ## Input question — 2026-09-15
 
 Asked whether the original XML can be downloaded from the official Integrated Financials table in the user’s normal browser. Options: can download / also fails / not tried. No answer received. This asks about concrete access after researched retrieval failures; it does not ask the user to discover formats, provide credentials or grant redistribution rights.
+
+## Original-source recheck — 20 September 2026
+
+The official financials table again populated through its ordinary1W control. It
+shows exact symbol, company, quarter, submission/audit/consolidation, rendered
+Details and original XML links, with separate literal receipt/dissemination times.
+For example the visible INTERARCH revision for31March2025 linked original
+`https://nsearchives.nseindia.com/corporate/xbrl/INTEGRATED_FILING_INDAS_1725680_19092026031904_WEB.xml`
+and distinct rendered
+`https://nsearchives.nseindia.com/corporate/ixbrl/INTEGRATED_FILING_INDAS_194882_19092026151904_iXBRL_WEB.html`.
+The displayed received time was19September2026 15:17:04 and dissemination15:19:05;
+no timezone was inferred. These identifiers must not be transformed into each other.
+
+An ordinary bounded request to this newer original also timed out without XML
+bytes. The linked taxonomy ZIP request timed out; browser download actions did
+not yield an inspectable local taxonomy/CSV. The rendered listing proves a
+source-published pairing exists, but not a downloaded table contract, original
+namespace/context/unit grammar or the contents of an unacquired filing. No
+original-XBRL parser, live capture or source pass is claimed. Existing rendered
+adapters and RSS discovery remain implemented. A supplied normally downloaded
+original and matching taxonomy can resolve this concrete access limitation;
+the previous availability question remains pending, and was not repeated.
+
+This was read-only research; no product tests, builds, migrations, services or
+commits were run. The historical baseline remains separate from new authoring.

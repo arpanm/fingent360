@@ -23,6 +23,7 @@ export const test = base.extend<{
   indiaGdpArchiveSimulation: boolean;
   regulatorySimulation: boolean;
   ccilSimulation: boolean;
+  ccilLiquiditySimulation: boolean;
   ccilZeroSimulation: boolean;
   kiteSimulation: boolean;
   upstoxSimulation: boolean;
@@ -37,6 +38,7 @@ export const test = base.extend<{
   indiaGdpArchiveSimulation: [false, { option: true }],
   regulatorySimulation: [false, { option: true }],
   ccilSimulation: [false, { option: true }],
+  ccilLiquiditySimulation: [false, { option: true }],
   ccilZeroSimulation: [false, { option: true }],
   kiteSimulation: [false, { option: true }],
   upstoxSimulation: [false, { option: true }],
@@ -53,6 +55,7 @@ export const test = base.extend<{
         regulatorySimulation,
         whatsappSimulation,
         ccilSimulation,
+        ccilLiquiditySimulation,
         ccilZeroSimulation,
         kiteSimulation,
         upstoxSimulation,
@@ -79,6 +82,12 @@ export const test = base.extend<{
             F360_TEST_REGULATORY: regulatorySimulation ? '1' : '0',
             F360_TEST_WHATSAPP: whatsappSimulation ? '1' : '0',
             F360_TEST_CCIL: ccilSimulation ? '1' : '0',
+            F360_TEST_CCIL_LIQUIDITY: ccilLiquiditySimulation ? '1' : '0',
+            F360_TEST_CCIL_LIQUIDITY_BODY: ccilLiquiditySimulation
+              ? Buffer.from(
+                  (await import('./ccil-liquidity')).ccilLiquidityWorkbook(),
+                ).toString('base64')
+              : '',
             F360_TEST_CCIL_ZERO: ccilZeroSimulation ? '1' : '0',
             F360_TEST_KITE: kiteSimulation ? '1' : '0',
             F360_TEST_UPSTOX: upstoxSimulation ? '1' : '0',

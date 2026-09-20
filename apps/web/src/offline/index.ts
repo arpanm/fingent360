@@ -1,3 +1,5 @@
+import { handleCcilLiquidity } from './ccil-liquidity';
+import { handleIndexLevels } from './index-levels';
 import { handleFilingDiscovery } from './filing-discovery';
 import { handleFilingWatch } from './filing-watch';
 import { handleCcilZero } from './ccil-zero-curve';
@@ -88,6 +90,7 @@ const handlers: OfflineHandler[] = [
   handleEquityAdjustments,
   handleClassificationCrosswalks,
   handleParticipantPositioning,
+  handleIndexLevels,
   handleCommodityBenchmarks,
   handleRegulatorySources,
   handleCpiExpectations,
@@ -96,6 +99,7 @@ const handlers: OfflineHandler[] = [
   handleCcilYields,
   handleFilingDiscovery,
   handleFilingWatch,
+  handleCcilLiquidity,
   handleCcilZero,
   handleCorporateRatings,
   handleEiaSpot,

@@ -49,13 +49,6 @@ Remaining gates:
 - Save actual image preparation request/replay/concurrency/source-change/named-approval and Operations error/retry acceptance; API1140 seeds a synthetic retained image attempt and tests review/public bytes, not the full generation workflow.
 - Record required live provider/model/attempt review and physical-device visual/touch acceptance separately; current synthetic image fixtures establish neither.
 
-<!-- sdlc-validation:start -->
-
-## Automated validation
-
-Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: final-scoped-1789857073654.
-<!-- sdlc-validation:end -->
-
 ## Remaining completion gates — 20 September 2026
 
 The complete current automated matrix passed. The reviewed manifest retains these separate requirements; rerunning passing cases does not satisfy them:
@@ -97,3 +90,10 @@ pnpm sdlc "Complete story image preparation acceptance" -- --grep 'E2E-(API|WEB|
 No dependency or production migration added. Existing owned PostgreSQL/Mongo and the user-started API/web are required; use launcher URLs (latest saved targets API http://127.0.0.1:4104 and web http://127.0.0.1:5176). In Operations → Publishing → Prepare visual summary, expect actual failure/recovery/new-attempt behavior with the fixture, independent review, exact image identity and no public bytes before approval. Inspect WEB1146 synthetic screenshot for focus/narrow layout; a desktop screenshot is not physical-device certification. On failure report run ID, case/project, assertion and saved trace/error context, without credentials/provider secrets.
 
 Nothing deterministic was run: no tests, browser automation, builds, formatting, checks, migrations, service changes or commit. Authoring base c7874a5, isolated worktree `/Users/arpanmacmini/code/fingent360-authoring-20260920`; commit awaits user-run format/check gates. Other collaborators' changes are preserved. Superseded replay repair and authored cases still need validation; no pass claimed.
+
+<!-- sdlc-validation:start -->
+
+## Automated validation
+
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789923079896-69469.
+<!-- sdlc-validation:end -->

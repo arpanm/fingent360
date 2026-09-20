@@ -23,12 +23,19 @@ function crc32(bytes: Uint8Array): number {
 /** Fixed output inflate prevents attacker-controlled expansion allocation. Never unzipSync uploaded input. */
 export function sbiWorkbookParts(
   bytes: Uint8Array,
-  profile: 'sbi' | 'axis' = 'sbi',
+  profile: 'sbi' | 'axis' | 'ccil' = 'sbi',
 ): Map<string, Uint8Array> {
   const limits =
-    profile === 'axis'
-      ? { compressed: 2000000, entry: 1000000, expanded: 6000000, entries: 450 }
-      : SBI_WORKBOOK_LIMITS;
+    profile === 'ccil'
+      ? { compressed: 2000000, entry: 6000000, expanded: 8000000, entries: 10 }
+      : profile === 'axis'
+        ? {
+            compressed: 2000000,
+            entry: 1000000,
+            expanded: 6000000,
+            entries: 450,
+          }
+        : SBI_WORKBOOK_LIMITS;
   if (bytes.length > limits.compressed || bytes.length < 22)
     bad('source XLSX exceeds its 1MB bound.');
   const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
@@ -80,7 +87,17 @@ export function sbiWorkbookParts(
     );
     const axisAllowed =
       /^(\[Content_Types\]\.xml|_rels\/\.rels|docProps\/(core|app)\.xml|customXml\/(item[0-9]+\.xml|itemProps[0-9]+\.xml|_rels\/item[0-9]+\.xml\.rels)|xl\/(workbook\.xml|_rels\/workbook\.xml\.rels|sharedStrings\.xml|styles\.xml|calcChain\.xml|theme\/theme[0-9]+\.xml|worksheets\/sheet[0-9]+\.xml|worksheets\/_rels\/sheet[0-9]+\.xml\.rels|drawings\/drawing[0-9]+\.xml|drawings\/_rels\/drawing[0-9]+\.xml\.rels|media\/image[0-9]+\.(png|jpeg|jpg|emf)))$/;
-    if (!(profile === 'axis' ? axisAllowed : allowed).test(name))
+    const ccilAllowed =
+      /^(\[Content_Types\]\.xml|_rels\/\.rels|docProps\/(core|app)\.xml|xl\/(workbook\.xml|_rels\/workbook\.xml\.rels|sharedStrings\.xml|styles\.xml|theme\/theme1\.xml|worksheets\/sheet1\.xml))$/;
+    if (
+      !(
+        profile === 'ccil'
+          ? ccilAllowed
+          : profile === 'axis'
+            ? axisAllowed
+            : allowed
+      ).test(name)
+    )
       bad('unsupported workbook part. Use the fixed published distribution.');
     if (
       !/^[A-Za-z0-9_./[\]-]{1,160}$/.test(name) ||

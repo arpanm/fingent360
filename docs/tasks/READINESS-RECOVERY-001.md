@@ -1,9 +1,9 @@
 # READINESS-RECOVERY-001 — Mongo readiness remains down after database restoration
 
-- **Status:** Completed implementation; validation pending
+- **Status:** Done (accepted scope)
 - **Implemented / recorded:** API004 passes outage reporting. On two authorized local checks, MongoDB was restarted and healthy, but the API continued reporting MongoDB down. Restarting only the existing API watcher child restored readiness200.
-- **Pending:** Run authored API2302 restoration acceptance against the current build. The exact original driver rejection remains uncaptured; earlier outage-only receipts do not establish recovery.
-- **Next action / inputs:** Agent-ready. No new credential, database reset or user decision is needed. Preserve existing data and runtime/owner separation.
+- **Pending:** None for the reviewed acceptance scope; native release certification remains separate.
+- **Next action / inputs:** No further action for this accepted scope.
 - **Verification:** Outage receipts2026-09-19T21-18-08-742Z-49882 and2026-09-19T22-31-20-475Z-56976 passed their existing down-state assertion. They do not test restoration. Following each, the observed readiness response remained unavailable with postgres up and mongodb down after the container became healthy; an API watcher-child restart restored both up. Direct configured Mongo ping also succeeded during the first occurrence. No original driver rejection class was captured.
 
 ## Specification and reusable prompt
@@ -36,3 +36,10 @@ continue to cover the HTTP contract. Offline clients have no server readiness pr
 User next action: `pnpm sdlc "Repair Mongo readiness recovery" --story READINESS-RECOVERY-001`
 with local PostgreSQL and MongoDB available. Report the saved run ID and exact
 API2302 stage on failure. Existing outage-only receipts are not recovery passes.
+
+<!-- sdlc-validation:start -->
+
+## Automated validation
+
+Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789923079896-69469.
+<!-- sdlc-validation:end -->

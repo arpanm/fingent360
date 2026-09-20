@@ -66,13 +66,6 @@ Manual documentation acceptance: task distinguishes Console XLSX from Kite API J
 
 Targeted public official-site searches for holdings statement samples/XLSX did not identify an actual downloadable schema fixture for these three. Search absence is bounded to this review, not proof none exists anywhere. Therefore all five still need a sanitized layout or primary published schema before named automatic file parsing. General mapping and exact user-attested costs remain the truthful route meanwhile. No provider account, message, private download or paid service was accessed. No follow-up input answer is assumed; coordinating agent has queued the first concrete Zerodha availability question.
 
-<!-- sdlc-validation:start -->
-
-## Automated validation
-
-Selected cases passed — acceptance matrix needed. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: final-scoped-1789857073654.
-<!-- sdlc-validation:end -->
-
 ## Primary-source recheck — 20 September 2026
 
 Fresh research still establishes download workflows, not a complete versioned
@@ -87,3 +80,12 @@ schema. None of these public pages is a representative original CSV/XLSX export.
 The earlier request for template availability remains unanswered; do not repeat it
 or treat account credentials as necessary. No named parser is newly claimed from
 this research, and no permission or real holding was fabricated.
+
+<!-- sdlc-validation:start -->
+
+## Automated validation
+
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789923079896-69469.
+<!-- sdlc-validation:end -->
+
+Further primary-source searches and the distinct Groww/Breeze protocol assessment are recorded in [20 September follow-up](BROKER-PARSERS-002-evidence-20260920.md). The original format-input question remains pending; no named parser or OAuth contract was inferred.

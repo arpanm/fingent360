@@ -1188,3 +1188,26 @@ retaining accepted decimal revisions/hashes/evidence and truthful stale state.
 The packaged app has explicit empty/unreadable-cache errors, no network acquisition,
 and recalculated freshness without pretending retrieval occurred. Normal check-gate
 parser precision/quarantine unit coverage remains required. All new cases are unrun.
+
+## Verified index/liquidity and keyboard closure — 20 September 2026
+
+INDEX-LEVELS-001 closes the verified three-index daily CSV implementation gap:
+API1950–1953, WEB1950–1952 desktop/mobile, OFFLINE1950/1951. Cover immutable original
+reconstruction, actor-bound idempotency, independent permission review, corrections,
+withdrawal without older-edition resurrection, complete history pagination,
+source navigation and installed read-only parity. Broader SRC-006 constituent
+history/taxonomy and permission remain separate.
+
+CCIL-LIQUIDITY-001 covers the actual July2026 government-security workbook grammar,
+exact byte retention/reconstruction, bounded ZIP/XML safety, quarantine, named
+review, permission changes, public row/history pagination, and complete offline
+snapshots. API2320–2325, WEB2320/2321 desktop/mobile and OFFLINE2320/2321 are its required
+matrix. No ISIN, current executable quote or inferred metric convention is created.
+API2322 also fixes the parser boundary: workbook content is parsed only from retained
+bytes while the fixed source URL remains separate provenance on the edition.
+
+SLICE-001 adds WEB2315 on desktop/mobile for the full actual keyboard-only virtual
+workspace journey, including correction/reload/deletion and exact stored receipts.
+It reuses production contracts/API/data; no extra schema or fictional live source
+is required. These cases are unexecuted. The reviewed acceptance manifest defines
+user-run closure; visual/physical/provider evidence is not inferred.

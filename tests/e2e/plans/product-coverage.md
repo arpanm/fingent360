@@ -1217,6 +1217,18 @@ It reuses production contracts/API/data; no extra schema or fictional live sourc
 is required. These cases are unexecuted. The reviewed acceptance manifest defines
 user-run closure; visual/physical/provider evidence is not inferred.
 
-WEB2315 regression: prefilled CSV textarea uses a separate explicit label; exact
-label lookup, accessible name and edited value are asserted before preview.
+WEB2315 regression: prefilled CSV textarea uses a separate explicit label and a
+narrow-screen feedback-safe lane; exact label lookup, accessible name, launcher
+separation and edited value are asserted before preview.
+The dynamically updated review panel also uses an explicit label association;
+its stable select ID and accessible name are asserted before real Tab traversal.
+The stale condition is highlighted with native select keys, explicitly committed
+with Enter, asserted while focus remains on the select, and only then tabbed past;
+this covers desktop native popups that cancel an unconfirmed highlight on Tab.
 Desktop/mobile validation of this focused repair remains pending.
+
+Review-condition repair (21 September): native labelled radio choices replace the
+three-option select in the shared journey UI. WEB2315 uses Tab/arrow selection
+through baseline, stale and conflicting, then checks the actual stale review
+receipt. WEB010 checks pointer selection. Both desktop/mobile projects require
+user-run validation; no pass is inferred from this authored change.

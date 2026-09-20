@@ -1,8 +1,10 @@
 # Fingent360
 
-The latest keyboard failure has a focused sibling-label repair: the saved page
-snapshot contains the import textbox, but exact label lookup fails with its CSV
-text nested inside the label. See [the diagnosis](docs/tasks/SLICE-001.md#saved-run-diagnosis-and-label-repair--20-september-2026).
+The latest saved keyboard failure still leaves the review condition at baseline
+with the native-select Enter repair. A focused authored patch replaces that
+three-choice dropdown with labelled native radio controls, preserving actual
+keyboard navigation and checking the saved stale-review API receipt. See
+[the current diagnosis](docs/tasks/SLICE-001.md#review-condition-radio-repair--21-september-2026).
 It is authored, not validated. CCIL has recorded passing repair retries on both
 browser projects and offline; see [saved receipts](docs/tasks/CCIL-LIQUIDITY-001.md#saved-user-run-receipts--20-september-2026).
 
@@ -15,12 +17,14 @@ Additive migrations124/129 are included; no dependencies or automatic source
 activation are added. BSE originals, original XBRL/taxonomy and five broker export
 layouts remain unavailable after the recorded source research.
 
-The reported E2E-WEB-2315 desktop failure is repaired in authored code by making
-the application router the single owner of the learning-journey panel route and
-giving every import control an explicit label association. The case checks the
-keyboard-selected URL, current navigation item, import heading and CSV textarea
-association before editing. This focused repair has not been run or committed;
-see [SLICE-001](docs/tasks/SLICE-001.md#keyboard-route-synchronization-repair--20-september-2026).
+The reported E2E-WEB-2315 desktop sequence now has five authored repairs: a
+single application-router owner for the panel route, explicit import and review
+control labels, an unobscured narrow-screen CSV editor beside the fixed feedback
+launcher, and explicit native-select option confirmation. The case retains real
+keyboard traversal and asserts the route, selected item, headings, accessible
+controls, committed selection, separated hit regions and edits.
+The latest focused repair has not been run or committed; see
+[SLICE-001](docs/tasks/SLICE-001.md#review-condition-commit-repair--20-september-2026).
 
 The reported CCIL check and reader-recovery failures are repaired in authored
 code: the workbook parser accepts only retained bytes, while the fixed source URL

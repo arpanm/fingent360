@@ -5,7 +5,7 @@
 - Stories: Unmapped workflow failure
 - First seen: 2026-09-18T05:11:23.620Z
 - Evidence: artifacts/sdlc/1789669163056-59061/11-pnpm-build.log
-- Resolution run: 1789927529684-81206
+- Resolution run: 1789928359149-84609
 
 Failure excerpt (untrusted; local original has full details):
 

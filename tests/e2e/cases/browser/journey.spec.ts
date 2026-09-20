@@ -49,7 +49,9 @@ test.describe('Working virtual journey @SLICE-001', () => {
           .getByRole('article', { name: 'Selected review' })
           .getByRole('heading', { name: 'Review', exact: true }),
       ).toBeVisible();
-      await page.getByLabel('Exercise input condition').selectOption('stale');
+      await page
+        .getByRole('radio', { name: 'Simulate stale price', exact: true })
+        .check();
       await page.getByRole('button', { name: 'Create review' }).click();
       await expect(
         page.getByRole('heading', { name: 'Unable to assess', exact: true }),

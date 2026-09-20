@@ -917,7 +917,7 @@ These cases are authored, not executed; historical receipts do not validate them
 - **E2E-WEB-1950** (desktop/mobile): Sources-to-index history, exact source values, keyboard detail and narrow containment. `cases/browser/index-levels.spec.ts`.
 - **E2E-WEB-1951** (desktop/mobile): actual original upload, changed-input permission reset, independent publish/withdraw and public reader.
 - **E2E-OFFLINE-1950** (offline): installed index provenance, pagination, absent/incomplete snapshot rejection and connected-only edits. `cases/offline/index-levels.spec.ts`.
-- **E2E-WEB-2315** (desktop/mobile): full keyboard-only synthetic virtual journey with actual storage, router-selected panel/`aria-current` agreement, explicit import-control labels, edits, invalid/corrected import, repeated goals, reviews, reload and deletion. `cases/browser/journey-keyboard.spec.ts`.
+- **E2E-WEB-2315** (desktop/mobile): full keyboard-only synthetic virtual journey with actual storage, router-selected panel/`aria-current` agreement, explicit import and review-condition labels, an unobscured CSV editor alongside the fixed feedback launcher, explicit native-select option confirmation, edits, invalid/corrected import, repeated goals, reviews, reload and deletion. `cases/browser/journey-keyboard.spec.ts`.
 
 These are authored cases, not recorded passes. Source fixtures reproduce verified
 original grammar with synthetic values; rights/live-provider/native-device
@@ -944,3 +944,9 @@ current quote/ISIN mapping. New source and keyboard cases above remain unrun.
 WEB2315 regression: prefilled CSV textarea uses a separate explicit label; exact
 label lookup, accessible name and edited value are asserted before preview.
 Desktop/mobile validation of this focused repair remains pending.
+
+Review-condition repair (21 September): native labelled radio choices replace the
+three-option select in the shared journey UI. WEB2315 uses Tab/arrow selection
+through baseline, stale and conflicting, then checks the actual stale review
+receipt. WEB010 checks pointer selection. Both desktop/mobile projects require
+user-run validation; no pass is inferred from this authored change.

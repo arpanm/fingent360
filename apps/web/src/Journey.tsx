@@ -481,7 +481,7 @@ export function Journey({ route }: { route: string }) {
                         }}
                       />
                     </label>
-                    <div>
+                    <div className="feedback-safe-field">
                       <label htmlFor="journey-import-csv-content">
                         CSV content
                       </label>
@@ -742,23 +742,27 @@ export function Journey({ route }: { route: string }) {
                     Reviews use saved inputs and preserve their original
                     revision. A changed portfolio requires a new review.
                   </p>
-                  <label>
-                    Exercise input condition
-                    <select
-                      value={scenario}
-                      onChange={(e) =>
-                        setScenario(e.target.value as typeof scenario)
-                      }
-                    >
-                      <option value="baseline">
-                        Baseline synthetic inputs
-                      </option>
-                      <option value="stale">Simulate stale price</option>
-                      <option value="conflicting">
-                        Simulate conflicting evidence
-                      </option>
-                    </select>
-                  </label>
+                  <fieldset className="journey-review-conditions">
+                    <legend>Exercise input condition</legend>
+                    {(
+                      [
+                        ['baseline', 'Baseline synthetic inputs'],
+                        ['stale', 'Simulate stale price'],
+                        ['conflicting', 'Simulate conflicting evidence'],
+                      ] as const
+                    ).map(([value, label]) => (
+                      <label key={value}>
+                        <input
+                          type="radio"
+                          name="journey-review-scenario"
+                          value={value}
+                          checked={scenario === value}
+                          onChange={() => setScenario(value as typeof scenario)}
+                        />
+                        <span>{label}</span>
+                      </label>
+                    ))}
+                  </fieldset>
                   <button
                     disabled={busy || dirty}
                     onClick={() =>

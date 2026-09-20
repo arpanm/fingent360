@@ -26,7 +26,7 @@ E2E_BROWSER=chrome pnpm e2e:ui
 
 Open http://127.0.0.1:9323, leave watch mode off, filter `@SLICE-001`, select **api**, **desktop**, and **mobile**, then click Run. E2E-API-010–013 and E2E-WEB-010–012 are real runnable cases. Also rerun the foundation browser cases because its landing page changed. Tests create isolated fictional workspaces and delete them on completion; a forcibly interrupted run may leave its workspace until manually removed with its key. No real portfolio data is involved.
 
-E2E-WEB-2315 adds the complete keyboard-only journey on desktop/mobile. Its 20 September desktop repair makes the application router the sole panel-route owner, explicitly associates the import controls with their labels, and asserts that Tab/Enter selection of Import CSV updates the URL, `aria-current` state, visible import heading and labelled CSV textarea before editing. The repair is authored, not validated. The smallest retry is:
+E2E-WEB-2315 adds the complete keyboard-only journey on desktop/mobile. Its 20 September desktop repairs make the application router the sole panel-route owner, explicitly associate the import and review-condition controls with their labels, reserve a narrow-screen lane so the focused CSV textarea is not covered by the fixed feedback launcher, and confirm the native review-condition selection with Enter before moving focus. The case asserts the URL, `aria-current` state, visible import heading, labelled controls, committed select value, separated hit regions and edited values. The latest repair is authored, not validated. The smallest retry is:
 
 ```bash
 pnpm e2e:run '/Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/journey-keyboard\.spec\.ts' --project=desktop --grep 'E2E-WEB-2315 full keyboard virtual journey edits imports allocates reviews reloads and deletes actual synthetic workspace @SLICE-001 @TEST-SIMULATION$'
@@ -43,3 +43,9 @@ The browser stores only its virtual access key in localStorage. PostgreSQL holds
 ## Remaining roadmap
 
 The full product backlog is not complete. Live data source rights/adapters, real identity/consent, ISIN security master, broker CSV/XLSX formats, per-position goal allocations, profile/suitability, full canonical migrations, report workers, PWA, production controls and regulated advice remain their existing TODO tasks. This working slice implements and exercises the core workflow without claiming those integrations exist.
+
+Review-condition repair (21 September): native labelled radio choices replace the
+three-option select in the shared journey UI. WEB2315 uses Tab/arrow selection
+through baseline, stale and conflicting, then checks the actual stale review
+receipt. WEB010 checks pointer selection. Both desktop/mobile projects require
+user-run validation; no pass is inferred from this authored change.

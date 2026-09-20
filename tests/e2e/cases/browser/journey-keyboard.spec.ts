@@ -18,6 +18,27 @@ async function edit(page: Page, control: Locator, value: string) {
   await page.keyboard.insertText(value);
 }
 
+async function expectHorizontalSeparation(
+  control: Locator,
+  fixedControl: Locator,
+) {
+  await expect
+    .poll(async () => {
+      const [controlBox, fixedBox] = await Promise.all([
+        control.boundingBox(),
+        fixedControl.boundingBox(),
+      ]);
+      return {
+        measurable: controlBox !== null && fixedBox !== null,
+        separated:
+          controlBox !== null &&
+          fixedBox !== null &&
+          controlBox.x + controlBox.width <= fixedBox.x,
+      };
+    })
+    .toMatchObject({ measurable: true, separated: true });
+}
+
 test('E2E-WEB-2315 full keyboard virtual journey edits imports allocates reviews reloads and deletes actual synthetic workspace @SLICE-001 @TEST-SIMULATION', async ({
   page,
   request,
@@ -119,6 +140,10 @@ test('E2E-WEB-2315 full keyboard virtual journey edits imports allocates reviews
     );
     await expect(csvContent).toHaveAccessibleName('CSV content');
     await edit(page, csvContent, 'instrumentId,quantity\nalpha-air,12\n');
+    await expectHorizontalSeparation(
+      csvContent,
+      page.getByRole('button', { name: 'Give feedback', exact: true }),
+    );
     await expect(csvContent).toHaveValue(
       'instrumentId,quantity\nalpha-air,12\n',
     );
@@ -238,16 +263,44 @@ test('E2E-WEB-2315 full keyboard virtual journey edits imports allocates reviews
         .filter({ hasText: 'Reconstruct saved inputs' }),
     );
     await expect(selected.locator('pre')).toContainText(names[0]!);
-    const scenario = journey.getByLabel('Exercise input condition', {
+    const conditions = journey.getByRole('group', {
+      name: 'Exercise input condition',
       exact: true,
     });
-    await tabToObservationControl(page, scenario);
-    await page.keyboard.press('Home');
+    const baselineCondition = conditions.getByRole('radio', {
+      name: 'Baseline synthetic inputs',
+      exact: true,
+    });
+    const staleCondition = conditions.getByRole('radio', {
+      name: 'Simulate stale price',
+      exact: true,
+    });
+    const conflictingCondition = conditions.getByRole('radio', {
+      name: 'Simulate conflicting evidence',
+      exact: true,
+    });
+    await expect(baselineCondition).toBeChecked();
+    await tabToObservationControl(page, baselineCondition);
     await page.keyboard.press('ArrowDown');
+    await expect(staleCondition).toBeChecked();
+    await page.keyboard.press('ArrowDown');
+    await expect(conflictingCondition).toBeChecked();
+    await page.keyboard.press('ArrowUp');
+    await expect(staleCondition).toBeChecked();
+    await expect(staleCondition).toBeFocused();
     await page.keyboard.press('Tab');
-    await expect(scenario).toHaveValue('stale');
+    const staleIssued = page.waitForResponse(
+      (response) =>
+        response.request().method() === 'POST' &&
+        new URL(response.url()).pathname === '/api/v1/journey/reviews',
+    );
     await activate(
       journey.getByRole('button', { name: 'Create review', exact: true }),
+    );
+    const staleResponse = await staleIssued;
+    expect(staleResponse.status()).toBe(201);
+    expect(ReviewSchema.parse(await staleResponse.json()).scenario).toBe(
+      'stale',
     );
     await expect(
       selected.getByRole('heading', { name: 'Unable to assess', exact: true }),

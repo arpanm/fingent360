@@ -136,9 +136,164 @@ journeys pass. Report artifacts/e2e/latest.md and the error-context on failure;
 never share private workspace capabilities. Generated failure records stay intact
 until a passing user-run receipt resolves them.
 
+## CSV editor occlusion repair — 20 September 2026
+
+User-operated run `1789928424949-4e074e31-bac3-4b96-bbe6-9ff8e100274a` started
+at `2026-09-20T18:20:24.950Z` against API `http://127.0.0.1:4104` and web
+`http://127.0.0.1:5176`. This repair uses only its supplied desktop WEB2315
+failure. The textarea was found, enabled, reached by Tab and focused at line 121;
+the failure was the real viewport hit test, not routing, labelling or editing.
+
+At the forced 360×800 viewport, the CSV textarea consumed the import field's
+full width while the persistent feedback launcher occupied the right-hand lane.
+Native focus scrolling could therefore leave part of the editor under that fixed
+control. The CSV field wrapper now reserves the established 76px launcher lane
+at narrow widths while retaining a 550px maximum at wider widths. This is a UI
+layout repair only; contracts, API, data model, provenance, automation,
+dependencies and other journey states are unchanged.
+
+WEB2315 remains the regression case. It still uses actual Tab traversal and the
+nine-point viewport/hit-target assertion, and now also requires the focused CSV
+editor's right edge to finish before the visible `Give feedback` button begins.
+It retains exact labelling, edited value, invalid/corrected import, revisions,
+reviews, reload and deletion. No assertion, real request or persistence path was
+removed or mocked.
+
+The latest repair is authored only. Existing PostgreSQL and MongoDB plus the
+user-started web service are required. Run the exact desktop case documented
+below; expected behavior is that the CSV control remains fully reachable and the
+complete keyboard journey finishes. On failure, report the saved run ID, project,
+case and safe first assertion/error without any workspace capability. Mobile and
+the wider story matrix remain unverified rather than implied by this retry.
+
+```bash
+pnpm e2e:run '/Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/journey-keyboard\.spec\.ts' --project=desktop --grep 'E2E-WEB-2315 full keyboard virtual journey edits imports allocates reviews reloads and deletes actual synthetic workspace @SLICE-001 @TEST-SIMULATION$'
+```
+
+## Review condition label repair — 20 September 2026
+
+User-operated run `1789928630682-e080c076-41b1-44f4-a369-f6db64d6e131`
+started at `2026-09-20T18:23:50.682Z` against API
+`http://127.0.0.1:4104` and web `http://127.0.0.1:5176`, selecting only the
+desktop WEB2315 case. The run reached the saved baseline review and expanded its
+reconstructed inputs, then timed out because the exact
+`Exercise input condition` label locator returned no element.
+
+The case-specific failure snapshot contains the rendered review panel and a
+combobox with that accessible name. This rules out a missing panel for this
+failure and isolates the remaining difference from the already repaired import
+controls: the review select still relied on an implicit wrapping label. It now
+has the stable `journey-review-scenario` ID and an explicit `htmlFor`
+association. Contracts, API, database, provenance, automation, dependencies,
+offline behavior and other journey states are unchanged.
+
+WEB2315 remains the regression case and now checks the select ID and exact
+accessible name before using the existing real Tab traversal. It continues to
+exercise the baseline and stale reviews, persisted inputs, reload and deletion
+through actual UI/API/storage paths. No assertion was removed, no mock replaced
+a real path and no test was run by the agent.
+
+The existing PostgreSQL and MongoDB services plus the user-started web service
+are required. The smallest validation is the exact desktop command below.
+Expected behavior is that the explicitly labelled select is found and reached
+by Tab, changes to `stale`, and the complete journey deletes its synthetic
+workspace. On failure, report the saved run ID, project, case, and safe first
+assertion/error; do not include workspace capabilities or private data.
+
+```bash
+pnpm e2e:run '/Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/journey-keyboard\.spec\.ts' --project=desktop --grep 'E2E-WEB-2315 full keyboard virtual journey edits imports allocates reviews reloads and deletes actual synthetic workspace @SLICE-001 @TEST-SIMULATION$'
+```
+
+## Review condition commit repair — 20 September 2026
+
+User-operated run `1789928814882-63218119-cfe7-4160-9644-857bf3b877d5`
+started at `2026-09-20T18:26:54.882Z` against API
+`http://127.0.0.1:4104` and web `http://127.0.0.1:5176`, selecting only desktop
+WEB2315. It passed the explicit review-control ID/name checks and reached the
+controlled select. After `Home`, `ArrowDown` and `Tab`, the expected `stale`
+value was still `baseline`.
+
+This is a native keyboard-commit issue, not a missing label or application-state
+reset. Desktop Chromium on macOS keeps arrow-key movement inside the native
+select popup; Tab dismisses an unconfirmed highlight, so no change event reaches
+the controlled React select. WEB2315 now presses Enter to confirm the highlighted
+`stale` option, asserts that value before focus leaves the select, and then tabs
+onward. It still reaches the control through actual Tab traversal and uses the
+real UI, API and persisted workspace; no selection API, mock, skipped assertion
+or production workaround is introduced.
+
+The repair changes only the browser regression and its acceptance records.
+Specification, UI, contracts, API, data model, database, provenance, automation,
+dependencies and offline behavior are unchanged. Existing coverage for labels,
+occlusion, revisions, stale assessment, reload, ownership and deletion remains.
+No validation was run and no commit was created.
+
+**Reusable repair prompt:** Read the saved single-case WEB2315 evidence and the
+existing native-select keyboard precedent. Preserve real Tab traversal and the
+controlled journey select; explicitly commit its keyboard-highlighted stale
+option, assert the committed value before focus leaves, retain all downstream
+real API/storage assertions, update scoped acceptance records, and do not run or
+weaken validation.
+
+With the existing PostgreSQL and MongoDB services plus the user-started web
+service, rerun the exact desktop case below. Expected: Enter commits `stale`,
+the stale review is blocked as `Unable to assess`, and the journey completes
+reload and deletion. On failure, report the saved run ID, project, case and safe
+first assertion/error without workspace capabilities or private data. Mobile
+and the broader story matrix remain unverified.
+
+```bash
+pnpm e2e:run '/Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/journey-keyboard\.spec\.ts' --project=desktop --grep 'E2E-WEB-2315 full keyboard virtual journey edits imports allocates reviews reloads and deletes actual synthetic workspace @SLICE-001 @TEST-SIMULATION$'
+```
+
+## Review-condition radio repair — 21 September 2026
+
+**Evidence:** saved run `1789928977101-955760b9-f7f6-4035-bae0-fbc1c80c4810`
+started 2026-09-20T18:29:37.101Z, one desktop WEB2315 case, web5176/API4104.
+CSV import and goal allocation were passed before the failure. The snapshot shows
+an active review-condition combobox with Baseline selected; the value assertion
+still received baseline after the authored Home/ArrowDown/Enter sequence. This
+supersedes the earlier claim that adding Enter would resolve the selection.
+There is no saved evidence of an API scenario-calculation failure.
+
+**Specification:** expose all three synthetic review conditions as native labelled
+radio choices in a named fieldset. Baseline is initially checked; Tab enters the
+group and ArrowDown selects stale, then conflicting; ArrowUp returns to stale.
+Pointer/touch users can activate the entire label. Retain visible keyboard focus
+and 44px targets at 360px width. Preserve busy/unsaved gating on Create review,
+actual scenario submission, immutable review records, reload and deletion.
+
+**Implementation:** shared React web/mobile-shell controls replace the OS-native
+select popup. Scoped CSS sizes native radios and targets without changing other
+forms. WEB2315 exercises all three choices using actual Tab/arrow keys, asserts
+the stale POST receipt via ReviewSchema, and retains all persistence checks.
+WEB010 uses the stale radio through its accessible label. Existing API/contracts,
+DB schema, provenance and automation are reused unchanged; no dependencies,
+migrations, source fetches or offline API capabilities are added. Acceptance IDs
+and desktop/mobile matrix remain unchanged. Manual visual acceptance: check the
+three labels wrap at 360px, focus remains visible, and tapping labels changes only
+the chosen condition in web and the next rebuilt Android bundle.
+
+**Reusable prompt:** use the saved baseline-selected snapshot, replace the bounded
+three-choice select with native radios, verify real keyboard and touch selection
+and actual review scenario receipt, preserve all storage checks, do not run gates.
+
+**Pending:** patch application and user validation. Active main-checkout watchers
+were left untouched; this delta is in `../fingent360-review-condition-repair.patch`.
+No commands/tests/builds/services or commit were executed. Existing automatic
+repair edits and generated failure records were preserved. After stopping dev,
+apply that patch and restart dev; databases must already be available. Run:
+
+```bash
+pnpm sdlc "Repair review condition keyboard controls" -- --project=desktop --project=mobile --grep 'E2E-WEB-(2315|010) '
+```
+
+Expected: four selected browser cases pass; report latest.md and saved error
+context if they fail. User-run SDLC owns gated commit and bug/status reconciliation.
+
 <!-- sdlc-validation:start -->
 
 ## Automated validation
 
-Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789927529684-81206.
+Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789928359149-84609.
 <!-- sdlc-validation:end -->

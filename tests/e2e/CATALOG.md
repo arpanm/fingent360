@@ -917,7 +917,7 @@ These cases are authored, not executed; historical receipts do not validate them
 - **E2E-WEB-1950** (desktop/mobile): Sources-to-index history, exact source values, keyboard detail and narrow containment. `cases/browser/index-levels.spec.ts`.
 - **E2E-WEB-1951** (desktop/mobile): actual original upload, changed-input permission reset, independent publish/withdraw and public reader.
 - **E2E-OFFLINE-1950** (offline): installed index provenance, pagination, absent/incomplete snapshot rejection and connected-only edits. `cases/offline/index-levels.spec.ts`.
-- **E2E-WEB-2315** (desktop/mobile): full keyboard-only synthetic virtual journey with actual storage, edits, invalid/corrected import, repeated goals, reviews, reload and deletion. `cases/browser/journey-keyboard.spec.ts`.
+- **E2E-WEB-2315** (desktop/mobile): full keyboard-only synthetic virtual journey with actual storage, router-selected panel/`aria-current` agreement, explicit import-control labels, edits, invalid/corrected import, repeated goals, reviews, reload and deletion. `cases/browser/journey-keyboard.spec.ts`.
 
 These are authored cases, not recorded passes. Source fixtures reproduce verified
 original grammar with synthetic values; rights/live-provider/native-device
@@ -940,3 +940,7 @@ acceptance remains separate. See INDEX-LEVELS-001 and SLICE-001 for manual comma
 
 CCIL-LIQUIDITY-001 source simulation does not enable the deployment or supply a
 current quote/ISIN mapping. New source and keyboard cases above remain unrun.
+
+WEB2315 regression: prefilled CSV textarea uses a separate explicit label; exact
+label lookup, accessible name and edited value are asserted before preview.
+Desktop/mobile validation of this focused repair remains pending.

@@ -58,8 +58,7 @@ async function request(
   }
   return payload;
 }
-export function Journey() {
-  const [route, setRoute] = useState(window.location.hash.slice(1) || 'brief');
+export function Journey({ route }: { route: string }) {
   const [catalog, setCatalog] = useState<Catalog | null>(null);
   const [token, setToken] = useState(storedToken);
   const [saved, setSaved] = useState<Workspace | null>(null);
@@ -78,11 +77,6 @@ export function Journey() {
   const [message, setMessage] = useState('');
   const dirty =
     saved !== null && JSON.stringify(draft) !== JSON.stringify(saved.portfolio);
-  useEffect(() => {
-    const onHash = () => setRoute(window.location.hash.slice(1) || 'brief');
-    window.addEventListener('hashchange', onHash);
-    return () => window.removeEventListener('hashchange', onHash);
-  }, []);
   useEffect(() => {
     const warn = (event: BeforeUnloadEvent) => {
       if (dirty) {
@@ -464,9 +458,10 @@ export function Journey() {
                   </a>
                   <fieldset disabled={busy || dirty}>
                     <legend>Preview before saving</legend>
-                    <label>
+                    <label htmlFor="journey-import-file">
                       CSV file
                       <input
+                        id="journey-import-file"
                         type="file"
                         accept=".csv,text/csv"
                         onChange={(e) => {
@@ -486,9 +481,12 @@ export function Journey() {
                         }}
                       />
                     </label>
-                    <label>
-                      CSV content
+                    <div>
+                      <label htmlFor="journey-import-csv-content">
+                        CSV content
+                      </label>
                       <textarea
+                        id="journey-import-csv-content"
                         rows={5}
                         value={csv}
                         onChange={(e) => {
@@ -496,10 +494,11 @@ export function Journey() {
                           setPreview(null);
                         }}
                       />
-                    </label>
-                    <label>
+                    </div>
+                    <label htmlFor="journey-import-cash">
                       Import cash (INR)
                       <input
+                        id="journey-import-cash"
                         value={importCash}
                         onChange={(e) => {
                           setImportCash(e.target.value);
@@ -507,9 +506,10 @@ export function Journey() {
                         }}
                       />
                     </label>
-                    <label>
+                    <label htmlFor="journey-import-source-total">
                       Declared total including cash (INR)
                       <input
+                        id="journey-import-source-total"
                         value={sourceTotal}
                         onChange={(e) => {
                           setSourceTotal(e.target.value);

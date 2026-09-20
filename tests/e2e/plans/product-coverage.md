@@ -1210,7 +1210,13 @@ development StrictMode mounts. The surviving reader must expose recovery, after
 which the user retry adds exactly one request and renders the reviewed edition.
 
 SLICE-001 adds WEB2315 on desktop/mobile for the full actual keyboard-only virtual
-workspace journey, including correction/reload/deletion and exact stored receipts.
+workspace journey, including application-router/panel agreement after keyboard
+navigation, explicit import-control label associations, correction/reload/deletion
+and exact stored receipts.
 It reuses production contracts/API/data; no extra schema or fictional live source
 is required. These cases are unexecuted. The reviewed acceptance manifest defines
 user-run closure; visual/physical/provider evidence is not inferred.
+
+WEB2315 regression: prefilled CSV textarea uses a separate explicit label; exact
+label lookup, accessible name and edited value are asserted before preview.
+Desktop/mobile validation of this focused repair remains pending.

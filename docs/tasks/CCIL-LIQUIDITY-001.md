@@ -299,9 +299,21 @@ tests/e2e/cases/api/ccil-liquidity.spec.ts`. Expected: no lint diagnostic in
   failure report the run ID, project, assertion/error context and trace path;
   do not include credentials or private artifacts.
 
+## Saved user-run receipts — 20 September 2026
+
+SDLC run `1789926953092-78982` recorded API2320–2325 and WEB2320 passes.
+WEB2321 initially failed on both projects; the script's focused repair reruns
+passed desktop in `08-pnpm-e2e_run.log` and mobile in `10-pnpm-e2e_run.log`.
+`12-pnpm-android_test.log` records both OFFLINE2320/2321 passes. The two WEB2321
+bugs are resolved by saved receipts. These are recorded passes across successive
+repair revisions, not a fresh full acceptance matrix for the final revision.
+The stale generated validation state must be reconciled by the user-run story
+command; source permission and actual production activation remain separate gates.
+No further CCIL code changes or agent execution were needed in this diagnosis.
+
 <!-- sdlc-validation:start -->
 
 ## Automated validation
 
-Partial — required cases not run. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789926953092-78982.
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789927529684-81206.
 <!-- sdlc-validation:end -->

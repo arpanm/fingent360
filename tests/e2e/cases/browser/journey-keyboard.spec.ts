@@ -102,9 +102,24 @@ test('E2E-WEB-2315 full keyboard virtual journey edits imports allocates reviews
     await activate(
       navigation.getByRole('link', { name: 'Import CSV', exact: true }),
     );
-    await edit(
-      page,
-      journey.getByLabel('CSV content', { exact: true }),
+    await expect(page).toHaveURL(/#import$/);
+    await expect(
+      navigation.getByRole('link', { name: 'Import CSV', exact: true }),
+    ).toHaveAttribute('aria-current', 'page');
+    await expect(
+      journey.getByRole('heading', {
+        name: 'Import a virtual portfolio',
+        exact: true,
+      }),
+    ).toBeVisible();
+    const csvContent = journey.getByLabel('CSV content', { exact: true });
+    await expect(csvContent).toHaveAttribute(
+      'id',
+      'journey-import-csv-content',
+    );
+    await expect(csvContent).toHaveAccessibleName('CSV content');
+    await edit(page, csvContent, 'instrumentId,quantity\nalpha-air,12\n');
+    await expect(csvContent).toHaveValue(
       'instrumentId,quantity\nalpha-air,12\n',
     );
     await edit(

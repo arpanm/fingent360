@@ -1021,7 +1021,7 @@
     "SLICE-001": {
       "implementationComplete": true,
       "externalGates": [],
-      "scope": "Explicitly synthetic educational virtual workspace, catalog/event/company navigation, exact quantities/valuation, CSV preview/reconciliation, revision/idempotency/ownership, repeated goals, immutable review and persisted responsive journey."
+      "scope": "Explicitly synthetic educational virtual workspace, catalog/event/company navigation, keyboard-selected journey panels owned by the application router, explicitly labelled import controls, exact quantities/valuation, CSV preview/reconciliation, revision/idempotency/ownership, repeated goals, immutable review and persisted responsive journey."
     },
     "PWA-001": {
       "implementationComplete": true,

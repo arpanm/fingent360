@@ -1,6 +1,6 @@
 # SLICE-001 — Working educational portfolio journey
 
-- **Status:** Implementation complete; validation pending
+- **Status:** Needs repair
 - **Implemented / recorded:** - Implementation: Implemented
 - **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
 - **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
@@ -74,6 +74,26 @@ pnpm sdlc "Validate full keyboard virtual journey" -- --project=desktop --projec
 
 Expected: both project receipts pass, including real saved revisions 1–3, retained review after reload and unauthorized reads after deletion. For failure report the saved run ID, project, case and safe assertion/error; do not disclose the workspace capability. Trace/video/automatic screenshots are disabled for this capability-bearing workflow. Tags: `@SLICE-001 @TEST-SIMULATION`. No format/check, tests, builds, services, migrations or commit were executed while authoring. Local HEAD at handoff is `c7874a5`; unrelated authoring changes remain uncommitted and untouched. User-run gates own the next verified commit.
 
+## Keyboard route-synchronization repair — 20 September 2026
+
+User-operated run `1789927816761-ebb24ad7-e27e-40cd-9387-da4aa0e80c9e` started at `2026-09-20T18:10:16.761Z` against API `http://127.0.0.1:4104` and web `http://127.0.0.1:5176`. Its only selected case was E2E-WEB-2315 on desktop. The run reached the Import CSV keyboard step but could not find the `CSV content` textarea. This is failure evidence, not a pass for any other case or project.
+
+The outer application router and `Journey` previously maintained separate state for the same hash: the app accepted the learning-lab route while a second `hashchange` listener independently selected the inner panel. Those two asynchronously updated copies could disagree, leaving the prior portfolio panel rendered after keyboard navigation even though the route activation had completed.
+
+`Journey` now receives the application router's accepted base route directly, leaving one owner for the URL, selected navigation state and rendered panel. E2E-WEB-2315 retains the actual Tab/Enter path and now asserts `#import`, the Import CSV `aria-current` state and the import heading before editing the textarea. This makes a route/panel disagreement fail at the navigation boundary rather than as an unexplained missing field; no assertion, storage path or API behavior is removed or mocked.
+
+The focused user rerun `1789927946774-3cdd2116-3aab-4317-a1da-225cad78263a` started at `2026-09-20T18:12:26.774Z` against the same targets and again selected only desktop E2E-WEB-2315. It passed the newly preceding URL, current-link and import-heading assertions, then failed resolving the implicitly labelled `CSV content` textarea at line 115. The assertion order narrows the remaining failure to the rendered import form's label/control association rather than panel routing. This remains failure evidence, not a pass.
+
+All four import inputs now have stable IDs and explicit `htmlFor` associations. The regression keeps `getByLabel('CSV content', { exact: true })`, additionally requires its exact control ID, and then uses that same locator for the keyboard edit. This verifies the user-facing accessible association instead of selecting the textarea through an implementation-only CSS path.
+
+The repair changes UI routing, import form semantics and the existing browser case only. Contracts, API, database, provenance, automation and dependencies are unchanged. Loading, saved, invalid-import, corrected-import, repeated-goal, review, reload and deletion coverage remain in E2E-WEB-2315. Validation was not run and no commit was created. With the existing PostgreSQL/MongoDB and user-started web service available, rerun the exact reported desktop case first:
+
+```bash
+pnpm e2e:run '/Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/journey-keyboard\.spec\.ts' --project=desktop --grep 'E2E-WEB-2315 full keyboard virtual journey edits imports allocates reviews reloads and deletes actual synthetic workspace @SLICE-001 @TEST-SIMULATION$'
+```
+
+Expected: keyboard activation selects and renders Import CSV, then the case completes revisions 1–3, review reload and keyboard deletion. On failure, report the saved run ID, project, case and safe first assertion/error without the workspace capability. Mobile remains unverified and should be exercised by the documented full story command after the focused desktop repair passes.
+
 ## Integration handoff — 20 September 2026
 
 Continuation is reconciled in the unwatched `fingent360-continuation-20260920`
@@ -83,9 +103,42 @@ and commands in [the current handoff](../development/nondeferred-authoring-2026-
 No new tests/gates/migrations/services or commit were run by the agent. Earlier
 base hashes above identify authoring history, not the current integration base.
 
+## Saved-run diagnosis and label repair — 20 September 2026
+
+Run `1789928159261-b4661b68-a4ba-4588-9bd4-bea3b8e70254`, started
+2026-09-20T18:15:59.261Z, selected only desktop WEB2315 against web5176/API4104.
+Its saved error-context shows both the Import heading and textbox named CSV content.
+Thus the latest failure is not evidence that routing failed. The previous route
+and explicit-ID repairs did not resolve the exact label selector.
+
+The textarea was still nested inside its label. A textarea's initial text is a
+DOM text child; label-text lookup can include it even when the accessibility tree
+correctly names the control. The authored repair makes the label a sibling of the
+textarea, retaining explicit htmlFor/id and grouping the pair in a div. Label text
+is now independent of the CSV value. WEB2315 retains exact getByLabel lookup and
+adds accessible-name and edited-value assertions before exercising reconciliation.
+
+Specification/acceptance: the prepopulated and edited CSV control must remain
+resolvable by its exact visible label and usable with Tab/keyboard editing on both
+projects. Shared React supplies web/mobile-shell semantics; no API, contracts,
+database, source, dependency or automation changes are needed. Existing invalid
+preview, correction, persistence, review and deletion assertions remain intact.
+Reusable prompt: use the saved snapshot to distinguish label-text lookup from
+panel routing; separate textarea and label without removing keyboard assertions.
+
+Implementation is supplied in `../fingent360-keyboard-label-repair.patch` relative
+to the repository, against the existing uncommitted repairs. Stop the user dev
+session before applying it; restart afterward. No gates, tests or services were
+run by the agent. No commit: new changes require user-run format/check gates.
+Run `pnpm sdlc "Repair keyboard CSV label" -- --project=desktop --project=mobile --grep 'E2E-WEB-2315 '`
+with the existing database/web prerequisites. Expected: both complete keyboard
+journeys pass. Report artifacts/e2e/latest.md and the error-context on failure;
+never share private workspace capabilities. Generated failure records stay intact
+until a passing user-run receipt resolves them.
+
 <!-- sdlc-validation:start -->
 
 ## Automated validation
 
-Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789926953092-78982.
+Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789927529684-81206.
 <!-- sdlc-validation:end -->

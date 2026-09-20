@@ -1,5 +1,11 @@
 # Fingent360
 
+The latest keyboard failure has a focused sibling-label repair: the saved page
+snapshot contains the import textbox, but exact label lookup fails with its CSV
+text nested inside the label. See [the diagnosis](docs/tasks/SLICE-001.md#saved-run-diagnosis-and-label-repair--20-september-2026).
+It is authored, not validated. CCIL has recorded passing repair retries on both
+browser projects and offline; see [saved receipts](docs/tasks/CCIL-LIQUIDITY-001.md#saved-user-run-receipts--20-september-2026).
+
 The 20 September follow-up adds reviewed daily Nifty index history and historical
 CCIL bond-liquidity evidence, alongside Mongo recovery, scheduler outcomes,
 release grouping, offline assistance, feedback/image/privacy recovery and keyboard
@@ -8,6 +14,13 @@ journey acceptance. The new source and keyboard continuation is **authored, not 
 Additive migrations124/129 are included; no dependencies or automatic source
 activation are added. BSE originals, original XBRL/taxonomy and five broker export
 layouts remain unavailable after the recorded source research.
+
+The reported E2E-WEB-2315 desktop failure is repaired in authored code by making
+the application router the single owner of the learning-journey panel route and
+giving every import control an explicit label association. The case checks the
+keyboard-selected URL, current navigation item, import heading and CSV textarea
+association before editing. This focused repair has not been run or committed;
+see [SLICE-001](docs/tasks/SLICE-001.md#keyboard-route-synchronization-repair--20-september-2026).
 
 The reported CCIL check and reader-recovery failures are repaired in authored
 code: the workbook parser accepts only retained bytes, while the fixed source URL

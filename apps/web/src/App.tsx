@@ -651,7 +651,7 @@ export function App() {
                   Practice a complete review with a clearly fictional portfolio.
                 </p>
               </div>
-              <Journey />
+              <Journey route={base} />
             </>
           ) : (
             <section className="empty-state">

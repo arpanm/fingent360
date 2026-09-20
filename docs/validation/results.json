@@ -4849,11 +4849,11 @@
       "stories": ["SLICE-001"],
       "status": "passed",
       "details": "",
-      "run": "1789852776002-50046",
-      "time": "2026-09-19T22:28:52.506Z",
-      "fingerprint": "adcaf88ae7f65f19990282ccf9acd2763ad20fd146f414e37c21d89781af6c01",
-      "log": "artifacts/sdlc/1789852776002-50046/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T21-20-37-259Z-50913/results.json"
+      "run": "1789927529684-81206",
+      "time": "2026-09-20T18:07:15.205Z",
+      "fingerprint": "aac57cf5619c214291a4127ee6f48860ee1f677df77995f723b1db81558b65df",
+      "log": "artifacts/sdlc/1789927529684-81206/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-20T18-06-31-097Z-81895/results.json"
     },
     "8356bd6522c905ad926bc4d502559c21ceb024b195697894e2657aa5455f3406": {
       "key": "8356bd6522c905ad926bc4d502559c21ceb024b195697894e2657aa5455f3406",
@@ -4864,11 +4864,11 @@
       "stories": ["SLICE-001", "BUG-003"],
       "status": "passed",
       "details": "",
-      "run": "1789852776002-50046",
-      "time": "2026-09-19T22:28:52.506Z",
-      "fingerprint": "adcaf88ae7f65f19990282ccf9acd2763ad20fd146f414e37c21d89781af6c01",
-      "log": "artifacts/sdlc/1789852776002-50046/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T21-20-37-259Z-50913/results.json"
+      "run": "1789927529684-81206",
+      "time": "2026-09-20T18:07:15.205Z",
+      "fingerprint": "aac57cf5619c214291a4127ee6f48860ee1f677df77995f723b1db81558b65df",
+      "log": "artifacts/sdlc/1789927529684-81206/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-20T18-06-31-097Z-81895/results.json"
     },
     "c49cc301469d5228cc346f1e43f53b5853442ca558c41ce802b3e3c842fb78df": {
       "key": "c49cc301469d5228cc346f1e43f53b5853442ca558c41ce802b3e3c842fb78df",
@@ -4879,11 +4879,11 @@
       "stories": ["SLICE-001", "BUG-003"],
       "status": "passed",
       "details": "",
-      "run": "1789852776002-50046",
-      "time": "2026-09-19T22:28:52.506Z",
-      "fingerprint": "adcaf88ae7f65f19990282ccf9acd2763ad20fd146f414e37c21d89781af6c01",
-      "log": "artifacts/sdlc/1789852776002-50046/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T21-20-37-259Z-50913/results.json"
+      "run": "1789927529684-81206",
+      "time": "2026-09-20T18:07:15.205Z",
+      "fingerprint": "aac57cf5619c214291a4127ee6f48860ee1f677df77995f723b1db81558b65df",
+      "log": "artifacts/sdlc/1789927529684-81206/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-20T18-06-31-097Z-81895/results.json"
     },
     "5da596d920e3ed404c3eaffe0dca348f8e37f8c700296d22dadd9d2d882f67e5": {
       "key": "5da596d920e3ed404c3eaffe0dca348f8e37f8c700296d22dadd9d2d882f67e5",
@@ -4894,11 +4894,11 @@
       "stories": ["SLICE-001", "BUG-003"],
       "status": "passed",
       "details": "",
-      "run": "1789852776002-50046",
-      "time": "2026-09-19T22:28:52.506Z",
-      "fingerprint": "adcaf88ae7f65f19990282ccf9acd2763ad20fd146f414e37c21d89781af6c01",
-      "log": "artifacts/sdlc/1789852776002-50046/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T21-20-37-259Z-50913/results.json"
+      "run": "1789927529684-81206",
+      "time": "2026-09-20T18:07:15.205Z",
+      "fingerprint": "aac57cf5619c214291a4127ee6f48860ee1f677df77995f723b1db81558b65df",
+      "log": "artifacts/sdlc/1789927529684-81206/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-20T18-06-31-097Z-81895/results.json"
     },
     "0354cd94a323cd15bffedefc65b84f89dcc6111cefe433e019d26a603548f4c5": {
       "key": "0354cd94a323cd15bffedefc65b84f89dcc6111cefe433e019d26a603548f4c5",
@@ -13971,11 +13971,11 @@
       "stories": ["SLICE-001"],
       "status": "passed",
       "details": "",
-      "run": "1789852776002-50046",
-      "time": "2026-09-19T22:28:52.506Z",
-      "fingerprint": "adcaf88ae7f65f19990282ccf9acd2763ad20fd146f414e37c21d89781af6c01",
-      "log": "artifacts/sdlc/1789852776002-50046/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T21-20-37-259Z-50913/results.json"
+      "run": "1789927529684-81206",
+      "time": "2026-09-20T18:07:15.205Z",
+      "fingerprint": "aac57cf5619c214291a4127ee6f48860ee1f677df77995f723b1db81558b65df",
+      "log": "artifacts/sdlc/1789927529684-81206/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-20T18-06-31-097Z-81895/results.json"
     },
     "46c9c1703b8bfe67d6ae565ae15ffa451c4b7d8d0d328e930f43e6b5c3413bce": {
       "key": "46c9c1703b8bfe67d6ae565ae15ffa451c4b7d8d0d328e930f43e6b5c3413bce",
@@ -13986,11 +13986,11 @@
       "stories": ["SLICE-001"],
       "status": "passed",
       "details": "",
-      "run": "1789852776002-50046",
-      "time": "2026-09-19T22:28:52.506Z",
-      "fingerprint": "adcaf88ae7f65f19990282ccf9acd2763ad20fd146f414e37c21d89781af6c01",
-      "log": "artifacts/sdlc/1789852776002-50046/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T21-20-37-259Z-50913/results.json"
+      "run": "1789927529684-81206",
+      "time": "2026-09-20T18:07:15.205Z",
+      "fingerprint": "aac57cf5619c214291a4127ee6f48860ee1f677df77995f723b1db81558b65df",
+      "log": "artifacts/sdlc/1789927529684-81206/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-20T18-06-31-097Z-81895/results.json"
     },
     "17f68a3ea99a6b844337d81486ee2bc3494edd775e7ecb319df49f68764fe9ee": {
       "key": "17f68a3ea99a6b844337d81486ee2bc3494edd775e7ecb319df49f68764fe9ee",
@@ -14001,11 +14001,11 @@
       "stories": ["SLICE-001"],
       "status": "passed",
       "details": "",
-      "run": "1789852776002-50046",
-      "time": "2026-09-19T22:28:52.506Z",
-      "fingerprint": "adcaf88ae7f65f19990282ccf9acd2763ad20fd146f414e37c21d89781af6c01",
-      "log": "artifacts/sdlc/1789852776002-50046/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T21-20-37-259Z-50913/results.json"
+      "run": "1789927529684-81206",
+      "time": "2026-09-20T18:07:15.205Z",
+      "fingerprint": "aac57cf5619c214291a4127ee6f48860ee1f677df77995f723b1db81558b65df",
+      "log": "artifacts/sdlc/1789927529684-81206/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-20T18-06-31-097Z-81895/results.json"
     },
     "3e99fefbe5e87960c7966a867c733f4b063c7a519d40d641d94f9a0891d416c4": {
       "key": "3e99fefbe5e87960c7966a867c733f4b063c7a519d40d641d94f9a0891d416c4",
@@ -14016,11 +14016,11 @@
       "stories": ["SLICE-001"],
       "status": "passed",
       "details": "",
-      "run": "1789852776002-50046",
-      "time": "2026-09-19T22:28:52.506Z",
-      "fingerprint": "adcaf88ae7f65f19990282ccf9acd2763ad20fd146f414e37c21d89781af6c01",
-      "log": "artifacts/sdlc/1789852776002-50046/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T21-20-37-259Z-50913/results.json"
+      "run": "1789927529684-81206",
+      "time": "2026-09-20T18:07:15.205Z",
+      "fingerprint": "aac57cf5619c214291a4127ee6f48860ee1f677df77995f723b1db81558b65df",
+      "log": "artifacts/sdlc/1789927529684-81206/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-20T18-06-31-097Z-81895/results.json"
     },
     "98948b86db983099e31885ab55877d6d7139701e96db3470969142554b8e53c3": {
       "key": "98948b86db983099e31885ab55877d6d7139701e96db3470969142554b8e53c3",
@@ -14031,11 +14031,11 @@
       "stories": ["SLICE-001"],
       "status": "passed",
       "details": "",
-      "run": "1789852776002-50046",
-      "time": "2026-09-19T22:28:52.506Z",
-      "fingerprint": "adcaf88ae7f65f19990282ccf9acd2763ad20fd146f414e37c21d89781af6c01",
-      "log": "artifacts/sdlc/1789852776002-50046/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T21-20-37-259Z-50913/results.json"
+      "run": "1789927529684-81206",
+      "time": "2026-09-20T18:07:15.205Z",
+      "fingerprint": "aac57cf5619c214291a4127ee6f48860ee1f677df77995f723b1db81558b65df",
+      "log": "artifacts/sdlc/1789927529684-81206/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-20T18-06-31-097Z-81895/results.json"
     },
     "09e9df175afdd92d0c3cbd1ccff3ef296d5d1df1ae57143001861c941e0680c4": {
       "key": "09e9df175afdd92d0c3cbd1ccff3ef296d5d1df1ae57143001861c941e0680c4",
@@ -14046,11 +14046,11 @@
       "stories": ["SLICE-001"],
       "status": "passed",
       "details": "",
-      "run": "1789852776002-50046",
-      "time": "2026-09-19T22:28:52.506Z",
-      "fingerprint": "adcaf88ae7f65f19990282ccf9acd2763ad20fd146f414e37c21d89781af6c01",
-      "log": "artifacts/sdlc/1789852776002-50046/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-19T21-20-37-259Z-50913/results.json"
+      "run": "1789927529684-81206",
+      "time": "2026-09-20T18:07:15.205Z",
+      "fingerprint": "aac57cf5619c214291a4127ee6f48860ee1f677df77995f723b1db81558b65df",
+      "log": "artifacts/sdlc/1789927529684-81206/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-20T18-06-31-097Z-81895/results.json"
     },
     "0e81897622123629dd492c136cab90403f059d9b631f2468668316f0c77e791d": {
       "key": "0e81897622123629dd492c136cab90403f059d9b631f2468668316f0c77e791d",
@@ -23483,6 +23483,36 @@
       "fingerprint": "aac57cf5619c214291a4127ee6f48860ee1f677df77995f723b1db81558b65df",
       "log": "artifacts/sdlc/1789926953092-78982/12-pnpm-android_test.log",
       "report": "artifacts/e2e/offline-1789927511912-81110/results.json"
+    },
+    "fa7ca01669601ada4d3808c3c3a811bf4f19cfb78ca5bf1894a9a7d6d7006edb": {
+      "key": "fa7ca01669601ada4d3808c3c3a811bf4f19cfb78ca5bf1894a9a7d6d7006edb",
+      "caseId": "E2E-WEB-2315",
+      "project": "desktop",
+      "title": "E2E-WEB-2315 full keyboard virtual journey edits imports allocates reviews reloads and deletes actual synthetic workspace @SLICE-001 @TEST-SIMULATION",
+      "file": "browser/journey-keyboard.spec.ts",
+      "stories": ["SLICE-001"],
+      "status": "failed",
+      "details": "Error: expect(locator).toHaveAttribute(expected) failed\n\nLocator: locator('.journey').getByLabel('CSV content', { exact: true })\nExpected: \"journey-import-csv-content\"\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toHaveAttribute\" with timeout 10000ms\n  - waiting for locator('.journey').getByLabel('CSV content', { exact: true })\n\n\n  114 |     ).toBeVisible();\n  115 |     const csvContent = journey.getByLabel('CSV content', { exact: true });\n> 116 |     await expect(csvContent).toHaveAttribute(\n      |                              ^\n  117 |       'id',\n  118 |       'journey-import-csv-content',\n  119 |     );\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/journey-keyboard.spec.ts:116:30",
+      "run": "1789927529684-81206",
+      "time": "2026-09-20T18:16:14.966Z",
+      "fingerprint": "17e00b6d83d0958f860e4a6a18de9363ee5be68baf690b06b31a17e5bf6ee961",
+      "log": "artifacts/sdlc/1789927529684-81206/12-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-20T18-15-58-576Z-83685/results.json"
+    },
+    "7f71e314d746d160d5ad26ce25e3c7408befc7976e81e08f871a64df58c081e1": {
+      "key": "7f71e314d746d160d5ad26ce25e3c7408befc7976e81e08f871a64df58c081e1",
+      "caseId": "E2E-WEB-2315",
+      "project": "mobile",
+      "title": "E2E-WEB-2315 full keyboard virtual journey edits imports allocates reviews reloads and deletes actual synthetic workspace @SLICE-001 @TEST-SIMULATION",
+      "file": "browser/journey-keyboard.spec.ts",
+      "stories": ["SLICE-001"],
+      "status": "failed",
+      "details": "Error: expect(locator).toBeVisible() failed\n\nLocator: locator('.journey').getByLabel('CSV content', { exact: true })\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" with timeout 10000ms\n  - waiting for locator('.journey').getByLabel('CSV content', { exact: true })\n\n\n   at ../helpers/observation-inbox-accessibility.ts:12\n\n  10 | // disables itself. Programmatic focus would conceal unreachable controls.\n  11 | export async function tabToObservationControl(page: Page, target: Locator) {\n> 12 |   await expect(target).toBeVisible();\n     |                        ^\n  13 |   await expect(target).toBeEnabled();\n  14 |   for (let step = 0; step < 180; step++) {\n  15 |     if (await target.evaluate((element) => element === document.activeElement))\n    at tabToObservationControl (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/observation-inbox-accessibility.ts:12:24)\n    at edit (/Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/journey-keyboard.spec.ts:16:9)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/journey-keyboard.spec.ts:105:11",
+      "run": "1789927529684-81206",
+      "time": "2026-09-20T18:07:15.205Z",
+      "fingerprint": "aac57cf5619c214291a4127ee6f48860ee1f677df77995f723b1db81558b65df",
+      "log": "artifacts/sdlc/1789927529684-81206/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-20T18-06-31-097Z-81895/results.json"
     }
   },
   "bugs": {
@@ -29625,11 +29655,11 @@
       "id": "BUG-fb4ca6ebaf321422",
       "firstSeen": "2026-09-18T05:00:49.248Z",
       "resolvedBy": {
-        "run": "1789852776002-50046",
-        "time": "2026-09-19T22:28:52.506Z",
-        "fingerprint": "adcaf88ae7f65f19990282ccf9acd2763ad20fd146f414e37c21d89781af6c01",
-        "log": "artifacts/sdlc/1789852776002-50046/06-pnpm-e2e_run.log",
-        "report": "artifacts/e2e/2026-09-19T21-20-37-259Z-50913/results.json"
+        "run": "1789927529684-81206",
+        "time": "2026-09-20T18:07:15.205Z",
+        "fingerprint": "aac57cf5619c214291a4127ee6f48860ee1f677df77995f723b1db81558b65df",
+        "log": "artifacts/sdlc/1789927529684-81206/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-20T18-06-31-097Z-81895/results.json"
       }
     },
     "BUG-475690e968a9af2b": {
@@ -29924,9 +29954,9 @@
       "id": "BUG-efa18bcf6151b6e5",
       "firstSeen": "2026-09-18T05:11:23.620Z",
       "resolvedBy": {
-        "run": "1789926953092-78982",
-        "time": "2026-09-20T18:04:52.624Z",
-        "log": "artifacts/sdlc/1789926953092-78982/09-pnpm-build.log"
+        "run": "1789927529684-81206",
+        "time": "2026-09-20T18:15:58.219Z",
+        "log": "artifacts/sdlc/1789927529684-81206/11-pnpm-build.log"
       }
     },
     "BUG-a47611ab64789eb8": {
@@ -29945,10 +29975,10 @@
       "id": "BUG-a47611ab64789eb8",
       "firstSeen": "2026-09-18T05:33:44.718Z",
       "resolvedBy": {
-        "run": "1789926953092-78982",
-        "time": "2026-09-20T17:56:59.761Z",
-        "fingerprint": "d7e9630c0bbb50283edca31343820de9ccfa51d231f5f82e12b5c60e3adb71f2",
-        "log": "artifacts/sdlc/1789926953092-78982/02-pnpm-check.log"
+        "run": "1789927529684-81206",
+        "time": "2026-09-20T18:06:30.634Z",
+        "fingerprint": "aac57cf5619c214291a4127ee6f48860ee1f677df77995f723b1db81558b65df",
+        "log": "artifacts/sdlc/1789927529684-81206/02-pnpm-check.log"
       }
     },
     "BUG-a0826694511b6915": {
@@ -31256,9 +31286,43 @@
         "log": "artifacts/sdlc/1789926953092-78982/10-pnpm-e2e_run.log",
         "report": "artifacts/e2e/2026-09-20T18-04-52-972Z-80944/results.json"
       }
+    },
+    "BUG-fa7ca01669601ada": {
+      "key": "fa7ca01669601ada4d3808c3c3a811bf4f19cfb78ca5bf1894a9a7d6d7006edb",
+      "caseId": "E2E-WEB-2315",
+      "project": "desktop",
+      "title": "E2E-WEB-2315 full keyboard virtual journey edits imports allocates reviews reloads and deletes actual synthetic workspace @SLICE-001 @TEST-SIMULATION",
+      "file": "browser/journey-keyboard.spec.ts",
+      "stories": ["SLICE-001"],
+      "status": "Open",
+      "details": "Error: expect(locator).toHaveAttribute(expected) failed\n\nLocator: locator('.journey').getByLabel('CSV content', { exact: true })\nExpected: \"journey-import-csv-content\"\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toHaveAttribute\" with timeout 10000ms\n  - waiting for locator('.journey').getByLabel('CSV content', { exact: true })\n\n\n  114 |     ).toBeVisible();\n  115 |     const csvContent = journey.getByLabel('CSV content', { exact: true });\n> 116 |     await expect(csvContent).toHaveAttribute(\n      |                              ^\n  117 |       'id',\n  118 |       'journey-import-csv-content',\n  119 |     );\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/journey-keyboard.spec.ts:116:30",
+      "run": "1789927529684-81206",
+      "time": "2026-09-20T18:16:14.966Z",
+      "fingerprint": "17e00b6d83d0958f860e4a6a18de9363ee5be68baf690b06b31a17e5bf6ee961",
+      "log": "artifacts/sdlc/1789927529684-81206/12-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-20T18-15-58-576Z-83685/results.json",
+      "id": "BUG-fa7ca01669601ada",
+      "firstSeen": "2026-09-20T18:07:15.205Z"
+    },
+    "BUG-7f71e314d746d160": {
+      "key": "7f71e314d746d160d5ad26ce25e3c7408befc7976e81e08f871a64df58c081e1",
+      "caseId": "E2E-WEB-2315",
+      "project": "mobile",
+      "title": "E2E-WEB-2315 full keyboard virtual journey edits imports allocates reviews reloads and deletes actual synthetic workspace @SLICE-001 @TEST-SIMULATION",
+      "file": "browser/journey-keyboard.spec.ts",
+      "stories": ["SLICE-001"],
+      "status": "Open",
+      "details": "Error: expect(locator).toBeVisible() failed\n\nLocator: locator('.journey').getByLabel('CSV content', { exact: true })\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" with timeout 10000ms\n  - waiting for locator('.journey').getByLabel('CSV content', { exact: true })\n\n\n   at ../helpers/observation-inbox-accessibility.ts:12\n\n  10 | // disables itself. Programmatic focus would conceal unreachable controls.\n  11 | export async function tabToObservationControl(page: Page, target: Locator) {\n> 12 |   await expect(target).toBeVisible();\n     |                        ^\n  13 |   await expect(target).toBeEnabled();\n  14 |   for (let step = 0; step < 180; step++) {\n  15 |     if (await target.evaluate((element) => element === document.activeElement))\n    at tabToObservationControl (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/observation-inbox-accessibility.ts:12:24)\n    at edit (/Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/journey-keyboard.spec.ts:16:9)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/journey-keyboard.spec.ts:105:11",
+      "run": "1789927529684-81206",
+      "time": "2026-09-20T18:07:15.205Z",
+      "fingerprint": "aac57cf5619c214291a4127ee6f48860ee1f677df77995f723b1db81558b65df",
+      "log": "artifacts/sdlc/1789927529684-81206/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-20T18-06-31-097Z-81895/results.json",
+      "id": "BUG-7f71e314d746d160",
+      "firstSeen": "2026-09-20T18:07:15.205Z"
     }
   },
   "gates": {
-    "check": "d7e9630c0bbb50283edca31343820de9ccfa51d231f5f82e12b5c60e3adb71f2"
+    "check": "aac57cf5619c214291a4127ee6f48860ee1f677df77995f723b1db81558b65df"
   }
 }

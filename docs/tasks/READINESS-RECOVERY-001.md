@@ -41,5 +41,5 @@ API2302 stage on failure. Existing outage-only receipts are not recovery passes.
 
 ## Automated validation
 
-Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789926953092-78982.
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789927529684-81206.
 <!-- sdlc-validation:end -->

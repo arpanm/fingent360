@@ -9,13 +9,16 @@ Additive migrations124/129 are included; no dependencies or automatic source
 activation are added. BSE originals, original XBRL/taxonomy and five broker export
 layouts remain unavailable after the recorded source research.
 
-The reported CCIL check failures are repaired in authored code: the workbook
-parser accepts only retained bytes, while the fixed source URL remains separate
-edition provenance, and the capture helper accepts request IDs returned through
-the runtime-validated edition contract. API2322 contains the provenance and
-idempotent-replay regression assertions. These repairs have not been validated or
-committed; see
-[CCIL-LIQUIDITY-001](docs/tasks/CCIL-LIQUIDITY-001.md#scoped-check-repair--2026-09-20).
+The reported CCIL check and reader-recovery failures are repaired in authored
+code: the workbook parser accepts only retained bytes, while the fixed source URL
+remains separate edition provenance, and the capture helper accepts request IDs
+returned through the runtime-validated edition contract. WEB2321 now keeps its
+synthetic reader transport fault active until the surviving React StrictMode
+mount exposes the recovery UI, then verifies that the explicit retry alone adds
+one request and returns the real reviewed edition. API2322 and WEB2321 contain
+the corresponding provenance, replay and lifecycle-safe recovery regressions.
+The latest repair has not been validated or committed; see
+[CCIL-LIQUIDITY-001](docs/tasks/CCIL-LIQUIDITY-001.md#mobile-reader-recovery-follow-up--2026-09-20).
 
 The completed validation baseline at `a9e4f43` has **1527 passing case/project receipts**: 565 API, 377 desktop, 377 mobile and 208 offline-package cases. All **107 then-reviewed automated acceptance matrices passed** at that revision. [TODO](TODO.md) records **107 Done scoped tasks**, including 79 automatically accepted functional scopes; the other completions are bounded repair, tooling, documentation or historical deliveries. This is not a claim that the entire roadmap or native release is complete.
 

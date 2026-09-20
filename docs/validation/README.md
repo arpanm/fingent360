@@ -1,6 +1,6 @@
 # Story validation
 
-Latest SDLC invocation: 1789926419995-75587. Only actual test receipts count.
+Latest SDLC invocation: 1789926953092-78982. Only actual test receipts count.
 
 Automated acceptance is separate from implementation, live-source permission and physical-device acceptance.
 
@@ -19,6 +19,7 @@ Automated acceptance is separate from implementation, live-source permission and
 - [BUG-002](../tasks/BUG-002.md): **Stale — rerun required**.
 - [BUG-003](../tasks/BUG-003.md): **Stale — rerun required**.
 - [BUG-006](../tasks/BUG-006.md): **Stale — rerun required**.
+- [CCIL-LIQUIDITY-001](../tasks/CCIL-LIQUIDITY-001.md): **Partial — required cases not run**.
 - [CONNECTION-REVIEWS-001](../tasks/CONNECTION-REVIEWS-001.md): **Stale — rerun required**.
 - [CONSENT-LIFECYCLE-001](../tasks/CONSENT-LIFECYCLE-001.md): **Stale — rerun required**.
 - [DATA-001](../tasks/DATA-001.md): **Stale — rerun required**.
@@ -34,14 +35,14 @@ Automated acceptance is separate from implementation, live-source permission and
 - [DEV-019](../tasks/DEV-019.md): **Stale — rerun required**.
 - [DEV-020](../tasks/DEV-020.md): **Stale — rerun required**.
 - [DEV-021](../tasks/DEV-021.md): **Stale — rerun required**.
-- [DEV-022](../tasks/DEV-022.md): **Stale — rerun required**.
+- [DEV-022](../tasks/DEV-022.md): **Partial — required cases not run**.
 - [DEV-022-MERGERS](../tasks/DEV-022-MERGERS.md): **Stale — rerun required**.
 - [DEV-028](../tasks/DEV-028.md): **Stale — rerun required**.
 - [DEV-029](../tasks/DEV-029.md): **Stale — rerun required**.
 - [ECB-FX-001](../tasks/ECB-FX-001.md): **Stale — rerun required**.
 - [ECB-RATES-001](../tasks/ECB-RATES-001.md): **Stale — rerun required**.
 - [EIA-BENCHMARKS-001](../tasks/EIA-BENCHMARKS-001.md): **Stale — rerun required**.
-- [EQUITY-COVERAGE-001](../tasks/EQUITY-COVERAGE-001.md): **Passed — automated acceptance**.
+- [EQUITY-COVERAGE-001](../tasks/EQUITY-COVERAGE-001.md): **Stale — rerun required**.
 - [EVAL-LINEAGE-001](../tasks/EVAL-LINEAGE-001.md): **Stale — rerun required**.
 - [EVENT-EXTRACTION-001](../tasks/EVENT-EXTRACTION-001.md): **Stale — rerun required**.
 - [EVENT-LINEAGE-001](../tasks/EVENT-LINEAGE-001.md): **Stale — rerun required**.
@@ -51,7 +52,7 @@ Automated acceptance is separate from implementation, live-source permission and
 - [EVIDENCE-LINKS-001](../tasks/EVIDENCE-LINKS-001.md): **Stale — rerun required**.
 - [FEEDBACK-001](../tasks/FEEDBACK-001.md): **Stale — rerun required**.
 - [FEEDBACK-TEST-001](../tasks/FEEDBACK-TEST-001.md): **Stale — rerun required**.
-- [FUNDS-BONDS-001](../tasks/FUNDS-BONDS-001.md): **Stale — rerun required**.
+- [FUNDS-BONDS-001](../tasks/FUNDS-BONDS-001.md): **Partial — required cases not run**.
 - [GOAL-FEASIBILITY-001](../tasks/GOAL-FEASIBILITY-001.md): **Stale — rerun required**.
 - [GOAL-SCENARIOS-001](../tasks/GOAL-SCENARIOS-001.md): **Stale — rerun required**.
 - [GOALS-001](../tasks/GOALS-001.md): **Stale — rerun required**.
@@ -59,7 +60,7 @@ Automated acceptance is separate from implementation, live-source permission and
 - [IDENTITY-001](../tasks/IDENTITY-001.md): **Stale — rerun required**.
 - [IDENTITY-ADJUDICATION-001](../tasks/IDENTITY-ADJUDICATION-001.md): **Stale — rerun required**.
 - [IMPACT-TRACE-001](../tasks/IMPACT-TRACE-001.md): **Stale — rerun required**.
-- [INDEX-LEVELS-001](../tasks/INDEX-LEVELS-001.md): **Passed — automated acceptance**.
+- [INDEX-LEVELS-001](../tasks/INDEX-LEVELS-001.md): **Stale — rerun required**.
 - [INDIA-EQUITY-001](../tasks/INDIA-EQUITY-001.md): **Stale — rerun required**.
 - [LEGACY-FIXTURE-ISOLATION-001](../tasks/LEGACY-FIXTURE-ISOLATION-001.md): **Stale — rerun required**.
 - [MAPPED-IMPORT-001](../tasks/MAPPED-IMPORT-001.md): **Stale — rerun required**.
@@ -112,7 +113,7 @@ Automated acceptance is separate from implementation, live-source permission and
 - [SRC-004-LIFE-INSURANCE](../tasks/SRC-004-LIFE-INSURANCE.md): **Stale — rerun required**.
 - [SRC-004-WATCH](../tasks/SRC-004-WATCH.md): **Stale — rerun required**.
 - [SRC-005](../tasks/SRC-005.md): **Stale — rerun required**.
-- [SRC-006](../tasks/SRC-006.md): **Passed — automated acceptance**.
+- [SRC-006](../tasks/SRC-006.md): **Stale — rerun required**.
 - [SRC-007](../tasks/SRC-007.md): **Stale — rerun required**.
 - [SRC-007-ARCHIVE](../tasks/SRC-007-ARCHIVE.md): **Stale — rerun required**.
 - [SRC-007-GDP](../tasks/SRC-007-GDP.md): **Stale — rerun required**.
@@ -129,7 +130,7 @@ Automated acceptance is separate from implementation, live-source permission and
 - [SRC-016](../tasks/SRC-016.md): **Stale — rerun required**.
 - [SRC-016-AXIS](../tasks/SRC-016-AXIS.md): **Stale — rerun required**.
 - [SRC-016-FACTSHEET](../tasks/SRC-016-FACTSHEET.md): **Stale — rerun required**.
-- [SRC-017](../tasks/SRC-017.md): **Stale — rerun required**.
+- [SRC-017](../tasks/SRC-017.md): **Partial — required cases not run**.
 - [SRC-017-CURVE](../tasks/SRC-017-CURVE.md): **Stale — rerun required**.
 - [SRC-017-SOVEREIGN](../tasks/SRC-017-SOVEREIGN.md): **Stale — rerun required**.
 - [SRC-018](../tasks/SRC-018.md): **Stale — rerun required**.

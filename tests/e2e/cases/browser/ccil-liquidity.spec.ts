@@ -260,13 +260,14 @@ test('E2E-WEB-2321 liquidity pending permissions and actual response loss recove
       'ccil-liquidity-recovered-draft-360',
     );
     await reviewLiquidity(actors.reviewer, queue.editions[0].id);
-    // Reader failure recovery uses the real approved response after one transport failure.
-    let readerFail = true;
+    // Keep the fault active until the surviving mount exposes it. React may
+    // discard an earlier development mount, and its aborted request is not the
+    // user-visible failure this recovery path must exercise.
+    let failReader = true,
+      readerRequests = 0;
     await page.route('**/api/v1/bond-liquidity', (route) => {
-      if (readerFail) {
-        readerFail = false;
-        return route.abort('failed');
-      }
+      readerRequests++;
+      if (failReader) return route.abort('failed');
       return route.continue({
         url: feedbackSandbox.apiOrigin + '/api/v1/bond-liquidity',
       });
@@ -277,11 +278,15 @@ test('E2E-WEB-2321 liquidity pending permissions and actual response loss recove
       exact: true,
     });
     await expect(reader.getByRole('alert')).toBeVisible();
+    const requestsBeforeRetry = readerRequests;
+    expect(requestsBeforeRetry).toBeGreaterThan(0);
+    failReader = false;
     await activateObservationControl(
       page,
       reader.getByRole('button', { name: 'Retry liquidity evidence' }),
     );
     await expect(reader).toContainText('05.74 GS 2026');
+    expect(readerRequests).toBe(requestsBeforeRetry + 1);
   } finally {
     release();
     await actors.reviewer.dispose();

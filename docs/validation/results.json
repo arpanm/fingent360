@@ -23243,6 +23243,246 @@
       "fingerprint": "d7e9630c0bbb50283edca31343820de9ccfa51d231f5f82e12b5c60e3adb71f2",
       "log": "artifacts/sdlc/1789926419995-75587/16-pnpm-android_test.log",
       "report": "artifacts/e2e/offline-1789926897503-78885/results.json"
+    },
+    "4a7f6fbc4e2041069f5b1e4393c34400a9b44a532fc5b46aa93fa42bbe86c6a8": {
+      "key": "4a7f6fbc4e2041069f5b1e4393c34400a9b44a532fc5b46aa93fa42bbe86c6a8",
+      "caseId": "E2E-API-2320",
+      "project": "api",
+      "title": "E2E-API-2320 CCIL workbook preserves source lexemes null depth and rejects altered structure and dates @CCIL-LIQUIDITY-001 @SRC-017 @TEST-SIMULATION",
+      "file": "api/ccil-liquidity.spec.ts",
+      "stories": [
+        "CCIL-LIQUIDITY-001",
+        "SRC-017",
+        "FUNDS-BONDS-001",
+        "DEV-022"
+      ],
+      "status": "passed",
+      "details": "",
+      "run": "1789926953092-78982",
+      "time": "2026-09-20T17:59:50.794Z",
+      "fingerprint": "d7e9630c0bbb50283edca31343820de9ccfa51d231f5f82e12b5c60e3adb71f2",
+      "log": "artifacts/sdlc/1789926953092-78982/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-20T17-57-00-217Z-79719/results.json"
+    },
+    "f202dccde681286405851660600ec2c9484f1c52a4ec8f15640594c4f1df91e8": {
+      "key": "f202dccde681286405851660600ec2c9484f1c52a4ec8f15640594c4f1df91e8",
+      "caseId": "E2E-API-2321",
+      "project": "api",
+      "title": "E2E-API-2321 CCIL default permission gate refuses retention and returns no public liquidity @CCIL-LIQUIDITY-001 @SRC-017 @TEST-SIMULATION",
+      "file": "api/ccil-liquidity.spec.ts",
+      "stories": [
+        "CCIL-LIQUIDITY-001",
+        "SRC-017",
+        "FUNDS-BONDS-001",
+        "DEV-022"
+      ],
+      "status": "passed",
+      "details": "",
+      "run": "1789926953092-78982",
+      "time": "2026-09-20T17:59:50.794Z",
+      "fingerprint": "d7e9630c0bbb50283edca31343820de9ccfa51d231f5f82e12b5c60e3adb71f2",
+      "log": "artifacts/sdlc/1789926953092-78982/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-20T17-57-00-217Z-79719/results.json"
+    },
+    "582513933962b230b4535dfc6373c6902f2baef2e34fd904edc9175ab9c2eaa3": {
+      "key": "582513933962b230b4535dfc6373c6902f2baef2e34fd904edc9175ab9c2eaa3",
+      "caseId": "E2E-API-2322",
+      "project": "api",
+      "title": "E2E-API-2322 CCIL retained original hash idempotency independent review quarantine and withdrawal @CCIL-LIQUIDITY-001 @SRC-017 @TEST-SIMULATION",
+      "file": "api/ccil-liquidity.spec.ts",
+      "stories": [
+        "CCIL-LIQUIDITY-001",
+        "SRC-017",
+        "FUNDS-BONDS-001",
+        "DEV-022"
+      ],
+      "status": "passed",
+      "details": "",
+      "run": "1789926953092-78982",
+      "time": "2026-09-20T17:59:50.794Z",
+      "fingerprint": "d7e9630c0bbb50283edca31343820de9ccfa51d231f5f82e12b5c60e3adb71f2",
+      "log": "artifacts/sdlc/1789926953092-78982/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-20T17-57-00-217Z-79719/results.json"
+    },
+    "27289d30371c12c34810d925cfc5d698a95c8d547738f1e72c3da481dcab3b50": {
+      "key": "27289d30371c12c34810d925cfc5d698a95c8d547738f1e72c3da481dcab3b50",
+      "caseId": "E2E-API-2323",
+      "project": "api",
+      "title": "E2E-API-2323 CCIL ingress enforces fixed source canonical bytes origin and authenticated raw access @CCIL-LIQUIDITY-001 @SRC-017 @TEST-SIMULATION",
+      "file": "api/ccil-liquidity.spec.ts",
+      "stories": [
+        "CCIL-LIQUIDITY-001",
+        "SRC-017",
+        "FUNDS-BONDS-001",
+        "DEV-022"
+      ],
+      "status": "passed",
+      "details": "",
+      "run": "1789926953092-78982",
+      "time": "2026-09-20T17:59:50.794Z",
+      "fingerprint": "d7e9630c0bbb50283edca31343820de9ccfa51d231f5f82e12b5c60e3adb71f2",
+      "log": "artifacts/sdlc/1789926953092-78982/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-20T17-57-00-217Z-79719/results.json"
+    },
+    "c907ec5ff6aadb1e5282cc6bf9125eaf3311e73c19e3f188f292ad2cac00e626": {
+      "key": "c907ec5ff6aadb1e5282cc6bf9125eaf3311e73c19e3f188f292ad2cac00e626",
+      "caseId": "E2E-API-2324",
+      "project": "api",
+      "title": "E2E-API-2324 CCIL full history pagination and snapshot capacity cannot silently drop reviewed editions @CCIL-LIQUIDITY-001 @SRC-017 @TEST-SIMULATION",
+      "file": "api/ccil-liquidity.spec.ts",
+      "stories": [
+        "CCIL-LIQUIDITY-001",
+        "SRC-017",
+        "FUNDS-BONDS-001",
+        "DEV-022"
+      ],
+      "status": "passed",
+      "details": "",
+      "run": "1789926953092-78982",
+      "time": "2026-09-20T17:59:50.794Z",
+      "fingerprint": "d7e9630c0bbb50283edca31343820de9ccfa51d231f5f82e12b5c60e3adb71f2",
+      "log": "artifacts/sdlc/1789926953092-78982/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-20T17-57-00-217Z-79719/results.json"
+    },
+    "7a9e3afe7a2097204bded93ee3fc7d17a17c2a4b4be7ce862d15345e42db867d": {
+      "key": "7a9e3afe7a2097204bded93ee3fc7d17a17c2a4b4be7ce862d15345e42db867d",
+      "caseId": "E2E-API-2325",
+      "project": "api",
+      "title": "E2E-API-2325 CCIL upstream simulation exercises actual fixed-original fetch retention and source identity @CCIL-LIQUIDITY-001 @SRC-017 @TEST-SIMULATION",
+      "file": "api/ccil-liquidity.spec.ts",
+      "stories": [
+        "CCIL-LIQUIDITY-001",
+        "SRC-017",
+        "FUNDS-BONDS-001",
+        "DEV-022"
+      ],
+      "status": "passed",
+      "details": "",
+      "run": "1789926953092-78982",
+      "time": "2026-09-20T17:59:50.794Z",
+      "fingerprint": "d7e9630c0bbb50283edca31343820de9ccfa51d231f5f82e12b5c60e3adb71f2",
+      "log": "artifacts/sdlc/1789926953092-78982/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-20T17-57-00-217Z-79719/results.json"
+    },
+    "e379ab9bc21af72fef5c89cceb595f184ee5f9a20c855ce9287b797352813c8f": {
+      "key": "e379ab9bc21af72fef5c89cceb595f184ee5f9a20c855ce9287b797352813c8f",
+      "caseId": "E2E-WEB-2320",
+      "project": "desktop",
+      "title": "E2E-WEB-2320 actual liquidity file review source paging and reader work by keyboard at narrow width @CCIL-LIQUIDITY-001 @SRC-017 @TEST-SIMULATION",
+      "file": "browser/ccil-liquidity.spec.ts",
+      "stories": [
+        "CCIL-LIQUIDITY-001",
+        "SRC-017",
+        "FUNDS-BONDS-001",
+        "DEV-022"
+      ],
+      "status": "passed",
+      "details": "",
+      "run": "1789926953092-78982",
+      "time": "2026-09-20T17:59:50.794Z",
+      "fingerprint": "d7e9630c0bbb50283edca31343820de9ccfa51d231f5f82e12b5c60e3adb71f2",
+      "log": "artifacts/sdlc/1789926953092-78982/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-20T17-57-00-217Z-79719/results.json"
+    },
+    "571f2c1bbcb272713bccb77e061b0c3a7d22fae76cc83c1d8b28d3a66d6bd60f": {
+      "key": "571f2c1bbcb272713bccb77e061b0c3a7d22fae76cc83c1d8b28d3a66d6bd60f",
+      "caseId": "E2E-WEB-2321",
+      "project": "desktop",
+      "title": "E2E-WEB-2321 liquidity pending permissions and actual response loss recover without duplicate capture @CCIL-LIQUIDITY-001 @SRC-017 @TEST-SIMULATION",
+      "file": "browser/ccil-liquidity.spec.ts",
+      "stories": [
+        "CCIL-LIQUIDITY-001",
+        "SRC-017",
+        "FUNDS-BONDS-001",
+        "DEV-022"
+      ],
+      "status": "passed",
+      "details": "",
+      "run": "1789926953092-78982",
+      "time": "2026-09-20T18:02:17.936Z",
+      "fingerprint": "85265060be01da92beecf7d4999ac5e9f11ad57a09583b5933c4559712839441",
+      "log": "artifacts/sdlc/1789926953092-78982/08-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-20T18-02-08-886Z-80432/results.json"
+    },
+    "1a5925c579912240cd8f884fad266deae26473674763332aa13886af814851ea": {
+      "key": "1a5925c579912240cd8f884fad266deae26473674763332aa13886af814851ea",
+      "caseId": "E2E-WEB-2320",
+      "project": "mobile",
+      "title": "E2E-WEB-2320 actual liquidity file review source paging and reader work by keyboard at narrow width @CCIL-LIQUIDITY-001 @SRC-017 @TEST-SIMULATION",
+      "file": "browser/ccil-liquidity.spec.ts",
+      "stories": [
+        "CCIL-LIQUIDITY-001",
+        "SRC-017",
+        "FUNDS-BONDS-001",
+        "DEV-022"
+      ],
+      "status": "passed",
+      "details": "",
+      "run": "1789926953092-78982",
+      "time": "2026-09-20T17:59:50.794Z",
+      "fingerprint": "d7e9630c0bbb50283edca31343820de9ccfa51d231f5f82e12b5c60e3adb71f2",
+      "log": "artifacts/sdlc/1789926953092-78982/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-20T17-57-00-217Z-79719/results.json"
+    },
+    "b8d4d5a01a3ed2a6868d4c80b8719ed7bd3e504650481244ebe157477a4495a3": {
+      "key": "b8d4d5a01a3ed2a6868d4c80b8719ed7bd3e504650481244ebe157477a4495a3",
+      "caseId": "E2E-WEB-2321",
+      "project": "mobile",
+      "title": "E2E-WEB-2321 liquidity pending permissions and actual response loss recover without duplicate capture @CCIL-LIQUIDITY-001 @SRC-017 @TEST-SIMULATION",
+      "file": "browser/ccil-liquidity.spec.ts",
+      "stories": [
+        "CCIL-LIQUIDITY-001",
+        "SRC-017",
+        "FUNDS-BONDS-001",
+        "DEV-022"
+      ],
+      "status": "passed",
+      "details": "",
+      "run": "1789926953092-78982",
+      "time": "2026-09-20T18:05:01.536Z",
+      "fingerprint": "aac57cf5619c214291a4127ee6f48860ee1f677df77995f723b1db81558b65df",
+      "log": "artifacts/sdlc/1789926953092-78982/10-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-20T18-04-52-972Z-80944/results.json"
+    },
+    "6b8dbb346304483b045a522a0130b3e3d0a30038afc3555e3cb9823c4c6c8804": {
+      "key": "6b8dbb346304483b045a522a0130b3e3d0a30038afc3555e3cb9823c4c6c8804",
+      "caseId": "E2E-OFFLINE-2320",
+      "project": "offline",
+      "title": "E2E-OFFLINE-2320 frozen historical liquidity preserves nulls and exact source fields excludes withdrawal and forbids writes @CCIL-LIQUIDITY-001 @SRC-017 @TEST-SIMULATION",
+      "file": "offline/ccil-liquidity.spec.ts",
+      "stories": [
+        "CCIL-LIQUIDITY-001",
+        "SRC-017",
+        "FUNDS-BONDS-001",
+        "DEV-022"
+      ],
+      "status": "passed",
+      "details": "",
+      "run": "1789926953092-78982",
+      "time": "2026-09-20T18:05:15.744Z",
+      "fingerprint": "aac57cf5619c214291a4127ee6f48860ee1f677df77995f723b1db81558b65df",
+      "log": "artifacts/sdlc/1789926953092-78982/12-pnpm-android_test.log",
+      "report": "artifacts/e2e/offline-1789927511912-81110/results.json"
+    },
+    "c6ef4330107d2ff570ad1fc733e2e06d4b705e976b88ed898a049c6bfbc1645d": {
+      "key": "c6ef4330107d2ff570ad1fc733e2e06d4b705e976b88ed898a049c6bfbc1645d",
+      "caseId": "E2E-OFFLINE-2321",
+      "project": "offline",
+      "title": "E2E-OFFLINE-2321 installed Funds and bonds liquidity navigation search and paging use frozen source or explicit disabled state without API network @CCIL-LIQUIDITY-001 @SRC-017",
+      "file": "offline/ccil-liquidity.spec.ts",
+      "stories": [
+        "CCIL-LIQUIDITY-001",
+        "SRC-017",
+        "FUNDS-BONDS-001",
+        "DEV-022"
+      ],
+      "status": "passed",
+      "details": "",
+      "run": "1789926953092-78982",
+      "time": "2026-09-20T18:05:15.744Z",
+      "fingerprint": "aac57cf5619c214291a4127ee6f48860ee1f677df77995f723b1db81558b65df",
+      "log": "artifacts/sdlc/1789926953092-78982/12-pnpm-android_test.log",
+      "report": "artifacts/e2e/offline-1789927511912-81110/results.json"
     }
   },
   "bugs": {
@@ -29684,9 +29924,9 @@
       "id": "BUG-efa18bcf6151b6e5",
       "firstSeen": "2026-09-18T05:11:23.620Z",
       "resolvedBy": {
-        "run": "1789722425545-83879",
-        "time": "2026-09-18T09:23:03.835Z",
-        "log": "artifacts/sdlc/1789722425545-83879/11-pnpm-build.log"
+        "run": "1789926953092-78982",
+        "time": "2026-09-20T18:04:52.624Z",
+        "log": "artifacts/sdlc/1789926953092-78982/09-pnpm-build.log"
       }
     },
     "BUG-a47611ab64789eb8": {
@@ -29705,10 +29945,10 @@
       "id": "BUG-a47611ab64789eb8",
       "firstSeen": "2026-09-18T05:33:44.718Z",
       "resolvedBy": {
-        "run": "1789926419995-75587",
-        "time": "2026-09-20T17:53:47.285Z",
+        "run": "1789926953092-78982",
+        "time": "2026-09-20T17:56:59.761Z",
         "fingerprint": "d7e9630c0bbb50283edca31343820de9ccfa51d231f5f82e12b5c60e3adb71f2",
-        "log": "artifacts/sdlc/1789926419995-75587/10-pnpm-check.log"
+        "log": "artifacts/sdlc/1789926953092-78982/02-pnpm-check.log"
       }
     },
     "BUG-a0826694511b6915": {
@@ -30957,6 +31197,64 @@
         "fingerprint": "adcaf88ae7f65f19990282ccf9acd2763ad20fd146f414e37c21d89781af6c01",
         "log": "artifacts/sdlc/final-scoped-1789857073654/2002.log",
         "report": "artifacts/e2e/2026-09-19T22-31-13-940Z-56957/results.json"
+      }
+    },
+    "BUG-571f2c1bbcb27271": {
+      "key": "571f2c1bbcb272713bccb77e061b0c3a7d22fae76cc83c1d8b28d3a66d6bd60f",
+      "caseId": "E2E-WEB-2321",
+      "project": "desktop",
+      "title": "E2E-WEB-2321 liquidity pending permissions and actual response loss recover without duplicate capture @CCIL-LIQUIDITY-001 @SRC-017 @TEST-SIMULATION",
+      "file": "browser/ccil-liquidity.spec.ts",
+      "stories": [
+        "CCIL-LIQUIDITY-001",
+        "SRC-017",
+        "FUNDS-BONDS-001",
+        "DEV-022"
+      ],
+      "status": "Resolved",
+      "details": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByRole('region', { name: 'Historical government-security liquidity', exact: true }).getByRole('alert')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" with timeout 10000ms\n  - waiting for getByRole('region', { name: 'Historical government-security liquidity', exact: true }).getByRole('alert')\n\n\n  277 |       exact: true,\n  278 |     });\n> 279 |     await expect(reader.getByRole('alert')).toBeVisible();\n      |                                             ^\n  280 |     await activateObservationControl(\n  281 |       page,\n  282 |       reader.getByRole('button', { name: 'Retry liquidity evidence' }),\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/ccil-liquidity.spec.ts:279:45\nTest timeout of 30000ms exceeded.",
+      "run": "1789926953092-78982",
+      "time": "2026-09-20T17:59:50.794Z",
+      "fingerprint": "d7e9630c0bbb50283edca31343820de9ccfa51d231f5f82e12b5c60e3adb71f2",
+      "log": "artifacts/sdlc/1789926953092-78982/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-20T17-57-00-217Z-79719/results.json",
+      "id": "BUG-571f2c1bbcb27271",
+      "firstSeen": "2026-09-20T17:59:50.794Z",
+      "resolvedBy": {
+        "run": "1789926953092-78982",
+        "time": "2026-09-20T18:02:17.936Z",
+        "fingerprint": "85265060be01da92beecf7d4999ac5e9f11ad57a09583b5933c4559712839441",
+        "log": "artifacts/sdlc/1789926953092-78982/08-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-20T18-02-08-886Z-80432/results.json"
+      }
+    },
+    "BUG-b8d4d5a01a3ed2a6": {
+      "key": "b8d4d5a01a3ed2a6868d4c80b8719ed7bd3e504650481244ebe157477a4495a3",
+      "caseId": "E2E-WEB-2321",
+      "project": "mobile",
+      "title": "E2E-WEB-2321 liquidity pending permissions and actual response loss recover without duplicate capture @CCIL-LIQUIDITY-001 @SRC-017 @TEST-SIMULATION",
+      "file": "browser/ccil-liquidity.spec.ts",
+      "stories": [
+        "CCIL-LIQUIDITY-001",
+        "SRC-017",
+        "FUNDS-BONDS-001",
+        "DEV-022"
+      ],
+      "status": "Resolved",
+      "details": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByRole('region', { name: 'Historical government-security liquidity', exact: true }).getByRole('alert')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" with timeout 10000ms\n  - waiting for getByRole('region', { name: 'Historical government-security liquidity', exact: true }).getByRole('alert')\n\n\n  277 |       exact: true,\n  278 |     });\n> 279 |     await expect(reader.getByRole('alert')).toBeVisible();\n      |                                             ^\n  280 |     await activateObservationControl(\n  281 |       page,\n  282 |       reader.getByRole('button', { name: 'Retry liquidity evidence' }),\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/ccil-liquidity.spec.ts:279:45\nTest timeout of 30000ms exceeded.",
+      "run": "1789926953092-78982",
+      "time": "2026-09-20T17:59:50.794Z",
+      "fingerprint": "d7e9630c0bbb50283edca31343820de9ccfa51d231f5f82e12b5c60e3adb71f2",
+      "log": "artifacts/sdlc/1789926953092-78982/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-20T17-57-00-217Z-79719/results.json",
+      "id": "BUG-b8d4d5a01a3ed2a6",
+      "firstSeen": "2026-09-20T17:59:50.794Z",
+      "resolvedBy": {
+        "run": "1789926953092-78982",
+        "time": "2026-09-20T18:05:01.536Z",
+        "fingerprint": "aac57cf5619c214291a4127ee6f48860ee1f677df77995f723b1db81558b65df",
+        "log": "artifacts/sdlc/1789926953092-78982/10-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-20T18-04-52-972Z-80944/results.json"
       }
     }
   },

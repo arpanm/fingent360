@@ -1205,6 +1205,9 @@ snapshots. API2320–2325, WEB2320/2321 desktop/mobile and OFFLINE2320/2321 are 
 matrix. No ISIN, current executable quote or inferred metric convention is created.
 API2322 also fixes the parser boundary: workbook content is parsed only from retained
 bytes while the fixed source URL remains separate provenance on the edition.
+WEB2321 also keeps the public-reader transport fault active through any discarded
+development StrictMode mounts. The surviving reader must expose recovery, after
+which the user retry adds exactly one request and renders the reviewed edition.
 
 SLICE-001 adds WEB2315 on desktop/mobile for the full actual keyboard-only virtual
 workspace journey, including correction/reload/deletion and exact stored receipts.

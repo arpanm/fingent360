@@ -228,3 +228,80 @@ tests/e2e/cases/api/ccil-liquidity.spec.ts`. Expected: no lint diagnostic in
   Expected: the TS2345 diagnostic at API2322 line139 is absent and the command
   exits successfully. If it fails, report the command, exit status and first
   diagnostic only; do not include credentials or private artifacts.
+
+## Scoped reader recovery repair — 2026-09-20
+
+- **Input:** User-supplied E2E-WEB-2321 desktop failure from saved run
+  `1789927022541-d96af7ff-cfac-46ba-8451-555a61cf5d3e`, started
+  2026-09-20T17:57:02.541Z against API port4104 and web port5176. The reader
+  alert was absent after the test aborted its first public-liquidity request.
+- **Cause:** `CcilLiquidityReader` started its request synchronously inside the
+  mount effect. React development StrictMode invoked the effect, immediately
+  cleaned up that discarded mount, and invoked it again. The discarded request
+  consumed the one-shot transport failure; its abort was correctly ignored,
+  while the active request succeeded and therefore rendered no recovery alert.
+- **Implementation:** Defer request setup to a microtask and check the effect's
+  abort signal before starting it. StrictMode cleanup can now cancel the
+  discarded setup without network traffic. Real failures from the surviving
+  mount remain visible and the existing button performs the explicit retry.
+- **Regression:** E2E-WEB-2321 now counts the real public-reader requests: one
+  active request must expose the alert, and activating retry must issue exactly
+  one additional request and render the independently reviewed edition. The
+  real API/storage path and transport failure remain in use.
+- **Unchanged boundaries:** Contracts, API, database, migration129, offline
+  snapshot behavior, source activation and permission gates are unchanged.
+  Source permission and physical-device acceptance remain open.
+- **Verification:** Authored only. No format, lint, typecheck, build, test,
+  service, migration, ingestion, commit or browser automation was run. The
+  parent script owns the exact desktop case retry.
+- **Smallest validation:**
+  `pnpm e2e:run '/Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/ccil-liquidity\.spec\.ts' --project=desktop --grep 'E2E-WEB-2321 liquidity pending permissions and actual response loss recover without duplicate capture @CCIL-LIQUIDITY-001 @SRC-017 @TEST-SIMULATION$'`.
+  Expected: the reader shows the first failure, retry renders `05.74 GS 2026`,
+  and the case passes with one initial reader request plus one retry. On failure,
+  report the run ID, project, assertion/error context and trace path without
+  credentials or private artifacts.
+
+## Mobile reader recovery follow-up — 2026-09-20
+
+- **Input:** The parent rerun passed the desktop instance recorded in
+  `artifacts/e2e/latest.md` as run
+  `1789927329576-2e833b83-fbb4-4595-8a30-1bd80ace29ea`, started
+  2026-09-20T18:02:09.576Z against API port4104 and web port5176. The supplied
+  mobile rerun then failed at WEB2321 line279 because the expected reader alert
+  was absent. The saved report covers desktop only and is not evidence for this
+  mobile repair.
+- **Corrected cause:** The one-shot route fault was coupled to an assumed count
+  of React development mount requests. A discarded or superseded StrictMode
+  mount could consume that one synthetic failure, allowing the surviving mount
+  to load successfully and leaving no alert. Deferring the reader request by a
+  microtask did not define a reliable lifecycle boundary across both projects.
+  This was a test fault-injection race, not evidence that the reader ignored a
+  failure from its surviving request.
+- **Implementation:** Restore the reader's ordinary abortable effect. In
+  WEB2321, keep aborting public-reader requests until the surviving mount renders
+  its alert. Then disable the injected fault, activate the real recovery button
+  and require exactly one additional request to return the independently
+  reviewed edition from the actual API/storage path.
+- **Regression value:** The case still requires visible failure and explicit
+  user recovery, does not mock a successful response, and detects duplicate
+  requests after retry. It no longer treats development-only discarded mounts
+  as user-visible failures or relies on their timing/count.
+- **Unchanged boundaries:** Contracts, API, database, migration129, production
+  UI behavior, offline snapshots, source activation and permission gates are
+  unchanged. Source permission and physical-device acceptance remain open.
+- **Verification:** Authored only. No format, lint, typecheck, build, test,
+  service, migration, ingestion, commit or browser automation was run. The
+  parent script owns the exact mobile case retry.
+- **Smallest validation:**
+  `pnpm e2e:run '/Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/ccil-liquidity\.spec\.ts' --project=mobile --grep 'E2E-WEB-2321 liquidity pending permissions and actual response loss recover without duplicate capture @CCIL-LIQUIDITY-001 @SRC-017 @TEST-SIMULATION$'`.
+  Expected: the surviving reader displays its alert, the explicit retry renders
+  `05.74 GS 2026`, and only one request is added after recovery is activated. On
+  failure report the run ID, project, assertion/error context and trace path;
+  do not include credentials or private artifacts.
+
+<!-- sdlc-validation:start -->
+
+## Automated validation
+
+Partial — required cases not run. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789926953092-78982.
+<!-- sdlc-validation:end -->

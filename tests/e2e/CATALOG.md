@@ -934,7 +934,7 @@ acceptance remains separate. See INDEX-LEVELS-001 and SLICE-001 for manual comma
 - **E2E-API-2324** (api): complete public/Operations continuation and explicit snapshot capacity failure.
 - **E2E-API-2325** (api): real fixed-original fetch through synthetic upstream, retained receipt replay without another provider call.
 - **E2E-WEB-2320** (desktop/mobile): actual file/review/row-page/reader workflow by keyboard at narrow width. `cases/browser/ccil-liquidity.spec.ts`.
-- **E2E-WEB-2321** (desktop/mobile): pending permission, real committed-response loss/idempotent retry and reader recovery.
+- **E2E-WEB-2321** (desktop/mobile): pending permission, real committed-response loss/idempotent retry and reader recovery; the fault persists through discarded StrictMode mounts, and the explicit retry adds exactly one request.
 - **E2E-OFFLINE-2320** (offline): frozen exact historical liquidity, missing-value semantics, withdrawal exclusion and mutation refusal. `cases/offline/ccil-liquidity.spec.ts`.
 - **E2E-OFFLINE-2321** (offline): actual installed Funds/Bonds reader navigation/search/paging or explicit unavailable state with no API traffic.
 

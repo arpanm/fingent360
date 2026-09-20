@@ -13,6 +13,8 @@ import {
   eventSourcesCurrent,
   SecurityDirectorySchema,
   SecurityHistorySchema,
+  ReleaseGroupQuerySchema,
+  projectReleaseGroups,
 } from '@fingent360/contracts';
 import { fail, type OfflineHandler } from './types';
 export const handleEvents: OfflineHandler = (request, _state, bundle) => {
@@ -96,6 +98,27 @@ export const handleEvents: OfflineHandler = (request, _state, bundle) => {
           },
     );
   });
+  if (request.path === base + '/release-groups') {
+    if (
+      [...request.query.keys()].some(
+        (key) => request.query.getAll(key).length !== 1,
+      )
+    )
+      fail(400, 'Duplicate release-group filter.');
+    const query = ReleaseGroupQuerySchema.parse(
+      Object.fromEntries(request.query),
+    );
+    const admitted = safe.filter((record) => {
+      const lineage = bundle.eventLineage?.[record.id];
+      return (
+        !lineage ||
+        !EventLineagePublicSchema.parse(lineage).relations.some(
+          (relation) => relation.direction === 'replaced-by',
+        )
+      );
+    });
+    return { body: projectReleaseGroups(admitted, query.sources, evaluatedAt) };
+  }
   if (request.path === base) {
     if (
       [...request.query.keys()].some(

@@ -38,6 +38,8 @@ import { researchSources } from './research-providers.js';
 import { OperatorRead, OperatorAction } from './operator-permissions.js';
 import { OPERATOR_STORE, OperatorStore } from './operator.js';
 export const RESEARCH_AUTO_STORE = Symbol('RESEARCH_AUTO_STORE');
+export type ResearchAutoTickOutcome =
+  'disabled' | 'lock-busy' | 'not-due' | 'completed';
 
 export class ResearchAutoStore {
   private readonly pool: pg.Pool;
@@ -268,8 +270,8 @@ export class ResearchAutoStore {
     );
     return hash;
   }
-  async tick() {
-    if (!this.workerEnabled) return;
+  async tick(): Promise<ResearchAutoTickOutcome> {
+    if (!this.workerEnabled) return 'disabled';
     await this.initialize();
     const c = await this.pool.connect();
     let locked = false;
@@ -282,7 +284,7 @@ export class ResearchAutoStore {
             'SELECT pg_try_advisory_lock(360954) AS locked',
           )
         ).rows[0]?.locked === true;
-      if (!locked) return;
+      if (!locked) return 'lock-busy';
       await c.query(
         "UPDATE research_auto_runs SET status='failed',finished_at=now(),message='Interrupted attempt; content-addressed retry is safe.' WHERE status='running'",
       );
@@ -291,7 +293,7 @@ export class ResearchAutoStore {
           'SELECT source_id FROM research_auto_schedules WHERE enabled AND next_at<=now() ORDER BY next_at,source_id LIMIT 1',
         )
       ).rows[0];
-      if (!row) return;
+      if (!row) return 'not-due';
       source = row.source_id;
       id = randomUUID();
       await c.query(
@@ -341,6 +343,7 @@ export class ResearchAutoStore {
         "UPDATE research_auto_schedules SET last_status='succeeded',next_at=now()+interval_minutes*interval '1 minute',message=$2 WHERE source_id=$1",
         [source, publication.message],
       );
+      return 'completed';
     } catch (error) {
       if (id && source) {
         await c.query(
@@ -373,6 +376,7 @@ export class ResearchAutoWorker {
       if (!this.active)
         this.active = this.store
           .tick()
+          .then(() => {})
           .catch(() => {})
           .finally(() => {
             this.active = undefined;

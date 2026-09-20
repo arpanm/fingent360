@@ -1,5 +1,9 @@
 # Task pickup queue — 2026-09-15
 
+## Current authoring — 20 September 2026
+
+READINESS-RECOVERY-001 and RESEARCH-WORKER-ISOLATION-001 now have authored repairs and actual-dependency regression cases. UX-002C adds reviewed same-event release grouping; ASSIST-001 adds offline field/name help parity. FEEDBACK-001 and STORY-MEDIA-002 add missing real submission/generation workflow acceptance. Follow [the delivery record](../development/nondeferred-authoring-2026-09-20.md) for precise status and smallest manual commands. These changes do not inherit old passing receipts; unavailable broker originals, source/provider activation and physical-device requirements remain their named task inputs.
+
 Readiness is separate from implementation status. No fresh question is necessary for the next independent work. [Existing answers and initial research](input-research-2026-09-15.md) are recorded, not assumed licences or test passes.
 
 Reviewed 126 blocked/partial/validation-pending records.

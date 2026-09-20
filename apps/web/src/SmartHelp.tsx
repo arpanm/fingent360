@@ -1,4 +1,5 @@
 import { useEffect, useId, useRef, useState } from 'react';
+import { runtime } from './runtime';
 import {
   AssistanceOptionsSchema,
   AssistanceResultSchema,
@@ -143,7 +144,10 @@ export function SmartHelp({
         }}
         value={query}
         maxLength={500}
-        onChange={(event) => setQuery(event.target.value)}
+        onChange={(event) => {
+          setQuery(event.target.value);
+          setResult(null);
+        }}
         placeholder={
           scope === 'goals'
             ? 'For example: name my education goal'
@@ -176,9 +180,11 @@ export function SmartHelp({
         ))}
       </select>
       <p>
-        {provider === 'query'
-          ? 'Your question is matched on this server without calling an AI provider.'
-          : 'Your question and relevant reference excerpts may be sent to the configured provider. Avoid including private documents or secrets in your question.'}
+        {runtime.mode === 'offline'
+          ? 'Your question is matched on this device. No cloud AI request is made.'
+          : provider === 'query'
+            ? 'Your question is matched on this server without calling an AI provider.'
+            : 'Your question and relevant reference excerpts may be sent to the configured provider. Avoid including private documents or secrets in your question.'}
       </p>
       <label className="check-label">
         <input
@@ -241,6 +247,15 @@ export function SmartHelp({
       {error && <p role="alert">{error}</p>}
       {result && (
         <section aria-label="Assistance results">
+          <button type="button" onClick={() => setResult(null)}>
+            Dismiss assistance results
+          </button>
+          {result.suggestions.length === 0 && (
+            <p>
+              No matching suggestions. Try a different question or enter your
+              own details.
+            </p>
+          )}
           <p role="status">{result.message}</p>
           <p className="muted">
             {result.provider === 'query'

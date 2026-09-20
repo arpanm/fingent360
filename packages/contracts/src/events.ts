@@ -1,3 +1,4 @@
+import { DiscoveryIdSchema } from './discovery.js';
 import {
   IdentitySelectionReceiptSchema,
   selectionMatchesProvider,
@@ -47,8 +48,29 @@ export const EventEditorialSchema = z
     effectiveAt: z.iso.datetime().nullable(),
     citations: z.array(EventCitationSchema).min(1).max(5),
     links: z.array(EventLinkSchema).max(10),
+    releaseGroup: z
+      .strictObject({
+        sourceIds: z.array(DiscoveryIdSchema).min(2).max(5),
+        rationale: z.string().trim().min(12).max(1000),
+      })
+      .optional(),
   })
   .superRefine((value, context) => {
+    if (
+      value.releaseGroup &&
+      (value.claimKind !== 'fact' ||
+        new Set(value.releaseGroup.sourceIds).size !==
+          value.releaseGroup.sourceIds.length ||
+        value.releaseGroup.sourceIds.some(
+          (id) => !value.citations.some((citation) => citation.sourceId === id),
+        ))
+    )
+      context.addIssue({
+        code: 'custom',
+        path: ['releaseGroup'],
+        message:
+          'A same-event group needs two to five distinct cited releases of a fact event.',
+      });
     if (value.links.some((link) => link.citation >= value.citations.length))
       context.addIssue({
         code: 'custom',

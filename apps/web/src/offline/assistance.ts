@@ -1,4 +1,5 @@
 import {
+  assistanceTemplates,
   AssistanceInputSchema,
   AssistanceResultSchema,
 } from '@fingent360/contracts';
@@ -48,6 +49,17 @@ export function handleAssistance(
         private: false,
       },
     }));
+  for (const template of assistanceTemplates(input.scope, input.query))
+    records.push({
+      text: template.text,
+      type: template.type,
+      source: {
+        id: template.id,
+        title: template.title,
+        href: template.href,
+        private: false,
+      },
+    });
   if (input.useHistory && input.scope === 'goals')
     for (const goal of localGoals(state, user.id))
       records.push({

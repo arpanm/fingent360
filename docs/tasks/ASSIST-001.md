@@ -1,6 +1,6 @@
 # ASSIST-001 — Configurable AI and query-based form suggestions
 
-- **Status:** Implemented; validation pending
+- **Status:** Completed implementation; new validation and provider/device acceptance pending
 - **Implemented / recorded:** - ASSIST-001 (UX-002E): Implemented; live provider validation pending configured provider/model acceptance. This restores the existing case/documentation ID in TODO, not a new feature. Request: configurable OpenAI, Gemini and Anthropic assistance, with query/history-based suggestions without credentials, no operator keys in investor forms. Scope/evidence: apps/api/src/assistance.ts, apps/web/src/SmartHelp.tsx, docs/development/assistance.md and existing ASSIST-001 cases. Detailed Codex promp
 - **Pending:** User: run the task’s documented validation; implementation is not a test pass.
 - **Next action / inputs:** No new code decision. Use existing provider/offline choices; collect actual validation and activation evidence.
@@ -64,3 +64,27 @@ The complete current automated matrix passed. The reviewed manifest retains thes
 
 - Saved acceptance for configured provider/model choices is explicitly pending in ASSIST-001; fallback is not a live-provider pass.
 - Confirm documented offline assistance/query acceptance; located existing ASSIST-001 cases cover connected API/browser and normal check-gate adapter fixtures, not a complete offline browser workflow.
+
+## Offline assistance completion specification — 20 September 2026
+
+The shared web/app help must offer the same authored field explanations and editable
+query-derived goal names without a server. Query help uses only downloaded content
+and explicitly selected own-device history; it must never imply a cloud request or
+silently edit a form. Add explicit empty and Dismiss states and keep Apply explicit.
+Author offline browser acceptance for name application, history opt-in/withdrawal,
+reload and zero API/provider network transport. Existing connected API/browser
+coverage remains. Reuse current assistance contracts/storage; no migration or key
+change. Configured live-model acceptance remains an independent requirement.
+
+Implementation now shares authored field explanations and query-derived names
+through `assistanceTemplates` in contracts, consumed by connected and offline help.
+The shared UI identifies on-device matching correctly, clears old query results on
+edit, offers Dismiss, and explains no matches. OFFLINE150 authors a real local
+account/goal workflow with explicit Apply, history opt-in/withdrawal, reload and
+no network requests; WEB/API150 remain companions. No data migration or provider
+call is needed for this deterministic path. No validation was run for these edits.
+
+Manual next action: `pnpm sdlc "Complete offline assistance" --story ASSIST-001`.
+Use the runner's connected and offline projects; installed Android additionally
+needs rebuilt assets/snapshot and reinstall. A passing query test does not validate
+configured OpenAI/Gemini/Anthropic model calls or physical-device behavior.

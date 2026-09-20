@@ -1,5 +1,9 @@
 # FEEDBACK-001 — Screenshot, voice and text feedback with offline delivery
 
+## Current follow-up — 20 September 2026
+
+New submission context, durable delivery and keyboard acceptance is authored in the three FEEDBACK-001 appendices; WEB1121–1127 require desktop/mobile receipts. Existing implementation is reused; no production feedback change was needed. Native and synthetic-layout review remain separate. No deterministic execution or commit was performed; older generated blocks refer to their recorded revision. See [consolidated handoff](../development/nondeferred-authoring-2026-09-20.md).
+
 - **Status:** Completed implementation; validation pending
 - **Implemented / recorded:** - Implementation: Completed across web, Android, API and database; iOS native capture/voice/protected queue/foreground-delivery parity is now authored with physical acceptance pending. The supplied image is the launcher asset. Capture only the app viewport after an explicit action; preview, crop, retake/remove and obscure sensitive fields before submission. Text and optional recorded voice are editable/reviewable; microphone access begins only on Record, and tracks stop on stop/cancel/background. Voice is an audio attachment; no paid transcription or silent cloud upload. Confirm submission before queueing and show saved-on-device, pending, sending, received and actionable failed states truthfully.
 - **Pending:** User: run the task’s documented validation; implementation is not a test pass.

@@ -1,5 +1,8 @@
 import { downloadedResearchPolicies } from './governance-policies';
-import { contextBindsEdition } from '@fingent360/contracts';
+import {
+  MacroDashboardSchema,
+  contextBindsEdition,
+} from '@fingent360/contracts';
 import { handleEventScenarios } from './event-scenarios';
 import {
   EventScenarioSnapshotSchema,
@@ -165,7 +168,34 @@ export async function handleContent(
     return {
       body: LearningCatalogSchema.parse({ items: learningContentItems }),
     };
-  if (p === '/macro') return { body: bundle.macro };
+  if (p === '/macro') {
+    if (!bundle.macro)
+      fail(
+        503,
+        'Annual macro data is not installed on this device. Connect and install an updated app snapshot.',
+      );
+    const parsed = MacroDashboardSchema.safeParse(bundle.macro);
+    if (!parsed.success)
+      fail(
+        503,
+        'Annual macro snapshot is unreadable. Install an updated app snapshot.',
+      );
+    const now = Date.now();
+    return {
+      body: MacroDashboardSchema.parse({
+        ...parsed.data,
+        evaluatedAt: new Date(now).toISOString(),
+        sources: parsed.data.sources.map((source) => ({
+          ...source,
+          freshness: !source.lastSuccessAt
+            ? 'never_synced'
+            : now - Date.parse(source.lastSuccessAt) > 7 * 86400000
+              ? 'refresh_due'
+              : 'recently_checked',
+        })),
+      }),
+    };
+  }
   if (p === '/sources') return { body: bundle.sources };
   const history = p.match(/^\/macro\/([^/]+)\/history\/([^/]+)$/);
   if (history) {

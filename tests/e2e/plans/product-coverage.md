@@ -1127,3 +1127,64 @@ These cases preserve their actual storage/API or on-device paths. Synthetic prov
 Focused visual closure additionally requires WEB041/630/790/830/831 and OFFLINE081 controls to remain unobscured during native keyboard navigation. Full case matrices include newly reviewed AUTH-WAIT-001, DATA-001, SRC-007-GDP, SLICE-001, PWA-001, SOURCES-002-DIRECTORY and DEV-009; their explicit remaining gates are retained in acceptance.json.
 
 Daily-oil Operations readiness: WEB1940 covers real delayed initial responses, disabled permission fields, exact draft preservation and the unchanged capture/review/reader workflow on desktop and mobile.
+
+### Recovery without shared infrastructure interruption — 20 September 2026
+
+READINESS-RECOVERY-001 adds API2302 (api): actual compiled readiness probe plus local
+PostgreSQL/MongoDB, first connection refusal and established socket interruption via
+an isolated TCP gate, restoration without process restart, concurrency and shutdown.
+API002 remains public-contract coverage; API004 remains an opt-in manual outage and
+is not required for this non-destructive recovery matrix. No new web/offline UI.
+
+RESEARCH-WORKER-ISOLATION-001 adds API2060–2063, preserving API1990/1991/2002:
+held advisory lock cannot acquire data or write runs; release admits one fetch;
+disabled/not-due and bounded contention are distinct; acquisition/storage failures
+still reject. Unit authoring also preserves publication-error propagation. These
+are authored tests, not new passes or proof of the earlier incident's exact cause.
+
+### ASSIST-001 offline parity — 20 September 2026
+
+OFFLINE150 covers real local storage and the shared UI: authored field/name help,
+explicit name Apply and Dismiss, no-match recovery, saved-history opt-in/revocation,
+no silent goal save and reload with zero API/provider network requests. Connected
+API150/WEB150 retain their workflows. Actual configured provider/model acceptance
+and physical APK acceptance remain separate; synthetic or query-only cases cannot
+satisfy them. Shared contract templates need no database migration.
+
+### Reviewed grouping, media generation and submitted feedback — 20 September 2026
+
+UX-002C adds API2300/2301 + desktop/mobile WEB2300/2301 + OFFLINE2300. Distinct
+releases require an exact source-bound editorial group and independent named issue;
+overlap, corrections and limited/unavailable grouping leave individual releases
+readable. Scan keeps member navigation and explicit ungrouping; Stories keeps each
+release's identity. No title similarity or URL deduplication substitutes for review.
+
+STORY-MEDIA-002 adds API1146–1149 and WEB1146 to its existing connected/offline
+matrix. Preparation now traverses actual route/auth/store/output validation and
+named review with only upstream provider simulation. Confirm request replay cannot
+silently substitute a newer image. Real-provider approval and physical playback
+remain external requirements.
+
+FEEDBACK-001 adds desktop/mobile WEB1121–1126: real submission and evaluation
+lineage, private/stale context denial, bound destination, cross-tab pause/lease,
+persisted backoff and dated history after refresh failure. Synthetic faults cannot
+stand in for a successful server report; final receipt and storage are actual.
+SRC-012 WEB1594 additionally authors committed lost-reply retry, unchanged request
+identity, singleton queue row and revoked-session content clearing. Existing
+source permissions and physical/manual visual approval remain pending.
+
+### Privacy and annual macro recovery — 20 September 2026
+
+DEV-017 adds desktop/mobile WEB1403–1407 and the new feedback1121–1127 requirements.
+MFA and private history use actual account/authentication/encrypted storage, keyboard
+controls, error recovery, export/delete/revoke,401 clearing and late-response denial.
+WEB1127 adds actual keyboard crop/consent/receipt/status/deletion and safe synthetic
+narrow-layout artifacts. Review the resulting artifacts; physical OS/native and
+production key/backup/deployment checks remain distinct.
+
+DATA-001 adds API2310 + desktop/mobile WEB2310 + OFFLINE2310/2311 to existing cases.
+Synthetic upstream faults traverse the real World Bank adapter and macro storage,
+retaining accepted decimal revisions/hashes/evidence and truthful stale state.
+The packaged app has explicit empty/unreadable-cache errors, no network acquisition,
+and recalculated freshness without pretending retrieval occurred. Normal check-gate
+parser precision/quarantine unit coverage remains required. All new cases are unrun.

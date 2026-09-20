@@ -1,10 +1,35 @@
 # DATA-001 — Real India macro ingestion, evidence and public screen
 
-- **Status:** Completed implementation; validation pending
-- **Implemented / recorded:** - Implementation: Implemented
+- **Status:** Authored — upstream recovery and explicit offline annual-route acceptance added; validation pending
+- **Implemented / recorded:** Existing real World Bank ingestion/evidence/revisions plus explicit annual freshness and absent/unreadable offline snapshot errors.
 - **Pending:** User: run the task’s documented validation; implementation is not a test pass.
-- **Next action / inputs:** Await completed saved-run evidence; agent fixes specific failures without rerunning the suite.
+- **Next action / inputs:** User runs the final consolidated SDLC matrix including API2310/WEB2310/OFFLINE2310/2311; agent does not execute validation.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
+
+## Upstream failure and offline acceptance specification — 20 September 2026
+
+The reviewed manifest identified missing branch coverage rather than a request for another provider integration. Implement and validate explicit annual-route failure/recovery with accepted values preserved, including no installed snapshot. Keep the official production fetch URL allowlist and existing numerical/provenance/revision rules unchanged. Synthetic provider transport is test-only, opt-in and scoped to an owned test schema; never treat it as live source activation or source rights evidence.
+
+Authored changes:
+
+- UI/UX: the annual macro page now labels never checked, recently checked and refresh due explicitly while retaining observation years and checked dates. Failed Operations refresh continues to show its error and leaves accepted values accessible.
+- Offline API: `/macro` returns a specific503 with an install-update recovery message when no snapshot exists or the snapshot fails the existing strict schema. Valid snapshots recalculate freshness from their retained last-success times without changing observations, source hashes or the installed bundle/local account state.
+- Contracts/data/real sources: reused MacroDashboard/History/Evidence schemas, immutable PostgreSQL observations/runs and Mongo accepted/quarantined evidence. No new contract, migration, dependency, source permission or production fetch injection.
+- Automation: new default-off `worldBankSimulation` test option installs an isolated transport only after the fixture has created/verified its random schema. It rejects every unexpected outbound URL. Loading tests has no execution side effects. Existing story-image and other simulation options remain intact.
+- API2310 exercises actual `fetchWorldBank` and `MacroStore` with HTTP503, failed transport, wrong content type, empty body, interrupted stream, >1MB body and invalid schema. Each failure must produce a failed run, preserve exact accepted decimal/revision/hash/history/evidence and leave stale status. Quarantined evidence cannot be served; successful retry deduplicates observations and restores recently-checked status.
+- WEB2310 runs the real isolated API and actual Operations refresh UI through failure and retry, verifying annual cached values and explicit freshness. OFFLINE2310 reads installed annual values, history and evidence through the real offline adapter with no API network. OFFLINE2311 directly exercises absent/unreadable cache, aged snapshot and never-checked empty state while preserving original values and local state. All cases use `@DATA-001`; simulation cases also use `@TEST-SIMULATION`. Existing real-source API020/021 and WEB020 remain required.
+
+Reusable prompt: inspect the saved user-run DATA-001 matrix evidence, fix only identified branch failures, preserve official URL/precision/quarantine boundaries and distinguish synthetic branch testing from live-source evidence. Never run deterministic gates or start services as an agent.
+
+User manual focused validation (or prefer the parent's final consolidated story command for all authored work):
+
+```bash
+SDLC_AUTO_REPAIR=0 pnpm sdlc "Validate annual macro upstream and offline recovery" --story DATA-001
+```
+
+No dependency install or migration is required by these changes. Connected cases need existing PostgreSQL/MongoDB and web services; if not already available, the user invokes `pnpm db:up` and `pnpm dev`. Use the printed web URL → `/#macro` and `/#ops` → Macro ingestion. Offline project uses its existing installed-mode launcher. Expected: preserved accepted figures/provenance after each upstream failure, visible refresh-due status, successful retry, explicit503/recovery copy for absent/broken snapshots and zero API network for installed history/evidence. Report failing case/project, SDLC run ID and saved error/report/log if validation fails.
+
+Manual physical/accessibility and provider activation gates remain distinct. No tests, formatting, checks, builds, browser verification, services, migrations, installs, SDLC or commit were run. HEAD remains `c7874a5`; this change and other agents' unrelated authored work remain uncommitted until user-run gates. Existing generated validation below applies only to its prior recorded revision and is unchanged.
 
 ## Implementation handoff rule
 
@@ -48,7 +73,7 @@ World Bank annual India GDP growth/CPI original retrieval, hashed evidence, immu
 
 The complete required case/project matrix is now recorded in `acceptance.json`. This review is not a test pass; actual current-revision receipts determine validation.
 
-Remaining gates: Review parser precision/quarantine unit results from current check gate; API020/021 do not directly fault every upstream/stale-cache branch.; Explicit offline/no-cache acceptance for this annual macro route is not established by WEB020; do not infer full offline coverage from connected navigation.
+Remaining gates: user-run validation of the newly authored API2310/WEB2310/OFFLINE2310/2311 branch coverage, retained real-source API020/021/WEB020 and the normal parser precision/quarantine check gate. No current new pass is claimed.
 
 <!-- sdlc-validation:start -->
 
@@ -61,5 +86,5 @@ Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../
 
 The complete current automated matrix passed. The reviewed manifest retains these separate requirements; rerunning passing cases does not satisfy them:
 
-- Review parser precision/quarantine unit results from current check gate; API020/021 do not directly fault every upstream/stale-cache branch.
-- Explicit offline/no-cache acceptance for this annual macro route is not established by WEB020; do not infer full offline coverage from connected navigation.
+- Run/review parser precision/quarantine check results and the newly authored API2310/WEB2310 upstream/stale-cache branch cases.
+- Run the newly authored OFFLINE2310/2311 annual route/cache absence cases. These remain independent of connected WEB020 and do not establish physical-device acceptance.

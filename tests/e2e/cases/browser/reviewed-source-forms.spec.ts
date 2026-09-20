@@ -1,3 +1,5 @@
+import { CompanyNewsQueueSchema } from '../../../../packages/contracts/src/index';
+import { retentionHeaders } from '../../helpers/retention';
 import { test, expect } from '../../helpers/app-fixture';
 import { sourceOpsBrowser } from '../../helpers/source-ops-browser';
 import {
@@ -29,7 +31,8 @@ test('E2E-WEB-1594 company news form retains two source proofs then independent 
       name: 'Company news onboarding',
       exact: true,
     });
-    await region.getByText('Prepare a company report', { exact: true }).click();
+    await region.getByText('Prepare a company report', { exact: true }).focus();
+    await page.keyboard.press('Enter');
     await region.getByLabel('Company ISIN', { exact: true }).fill(input.isin);
     await region.getByLabel('Report title').fill(title);
     await region.getByLabel('Original summary').fill(input.summary);
@@ -69,6 +72,35 @@ test('E2E-WEB-1594 company news form retains two source proofs then independent 
     await region
       .getByRole('checkbox', { name: /I checked every source permits linking/ })
       .check();
+    // Lose only the real acknowledgment, after the actual store commits. The
+    // unchanged draft must retry its original idempotency key.
+    let committedStatus = 0;
+    let firstRequestId = '';
+    await page.route('**/api/v1/ops/company-news/prepare', async (route) => {
+      if (route.request().method() !== 'POST') return route.fallback();
+      firstRequestId = String(route.request().postDataJSON().requestId);
+      const response = await route.fetch({
+        url: feedbackSandbox.apiOrigin + '/api/v1/ops/company-news/prepare',
+        // Preserve the actual browser's selected actor even when web and API
+        // use different loopback hostnames; headers() omits security headers.
+        headers: {
+          ...(await route.request().allHeaders()),
+          ...retentionHeaders,
+        },
+      });
+      committedStatus = response.status();
+      await route.abort('failed');
+    });
+    const submit = region.getByRole('button', {
+      name: 'Retain draft for verification',
+    });
+    await submit.focus();
+    await page.keyboard.press('Enter');
+    await expect(region.getByRole('alert')).toBeVisible();
+    expect(committedStatus).toBe(201);
+    await expect(region.getByLabel('Report title')).toHaveValue(title);
+    await expect(submit).toBeEnabled();
+    await page.unroute('**/api/v1/ops/company-news/prepare');
     const saved = page.waitForResponse(
       (r) =>
         r.url().endsWith('/ops/company-news/prepare') &&
@@ -77,7 +109,17 @@ test('E2E-WEB-1594 company news form retains two source proofs then independent 
     await region
       .getByRole('button', { name: 'Retain draft for verification' })
       .click();
-    expect((await saved).status()).toBe(201);
+    const acknowledged = await saved;
+    expect(acknowledged.status()).toBe(201);
+    expect(acknowledged.request().postDataJSON().requestId).toBe(
+      firstRequestId,
+    );
+    const retained = CompanyNewsQueueSchema.parse(
+      await (await request.get('/api/v1/ops/company-news')).json(),
+    );
+    expect(
+      retained.items.filter((item) => item.input.requestId === firstRequestId),
+    ).toHaveLength(1);
     await expect(region).toContainText('Draft retained.');
     await sourceOpsBrowser(
       page,
@@ -108,7 +150,8 @@ test('E2E-WEB-1594 company news form retains two source proofs then independent 
         name: 'Two independent originators corroborate the material claim, including a primary source',
       })
       .check();
-    await card.getByRole('button', { name: 'Publish verified report' }).click();
+    await card.getByRole('button', { name: 'Publish verified report' }).focus();
+    await page.keyboard.press('Enter');
     await expect(card.locator('summary')).toContainText('published');
     if ((await card.getAttribute('open')) === null)
       await card.locator('summary').click();
@@ -117,6 +160,27 @@ test('E2E-WEB-1594 company news form retains two source proofs then independent 
       .fill('Withdraw after independent publication to test receipt state.');
     await card.getByRole('button', { name: 'Withdraw report' }).click();
     await expect(card.locator('summary')).toContainText('withdrawn');
+    expect(
+      (
+        await fixture.reviewer.delete('/api/v1/ops/session', {
+          headers: retentionHeaders,
+        })
+      ).status(),
+    ).toBe(200);
+    const expiredRefresh = page.waitForResponse(
+      (response) =>
+        new URL(response.url()).pathname === '/api/v1/ops/company-news' &&
+        response.request().method() === 'GET',
+    );
+    await region
+      .getByRole('button', { name: 'Refresh company reports', exact: true })
+      .click();
+    expect((await expiredRefresh).status()).toBe(401);
+    await expect(
+      page.getByRole('button', { name: 'Sign in to operations', exact: true }),
+    ).toBeVisible();
+    await expect(region).toHaveCount(0);
+    await expect(page.getByText(title, { exact: true })).toHaveCount(0);
   } finally {
     await fixture.reviewer.dispose();
   }

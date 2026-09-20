@@ -72,3 +72,18 @@ Targeted public official-site searches for holdings statement samples/XLSX did n
 
 Selected cases passed — acceptance matrix needed. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: final-scoped-1789857073654.
 <!-- sdlc-validation:end -->
+
+## Primary-source recheck — 20 September 2026
+
+Fresh research still establishes download workflows, not a complete versioned
+export grammar. [Zerodha holdings help](https://support.zerodha.com/category/console/portfolio/console-holdings/articles/holding-report)
+explains Console report download. [Upstox's export announcement](https://upstox.com/market-talk/january-updates-trade-from-charts-watchlist-tags-and-more/)
+confirms CSV export for holdings. [Angel One's holding statement help](https://www.angelone.in/support/reports-and-statements/holding-statement)
+confirms Excel download and stock/average-price/quantity fields but does not specify
+complete sheet/header grammar or acquisition-cost precision. Groww's
+[report update](https://groww.in/updates/updates-from-groww-group-more-watchlists-f-and-o-pause-sell-without-tpin-and-lots-more)
+confirms downloadable reports without publishing a complete holdings workbook
+schema. None of these public pages is a representative original CSV/XLSX export.
+The earlier request for template availability remains unanswered; do not repeat it
+or treat account credentials as necessary. No named parser is newly claimed from
+this research, and no permission or real holding was fabricated.

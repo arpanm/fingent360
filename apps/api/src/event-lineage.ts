@@ -12,6 +12,7 @@ import {
   Body,
   Inject,
   NotFoundException,
+  ForbiddenException,
 } from '@nestjs/common';
 import { z } from 'zod';
 import type pg from 'pg';
@@ -228,6 +229,15 @@ export class EventLineageStore {
       ).rows[0];
       if (!found) throw new NotFoundException('Lineage plan not found.');
       const plan = EventLineagePlanSchema.parse(found.payload);
+      if (
+        [...plan.originals, ...plan.outputs].some(
+          (output) => output.editorial.releaseGroup,
+        ) &&
+        (!this.ops.namedMode || !complete)
+      )
+        throw new ForbiddenException(
+          'Release grouping requires independent named proposal approval.',
+        );
       if (plan.fingerprint !== input.fingerprint)
         throw new ConflictException('Plan fingerprint does not match.');
       const prior = (

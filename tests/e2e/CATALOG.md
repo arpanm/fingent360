@@ -887,3 +887,24 @@ These cases preserve their actual storage/API or on-device paths. Synthetic prov
 WEB041/630/790/830/831 and OFFLINE081 retain their original workflows and now require focused actions to fit inside the viewport and receive actual hit targets clear of fixed navigation/feedback. Review their narrow screenshots independently of API correctness. WEB1295–1297 use native keyboard type-ahead for desktop Chrome after a minimal native-select reproduction; mobile retains its verified keyboard sequence. No case is skipped or converted to a mocked interaction.
 
 WEB1940 now additionally holds real daily-oil queue responses and verifies loading disables permission controls before completing the existing save/capture/independent-review/reader flow. This covers the confirmed startup draft-erasure race; simulated provider originals remain labeled.
+
+### Recovery and worker isolation — authored 20 September 2026
+
+- **E2E-API-2302** (api): actual Mongo driver first-connect and established-connection outage recovery through a test-owned loopback gate, concurrent calls and shutdown; no shared service stop or database mutation @READINESS-RECOVERY-001 @TEST-SIMULATION.
+- **E2E-API-2060–2063** (api): real shared advisory-lock contention/release, disabled/not-due outcomes, bounded contention exhaustion, and preserved acquisition/storage failures @RESEARCH-WORKER-ISOLATION-001. Existing API1990/1991/2002 remain companions.
+
+These cases are authored, not executed; historical receipts do not validate them.
+
+- **E2E-OFFLINE-150** (offline): real on-device account/goal and query help, explicit name Apply/Dismiss, history opt-in/withdrawal, unchanged saved record after draft application/reload and zero API/provider transport @ASSIST-001. Authored, not executed.
+
+### Related-release and source workflow acceptance — authored 20 September 2026
+
+- **E2E-API-2300/2301**, **E2E-WEB-2300/2301** (desktop/mobile), **E2E-OFFLINE-2300**: explicit independently reviewed source-edition membership; grouping, conflict/withdrawal fallback, Scan expansion/Stories identity and actual offline projection @UX-002C @TEST-SIMULATION.
+- **E2E-API-1146–1149**, **E2E-WEB-1146** (desktop/mobile): actual image preparation, retained upstream results, held request/concurrency/replay, changed source, failed/new request, exact named approval and Operations recovery; only upstream provider transport is simulated @STORY-MEDIA-002 @TEST-SIMULATION.
+- **E2E-WEB-1121/1122** (desktop/mobile): actual feedback submission→stored receipt→evaluation context with original source/media/model binding and private/stale/mismatched-screen exclusions @FEEDBACK-001.
+- **E2E-WEB-1123–1126** (desktop/mobile): durable destination binding, in-flight pause, persisted lease/two-tab expiry, bounded429/5xx retry and dated support-history failure/recovery with actual successful receipts @FEEDBACK-001 @TEST-SIMULATION.
+- **E2E-WEB-1594** is extended: lose actual committed prepare acknowledgment, retry unchanged request once without duplicate capture, named publication/withdrawal and actual revoked-session clearing. Keyboard activation is included; visual/physical approval remains separate @SRC-012.
+
+- **E2E-WEB-1127** (desktop/mobile): actual keyboard crop/consent/submission/history/status/deletion with360px containment, hit targets and safe synthetic layout artifacts @FEEDBACK-001. Artifacts require human review; this is not physical assistive certification.
+- **E2E-WEB-1403–1407** (desktop/mobile): real MFA enrollment/replay denial/recovery rotation/reset and private-history consent/export/delete/revoke, actual401 clearing and late-response suppression @DEV-017. Private tracing is disabled; only masked synthetic regions may be captured.
+- **E2E-API-2310**, **E2E-WEB-2310** (desktop/mobile), **E2E-OFFLINE-2310/2311**: World Bank transport/schema failure recovery preserves actual stored accepted revisions/evidence; stale state is visible; missing/unreadable offline macro snapshots return unavailable, not a null successful body @DATA-001 @TEST-SIMULATION. No live-provider permission is inferred.

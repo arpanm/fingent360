@@ -1,3 +1,9 @@
+import {
+  GroupedReleaseList,
+  ReleaseGroupContext,
+  useReleaseGroups,
+} from './ReleaseGroups';
+import { groupContainsEdition } from '@fingent360/contracts';
 import { GdpVintages } from './GdpVintages';
 import { CompanyNewsEvidence } from './CompanyNewsEvidence';
 import { PublicReadingShare } from './PublicReadingShare';
@@ -65,6 +71,8 @@ type ReadingView = {
   loaded: boolean;
   authenticated: boolean;
   pendingUpdates?: ReadingUpdate | null;
+  separateReleases?: boolean;
+  openReleaseGroups?: string[];
 };
 const memory = new Map<string, ReadingView>();
 window.addEventListener('f360-session-changed', () => memory.clear());
@@ -95,6 +103,13 @@ export function Discovery({ explore = false }: { explore?: boolean }) {
   const [items, setItems] = useState<FeedItem[]>(stored?.items ?? []);
   const [reasons, setReasons] = useState<Record<string, string>>(
     stored?.reasons ?? {},
+  );
+  const releaseGroups = useReleaseGroups(items);
+  const [separateReleases, setSeparateReleases] = useState(
+    stored?.separateReleases ?? false,
+  );
+  const [openReleaseGroups, setOpenReleaseGroups] = useState<string[]>(
+    stored?.openReleaseGroups ?? [],
   );
   const [cursor, setCursor] = useState<string | null>(stored?.cursor ?? null);
   const [authenticated, setAuthenticated] = useState(
@@ -247,6 +262,8 @@ export function Discovery({ explore = false }: { explore?: boolean }) {
       loaded: !loading && !error,
       authenticated,
       pendingUpdates,
+      separateReleases,
+      openReleaseGroups,
     });
   }, [
     key,
@@ -265,6 +282,8 @@ export function Discovery({ explore = false }: { explore?: boolean }) {
     error,
     authenticated,
     pendingUpdates,
+    separateReleases,
+    openReleaseGroups,
   ]);
   useEffect(() => {
     const sync = () => {
@@ -769,56 +788,94 @@ export function Discovery({ explore = false }: { explore?: boolean }) {
         </div>
       )}
       {!loading && mode === 'scan' && (
-        <div className="editorial-list">
-          {visible.map((item, i) => (
-            <article
-              key={item.id}
-              className={`editorial-item priority-${item.importance} ${i === 0 ? 'lead-item' : ''}`}
-            >
-              <div className="item-index">{String(i + 1).padStart(2, '0')}</div>
-              <div>
-                <div className="item-meta">
-                  <span>{labels[item.kind]}</span>
-                  <span>
-                    {item.kind === 'news'
-                      ? `${shortDate(item.publishedAt)} · ${item.effectiveLabel}`
-                      : item.effectiveLabel}
-                  </span>
-                  {item.importance > 1 && (
-                    <span className="sr-only">
-                      Editorial emphasis {item.importance} of 3
+        <div>
+          {releaseGroups.message && (
+            <p role="status">
+              {releaseGroups.message}{' '}
+              <button className="secondary" onClick={releaseGroups.retry}>
+                Retry release grouping
+              </button>
+            </p>
+          )}
+          {releaseGroups.groups.length > 0 && (
+            <label>
+              <input
+                type="checkbox"
+                checked={separateReleases}
+                onChange={(event) => setSeparateReleases(event.target.checked)}
+              />{' '}
+              Show releases separately
+            </label>
+          )}
+          <GroupedReleaseList
+            items={visible}
+            groups={releaseGroups.groups}
+            separate={separateReleases}
+            open={openReleaseGroups}
+            onRead={prepareReader}
+            onOpen={(key, expanded) =>
+              setOpenReleaseGroups((current) =>
+                expanded
+                  ? current.includes(key)
+                    ? current
+                    : [...current, key]
+                  : current.includes(key)
+                    ? current.filter((value) => value !== key)
+                    : current,
+              )
+            }
+            renderItem={(item, i) => (
+              <article
+                key={item.id}
+                className={`editorial-item priority-${item.importance} ${i === 0 ? 'lead-item' : ''}`}
+              >
+                <div className="item-index">
+                  {String(i + 1).padStart(2, '0')}
+                </div>
+                <div>
+                  <div className="item-meta">
+                    <span>{labels[item.kind]}</span>
+                    <span>
+                      {item.kind === 'news'
+                        ? `${shortDate(item.publishedAt)} · ${item.effectiveLabel}`
+                        : item.effectiveLabel}
                     </span>
-                  )}
-                </div>
-                <a
-                  className="headline-link"
-                  data-item-id={item.id}
-                  href={`#read/${item.id}`}
-                  onClick={() => prepareReader(i)}
-                >
-                  <h2>{item.title}</h2>
-                  <Icon name="arrow" size={22} />
-                </a>
-                <p>{item.summary !== item.title ? item.summary : null}</p>
-                <div className="item-source">
-                  <span>{item.source.name}</span>
-                  {reasons[item.id] && (
-                    <span className="reason">{reasons[item.id]}</span>
-                  )}
-                </div>
-                {item.relatedIds.length > 0 && (
-                  <div className="related-chips">
-                    {item.relatedIds.slice(0, 3).map((id) => (
-                      <a href={`#read/${id}`} key={id}>
-                        {id.replace(/^term-/, '').replaceAll('-', ' ')}{' '}
-                        <span>↗</span>
-                      </a>
-                    ))}
+                    {item.importance > 1 && (
+                      <span className="sr-only">
+                        Editorial emphasis {item.importance} of 3
+                      </span>
+                    )}
                   </div>
-                )}
-              </div>
-            </article>
-          ))}
+                  <a
+                    className="headline-link"
+                    data-item-id={item.id}
+                    href={`#read/${item.id}`}
+                    onClick={() => prepareReader(i)}
+                  >
+                    <h2>{item.title}</h2>
+                    <Icon name="arrow" size={22} />
+                  </a>
+                  <p>{item.summary !== item.title ? item.summary : null}</p>
+                  <div className="item-source">
+                    <span>{item.source.name}</span>
+                    {reasons[item.id] && (
+                      <span className="reason">{reasons[item.id]}</span>
+                    )}
+                  </div>
+                  {item.relatedIds.length > 0 && (
+                    <div className="related-chips">
+                      {item.relatedIds.slice(0, 3).map((id) => (
+                        <a href={`#read/${id}`} key={id}>
+                          {id.replace(/^term-/, '').replaceAll('-', ' ')}{' '}
+                          <span>↗</span>
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </article>
+            )}
+          />
         </div>
       )}
       {!loading && mode === 'stories' && story && (
@@ -873,6 +930,16 @@ export function Discovery({ explore = false }: { explore?: boolean }) {
             {selected + 1} / {visible.length}
           </span>
           <StoryGestureHint kind="stories" />
+          {releaseGroups.groups
+            .filter((group) => groupContainsEdition(group, story))
+            .map((group) => (
+              <ReleaseGroupContext
+                key={group.eventId}
+                group={group}
+                items={visible}
+                onRead={prepareReader}
+              />
+            ))}
           <div
             className="story-swipe-area"
             aria-label="Story swipe area"

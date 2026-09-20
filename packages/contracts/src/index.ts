@@ -175,3 +175,5 @@ export * from './ccil-yields.js';
 export * from './sbi-portfolio-structural-parser.js';
 export * from './whatsapp-channel.js';
 export * from './gdp-expectations.js';
+
+export * from './release-groups.js';

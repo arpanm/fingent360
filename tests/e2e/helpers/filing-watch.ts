@@ -21,13 +21,18 @@ export const test = base.extend({
 });
 export const filingRights =
   'TEST-SIMULATION original source format only, no NSE retention/distribution licence asserted.';
-/** Actual production worker/tables; only upstream source responses are simulated during explicit user-run tests. */
-export async function runFilingTick(
+type FilingWorker = {
+  initialize(): Promise<void>;
+  tick(): Promise<'disabled' | 'lock-busy' | 'not-due' | 'completed'>;
+};
+/** Constructs the actual worker only during an explicit isolated test invocation. */
+export async function withFilingWorker<T>(
   sandbox: FeedbackSandbox,
-  originals: Record<string, string | Error>,
-  beforeResponse?: () => Promise<void>,
-  sourceId:
-    'equity-filing-watch' | 'equity-filing-discovery' = 'equity-filing-watch',
+  use: (
+    worker: FilingWorker,
+    pool: Awaited<ReturnType<typeof connectionDatabase>>,
+  ) => Promise<T>,
+  workerEnabled = true,
 ) {
   const require = createRequire(
     new URL('../../../apps/api/package.json', import.meta.url),
@@ -63,37 +68,72 @@ export async function runFilingTick(
       WEB_ORIGIN: retentionHeaders.Origin,
     }),
     discovery = new DiscoveryStore(config),
-    worker = new ResearchAutoStore(config, discovery, true),
-    pool = await connectionDatabase(sandbox),
-    savedFetch = globalThis.fetch;
-  let calls = 0;
-  globalThis.fetch = async (input) => {
-    calls++;
-    await beforeResponse?.();
-    const value = originals[String(input)];
-    if (value === undefined)
-      throw Error('Unexpected original URL in isolated source simulation.');
-    if (value instanceof Error) throw value;
-    return new Response(value, { status: 200 });
-  };
+    worker = new ResearchAutoStore(config, discovery, workerEnabled),
+    pool = await connectionDatabase(sandbox);
   try {
-    await worker.initialize();
-    await pool.query(
-      'UPDATE research_auto_schedules SET enabled=false WHERE source_id<>$1',
-      [sourceId],
-    );
-    await pool.query(
-      'UPDATE research_auto_schedules SET next_at=now() WHERE source_id=$1',
-      [sourceId],
-    );
-    await worker.tick();
-    return calls;
+    return await use(worker, pool);
   } finally {
-    globalThis.fetch = savedFetch;
     await Promise.allSettled([
       worker.onApplicationShutdown(),
       discovery.onApplicationShutdown(),
       pool.end(),
     ]);
   }
+}
+/** Retries scheduler contention only; acquisition and persistence errors propagate. */
+export async function tickFilingWorker(
+  worker: FilingWorker,
+  onLockBusy?: () => Promise<void>,
+) {
+  const deadline = performance.now() + 5000;
+  for (;;) {
+    const outcome = await worker.tick();
+    if (outcome !== 'lock-busy') return outcome;
+    await onLockBusy?.();
+    if (performance.now() >= deadline)
+      throw Error(
+        'Isolated filing scheduler remained lock-busy for five seconds.',
+      );
+    await new Promise((resolve) => setTimeout(resolve, 25));
+  }
+}
+/** Actual production worker/tables; only upstream source responses are simulated. */
+export async function runFilingTick(
+  sandbox: FeedbackSandbox,
+  originals: Record<string, string | Error>,
+  beforeResponse?: () => Promise<void>,
+  sourceId:
+    'equity-filing-watch' | 'equity-filing-discovery' = 'equity-filing-watch',
+  onLockBusy?: () => Promise<void>,
+) {
+  return withFilingWorker(sandbox, async (worker, pool) => {
+    const savedFetch = globalThis.fetch;
+    let calls = 0;
+    globalThis.fetch = async (input) => {
+      calls++;
+      await beforeResponse?.();
+      const value = originals[String(input)];
+      if (value === undefined)
+        throw Error('Unexpected original URL in isolated source simulation.');
+      if (value instanceof Error) throw value;
+      return new Response(value, { status: 200 });
+    };
+    try {
+      await worker.initialize();
+      await pool.query(
+        'UPDATE research_auto_schedules SET enabled=false WHERE source_id<>$1',
+        [sourceId],
+      );
+      await pool.query(
+        'UPDATE research_auto_schedules SET next_at=now() WHERE source_id=$1',
+        [sourceId],
+      );
+      const outcome = await tickFilingWorker(worker, onLockBusy);
+      if (outcome !== 'completed')
+        throw Error(`Isolated filing scheduler did not run: ${outcome}.`);
+      return calls;
+    } finally {
+      globalThis.fetch = savedFetch;
+    }
+  });
 }

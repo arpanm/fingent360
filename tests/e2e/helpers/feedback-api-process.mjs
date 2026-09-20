@@ -182,7 +182,13 @@ async function start() {
       'http://127.0.0.1:4100/api/v1/account/broker-connections/kite/callback',
     KITE_PERMISSION_REFERENCE: 'SYNTHETIC-E2E-NO-LIVE-PERMISSION',
     RESEARCH_AUTO_ENABLED: 'false',
-    STORY_IMAGE_PROVIDER: 'off',
+    STORY_IMAGE_PROVIDER: env.F360_TEST_STORY_IMAGE === '1' ? 'openai' : 'off',
+    ...(env.F360_TEST_STORY_IMAGE === '1'
+      ? {
+          STORY_IMAGE_MODEL: 'synthetic-story-image-model',
+          OPENAI_API_KEY: 'synthetic-story-image-key-never-send',
+        }
+      : {}),
     DATABASE_URL: database.href,
     MIGRATION_DATABASE_URL: database.href,
     MONGODB_URI: mongo.href,
@@ -210,6 +216,16 @@ async function start() {
   if (env.F360_TEST_KITE === '1') {
     const { installSyntheticKite } = await import('./kite-simulation.mjs');
     installSyntheticKite();
+  }
+  if (env.F360_TEST_STORY_IMAGE === '1') {
+    const { installSyntheticStoryImage } =
+      await import('./story-image-simulation.mjs');
+    await installSyntheticStoryImage(pool, schema);
+  }
+  if (env.F360_TEST_WORLD_BANK === '1') {
+    const { installSyntheticWorldBank } =
+      await import('./world-bank-simulation.mjs');
+    await installSyntheticWorldBank(pool, schema);
   }
   await import('../../../apps/api/dist/migrate.js');
   if (process.exitCode) throw Error('Fixture migration failed.');

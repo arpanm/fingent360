@@ -1,5 +1,7 @@
 # Remaining validation — 20 September 2026
 
+Follow-up authoring: the list below is the saved validation baseline. [Subsequent code and acceptance additions](nondeferred-authoring-2026-09-20.md) address readiness, scheduler contention, grouping, offline assistance, feedback, media, annual macro and private-history/MFA gaps. Those changes are unrun and do not inherit this baseline.
+
 Current reconciliation has 1527 strict passing receipts at the same source fingerprint and 107 passing reviewed matrices. The complete connected run recorded 1317 passes, one API2002 failure and one deliberate outage skip; all208 offline cases passed, then the unchanged API2002 and prepared API004 follow-ups each passed. See [the final receipt summary](functional-acceptance-2026-09-20.md#final-current-revision-reconciliation). There are 107 Done scoped tasks, including 79 automatically accepted functional scopes. A passing retry is not a confirmed root-cause fix.
 
 Two investigations remain explicitly open: [scheduler lock/test isolation](../tasks/RESEARCH-WORKER-ISOLATION-001.md) and [Mongo readiness restoration](../tasks/READINESS-RECOVERY-001.md). They must not disappear because the selected test passed or the API was restarted. Current generated case/matrix results belong to [story validation](../validation/README.md); broader product completion still requires the full scope and gates below.

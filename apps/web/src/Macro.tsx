@@ -184,6 +184,13 @@ export function Macro({ route = 'macro' }: { route?: string }) {
                 </div>
                 <Trend observations={s.observations} />
                 <p className="muted">
+                  {s.freshness === 'never_synced'
+                    ? 'No successful source check yet.'
+                    : s.freshness === 'refresh_due'
+                      ? 'Source check is due. These are previously accepted observations.'
+                      : 'Source checked recently.'}
+                </p>
+                <p className="muted">
                   Source checked {shortDate(s.lastSuccessAt)}
                 </p>
                 <details

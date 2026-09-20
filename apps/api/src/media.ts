@@ -434,7 +434,12 @@ export class MediaStore {
           throw new ConflictException(
             'This attempt did not complete. Explicitly start a new attempt to retry.',
           );
-        return this.read(c, item, false);
+        const current = await this.read(c, item, false);
+        if (current.image?.attemptId !== input.data.requestId)
+          throw new ConflictException(
+            'This image attempt was superseded. Reopen the current visual before review.',
+          );
+        return current;
       }
       const budget =
         (

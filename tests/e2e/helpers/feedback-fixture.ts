@@ -27,6 +27,8 @@ export const test = base.extend<{
   kiteSimulation: boolean;
   upstoxSimulation: boolean;
   angelSimulation: boolean;
+  storyImageSimulation: boolean;
+  worldBankSimulation: boolean;
 }>({
   manualWorkers: [false, { option: true }],
   leastPrivilege: [false, { option: true }],
@@ -39,6 +41,8 @@ export const test = base.extend<{
   kiteSimulation: [false, { option: true }],
   upstoxSimulation: [false, { option: true }],
   angelSimulation: [false, { option: true }],
+  storyImageSimulation: [false, { option: true }],
+  worldBankSimulation: [false, { option: true }],
   feedbackSandbox: [
     async (
       {
@@ -53,6 +57,8 @@ export const test = base.extend<{
         kiteSimulation,
         upstoxSimulation,
         angelSimulation,
+        storyImageSimulation,
+        worldBankSimulation,
       },
       use,
       testInfo,
@@ -77,6 +83,8 @@ export const test = base.extend<{
             F360_TEST_KITE: kiteSimulation ? '1' : '0',
             F360_TEST_UPSTOX: upstoxSimulation ? '1' : '0',
             F360_TEST_ANGEL: angelSimulation ? '1' : '0',
+            F360_TEST_STORY_IMAGE: storyImageSimulation ? '1' : '0',
+            F360_TEST_WORLD_BANK: worldBankSimulation ? '1' : '0',
           },
         },
       );

@@ -561,6 +561,106 @@ export function EventOperations({
                 <a href={'#read/' + citation.sourceId}>Read source</a>
               </fieldset>
             ))}
+            <fieldset>
+              <legend>Same-event release grouping</legend>
+              <p>
+                Choose only distinct releases describing this one fact event.
+                Shared topics or similar titles are insufficient. Independent
+                named approval is required; each source stays individually
+                readable.
+              </p>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={!!editorial.releaseGroup}
+                  disabled={
+                    editorial.claimKind !== 'fact' && !editorial.releaseGroup
+                  }
+                  onChange={(event) => {
+                    if (event.target.checked)
+                      setEditorial({
+                        ...editorial,
+                        releaseGroup: {
+                          sourceIds: [
+                            ...new Set(
+                              editorial.citations.map(
+                                (citation) => citation.sourceId,
+                              ),
+                            ),
+                          ],
+                          rationale: '',
+                        },
+                      });
+                    else {
+                      const next = { ...editorial };
+                      delete next.releaseGroup;
+                      setEditorial(next);
+                    }
+                  }}
+                />
+                Group these releases as the same event
+              </label>
+              {editorial.releaseGroup && (
+                <>
+                  {[
+                    ...new Set(
+                      editorial.citations.map((citation) => citation.sourceId),
+                    ),
+                  ].map((sourceId) => (
+                    <label key={sourceId}>
+                      <input
+                        type="checkbox"
+                        checked={editorial.releaseGroup!.sourceIds.includes(
+                          sourceId,
+                        )}
+                        onChange={(event) =>
+                          setEditorial({
+                            ...editorial,
+                            releaseGroup: {
+                              ...editorial.releaseGroup!,
+                              sourceIds: event.target.checked
+                                ? [
+                                    ...editorial.releaseGroup!.sourceIds,
+                                    sourceId,
+                                  ]
+                                : editorial.releaseGroup!.sourceIds.filter(
+                                    (id) => id !== sourceId,
+                                  ),
+                            },
+                          })
+                        }
+                      />
+                      Same-event release:{' '}
+                      {sources.find((source) => source.id === sourceId)
+                        ?.title ?? sourceId}
+                    </label>
+                  ))}
+                  <label>
+                    Why these releases describe the same event
+                    <textarea
+                      minLength={12}
+                      maxLength={1000}
+                      required
+                      value={editorial.releaseGroup.rationale}
+                      onChange={(event) =>
+                        setEditorial({
+                          ...editorial,
+                          releaseGroup: {
+                            ...editorial.releaseGroup!,
+                            rationale: event.target.value,
+                          },
+                        })
+                      }
+                    />
+                  </label>
+                  <p>
+                    Choose two to five distinct cited releases. To undo
+                    grouping, clear the grouping checkbox, save a new draft and
+                    independently approve it.
+                  </p>
+                </>
+              )}
+            </fieldset>
             <button
               id="event-add-source"
               type="button"

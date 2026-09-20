@@ -13,6 +13,7 @@ import {
   BadRequestException,
   ConflictException,
   NotFoundException,
+  ForbiddenException,
 } from '@nestjs/common';
 import { z } from 'zod';
 import type pg from 'pg';
@@ -31,6 +32,9 @@ import {
   buildEventRevision,
   publicEdition,
   EventOperationsListSchema,
+  ReleaseGroupQuerySchema,
+  ReleaseGroupsSchema,
+  projectReleaseGroups,
 } from '@fingent360/contracts';
 import { OPERATOR_STORE, OperatorStore } from './operator.js';
 import { OperatorAction, OperatorRead } from './operator-permissions.js';
@@ -244,6 +248,22 @@ export class EventStore {
         [id, input.expectedVersion],
       );
       const event = EventRevisionSchema.parse(row.rows[0].payload);
+      const previousGroup = head.rows[0]?.published_version
+        ? (
+            await c.query(
+              'SELECT payload FROM reviewed_event_versions WHERE event_id=$1 AND version=$2',
+              [id, head.rows[0].published_version],
+            )
+          ).rows[0]?.payload?.editorial?.releaseGroup
+        : undefined;
+      if (
+        input.status === 'published' &&
+        (event.editorial.releaseGroup || previousGroup) &&
+        (!this.ops.namedMode || !complete)
+      )
+        throw new ForbiddenException(
+          'Release grouping requires independent named proposal approval.',
+        );
       if (input.status === 'published') await this.evidence(c, event.editorial);
       await authorize(c);
       const reviewedAt = new Date().toISOString(),
@@ -414,6 +434,61 @@ export class EventStore {
       });
     });
   }
+  releaseGroups(query: unknown) {
+    const input = parse(ReleaseGroupQuerySchema, query);
+    return this.ops.named.transaction(async (c) => {
+      // Inspect the complete bounded group population so an overlapping claim
+      // outside the reader's current page cannot silently choose a winner.
+      const rows = await c.query(
+        "SELECT e.*,v.payload FROM reviewed_events e JOIN reviewed_event_versions v ON v.event_id=e.id AND v.version=e.published_version WHERE e.status='published' AND (v.payload->'editorial' ? 'releaseGroup') AND NOT EXISTS(SELECT 1 FROM event_lineage_members m WHERE m.event_id=e.id AND m.direction='input') ORDER BY e.id LIMIT 1001 FOR SHARE OF e",
+      );
+      const evaluatedAt = new Date().toISOString();
+      if (rows.rows.length > 1000)
+        return ReleaseGroupsSchema.parse({
+          groups: [],
+          evaluatedAt,
+          limited: true,
+          conflicted: false,
+        });
+      const revisions = rows.rows.map((row) =>
+        EventRevisionSchema.parse(row.payload),
+      );
+      const relevantMembers = new Set(
+        revisions
+          .filter((event) =>
+            event.editorial.releaseGroup!.sourceIds.some((id) =>
+              input.sources.includes(id),
+            ),
+          )
+          .flatMap((event) => event.editorial.releaseGroup!.sourceIds),
+      );
+      // Admit only requested groups and their possible overlaps. Membership on
+      // another page is still considered, without re-reading unrelated evidence.
+      const candidates = revisions.filter((event) =>
+        event.editorial.releaseGroup!.sourceIds.some((id) =>
+          relevantMembers.has(id),
+        ),
+      );
+      const candidateIds = new Set(candidates.map((event) => event.id));
+      await admitPublications(
+        c,
+        candidates.flatMap((event) => event.sources.map((source) => source.id)),
+      );
+      await c.query(
+        'SELECT isin FROM security_identities WHERE isin=ANY($1::text[]) ORDER BY isin FOR SHARE',
+        [
+          candidates.flatMap((event) =>
+            event.identities.map((identity) => identity.isin),
+          ),
+        ],
+      );
+      const admitted = [];
+      for (const row of rows.rows)
+        if (candidateIds.has(row.id))
+          admitted.push(await this.publicOne(c, row));
+      return projectReleaseGroups(admitted, input.sources, evaluatedAt);
+    });
+  }
   read(raw: string) {
     const id = parse(z.uuid(), raw).toLowerCase();
     return this.ops.named.transaction(async (c) => {
@@ -466,6 +541,9 @@ export class EventsController {
   constructor(@Inject(EVENT_STORE) private readonly store: EventStore) {}
   @Get() list(@Query() query: unknown) {
     return this.store.list(query);
+  }
+  @Get('release-groups') releaseGroups(@Query() query: unknown) {
+    return this.store.releaseGroups(query);
   }
   @Get(':id/history') history(
     @Param('id') id: string,

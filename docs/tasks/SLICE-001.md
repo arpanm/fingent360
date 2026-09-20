@@ -1,9 +1,9 @@
 # SLICE-001 — Working educational portfolio journey
 
-- **Status:** Completed implementation; validation pending
+- **Status:** Implementation complete; validation pending
 - **Implemented / recorded:** - Implementation: Implemented
-- **Pending:** User: validate newly authored E2E-WEB-2315 in desktop and mobile; implementation is not a test pass.
-- **Next action / inputs:** Run the bounded keyboard acceptance command below and retain its case/project receipts; earlier saved passes do not cover this new case.
+- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
+- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Implementation handoff rule
@@ -56,13 +56,6 @@ Remaining gates: Full virtual-journey keyboard acceptance is authored as E2E-WEB
 
 The matrix recorded at the earlier reconciliation passed. The newly authored keyboard case has no execution receipt; rerunning older passing cases does not satisfy it:
 
-<!-- sdlc-validation:start -->
-
-## Automated validation
-
-Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789923079896-69469.
-<!-- sdlc-validation:end -->
-
 - E2E-WEB-2315 must pass in desktop and mobile before the full virtual-journey keyboard requirement can close.
 
 ## Keyboard journey authoring — 20 September 2026
@@ -89,3 +82,10 @@ main checkout and those records are preserved. Use the continuation-only patch
 and commands in [the current handoff](../development/nondeferred-authoring-2026-09-20.md).
 No new tests/gates/migrations/services or commit were run by the agent. Earlier
 base hashes above identify authoring history, not the current integration base.
+
+<!-- sdlc-validation:start -->
+
+## Automated validation
+
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789926419995-75587.
+<!-- sdlc-validation:end -->

@@ -57,3 +57,10 @@ result/error text. WEB1951 authors exact downloaded JSON source/permission check
 the existing native file-picker implementation is reused. Installed device
 acceptance remains separate. Late unmounted submission results do not start a new
 queue load. No validation was executed for these integration edits.
+
+<!-- sdlc-validation:start -->
+
+## Automated validation
+
+Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789926419995-75587.
+<!-- sdlc-validation:end -->

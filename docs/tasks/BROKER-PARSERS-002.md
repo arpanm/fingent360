@@ -81,11 +81,11 @@ The earlier request for template availability remains unanswered; do not repeat 
 or treat account credentials as necessary. No named parser is newly claimed from
 this research, and no permission or real holding was fabricated.
 
+Further primary-source searches and the distinct Groww/Breeze protocol assessment are recorded in [20 September follow-up](BROKER-PARSERS-002-evidence-20260920.md). The original format-input question remains pending; no named parser or OAuth contract was inferred.
+
 <!-- sdlc-validation:start -->
 
 ## Automated validation
 
-Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789923079896-69469.
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789926419995-75587.
 <!-- sdlc-validation:end -->
-
-Further primary-source searches and the distinct Groww/Breeze protocol assessment are recorded in [20 September follow-up](BROKER-PARSERS-002-evidence-20260920.md). The original format-input question remains pending; no named parser or OAuth contract was inferred.

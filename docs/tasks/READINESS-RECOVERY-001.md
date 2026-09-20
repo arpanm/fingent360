@@ -1,9 +1,9 @@
 # READINESS-RECOVERY-001 — Mongo readiness remains down after database restoration
 
-- **Status:** Done (accepted scope)
+- **Status:** Implementation complete; validation pending
 - **Implemented / recorded:** API004 passes outage reporting. On two authorized local checks, MongoDB was restarted and healthy, but the API continued reporting MongoDB down. Restarting only the existing API watcher child restored readiness200.
-- **Pending:** None for the reviewed acceptance scope; native release certification remains separate.
-- **Next action / inputs:** No further action for this accepted scope.
+- **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
+- **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
 - **Verification:** Outage receipts2026-09-19T21-18-08-742Z-49882 and2026-09-19T22-31-20-475Z-56976 passed their existing down-state assertion. They do not test restoration. Following each, the observed readiness response remained unavailable with postgres up and mongodb down after the container became healthy; an API watcher-child restart restored both up. Direct configured Mongo ping also succeeded during the first occurrence. No original driver rejection class was captured.
 
 ## Specification and reusable prompt
@@ -41,5 +41,5 @@ API2302 stage on failure. Existing outage-only receipts are not recovery passes.
 
 ## Automated validation
 
-Passed — automated acceptance. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789923079896-69469.
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789926419995-75587.
 <!-- sdlc-validation:end -->

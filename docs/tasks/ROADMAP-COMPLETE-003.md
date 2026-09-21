@@ -2,8 +2,8 @@
 
 - **Status:** Partial
 - **Implemented / recorded:** - Implementation: In progress. Verification: not run. User requests completion of all Partial and Planned tasks end to end. Preserve prior uncommitted REGRESSION-011 corrections. Work in dependency order; never promote a parent merely because a child or document exists. Implemented children: goal feasibility, mapped CSV imports, source explanation layers, quality diagnostics, named operator review and material alerts. ECB-RATES-001 is also implemented for its selected numerical family. EVENT-REVIEW-001 and BROKER-DIALECTS-001 supplemental-cost reconciliation are implemented. World Bank monthly oil benchmarks and opt-in durable material checks are also implemented. CONSENT-LIFECYCLE-001 is also implemented for four explicit purposes. ECB-FX-001 is implemented. EVENT-LINEAGE-001 is implemented. IDENTITY-ADJUDICATION-001 is implemented. EVENT-EXTRACTION-001 is implemented. This batch is authored; broader remaining acceptance is listed in each Partial/Planned parent and docs/development/roadmap-gaps.md. Further first-party Zerodha/Groww inspection still did not establish a complete named export layout.
-- **Pending:** Developer: finish the remaining acceptance criteria in this task.
-- **Next action / inputs:** Complete the explicitly partial DEV/SRC children; do not rerun the full suite for roadmap closure.
+- **Pending:** Exact source formats/provider contracts and operational/physical acceptance listed in [21 September remaining work](../development/remaining-work-2026-09-21.md); current-code automated validation stays manual.
+- **Next action / inputs:** Supply recorded original-format/provider inputs for the incomplete children; review the scoped WEB1594 acceptance change. Use the existing manual full audit only when deliberately reconciling all automated stories.
 - **Verification:** The preserved evidence below applies only to its recorded scope/revision. This tracker migration did not run validation.
 
 ## Implementation handoff rule
@@ -34,3 +34,14 @@ Read AGENTS.md, the task-maintenance guide and this task’s current summary. Wo
 - **Next action:** Developer: finish partial DEV/SRC tasks in dependency order; do not mark the parent complete early.
 - **Research/evidence:** See [dated source checks and existing answers](input-research-2026-09-15.md). Source-specific permissions, complete parser layouts and legal classification are not claimed resolved by triage.
 - **Completion boundary:** This updates readiness only, not test passes, live activation or full feature completion. On later pickup, refresh saved evidence and update this record plus the TODO row.
+
+## Remaining-scope reconciliation — 21 September 2026
+
+[Current exact gaps and evidence](../development/remaining-work-2026-09-21.md)
+supersede generic instructions to implement already-authored features. Parallel
+primary-source and acceptance audits found original-format/provider gaps and one
+remaining source-form keyboard/layout coverage gap. The GDP scheduled tick
+already exists as API1773 with a saved pass; its stale manifest gate is removed.
+This parent remains Partial because the named source requirements are not
+implemented. No new code execution, source activation, physical acceptance or
+commit is implied. Documentation/manual acceptance scenarios are in that record.

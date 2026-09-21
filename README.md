@@ -1,12 +1,12 @@
 # Fingent360
 
-The latest saved keyboard failure still leaves the review condition at baseline
-with the native-select Enter repair. A focused authored patch replaces that
-three-choice dropdown with labelled native radio controls, preserving actual
-keyboard navigation and checking the saved stale-review API receipt. See
-[the current diagnosis](docs/tasks/SLICE-001.md#review-condition-radio-repair--21-september-2026).
-It is authored, not validated. CCIL has recorded passing repair retries on both
-browser projects and offline; see [saved receipts](docs/tasks/CCIL-LIQUIDITY-001.md#saved-user-run-receipts--20-september-2026).
+The keyboard repair is now recorded as passing: WEB2315 and WEB010 passed on
+both desktop and mobile in user-run `1789929346620-99d49093-59cd-43d3-aaff-a7aace570370`.
+The four selected passes do not replace full current story validation. The
+21 September follow-up reconciles an obsolete GDP scheduler gate and completes
+company-news form keyboard/layout coverage. See the [remaining-work record](docs/development/remaining-work-2026-09-21.md)
+for concrete source inputs, operational acceptance and manual commands. No new
+source access, deployment or physical-device acceptance is claimed.
 
 The 20 September follow-up adds reviewed daily Nifty index history and historical
 CCIL bond-liquidity evidence, alongside Mongo recovery, scheduler outcomes,

@@ -1,6 +1,18 @@
-# Task pickup queue — 2026-09-15
+# Task pickup queue — updated 21 September 2026
 
-## Current authoring — 20 September 2026
+## Current pickup — 21 September 2026
+
+The latest four selected keyboard/pointer cases passed; the saved ledger has no
+open recorded bugs. Historical passes are not current-fingerprint acceptance.
+Read [remaining work](../development/remaining-work-2026-09-21.md) before picking
+another task. SRC-007 scheduled GDP acceptance is already API1773 with saved
+passing evidence; do not duplicate it. SRC-012 full source-form Tab/layout
+coverage is the current bounded authoring task. Remaining absent source formats,
+provider contracts, permissions, device/deployment acceptance and manual gates
+are individually recorded. Repeated generic research or source placeholders do
+not close them. Deferred scope remains excluded.
+
+## Historical authoring — 20 September 2026
 
 INDEX-LEVELS-001 and CCIL-LIQUIDITY-001 add independently reviewed source history across API, database, shared readers and offline snapshots; source licences and user validation stay separate. SLICE-001 adds full keyboard journey coverage. READINESS-RECOVERY-001 and RESEARCH-WORKER-ISOLATION-001 now have authored repairs and actual-dependency regression cases. UX-002C adds reviewed same-event release grouping; ASSIST-001 adds offline field/name help parity. FEEDBACK-001 and STORY-MEDIA-002 add missing real submission/generation workflow acceptance. Follow [the delivery record](../development/nondeferred-authoring-2026-09-20.md) for precise status and smallest manual commands. These changes do not inherit old passing receipts; unavailable broker originals, source/provider activation and physical-device requirements remain their named task inputs.
 

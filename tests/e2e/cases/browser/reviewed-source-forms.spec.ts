@@ -1,3 +1,4 @@
+import type { Locator, Page } from '@playwright/test';
 import { CompanyNewsQueueSchema } from '../../../../packages/contracts/src/index';
 import { retentionHeaders } from '../../helpers/retention';
 import { test, expect } from '../../helpers/app-fixture';
@@ -11,13 +12,43 @@ import {
   adjustmentActors,
   adjustmentInput,
 } from '../../helpers/equity-adjustments';
+import {
+  activateObservationControl as activate,
+  tabToObservationControl as tabTo,
+  captureObservationLayout,
+} from '../../helpers/observation-inbox-accessibility';
+
+async function keyboardText(page: Page, control: Locator, value: string) {
+  await tabTo(page, control);
+  await page.keyboard.press('ControlOrMeta+A');
+  await page.keyboard.insertText(value);
+  await expect(control).toHaveValue(value);
+}
+
+async function keyboardCheck(page: Page, control: Locator, checked: boolean) {
+  await tabTo(page, control);
+  if ((await control.isChecked()) !== checked)
+    await page.keyboard.press('Space');
+  await expect(control).toBeChecked({ checked });
+}
+
+// Reach native widgets through Tab, but set fixture values with Playwright:
+// OS-specific select popups/date segments require separate physical acceptance.
+async function selectFixture(page: Page, control: Locator, value: string) {
+  await tabTo(page, control);
+  await control.selectOption(value);
+  await expect(control).toHaveValue(value);
+}
+
 test.use({ namedOperators: true, manualWorkers: true });
 test('E2E-WEB-1594 company news form retains two source proofs then independent reviewer publishes and withdraws @SRC-012 @UX-002G @TEST-SIMULATION', async ({
   page,
   request,
   playwright,
   feedbackSandbox,
-}) => {
+}, testInfo) => {
+  test.setTimeout(180000);
+  await page.setViewportSize({ width: 360, height: 800 });
   const fixture = await prepareCompanyNews(
     request,
     playwright,
@@ -31,15 +62,52 @@ test('E2E-WEB-1594 company news form retains two source proofs then independent 
       name: 'Company news onboarding',
       exact: true,
     });
-    await region.getByText('Prepare a company report', { exact: true }).focus();
-    await page.keyboard.press('Enter');
-    await region.getByLabel('Company ISIN', { exact: true }).fill(input.isin);
-    await region.getByLabel('Report title').fill(title);
-    await region.getByLabel('Original summary').fill(input.summary);
-    await region
-      .getByLabel('What did the independent evidence confirm?')
-      .fill(input.verification);
-    await region.getByLabel('Conflicting evidence').selectOption('none-found');
+    await activate(
+      page,
+      region.getByText('Prepare a company report', { exact: true }),
+    );
+    // Synthetic date setup precedes the keyboard workflow. Filling a date
+    // must not masquerade as sequential keyboard focus in the assertions below.
+    for (const [index, row] of input.citations.entries()) {
+      const group = region.getByRole('group', {
+        name: 'Source ' + (index + 1),
+        exact: true,
+      });
+      await group
+        .getByLabel('Publication time (UTC)')
+        .fill(row.publishedAt.slice(0, 16));
+      await group
+        .getByLabel('Retrieved time (UTC)')
+        .fill(row.retrievedAt.slice(0, 16));
+    }
+    await keyboardText(
+      page,
+      region.getByRole('textbox', { name: 'Company ISIN', exact: true }),
+      input.isin,
+    );
+    await keyboardText(
+      page,
+      region.getByRole('textbox', { name: 'Report title', exact: true }),
+      title,
+    );
+    await keyboardText(
+      page,
+      region.getByRole('textbox', { name: 'Original summary', exact: true }),
+      input.summary,
+    );
+    await keyboardText(
+      page,
+      region.getByRole('textbox', {
+        name: 'What did the independent evidence confirm?',
+        exact: true,
+      }),
+      input.verification,
+    );
+    await selectFixture(
+      page,
+      region.getByRole('combobox', { name: 'Conflicting evidence' }),
+      'none-found',
+    );
     for (const [index, row] of input.citations.entries()) {
       const group = region.getByRole('group', {
         name: 'Source ' + (index + 1),
@@ -52,26 +120,57 @@ test('E2E-WEB-1594 company news form retains two source proofs then independent 
         ['Rights terms URL', row.termsUrl],
         ['Permission evidence and scope', row.permissionReference],
       ])
-        await group.getByLabel(label!, { exact: true }).fill(value!);
-      await group
-        .getByLabel('Publication time (UTC)')
-        .fill(row.publishedAt.slice(0, 16));
-      await group
-        .getByLabel('Retrieved time (UTC)')
-        .fill(row.retrievedAt.slice(0, 16));
-      if (row.primary)
-        await group
-          .getByRole('checkbox', { name: 'Primary filing or release' })
-          .check();
-      await group
-        .getByRole('checkbox', {
+        await keyboardText(
+          page,
+          group.getByLabel(label!, { exact: true }),
+          value!,
+        );
+      for (const [label, value] of [
+        ['Publication time (UTC)', row.publishedAt.slice(0, 16)],
+        ['Retrieved time (UTC)', row.retrievedAt.slice(0, 16)],
+      ]) {
+        const date = group.getByLabel(label!, { exact: true });
+        // Values were seeded before traversal; this checks native date-field
+        // reachability without claiming portable OS date-segment entry.
+        await tabTo(page, date);
+        await expect(date).toHaveValue(value!);
+      }
+      await keyboardCheck(
+        page,
+        group.getByRole('checkbox', { name: 'Primary filing or release' }),
+        row.primary,
+      );
+      await keyboardCheck(
+        page,
+        group.getByRole('checkbox', {
           name: 'Independent reporting, not a mirror or syndication',
-        })
-        .check();
+        }),
+        true,
+      );
+      const allowed = group.getByRole('combobox', { name: 'Allowed use' });
+      await tabTo(page, allowed);
+      await expect(allowed).toHaveValue('link-only');
     }
-    await region
-      .getByRole('checkbox', { name: /I checked every source permits linking/ })
-      .check();
+    await tabTo(page, region.getByRole('button', { name: 'Add source' }));
+    const optionalText = region.getByRole('textbox', {
+      name: 'Optional licensed text',
+      exact: true,
+    });
+    await tabTo(page, optionalText);
+    await expect(optionalText).toHaveValue('');
+    await keyboardCheck(
+      page,
+      region.getByRole('checkbox', {
+        name: /I checked every source permits linking/,
+      }),
+      true,
+    );
+    await captureObservationLayout(
+      page,
+      region,
+      testInfo,
+      'synthetic-company-news-source-form.png',
+    );
     // Lose only the real acknowledgment, after the actual store commits. The
     // unchanged draft must retry its original idempotency key.
     let committedStatus = 0;
@@ -94,11 +193,12 @@ test('E2E-WEB-1594 company news form retains two source proofs then independent 
     const submit = region.getByRole('button', {
       name: 'Retain draft for verification',
     });
-    await submit.focus();
-    await page.keyboard.press('Enter');
+    await activate(page, submit);
     await expect(region.getByRole('alert')).toBeVisible();
     expect(committedStatus).toBe(201);
-    await expect(region.getByLabel('Report title')).toHaveValue(title);
+    await expect(
+      region.getByRole('textbox', { name: 'Report title', exact: true }),
+    ).toHaveValue(title);
     await expect(submit).toBeEnabled();
     await page.unroute('**/api/v1/ops/company-news/prepare');
     const saved = page.waitForResponse(
@@ -106,9 +206,7 @@ test('E2E-WEB-1594 company news form retains two source proofs then independent 
         r.url().endsWith('/ops/company-news/prepare') &&
         r.request().method() === 'POST',
     );
-    await region
-      .getByRole('button', { name: 'Retain draft for verification' })
-      .click();
+    await activate(page, submit);
     const acknowledged = await saved;
     expect(acknowledged.status()).toBe(201);
     expect(acknowledged.request().postDataJSON().requestId).toBe(
@@ -134,31 +232,45 @@ test('E2E-WEB-1594 company news form retains two source proofs then independent 
     const card = region
       .locator('details')
       .filter({ has: page.locator('summary').filter({ hasText: title }) });
-    await card.locator('summary').click();
-    await card
-      .getByLabel('Review reason', { exact: true })
-      .fill(
-        'Independent original reporting and source-specific permission checked.',
-      );
-    await card
-      .getByRole('checkbox', {
+    await activate(page, card.locator('summary'));
+    await keyboardText(
+      page,
+      card.getByRole('textbox', { name: 'Review reason', exact: true }),
+      'Independent original reporting and source-specific permission checked.',
+    );
+    await keyboardCheck(
+      page,
+      card.getByRole('checkbox', {
         name: 'I independently checked all linking, reproduction and offline permissions',
-      })
-      .check();
-    await card
-      .getByRole('checkbox', {
+      }),
+      true,
+    );
+    await keyboardCheck(
+      page,
+      card.getByRole('checkbox', {
         name: 'Two independent originators corroborate the material claim, including a primary source',
-      })
-      .check();
-    await card.getByRole('button', { name: 'Publish verified report' }).focus();
-    await page.keyboard.press('Enter');
+      }),
+      true,
+    );
+    await captureObservationLayout(
+      page,
+      card,
+      testInfo,
+      'synthetic-company-news-independent-review.png',
+    );
+    await activate(
+      page,
+      card.getByRole('button', { name: 'Publish verified report' }),
+    );
     await expect(card.locator('summary')).toContainText('published');
     if ((await card.getAttribute('open')) === null)
-      await card.locator('summary').click();
-    await card
-      .getByLabel('Review reason', { exact: true })
-      .fill('Withdraw after independent publication to test receipt state.');
-    await card.getByRole('button', { name: 'Withdraw report' }).click();
+      await activate(page, card.locator('summary'));
+    await keyboardText(
+      page,
+      card.getByRole('textbox', { name: 'Review reason', exact: true }),
+      'Withdraw after independent publication to test receipt state.',
+    );
+    await activate(page, card.getByRole('button', { name: 'Withdraw report' }));
     await expect(card.locator('summary')).toContainText('withdrawn');
     expect(
       (
@@ -172,9 +284,13 @@ test('E2E-WEB-1594 company news form retains two source proofs then independent 
         new URL(response.url()).pathname === '/api/v1/ops/company-news' &&
         response.request().method() === 'GET',
     );
-    await region
-      .getByRole('button', { name: 'Refresh company reports', exact: true })
-      .click();
+    await activate(
+      page,
+      region.getByRole('button', {
+        name: 'Refresh company reports',
+        exact: true,
+      }),
+    );
     expect((await expiredRefresh).status()).toBe(401);
     await expect(
       page.getByRole('button', { name: 'Sign in to operations', exact: true }),

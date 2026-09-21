@@ -1,6 +1,6 @@
 # SLICE-001 — Working educational portfolio journey
 
-- **Status:** Needs repair
+- **Status:** Implementation complete; validation pending
 - **Implemented / recorded:** - Implementation: Implemented
 - **Pending:** Resolve outstanding bugs and complete the current acceptance matrix; see generated validation below.
 - **Next action / inputs:** User runs the story acceptance command after resolving recorded bugs.
@@ -295,5 +295,16 @@ context if they fail. User-run SDLC owns gated commit and bug/status reconciliat
 
 ## Automated validation
 
-Failed — unresolved bug. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789928359149-84609.
+Partial — required cases not run. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789929280500-88238.
 <!-- sdlc-validation:end -->
+
+## User-run keyboard receipt — 21 September 2026
+
+Saved run `1789929346620-99d49093-59cd-43d3-aaff-a7aace570370` started
+2026-09-20T18:35:46.620Z, passed WEB2315 and WEB010 on desktop and mobile;
+commit `517f9c1` contains the review-condition radio change. All four selected
+attempts passed against API4104/web5176. This resolves the reported selection
+failure; it is not proof for all12 required case/project receipts at the current
+fingerprint. No further implementation is needed for that reported failure.
+Retain the generated matrix status until the user-run story/full audit supplies
+current acceptance. No test or commit was run by the agent in this reconciliation.

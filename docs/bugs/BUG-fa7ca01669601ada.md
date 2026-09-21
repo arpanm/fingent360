@@ -1,11 +1,11 @@
 # BUG-fa7ca01669601ada
 
-- Status: Open
+- Status: Resolved
 - Case/project: E2E-WEB-2315 / desktop
 - Stories: SLICE-001
 - First seen: 2026-09-20T18:07:15.205Z
 - Evidence: artifacts/sdlc/1789928359149-84609/12-pnpm-e2e_run.log
-- Resolution run: Unresolved
+- Resolution run: 1789929280500-88238
 
 Failure excerpt (untrusted; local original has full details):
 

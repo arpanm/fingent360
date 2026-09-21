@@ -87,5 +87,14 @@ Further primary-source searches and the distinct Groww/Breeze protocol assessmen
 
 ## Automated validation
 
-Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789928359149-84609.
+Stale — rerun required. [Evidence](../validation/README.md); [bugs](../bugs/README.md). Latest reconciliation: 1789929280500-88238.
 <!-- sdlc-validation:end -->
+
+## Bounded source recheck — 21 September 2026
+
+Official broker export instructions still do not supply complete original layouts. Existing sanitized-export input request remains; no guessed parser was added.
+
+Primary links, access results and exact next inputs are retained in
+[remaining work](../development/remaining-work-2026-09-21.md#research-evidence-and-limits).
+No source was activated, no validation was run, and no new source parser was
+authored without its original format. Existing pending questions were not repeated.

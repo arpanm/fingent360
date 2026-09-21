@@ -13971,11 +13971,11 @@
       "stories": ["SLICE-001"],
       "status": "passed",
       "details": "",
-      "run": "1789927529684-81206",
-      "time": "2026-09-20T18:07:15.205Z",
-      "fingerprint": "aac57cf5619c214291a4127ee6f48860ee1f677df77995f723b1db81558b65df",
-      "log": "artifacts/sdlc/1789927529684-81206/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-20T18-06-31-097Z-81895/results.json"
+      "run": "1789929280500-88238",
+      "time": "2026-09-20T18:36:14.488Z",
+      "fingerprint": "c7e588ccdd868463531b989329f7f495c7f880b760c606acb5ae50a012de9fb7",
+      "log": "artifacts/sdlc/1789929280500-88238/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-20T18-35-45-034Z-88950/results.json"
     },
     "46c9c1703b8bfe67d6ae565ae15ffa451c4b7d8d0d328e930f43e6b5c3413bce": {
       "key": "46c9c1703b8bfe67d6ae565ae15ffa451c4b7d8d0d328e930f43e6b5c3413bce",
@@ -14016,11 +14016,11 @@
       "stories": ["SLICE-001"],
       "status": "passed",
       "details": "",
-      "run": "1789927529684-81206",
-      "time": "2026-09-20T18:07:15.205Z",
-      "fingerprint": "aac57cf5619c214291a4127ee6f48860ee1f677df77995f723b1db81558b65df",
-      "log": "artifacts/sdlc/1789927529684-81206/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-20T18-06-31-097Z-81895/results.json"
+      "run": "1789929280500-88238",
+      "time": "2026-09-20T18:36:14.488Z",
+      "fingerprint": "c7e588ccdd868463531b989329f7f495c7f880b760c606acb5ae50a012de9fb7",
+      "log": "artifacts/sdlc/1789929280500-88238/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-20T18-35-45-034Z-88950/results.json"
     },
     "98948b86db983099e31885ab55877d6d7139701e96db3470969142554b8e53c3": {
       "key": "98948b86db983099e31885ab55877d6d7139701e96db3470969142554b8e53c3",
@@ -23491,13 +23491,13 @@
       "title": "E2E-WEB-2315 full keyboard virtual journey edits imports allocates reviews reloads and deletes actual synthetic workspace @SLICE-001 @TEST-SIMULATION",
       "file": "browser/journey-keyboard.spec.ts",
       "stories": ["SLICE-001"],
-      "status": "failed",
-      "details": "Error: expect(locator).toHaveValue(expected) failed\n\nLocator:  locator('.journey').getByLabel('Exercise input condition', { exact: true })\nExpected: \"stale\"\nReceived: \"baseline\"\nTimeout:  10000ms\n\nCall log:\n  - Expect \"toHaveValue\" with timeout 10000ms\n  - waiting for locator('.journey').getByLabel('Exercise input condition', { exact: true })\n    14 × locator resolved to <select id=\"journey-review-scenario\">…</select>\n       - unexpected value \"baseline\"\n\n\n  276 |     // Tab alone dismisses that popup and restores the controlled value.\n  277 |     await page.keyboard.press('Enter');\n> 278 |     await expect(scenario).toHaveValue('stale');\n      |                            ^\n  279 |     await page.keyboard.press('Tab');\n  280 |     await activate(\n  281 |       journey.getByRole('button', { name: 'Create review', exact: true }),\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/journey-keyboard.spec.ts:278:28",
-      "run": "1789928359149-84609",
-      "time": "2026-09-20T18:29:54.756Z",
-      "fingerprint": "06ac9d7cdf71952f10170df5e41ae76956060cc30ed0855b9cde297bf0ce2c4c",
-      "log": "artifacts/sdlc/1789928359149-84609/12-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-20T18-29-36-351Z-87169/results.json"
+      "status": "passed",
+      "details": "",
+      "run": "1789929280500-88238",
+      "time": "2026-09-20T18:36:14.488Z",
+      "fingerprint": "c7e588ccdd868463531b989329f7f495c7f880b760c606acb5ae50a012de9fb7",
+      "log": "artifacts/sdlc/1789929280500-88238/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-20T18-35-45-034Z-88950/results.json"
     },
     "7f71e314d746d160d5ad26ce25e3c7408befc7976e81e08f871a64df58c081e1": {
       "key": "7f71e314d746d160d5ad26ce25e3c7408befc7976e81e08f871a64df58c081e1",
@@ -23506,13 +23506,13 @@
       "title": "E2E-WEB-2315 full keyboard virtual journey edits imports allocates reviews reloads and deletes actual synthetic workspace @SLICE-001 @TEST-SIMULATION",
       "file": "browser/journey-keyboard.spec.ts",
       "stories": ["SLICE-001"],
-      "status": "failed",
-      "details": "Error: expect(received).toMatchObject(expected)\n\n- Expected  - 1\n+ Received  + 1\n\n  Object {\n-   \"unobscured\": true,\n+   \"unobscured\": false,\n  }\n\nCall Log:\n- Timeout 10000ms exceeded while waiting on the predicate\n\n   at ../helpers/focus-visibility.ts:6\n\n  4 | // Inspect actual viewport hit targets without moving or focusing the control.\n  5 | export async function expectUnobscuredControl(control: Locator) {\n> 6 |   await expect\n    |   ^\n  7 |     .poll(() =>\n  8 |       control.evaluate((element) => {\n  9 |         // A wrapped inline link has several painted line fragments. Its union\n    at expectUnobscuredControl (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/focus-visibility.ts:6:3)\n    at tabToObservationControl (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/observation-inbox-accessibility.ts:20:3)\n    at edit (/Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/journey-keyboard.spec.ts:16:3)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/journey-keyboard.spec.ts:121:5",
-      "run": "1789928359149-84609",
-      "time": "2026-09-20T18:21:00.236Z",
-      "fingerprint": "920ea214c3803701bddcb2fd4ddae79c9d31c2d386af8070e409eef9895d866d",
-      "log": "artifacts/sdlc/1789928359149-84609/06-pnpm-e2e_run.log",
-      "report": "artifacts/e2e/2026-09-20T18-20-23-377Z-85364/results.json"
+      "status": "passed",
+      "details": "",
+      "run": "1789929280500-88238",
+      "time": "2026-09-20T18:36:14.488Z",
+      "fingerprint": "c7e588ccdd868463531b989329f7f495c7f880b760c606acb5ae50a012de9fb7",
+      "log": "artifacts/sdlc/1789929280500-88238/06-pnpm-e2e_run.log",
+      "report": "artifacts/e2e/2026-09-20T18-35-45-034Z-88950/results.json"
     }
   },
   "bugs": {
@@ -29655,11 +29655,11 @@
       "id": "BUG-fb4ca6ebaf321422",
       "firstSeen": "2026-09-18T05:00:49.248Z",
       "resolvedBy": {
-        "run": "1789927529684-81206",
-        "time": "2026-09-20T18:07:15.205Z",
-        "fingerprint": "aac57cf5619c214291a4127ee6f48860ee1f677df77995f723b1db81558b65df",
-        "log": "artifacts/sdlc/1789927529684-81206/06-pnpm-e2e_run.log",
-        "report": "artifacts/e2e/2026-09-20T18-06-31-097Z-81895/results.json"
+        "run": "1789929280500-88238",
+        "time": "2026-09-20T18:36:14.488Z",
+        "fingerprint": "c7e588ccdd868463531b989329f7f495c7f880b760c606acb5ae50a012de9fb7",
+        "log": "artifacts/sdlc/1789929280500-88238/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-20T18-35-45-034Z-88950/results.json"
       }
     },
     "BUG-475690e968a9af2b": {
@@ -29975,10 +29975,10 @@
       "id": "BUG-a47611ab64789eb8",
       "firstSeen": "2026-09-18T05:33:44.718Z",
       "resolvedBy": {
-        "run": "1789928359149-84609",
-        "time": "2026-09-20T18:20:22.913Z",
-        "fingerprint": "920ea214c3803701bddcb2fd4ddae79c9d31c2d386af8070e409eef9895d866d",
-        "log": "artifacts/sdlc/1789928359149-84609/02-pnpm-check.log"
+        "run": "1789929280500-88238",
+        "time": "2026-09-20T18:35:44.525Z",
+        "fingerprint": "c7e588ccdd868463531b989329f7f495c7f880b760c606acb5ae50a012de9fb7",
+        "log": "artifacts/sdlc/1789929280500-88238/02-pnpm-check.log"
       }
     },
     "BUG-a0826694511b6915": {
@@ -31294,7 +31294,7 @@
       "title": "E2E-WEB-2315 full keyboard virtual journey edits imports allocates reviews reloads and deletes actual synthetic workspace @SLICE-001 @TEST-SIMULATION",
       "file": "browser/journey-keyboard.spec.ts",
       "stories": ["SLICE-001"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(locator).toHaveValue(expected) failed\n\nLocator:  locator('.journey').getByLabel('Exercise input condition', { exact: true })\nExpected: \"stale\"\nReceived: \"baseline\"\nTimeout:  10000ms\n\nCall log:\n  - Expect \"toHaveValue\" with timeout 10000ms\n  - waiting for locator('.journey').getByLabel('Exercise input condition', { exact: true })\n    14 × locator resolved to <select id=\"journey-review-scenario\">…</select>\n       - unexpected value \"baseline\"\n\n\n  276 |     // Tab alone dismisses that popup and restores the controlled value.\n  277 |     await page.keyboard.press('Enter');\n> 278 |     await expect(scenario).toHaveValue('stale');\n      |                            ^\n  279 |     await page.keyboard.press('Tab');\n  280 |     await activate(\n  281 |       journey.getByRole('button', { name: 'Create review', exact: true }),\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/journey-keyboard.spec.ts:278:28",
       "run": "1789928359149-84609",
       "time": "2026-09-20T18:29:54.756Z",
@@ -31302,7 +31302,14 @@
       "log": "artifacts/sdlc/1789928359149-84609/12-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-20T18-29-36-351Z-87169/results.json",
       "id": "BUG-fa7ca01669601ada",
-      "firstSeen": "2026-09-20T18:07:15.205Z"
+      "firstSeen": "2026-09-20T18:07:15.205Z",
+      "resolvedBy": {
+        "run": "1789929280500-88238",
+        "time": "2026-09-20T18:36:14.488Z",
+        "fingerprint": "c7e588ccdd868463531b989329f7f495c7f880b760c606acb5ae50a012de9fb7",
+        "log": "artifacts/sdlc/1789929280500-88238/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-20T18-35-45-034Z-88950/results.json"
+      }
     },
     "BUG-7f71e314d746d160": {
       "key": "7f71e314d746d160d5ad26ce25e3c7408befc7976e81e08f871a64df58c081e1",
@@ -31311,7 +31318,7 @@
       "title": "E2E-WEB-2315 full keyboard virtual journey edits imports allocates reviews reloads and deletes actual synthetic workspace @SLICE-001 @TEST-SIMULATION",
       "file": "browser/journey-keyboard.spec.ts",
       "stories": ["SLICE-001"],
-      "status": "Open",
+      "status": "Resolved",
       "details": "Error: expect(received).toMatchObject(expected)\n\n- Expected  - 1\n+ Received  + 1\n\n  Object {\n-   \"unobscured\": true,\n+   \"unobscured\": false,\n  }\n\nCall Log:\n- Timeout 10000ms exceeded while waiting on the predicate\n\n   at ../helpers/focus-visibility.ts:6\n\n  4 | // Inspect actual viewport hit targets without moving or focusing the control.\n  5 | export async function expectUnobscuredControl(control: Locator) {\n> 6 |   await expect\n    |   ^\n  7 |     .poll(() =>\n  8 |       control.evaluate((element) => {\n  9 |         // A wrapped inline link has several painted line fragments. Its union\n    at expectUnobscuredControl (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/focus-visibility.ts:6:3)\n    at tabToObservationControl (/Users/arpanmacmini/code/fingent360/tests/e2e/helpers/observation-inbox-accessibility.ts:20:3)\n    at edit (/Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/journey-keyboard.spec.ts:16:3)\n    at /Users/arpanmacmini/code/fingent360/tests/e2e/cases/browser/journey-keyboard.spec.ts:121:5",
       "run": "1789928359149-84609",
       "time": "2026-09-20T18:21:00.236Z",
@@ -31319,10 +31326,17 @@
       "log": "artifacts/sdlc/1789928359149-84609/06-pnpm-e2e_run.log",
       "report": "artifacts/e2e/2026-09-20T18-20-23-377Z-85364/results.json",
       "id": "BUG-7f71e314d746d160",
-      "firstSeen": "2026-09-20T18:07:15.205Z"
+      "firstSeen": "2026-09-20T18:07:15.205Z",
+      "resolvedBy": {
+        "run": "1789929280500-88238",
+        "time": "2026-09-20T18:36:14.488Z",
+        "fingerprint": "c7e588ccdd868463531b989329f7f495c7f880b760c606acb5ae50a012de9fb7",
+        "log": "artifacts/sdlc/1789929280500-88238/06-pnpm-e2e_run.log",
+        "report": "artifacts/e2e/2026-09-20T18-35-45-034Z-88950/results.json"
+      }
     }
   },
   "gates": {
-    "check": "920ea214c3803701bddcb2fd4ddae79c9d31c2d386af8070e409eef9895d866d"
+    "check": "c7e588ccdd868463531b989329f7f495c7f880b760c606acb5ae50a012de9fb7"
   }
 }

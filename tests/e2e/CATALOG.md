@@ -950,3 +950,13 @@ three-option select in the shared journey UI. WEB2315 uses Tab/arrow selection
 through baseline, stale and conflicting, then checks the actual stale review
 receipt. WEB010 checks pointer selection. Both desktop/mobile projects require
 user-run validation; no pass is inferred from this authored change.
+
+### Company-news form keyboard acceptance — 21 September 2026
+
+Existing E2E-WEB-1594 (desktop/mobile, @SRC-012 @UX-002G @TEST-SIMULATION)
+now asserts sequential Tab reachability/occlusion for the complete preparation
+form, text/checkbox/action keyboard handling,360px containment and masked
+synthetic form/review captures. Retains actual lost acknowledgment, same-ID
+replay, independent review/withdrawal and revoked-session clearing. Native
+select/date values are fixture-assisted and are not native keyboard certification.
+No new stable ID or offline write capability; current validation remains manual.

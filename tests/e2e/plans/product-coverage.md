@@ -1232,3 +1232,10 @@ three-option select in the shared journey UI. WEB2315 uses Tab/arrow selection
 through baseline, stale and conflicting, then checks the actual stale review
 receipt. WEB010 checks pointer selection. Both desktop/mobile projects require
 user-run validation; no pass is inferred from this authored change.
+
+SRC-012 follow-up21September: WEB1594 retains the actual backend/persistence
+workflow and adds sequential source-form Tab/occlusion plus360px layout captures
+for both browser projects. Text, consent and actions use keyboard events;
+date/select values are fixture-assisted with separately asserted reachability.
+Physical-device/native widget/visual acceptance stays separate. The existing
+SRC-012/UX-002G matrix owns these IDs; no duplicate test or new migration.
